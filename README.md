@@ -12,6 +12,10 @@ Requirements:
 * postgresql 9.5
   - I use [Postgres.app](http://postgresapp.com/)
   - could also use `brew install postgresql`
+  - set `PGSQL_HOME` to your installation dir
+    - e.g. `export PGSQL_HOME=/Applications/Postgres.app/Contents/Versions/9.6`
+  - ensure that the bin directory is in your path
+    - e.g. `export PATH=${PATH}:${PGSQL_HOME}/bin`
 
 After cloning the repo, run the following:
 ``` bash
@@ -20,6 +24,8 @@ bundle install
 bundle exec rake db:create
 rails server
 ```
+
+If the `bundle install` fails due to the pg gem, make sure you have the ENV vars above set in your shell.
 
 To run the test suite, simply run:
 * `rspec`
