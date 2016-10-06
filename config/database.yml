@@ -22,6 +22,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: <%= ENV['HUBZONE_MAP_DB_USER'] %>
   password: <%= ENV['HUBZONE_MAP_DB_PASSWORD'] %>
+  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'localhost' } %>
 
 development:
   <<: *default
