@@ -51,5 +51,3 @@ git checkout map-playground
 rails server
 ```
 Then point your browser to http://localhost:3000/map/fake
-
-If that doesn't work, perhaps you messed up
