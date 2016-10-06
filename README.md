@@ -7,15 +7,28 @@ Requirements:
   - http://rvm.io/
 * ruby 2.3.1
   - `rvm install 2.3.1`
+* JavaScript interpreter (node)
+  * nvm
+    * `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash`
+  * Install node
+    * `nvm install 5`
 * bundler 1.12.5
   - `gem install -v 1.12.5 bundler`
-* postgresql 9.5
-  - I use [Postgres.app](http://postgresapp.com/)
-  - could also use `brew install postgresql`
-  - set `PGSQL_HOME` to your installation dir
-    - e.g. `export PGSQL_HOME=/Applications/Postgres.app/Contents/Versions/9.6`
-  - ensure that the bin directory is in your path
-    - e.g. `export PATH=${PATH}:${PGSQL_HOME}/bin`
+* postgresql 9.6
+  * Mac
+    - I use [Postgres.app](http://postgresapp.com/)
+    - could also use `brew install postgresql`
+    - set `PGSQL_HOME` to your installation dir
+      - e.g. `export PGSQL_HOME=/Applications/Postgres.app/Contents/Versions/9.6`
+    - ensure that the bin directory is in your path
+      - e.g. `export PATH=${PATH}:${PGSQL_HOME}/bin`
+  * Linux (rhel)
+    * Install:
+      * `yum install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-redhat96-9.6-3.noarch.rpm`
+      * `yum install postgresql96-server postgresql96-devel`
+    * Configure:
+      * `echo 'export PGSQL_HOME=/usr/pgsql-9.6' >> ~/.bashrc`
+      * `echo 'export PATH=${PATH}:${PGSQL_HOME}/bin' >> ~/.bashrc`
 
 After cloning the repo, run the following:
 ``` bash
