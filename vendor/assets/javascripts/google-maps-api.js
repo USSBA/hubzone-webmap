@@ -69,7 +69,7 @@ function showPopUp(ev){
     infoWindow.close();
   }
   var popUpTemplate = '';
-  ev.feature.forEachProperty( (val,key) => {
+  ev.feature.forEachProperty( function(val,key) {
     popUpTemplate += '<li class=no-bullet><b>' + key + ':</b>  ' + val + '</li>';
   });
 
