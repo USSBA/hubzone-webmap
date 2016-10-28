@@ -1,7 +1,9 @@
 require 'capybara/rspec'
 
 describe "the page loads", type: :feature do
-  visit('/')
+  it "goes to the homepage" do
+    visit('/')
+  end
   it "should have header" do
     expect(page).to have_selector('header')
   end
