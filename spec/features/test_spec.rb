@@ -5,6 +5,7 @@ describe "index page", :type => :feature do
   end
   it "map div is not empty" do
     visit root_path
-    expect(page).to have_selector '.gmnoprint'
+    expect(page).to have_selector('.gm_style')
   end
+
 end
