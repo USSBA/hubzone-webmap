@@ -106,11 +106,11 @@ function updateMap(){
 
   //perform some stlying of features based on some rules, in case arbitrary levels based on size. 
   map.data.setStyle(function(feature) {
-    var area = parseInt(feature.getProperty('land_area'));
-    var levelIndex = levels.filter((level) => level < area).length;
+    // var area = parseInt(feature.getProperty('land_area'));
+    // var levelIndex = levels.filter((level) => level < area).length;
 
-    var color = colorArr[levelIndex];
-    // var color = '#205493';
+    // var color = colorArr[levelIndex];
+    var color = '#205493';
     return {
       fillColor: color,
       opacity: 0.75,
