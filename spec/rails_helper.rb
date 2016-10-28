@@ -7,6 +7,25 @@ require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
+# load up Capybara
+require 'capybara/rspec'
+require 'capybara/rails'
+
+# load up Selenium
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+# load up Poltergeist (not turning off js errors, b/c this is our app, we want to know about errors!)
+require 'capybara/poltergeist'
+
+Capybara.register_driver(:poltergeist) do |app|
+  Capybara::Poltergeist::Driver.new(app, js_errors: false)
+end
+
+#Capybara.javascript_driver = :selenium # with browser interaction
+Capybara.javascript_driver = :poltergeist # headless
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
