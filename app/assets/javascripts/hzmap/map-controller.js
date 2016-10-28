@@ -16,9 +16,10 @@ function initMap() {
       zoomControlOptions: {
         position: google.maps.ControlPosition.TOP_RIGHT
       }
-    });
-
+    });    
     return map;
+
   });
+
 
 };
