@@ -1,7 +1,10 @@
 describe "index page", :type => :feature do
-  it "goes to the home page" do
+  it "homepage has a map div" do
     visit root_path
-    expect(page).to have_content 'Geocoding Results'
-    expect(page).to have_content 'Enter a query to geocode'
+    expect(page).to have_selector '#map'
+  end
+  it "map div is not empty" do
+    visit root_path
+    expect(page).to have_selector '.gmnoprint'
   end
 end
