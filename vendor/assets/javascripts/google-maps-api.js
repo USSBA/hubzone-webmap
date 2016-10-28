@@ -82,7 +82,8 @@ function showPopUp(ev){
 //create the map on load and handle styling, build in event listeners
 function initMap() {
 
-  $.getJSON('./config/google-maps-style-config.json').then(function(resp) {
+  //$.getJSON('http://localhost:3000/map/config/google-maps-style-config.json').then(function(resp) {
+  $.getJSON('/map/config/google-maps-style-config.json').then(function(resp) {
     var googleMapsStyleConfig = resp;
 
     // Styles a map in night mode.
