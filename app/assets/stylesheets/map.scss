@@ -1,38 +1,81 @@
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+img#sba-logo {
+  max-width: 125px;
+  float: left;
 }
-
+.usa-logo-text a{
+  float: left;
+  margin-top: 10px;
+  margin-left: 30px;
+}
+.map-header {
+  padding-top: 1em;
+  padding-bottom: 1rem;
+  background: #122E51;
+}
+#map-search button{
+  background-color: #0071BB;
+  background-size: 45px;
+  border-radius: 0px 4px 4px 0px;
+  height: 59px;
+  width: 69px;
+}
+input#search-field-small {
+  background-color: #1A406E;
+  border: 0px;
+  height: 59px;
+  font-size: 30px;
+  color: #fff;
+  width: 50rem;
+}
+.usa-nav ul#side-nav-1 {
+  background-color: #fff;
+  color: #1A406E;
+}
+.usa-nav ul#side-nav-1 a {
+  color: #1A406E;
+}
+.usa-nav-primary button#filter-button{
+  color: #fff;
+  border: 3px solid #1A406E;
+}
+.usa-nav-primary button#filter-button:hover {
+  background-color: #fff;
+  color: #122E51;
+  border: 3px solid #fff;
+}
+.map-body {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 229px);
+}
 #map {
-  height: 80%;
-}
-
-#header {
-  height: 15%;
+  height: 100%;
   width: 100%;
 }
 
-#geocodingResultContainer {
-  display: inline-block;
-  overflow-y: auto;
-  height: 100%;
+/* Desktop/Tablet */
+@media screen and (min-width: 951px) {
+  .usa-header-extended .usa-nav {
+    border-top: none;
+  }
+  .usa-header-extended .usa-logo {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
 }
 
-#search-control-ui,
-#results-control-ui {
-  float: left;
-  background-color: white;
-  font-size: 12px;
-  margin: 5px;
-  max-height: 200px;
-  overflow: auto;
-  width: 380px;
-  -webkit-user-select: none;
-  padding: 8px;
-  border-radius: 2px;
-  -webkit-background-clip: padding-box;
-  box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
-  min-width: 40px;
-  background-clip: padding-box;
+/* Phone */
+@media only screen and (max-width: 950px)  {
+  #main-content {
+    height: calc(100% - 62px);
+  }
+  img#sba-logo{
+    max-width: 76px;
+    float: left;
+    padding-top: 3px;
+  }
+  .usa-logo-text a{
+    margin-top: 0px;
+    font-size: 2.2rem;
+  }
 }

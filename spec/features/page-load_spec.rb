@@ -1,13 +1,13 @@
-require 'capybara/rspec'
+require 'rails_helper'
 
 describe "the page loads", type: :feature do
-  it "goes to the homepage" do
-    visit('/')
+  before do
+    visit('/map')
   end
-  it "should have header" do
+  it "should have header section" do
     expect(page).to have_selector('header')
   end
-  it "should have body" do
+  it "should have main section" do
     expect(page).to have_selector('body')
   end
   it "should have a map div" do
