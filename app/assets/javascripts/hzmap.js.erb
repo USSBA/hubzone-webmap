@@ -15,7 +15,7 @@
 "use strict";
 var map = {}; //the map object
 var infoWindow = {}; //infowindow object
-var apiKey = MAP_CONFIG[:google_api_key]; //google maps api key
+var apiKey = '<%= MAP_CONFIG[:google_api_key] %>'; //google maps api key
 var currentFeaturesIDs = [];
 var geocodeQuery = ''; // string of geocodequery from input text
 var geomUniqID = 'id';
