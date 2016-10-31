@@ -1,38 +1,4 @@
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-#map {
-  height: 80%;
-}
-
-#header {
-  height: 15%;
-  width: 100%;
-}
-
-#geocodingResultContainer {
-  display: inline-block;
-  overflow-y: auto;
-  height: 100%;
-}
-
-#search-control-ui,
-#results-control-ui {
+#logo img {
   float: left;
-  background-color: white;
-  font-size: 12px;
-  margin: 5px;
-  max-height: 200px;
-  overflow: auto;
-  width: 380px;
-  -webkit-user-select: none;
-  padding: 8px;
-  border-radius: 2px;
-  -webkit-background-clip: padding-box;
-  box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
-  min-width: 40px;
-  background-clip: padding-box;
+  max-width: 130px;
 }
