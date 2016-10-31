@@ -4,7 +4,7 @@ console.log("In the map controller");
 //create the map on load and handle styling, build in event listeners
 function initMap() {
   var googleMapsStyleConfig = null;
-  $.getJSON('./config/gray_style.json').then(function(resp) {
+  $.getJSON('./map/config/gray_style.json').then(function(resp) {
     var googleMapsStyleConfig = resp;
 
     // Styles a map
@@ -32,7 +32,6 @@ function initMap() {
 
 //function to update the map based on new bounds
 function updateMap(){
-  console.log($('.gmnoprint').length);
   console.log('i\'m idle, redrawing map');
   
   var mapBounds = map.getBounds();
