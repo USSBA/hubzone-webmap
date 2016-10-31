@@ -4,11 +4,8 @@ img#sba-logo {
 }
 .usa-logo-text a{
   float: left;
-  padding-top: 10px;
-  padding-left: 30px;
-}
-.usa-nav {
-  border-top: none !important;
+  margin-top: 10px;
+  margin-left: 30px;
 }
 .map-header {
   padding-top: 1em;
@@ -58,7 +55,13 @@ input#search-field-small {
 
 /* Desktop/Tablet */
 @media screen and (min-width: 951px) {
-
+  .usa-header-extended .usa-nav {
+    border-top: none;
+  }
+  .usa-header-extended .usa-logo {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
 }
 
 /* Phone */
@@ -70,5 +73,9 @@ input#search-field-small {
     max-width: 76px;
     float: left;
     padding-top: 3px;
+  }
+  .usa-logo-text a{
+    margin-top: 0px;
+    font-size: 2.2rem;
   }
 }
