@@ -17,7 +17,7 @@ function initMap() {
   //this loses scope occasionally in chrome, and always in firefox and safari.  
   //wonder if maybe it is a scope or an aysync thing (map not created yet)
 
-  map.addListener('idle', updateMap, map);
+  // map.addListener('idle', updateMap, map);
   // map.data.addListener('click', mapClicked, map);
   
   //returns the map as a promise
