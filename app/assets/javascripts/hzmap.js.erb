@@ -12,13 +12,13 @@
 //
 //= require_tree ./hzmap
 //defining global variables for hubzone map controllers
-"use strict";
 var map = {}; //the map object
 var infoWindow = {}; //infowindow object
 var apiKey = '<%= MAP_CONFIG[:google_api_key] %>'; //google maps api key
 var currentFeaturesIDs = [];
 var geocodeQuery = ''; // string of geocodequery from input text
 var geomUniqID = 'id';
+var googleCDNURL = 'https://maps.googleapis.com/maps/api/js?key=<%=MAP_CONFIG[:google_api_key]%>'
 
 //geoserver WFS URL parameters
 //viewparams may not always be used, and is available in case a view
@@ -28,4 +28,10 @@ var geomWFSSettings = {
   db: 'hubzone-test',
   table: 'indianlands_2014', //'indian_lands'  'indianlands_2014_doug' 'il_geom_lowres'
   srs: '4326'
+};
+
+window.onload = function(){
+  pageLoad({
+    callbackFn: 'initMap'
+  });
 };
