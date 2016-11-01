@@ -1,6 +1,6 @@
 console.log("In the map controller");
 
-//create the map on load and handle styling, build in event listeners
+//create the map on load, when idle, jump to updateMap to get features
 function initMap() {
 
   map = new google.maps.Map(document.getElementById('map'), {
@@ -13,40 +13,41 @@ function initMap() {
     }
   });  
 
-  //adds listener for map idle, to fetch based on new bounds and refetch map, then redraw as needed
-  //this loses scope occasionally in chrome, and always in firefox and safari.  
-  //wonder if maybe it is a scope or an aysync thing (map not created yet)
-
+  //adds listener that triggers whenever the map is idle to update 
+  //with new features.
+  // have some scope issues here that need to be resolved.  
   map.addListener('idle', updateMap, map);
-  map.data.addListener('click', mapClicked, map);
-  
+
   //returns the map as a promise
   // return map;
 };
 
-//function to update the map based on new bounds
+//function to update the map based on new bounds, get new features from
+//geoserver,remove from map any features not in view, add to map 
+//any new features in view. 
 function updateMap(){
   console.log('i\'m idle, redrawing map');
 
+  //get the bounding box of the current map and parse as a string
   var mapBounds = map.getBounds();
-  //maybe add a zoom specific padding to the bbox, to get a few more outside, like double
   var NELat = mapBounds.getNorthEast().lat();
   var NELng = mapBounds.getNorthEast().lng();
   var SWLat = mapBounds.getSouthWest().lat();
   var SWLng = mapBounds.getSouthWest().lng();
   var bbox = [SWLng, SWLat, NELng, NELat].join(',');
 
+  //build the fetch url from seetings 
   var url = [
     geomWFSSettings.urlRoot, 
     'version=1.0.0', 
     'request=GetFeature', 
     'typename=' + geomWFSSettings.db + ':' + geomWFSSettings.table,
-    'viewparams=' + geomWFSSettings.viewparams,
     'outputFormat=application/json',
     'srsname=EPSG:'+ geomWFSSettings.srs,
     'bbox=' + bbox + ',EPSG:4326'
   ].join('&');
 
+  //ajax request to geoserver for features, 
   $.ajax(url, {
     success: function(resp){
       // on successful fetch of new features in the bbox, compare old with new and update the map
@@ -94,16 +95,8 @@ function updateMap(){
     }
   });
 
-  // color based on area levels
-  var colorArr = ['#e1f3f8','#9bdaf1','#00a6d2','#046b99'];
-  var levels = [0, 9000, 13500, 18000];
-
   //perform some stlying of features based on some rules, in case arbitrary levels based on size. 
   map.data.setStyle(function(feature) {
-    // var area = parseInt(feature.getProperty('land_area'));
-    // var levelIndex = levels.filter((level) => level < area).length;
-
-    // var color = colorArr[levelIndex];
     var color = '#205493';
     return {
       fillColor: color,
@@ -111,11 +104,5 @@ function updateMap(){
       strokeWeight: 1
     }
   });
-
   return map;
-};
-
-//callback for handling map click
-function mapClicked(clickEvent){
-  console.log('yeah click');
 };
