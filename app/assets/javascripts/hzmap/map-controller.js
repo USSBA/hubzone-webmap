@@ -1,5 +1,20 @@
 console.log("In the map controller");
 
+
+// on pageload, fetch the javascript API, when it arrives, load the 
+//according to API, the CDN must be accessed via script tag 
+//https://developers.google.com/maps/documentation/javascript/tutorial?csw=1#Loading_the_Maps_API
+function pageLoad(options){
+  console.log('page loader');
+  var googleScript = document.createElement('script');
+  googleScript.src = googleCDNURL + "&callback=" + options.callbackFn;
+  googleScript.async = true;
+  var mapBody = document.querySelector('.map-body');
+  console.log(document);
+  mapBody.appendChild(googleScript);
+  // $('section.map-body').append(googleScript);
+};
+
 //create the map on load, when idle, jump to updateMap to get features
 function initMap() {
 
@@ -17,7 +32,7 @@ function initMap() {
   google.maps.event.addListener(map, 'idle', updateMap);
 
   //returns the map as a promise
-  // return map;
+  return map;
 };
 
 //function to update the map based on new bounds, get new features from
