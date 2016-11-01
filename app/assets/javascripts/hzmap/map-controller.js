@@ -13,10 +13,8 @@ function initMap() {
     }
   });  
 
-  //adds listener that triggers whenever the map is idle to update 
-  //with new features.
-  // have some scope issues here that need to be resolved.  
-  map.addListener('idle', updateMap, map);
+  //adds listener that triggers whenever the map is idle to update with new features.
+  google.maps.event.addListener(map, 'idle', updateMap);
 
   //returns the map as a promise
   // return map;
@@ -27,9 +25,10 @@ function initMap() {
 //any new features in view. 
 function updateMap(){
   console.log('i\'m idle, redrawing map');
-
+  
+  var mapScope = this;
   //get the bounding box of the current map and parse as a string
-  var mapBounds = map.getBounds();
+  var mapBounds = mapScope.getBounds();
   var NELat = mapBounds.getNorthEast().lat();
   var NELng = mapBounds.getNorthEast().lng();
   var SWLat = mapBounds.getSouthWest().lat();
@@ -51,11 +50,13 @@ function updateMap(){
   $.ajax(url, {
     success: function(resp){
       // on successful fetch of new features in the bbox, compare old with new and update the map
-      if (resp.totalFeatures > 0){
+      if (resp.totalFeatures === null || resp.totalFeatures === undefined){
+        console.error('Error Fetching from GeoServer', this.url, resp);
+      } else if (resp.totalFeatures > 0){
         //if the currentFeatures is empty, just add it all
         if (currentFeaturesIDs.length === 0){
           // console.log('no other features, adding all');
-          map.data.addGeoJson(resp);
+          mapScope.data.addGeoJson(resp);
           for (var i = resp.features.length - 1; i >= 0; i--) {
             currentFeaturesIDs.push(resp.features[i].properties[geomUniqID]);
           }
@@ -72,16 +73,16 @@ function updateMap(){
           for (var i = newFeaturesIDs.length - 1; i >= 0; i--) {
             if (!currentFeaturesIDs.includes(newFeaturesIDs[i])){
               // console.log('adding a new feature');
-              map.data.addGeoJson(newFeatures[i])
+              mapScope.data.addGeoJson(newFeatures[i])
               updatedFeaturesIDs.push(newFeaturesIDs[i]);
             } 
           }
 
-          map.data.forEach(function(feature){
+          mapScope.data.forEach(function(feature){
             var featureID = feature.f[geomUniqID];
             if (!newFeaturesIDs.includes(featureID)){
               // console.log('removing a feature');
-              map.data.remove(feature);
+              mapScope.data.remove(feature);
             } else {
               updatedFeaturesIDs.push(featureID);
             }
@@ -90,16 +91,19 @@ function updateMap(){
           currentFeaturesIDs = updatedFeaturesIDs;
         }
       } else {
-        // console.log('no features returned');
+        console.warn('No features returned by Geoserver', this.url);
       }
     }, 
     error: function(err){
-      console.error('There was an error', err);
+      console.error('Error Fetching from GeoServer:', 
+                    err.status, 
+                    err.responseText
+      );
     }
   });
 
   //perform some stlying of features based on some rules, in case arbitrary levels based on size. 
-  map.data.setStyle(function(feature) {
+  mapScope.data.setStyle(function(feature) {
     var color = '#205493';
     return {
       fillColor: color,
@@ -107,5 +111,5 @@ function updateMap(){
       strokeWeight: 1
     }
   });
-  return map;
+  return mapScope;
 };
