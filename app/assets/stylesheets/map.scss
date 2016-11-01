@@ -34,12 +34,21 @@ input#search-field-small input{
   max-width: 40rem !important;
   width: 40rem !important;
 }
+button#filter-button {
+  height: 6rem;
+  border: 3px solid #1A406E;
+  margin-right: 1em;
+  color: #fff;
+}
+.usa-nav-primary > li:first-child {
+  height: 6rem;
+}
 
 /* Map Body */
 .map-body {
   position: absolute;
   width: 100%;
-  height: calc(100% - 212px);
+  height: calc(100% - 215px);
 }
 #map {
   height: 100%;
@@ -91,6 +100,6 @@ input#search-field-small input{
     display: none;
   }
   .map-body {
-    height: calc(100% - 123px);
+    height: calc(100% - 143px);
   }
 }
