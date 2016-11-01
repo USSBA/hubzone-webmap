@@ -7,7 +7,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body class="hubzone-map">
-    <a class="usa-skipnav" href="#main-content">Skip to main content</a>
+    <a class="usa-skipnav" href="#main-content"><%= t('header.skip_to_main') %></a>
     <header class="usa-header usa-header-extended" role="banner">
       <!-- Gov banner BEGIN -->
       <div class="usa-banner">
@@ -48,7 +48,7 @@
         <div class="usa-logo" id="logo">
           <em class="usa-logo-text">
             <%= image_tag("sba-logo.png", id: "sba-logo", alt: "U.S. Small Business Administration logo") %>
-            <a href="/map" accesskey="1" title="Home" aria-label="Home">HUBZone Map</a>
+            <a href="/map" accesskey="1" title="Home" aria-label="Home"><%= t('hubzone_map') %></a>
           </em>
         </div>
       </div>
@@ -60,13 +60,13 @@
           <div class="usa-nav-secondary">
             <ul class="usa-unstyled-list usa-nav-secondary-links">
               <li>
-                <a href="#">HUBZone Program</a>
+                <a href="#"><%= t('menu.hubzone_program') %></a>
               </li>
               <li>
-                <a href="#">Accessible Version</a>
+                <a href="#"><%= t('menu.accessible_version') %></a>
               </li>
               <li>
-                <a href="#">Help</a>
+                <a href="#"><%= t('menu.help') %></a>
               </li>
             </ul>
           </div>

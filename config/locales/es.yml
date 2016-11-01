@@ -19,14 +19,14 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
-  hubzone_map: "HUBZone Map"
+es:
+  hubzone_map: "Mapa de HUBZone"
   menu:
-    hubzone_program: "HUBZone Program"
-    accessible_version: "Accessible Version"
-    help: "Help"
+    hubzone_program: "Programa HUBZone"
+    accessible_version: "Versión accesible"
+    help: "Ayuda"
   header:
-    skip_to_main: "Skip to main content"
+    skip_to_main: "Saltar al contenido principal"
   map:
-    enter_address: "Enter Address"
-    filter: "Filter"
+    enter_address: "Ingresa la direccion"
+    filter: "Filtrar"

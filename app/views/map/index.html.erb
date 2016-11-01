@@ -4,7 +4,7 @@
       <li>
         <button id="filter-button" class="
         usa-accordion-button usa-nav-link" aria-expanded="false" aria-controls="side-nav-1">
-          <span>Filter</span>
+          <span><%= t('map.filter') %></span>
         </button>
         <ul id="side-nav-1" class="usa-nav-submenu">
           <li>
@@ -22,7 +22,7 @@
         <form class="usa-search usa-search-small">
         <div id="map-search" role="search">
           <label class="usa-sr-only" for="search-field-small">Search small</label>
-          <input id="search-field-small" type="search" name="search" placeholder="Enter Address">
+          <input id="search-field-small" type="search" name="search" placeholder="<%= t('map.enter_address') %>">
           <button type="submit">
             <span class="usa-sr-only search-icon">Search</span>
           </button>
