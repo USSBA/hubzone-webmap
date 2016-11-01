@@ -92,6 +92,9 @@ function updateMap(){
       } else {
         // console.log('no features returned');
       }
+    }, 
+    error: function(err){
+      console.error('There was an error', err);
     }
   });
 
