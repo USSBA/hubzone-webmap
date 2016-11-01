@@ -42,13 +42,14 @@ button#filter-button {
 }
 .usa-nav-primary > li:first-child {
   height: 6rem;
+  float: left;
 }
 
 /* Map Body */
 .map-body {
   position: absolute;
   width: 100%;
-  height: calc(100% - 215px);
+  height: calc(100% - 212px);
 }
 #map {
   height: 100%;
@@ -57,6 +58,9 @@ button#filter-button {
 
 /* Desktop/Tablet */
 @media screen and (min-width: 951px) {
+  .usa-header-extended .usa-nav-inner {
+    margin-top: 0px;
+  }
   .map-header {
     padding-top: 1em;
     padding-bottom: 1em;
@@ -75,7 +79,6 @@ button#filter-button {
     margin-top: 2rem;
     margin-bottom: 2rem;
   }
-
   #map-search button{
     border-radius: 0px 4px 4px 0px;
     width: 7rem;
@@ -100,6 +103,6 @@ button#filter-button {
     display: none;
   }
   .map-body {
-    height: calc(100% - 143px);
+    height: calc(100% - 123px);
   }
 }
