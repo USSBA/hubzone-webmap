@@ -1,61 +1,89 @@
+/* Top Level Navigation */
 img#sba-logo {
   max-width: 125px;
   float: left;
 }
-.usa-logo-text a{
+.usa-logo-text a {
   font-size: 3.6rem;
   float: left;
   margin-top: 10px;
   margin-left: 30px;
 }
-.map-header {
-  padding-top: 1em;
-  padding-bottom: 1rem;
-  background: #122E51;
+.usa-navbar {
+  border-bottom: none;
 }
-#map-search button{
-  background-color: #0071BB;
-  background-size: 45px;
-  border-radius: 0px 4px 4px 0px;
-  height: 59px;
-  width: 69px;
-}
-input#search-field-small {
+
+/* Map Inputs/Navigation */
+
+#map-search input#search-field-small {
   background-color: #1A406E;
   border: 0px;
-  height: 59px;
+  height: 6rem;
   font-size: 30px;
   color: #fff;
-  width: 50rem;
 }
-.usa-nav ul#side-nav-1 {
+#map-search button {
+  background-color: #0071BB;
+  background-size: 45px;
+  height: 6rem;
+}
+
+li.hubzone-filter {
+  margin-right: 10px;
+}
+.filter-button {
   background-color: #fff;
   color: #1A406E;
 }
-.usa-nav ul#side-nav-1 a {
+.filter-button a {
   color: #1A406E;
 }
-.usa-nav-primary button#filter-button{
+.usa-nav-primary button#filter-button {
   color: #fff;
   border: 3px solid #1A406E;
+  padding-bottom: 2.5rem;
+  width: 9rem;
 }
 .usa-nav-primary button#filter-button:hover {
   background-color: #fff;
   color: #122E51;
   border: 3px solid #fff;
+  padding-bottom: 2.5rem;
+  width: 9rem;
 }
+.usa-search.usa-search-small [type="search"],
+.usa-search.usa-search-small .usa-search-input {
+  max-width: 100%;
+}
+input#search-field-small input{
+  max-width: 40rem !important;
+  width: 40rem !important;
+}
+
+li.hubzone-search {
+
+}
+
+/* Map Body */
 .map-body {
   position: absolute;
   width: 100%;
-  height: calc(100% - 229px);
+  height: calc(100% - 210px);
 }
 #map {
   height: 100%;
   width: 100%;
 }
 
+
+
 /* Desktop/Tablet */
 @media screen and (min-width: 951px) {
+  .usa-search.usa-search-small [type="search"],
+  .usa-search.usa-search-small .usa-search-input {
+    max-width: 100%;
+    width: 50rem;
+  }
   .usa-header-extended .usa-nav {
     border-top: none;
   }
@@ -63,20 +91,40 @@ input#search-field-small {
     margin-top: 2rem;
     margin-bottom: 2rem;
   }
+  .map-header {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    background: #122E51;
+    border-bottom: 1px solid #AFB0B5;
+  }
+  #map-search button{
+    border-radius: 0px 4px 4px 0px;
+    width: 7rem;
+  }
 }
 
 /* Phone */
 @media only screen and (max-width: 950px)  {
-  #main-content {
-    height: calc(100% - 62px);
-  }
-  img#sba-logo{
+  img#sba-logo {
     max-width: 76px;
-    float: left;
     padding-top: 3px;
   }
-  .usa-logo-text a{
+  .usa-grid {
+    padding: 0em;
+    width: 100%;
+  }
+  .usa-logo-text a {
     margin-top: 0px;
     font-size: 2.2rem;
+  }
+  .hubzone-filter {
+    display: none;
+  }
+  .hubzone-search {
+    border: none;
+    margin: 0em;
+  }
+  .map-body {
+    height: calc(100% - 62px);
   }
 }

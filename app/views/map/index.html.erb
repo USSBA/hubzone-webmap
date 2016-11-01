@@ -1,12 +1,12 @@
 <section class="map-header">
   <div class="usa-grid">
     <ul class="usa-nav-primary usa-accordion">
-      <li>
+      <li class="hubzone-filter">
         <button id="filter-button" class="
         usa-accordion-button usa-nav-link" aria-expanded="false" aria-controls="side-nav-1">
           <span><%= t('map.filter') %></span>
         </button>
-        <ul id="side-nav-1" class="usa-nav-submenu">
+        <ul id="side-nav-1" class="usa-nav-submenu hubzone-filter-menu">
           <li>
             <a href="#">Page title</a>
           </li>
@@ -18,10 +18,10 @@
           </li>
         </ul>
       </li>
-      <li>
+      <li class="hubzone-search">
         <form class="usa-search usa-search-small">
         <div id="map-search" role="search">
-          <label class="usa-sr-only" for="search-field-small">Search small</label>
+          <label class="usa-sr-only" for="search-field-small">HUBZone Map Search</label>
           <input id="search-field-small" type="search" name="search" placeholder="<%= t('map.enter_address') %>">
           <button type="submit">
             <span class="usa-sr-only search-icon">Search</span>
