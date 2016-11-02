@@ -10,9 +10,7 @@ function pageLoad(options){
   googleScript.src = googleCDNURL + "&callback=" + options.callbackFn;
   googleScript.async = true;
   var mapBody = document.querySelector('.map-body');
-  console.log(document);
   mapBody.appendChild(googleScript);
-  // $('section.map-body').append(googleScript);
 };
 
 //create the map on load, when idle, jump to updateMap to get features
