@@ -5,9 +5,9 @@ describe "the sidebar should load and have a button", type: :feature do
     visit('/map')
   end
   it "should have a sidebar" do
-    expect(page).to have_selector('sidebar')
+    expect(page).to have_css('map-sidebar')
   end
   it "should have a sidebar button" do
-    expect(page).to have_selector('sidebar-button')
+    expect(page).to have_css('map-sidebar-button')
   end
 end

@@ -39,7 +39,6 @@ img#sba-logo {
 .usa-search.usa-search-small .usa-search-input {
   max-width: 100%;
 }
-
 button#filter-button {
   height: 6rem;
   border: 3px solid #1A406E;
@@ -52,6 +51,14 @@ button#filter-button {
 }
 .usa-nav-submenu {
   z-index: 3;
+}
+
+/* Map Sidebar */
+.map-sidebar {
+  display: block;
+}
+.map-sidebar-button {
+  display: block;
 }
 
 /* Map Body */
