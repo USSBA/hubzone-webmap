@@ -55,16 +55,26 @@ button#filter-button {
 
 /* Map Sidebar */
 .map-sidebar {
-  display: block;
+  position: fixed;
+  right: 0px;
+  width: 250px;
+  height: 100%;
+  background-color: #fff;
+  z-index: 3;
 }
 .map-sidebar-button {
-  display: block;
+  position: fixed;
+  right: 250px;
+  width: 50px;
+  top: 33%;
+  height: 75px;
+  background-color: #fff;
 }
 
 /* Map Body */
 .map-body {
   position: absolute;
-  width: 100%;
+  width: calc(100% - 250px);
   height: calc(100% - 212px);
 }
 #map {
