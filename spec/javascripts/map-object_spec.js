@@ -5,6 +5,7 @@ describe ('Testing map operations', function() {
     testSection.addClass('map-body');
     testSection.id('testSection');
     jasmineContent.appendChild(testSection);
+    console.log()
   });
 
   afterEach(function(){
