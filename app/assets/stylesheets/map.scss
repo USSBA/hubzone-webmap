@@ -21,6 +21,15 @@ img#sba-logo {
   font-size: 30px;
   color: #fff;
 }
+input#search-field-small::-webkit-input-placeholder {
+  color: #fff;
+}
+input#search-field-small::-moz-placeholder {
+  color: #fff;
+}
+input#search-field-small:-ms-input-placeholder {
+  color: #fff;
+}
 #map-search button {
   background-color: #0071BB;
   background-size: 45px;
@@ -30,10 +39,7 @@ img#sba-logo {
 .usa-search.usa-search-small .usa-search-input {
   max-width: 100%;
 }
-input#search-field-small input{
-  max-width: 40rem !important;
-  width: 40rem !important;
-}
+
 button#filter-button {
   height: 6rem;
   border: 3px solid #1A406E;
