@@ -3,6 +3,7 @@ console.log("In the map controller");
 //create the map on load, when idle, jump to updateMap to get features
 function initMap() {
   console.log('loading map');
+
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 35.5, lng: -97.5},
     zoom: 9,
@@ -24,6 +25,7 @@ function initMap() {
 //any new features in view. 
 function updateMap(){
   console.log('i\'m idle, redrawing map');
+
   var mapScope = this;
   //get the bounding box of the current map and parse as a string
   var mapBounds = mapScope.getBounds();
