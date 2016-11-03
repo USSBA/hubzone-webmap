@@ -20,9 +20,8 @@ var currentFeaturesIDs = [];
 var geocodeQuery = ''; // string of geocodequery from input text
 var geomUniqID = 'id';
 var googleCDNURL = 'https://maps.googleapis.com/maps/api/js?key=<%=MAP_CONFIG[:google_api_key]%>'
-//geoserver WFS URL parameters
-//viewparams may not always be used, and is available in case a view
-// is defined in geoserver
+
+
 var geomWFSSettings = {
   urlRoot: '<%= MAP_CONFIG[:geomWFSSettings]["urlRoot"] %>',
   db: '<%= MAP_CONFIG[:geomWFSSettings]["db"] %>',
