@@ -1,52 +1,55 @@
-console.log("In the map controller");
-
 //create the map on load, when idle, jump to updateMap to get features
 function initMap() {
-  console.log('loading map');
-
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 35.5, lng: -97.5},
     zoom: 9,
     styles: googleMapsStyleConfig,
-    zoomControl: true, 
+    zoomControl: true,
     zoomControlOptions: {
       position: google.maps.ControlPosition.TOP_RIGHT
     }
-  });  
+  });
 
-  //adds listener that triggers whenever the map is idle to update with new features.
-  google.maps.event.addListener(map, 'idle', updateMap);
+  // adds listener that triggers whenever the map is idle to update with new features.
+  google.maps.event.addListener(map, 'idle', updateMap());
+
   //returns the map as a promise
   return map;
 };
 
 //function to update the map based on new bounds, get new features from
-//geoserver,remove from map any features not in view, add to map 
-//any new features in view. 
+//geoserver,remove from map any features not in view, add to map
+//any new features in view.
 function updateMap(){
   console.log('i\'m idle, redrawing map');
 
   var mapScope = this;
   //get the bounding box of the current map and parse as a string
   var mapBounds = mapScope.getBounds();
+  console.log('mapBounds', mapBounds);
   var NELat = mapBounds.getNorthEast().lat();
+  console.log('NELat', NELat);
   var NELng = mapBounds.getNorthEast().lng();
+  console.log('NELng', NELng);
   var SWLat = mapBounds.getSouthWest().lat();
+  console.log('SWLat', SWLat);
   var SWLng = mapBounds.getSouthWest().lng();
+  console.log('SWLng', SWLng);
   var bbox = [SWLng, SWLat, NELng, NELat].join(',');
+  console.log('bbox', bbox);
 
-  //build the fetch url from seetings 
+  //build the fetch url from seetings
   var url = [
-    geomWFSSettings.urlRoot, 
-    'version=1.0.0', 
-    'request=GetFeature', 
+    geomWFSSettings.urlRoot,
+    'version=1.0.0',
+    'request=GetFeature',
     'typename=' + geomWFSSettings.db + ':' + geomWFSSettings.table,
     'outputFormat=application/json',
     'srsname=EPSG:'+ geomWFSSettings.srs,
     'bbox=' + bbox + ',EPSG:4326'
   ].join('&');
 
-  //ajax request to geoserver for features, 
+  //ajax request to geoserver for features,
   $.ajax(url, {
     success: function(resp){
       // on successful fetch of new features in the bbox, compare old with new and update the map
@@ -60,7 +63,7 @@ function updateMap(){
           for (var i = resp.features.length - 1; i >= 0; i--) {
             currentFeaturesIDs.push(resp.features[i].properties[geomUniqID]);
           }
-        } else {       
+        } else {
           var newFeaturesIDs = [];
           var newFeatures = resp.features.map(function(feature){
             var featureID = feature.properties[geomUniqID]
@@ -75,7 +78,7 @@ function updateMap(){
               // console.log('adding a new feature');
               mapScope.data.addGeoJson(newFeatures[i])
               updatedFeaturesIDs.push(newFeaturesIDs[i]);
-            } 
+            }
           }
 
           mapScope.data.forEach(function(feature){
@@ -93,16 +96,16 @@ function updateMap(){
       } else {
         console.warn('No features returned by Geoserver', this.url);
       }
-    }, 
+    },
     error: function(err){
-      console.error('Error Fetching from GeoServer:', 
-                    err.status, 
+      console.error('Error Fetching from GeoServer:',
+                    err.status,
                     err.responseText
       );
     }
   });
 
-  //perform some stlying of features based on some rules, in case arbitrary levels based on size. 
+  //perform some stlying of features based on some rules, in case arbitrary levels based on size.
   mapScope.data.setStyle(function(feature) {
     var color = '#205493';
     return {
