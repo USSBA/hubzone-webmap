@@ -23,9 +23,17 @@ var googleCDNURL = 'https://maps.googleapis.com/maps/api/js?key=<%=MAP_CONFIG[:g
 //geoserver WFS URL parameters
 //viewparams may not always be used, and is available in case a view
 // is defined in geoserver
+// var geomWFSSettings = {
+//   urlRoot: 'http://localhost:8080/geoserver/hubzone-test/ows?service=WFS',
+//   db: 'hubzone-test',
+//   table: 'indianlands_2014', //'indian_lands'  'indianlands_2014_doug' 'il_geom_lowres'
+//   srs: '4326'
+// };
+
 var geomWFSSettings = {
-  urlRoot: 'http://localhost:8080/geoserver/hubzone-test/ows?service=WFS',
-  db: 'hubzone-test',
-  table: 'indianlands_2014', //'indian_lands'  'indianlands_2014_doug' 'il_geom_lowres'
-  srs: '4326'
+  urlRoot: '<%= MAP_CONFIG[:geomWFSSettings]["urlRoot"] %>',
+  db: '<%= MAP_CONFIG[:geomWFSSettings]["db"] %>',
+  table: '<%= MAP_CONFIG[:geomWFSSettings]["table"] %>',
+  srs: '<%= MAP_CONFIG[:geomWFSSettings]["srs"] %>'
 };
+
