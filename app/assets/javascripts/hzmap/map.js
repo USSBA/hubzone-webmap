@@ -20,10 +20,8 @@ function initMap() {
 //function to update the map based on new bounds, get new features from
 //geoserver,remove from map any features not in view, add to map
 //any new features in view.
-function updateMap(){
+function getBbox(mapScope){
   console.log('i\'m idle, redrawing map');
-
-  var mapScope = this;
   //get the bounding box of the current map and parse as a string
   var mapBounds = mapScope.getBounds();
   console.log('mapBounds', mapBounds);
@@ -34,12 +32,11 @@ function updateMap(){
   var SWLat = mapBounds.getSouthWest().lat();
   console.log('SWLat', SWLat);
   var SWLng = mapBounds.getSouthWest().lng();
-  console.log('SWLng', SWLng);
-  var bbox = [SWLng, SWLat, NELng, NELat].join(',');
-  console.log('bbox', bbox);
+  return [SWLng, SWLat, NELng, NELat].join(',');
+};
 
-  //build the fetch url from seetings
-  var url = [
+var getUrl = function(bbox) {
+  return [
     geomWFSSettings.urlRoot,
     'version=1.0.0',
     'request=GetFeature',
@@ -48,6 +45,28 @@ function updateMap(){
     'srsname=EPSG:'+ geomWFSSettings.srs,
     'bbox=' + bbox + ',EPSG:4326'
   ].join('&');
+};
+
+var defaultMapStyle = function(feature) {
+  var color = '#205493';
+  return {
+    fillColor: color,
+    opacity: 0.75,
+    strokeWeight: 1
+  }
+};
+
+//function to update the map based on new bounds, get new features from
+//geoserver,remove from map any features not in view, add to map
+//any new features in view.
+function updateMap(){
+  mapScope = this;
+
+  //get the bbox from the mapScope
+  var bbox = getBbox(mapScope);
+
+  //build the fetch url from settings
+  var url = getUrl(bbox);
 
   //ajax request to geoserver for features,
   $.ajax(url, {
@@ -106,13 +125,6 @@ function updateMap(){
   });
 
   //perform some stlying of features based on some rules, in case arbitrary levels based on size.
-  mapScope.data.setStyle(function(feature) {
-    var color = '#205493';
-    return {
-      fillColor: color,
-      opacity: 0.75,
-      strokeWeight: 1
-    }
-  });
+  mapScope.data.setStyle(defaultMapStyle);
   return mapScope;
 };
