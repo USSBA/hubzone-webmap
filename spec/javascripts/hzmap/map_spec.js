@@ -95,6 +95,41 @@ var google = {
   }
 };
 
+var coordinates = {
+  north: 36.00264017338637,
+  east: -96.64306640625,
+  south: 34.99419475828389,
+  west: -98.35693359375
+}
+
+var mapScope = {
+  getBounds: function() {
+    return {
+      getNorthEast: function() {
+        return {
+          lat: function() {
+            return coordinates.north
+          },
+          lng: function() {
+            return coordinates.east
+          }
+        };
+      },
+      getSouthWest: function() {
+        return {
+          lat: function() {
+            return coordinates.south
+          },
+          lng: function() {
+            return coordinates.west
+          }
+        };
+      }
+    };
+  }
+};
+var mapBounds = mapScope.getBounds();
+
 var mockData = {
   "type": "FeatureCollection",
   "totalFeatures": 1,
@@ -131,22 +166,27 @@ var mockData = {
   }
 };
 
-
 describe ('Testing map operations', function() {
   beforeEach(function() {
     var constructorSpy = spyOn(google.maps, 'Map').and.returnValue(['Map', 'map']);
     var eventSpy = spyOn(google.maps.event, 'addListener');
 
-
+    var mapScopeSpy = spyOn(mapScope, 'getBounds').and.returnValue(mapBounds);
+    var northEastSpy = spyOn(mapBounds, 'getNorthEast').and.callThrough();
+    var southWestSpy = spyOn(mapBounds, 'getSouthWest').and.callThrough();
   });
 
-  it("map loads with properties", function() {
+  it("creates a new Google map", function() {
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map).toHaveBeenCalledTimes(1);
+    expect(google.maps.event.addListener).toHaveBeenCalledTimes(1);
   });
 
-  xit("map has a data object", function() {
-    expect(window.map.data).toBeDefined();
+  it("get bbox", function() {
+    expect(getBbox(mapScope)).toEqual("-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637");
+    expect(mapScope.getBounds).toHaveBeenCalledTimes(1);
+    expect(mapBounds.getNorthEast).toHaveBeenCalledTimes(2);
+    expect(mapBounds.getSouthWest).toHaveBeenCalledTimes(2);
   });
 
   //this one fails because the previous one fails

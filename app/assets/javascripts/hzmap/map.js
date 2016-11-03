@@ -11,32 +11,27 @@ function initMap() {
   });
 
   // adds listener that triggers whenever the map is idle to update with new features.
-  google.maps.event.addListener(map, 'idle', updateMap());
+  google.maps.event.addListener(map, 'idle', updateMap);
 
   //returns the map as a promise
   return map;
+};
+
+function getBbox(mapScope) {
+  //get the bounding box of the current map and parse as a string
+  var mapBounds = mapScope.getBounds();
+  var NELat = mapBounds.getNorthEast().lat();
+  var NELng = mapBounds.getNorthEast().lng();
+  var SWLat = mapBounds.getSouthWest().lat();
+  var SWLng = mapBounds.getSouthWest().lng();
+  return [SWLng, SWLat, NELng, NELat].join(',');
 };
 
 //function to update the map based on new bounds, get new features from
 //geoserver,remove from map any features not in view, add to map
 //any new features in view.
 function updateMap(){
-  console.log('i\'m idle, redrawing map');
-
-  var mapScope = this;
-  //get the bounding box of the current map and parse as a string
-  var mapBounds = mapScope.getBounds();
-  console.log('mapBounds', mapBounds);
-  var NELat = mapBounds.getNorthEast().lat();
-  console.log('NELat', NELat);
-  var NELng = mapBounds.getNorthEast().lng();
-  console.log('NELng', NELng);
-  var SWLat = mapBounds.getSouthWest().lat();
-  console.log('SWLat', SWLat);
-  var SWLng = mapBounds.getSouthWest().lng();
-  console.log('SWLng', SWLng);
-  var bbox = [SWLng, SWLat, NELng, NELat].join(',');
-  console.log('bbox', bbox);
+    var bbox = getBbox(this);
 
   //build the fetch url from seetings
   var url = [
@@ -48,6 +43,7 @@ function updateMap(){
     'srsname=EPSG:'+ geomWFSSettings.srs,
     'bbox=' + bbox + ',EPSG:4326'
   ].join('&');
+  console.log('url', url);
 
   //ajax request to geoserver for features,
   $.ajax(url, {
