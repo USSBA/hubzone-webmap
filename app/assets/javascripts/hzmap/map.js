@@ -27,14 +27,8 @@ function getBbox(mapScope) {
   return [SWLng, SWLat, NELng, NELat].join(',');
 };
 
-//function to update the map based on new bounds, get new features from
-//geoserver,remove from map any features not in view, add to map
-//any new features in view.
-function updateMap(){
-    var bbox = getBbox(this);
-
-  //build the fetch url from seetings
-  var url = [
+var getUrl = function(bbox) {
+  return [
     geomWFSSettings.urlRoot,
     'version=1.0.0',
     'request=GetFeature',
@@ -43,7 +37,28 @@ function updateMap(){
     'srsname=EPSG:'+ geomWFSSettings.srs,
     'bbox=' + bbox + ',EPSG:4326'
   ].join('&');
-  console.log('url', url);
+};
+
+var defaultMapStyle = function(feature) {
+  var color = '#205493';
+  return {
+    fillColor: color,
+    opacity: 0.75,
+    strokeWeight: 1
+  }
+};
+
+//function to update the map based on new bounds, get new features from
+//geoserver,remove from map any features not in view, add to map
+//any new features in view.
+function updateMap(){
+  mapScope = this;
+
+  //get the bbox from the mapScope
+  var bbox = getBbox(mapScope);
+
+  //build the fetch url from settings
+  var url = getUrl(bbox);
 
   //ajax request to geoserver for features,
   $.ajax(url, {
@@ -102,13 +117,6 @@ function updateMap(){
   });
 
   //perform some stlying of features based on some rules, in case arbitrary levels based on size.
-  mapScope.data.setStyle(function(feature) {
-    var color = '#205493';
-    return {
-      fillColor: color,
-      opacity: 0.75,
-      strokeWeight: 1
-    }
-  });
+  mapScope.data.setStyle(defaultMapStyle);
   return mapScope;
 };

@@ -126,6 +126,12 @@ var mapScope = {
         };
       }
     };
+  },
+  data: {
+    style: function() {},
+    setStyle: function(styleFunction) {
+      mapScope.data.style = styleFunction;
+    }
   }
 };
 var mapBounds = mapScope.getBounds();
@@ -189,10 +195,13 @@ describe ('Testing map operations', function() {
     expect(mapBounds.getSouthWest).toHaveBeenCalledTimes(2);
   });
 
-  //this one fails because the previous one fails
-  xit ("map has some data", function(){
-    window.map.data.addGeoJson(mockData);;
-    var hasData = window.map.data.contains(mockData)
-    expect(hasData).toBe(true);
+  it("get url", function() {
+    var bbox = getBbox(mapScope);
+    expect(getUrl(bbox)).toEqual("http://localhost:8080/geoserver/hubzone-test/ows?service=WFS&version=1.0.0&request=GetFeature&typename=hubzone-test:indianlands_2014&outputFormat=application/json&srsname=EPSG:4326&bbox=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637,EPSG:4326");
+  });
+
+  it("sets the map style", function() {
+    mapScope.data.setStyle(defaultMapStyle);
+    expect(mapScope.data.style).toEqual(defaultMapStyle);
   });
 });
