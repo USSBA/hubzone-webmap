@@ -17,19 +17,12 @@ function initMap() {
   return map;
 };
 
-//function to update the map based on new bounds, get new features from
-//geoserver,remove from map any features not in view, add to map
-//any new features in view.
-function getBbox(mapScope){
+function getBbox(mapScope) {
   //get the bounding box of the current map and parse as a string
   var mapBounds = mapScope.getBounds();
-  console.log('mapBounds', mapBounds);
   var NELat = mapBounds.getNorthEast().lat();
-  console.log('NELat', NELat);
   var NELng = mapBounds.getNorthEast().lng();
-  console.log('NELng', NELng);
   var SWLat = mapBounds.getSouthWest().lat();
-  console.log('SWLat', SWLat);
   var SWLng = mapBounds.getSouthWest().lng();
   return [SWLng, SWLat, NELng, NELat].join(',');
 };
