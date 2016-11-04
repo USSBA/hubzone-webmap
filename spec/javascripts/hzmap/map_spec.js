@@ -197,7 +197,7 @@ describe ('Testing map operations', function() {
 
   it("get url", function() {
     var bbox = getBbox(mapScope);
-    expect(getUrl(bbox)).toEqual("http://localhost:8080/geoserver/hubzone-test/ows?service=WFS&version=1.0.0&request=GetFeature&typename=hubzone-test:indianlands_2014&outputFormat=application/json&srsname=EPSG:4326&bbox=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637,EPSG:4326");
+    expect(getUrl(bbox)).toEqual("http://localhost:8080/geoserver/hubzone-test/ows?service=WFS&version=1.0.0&request=GetFeature&typename=hzgeo_dev:indian_lands&outputFormat=application/json&srsname=EPSG:4326&bbox=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637,EPSG:4326");
   });
 
   it("sets the map style", function() {
@@ -205,3 +205,8 @@ describe ('Testing map operations', function() {
     expect(mapScope.data.style).toEqual(defaultMapStyle);
   });
 });
+
+
+
+
+
