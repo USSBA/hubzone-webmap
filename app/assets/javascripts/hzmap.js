@@ -12,22 +12,3 @@
 //
 //= require_tree ./hzmap
 //= require jquery-sidebar
-
-//defining global variables for hubzone map controllers
-var map = {}; //the map object
-var infoWindow = {}; //infowindow object
-var apiKey = '<%= MAP_CONFIG[:google_api_key] %>'; //google maps api key
-console.log('apiKey', apiKey);
-var currentFeaturesIDs = [];
-var geocodeQuery = ''; // string of geocodequery from input text
-var geomUniqID = 'id';
-var googleCDNURL = 'https://maps.googleapis.com/maps/api/js?key=<%=MAP_CONFIG[:google_api_key]%>'
-
-
-var geomWFSSettings = {
-  urlRoot: '<%= MAP_CONFIG[:geomWFSSettings]["urlRoot"] %>',
-  db: '<%= MAP_CONFIG[:geomWFSSettings]["db"] %>',
-  table: '<%= MAP_CONFIG[:geomWFSSettings]["table"] %>',
-  srs: '<%= MAP_CONFIG[:geomWFSSettings]["srs"] %>'
-};
-
