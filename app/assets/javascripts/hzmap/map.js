@@ -11,7 +11,7 @@ function initMap() {
   });
 
   // adds listener that triggers whenever the map is idle to update with new features.
-  google.maps.event.addListener(map, 'idle', updateMap());
+  google.maps.event.addListener(map, 'idle', updateMap);
 
   //returns the map as a promise
   return map;
@@ -21,7 +21,6 @@ function initMap() {
 //geoserver,remove from map any features not in view, add to map
 //any new features in view.
 function getBbox(mapScope){
-  console.log('i\'m idle, redrawing map');
   //get the bounding box of the current map and parse as a string
   var mapBounds = mapScope.getBounds();
   console.log('mapBounds', mapBounds);
