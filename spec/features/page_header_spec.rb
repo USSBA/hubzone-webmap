@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "the header should load with proper title, logo, and links", type: :feature do
+describe "the header", type: :feature do
   before do
     visit('/map')
   end
