@@ -112,11 +112,9 @@ button#filter-button {
       overflow: hidden;
       transition: all 80ms; }
       .sidebar-tabs > li:hover, .sidebar-tabs > ul > li:hover {
-        color: #fff;
-        background-color: purple; }
+        background-color: #fff; }
       .sidebar-tabs > li.active, .sidebar-tabs > ul > li.active {
-        color: #fff;
-        background-color: purple; }
+        background-color: #fff; }
       .sidebar-tabs > li.disabled, .sidebar-tabs > ul > li.disabled {
         color: rgba(102, 102, 102, 0.4); }
         .sidebar-tabs > li.disabled:hover, .sidebar-tabs > ul > li.disabled:hover {
@@ -174,8 +172,7 @@ button#filter-button {
   padding: 0 20px;
   line-height: 40px;
   font-size: 14.4pt;
-  color: #fff;
-  background-color: purple; }
+  background-color: #fff; }
   .sidebar-right .sidebar-header {
     padding-left: 40px; }
 
