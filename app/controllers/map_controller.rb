@@ -13,10 +13,10 @@ class MapController < ApplicationController
                 hubzone: [ { type: "indian_lands",
                              indian: "apache",
                              start: "1950-07-10" },
-                            { type: "qct",
-                              tract: "1283129873",
-                              start: "1999-08-30",
-                              stop: "2017-04-01" }] }
+                           { type: "qct",
+                             tract: "1283129873",
+                             start: "1999-08-30",
+                             stop: "2017-04-01" }] }
       stat = :success
     when "bar"
       value = { search: "bar", address: "2403 Pelham Ave", lat: 36, lon: -76,
