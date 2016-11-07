@@ -180,18 +180,20 @@ describe ('Testing map operations', function() {
   it("create a new MapGeoJson class object and add data", function(){
     var mapGeoJson = new MapGeoJson();
     mapGeoJson.diffData(mockData1);
-    expect(mapGeoJson.data.features).toEqual(mockData1.features);
+    expect(mapGeoJson.currentFeatures.features).toEqual(mockData1.features);
   });
 
-  it("diff a MapGeoJson class object", function(){
+  it("produce the correct diff between two datasets", function(){
     var mapGeoJson = new MapGeoJson();
     mapGeoJson.uniqueID = 'id';
     mapGeoJson.mapScope = mapScope;
     mapGeoJson.diffData(mockData1);
     mapGeoJson.diffData(mockData2);
-    expect(mapGeoJson.data.features).toEqual(mockData2.features);
+    expect(mapGeoJson.featuresToRemove).toEqual(mockFeaturesToRemove);
   });
 });
+
+var mockFeaturesToRemove = [1805758];
 
 var mockData1 = {
   "type": "FeatureCollection",
