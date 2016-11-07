@@ -48,6 +48,8 @@ var defaultMapStyle = function(feature) {
   }
 };
 
+
+
 //function to update the map based on new bounds, get new features from
 //geoserver,remove from map any features not in view, add to map
 //any new features in view.
@@ -60,6 +62,9 @@ function updateMap(){
   //build the fetch url from settings
   var url = getUrl(bbox);
 
+  //make sure mapGeoJson has correct map scope
+  mapGeoJson.mapScope = mapScope;
+
   //ajax request to geoserver for features,
   $.ajax(url, {
     success: function(resp){
@@ -67,42 +72,16 @@ function updateMap(){
       if (resp.totalFeatures === null || resp.totalFeatures === undefined){
         console.error('Error Fetching from GeoServer', this.url, resp);
       } else if (resp.totalFeatures > 0){
-        //if the currentFeatures is empty, just add it all
-        if (currentFeaturesIDs.length === 0){
-          // console.log('no other features, adding all');
-          mapScope.data.addGeoJson(resp);
-          for (var i = resp.features.length - 1; i >= 0; i--) {
-            currentFeaturesIDs.push(resp.features[i].properties[geomUniqID]);
-          }
-        } else {
-          var newFeaturesIDs = [];
-          var newFeatures = resp.features.map(function(feature){
-            var featureID = feature.properties[geomUniqID]
-            newFeaturesIDs.push(featureID)
-            return feature;
-          });
-
-          var updatedFeaturesIDs = [];
-
-          for (var i = newFeaturesIDs.length - 1; i >= 0; i--) {
-            if (!currentFeaturesIDs.includes(newFeaturesIDs[i])){
-              // console.log('adding a new feature');
-              mapScope.data.addGeoJson(newFeatures[i])
-              updatedFeaturesIDs.push(newFeaturesIDs[i]);
-            }
-          }
-
+        mapGeoJson.diffData(resp);
+        if (mapGeoJson.featuresToAdd.totalFeatures > 0) {
+          mapScope.data.addGeoJson(mapGeoJson.featuresToAdd);
+        }
+        if (mapGeoJson.featuresToRemove.length > 0){
           mapScope.data.forEach(function(feature){
-            var featureID = feature.f[geomUniqID];
-            if (!newFeaturesIDs.includes(featureID)){
-              // console.log('removing a feature');
+            if (mapGeoJson.featuresToRemove.includes(feature.f[geomUniqID])){
               mapScope.data.remove(feature);
-            } else {
-              updatedFeaturesIDs.push(featureID);
             }
           });
-
-          currentFeaturesIDs = updatedFeaturesIDs;
         }
       } else {
         console.warn('No features returned by Geoserver', this.url);

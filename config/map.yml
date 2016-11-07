@@ -11,7 +11,7 @@ development:
   geomWFSSettings:
     urlRoot: 'http://localhost:8080/geoserver/hubzone-test/ows?service=WFS'
     db: 'hzgeo_dev'
-    table: 'indian_lands'
+    table: 'indian_lands_lowestres'
     srs: '4326'
 
 test:
