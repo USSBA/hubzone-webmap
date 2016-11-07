@@ -1,1 +1,1 @@
-console.log("In the geocoder controller");
+// console.log("In the geocoder controller");
