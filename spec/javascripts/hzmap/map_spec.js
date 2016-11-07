@@ -128,9 +128,6 @@ var mapScope = {
     };
   },
   data: {
-    addGeoJson: function(){
-      return true;
-    },
     style: function() {},
     setStyle: function(styleFunction) {
       mapScope.data.style = styleFunction;
@@ -149,6 +146,11 @@ describe ('Testing map operations', function() {
     var northEastSpy = spyOn(mapBounds, 'getNorthEast').and.callThrough();
     var southWestSpy = spyOn(mapBounds, 'getSouthWest').and.callThrough();
   });
+
+  // afterEach(function(){
+  //   jQuery.ajax.restore();
+
+  // });
 
   it("creates a new Google map", function() {
     expect(initMap()).not.toBe(null);
@@ -173,8 +175,16 @@ describe ('Testing map operations', function() {
     expect(mapScope.data.style).toEqual(defaultMapStyle);
   });
 
-  xit("update the map", function(){
+  it("updates the map", function(){
+    sinon.stub(jQuery, "ajax");
+    var bbox = getBbox(mapScope);
+    var url = getUrl(bbox);
+    updateMap({
+      mapScope: mapScope,
+      url: url
+    }, sinon.spy());
 
+    expect(jQuery.ajax.calledWithMatch({url: url})).toBe(true);
   });
 
   it("create a new MapGeoJson class object and add data", function(){
