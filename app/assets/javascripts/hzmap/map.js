@@ -63,6 +63,8 @@ var defaultMapStyle = function(feature) {
 };
 
 //callback for handling the goeserver response
+//block of code proves problematic to test since it relys on the google map functions addGeoJson, forEach, and remove...
+//but its helper class (mapGeoJson) has been tested, and the ajax method that calls it was tested
 function parseGeoserverResponse(resp){
   // on successful fetch of new features in the bbox, compare old with new and update the map
   if (resp.totalFeatures === null || resp.totalFeatures === undefined){
