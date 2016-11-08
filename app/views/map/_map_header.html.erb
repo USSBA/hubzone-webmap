@@ -19,11 +19,11 @@
         </ul>
       </li>
       <li class="hubzone-search">
-        <%= form_tag search_path, method: :get, class: "usa-search usa-search-small" do %>
+        <%= form_tag search_path, remote: true, method: :get, class: "usa-search usa-search-small" do %>
         <div id="map-search" role="search">
-        <%= label_tag "search-field-small", 'HUBZone Map Search', class: "usa-sr-only" %>
-        <%= search_field_tag "search-field-small", nil, placeholder: t('map.enter_address') %>
-        <%= button_tag '<span class="usa-sr-only search-icon">Search</span>'.html_safe %>
+          <%= label_tag "search", 'HUBZone Map Search', class: "usa-sr-only" %>
+          <%= search_field_tag "search", nil, placeholder: t('map.enter_address'), id: "search-field-small"%>
+          <%= button_tag '<span class="usa-sr-only search-icon">Search</span>'.html_safe %>
         </div>
         <% end %>
       </li>
