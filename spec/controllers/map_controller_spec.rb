@@ -1,85 +1,32 @@
 require 'rails_helper'
 
 test_data = {
-  empty_request: '',
-  good_request: '8 Market Place Baltimore MD 21202',
-  navajo_request: 'navajo',
-  indian_lands_request: '2424 S. Country Club Road, El Reno, OK 73036'
-}
-test_results = {
-  empty_request: '',
-  good_request: '8 Market Pl, Baltimore, MD 21202, USA',
-  navajo_request: 'Navajo, NM 87328, USA',
-  indian_lands_request: '2424 S Country Club Rd, El Reno, OK 73036, USA'
+  empty_search: '',
+  is_hubzone_request: 'navajo',
+  is_not_hubzone_request: '8 Market place'
 }
 
-RSpec.describe MapController, type: :request do
-  describe 'GET #search' do
-    context 'when given a empty request' do
-      before do
-        get search_url, {params: {q: test_data[:empty_request]},
-                         headers: {'Content-Type' => 'application/json'}}
-      end
-      it 'should result in an error' do
-        expect(400...500).to cover(response.status)
-      end
-      it 'should return the status INVALID_REQUEST' do
-        bodyJson = JSON.parse(response.body)
-        expect(bodyJson['status']).to eq('INVALID_REQUEST')
+RSpec.describe MapController, type: :controller do
+  describe 'GET search' do
+    context 'empty or no query provided' do
+      it "should have http error status" do
+        get :search
+        body = JSON.parse response.body
+        expect(body['http_status']).to eql(400)
       end
     end
-
-    context 'given a good request in baltimore' do
-      before do
-        get search_url, {params: {q: test_data[:good_request]},
-                         headers: {'Content-Type' => 'application/json'}}
-      end
-      it 'should succeed' do
-        expect(response).to have_http_status(:ok)
-      end
-      it 'should contain the correct formatted address' do
+    context 'valid hubzone query' do
+      it "should return hubzone status" do
+        get :search, {params: {q: test_data[:is_hubzone_request]}}
         body = JSON.parse response.body
-        expect(body['formatted_address']).to eql(test_results[:good_request])
-      end
-      it 'should have no indian lands designations' do
-        body = JSON.parse response.body
-        expect(body['hubzone'].size).to eql(0)
+        expect(body['hubzone'][0]['hz_type']).to eql('indian_lands')
       end
     end
-
-    context 'given a search for an address in an indian lands hubzone' do
-      before do
-        get search_url, {params: {q: test_data[:indian_lands_request]},
-                         headers: {'Content-Type' => 'application/json'}}
-      end
-      it 'should succeed' do
-        expect(response).to have_http_status(:ok)
-      end
-      it 'should contain the correct formatted address' do
+    context 'invalid hubzone query' do
+      it "should return empty hubzone array" do
+        get :search, q: :banana
         body = JSON.parse response.body
-        expect(body['formatted_address']).to eql(test_results[:indian_lands_request])
-      end
-      it 'should have one indian lands designation' do
-        body = JSON.parse response.body
-        expect(body['hubzone'].size).to eql(1)
-      end
-    end
-
-    context 'given a search for navajo' do
-      before do
-        get search_url, {params: {q: test_data[:navajo_request]},
-                         headers: {'Content-Type' => 'application/json'}}
-      end
-      it 'should succeed' do
-        expect(response).to have_http_status(:ok)
-      end
-      it 'should contain the correct formatted address' do
-        body = JSON.parse response.body
-        expect(body['formatted_address']).to eql(test_results[:navajo_request])
-      end
-      it 'should have one indian lands designation' do
-        body = JSON.parse response.body
-        expect(body['hubzone'].size).to eql(1)
+        expect(body['hubzone']).to eql([])
       end
     end
   end
