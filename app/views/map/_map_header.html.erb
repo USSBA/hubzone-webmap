@@ -1,6 +1,6 @@
 <section class="map-header">
   <div class="usa-grid">
-    <ul class="usa-nav-primary usa-accordion">
+    <ul class="usa-nav-primary">
       <li class="hubzone-filter">
         <button id="filter-button" class="
         usa-accordion-button usa-nav-link" aria-expanded="false" aria-controls="side-nav-1">
@@ -19,16 +19,13 @@
         </ul>
       </li>
       <li class="hubzone-search">
-        <form class="usa-search usa-search-small">
+        <%= form_tag search_path, method: :get, class: "usa-search usa-search-small" do %>
         <div id="map-search" role="search">
-          <label class="usa-sr-only" for="search-field-small">HUBZone Map Search</label>
-          <input id="search-field-small" type="search" name="search" placeholder="<%= t('map.enter_address') %>">
-          <button type="submit">
-            <span class="usa-sr-only search-icon">Search</span>
-          </button>
-          </input>
+        <%= label_tag "search-field-small", 'HUBZone Map Search', class: "usa-sr-only" %>
+        <%= search_field_tag "search-field-small", nil, placeholder: t('map.enter_address') %>
+        <%= button_tag '<span class="usa-sr-only search-icon">Search</span>', class: "usa-sr-only search-icon" %>
         </div>
-        </form>
+        <% end %>
       </li>
     </ul>
   </div>
