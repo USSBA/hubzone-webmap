@@ -11,7 +11,21 @@ function initMap() {
   });
 
   // adds listener that triggers whenever the map is idle to update with new features.
-  google.maps.event.addListener(map, 'idle', updateMap);
+  google.maps.event.addListener(map, 'idle', function(){
+    mapScope = this;
+
+    //get the bbox from the mapScope
+    var bbox = getBbox(mapScope);
+
+    //build the fetch url from settings
+    var url = getUrl(bbox);
+
+    updateMap({
+      mapScope: mapScope,
+      url: url
+    }, parseGeoserverResponse);
+  
+  }); 
 
   //returns the map as a promise
   return map;
@@ -48,71 +62,46 @@ var defaultMapStyle = function(feature) {
   }
 };
 
+//callback for handling the goeserver response
+//block of code proves problematic to test since it relys on the google map functions addGeoJson, forEach, and remove...
+//but its helper class (mapGeoJson) has been tested, and the ajax method that calls it was tested
+function parseGeoserverResponse(resp){
+  // on successful fetch of new features in the bbox, compare old with new and update the map
+  if (resp.totalFeatures === null || resp.totalFeatures === undefined){
+    console.error('Error Fetching from GeoServer', this.url, resp);
+  } else if (resp.totalFeatures > 0){
+    mapGeoJson.diffData(resp);
+    if (mapGeoJson.featuresToAdd.totalFeatures > 0) {
+      mapScope.data.addGeoJson(mapGeoJson.featuresToAdd);
+    }
+    if (mapGeoJson.featuresToRemove.length > 0){
+      mapScope.data.forEach(function(feature){
+        if (mapGeoJson.featuresToRemove.includes(feature.f[geomUniqID])){
+          mapScope.data.remove(feature);
+        }
+      });
+    }
+  } else {
+    console.warn('No features returned by Geoserver', this.url);
+  }
+  return mapGeoJson;
+};
+
 //function to update the map based on new bounds, get new features from
 //geoserver,remove from map any features not in view, add to map
 //any new features in view.
-function updateMap(){
-  mapScope = this;
-
-  //get the bbox from the mapScope
-  var bbox = getBbox(mapScope);
-
-  //build the fetch url from settings
-  var url = getUrl(bbox);
+function updateMap(options, callback){
+  var mapScope = options.mapScope;
+  var url = options.url
 
   //ajax request to geoserver for features,
-  $.ajax(url, {
+  $.ajax({
+    url: url, 
     success: function(resp){
-      // on successful fetch of new features in the bbox, compare old with new and update the map
-      if (resp.totalFeatures === null || resp.totalFeatures === undefined){
-        console.error('Error Fetching from GeoServer', this.url, resp);
-      } else if (resp.totalFeatures > 0){
-        //if the currentFeatures is empty, just add it all
-        if (currentFeaturesIDs.length === 0){
-          // console.log('no other features, adding all');
-          mapScope.data.addGeoJson(resp);
-          for (var i = resp.features.length - 1; i >= 0; i--) {
-            currentFeaturesIDs.push(resp.features[i].properties[geomUniqID]);
-          }
-        } else {
-          var newFeaturesIDs = [];
-          var newFeatures = resp.features.map(function(feature){
-            var featureID = feature.properties[geomUniqID]
-            newFeaturesIDs.push(featureID)
-            return feature;
-          });
-
-          var updatedFeaturesIDs = [];
-
-          for (var i = newFeaturesIDs.length - 1; i >= 0; i--) {
-            if (!currentFeaturesIDs.includes(newFeaturesIDs[i])){
-              // console.log('adding a new feature');
-              mapScope.data.addGeoJson(newFeatures[i])
-              updatedFeaturesIDs.push(newFeaturesIDs[i]);
-            }
-          }
-
-          mapScope.data.forEach(function(feature){
-            var featureID = feature.f[geomUniqID];
-            if (!newFeaturesIDs.includes(featureID)){
-              // console.log('removing a feature');
-              mapScope.data.remove(feature);
-            } else {
-              updatedFeaturesIDs.push(featureID);
-            }
-          });
-
-          currentFeaturesIDs = updatedFeaturesIDs;
-        }
-      } else {
-        console.warn('No features returned by Geoserver', this.url);
-      }
+      callback(resp);
     },
     error: function(err){
-      console.error('Error Fetching from GeoServer:',
-                    err.status,
-                    err.responseText
-      );
+      console.error('Error Fetching from GeoServer:', err.status, err.responseText);
     }
   });
 
