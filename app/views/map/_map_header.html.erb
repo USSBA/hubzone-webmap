@@ -23,7 +23,7 @@
         <div id="map-search" role="search">
         <%= label_tag "search-field-small", 'HUBZone Map Search', class: "usa-sr-only" %>
         <%= search_field_tag "search-field-small", nil, placeholder: t('map.enter_address') %>
-        <%= button_tag '<span class="usa-sr-only search-icon">Search</span>', class: "usa-sr-only search-icon" %>
+        <%= button_tag '<span class="usa-sr-only search-icon">Search</span>'.html_safe %>
         </div>
         <% end %>
       </li>
