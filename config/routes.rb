@@ -7,4 +7,5 @@ Rails.application.routes.draw do
 
   get 'map', to: 'map#index'
 
+  get 'search', to: 'map#search'
 end

@@ -68,7 +68,7 @@ var defaultMapStyle = function(feature) {
 function parseGeoserverResponse(resp){
   // on successful fetch of new features in the bbox, compare old with new and update the map
   if (resp.totalFeatures === null || resp.totalFeatures === undefined){
-    console.error('Error Fetching from GeoServer', this.url, resp);
+    console.error('Error Fetching from GeoServer', resp);
   } else if (resp.totalFeatures > 0){
     mapGeoJson.diffData(resp);
     if (mapGeoJson.featuresToAdd.totalFeatures > 0) {
@@ -82,7 +82,7 @@ function parseGeoserverResponse(resp){
       });
     }
   } else {
-    console.warn('No features returned by Geoserver', this.url);
+    console.warn('No features returned by Geoserver');
   }
   return mapGeoJson;
 };
@@ -108,4 +108,13 @@ function updateMap(options, callback){
   //perform some stlying of features based on some rules, in case arbitrary levels based on size.
   mapScope.data.setStyle(defaultMapStyle);
   return mapScope;
+};
+
+//jump to location on the map based on the geocode viewport object
+function jumpToLocation(geocodeViewport){
+  var newBounds = new google.maps.LatLngBounds(
+    new google.maps.LatLng(geocodeViewport.southwest.lat, geocodeViewport.southwest.lng),
+    new google.maps.LatLng(geocodeViewport.northeast.lat, geocodeViewport.northeast.lng)
+  );
+  mapScope.fitBounds(newBounds);
 };
