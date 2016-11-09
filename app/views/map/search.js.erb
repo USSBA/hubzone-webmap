@@ -5,5 +5,8 @@ $('#search-address').html(responseBody.formatted_address);
 
 var hubzoneStatus = (responseBody.hubzone.length > 0) ? 'Qualifed HUBZone': 'Not Qualified';
 $('#hubzone-status').html(hubzoneStatus);
+
+
 sidebar.open('home');
 jumpToLocation(responseBody.geometry.viewport);
+updateMarkers(responseBody.geometry.location);

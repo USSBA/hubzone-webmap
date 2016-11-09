@@ -102,7 +102,16 @@ var coordinates = {
   west: -98.35693359375
 }
 
+var Marker = {
+  setMap: function(map){
+    return map;
+  }
+};
+
 var mapScope = {
+  fitBounds: function(){
+    return 
+  },
   getBounds: function() {
     return {
       getNorthEast: function() {
@@ -167,7 +176,7 @@ describe ('Testing map operations', function() {
 
   it("get url", function() {
     var bbox = getBbox(mapScope);
-    expect(getUrl(bbox)).toEqual("http://localhost:8080/geoserver/hubzone-test/ows?service=WFS&version=1.0.0&request=GetFeature&typename=hzgeo_dev:indian_lands_lowestres&outputFormat=application/json&srsname=EPSG:4326&bbox=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637,EPSG:4326");
+    expect(getUrl(bbox)).toEqual("http://localhost:8080/geoserver/hubzone-test/ows?service=WFS&version=1.0.0&request=GetFeature&typename=hzgeo_dev:indian_lands&outputFormat=application/json&srsname=EPSG:4326&bbox=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637,EPSG:4326");
   });
 
   it("sets the map style", function() {
@@ -201,9 +210,57 @@ describe ('Testing map operations', function() {
     mapGeoJson.diffData(mockData2);
     expect(mapGeoJson.featuresToRemove).toEqual(mockFeaturesToRemove);
   });
+
+  it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){
+    var latLngBoundsSpy = spyOn(google.maps, 'LatLngBounds');
+    var latLngSpy = spyOn(google.maps, 'LatLng');
+    var fitBoundsSpy = spyOn(mapScope, 'fitBounds');
+
+    jumpToLocation(geocodeViewport);
+    expect(google.maps.LatLngBounds).toHaveBeenCalledTimes(1);
+    expect(google.maps.LatLng).toHaveBeenCalledTimes(2);
+    expect(mapScope.fitBounds).toHaveBeenCalledTimes(1);
+  });
+
+  it("should add a marker object", function(){
+    //this code touches all 3 marker functions (updateMarkers, setMapOnAll, clearMarkers)
+    var markerSpy = spyOn(google.maps, 'Marker');
+    var markerSetSpy = spyOn(Marker, 'setMap');
+
+    updateMarkers(markerLocation);
+    expect(google.maps.Marker).toHaveBeenCalledTimes(1);
+    expect(Marker.setMap).toHaveBeenCalledTimes(1);
+    expect(mapMarkers[0]).not.toEqual(Marker);  //because the test replaces it with a new spy from google.maps.Marker
+  });
+
+
 });
 
+
+
+////////////////////////////////////////////////////////////////////////////
+//  testing data
+////////////////////////////////////////////////////////////////////////////
+
+var mapMarkers = [ Marker]
+
 var mockFeaturesToRemove = [1805758];
+
+var markerLocation = {  
+  lat: 39.29024048029149,  
+  lng: -76.60564721970849
+};
+
+var geocodeViewport = {
+  northeast: {
+    lat: 39.29024048029149,
+    lng: -76.60564721970849
+  },
+  southwest: {
+    lat: 39.2875425197085,
+    lng: -76.6083451802915
+  }
+};
 
 var mockData1 = {
   "type": "FeatureCollection",
