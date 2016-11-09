@@ -68,7 +68,7 @@ var defaultMapStyle = function(feature) {
 function parseGeoserverResponse(resp){
   // on successful fetch of new features in the bbox, compare old with new and update the map
   if (resp.totalFeatures === null || resp.totalFeatures === undefined){
-    console.error('Error Fetching from GeoServer', this.url, resp);
+    console.error('Error Fetching from GeoServer', resp);
   } else if (resp.totalFeatures > 0){
     mapGeoJson.diffData(resp);
     if (mapGeoJson.featuresToAdd.totalFeatures > 0) {
@@ -82,7 +82,7 @@ function parseGeoserverResponse(resp){
       });
     }
   } else {
-    console.warn('No features returned by Geoserver', this.url);
+    console.warn('No features returned by Geoserver');
   }
   return mapGeoJson;
 };
@@ -111,37 +111,13 @@ function updateMap(options, callback){
 };
 
 //jump to location on the map based on the geocode viewport object
+// how do i test this damn code????
 function jumpToLocation(geocodeViewport){
   var newBounds = new google.maps.LatLngBounds(
          new google.maps.LatLng(geocodeViewport.southwest.lat, geocodeViewport.southwest.lng), // SW
          new google.maps.LatLng(geocodeViewport.northeast.lat, geocodeViewport.northeast.lng)    // NE
   );
+
   map.fitBounds(newBounds);
   return map.getBounds();
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
