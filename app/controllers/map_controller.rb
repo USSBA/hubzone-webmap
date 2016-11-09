@@ -10,12 +10,11 @@ class MapController < ApplicationController
 
   def search
     query = params[:search] ||= ' '
-    response = Excon.get(MAP_CONFIG[:hubzone_api_host] + '/search?q=' + query)
+    response = Excon.get(MAP_CONFIG[:hubzone_api_host] + '/search?q=' + query.gsub(/&/, '%26'))
     @body = response.data[:body]
     respond_to do |format|
       format.html {}
       format.js {}
     end
-    # render json: response.body, status: response.status
   end
 end

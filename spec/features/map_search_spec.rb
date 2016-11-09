@@ -18,4 +18,11 @@ describe 'Map search', type: :feature, js: true do
       expect(page).to have_content('Not Qualified')
     end
   end
+  context 'when searching for intersection' do
+    it "should return the full address of the intersection" do
+      fill_in 'search', with: '25th & st. paul, baltimore'
+      click_button 'hubzone-search-button'
+      expect(page).to have_content('St Paul St & E 25th St, Baltimore, MD 21218, USA')
+    end
+  end
 end
