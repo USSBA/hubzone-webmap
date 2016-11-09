@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe "the map loads", js: true, type: :feature do
   before do
     visit('/map')
