@@ -1,3 +1,9 @@
 console.log('hello');
-var body = JSON.parse('<%= @body.html_safe %>');
-console.log(body);
+var responseBody = JSON.parse('<%= @body.html_safe %>');
+console.log(responseBody);
+$('#search-address').html(responseBody.formatted_address);
+
+var hubzoneStatus = (responseBody.hubzone.length > 0) ? 'Qualifed HUBZone': 'Not Qualified';
+$('#hubzone-status').html(hubzoneStatus);
+sidebar.open('home');
+jumpToLocation(responseBody.geometry.viewport);

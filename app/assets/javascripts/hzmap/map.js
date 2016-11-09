@@ -109,3 +109,39 @@ function updateMap(options, callback){
   mapScope.data.setStyle(defaultMapStyle);
   return mapScope;
 };
+
+//jump to location on the map based on the geocode viewport object
+function jumpToLocation(geocodeViewport){
+  var newBounds = new google.maps.LatLngBounds(
+         new google.maps.LatLng(geocodeViewport.southwest.lat, geocodeViewport.southwest.lng), // SW
+         new google.maps.LatLng(geocodeViewport.northeast.lat, geocodeViewport.northeast.lng)    // NE
+  );
+  map.fitBounds(newBounds);
+  return map.getBounds();
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
