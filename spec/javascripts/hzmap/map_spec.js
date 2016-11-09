@@ -102,6 +102,12 @@ var coordinates = {
   west: -98.35693359375
 }
 
+var Marker = {
+  setMap: function(map){
+    return map;
+  }
+};
+
 var mapScope = {
   fitBounds: function(){
     return 
@@ -205,7 +211,7 @@ describe ('Testing map operations', function() {
     expect(mapGeoJson.featuresToRemove).toEqual(mockFeaturesToRemove);
   });
 
-  it("should parse a viewport to LatLngBounds and set it to fitBounds", function(){
+  it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){
     var latLngBoundsSpy = spyOn(google.maps, 'LatLngBounds');
     var latLngSpy = spyOn(google.maps, 'LatLng');
     var fitBoundsSpy = spyOn(mapScope, 'fitBounds');
@@ -215,11 +221,35 @@ describe ('Testing map operations', function() {
     expect(google.maps.LatLng).toHaveBeenCalledTimes(2);
     expect(mapScope.fitBounds).toHaveBeenCalledTimes(1);
   });
+
+  it("should add a marker object", function(){
+    //this code touches all 3 marker functions (updateMarkers, setMapOnAll, clearMarkers)
+    var markerSpy = spyOn(google.maps, 'Marker');
+    var markerSetSpy = spyOn(Marker, 'setMap');
+
+    updateMarkers(markerLocation);
+    expect(google.maps.Marker).toHaveBeenCalledTimes(1);
+    expect(Marker.setMap).toHaveBeenCalledTimes(1);
+    expect(mapMarkers[0]).not.toEqual(Marker);  //because the test replaces it with a new spy from google.maps.Marker
+  });
+
+
 });
 
 
+
+////////////////////////////////////////////////////////////////////////////
 //  testing data
+////////////////////////////////////////////////////////////////////////////
+
+var mapMarkers = [ Marker]
+
 var mockFeaturesToRemove = [1805758];
+
+var markerLocation = {  
+  lat: 39.29024048029149,  
+  lng: -76.60564721970849
+};
 
 var geocodeViewport = {
   northeast: {

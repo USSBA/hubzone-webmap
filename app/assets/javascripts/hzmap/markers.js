@@ -3,11 +3,6 @@
 // Removes the markers from the map, but keeps them in the array.
 function clearMarkers() {
   setMapOnAll(null);
-};
-
-// Deletes all markers in the array by removing references to them.
-function deleteMarkers() {
-  clearMarkers();
   mapMarkers = [];
 };
 
@@ -20,7 +15,7 @@ function setMapOnAll(map) {
 
 // add a marker to the map, removing any other markers
 function updateMarkers(geocodeLocation){
-  deleteMarkers();
+  clearMarkers();
   var marker = new google.maps.Marker({
     position: geocodeLocation,
     map: mapScope
