@@ -8,13 +8,7 @@ var geomUniqID = 'id';
 var googleCDNURL = 'https://maps.googleapis.com/maps/api/js?key=<%=MAP_CONFIG[:google_api_key]%>'
 var mapMarkers = [];
 
-var geomWFSSettings = {
-  urlRoot: '<%= MAP_CONFIG[:geomWFSSettings]["urlRoot"] %>',
-  db: '<%= MAP_CONFIG[:geomWFSSettings]["db"] %>',
-  table: '<%= MAP_CONFIG[:geomWFSSettings]["table"] %>',
-  srs: '<%= MAP_CONFIG[:geomWFSSettings]["srs"] %>'
-};
-
+var geomWFSSettings = JSON.parse('<%= MAP_CONFIG[:geomWFSSettings].to_json %>');
 
 //define a new MapGeoJson class function
 var MapGeoJson = function(){

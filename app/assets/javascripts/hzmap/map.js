@@ -111,13 +111,10 @@ function updateMap(options, callback){
 };
 
 //jump to location on the map based on the geocode viewport object
-// how do i test this damn code????
 function jumpToLocation(geocodeViewport){
   var newBounds = new google.maps.LatLngBounds(
-         new google.maps.LatLng(geocodeViewport.southwest.lat, geocodeViewport.southwest.lng), // SW
-         new google.maps.LatLng(geocodeViewport.northeast.lat, geocodeViewport.northeast.lng)    // NE
+    new google.maps.LatLng(geocodeViewport.southwest.lat, geocodeViewport.southwest.lng),
+    new google.maps.LatLng(geocodeViewport.northeast.lat, geocodeViewport.northeast.lng)
   );
-
-  map.fitBounds(newBounds);
-  return map.getBounds();
+  mapScope.fitBounds(newBounds);
 };

@@ -21,7 +21,6 @@ function setMapOnAll(map) {
 // add a marker to the map, removing any other markers
 function updateMarkers(geocodeLocation){
   deleteMarkers();
-  console.log(geocodeLocation);
   var marker = new google.maps.Marker({
     position: geocodeLocation,
     map: mapScope
