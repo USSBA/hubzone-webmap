@@ -32,6 +32,7 @@ group :development, :test do
   gem 'chromedriver-helper'
   gem 'selenium-webdriver'
   gem 'jasmine-rails'
+  gem 'rubocop'
 end
 
 group :development do
