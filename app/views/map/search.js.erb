@@ -1,7 +1,7 @@
 var responseBody = JSON.parse('<%= @body.html_safe %>');
 $('#search-address').html(responseBody.formatted_address);
 
-var hubzoneStatus = (responseBody.hubzone.length > 0) ? 'Qualifed HUBZone': 'Not Qualified';
+var hubzoneStatus = (responseBody.hubzone.length > 0) ? 'Qualified HUBZone': 'Not Qualified';
 $('#hubzone-status').html(hubzoneStatus);
 
 
