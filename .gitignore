@@ -17,3 +17,6 @@ vendor/bundle
 
 # Ignore Byebug command history file.
 .byebug_history
+
+# Ignore coverage reports
+coverage
