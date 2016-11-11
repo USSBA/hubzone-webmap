@@ -66,6 +66,7 @@ ul.hubzone-filter-menu a{
   position: absolute;
   top: 0;
   bottom: 0;
+  height: 100%;
   width: 100%;
   overflow: hidden;
   z-index: 2000; }
@@ -73,8 +74,6 @@ ul.hubzone-filter-menu a{
     width: 40px; }
   @media (min-width: 768px) {
     .sidebar {
-      top: 10px;
-      bottom: 10px;
       transition: width 500ms; } }
   @media (min-width: 768px) and (max-width: 991px) {
     .sidebar {
@@ -94,35 +93,32 @@ ul.hubzone-filter-menu a{
 
 .sidebar-right {
   right: 0; }
-  @media (min-width: 768px) {
-    .sidebar-right {
-      right: 10px; } }
+
 
 .sidebar-tabs {
   top: 0;
   bottom: 0;
-  height: 100%;
-  background-color: #fff; }
+  height: 100%; }
   .sidebar-left .sidebar-tabs {
     left: 0; }
   .sidebar-right .sidebar-tabs {
-    right: 0; }
+    height: 60px;
+    right: 0;
+    top: 10px; }
   .sidebar-tabs, .sidebar-tabs > ul {
-    position: absolute;
-    width: 40px;
-    margin: 0;
+    position: relative;
     padding: 0; }
     .sidebar-tabs > li, .sidebar-tabs > ul > li {
       width: 100%;
-      height: 40px;
       color: #666;
       font-size: 12pt;
       overflow: hidden;
       transition: all 80ms; }
       .sidebar-tabs > li:hover, .sidebar-tabs > ul > li:hover {
-        background-color: #fff; }
+
+      }
       .sidebar-tabs > li.active, .sidebar-tabs > ul > li.active {
-        background-color: #fff; }
+      }
       .sidebar-tabs > li.disabled, .sidebar-tabs > ul > li.disabled {
         color: rgba(102, 102, 102, 0.4); }
         .sidebar-tabs > li.disabled:hover, .sidebar-tabs > ul > li.disabled:hover {
@@ -131,12 +127,17 @@ ul.hubzone-filter-menu a{
           cursor: default; }
       .sidebar-tabs > li > a, .sidebar-tabs > ul > li > a {
         display: block;
-        width: 100%;
-        height: 100%;
+        height: 60px;
+        width: 30px;
+        margin-left: 10px;
         line-height: 40px;
-        color: inherit;
+        padding-top: 10px;
+        color: #fff;
+        background-color: #0071BB;
         text-decoration: none;
-        text-align: center; }
+        text-align: center;
+        border-radius: 8px 0px 0px 8px;
+        font-size: 2.4rem; }
   .sidebar-tabs > ul + ul {
     bottom: 0; }
 
@@ -151,8 +152,7 @@ ul.hubzone-filter-menu a{
     left: 40px;
     right: 0; }
   .sidebar-right .sidebar-content {
-    left: 0;
-    right: 40px; }
+    left: 40px; }
   .sidebar.collapsed > .sidebar-content {
     overflow-y: hidden; }
 
@@ -160,8 +160,7 @@ ul.hubzone-filter-menu a{
   display: none;
   left: 0;
   right: 0;
-  box-sizing: border-box;
-  padding: 10px 20px; }
+  box-sizing: border-box;}
   .sidebar-pane.active {
     display: block; }
   @media (min-width: 768px) and (max-width: 991px) {
@@ -209,8 +208,7 @@ ul.hubzone-filter-menu a{
       margin-right: 0; } }
 
 .sidebar {
-  border-right: 0;
-  box-shadow: rgba(0, 0, 0, 0.298039) 0 1px 4px -1px; }
+  border-right: 0;}
   @media (min-width: 768px) {
     .sidebar {
       border: 0;
@@ -238,6 +236,41 @@ ul.hubzone-filter-menu a{
 @media (min-width: 768px) {
   .sidebar-right.collapsed ~ .sidebar-map .gm-style > div.gmnoprint[style*="right: 28px"] {
     margin-right: 60px !important; } }
+
+.sidebar-search-address {
+  color: #112E51;
+  padding: 1rem;
+}
+.sidebar-search-address h2#search-address {
+  font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
+  font-size: 3rem;
+  font-weight: normal;
+  margin-top: 1rem;
+  margin-left: 6.5rem;
+  padding: 0rem 1rem;
+}
+.sidebar-search-address i.fa.fa-map-marker {
+  position: absolute;
+  font-size: 6rem;
+  margin: 2rem 0rem 0rem 2rem;
+}
+.sidebar-hubzone-status h2#hubzone-status {
+  font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
+  font-size: 4rem;
+  padding: 2rem 0rem 2rem 3rem;
+  margin-top: 0rem;
+}
+.sidebar-hubzone-status {
+  background-color: #112E51;
+  color: #fff;
+}
+.sidebar-hubzone-status i.fa.fa-times-circle-o, i.fa.fa-times-check-circle-o{
+  margin-right: 2rem;
+}
+
+
+
+
 
 /* Map Body */
 .map-body {
