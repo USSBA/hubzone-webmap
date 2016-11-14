@@ -54,12 +54,26 @@ var getUrl = function(bbox) {
 };
 
 var defaultMapStyle = function(feature) {
-  var color = '#205493';
+  var hzType = feature.getProperty('hztype');
+  var color = '';
+  switch(hzType) {
+    case 'indianLands':
+      color = '#fdb81e';
+      break;
+    case 'brac':
+      color = '#2e8540';
+      break;
+    case 'qct':
+      color = '#205493';
+      break;
+  };
+
+  // var color = '#205493';
   return {
     fillColor: color,
     opacity: 0.75,
-    strokeWeight: 1
-  }
+    strokeWeight: 0.5
+  };
 };
 
 //callback for handling the goeserver response
