@@ -18,11 +18,11 @@ function updateMarkers(geocodeLocation){
   clearMarkers();
   var marker = new google.maps.Marker({
     position: geocodeLocation,
-    map: mapScope
+    map: mapScope,
+    icon: new google.maps.MarkerImage('/assets/hubzone-map-marker.svg')
   });
   mapMarkers.push(marker);
 };
-
 
 
 
