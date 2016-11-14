@@ -223,53 +223,57 @@ ul.hubzone-filter-menu a{
 
 @media (min-width: 768px) and (max-width: 991px) {
   .sidebar-right ~ .sidebar-map .gm-style > div.gmnoprint[style*="right: 28px"] {
-    margin-right: 325px !important; } }
+    margin-right: 310px !important; } }
 
 @media (min-width: 992px) and (max-width: 1199px) {
   .sidebar-right ~ .sidebar-map .gm-style > div.gmnoprint[style*="right: 28px"] {
-    margin-right: 410px !important; } }
+    margin-right: 395px !important; } }
 
 @media (min-width: 1200px) {
   .sidebar-right ~ .sidebar-map .gm-style > div.gmnoprint[style*="right: 28px"] {
-    margin-right: 480px !important; } }
+    margin-right: 465px !important; } }
 
 @media (min-width: 768px) {
   .sidebar-right.collapsed ~ .sidebar-map .gm-style > div.gmnoprint[style*="right: 28px"] {
-    margin-right: 60px !important; } }
+    margin-right: 40px !important; } }
+
 
 .sidebar-search-address {
-  color: #112E51;
-  padding: 1rem;
-}
-.sidebar-search-address h2#search-address {
   font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
-  font-size: 3rem;
-  font-weight: normal;
-  margin-top: 1rem;
-  margin-left: 6.5rem;
-  padding: 0rem 1rem;
+  color: #112E51;
+  min-height: 12rem;
+  padding: 2rem;
+  display: table;
 }
 .sidebar-search-address i.fa.fa-map-marker {
   position: absolute;
   font-size: 6rem;
-  margin: 2rem 0rem 0rem 2rem;
+  left: 2.2rem;
+  top: 3rem;
 }
-.sidebar-hubzone-status h2#hubzone-status {
-  font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
-  font-size: 4rem;
-  padding: 2rem 0rem 2rem 3rem;
-  margin-top: 0rem;
+.sidebar-search-address h2#search-address {
+  font-family: inherit;
+  font-size: 3rem;
+  font-weight: normal;
+  padding: 0rem 2rem 0rem 5rem;
+  display: table-cell;
+  vertical-align: middle;
 }
 .sidebar-hubzone-status {
+  font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
   background-color: #112E51;
   color: #fff;
+  padding: 2rem;
 }
-.sidebar-hubzone-status i.fa.fa-times-circle-o, i.fa.fa-times-check-circle-o{
-  margin-right: 2rem;
+.sidebar-hubzone-status h2#hubzone-status {
+  font-family: inherit;
+  font-size: 4rem;
+  margin: 0rem;
 }
-
-
-
+.sidebar-hubzone-status i.fa.fa-times-circle-o, i.fa.fa-check-circle-o{
+  padding-right: 1.5rem;
+  padding-left: .3rem;
+}
 
 
 /* Map Body */
