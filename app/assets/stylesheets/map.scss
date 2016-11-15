@@ -61,164 +61,28 @@ ul.hubzone-filter-menu a{
   background-color: #122E51;
 }
 
-
-
 /* Map Sidebar */
-.sidebar {
+#sidebar{
   position: absolute;
-  top: 0;
-  bottom: 0;
+  background-color: #fff;
+  right: -40rem;
   height: 100%;
-  width: 100%;
-  z-index: 2000; }
-  .sidebar.collapsed {
-    width: 40px;
-  }
-  @media (min-width: 768px) {
-    .sidebar {
-      transition: width 500ms; } }
-  @media (min-width: 768px) and (max-width: 991px) {
-    .sidebar {
-      width: 305px; } }
-  @media (min-width: 992px) and (max-width: 1199px) {
-    .sidebar {
-      width: 390px; } }
-  @media (min-width: 1200px) {
-    .sidebar {
-      width: 460px; } }
-
-.sidebar-left {
-  left: 0; }
-  @media (min-width: 768px) {
-    .sidebar-left {
-      left: 10px; } }
-
-.sidebar-right {
-  right: 0; }
-
-
-.sidebar-tabs { }
-  .sidebar-left .sidebar-tabs {
-    left: 0; }
-  .sidebar-right .sidebar-tabs {
- }
-  .sidebar-tabs, .sidebar-tabs > ul {
-    list-style-type: none;
-    padding: 0; }
-    .sidebar-tabs > li, .sidebar-tabs > ul > li {
-      width: 100%;
-      color: #666;
-      font-size: 12pt;
-      transition: all 80ms; }
-      .sidebar-tabs > li:hover, .sidebar-tabs > ul > li:hover {
-
-      }
-      .sidebar-tabs > li.active, .sidebar-tabs > ul > li.active {
-      }
-      .sidebar-tabs > li.disabled, .sidebar-tabs > ul > li.disabled {
-        color: rgba(102, 102, 102, 0.4); }
-        .sidebar-tabs > li.disabled:hover, .sidebar-tabs > ul > li.disabled:hover {
-          background: transparent; }
-        .sidebar-tabs > li.disabled > a, .sidebar-tabs > ul > li.disabled > a {
-          cursor: default; }
-      .sidebar-tabs > li > a, .sidebar-tabs > ul > li > a {
-        display: block;
-        height: 60px;
-        width: 30px;
-        margin-left: 10px;
-        line-height: 40px;
-        padding-top: 10px;
-        color: #fff;
-        background-color: #0071BB;
-        text-decoration: none;
-        text-align: center;
-        border-radius: 8px 0px 0px 8px;
-        font-size: 2.4rem; }
-  .sidebar-tabs > ul + ul {
-    bottom: 0; }
-
-.sidebar-content {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  background-color: rgba(255, 255, 255, 0.95);
-  overflow-x: hidden;
-  overflow-y: auto; }
-  .sidebar-left .sidebar-content {
-    left: 40px;
-    right: 0; }
-  .sidebar-right .sidebar-content {
-    left: 40px; }
-  .sidebar.collapsed > .sidebar-content {
-    overflow-y: hidden; }
-
-.sidebar-pane {
-  display: none;
-  left: 0;
-  right: 0;
+  width: 40rem;
+  transition-duration: 400ms;
+  z-index: 1;
 }
-  .sidebar-pane.active {
-    display: block; }
-  @media (min-width: 768px) and (max-width: 991px) {
-    .sidebar-pane {
-      min-width: 265px; } }
-  @media (min-width: 992px) and (max-width: 1199px) {
-    .sidebar-pane {
-      min-width: 350px; } }
-  @media (min-width: 1200px) {
-    .sidebar-pane {
-      min-width: 420px; } }
-
-.sidebar-header {
-  margin: -10px -20px 0;
-  height: 40px;
-  padding: 0 20px;
-  line-height: 40px;
-  font-size: 14.4pt;
-  background-color: #fff; }
-  .sidebar-right .sidebar-header {
-    padding-left: 40px; }
-
-.sidebar-close {
+#sidebar.on {
+  right: 0em;
+}
+#sidebar-button {
   position: absolute;
-  top: 0;
-  width: 40px;
-  height: 40px;
+  margin-left: -31px;
+  z-index: 2;
+  border-radius: 4px 0px 0px 4px;
+  font-size: 3rem;
+  padding: 2rem .5rem 2rem 0.5rem;
   text-align: center;
-  cursor: pointer; }
-  .sidebar-left .sidebar-close {
-    right: 0; }
-  .sidebar-right .sidebar-close {
-    left: 0; }
-
-.sidebar-left ~ .sidebar-map {
-  margin-left: 40px; }
-  @media (min-width: 768px) {
-    .sidebar-left ~ .sidebar-map {
-      margin-left: 0; } }
-
-.sidebar-right ~ .sidebar-map {
-  margin-right: 40px; }
-  @media (min-width: 768px) {
-    .sidebar-right ~ .sidebar-map {
-      margin-right: 0; } }
-
-.sidebar {
-  border-right: 0;}
-  @media (min-width: 768px) {
-    .sidebar {
-      border: 0;
-      border-radius: 2px; } }
-@media (min-width: 768px) {
-  .sidebar-right {
-    bottom: 24px; } }
-
-@media (min-width: 768px) {
-  .sidebar-right ~ .sidebar-map .gm-style > div.gmnoprint[style*="right: 28px"] {
-    transition: margin-right 500ms; } }
-
-
-
+}
 .sidebar-search-address {
   font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
   color: #112E51;

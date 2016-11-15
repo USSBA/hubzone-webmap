@@ -4,14 +4,7 @@ function initMap() {
     center: {lat: 35.5, lng: -97.5},
     zoom: 9,
     styles: googleMapsStyleConfig,
-    zoomControl: true,
-    zoomControlOptions: {
-        position: google.maps.ControlPosition.TOP_LEFT
-    },
-    streetViewControl: true,
-    streetViewControlOptions: {
-        position: google.maps.ControlPosition.TOP_LEFT
-    }
+    zoomControl: true
   });
 
   // adds listener that triggers whenever the map is idle to update with new features.
