@@ -44,16 +44,16 @@ function getBbox(mapScope) {
 
 var getUrl = function(bbox, currentZoom) {
 
-  var table = '';
-  if (currentZoom > 15) {
-    table = geomWFSSettings.tableHighRes;
-  } else if (currentZoom > 11){
-    table = geomWFSSettings.tableLowRes;
-  } else if (currentZoom > 9){
-    table = geomWFSSettings.tableLowerRes;
-  } else {
-    table = geomWFSSettings.tableLowestRes;
-  }
+  var table = geomWFSSettings.tableHighRes;
+  // if (currentZoom > 15) {
+  //   table = geomWFSSettings.tableHighRes;
+  // } else if (currentZoom > 11){
+  //   table = geomWFSSettings.tableLowRes;
+  // } else if (currentZoom > 9){
+  //   table = geomWFSSettings.tableLowerRes;
+  // } else {
+  //   table = geomWFSSettings.tableLowestRes;
+  // }
   
   return [
     geomWFSSettings.urlRoot,
