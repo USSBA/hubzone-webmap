@@ -111,6 +111,15 @@ var googleMapsStyleConfig = [
         ]
     },
     {
+        "featureType": "poi.park",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
         "featureType": "road",
         "elementType": "labels",
         "stylers": [

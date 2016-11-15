@@ -61,6 +61,8 @@ ul.hubzone-filter-menu a{
   background-color: #122E51;
 }
 
+
+
 /* Map Sidebar */
 .sidebar {
   position: absolute;
@@ -68,10 +70,10 @@ ul.hubzone-filter-menu a{
   bottom: 0;
   height: 100%;
   width: 100%;
-  overflow: hidden;
   z-index: 2000; }
   .sidebar.collapsed {
-    width: 40px; }
+    width: 40px;
+  }
   @media (min-width: 768px) {
     .sidebar {
       transition: width 500ms; } }
@@ -95,24 +97,18 @@ ul.hubzone-filter-menu a{
   right: 0; }
 
 
-.sidebar-tabs {
-  top: 0;
-  bottom: 0;
-  height: 100%; }
+.sidebar-tabs { }
   .sidebar-left .sidebar-tabs {
     left: 0; }
   .sidebar-right .sidebar-tabs {
-    height: 60px;
-    right: 0;
-    top: 10px; }
+ }
   .sidebar-tabs, .sidebar-tabs > ul {
-    position: relative;
+    list-style-type: none;
     padding: 0; }
     .sidebar-tabs > li, .sidebar-tabs > ul > li {
       width: 100%;
       color: #666;
       font-size: 12pt;
-      overflow: hidden;
       transition: all 80ms; }
       .sidebar-tabs > li:hover, .sidebar-tabs > ul > li:hover {
 
@@ -160,7 +156,7 @@ ul.hubzone-filter-menu a{
   display: none;
   left: 0;
   right: 0;
-  box-sizing: border-box;}
+}
   .sidebar-pane.active {
     display: block; }
   @media (min-width: 768px) and (max-width: 991px) {
@@ -221,21 +217,6 @@ ul.hubzone-filter-menu a{
   .sidebar-right ~ .sidebar-map .gm-style > div.gmnoprint[style*="right: 28px"] {
     transition: margin-right 500ms; } }
 
-@media (min-width: 768px) and (max-width: 991px) {
-  .sidebar-right ~ .sidebar-map .gm-style > div.gmnoprint[style*="right: 28px"] {
-    margin-right: 310px !important; } }
-
-@media (min-width: 992px) and (max-width: 1199px) {
-  .sidebar-right ~ .sidebar-map .gm-style > div.gmnoprint[style*="right: 28px"] {
-    margin-right: 395px !important; } }
-
-@media (min-width: 1200px) {
-  .sidebar-right ~ .sidebar-map .gm-style > div.gmnoprint[style*="right: 28px"] {
-    margin-right: 465px !important; } }
-
-@media (min-width: 768px) {
-  .sidebar-right.collapsed ~ .sidebar-map .gm-style > div.gmnoprint[style*="right: 28px"] {
-    margin-right: 40px !important; } }
 
 
 .sidebar-search-address {

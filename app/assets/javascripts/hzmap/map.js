@@ -4,7 +4,14 @@ function initMap() {
     center: {lat: 35.5, lng: -97.5},
     zoom: 9,
     styles: googleMapsStyleConfig,
-    zoomControl: true
+    zoomControl: true,
+    zoomControlOptions: {
+        position: google.maps.ControlPosition.TOP_LEFT
+    },
+    streetViewControl: true,
+    streetViewControlOptions: {
+        position: google.maps.ControlPosition.TOP_LEFT
+    }
   });
 
   // adds listener that triggers whenever the map is idle to update with new features.
@@ -54,7 +61,7 @@ var defaultMapStyle = function(feature) {
   var color = '#fad980';
   return {
     fillColor: color,
-    opacity: 0.75,
+    opacity: 0.90,
     strokeWeight: 0.3
   }
 };
