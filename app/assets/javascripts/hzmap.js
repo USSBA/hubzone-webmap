@@ -11,4 +11,3 @@
 // about supported directives.
 //
 //= require_tree ./hzmap
-//= require jquery-sidebar
