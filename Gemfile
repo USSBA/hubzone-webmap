@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'coffee-rails', '~> 4.2' # Use CoffeeScript for .coffee assets and views
+gem 'excon-rails' # Use excon rails for http requests
 gem 'font-awesome-rails', '>= 4.7.0' # Use Font Awesome for CSS Icons
 gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jquery-rails' # Use jquery as the JavaScript library
@@ -8,9 +9,10 @@ gem 'pg' # Use PostgreSQL as the database for Active Record
 gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
-gem 'turbolinks', '~> 5' # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
-gem 'excon-rails' # Use excon rails for http requests
+
+# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+# gem 'turbolinks', '~> 5'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -25,18 +27,19 @@ gem 'excon-rails' # Use excon rails for http requests
 
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'rspec-rails', '~> 3.5'
-  gem 'capybara'
-  gem 'poltergeist'
-  gem 'launchy'
   gem 'chromedriver-helper'
+  gem 'capybara' # allow interaction with DOM in tests
+  gem 'poltergeist'
+  gem 'jasmine-rails' # JavaScript testing
+  gem 'launchy'
+  gem 'rspec-rails', '~> 3.5' # Use RSpec for tests
+  gem 'rubocop' # Enforce ruby code style
   gem 'selenium-webdriver'
-  gem 'jasmine-rails'
-  gem 'rubocop'
+  gem 'simplecov', require: false # determine code coverage of tests
 end
 
 group :development do
-  gem 'better_errors'
+  gem 'better_errors' # show a much more friendly error page with a command line REPL
   gem 'binding_of_caller' # used by better_errors to provide a REPL in the error window
   gem 'listen', '~> 3.0.5'
   gem 'spring' # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
