@@ -14,15 +14,18 @@ function setMapOnAll(map) {
 };
 
 // add a marker to the map, removing any other markers
-function updateMarkers(geocodeLocation){
+function updateMarkers(geocodeLocation = null){
   clearMarkers();
-  var marker = new google.maps.Marker({
-    position: geocodeLocation,
-    map: mapScope
-  });
-  mapMarkers.push(marker);
-};
+  if (geocodeLocation !== null && geocodeLocation !== undefined){
+    var marker = new google.maps.Marker({
+      position: geocodeLocation,
+      map: mapScope,
+      icon: new google.maps.MarkerImage('/assets/hubzone-map-marker.svg')
+    });
 
+    mapMarkers.push(marker);
+  }
+};
 
 
 

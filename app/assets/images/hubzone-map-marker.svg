@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="37px" viewBox="0 0 26 37" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
+    <title>Map Marker 3 Alt Copy 4</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="HUBZone-Maps" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="HUBZone-Map-Fresh-Search-Result" transform="translate(-707.000000, -560.000000)">
+            <g id="Map-Marker-3-Alt-Copy-4" transform="translate(707.000000, 560.000000)">
+                <path d="M13.0477356,36.9329006 C13.0477356,36.9329006 15.5365941,32.3665797 18.018467,27.7926073 C22.0127263,20.4313794 26,16.3027642 26,13.0625 C26,5.84828046 20.1797017,5.40012479e-13 13,5.40012479e-13 C5.82029825,5.40012479e-13 0,5.84828046 0,13.0625 C0,16.7129534 4.72052104,22.6883218 8.0211742,27.7926073 C11.2434469,32.7756815 13.0477356,36.9329006 13.0477356,36.9329006 Z" id="Oval" fill="#122E51"></path>
+                <circle id="Oval-2" fill="#FFFFFF" cx="13" cy="13" r="7"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

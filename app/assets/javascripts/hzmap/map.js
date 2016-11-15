@@ -18,7 +18,8 @@ function initMap() {
     var bbox = getBbox(mapScope);
 
     //build the fetch url from settings
-    var url = getUrl(bbox);
+    var currentZoom = mapScope.getZoom()
+    var url = getUrl(bbox, currentZoom);
 
     updateMap({
       mapScope: mapScope,
@@ -41,12 +42,24 @@ function getBbox(mapScope) {
   return [SWLng, SWLat, NELng, NELat].join(',');
 };
 
-var getUrl = function(bbox) {
+var getUrl = function(bbox, currentZoom) {
+
+  var table = geomWFSSettings.tableHighRes;
+  // if (currentZoom > 15) {
+  //   table = geomWFSSettings.tableHighRes;
+  // } else if (currentZoom > 11){
+  //   table = geomWFSSettings.tableLowRes;
+  // } else if (currentZoom > 9){
+  //   table = geomWFSSettings.tableLowerRes;
+  // } else {
+  //   table = geomWFSSettings.tableLowestRes;
+  // }
+  
   return [
     geomWFSSettings.urlRoot,
     'version=1.0.0',
     'request=GetFeature',
-    'typename=' + geomWFSSettings.db + ':' + geomWFSSettings.table,
+    'typename=' + geomWFSSettings.db + ':' + table,
     'outputFormat=application/json',
     'srsname=EPSG:'+ geomWFSSettings.srs,
     'bbox=' + bbox + ',EPSG:4326'
@@ -54,12 +67,23 @@ var getUrl = function(bbox) {
 };
 
 var defaultMapStyle = function(feature) {
-  var color = '#205493';
+  var hzType = feature.getProperty('hztype');
+  var color = '';
+
+  if (hzType === 'indianLands'){
+    color = '#fdb81e';
+  } else if (hzType === 'brac'  ){
+    color = '#2e8540';  
+  } else if (hzType === 'qct'){
+    color = '#205493';
+  }
+
+  // var color = '#205493';
   return {
     fillColor: color,
     opacity: 0.75,
-    strokeWeight: 1
-  }
+    strokeWeight: 0.5
+  };
 };
 
 //callback for handling the goeserver response
@@ -76,7 +100,7 @@ function parseGeoserverResponse(resp){
     }
     if (mapGeoJson.featuresToRemove.length > 0){
       mapScope.data.forEach(function(feature){
-        if (mapGeoJson.featuresToRemove.includes(feature.f[geomUniqID])){
+        if (mapGeoJson.featuresToRemove.includes(feature.getProperty('hztype') + '_' + feature.getProperty('sourceid') )){
           mapScope.data.remove(feature);
         }
       });

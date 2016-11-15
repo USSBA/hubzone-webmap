@@ -56,15 +56,16 @@ var MapGeoJson = function(){
       this.currentFeatures.features = this.featuresToAdd.features;
       this.currentFeatures.totalFeatures = this.featuresToAdd.totalFeatures;
       for (var i = 0; i < newData.features.length; i++) {
-      // for (var i = newData.features.length - 1; i >= 0; i--) {
-        this.currentFeaturesIDs.push(newData.features[i].properties[this.uniqueID]);
+        // this.currentFeaturesIDs.push(newData.features[i][this.uniqueID]);
+        this.currentFeaturesIDs.push(newData.features[i].properties['hztype'] + '_' + newData.features[i].properties['sourceid']);
       }
     } else {
       //get the ids of all the new features in one array and the features in another
       this.newFeaturesIDs = [];
       this.newFeatures = newData.features.map(function(feature){
-        var featureID = feature.properties[this.uniqueID]
-        this.newFeaturesIDs.push(featureID)
+        // var featureID = feature[this.uniqueID];
+        var featureID = feature.properties['hztype'] + '_' + feature.properties['sourceid'];
+        this.newFeaturesIDs.push(featureID);
         return feature;
       }, this);
 
@@ -74,7 +75,6 @@ var MapGeoJson = function(){
       //compare the new feature ids with the current feature ids, 
       //if any are missing from the current features, add them to the map and the 'updatedfeatures'
       for (var j = 0; j < this.newFeaturesIDs.length; j++) {
-      // for (var j = this.newFeaturesIDs.length - 1; j >= 0; j--) {
         if (!this.currentFeaturesIDs.includes(this.newFeaturesIDs[j])){
           
           //these are new and need to get added by google maps
@@ -89,9 +89,9 @@ var MapGeoJson = function(){
       //go across teh current features, if any are not in newfeatures, remove
       //else push them into updatedFeatures, which becomes the complete list
       for (var k = 0; k < this.currentFeaturesIDs.length; k++) {
-      // for (var k = this.currentFeaturesIDs.length - 1; k >= 0; k -- ){
         if (!this.newFeaturesIDs.includes(this.currentFeaturesIDs[k])){
-          this.featuresToRemove.push(this.currentFeatures.features[k].properties[this.uniqueID]);
+          // this.featuresToRemove.push(this.currentFeatures.features[k][this.uniqueID]);
+          this.featuresToRemove.push(this.currentFeatures.features[k].properties['hztype'] + '_' + this.currentFeatures.features[k].properties['sourceid']);
         } else {
           this.updatedFeatures.push(this.currentFeatures.features[k]);
           this.updatedFeaturesIDs.push(this.currentFeaturesIDs[k]);

@@ -50,9 +50,15 @@ var googleMapsStyleConfig = [{
   }]
 }, {
   "featureType": "administrative.province",
-  "stylers": [{
-    "visibility": "off"
-  }]
+  "elementType": "geometry.stroke",
+  "stylers": [
+    {
+      "color": "#808080"
+    },
+    {
+      "visibility": "on"
+    }
+  ]
 }, {
   "featureType": "water",
   "elementType": "labels",
