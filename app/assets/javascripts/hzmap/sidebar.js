@@ -32,8 +32,7 @@ $.fn.sidebar = function() {
 
 var sidebar = {};
 
-window.onload = function() {
-
+$(function() {
   sidebar = $('#sidebar').sidebar();
 
   $('#sidebar-button').click(function() {
@@ -45,4 +44,4 @@ window.onload = function() {
       $('#sidebar-button').html('<i class="fa fa-chevron-left"></i>');
     }
   })
-}
+});
