@@ -62,182 +62,68 @@ ul.hubzone-filter-menu a{
 }
 
 /* Map Sidebar */
-.sidebar {
+#sidebar{
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  overflow: hidden;
-  z-index: 2000; }
-  .sidebar.collapsed {
-    width: 40px; }
-  @media (min-width: 768px) {
-    .sidebar {
-      top: 10px;
-      bottom: 10px;
-      transition: width 500ms; } }
-  @media (min-width: 768px) and (max-width: 991px) {
-    .sidebar {
-      width: 305px; } }
-  @media (min-width: 992px) and (max-width: 1199px) {
-    .sidebar {
-      width: 390px; } }
-  @media (min-width: 1200px) {
-    .sidebar {
-      width: 460px; } }
-
-.sidebar-left {
-  left: 0; }
-  @media (min-width: 768px) {
-    .sidebar-left {
-      left: 10px; } }
-
-.sidebar-right {
-  right: 0; }
-  @media (min-width: 768px) {
-    .sidebar-right {
-      right: 10px; } }
-
-.sidebar-tabs {
-  top: 0;
-  bottom: 0;
+  background-color: #fff;
+  right: -38rem;
   height: 100%;
-  background-color: #fff; }
-  .sidebar-left .sidebar-tabs {
-    left: 0; }
-  .sidebar-right .sidebar-tabs {
-    right: 0; }
-  .sidebar-tabs, .sidebar-tabs > ul {
-    position: absolute;
-    width: 40px;
-    margin: 0;
-    padding: 0; }
-    .sidebar-tabs > li, .sidebar-tabs > ul > li {
-      width: 100%;
-      height: 40px;
-      color: #666;
-      font-size: 12pt;
-      overflow: hidden;
-      transition: all 80ms; }
-      .sidebar-tabs > li:hover, .sidebar-tabs > ul > li:hover {
-        background-color: #fff; }
-      .sidebar-tabs > li.active, .sidebar-tabs > ul > li.active {
-        background-color: #fff; }
-      .sidebar-tabs > li.disabled, .sidebar-tabs > ul > li.disabled {
-        color: rgba(102, 102, 102, 0.4); }
-        .sidebar-tabs > li.disabled:hover, .sidebar-tabs > ul > li.disabled:hover {
-          background: transparent; }
-        .sidebar-tabs > li.disabled > a, .sidebar-tabs > ul > li.disabled > a {
-          cursor: default; }
-      .sidebar-tabs > li > a, .sidebar-tabs > ul > li > a {
-        display: block;
-        width: 100%;
-        height: 100%;
-        line-height: 40px;
-        color: inherit;
-        text-decoration: none;
-        text-align: center; }
-  .sidebar-tabs > ul + ul {
-    bottom: 0; }
-
-.sidebar-content {
+  width: 38rem;
+  transition-duration: 400ms;
+  z-index: 1;
+}
+#sidebar.on {
+  right: 0em;
+}
+#sidebar-button {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  background-color: rgba(255, 255, 255, 0.95);
-  overflow-x: hidden;
-  overflow-y: auto; }
-  .sidebar-left .sidebar-content {
-    left: 40px;
-    right: 0; }
-  .sidebar-right .sidebar-content {
-    left: 0;
-    right: 40px; }
-  .sidebar.collapsed > .sidebar-content {
-    overflow-y: hidden; }
-
-.sidebar-pane {
-  display: none;
-  left: 0;
-  right: 0;
-  box-sizing: border-box;
-  padding: 10px 20px; }
-  .sidebar-pane.active {
-    display: block; }
-  @media (min-width: 768px) and (max-width: 991px) {
-    .sidebar-pane {
-      min-width: 265px; } }
-  @media (min-width: 992px) and (max-width: 1199px) {
-    .sidebar-pane {
-      min-width: 350px; } }
-  @media (min-width: 1200px) {
-    .sidebar-pane {
-      min-width: 420px; } }
-
-.sidebar-header {
-  margin: -10px -20px 0;
-  height: 40px;
-  padding: 0 20px;
-  line-height: 40px;
-  font-size: 14.4pt;
-  background-color: #fff; }
-  .sidebar-right .sidebar-header {
-    padding-left: 40px; }
-
-.sidebar-close {
+  margin-left: -3.4rem;
+  margin-top: 2.3rem;
+  padding: 2rem .5rem 2rem 0.8rem;
+  z-index: 2;
+  border-radius: 4px 0px 0px 4px;
+  font-size: 3rem;
+}
+.sidebar-search-address {
+  font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
+  color: #112E51;
+  min-height: 12rem;
+  width: 100%;
+  padding: 2rem;
+  display: table;
+}
+.sidebar-search-address i.fa.fa-map-marker {
   position: absolute;
-  top: 0;
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  cursor: pointer; }
-  .sidebar-left .sidebar-close {
-    right: 0; }
-  .sidebar-right .sidebar-close {
-    left: 0; }
+  font-size: 6rem;
+  left: 2.2rem;
+  top: 3rem;
+}
+.sidebar-search-address h2#search-address {
+  font-family: inherit;
+  font-size: 3rem;
+  font-weight: normal;
+  padding: 0rem 2rem 0rem 5rem;
+  display: table-cell;
+  vertical-align: middle;
+}
+.sidebar-hubzone-status {
+  font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
+  background-color: #112E51;
+  min-height: 10rem;
+  padding: 2.5rem 1rem 2.5rem 2rem;
+  width: 100%;
+  color: #fff;
+}
+.sidebar-hubzone-status h2#hubzone-status {
+  font-family: inherit;
+  font-size: 3.5rem;
+  margin: 0.2rem 0rem 0rem 5.5rem;
+}
+.sidebar-hubzone-status i.fa.fa-times-circle-o, i.fa.fa-check-circle-o {
+  position: absolute;
+  float: left;
+  font-size: 5rem;
+}
 
-.sidebar-left ~ .sidebar-map {
-  margin-left: 40px; }
-  @media (min-width: 768px) {
-    .sidebar-left ~ .sidebar-map {
-      margin-left: 0; } }
-
-.sidebar-right ~ .sidebar-map {
-  margin-right: 40px; }
-  @media (min-width: 768px) {
-    .sidebar-right ~ .sidebar-map {
-      margin-right: 0; } }
-
-.sidebar {
-  border-right: 0;
-  box-shadow: rgba(0, 0, 0, 0.298039) 0 1px 4px -1px; }
-  @media (min-width: 768px) {
-    .sidebar {
-      border: 0;
-      border-radius: 2px; } }
-@media (min-width: 768px) {
-  .sidebar-right {
-    bottom: 24px; } }
-
-@media (min-width: 768px) {
-  .sidebar-right ~ .sidebar-map .gm-style > div.gmnoprint[style*="right: 28px"] {
-    transition: margin-right 500ms; } }
-
-@media (min-width: 768px) and (max-width: 991px) {
-  .sidebar-right ~ .sidebar-map .gm-style > div.gmnoprint[style*="right: 28px"] {
-    margin-right: 325px !important; } }
-
-@media (min-width: 992px) and (max-width: 1199px) {
-  .sidebar-right ~ .sidebar-map .gm-style > div.gmnoprint[style*="right: 28px"] {
-    margin-right: 410px !important; } }
-
-@media (min-width: 1200px) {
-  .sidebar-right ~ .sidebar-map .gm-style > div.gmnoprint[style*="right: 28px"] {
-    margin-right: 480px !important; } }
-
-@media (min-width: 768px) {
-  .sidebar-right.collapsed ~ .sidebar-map .gm-style > div.gmnoprint[style*="right: 28px"] {
-    margin-right: 60px !important; } }
 
 /* Map Body */
 .map-body {

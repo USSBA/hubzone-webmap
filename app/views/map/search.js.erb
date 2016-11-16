@@ -1,14 +1,13 @@
 var responseBody = JSON.parse('<%= @body.html_safe %>');
-if (responseBody.status === 'OK'){
-  console.log(responseBody)
-  $('#search-address').html(responseBody.formatted_address);
 
-  var hubzoneStatus = (responseBody.hubzone.length > 0) ? 'Qualified HUBZone': 'Not Qualified';
-  $('#hubzone-status').html(hubzoneStatus);
+$('#search-address').html('<i class="fa fa-map-marker" aria-hidden="true"></i>' + responseBody.formatted_address);
 
-  jumpToLocation(responseBody.geometry.viewport);
-  updateMarkers(responseBody.geometry.location);  
-} else {
-  console.warn(responseBody);
-}
-sidebar.open('home');
+var hubzoneStatusIndicator = (responseBody.hubzone.length > 0) ? '<i class="fa fa-check-circle-o" aria-hidden="true"></i>': '<i class="fa fa-times-circle-o" aria-hidden="true"></i>';
+$('.hubzone-status-indicator').html(hubzoneStatusIndicator);
+
+var hubzoneStatus = (responseBody.hubzone.length > 0) ? 'Qualified HUBZone': 'Not Qualified';
+$('#hubzone-status').html(hubzoneStatus);
+
+sidebar.open();
+jumpToLocation(responseBody.geometry.viewport);
+updateMarkers(responseBody.geometry.location);

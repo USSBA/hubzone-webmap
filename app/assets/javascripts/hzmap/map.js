@@ -4,10 +4,7 @@ function initMap() {
     center: {lat: 35.5, lng: -97.5},
     zoom: 9,
     styles: googleMapsStyleConfig,
-    zoomControl: true,
-    zoomControlOptions: {
-      position: google.maps.ControlPosition.TOP_RIGHT
-    }
+    zoomControl: true
   });
 
   // adds listener that triggers whenever the map is idle to update with new features.
@@ -25,8 +22,8 @@ function initMap() {
       mapScope: mapScope,
       url: url
     }, parseGeoserverResponse);
-  
-  }); 
+
+  });
 
   //returns the map as a promise
   return map;
@@ -73,7 +70,7 @@ var defaultMapStyle = function(feature) {
   if (hzType === 'indianLands'){
     color = '#fdb81e';
   } else if (hzType === 'brac'  ){
-    color = '#2e8540';  
+    color = '#2e8540';
   } else if (hzType === 'qct'){
     color = '#205493';
   }
@@ -126,7 +123,7 @@ function updateMap(options, callback){
 
   //ajax request to geoserver for features,
   $.ajax({
-    url: url, 
+    url: url,
     success: function(resp){
       callback(resp);
     },
