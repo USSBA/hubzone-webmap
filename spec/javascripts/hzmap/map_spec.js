@@ -175,6 +175,7 @@ describe ('Testing map operations', function() {
   });
 
   xit("get url", function() {
+    // skipping this since it is implicitly being tested by the "updates the map" test
     var bbox = getBbox(mapScope);
     expect(getUrl(bbox)).toEqual("http://localhost:8080/geoserver/hubzone-test/ows?service=WFS&version=1.0.0&request=GetFeature&typename=hzgeo_dev:indian_lands&outputFormat=application/json&srsname=EPSG:4326&bbox=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637,EPSG:4326");
   });
@@ -245,7 +246,7 @@ describe ('Testing map operations', function() {
 
 var mapMarkers = [ Marker]
 
-var mockFeaturesToRemove = [1805758];
+var mockFeaturesToRemove = ['indianLands_582'];
 
 var markerLocation = {  
   lat: 39.29024048029149,  
@@ -269,110 +270,74 @@ var mockData1 = {
   "features": [
     {
       "type": "Feature",
-      "id": "indian_lands_lowestres.fid--34385219_15831175b90_-72ac",
+      "id": "hz_current_lowestres.114",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
           [
             [
-              [-95.72803, 39.704982],
               [-95.713734, 39.704843],
               [-95.71379, 39.697069],
               [-95.727995, 39.69713],
-              [-95.72803, 39.704982]
+              [-95.72803, 39.704982 ]
             ]
           ]
         ]
       },
       "geometry_name": "geom",
       "properties": {
-        "gid": 583,
-        "objectid": 583,
-        "id": 1805772,
-        "indian": "2036730",
-        "state": "20",
-        "census": "204910R",
-        "gnis": 2418987,
-        "name": "Kickapoo (KS) Reservation/Sac and Fox Nation Trust Land KS",
-        "type": "Joint Use Area",
-        "class": "American Indian Joint Use Area",
-        "recognitio": "Federal",
-        "land_area": 0.41,
-        "water_area": 0E-11,
-        "shape_leng": 0.0441588632638,
-        "shape_area": 0.000111364030592
+        "sourceid": 583,
+        "hztype": "indianLands"
       }
     },
     {
       "type": "Feature",
-      "id": "indian_lands_lowestres.fid--34385219_15831175b90_-72ab",
+      "id": "hz_current_lowestres.115",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
           [
             [
-              [-95.72803, 39.704982],
               [-95.728027, 39.824793],
               [-95.503444, 39.825089],
-              [-95.72803, 39.704982]
+              [-95.503249, 39.507281],
+              [-95.728189, 39.568686],
+              [-95.727995, 39.69713],
+              [-95.71379, 39.697069],
+              [-95.713734, 39.704843],
+              [-95.72803, 39.704982 ]
             ]
           ]
         ]
       },
       "geometry_name": "geom",
       "properties": {
-        "gid": 584,
-        "objectid": 584,
-        "id": 1805788,
-        "indian": "2036725",
-        "state": "20",
-        "census": "201770R",
-        "gnis": 479833,
-        "name": "Kickapoo (KS) KS",
-        "type": "Reservation",
-        "class": "American Indian Area (Reservation Only)",
-        "recognitio": "Federal",
-        "land_area": 236.27,
-        "water_area": 0.56,
-        "shape_leng": 1.06045556867,
-        "shape_area": 0.0643971748122
+        "sourceid": 584,
+        "hztype": "indianLands"
       }
     },
     {
       "type": "Feature",
-      "id": "indian_lands_lowestres.fid--34385219_15831175b90_-72aa",
+      "id": "hz_current_lowestres.601",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
           [
             [
-              [-95.942545,  39.37525],
+              [-95.942545,39.37525],
               [-95.942143, 39.420822],
               [-95.738544, 39.422111],
               [-95.738336, 39.260006],
               [-95.942477, 39.260081],
-              [-95.942545,  39.37525]
+              [-95.942545, 39.37525 ]
             ]
           ]
         ]
       },
       "geometry_name": "geom",
       "properties": {
-        "gid": 582,
-        "objectid": 582,
-        "id": 1805758,
-        "indian": "2057458",
-        "state": "20",
-        "census": "202980R",
-        "gnis": 1934332,
-        "name": "Prairie Band of Potawatomi Nation KS",
-        "type": "Reservation",
-        "class": "American Indian Area (Reservation Only)",
-        "recognitio": "Federal",
-        "land_area": 121.51,
-        "water_area": 0.07,
-        "shape_leng": 0.730793469679,
-        "shape_area": 0.0328984830648
+        "sourceid": 582,
+        "hztype": "indianLands"
       }
     }
   ],
@@ -390,215 +355,139 @@ var mockData2 = {
   "features": [
     {
       "type": "Feature",
-      "id": "indian_lands_lowestres.fid--34385219_15831175b90_-72a6",
+      "id": "hz_current_lowestres.114",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
           [
             [
-              [-95.72803, 39.704982],
-              [-95.713734, 39.704843],
-              [-95.71379, 39.697069],
+              [-95.72803,39.704982],
+              [95.713734,39.704843],
+              [-95.71379,39.697069],
+              [-95.727995,39.69713]
+            ]
+          ]
+        ]
+      },
+      "geometry_name": "geom",
+      "properties": {
+        "sourceid": 583,
+        "hztype": "indianLands"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "hz_current_lowestres.115",
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [-95.72803,39.704982],
+              [95.728027,39.824793],
+              [95.503444,39.825089],
+              [95.503249,39.507281],
+              [95.728189,39.568686],
               [-95.727995, 39.69713],
-              [-95.72803, 39.704982]
+              [-95.71379,39.697069],
+              [95.713734,39.704843]
             ]
           ]
         ]
       },
       "geometry_name": "geom",
       "properties": {
-        "gid": 583,
-        "objectid": 583,
-        "id": 1805772,
-        "indian": "2036730",
-        "state": "20",
-        "census": "204910R",
-        "gnis": 2418987,
-        "name": "Kickapoo (KS) Reservation/Sac and Fox Nation Trust Land KS",
-        "type": "Joint Use Area",
-        "class": "American Indian Joint Use Area",
-        "recognitio": "Federal",
-        "land_area": 0.41,
-        "water_area": 0E-11,
-        "shape_leng": 0.0441588632638,
-        "shape_area": 0.000111364030592
+        "sourceid": 584,
+        "hztype": "indianLands"
       }
     },
     {
       "type": "Feature",
-      "id": "indian_lands_lowestres.fid--34385219_15831175b90_-72a5",
+      "id": "hz_current_lowestres.585",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
           [
             [
-              [-95.72803, 39.704982],
-              [-95.728027, 39.824793],
-              [-95.503444, 39.825089],
-              [-95.72803, 39.704982]
+              [-95.45391,40.008235],
+              [-95.46307,40.000016],
+              [95.565376,40.000241],
+              [95.565737,40.002496],
+              [95.569048,40.003243]   
             ]
           ]
         ]
       },
       "geometry_name": "geom",
       "properties": {
-        "gid": 584,
-        "objectid": 584,
-        "id": 1805788,
-        "indian": "2036725",
-        "state": "20",
-        "census": "201770R",
-        "gnis": 479833,
-        "name": "Kickapoo (KS) KS",
-        "type": "Reservation",
-        "class": "American Indian Area (Reservation Only)",
-        "recognitio": "Federal",
-        "land_area": 236.27,
-        "water_area": 0.56,
-        "shape_leng": 1.06045556867,
-        "shape_area": 0.0643971748122
+        "sourceid": 586,
+        "hztype": "indianLands"
       }
     },
     {
       "type": "Feature",
-      "id": "indian_lands_lowestres.fid--34385219_15831175b90_-72a4",
+      "id": "hz_current_lowestres.586",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
           [
             [
-              [-95.45391, 40.008235],
-              [-95.46307, 40.000016],
-              [-95.44937, 40.011271],
-              [-95.45391, 40.008235]
+              [95.455283,40.000307],
+              [-95.45304,39.997518],
+              [95.435991,40.000207],
+              [95.472935,39.994356]
             ]
           ]
         ]
       },
       "geometry_name": "geom",
       "properties": {
-        "gid": 586,
-        "objectid": 586,
-        "id": 1805819,
-        "indian": "3142900",
-        "state": "31",
-        "census": "313285R",
-        "gnis": 479832,
-        "name": "Sac and Fox Nation NE",
-        "type": "Reservation",
-        "class": "American Indian Area (Reservation Only)",
-        "recognitio": "Federal",
-        "land_area": 23.05,
-        "water_area": 0E-11,
-        "shape_leng": 0.443691859806,
-        "shape_area": 0.00421480353154
+        "sourceid": 587,
+        "hztype": "indianLands"
       }
     },
     {
       "type": "Feature",
-      "id": "indian_lands_lowestres.fid--34385219_15831175b90_-72a3",
+      "id": "hz_current_lowestres.602",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
           [
             [
-              [-95.455283, 40.000307],
-              [-95.45304, 39.997518],
-              [-95.435991, 40.000207],
-              [-95.46307, 40.000016],
-              [-95.455283, 40.000307]
+              [-95.46307,40.000016],
+              [95.468492,39.996478],
+              [95.466714,39.995939],
+              [95.467085,39.994557]
             ]
           ]
         ]
       },
       "geometry_name": "geom",
       "properties": {
-        "gid": 587,
-        "objectid": 587,
-        "id": 1805836,
-        "indian": "2034462",
-        "state": "20",
-        "census": "201590R",
-        "gnis": 479831,
-        "name": "Iowa (KS-NE) KS",
-        "type": "Reservation",
-        "class": "American Indian Area (Reservation Only)",
-        "recognitio": "Federal",
-        "land_area": 19.65,
-        "water_area": 0.01,
-        "shape_leng": 0.393161846792,
-        "shape_area": 0.00372403038768
+        "sourceid": 585,
+        "hztype": "indianLands"
       }
     },
     {
       "type": "Feature",
-      "id": "indian_lands_lowestres.fid--34385219_15831175b90_-72a2",
+      "id": "hz_current_lowestres.603",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
           [
             [
-              [-95.46307, 40.000016],
-              [-95.468492, 39.996478],
-              [-95.565376, 40.000241],
-              [-95.46307, 40.000016]
+              [-95.46307,40.000016],
+              [95.468492,39.996478],
+              [95.466714,39.995939],
+              [95.467085,39.994557]
             ]
           ]
         ]
       },
       "geometry_name": "geom",
       "properties": {
-        "gid": 585,
-        "objectid": 585,
-        "id": 1805803,
-        "indian": "2062037",
-        "state": "20",
-        "census": "203285R",
-        "gnis": 479832,
-        "name": "Sac and Fox Nation KS",
-        "type": "Reservation",
-        "class": "American Indian Area (Reservation Only)",
-        "recognitio": "Federal",
-        "land_area": 23.05,
-        "water_area": 0E-11,
-        "shape_leng": 0.288600317928,
-        "shape_area": 0.00208166256094
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "indian_lands_lowestres.fid--34385219_15831175b90_-72a1",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-95.435991, 40.000207],
-              [-95.438506, 40.00022],
-              [-95.436988, 40.005926],
-              [-95.435173, 40.003801],
-              [-95.435991, 40.000207]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "gid": 588,
-        "objectid": 588,
-        "id": 1805859,
-        "indian": "3124160",
-        "state": "31",
-        "census": "311590R",
-        "gnis": 479831,
-        "name": "Iowa (KS-NE) NE",
-        "type": "Reservation",
-        "class": "American Indian Area (Reservation Only)",
-        "recognitio": "Federal",
-        "land_area": 19.65,
-        "water_area": 0.01,
-        "shape_leng": 0.279541462012,
-        "shape_area": 0.00164379498159
+        "sourceid": 588,
+        "hztype": "indianLands"
       }
     }
   ],
@@ -609,4 +498,3 @@ var mockData2 = {
     }
   }
 };
-
