@@ -1,7 +1,10 @@
 var responseBody = JSON.parse('<%= @body.html_safe %>');
 $('#search-address').html('<i class="fa fa-map-marker" aria-hidden="true"></i>' + responseBody.formatted_address);
 
-var hubzoneStatus = (responseBody.hubzone.length > 0) ? '<i class="fa fa-check-circle-o" aria-hidden="true"></i>Qualifed HUBZone': '<i class="fa fa-times-circle-o" aria-hidden="true"></i>Not Qualified';
+var hubzoneStatusIndicator = (responseBody.hubzone.length > 0) ? '<i class="fa fa-check-circle-o" aria-hidden="true"></i>': '<i class="fa fa-times-circle-o" aria-hidden="true"></i>';
+$('.hubzone-status-indicator').html(hubzoneStatusIndicator);
+
+var hubzoneStatus = (responseBody.hubzone.length > 0) ? 'Qualifed HUBZone': 'Not Qualified';
 $('#hubzone-status').html(hubzoneStatus);
 
 sidebar.open();
