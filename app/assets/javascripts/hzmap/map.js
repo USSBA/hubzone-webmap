@@ -88,7 +88,6 @@ var defaultMapStyle = function(feature) {
 //but its helper class (mapGeoJson) has been tested, and the ajax method that calls it was tested
 function parseGeoserverResponse(resp){
 
-  // logWithTime('got data time to draw it');
   // on successful fetch of new features in the bbox, compare old with new and update the map
   if (resp.totalFeatures === null || resp.totalFeatures === undefined){
     console.error('Error Fetching from GeoServer', resp);
@@ -107,7 +106,6 @@ function parseGeoserverResponse(resp){
   } else {
     console.warn('No features returned by Geoserver');
   }
-  // logWithTime('done drawing data');
   return mapGeoJson;
 };
 
@@ -117,9 +115,6 @@ function parseGeoserverResponse(resp){
 function updateMap(options, callback){
   var mapScope = options.mapScope;
   var url = options.url
-
-  startTime = Date.now();
-  // logWithTime('off to fetch new data');
 
   //ajax request to geoserver for features,
   $.ajax({
@@ -144,9 +139,4 @@ function jumpToLocation(geocodeViewport){
     new google.maps.LatLng(geocodeViewport.northeast.lat, geocodeViewport.northeast.lng)
   );
   mapScope.fitBounds(newBounds);
-};
-
-var startTime = 0;
-function logWithTime(message = 'here'){
-  console.log((Date.now() - startTime),  " ms" + ' - ' + message );
 };
