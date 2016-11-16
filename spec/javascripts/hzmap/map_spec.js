@@ -209,7 +209,6 @@ describe ('Testing map operations', function() {
     mapGeoJson.mapScope = mapScope;
     mapGeoJson.diffData(mockData1);
     mapGeoJson.diffData(mockData2);
-    console.log(mapGeoJson);
     expect(mapGeoJson.featuresToRemove).toEqual(mockFeaturesToRemove);
   });
 
@@ -246,7 +245,7 @@ describe ('Testing map operations', function() {
 
 var mapMarkers = [ Marker]
 
-var mockFeaturesToRemove = ['indianLands_582'];
+var mockFeaturesToRemove = ['indianLands_high_582'];
 
 var markerLocation = {  
   lat: 39.29024048029149,  
@@ -286,6 +285,7 @@ var mockData1 = {
       },
       "geometry_name": "geom",
       "properties": {
+        "res": "high",
         "sourceid": 583,
         "hztype": "indianLands"
       }
@@ -312,6 +312,7 @@ var mockData1 = {
       },
       "geometry_name": "geom",
       "properties": {
+        "res": "high",
         "sourceid": 584,
         "hztype": "indianLands"
       }
@@ -336,6 +337,7 @@ var mockData1 = {
       },
       "geometry_name": "geom",
       "properties": {
+        "res": "high",
         "sourceid": 582,
         "hztype": "indianLands"
       }
@@ -371,6 +373,7 @@ var mockData2 = {
       },
       "geometry_name": "geom",
       "properties": {
+        "res": "high",
         "sourceid": 583,
         "hztype": "indianLands"
       }
@@ -397,6 +400,7 @@ var mockData2 = {
       },
       "geometry_name": "geom",
       "properties": {
+        "res": "high",
         "sourceid": 584,
         "hztype": "indianLands"
       }
@@ -420,6 +424,7 @@ var mockData2 = {
       },
       "geometry_name": "geom",
       "properties": {
+        "res": "high",
         "sourceid": 586,
         "hztype": "indianLands"
       }
@@ -442,6 +447,7 @@ var mockData2 = {
       },
       "geometry_name": "geom",
       "properties": {
+        "res": "high",
         "sourceid": 587,
         "hztype": "indianLands"
       }
@@ -464,6 +470,7 @@ var mockData2 = {
       },
       "geometry_name": "geom",
       "properties": {
+        "res": "high",
         "sourceid": 585,
         "hztype": "indianLands"
       }
@@ -486,6 +493,7 @@ var mockData2 = {
       },
       "geometry_name": "geom",
       "properties": {
+        "res": "high",
         "sourceid": 588,
         "hztype": "indianLands"
       }
