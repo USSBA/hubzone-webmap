@@ -12,7 +12,10 @@ development:
   geomWFSSettings:
     urlRoot: 'http://localhost:8080/geoserver/hubzone-test/ows?service=WFS'
     db: 'hzgeo_dev'
-    table: 'hz_current_lowres'
+    tableHighRes: 'hz_current'
+    tableLowRes: 'hz_current_lowres'
+    tableLowerRes: 'hz_current_lowerres'
+    tableLowestRes: 'hz_current_lowestres'
     srs: '4326'
 
 test:

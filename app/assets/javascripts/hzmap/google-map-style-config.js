@@ -231,4 +231,3 @@ var googleMapsStyleConfig = [
         ]
     }
 ]
-

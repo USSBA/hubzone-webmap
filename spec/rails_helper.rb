@@ -73,4 +73,13 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # Mock by default and stub any request, returning the non-standard
+  # 598 Network read timeout error
+  #
+  config.before(:all) do
+    Excon.defaults[:mock] = true
+    Excon.stub({}, {:body => 'Fallback stub response', :status => 598})
+    # Add your own stubs here or in specific tests...
+  end
 end

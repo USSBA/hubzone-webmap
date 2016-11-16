@@ -4,7 +4,7 @@ $('#search-address').html('<i class="fa fa-map-marker" aria-hidden="true"></i>' 
 var hubzoneStatusIndicator = (responseBody.hubzone.length > 0) ? '<i class="fa fa-check-circle-o" aria-hidden="true"></i>': '<i class="fa fa-times-circle-o" aria-hidden="true"></i>';
 $('.hubzone-status-indicator').html(hubzoneStatusIndicator);
 
-var hubzoneStatus = (responseBody.hubzone.length > 0) ? 'Qualifed HUBZone': 'Not Qualified';
+var hubzoneStatus = (responseBody.hubzone.length > 0) ? 'Qualified HUBZone': 'Not Qualified';
 $('#hubzone-status').html(hubzoneStatus);
 
 sidebar.open();
