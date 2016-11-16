@@ -79,7 +79,7 @@ RSpec.configure do |config|
   #
   config.before(:all) do
     Excon.defaults[:mock] = true
-    Excon.stub({}, {:body => 'Fallback stub response', :status => 598})
+    Excon.stub({}, body: 'Fallback stub response', status: 598)
     # Add your own stubs here or in specific tests...
   end
 end
