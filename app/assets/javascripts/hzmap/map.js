@@ -134,9 +134,11 @@ function updateMap(options, callback){
 
 //jump to location on the map based on the geocode viewport object
 function jumpToLocation(geocodeViewport){
-  var newBounds = new google.maps.LatLngBounds(
-    new google.maps.LatLng(geocodeViewport.southwest.lat, geocodeViewport.southwest.lng),
-    new google.maps.LatLng(geocodeViewport.northeast.lat, geocodeViewport.northeast.lng)
-  );
-  mapScope.fitBounds(newBounds);
+  if (geocodeViewport){
+    var newBounds = new google.maps.LatLngBounds(
+      new google.maps.LatLng(geocodeViewport.southwest.lat, geocodeViewport.southwest.lng),
+      new google.maps.LatLng(geocodeViewport.northeast.lat, geocodeViewport.northeast.lng)
+    );
+    mapScope.fitBounds(newBounds);
+  }
 };

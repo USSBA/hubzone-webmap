@@ -1,13 +1,38 @@
 var responseBody = JSON.parse('<%= @body.html_safe %>');
+var addressContent = '';
+var hubzoneStatusIndicator = '';
+var hubzoneStatus = '';
+var geocodeLocation = null;
+var hubzoneStatusIndicator = '';
+$('#hubzone-qualifications').html('');
 
-$('#search-address').html('<i class="fa fa-map-marker" aria-hidden="true"></i>' + responseBody.formatted_address);
 
-var hubzoneStatusIndicator = (responseBody.hubzone.length > 0) ? '<i class="fa fa-check-circle-o" aria-hidden="true"></i>': '<i class="fa fa-times-circle-o" aria-hidden="true"></i>';
-$('.hubzone-status-indicator').html(hubzoneStatusIndicator);
+if (responseBody.http_status === 400){
+  addressContent = 'An error occurred!';
+  hubzoneStatusIndicator = 'fa fa-times-circle-o';
+} else if (responseBody.status === 'ZERO_RESULTS') {
+  addressContent = 'No location returned for this address';
+  hubzoneStatusIndicator = 'fa fa-times-circle-o';
+} else {
+  geocodeLocation = responseBody.geometry.location;
+  addressContent = responseBody.formatted_address;
+  if (responseBody.hubzone.length > 0){
+    hubzoneStatusIndicator = 'fa fa-check-circle-o';
+    hubzoneStatus = 'Qualified HUBZone';
+    responseBody.hubzone.forEach(function(hubzone){
+      $('#hubzone-qualifications').append('<li class="hubzone-qualification"> Qualified by ' + hubzone.hz_type + "</li>");
+    });
 
-var hubzoneStatus = (responseBody.hubzone.length > 0) ? 'Qualified HUBZone': 'Not Qualified';
+  } else {
+    hubzoneStatusIndicator = 'fa fa-times-circle-o';
+    hubzoneStatus = 'Not Qualified HUBZone';
+  }
+  jumpToLocation(responseBody.geometry.viewport);
+}
+
+$('#search-address').html('<i class="fa fa-map-marker" aria-hidden="true"></i>' + addressContent);
 $('#hubzone-status').html(hubzoneStatus);
-
+$('.hubzone-status-indicator i').removeClass();
+$('.hubzone-status-indicator i').addClass(hubzoneStatusIndicator);
 sidebar.open();
-jumpToLocation(responseBody.geometry.viewport);
-updateMarkers(responseBody.geometry.location);
+updateMarkers(geocodeLocation);
