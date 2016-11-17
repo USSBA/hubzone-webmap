@@ -51,7 +51,7 @@ var getUrl = function(bbox, currentZoom) {
   } else {
     table = geomWFSSettings.tableLowestRes;
   }
-  
+
   return [
     geomWFSSettings.urlRoot,
     'version=1.0.0',
@@ -68,18 +68,20 @@ var defaultMapStyle = function(feature) {
   var color = '';
 
   if (hzType === 'indianLands'){
-    color = '#fdb81e';
+    color = '#4A4A4A';
   } else if (hzType === 'brac'  ){
-    color = '#2e8540';
+    color = '#0571B0';
   } else if (hzType === 'qct'){
-    color = '#205493';
+    color = '#CA0020';
   }
 
   // var color = '#205493';
   return {
     fillColor: color,
-    opacity: 0.75,
-    strokeWeight: 0.5
+    fillOpacity: 0.5,
+    strokeWeight: 1.5,
+    strokeOpacity: .8,
+    strokeColor: color
   };
 };
 

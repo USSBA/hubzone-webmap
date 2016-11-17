@@ -34,7 +34,7 @@ en:
   header:
     skip_to_main: "Skip to main content"
   map:
-    enter_address: "Enter Address"
+    enter_address: "Enter address"
     filter: "Filter"
   api:
     success: "Success"
