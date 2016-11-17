@@ -41,10 +41,27 @@ img#sba-logo {
   max-width: 100%;
 }
 button#filter-button {
-  height: 5.5rem;
+  height: 100%;
   border: 3px solid #1A406E;
   margin-right: 1em;
   color: #fff;
+  padding-top: 1.5rem;
+  padding-left: 2.3rem;
+  background-image: none;
+}
+button#filter-button:hover {
+  height: 100%;
+  border: 3px solid #fff;
+  margin-right: 1em;
+  background-color: #fff;
+  color: #0071BB;
+}
+button#filter-button:focus {
+  height: 100%;
+  border: 3px solid #fff;
+  background-color: #fff;
+  margin-right: 1em;
+  color: #0071BB;
 }
 .usa-nav-primary > li:first-child {
   height: 5.5rem;
@@ -54,11 +71,19 @@ button#filter-button {
   z-index: 3;
 }
 ul.hubzone-filter-menu {
-  background-color: #122E51;
-  width: 250px;
+  background-color: #fff;
+  width: 27rem;
+  padding: 1rem 2rem 2rem 3rem;
 }
-ul.hubzone-filter-menu a{
-  background-color: #122E51;
+ul.hubzone-filter-menu li {
+  background-color: #fff;
+}
+ul.hubzone-filter-menu a {
+  background-color: #fff;
+}
+ul.hubzone-filter-menu label {
+  margin-top: 1.5rem;
+  color: #0071BB;
 }
 
 /* Map Sidebar */
@@ -123,7 +148,6 @@ ul.hubzone-filter-menu a{
   float: left;
   font-size: 5rem;
 }
-
 
 /* Map Body */
 .map-body {
