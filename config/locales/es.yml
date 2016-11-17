@@ -36,3 +36,12 @@ es:
   map:
     enter_address: "Ingresa la direccion"
     filter: "Filtrar"
+  api:
+    success: "Éxito"
+    error:
+      blank_search: "Search term is blank"
+      zero_results: "El término de búsqueda está en blanco"
+      invalid_requst: "Solicitud no válida"
+      over_query_limit: "Over query limit"
+      request_denied: "Sobre el límite de la consulta"
+      unknown_error: "Error desconocido"

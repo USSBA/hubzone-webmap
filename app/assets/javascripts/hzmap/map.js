@@ -42,16 +42,16 @@ function getBbox(mapScope) {
 var getUrl = function(bbox, currentZoom) {
 
   var table = geomWFSSettings.tableHighRes;
-  // if (currentZoom > 15) {
-  //   table = geomWFSSettings.tableHighRes;
-  // } else if (currentZoom > 11){
-  //   table = geomWFSSettings.tableLowRes;
-  // } else if (currentZoom > 9){
-  //   table = geomWFSSettings.tableLowerRes;
-  // } else {
-  //   table = geomWFSSettings.tableLowestRes;
-  // }
-
+  if (currentZoom > 15) {
+    table = geomWFSSettings.tableHighRes;
+  } else if (currentZoom > 11){
+    table = geomWFSSettings.tableLowRes;
+  } else if (currentZoom > 9){
+    table = geomWFSSettings.tableLowerRes;
+  } else {
+    table = geomWFSSettings.tableLowestRes;
+  }
+  
   return [
     geomWFSSettings.urlRoot,
     'version=1.0.0',
@@ -87,6 +87,7 @@ var defaultMapStyle = function(feature) {
 //block of code proves problematic to test since it relys on the google map functions addGeoJson, forEach, and remove...
 //but its helper class (mapGeoJson) has been tested, and the ajax method that calls it was tested
 function parseGeoserverResponse(resp){
+
   // on successful fetch of new features in the bbox, compare old with new and update the map
   if (resp.totalFeatures === null || resp.totalFeatures === undefined){
     console.error('Error Fetching from GeoServer', resp);
@@ -97,7 +98,7 @@ function parseGeoserverResponse(resp){
     }
     if (mapGeoJson.featuresToRemove.length > 0){
       mapScope.data.forEach(function(feature){
-        if (mapGeoJson.featuresToRemove.includes(feature.getProperty('hztype') + '_' + feature.getProperty('sourceid') )){
+        if (mapGeoJson.featuresToRemove.includes(feature.getProperty('hztype') + '_' + feature.getProperty('res') + '_' + feature.getProperty('sourceid') )){
           mapScope.data.remove(feature);
         }
       });

@@ -1,4 +1,5 @@
 var responseBody = JSON.parse('<%= @body.html_safe %>');
+
 $('#search-address').html('<i class="fa fa-map-marker" aria-hidden="true"></i>' + responseBody.formatted_address);
 
 var hubzoneStatusIndicator = (responseBody.hubzone.length > 0) ? '<i class="fa fa-check-circle-o" aria-hidden="true"></i>': '<i class="fa fa-times-circle-o" aria-hidden="true"></i>';

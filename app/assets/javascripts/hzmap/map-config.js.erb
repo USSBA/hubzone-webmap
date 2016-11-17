@@ -56,15 +56,14 @@ var MapGeoJson = function(){
       this.currentFeatures.features = this.featuresToAdd.features;
       this.currentFeatures.totalFeatures = this.featuresToAdd.totalFeatures;
       for (var i = 0; i < newData.features.length; i++) {
-        // this.currentFeaturesIDs.push(newData.features[i][this.uniqueID]);
-        this.currentFeaturesIDs.push(newData.features[i].properties['hztype'] + '_' + newData.features[i].properties['sourceid']);
+        var properties = newData.features[i].properties;
+        this.currentFeaturesIDs.push(properties['hztype'] + '_' + properties['res'] + '_' + properties['sourceid']);
       }
     } else {
       //get the ids of all the new features in one array and the features in another
       this.newFeaturesIDs = [];
       this.newFeatures = newData.features.map(function(feature){
-        // var featureID = feature[this.uniqueID];
-        var featureID = feature.properties['hztype'] + '_' + feature.properties['sourceid'];
+        var featureID = feature.properties['hztype'] + '_' + feature.properties['res'] + '_' + feature.properties['sourceid'];
         this.newFeaturesIDs.push(featureID);
         return feature;
       }, this);
@@ -90,8 +89,8 @@ var MapGeoJson = function(){
       //else push them into updatedFeatures, which becomes the complete list
       for (var k = 0; k < this.currentFeaturesIDs.length; k++) {
         if (!this.newFeaturesIDs.includes(this.currentFeaturesIDs[k])){
-          // this.featuresToRemove.push(this.currentFeatures.features[k][this.uniqueID]);
-          this.featuresToRemove.push(this.currentFeatures.features[k].properties['hztype'] + '_' + this.currentFeatures.features[k].properties['sourceid']);
+          var properties = this.currentFeatures.features[k].properties;
+          this.featuresToRemove.push(properties['hztype'] + '_' + properties['res'] + '_' + properties['sourceid']);
         } else {
           this.updatedFeatures.push(this.currentFeatures.features[k]);
           this.updatedFeaturesIDs.push(this.currentFeaturesIDs[k]);
