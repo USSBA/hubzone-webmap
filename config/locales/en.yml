@@ -51,5 +51,9 @@ en:
     indian_lands: "Indian Lands"
     military_bases_brac: "Former Military Bases (BRAC)"
     disaster_area: "Designated Disaster Area"
+  hubzone_status:
+    qualified: "Qualified HUBZone"
+    expiring: "Expiring"
+    not_qualified: "Not Qualified"
 
 
