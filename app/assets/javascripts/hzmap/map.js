@@ -68,11 +68,11 @@ var defaultMapStyle = function(feature) {
   var color = '';
 
   if (hzType === 'indianLands'){
-    color = '#4A4A4A';
-  } else if (hzType === 'brac'  ){
-    color = '#0571B0';
-  } else if (hzType === 'qct'){
     color = '#CA0020';
+  } else if (hzType === 'brac'  ){
+    color = '#4A4A4A';
+  } else if (hzType === 'qct'){
+    color = '#0571B0';
   }
 
   // var color = '#205493';
