@@ -39,9 +39,8 @@ en:
   api:
     success: "Success"
     error:
-      blank_search: "Search term is blank"
       zero_results: "Zero Results"
-      invalid_requst: "Invalid request"
+      invalid_request: "Invalid request"
       over_query_limit: "Over query limit"
       request_denied: "Request denied"
       unknown_error: "Unknown error"

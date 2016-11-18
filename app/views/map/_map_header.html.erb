@@ -32,6 +32,7 @@
       <li class="hubzone-search">
         <%= form_tag search_path, remote: true, method: :get, class: "usa-search usa-search-small" do %>
         <div id="map-search" role="search">
+          <%= hidden_field_tag "locale", I18n.locale %>
           <%= label_tag "search", 'HUBZone Map Search', class: "usa-sr-only" %>
           <%= search_field_tag "search", nil, placeholder: t('map.enter_address'), id: "search-field-small"%>
           <%= button_tag '<span class="usa-sr-only search-icon">Search</span>'.html_safe, id: "hubzone-search-button" %>
