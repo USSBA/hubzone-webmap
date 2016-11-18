@@ -74,7 +74,7 @@ var MapGeoJson = function(){
       //compare the new feature ids with the current feature ids, 
       //if any are missing from the current features, add them to the map and the 'updatedfeatures'
       for (var j = 0; j < this.newFeaturesIDs.length; j++) {
-        if (!this.currentFeaturesIDs.includes(this.newFeaturesIDs[j])){
+        if (this.currentFeaturesIDs.indexOf(this.newFeaturesIDs[j]) === -1){
           
           //these are new and need to get added by google maps
           this.featuresToAdd.features.push(this.newFeatures[j]);
@@ -88,7 +88,7 @@ var MapGeoJson = function(){
       //go across teh current features, if any are not in newfeatures, remove
       //else push them into updatedFeatures, which becomes the complete list
       for (var k = 0; k < this.currentFeaturesIDs.length; k++) {
-        if (!this.newFeaturesIDs.includes(this.currentFeaturesIDs[k])){
+        if (this.newFeaturesIDs.indexOf(this.currentFeaturesIDs[k]) === -1){
           var properties = this.currentFeatures.features[k].properties;
           this.featuresToRemove.push(properties['hztype'] + '_' + properties['res'] + '_' + properties['sourceid']);
         } else {
