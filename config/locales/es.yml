@@ -45,3 +45,9 @@ es:
       over_query_limit: "Over query limit"
       request_denied: "Sobre el límite de la consulta"
       unknown_error: "Error desconocido"
+  hubzone_assertions:
+    qualified_census_tract: "Tramo de Censo Calificado"
+    qualified_county: "Condado calificado"
+    indian_lands: "Tierras Indígenas"
+    military_bases_brac: "Antiguas bases militares (BRAC)"
+    disaster_area: "Área de Desastre Designada"

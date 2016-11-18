@@ -45,5 +45,11 @@ en:
       over_query_limit: "Over query limit"
       request_denied: "Request denied"
       unknown_error: "Unknown error"
+  hubzone_assertions:
+    qualified_census_tract: "Qualified Census Tract"
+    qualified_county: "Qualified County"
+    indian_lands: "Indian Lands"
+    military_bases_brac: "Former Military Bases (BRAC)"
+    disaster_area: "Designated Disaster Area"
 
 
