@@ -1,9 +1,9 @@
 <!-- Sidebar -->
-<%   
+<%
   # expecting body to be a hash that has either a message or a formatted_address and hubzones from hzutil search
   if body
     address = body['formatted_address'].nil? ? t(body['message']) : body['formatted_address']
-    
+
     if body['formatted_address'].nil?
       hubzone_status_indicator = 'fa fa-times-circle-o'
     elsif body['hubzone'].size > 0
@@ -32,7 +32,7 @@
   </h2>
 </div>
 <div class="sidebar-hubzone-qualifications">
-  <h2 class="hubzone-sidebar-qualifications"> 
+  <h2 class="hubzone-sidebar-qualifications">
     <%= t('hubzone_assertions.qualifications_title') %>
   </h2>
   <div id="hubzone-qualifications">
