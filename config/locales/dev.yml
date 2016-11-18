@@ -19,7 +19,7 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-es:
+dev:
   hubzone_map: "Mapa de HUBZone"
   usa_banner:
     title: "Un sitio web oficial del gobierno de los Estados Unidos"
@@ -39,13 +39,16 @@ es:
   api:
     success: "Éxito"
     error:
-      blank_search: "Search term is blank"
       zero_results: "El término de búsqueda está en blanco"
-      invalid_requst: "Solicitud no válida"
+      invalid_request: "Solicitud no válida"
       over_query_limit: "Over query limit"
       request_denied: "Sobre el límite de la consulta"
       unknown_error: "Error desconocido"
   hubzone_assertions:
+    qualified_by: "Calificado por: "
+    qualifications_title: "HUBZone Calificaciones"
+    qualified: "HUBZone Calificado"
+    not_qualified: "HUBZone No Calificado"
     qualified_census_tract: "Tramo de Censo Calificado"
     qualified_county: "Condado calificado"
     indian_lands: "Tierras Indígenas"
