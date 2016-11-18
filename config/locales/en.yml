@@ -39,13 +39,16 @@ en:
   api:
     success: "Success"
     error:
-      blank_search: "Search term is blank"
       zero_results: "Zero Results"
-      invalid_requst: "Invalid request"
+      invalid_request: "Invalid request"
       over_query_limit: "Over query limit"
       request_denied: "Request denied"
       unknown_error: "Unknown error"
   hubzone_assertions:
+    qualified_by: "Qualified by: "
+    qualifications_title: "HUBZone Qualifications"
+    qualified: "Qualified HUBZone"
+    not_qualified: "Not Qualified HUBZone"
     qualified_census_tract: "Qualified Census Tract"
     qualified_county: "Qualified County"
     indian_lands: "Indian Lands"

@@ -100,7 +100,8 @@ function parseGeoserverResponse(resp){
     }
     if (mapGeoJson.featuresToRemove.length > 0){
       mapScope.data.forEach(function(feature){
-        if (mapGeoJson.featuresToRemove.includes(feature.getProperty('hztype') + '_' + feature.getProperty('res') + '_' + feature.getProperty('sourceid') )){
+        var featureIDStr = feature.getProperty('hztype') + '_' + feature.getProperty('res') + '_' + feature.getProperty('sourceid'); 
+        if (mapGeoJson.featuresToRemove.indexOf(featureIDStr) !== -1){
           mapScope.data.remove(feature);
         }
       });
@@ -136,9 +137,11 @@ function updateMap(options, callback){
 
 //jump to location on the map based on the geocode viewport object
 function jumpToLocation(geocodeViewport){
-  var newBounds = new google.maps.LatLngBounds(
-    new google.maps.LatLng(geocodeViewport.southwest.lat, geocodeViewport.southwest.lng),
-    new google.maps.LatLng(geocodeViewport.northeast.lat, geocodeViewport.northeast.lng)
-  );
-  mapScope.fitBounds(newBounds);
+  if (geocodeViewport){
+    var newBounds = new google.maps.LatLngBounds(
+      new google.maps.LatLng(geocodeViewport.southwest.lat, geocodeViewport.southwest.lng),
+      new google.maps.LatLng(geocodeViewport.northeast.lat, geocodeViewport.northeast.lng)
+    );
+    mapScope.fitBounds(newBounds);
+  }
 };

@@ -1,9 +1,5 @@
-describe ('This is how jasmine works', function() {
-  it("can do basic math", function() {
-    expect(1 + 1).toEqual(2);
-  });
-
-  it ("also knows when math is wrong", function() {
-    expect(1 + 1).not.toEqual(3);
-  });
-});
+// describe ('This is how jasmine works', function() {
+//   it ("indexOf to work", function(){
+//     expect([1].indexOf(1) !== -1).toBe(true);
+//   })
+// });
