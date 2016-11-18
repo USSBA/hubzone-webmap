@@ -19,7 +19,7 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-es:
+dev:
   hubzone_map: "Mapa de HUBZone"
   usa_banner:
     title: "Un sitio web oficial del gobierno de los Estados Unidos"
