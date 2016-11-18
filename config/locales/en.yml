@@ -46,6 +46,10 @@ en:
       request_denied: "Request denied"
       unknown_error: "Unknown error"
   hubzone_assertions:
+    qualified_by: "Qualified by: "
+    qualifications_title: "HUBZone Qualifications"
+    qualified: "Qualified HUBZone"
+    not_qualified: "Not Qualified HUBZone"
     qualified_census_tract: "Qualified Census Tract"
     qualified_county: "Qualified County"
     indian_lands: "Indian Lands"

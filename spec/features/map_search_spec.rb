@@ -50,12 +50,12 @@ describe 'Map search', type: :feature, js: true do
     it "should display indian lands hubzone designation type" do
       fill_in 'search', with: queries[:qualified_multiple]
       click_button 'hubzone-search-button'
-      expect(page).to have_content("Qualified by " + responses[:qualified_multiple][:hubzone][0][:hz_type])
+      expect(page).to have_content(t("hubzone_assertions.qualified_by") + responses[:qualified_multiple][:hubzone][0][:hz_type])
     end
     it "should display qct hubzone designation type" do
       fill_in 'search', with: queries[:qualified_multiple]
       click_button 'hubzone-search-button'
-      expect(page).to have_content("Qualified by " + responses[:qualified_multiple][:hubzone][1][:hz_type])
+      expect(page).to have_content(t("hubzone_assertions.qualified_by") + responses[:qualified_multiple][:hubzone][1][:hz_type])
     end
   end
 
