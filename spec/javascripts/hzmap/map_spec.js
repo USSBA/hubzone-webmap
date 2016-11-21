@@ -146,10 +146,22 @@ var mapScope = {
 };
 var mapBounds = mapScope.getBounds();
 
+var map = {
+  mapTypes: {
+    set: function(){
+      return;
+    }
+  },
+  setMapTypeId: function(){
+    return;
+  }
+};
+
 describe ('Testing map operations', function() {
   beforeEach(function() {
-    var constructorSpy = spyOn(google.maps, 'Map').and.returnValue(['Map', 'map']);
+    var constructorSpy = spyOn(google.maps, 'Map').and.returnValue(map);
     var eventSpy = spyOn(google.maps.event, 'addListener');
+
 
     var mapScopeSpy = spyOn(mapScope, 'getBounds').and.returnValue(mapBounds);
     var northEastSpy = spyOn(mapBounds, 'getNorthEast').and.callThrough();
@@ -162,9 +174,16 @@ describe ('Testing map operations', function() {
   // });
 
   it("creates a new Google map", function() {
+    var styledMapTypeSpy = spyOn(google.maps, 'StyledMapType');
+    var mapTypesSetSpy = spyOn(map.mapTypes, 'set');
+    var mapSetMapTypIdSpy = spyOn(map, 'setMapTypeId');
+    
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map).toHaveBeenCalledTimes(1);
     expect(google.maps.event.addListener).toHaveBeenCalledTimes(1);
+    expect(google.maps.StyledMapType).toHaveBeenCalledTimes(1);
+    expect(map.mapTypes.set).toHaveBeenCalledTimes(1);
+    expect(map.setMapTypeId).toHaveBeenCalledTimes(1);
   });
 
   it("get bbox", function() {
