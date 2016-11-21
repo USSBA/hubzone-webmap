@@ -5,47 +5,38 @@
  * var sidebar = $('#sidebar').sidebar();
  */
 $.fn.sidebar = function() {
-    var $sidebar = this;
-    var $container = $('#sidebar');
+  var $sidebar = this;
+  var $container = $('#sidebar');
 
-    /*** Open the sidebar ***/
-    this.open = function() {
-        if (!this.hasClass('on')) {
-            this.addClass('on');
-            $('#sidebar-button').html('<i class="fa fa-chevron-right"></i>');
-            $('.gm-bundled-control').css('right', '410px');
-        } else {
-            console.log('sidebar already opened');
-        }
-    };
-
-    /*** Close the sidebar ***/
-    this.close = function() {
-        if (this.hasClass('on')) {
-            this.removeClass('on');
-            $('#sidebar-button').html('<i class="fa fa-chevron-left"></i>');
-            $('.gm-bundled-control').css('right', '28px');
-        } else {
-            console.log('sidebar already closed');
-        }
-    };
-    return $sidebar;
+  this.update = function() {
+    if (!$sidebar.hasClass('on')) {
+      $sidebar.addClass('on');
+      $('#sidebar-button').html('<i class="fa fa-chevron-right"></i>');
+      $('.gm-bundled-control').css('right', '410px');
+    } else {
+      $sidebar.removeClass('on');
+      $('#sidebar-button').html('<i class="fa fa-chevron-left"></i>');
+      $('.gm-bundled-control').css('right', '28px');
+    }
+  }
+  /*** Open the sidebar ***/
+  this.open = function() {
+    $sidebar.update();
+  };
+  /*** Close the sidebar ***/
+  this.close = function() {
+    $sidebar.update();
+  };
+  return $sidebar;
 };
 
 var sidebar = {};
 
+/* Sidebar button listener */
 $(function() {
   sidebar = $('#sidebar').sidebar();
 
   $('#sidebar-button').click(function() {
-    if(!$('#sidebar').hasClass('on')) {
-      sidebar.open();
-      $('#sidebar-button').html('<i class="fa fa-chevron-right"></i>');
-      $('.gm-bundled-control').css('right', '410px');
-    } else {
-      sidebar.close();
-      $('#sidebar-button').html('<i class="fa fa-chevron-left"></i>');
-      $('.gm-bundled-control').css('right', '28px');
-    }
+    $('#sidebar').hasClass('on') ? sidebar.close() : sidebar.open()
   })
 });

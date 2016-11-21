@@ -100,7 +100,7 @@ function parseGeoserverResponse(resp){
     }
     if (mapGeoJson.featuresToRemove.length > 0){
       mapScope.data.forEach(function(feature){
-        var featureIDStr = feature.getProperty('hztype') + '_' + feature.getProperty('res') + '_' + feature.getProperty('sourceid'); 
+        var featureIDStr = feature.getProperty('hztype') + '_' + feature.getProperty('res') + '_' + feature.getProperty('sourceid');
         if (mapGeoJson.featuresToRemove.indexOf(featureIDStr) !== -1){
           mapScope.data.remove(feature);
         }
