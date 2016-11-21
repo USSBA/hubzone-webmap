@@ -1,5 +1,5 @@
-/* Top Level Navigation */
-img#sba-logo {
+/* Top level navigation */
+#sba-logo {
   max-width: 11rem;
   float: left;
 }
@@ -16,25 +16,25 @@ img#sba-logo {
   top: -5.3rem;
 }
 
-/* Map Inputs/Navigation */
-#map-search input#search-field-small {
-  background-color: #1A406E;
-  border: 0px;
+/* Map inputs and controls */
+#map-search #search-field-small {
+  background-color: #1a406e;
+  border: 0;
   height: 5.3rem;
   font-size: 2.7rem;
   color: #fff;
 }
-#map-search input#search-field-small::-webkit-input-placeholder {
+#map-search #search-field-small::-webkit-input-placeholder {
   color: #efefef;
 }
-#map-search input#search-field-small::-moz-placeholder {
+#map-search #search-field-small::-moz-placeholder {
   color: #efefef;
 }
-#map-search input#search-field-small:-ms-input-placeholder {
+#map-search #search-field-small:-ms-input-placeholder {
   color: #efefef;
 }
 #map-search button {
-  background-color: #0071BB;
+  background-color: #0071bb;
   background-size: 45px;
   height: 5.3rem;
   float: left;
@@ -43,33 +43,33 @@ img#sba-logo {
 .usa-search.usa-search-small .usa-search-input {
   max-width: 100%;
 }
-button#filter-button {
+#filter-button {
   height: 100%;
-  border: 3px solid #1A406E;
+  border: 3px solid #1a406e;
   margin-right: 1em;
   color: #fff;
   padding-top: 1.5rem;
   padding-left: 2.5rem;
   background-image: none;
 }
-button#filter-button:hover {
+#filter-button:hover {
   height: 100%;
   border: 3px solid #fff;
   margin-right: 1em;
   background-color: #fff;
-  color: #0071BB;
+  color: #0071bb;
 }
-button#filter-button:focus {
+#filter-button:focus {
   height: 100%;
   border: 3px solid #fff;
   background-color: #fff;
   margin-right: 1em;
-  color: #0071BB;
+  color: #0071bb;
 }
 .usa-nav-primary > li:first-child {
   height: 5.3rem;
   float: left;
-  margin-left: 0rem;
+  margin-left: 0;
 }
 .usa-nav-submenu {
   z-index: 3;
@@ -87,11 +87,11 @@ ul.hubzone-filter-menu a {
 }
 ul.hubzone-filter-menu label {
   margin-top: 1.5rem;
-  color: #0071BB;
+  color: #0071bb;
 }
 
-/* Map Sidebar */
-#sidebar{
+/* Map sidebar */
+#sidebar {
   position: absolute;
   background-color: #fff;
   right: -38rem;
@@ -99,9 +99,12 @@ ul.hubzone-filter-menu label {
   width: 38rem;
   transition-duration: 400ms;
   z-index: 2;
+  -webkit-box-shadow: 0 0 3px 0 rgba(0,0,0,0.50);
+  -moz-box-shadow: 0 0 3px 0 rgba(0,0,0,0.50);
+  box-shadow: 0 0 3px 0 rgba(0,0,0,0.50);
 }
 #sidebar.on {
-  right: 0em;
+  right: 0;
 }
 #sidebar-button {
   position: absolute;
@@ -109,63 +112,66 @@ ul.hubzone-filter-menu label {
   margin-top: 2.3rem;
   padding: 2rem .5rem 2rem 0.8rem;
   z-index: 2;
-  border-radius: 4px 0px 0px 4px;
+  border-radius: 4px 0 0 4px;
   font-size: 3rem;
 }
 .sidebar-search-address {
   font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
-  color: #112E51;
+  color: #112e51;
   min-height: 12rem;
   width: 100%;
   padding: 2rem;
   display: table;
 }
-.sidebar-search-address i.fa.fa-map-marker {
+.sidebar-search-address .fa.fa-map-marker {
   position: absolute;
   font-size: 6rem;
   left: 2.2rem;
   top: 3rem;
 }
-.sidebar-search-address h2#search-address {
+#search-address {
   font-family: inherit;
   font-size: 2.8rem;
   font-weight: normal;
-  padding: 0rem 2rem 0rem 5rem;
+  padding: 0 2rem 0 5rem;
   display: table-cell;
   vertical-align: middle;
 }
 .sidebar-hubzone-status {
   font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
-  background-color: #112E51;
+  background-color: #112e51;
   min-height: 10rem;
   padding: 2.5rem 2rem 2.5rem 2rem;
   width: 100%;
   color: #fff;
 }
-.sidebar-hubzone-status h2#hubzone-status {
+#hubzone-status {
   font-family: inherit;
   font-size: 3.2rem;
-  margin: 0.4rem 0rem 0rem 5.5rem;
+  margin: 0.4rem 0 0 5.5rem;
 }
-.sidebar-hubzone-status i.fa.fa-times-circle-o, i.fa.fa-check-circle-o {
+.sidebar-hubzone-status .fa.fa-times-circle-o, .fa.fa-check-circle-o {
   position: absolute;
   float: left;
   font-size: 5rem;
 }
 .sidebar-hubzone-qualifications {
-  color: #5B616A;
+  color: #5b616a;
   padding: 2rem;
 }
 .hubzone-sidebar-qualifications {
   font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
-  margin: 0rem;
+  margin: 0;
   font-weight: normal;
 }
 #hubzone-qualifications li{
   font-size: 2rem;
 }
+.gm-bundled-control {
+  transition-duration: 400ms;
+}
 
-/* Map Body */
+/* Map body */
 .map-body {
   position: absolute;
   width: 100%;
@@ -176,16 +182,19 @@ ul.hubzone-filter-menu label {
   width: 100%;
 }
 
-/* Desktop/Tablet */
+/*
+** Responsive Queries
+*/
+/* Large for tablet and desktop */
 @media screen and (min-width: 951px) {
   .usa-header-extended .usa-nav-inner {
-    margin-top: 0px;
+    margin-top: 0;
   }
   .map-header {
     padding-top: .6em;
     padding-bottom: .4em;
-    background: #122E51;
-    border-bottom: 1px solid #AFB0B5;
+    background: #122e51;
+    border-bottom: 1px solid #afb0b5;
   }
   .usa-search.usa-search-small [type="search"],
   .usa-search.usa-search-small .usa-search-input {
@@ -199,25 +208,28 @@ ul.hubzone-filter-menu label {
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
   }
-  #map-search button{
-    border-radius: 0px 4px 4px 0px;
+  #map-search button {
+    border-radius: 0 4px 4px 0;
     width: 7rem;
   }
 }
 
-/* Phone */
+/* Medium for phones */
 @media only screen and (max-width: 950px)  {
-  img#sba-logo {
+  #sidebar {
+    display: none;
+  }
+  #sba-logo {
     max-width: 7.6rem;
     padding-top: .3rem;
   }
   .usa-grid {
-    padding: 0em;
+    padding: 0;
     width: 100%;
   }
   .usa-logo-text a {
-    margin: 0rem 0rem 0rem 2rem;
-    padding: 0rem;
+    margin: 0 0 0 2rem;
+    padding: 0;
     font-size: 2.2rem;
   }
   .hubzone-filter {
@@ -225,5 +237,12 @@ ul.hubzone-filter-menu label {
   }
   .map-body {
     height: calc(100% - 116px);
+  }
+}
+
+/* Small for small phones and devices */
+@media only screen and (max-width: 480px) {
+  .map-body {
+    height: calc(100% - 136px);
   }
 }

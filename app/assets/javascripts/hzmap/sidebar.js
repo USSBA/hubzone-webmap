@@ -8,11 +8,12 @@ $.fn.sidebar = function() {
     var $sidebar = this;
     var $container = $('#sidebar');
 
-    /*** Open sidebar ***/
+    /*** Open the sidebar ***/
     this.open = function() {
         if (!this.hasClass('on')) {
             this.addClass('on');
             $('#sidebar-button').html('<i class="fa fa-chevron-right"></i>');
+            $('.gm-bundled-control').css('right', '410px');
         } else {
             console.log('sidebar already opened');
         }
@@ -23,6 +24,7 @@ $.fn.sidebar = function() {
         if (this.hasClass('on')) {
             this.removeClass('on');
             $('#sidebar-button').html('<i class="fa fa-chevron-left"></i>');
+            $('.gm-bundled-control').css('right', '28px');
         } else {
             console.log('sidebar already closed');
         }
@@ -39,9 +41,11 @@ $(function() {
     if(!$('#sidebar').hasClass('on')) {
       sidebar.open();
       $('#sidebar-button').html('<i class="fa fa-chevron-right"></i>');
+      $('.gm-bundled-control').css('right', '410px');
     } else {
       sidebar.close();
       $('#sidebar-button').html('<i class="fa fa-chevron-left"></i>');
+      $('.gm-bundled-control').css('right', '28px');
     }
   })
 });
