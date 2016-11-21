@@ -19,11 +19,15 @@ $.fn.sidebar = function() {
   }
   /*** Open the sidebar ***/
   this.open = function() {
-    $sidebar.update();
+    if (!$sidebar.hasClass('on')) {
+      $sidebar.update();
+    }
   };
   /*** Close the sidebar ***/
   this.close = function() {
-    $sidebar.update();
+    if ($sidebar.hasClass('on')) {
+      $sidebar.update();
+    }
   };
   return $sidebar;
 };
