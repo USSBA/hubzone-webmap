@@ -12,11 +12,9 @@ $.fn.sidebar = function() {
     if (!$sidebar.hasClass('on')) {
       $sidebar.addClass('on');
       $('#sidebar-button').html('<i class="fa fa-chevron-right"></i>');
-      $('.gm-bundled-control').css('right', '410px');
     } else {
       $sidebar.removeClass('on');
       $('#sidebar-button').html('<i class="fa fa-chevron-left"></i>');
-      $('.gm-bundled-control').css('right', '28px');
     }
   }
   /*** Open the sidebar ***/
