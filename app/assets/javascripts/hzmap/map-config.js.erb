@@ -62,29 +62,27 @@ var MapGeoJson = function(){
     } else {
       //get the ids of all the new features in one array and the features in another
       this.newFeaturesIDs = [];
-      this.newFeatures = newData.features.map(function(feature){
-        var featureID = feature.properties['hztype'] + '_' + feature.properties['res'] + '_' + feature.properties['sourceid'];
-        this.newFeaturesIDs.push(featureID);
-        return feature;
-      }, this);
-
       this.updatedFeaturesIDs = [];
       this.updatedFeatures = [];
 
-      //compare the new feature ids with the current feature ids, 
-      //if any are missing from the current features, add them to the map and the 'updatedfeatures'
-      for (var j = 0; j < this.newFeaturesIDs.length; j++) {
-        if (this.currentFeaturesIDs.indexOf(this.newFeaturesIDs[j]) === -1){
+      for (var j = 0; j < newData.features.length; j++) {
+        var feature = newData.features[j];
+        var featureID = feature.properties['hztype'] + '_' + feature.properties['res'] + '_' + feature.properties['sourceid'];
+        this.newFeaturesIDs.push(featureID);
+        this.newFeatures.push(feature);
+
+        if (this.currentFeaturesIDs.indexOf(featureID) === -1){
           
           //these are new and need to get added by google maps
-          this.featuresToAdd.features.push(this.newFeatures[j]);
+          this.featuresToAdd.features.push(feature);
           this.featuresToAdd.totalFeatures += 1;
 
           //these will become the current complete list of features
-          this.updatedFeatures.push(this.newFeatures[j]);
-          this.updatedFeaturesIDs.push(this.newFeaturesIDs[j]);
+          this.updatedFeatures.push(feature);
+          this.updatedFeaturesIDs.push(featureID);
         }
       }
+
       //go across teh current features, if any are not in newfeatures, remove
       //else push them into updatedFeatures, which becomes the complete list
       for (var k = 0; k < this.currentFeaturesIDs.length; k++) {

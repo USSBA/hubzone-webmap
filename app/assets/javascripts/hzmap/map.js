@@ -42,11 +42,11 @@ function getBbox(mapScope) {
 var getUrl = function(bbox, currentZoom) {
 
   var table = geomWFSSettings.tableHighRes;
-  if (currentZoom > 15) {
+  if (currentZoom >= 12) {
     table = geomWFSSettings.tableHighRes;
-  } else if (currentZoom > 11){
+  } else if (currentZoom >= 10){
     table = geomWFSSettings.tableLowRes;
-  } else if (currentZoom > 9){
+  } else if (currentZoom >= 6){
     table = geomWFSSettings.tableLowerRes;
   } else {
     table = geomWFSSettings.tableLowestRes;
