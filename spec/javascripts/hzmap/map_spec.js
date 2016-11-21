@@ -174,12 +174,6 @@ describe ('Testing map operations', function() {
     expect(mapBounds.getSouthWest).toHaveBeenCalledTimes(2);
   });
 
-  xit("get url", function() {
-    // skipping this since it is implicitly being tested by the "updates the map" test
-    var bbox = getBbox(mapScope);
-    expect(getUrl(bbox)).toEqual("http://localhost:8080/geoserver/hubzone-test/ows?service=WFS&version=1.0.0&request=GetFeature&typename=hzgeo_dev:indian_lands&outputFormat=application/json&srsname=EPSG:4326&bbox=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637,EPSG:4326");
-  });
-
   it("sets the map style", function() {
     mapScope.data.setStyle(defaultMapStyle);
     expect(mapScope.data.style).toEqual(defaultMapStyle);
@@ -199,17 +193,18 @@ describe ('Testing map operations', function() {
 
   it("create a new MapGeoJson class object and add data", function(){
     var mapGeoJson = new MapGeoJson();
-    mapGeoJson.diffData(mockData1);
-    expect(mapGeoJson.currentFeatures.features).toEqual(mockData1.features);
+    var diffFeatures = mapGeoJson.diffData(mockData1);
+    expect(diffFeatures.fc).toEqual(mockData1);
   });
 
   it("produce the correct diff between two datasets", function(){
     var mapGeoJson = new MapGeoJson();
     mapGeoJson.uniqueID = 'id';
     mapGeoJson.mapScope = mapScope;
-    mapGeoJson.diffData(mockData1);
-    mapGeoJson.diffData(mockData2);
-    expect(mapGeoJson.featuresToRemove).toEqual(mockFeaturesToRemove);
+    var diffFeatures = {};
+    diffFeatures = mapGeoJson.diffData(mockData1);
+    diffFeatures = mapGeoJson.diffData(mockData2);
+    expect(diffFeatures.ids).toEqual(mockFeaturesToRemove);
   });
 
   it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){
