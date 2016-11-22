@@ -1,12 +1,12 @@
 var hzMapLayerStyle = {
     "indianLands": {
-        fillColor: '#fdb81e', 
+        fillColor: '#205493', 
         zIndex: 10,
         opacity: 0.75, 
         strokeWeight: 0.5
     },
     "brac": {
-        fillColor: '#2e8540', 
+        fillColor: '#205493', 
         zIndex: 30,
         opacity: 0.75, 
         strokeWeight: 0.5
