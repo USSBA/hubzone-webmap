@@ -34,7 +34,7 @@ en:
   header:
     skip_to_main: "Skip to main content"
   map:
-    enter_address: "Enter Address"
+    enter_address: "Enter address"
     filter: "Filter"
   api:
     success: "Success"
@@ -48,11 +48,13 @@ en:
     qualified_by: "Qualified by: "
     qualifications_title: "HUBZone Qualifications"
     qualified: "Qualified HUBZone"
-    not_qualified: "Not Qualified HUBZone"
-    qualified_census_tract: "Qualified Census Tract"
+    not_qualified: "Not Qualified"
+    expiring: "Expiring"
+    qct: "Qualified Census Tract"
     qualified_county: "Qualified County"
     indian_lands: "Indian Lands"
-    military_bases_brac: "Former Military Bases (BRAC)"
+    brac: "Former Military Bases (BRAC)"
     disaster_area: "Designated Disaster Area"
+
 
 

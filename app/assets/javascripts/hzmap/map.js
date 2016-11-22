@@ -51,7 +51,7 @@ var getUrl = function(bbox, currentZoom) {
   } else {
     table = geomWFSSettings.tableLowestRes;
   }
-  
+
   return [
     geomWFSSettings.urlRoot,
     'version=1.0.0',
@@ -68,18 +68,20 @@ var defaultMapStyle = function(feature) {
   var color = '';
 
   if (hzType === 'indianLands'){
-    color = '#fdb81e';
+    color = '#CA0020';
   } else if (hzType === 'brac'  ){
-    color = '#2e8540';
+    color = '#4A4A4A';
   } else if (hzType === 'qct'){
-    color = '#205493';
+    color = '#0571B0';
   }
 
   // var color = '#205493';
   return {
     fillColor: color,
-    opacity: 0.75,
-    strokeWeight: 0.5
+    fillOpacity: 0.5,
+    strokeWeight: 1.5,
+    strokeOpacity: .8,
+    strokeColor: color
   };
 };
 
@@ -98,7 +100,7 @@ function parseGeoserverResponse(resp){
     }
     if (mapGeoJson.featuresToRemove.length > 0){
       mapScope.data.forEach(function(feature){
-        var featureIDStr = feature.getProperty('hztype') + '_' + feature.getProperty('res') + '_' + feature.getProperty('sourceid'); 
+        var featureIDStr = feature.getProperty('hztype') + '_' + feature.getProperty('res') + '_' + feature.getProperty('sourceid');
         if (mapGeoJson.featuresToRemove.indexOf(featureIDStr) !== -1){
           mapScope.data.remove(feature);
         }
