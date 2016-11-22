@@ -99,6 +99,7 @@ function parseGeoserverResponse(resp){
   } else {
     console.warn('No features returned by Geoserver');
     // if there are not new features, make sure to dump all the old ones
+    mapGeoJson.emptyCurrentFeatures();
     mapScope.data.forEach(function(feature){
       mapScope.data.remove(feature);
     });
