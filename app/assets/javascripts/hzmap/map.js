@@ -60,7 +60,7 @@ var getUrl = function(bbox, currentZoom) {
   } else {
     table = geomWFSSettings.tableLowestRes;
   }
-  
+
   return [
     geomWFSSettings.urlRoot,
     'version=1.0.0',
