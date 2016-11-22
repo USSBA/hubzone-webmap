@@ -43,21 +43,23 @@ var MapGeoJson = function(){
     var updatedFeatures = new FeatureDataset();     //holders for the features that are in the process of being updated, will become new current
 
     //holders for the output features to add or remove, fed to google maps later.
-    // for diffFeatures, the 'fc' object will be the features added to the the map
-    // the 'ids' array will be those that get removed from the map 
-    var diffFeatures = new FeatureDataset();        
+    var diffFeatures = {
+      toAdd: new FeatureDataset(),
+      toRemove: new FeatureDataset()        
+    }; 
 
     //get the ids of all the new features in one array and the features in another
     for (var j = 0; j < newData.features.length; j++) {
       var feature = newData.features[j];
-      var featureID = feature.properties['hztype'] + '_' + feature.properties['res'] + '_' + feature.properties['sourceid'];
+      var featureID = feature.id;
+      // var featureID = feature.properties['hztype'] + '_' + feature.properties['res'] + '_' + feature.properties['sourceid'];
       newFeatures.ids.push(featureID);
       newFeatures.fc.features.push(feature);
 
       if (currentFeatures.ids.indexOf(featureID) === -1){
         //these are new and need to get added by google maps
-        diffFeatures.fc.features.push(feature);
-        diffFeatures.fc.totalFeatures += 1;
+        diffFeatures.toAdd.fc.features.push(feature);
+        diffFeatures.toAdd.fc.totalFeatures += 1;
 
         //these will become the current complete list of features
         updatedFeatures.fc.features.push(feature);
@@ -69,7 +71,7 @@ var MapGeoJson = function(){
     //else push them into updatedFeatures, which becomes the complete list
     for (var k = 0; k < currentFeatures.ids.length; k++) {
       if (newFeatures.ids.indexOf(currentFeatures.ids[k]) === -1){
-        diffFeatures.ids.push(currentFeatures.ids[k]);
+        diffFeatures.toRemove.ids.push(currentFeatures.ids[k]);
       } else {
         updatedFeatures.fc.features.push(currentFeatures.fc.features[k]);
         updatedFeatures.ids.push(currentFeatures.ids[k]);

@@ -208,7 +208,7 @@ describe ('Testing map operations', function() {
   it("create a new MapGeoJson class object and add data", function(){
     var mapGeoJson = new MapGeoJson();
     var diffFeatures = mapGeoJson.diffData(mockData1);
-    expect(diffFeatures.fc).toEqual(mockData1);
+    expect(diffFeatures.toAdd.fc).toEqual(mockData1);
   });
 
   it("produce the correct diff between two datasets", function(){
@@ -218,7 +218,7 @@ describe ('Testing map operations', function() {
     var diffFeatures = {};
     diffFeatures = mapGeoJson.diffData(mockData1);
     diffFeatures = mapGeoJson.diffData(mockData2);
-    expect(diffFeatures.ids).toEqual(mockFeaturesToRemove);
+    expect(diffFeatures.toRemove.ids).toEqual(mockFeaturesToRemove);
   });
 
   it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){
@@ -254,7 +254,7 @@ describe ('Testing map operations', function() {
 
 var mapMarkers = [ Marker]
 
-var mockFeaturesToRemove = ['indianLands_high_582'];
+var mockFeaturesToRemove = ['hz_current_lowestres.601'];
 
 var markerLocation = {  
   lat: 39.29024048029149,  

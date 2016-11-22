@@ -88,20 +88,16 @@ function parseGeoserverResponse(resp){
     console.error('Error Fetching from GeoServer', resp);
   } else if (resp.totalFeatures > 0){
     var diffFeatures = mapGeoJson.diffData(resp);
-    if (diffFeatures.fc.totalFeatures > 0) { //diffFeatures.fc contains the new feature collection to add which is any new ones that need to be in the map
-      mapScope.data.addGeoJson(diffFeatures.fc);
+    if (diffFeatures.toAdd.fc.totalFeatures > 0) { 
+      mapScope.data.addGeoJson(diffFeatures.toAdd.fc);
     }
-    if (diffFeatures.ids.length > 0){ //diffFeatures.ids contains the ids of any features that need to be removed
-      mapScope.data.forEach(function(feature){
-        var featureIDStr = feature.getProperty('hztype') + '_' + feature.getProperty('res') + '_' + feature.getProperty('sourceid'); 
-        if (diffFeatures.ids.indexOf(featureIDStr) !== -1){
-          mapScope.data.remove(feature);
-        }
-      });
+    if (diffFeatures.toRemove.ids.length > 0){ 
+      for (var i = 0; i < diffFeatures.toRemove.ids.length; i++) {
+        mapScope.data.remove(mapScope.data.getFeatureById(diffFeatures.toRemove.ids[i]));
+      }
     }
   } else {
     console.warn('No features returned by Geoserver');
-
     // if there are not new features, make sure to dump all the old ones
     mapScope.data.forEach(function(feature){
       mapScope.data.remove(feature);
