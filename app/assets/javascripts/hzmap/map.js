@@ -1,19 +1,18 @@
 //create the map on load, when idle, jump to updateMap to get features
 function initMap() {
 
-  
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 35.5, lng: -97.5},
     zoom: 9,
     zoomControl: true,
     mapTypeControlOptions: {
-      mapTypeIds: ['hz_map', 'roadmap', 'satellite', ], 
+      mapTypeIds: ['hz_map', 'roadmap', 'satellite' ], 
       style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
     }
   });
 
   //adds in the hz style into the basemap picker
-  var hzStyledMap = new google.maps.StyledMapType(googleMapsStyleConfig, {name: 'Default'});
+  var hzStyledMap = new google.maps.StyledMapType(hzBaseMapStyle, {name: 'Default'});
   map.mapTypes.set('hz_map', hzStyledMap);
   map.setMapTypeId('hz_map');
 
@@ -75,22 +74,8 @@ var getUrl = function(bbox, currentZoom) {
 
 var defaultMapStyle = function(feature) {
   var hzType = feature.getProperty('hztype');
-  var color = '';
 
-  if (hzType === 'indianLands'){
-    color = '#fdb81e';
-  } else if (hzType === 'brac'  ){
-    color = '#2e8540';
-  } else if (hzType === 'qct'){
-    color = '#205493';
-  }
-
-  // var color = '#205493';
-  return {
-    fillColor: color,
-    opacity: 0.75,
-    strokeWeight: 0.5
-  };
+  return hzMapLayerStyle[hzType];
 };
 
 //callback for handling the goeserver response

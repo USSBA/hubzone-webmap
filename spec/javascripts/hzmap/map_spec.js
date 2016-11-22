@@ -168,11 +168,6 @@ describe ('Testing map operations', function() {
     var southWestSpy = spyOn(mapBounds, 'getSouthWest').and.callThrough();
   });
 
-  // afterEach(function(){
-  //   jQuery.ajax.restore();
-
-  // });
-
   it("creates a new Google map", function() {
     var styledMapTypeSpy = spyOn(google.maps, 'StyledMapType');
     var mapTypesSetSpy = spyOn(map.mapTypes, 'set');

@@ -31,9 +31,13 @@ var MapGeoJson = function(){
     }
   };
 
-  //holders for the current features already rendered in the map
+  //holders for the current features already rendered in the map 'map data state'
   var currentFeatures = new FeatureDataset();
   
+  // helper method of MapGeoJson for comparing current data with new incoming data
+  // and generating two new datasets: 
+  //  1) a collection of features not currently in the map that need to be added
+  //  2) an array of feature IDS for features no longer visible in map that need to be removed
   this.diffData = function(newData){
     var newFeatures = new FeatureDataset();         //holders for the new features that just arrived
     var updatedFeatures = new FeatureDataset();     //holders for the features that are in the process of being updated, will become new current
@@ -71,6 +75,8 @@ var MapGeoJson = function(){
         updatedFeatures.ids.push(currentFeatures.ids[k]);
       }
     }
+
+    //finally update currentFeatures 
     currentFeatures.ids = updatedFeatures.ids;
     currentFeatures.fc.features = updatedFeatures.fc.features;
     currentFeatures.fc.totalFeatures = updatedFeatures.fc.features.length;
