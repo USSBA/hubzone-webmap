@@ -1,11 +1,20 @@
 //create the map on load, when idle, jump to updateMap to get features
 function initMap() {
+
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 35.5, lng: -97.5},
     zoom: 9,
-    styles: googleMapsStyleConfig,
-    zoomControl: true
+    zoomControl: true,
+    mapTypeControlOptions: {
+      mapTypeIds: ['hz_map', 'roadmap', 'satellite' ], 
+      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+    }
   });
+
+  //adds in the hz style into the basemap picker
+  var hzStyledMap = new google.maps.StyledMapType(hzBaseMapStyle, {name: 'Default'});
+  map.mapTypes.set('hz_map', hzStyledMap);
+  map.setMapTypeId('hz_map');
 
   // adds listener that triggers whenever the map is idle to update with new features.
   google.maps.event.addListener(map, 'idle', function(){
@@ -42,11 +51,11 @@ function getBbox(mapScope) {
 var getUrl = function(bbox, currentZoom) {
 
   var table = geomWFSSettings.tableHighRes;
-  if (currentZoom > 15) {
+  if (currentZoom >= 12) {
     table = geomWFSSettings.tableHighRes;
-  } else if (currentZoom > 11){
+  } else if (currentZoom >= 10){
     table = geomWFSSettings.tableLowRes;
-  } else if (currentZoom > 9){
+  } else if (currentZoom >= 6){
     table = geomWFSSettings.tableLowerRes;
   } else {
     table = geomWFSSettings.tableLowestRes;
@@ -65,24 +74,8 @@ var getUrl = function(bbox, currentZoom) {
 
 var defaultMapStyle = function(feature) {
   var hzType = feature.getProperty('hztype');
-  var color = '';
 
-  if (hzType === 'indianLands'){
-    color = '#CA0020';
-  } else if (hzType === 'brac'  ){
-    color = '#4A4A4A';
-  } else if (hzType === 'qct'){
-    color = '#0571B0';
-  }
-
-  // var color = '#205493';
-  return {
-    fillColor: color,
-    fillOpacity: 0.5,
-    strokeWeight: 1.5,
-    strokeOpacity: .8,
-    strokeColor: color
-  };
+  return hzMapLayerStyle[hzType];
 };
 
 //callback for handling the goeserver response
@@ -94,21 +87,23 @@ function parseGeoserverResponse(resp){
   if (resp.totalFeatures === null || resp.totalFeatures === undefined){
     console.error('Error Fetching from GeoServer', resp);
   } else if (resp.totalFeatures > 0){
-    mapGeoJson.diffData(resp);
-    if (mapGeoJson.featuresToAdd.totalFeatures > 0) {
-      mapScope.data.addGeoJson(mapGeoJson.featuresToAdd);
+    var diffFeatures = mapGeoJson.diffData(resp);
+    if (diffFeatures.toAdd.fc.totalFeatures > 0) { 
+      mapScope.data.addGeoJson(diffFeatures.toAdd.fc);
     }
-    if (mapGeoJson.featuresToRemove.length > 0){
-      mapScope.data.forEach(function(feature){
-        var featureIDStr = feature.getProperty('hztype') + '_' + feature.getProperty('res') + '_' + feature.getProperty('sourceid');
-        if (mapGeoJson.featuresToRemove.indexOf(featureIDStr) !== -1){
-          mapScope.data.remove(feature);
-        }
-      });
+    if (diffFeatures.toRemove.ids.length > 0){ 
+      for (var i = 0; i < diffFeatures.toRemove.ids.length; i++) {
+        mapScope.data.remove(mapScope.data.getFeatureById(diffFeatures.toRemove.ids[i]));
+      }
     }
   } else {
     console.warn('No features returned by Geoserver');
+    // if there are not new features, make sure to dump all the old ones
+    mapScope.data.forEach(function(feature){
+      mapScope.data.remove(feature);
+    });
   }
+
   return mapGeoJson;
 };
 

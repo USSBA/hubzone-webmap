@@ -1,4 +1,25 @@
-var googleMapsStyleConfig = [
+var hzMapLayerStyle = {
+    "indianLands": {
+        fillColor: '#205493', 
+        zIndex: 10,
+        opacity: 0.75, 
+        strokeWeight: 0.5
+    },
+    "brac": {
+        fillColor: '#205493', 
+        zIndex: 30,
+        opacity: 0.75, 
+        strokeWeight: 0.5
+    },
+    "qct": {
+        fillColor: '#205493', 
+        zIndex: 20,
+        opacity: 0.75, 
+        strokeWeight: 0.5
+    }
+};
+
+var hzBaseMapStyle = [
     {
         "featureType": "administrative.province",
         "elementType": "all",

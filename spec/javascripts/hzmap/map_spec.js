@@ -146,25 +146,39 @@ var mapScope = {
 };
 var mapBounds = mapScope.getBounds();
 
+var map = {
+  mapTypes: {
+    set: function(){
+      return;
+    }
+  },
+  setMapTypeId: function(){
+    return;
+  }
+};
+
 describe ('Testing map operations', function() {
   beforeEach(function() {
-    var constructorSpy = spyOn(google.maps, 'Map').and.returnValue(['Map', 'map']);
+    var constructorSpy = spyOn(google.maps, 'Map').and.returnValue(map);
     var eventSpy = spyOn(google.maps.event, 'addListener');
+
 
     var mapScopeSpy = spyOn(mapScope, 'getBounds').and.returnValue(mapBounds);
     var northEastSpy = spyOn(mapBounds, 'getNorthEast').and.callThrough();
     var southWestSpy = spyOn(mapBounds, 'getSouthWest').and.callThrough();
   });
 
-  // afterEach(function(){
-  //   jQuery.ajax.restore();
-
-  // });
-
   it("creates a new Google map", function() {
+    var styledMapTypeSpy = spyOn(google.maps, 'StyledMapType');
+    var mapTypesSetSpy = spyOn(map.mapTypes, 'set');
+    var mapSetMapTypIdSpy = spyOn(map, 'setMapTypeId');
+    
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map).toHaveBeenCalledTimes(1);
     expect(google.maps.event.addListener).toHaveBeenCalledTimes(1);
+    expect(google.maps.StyledMapType).toHaveBeenCalledTimes(1);
+    expect(map.mapTypes.set).toHaveBeenCalledTimes(1);
+    expect(map.setMapTypeId).toHaveBeenCalledTimes(1);
   });
 
   it("get bbox", function() {
@@ -172,12 +186,6 @@ describe ('Testing map operations', function() {
     expect(mapScope.getBounds).toHaveBeenCalledTimes(1);
     expect(mapBounds.getNorthEast).toHaveBeenCalledTimes(2);
     expect(mapBounds.getSouthWest).toHaveBeenCalledTimes(2);
-  });
-
-  xit("get url", function() {
-    // skipping this since it is implicitly being tested by the "updates the map" test
-    var bbox = getBbox(mapScope);
-    expect(getUrl(bbox)).toEqual("http://localhost:8080/geoserver/hubzone-test/ows?service=WFS&version=1.0.0&request=GetFeature&typename=hzgeo_dev:indian_lands&outputFormat=application/json&srsname=EPSG:4326&bbox=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637,EPSG:4326");
   });
 
   it("sets the map style", function() {
@@ -199,17 +207,18 @@ describe ('Testing map operations', function() {
 
   it("create a new MapGeoJson class object and add data", function(){
     var mapGeoJson = new MapGeoJson();
-    mapGeoJson.diffData(mockData1);
-    expect(mapGeoJson.currentFeatures.features).toEqual(mockData1.features);
+    var diffFeatures = mapGeoJson.diffData(mockData1);
+    expect(diffFeatures.toAdd.fc).toEqual(mockData1);
   });
 
   it("produce the correct diff between two datasets", function(){
     var mapGeoJson = new MapGeoJson();
     mapGeoJson.uniqueID = 'id';
     mapGeoJson.mapScope = mapScope;
-    mapGeoJson.diffData(mockData1);
-    mapGeoJson.diffData(mockData2);
-    expect(mapGeoJson.featuresToRemove).toEqual(mockFeaturesToRemove);
+    var diffFeatures = {};
+    diffFeatures = mapGeoJson.diffData(mockData1);
+    diffFeatures = mapGeoJson.diffData(mockData2);
+    expect(diffFeatures.toRemove.ids).toEqual(mockFeaturesToRemove);
   });
 
   it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){
@@ -245,7 +254,7 @@ describe ('Testing map operations', function() {
 
 var mapMarkers = [ Marker]
 
-var mockFeaturesToRemove = ['indianLands_high_582'];
+var mockFeaturesToRemove = ['hz_current_lowestres.601'];
 
 var markerLocation = {  
   lat: 39.29024048029149,  
