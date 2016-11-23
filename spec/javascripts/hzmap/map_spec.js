@@ -177,25 +177,17 @@ describe ('Testing map operations', function() {
     var mapSetMapTypIdSpy = spyOn(map, 'setMapTypeId');
 
     expect(initMap()).not.toBe(null);
-    // expect(google.maps.Map).toHaveBeenCalledTimes(1);
     expect(google.maps.Map.calls.count()).toEqual(1);
-    // expect(google.maps.event.addListener).toHaveBeenCalledTimes(1);
     expect(google.maps.event.addListener.calls.count()).toEqual(1);
-    // expect(google.maps.StyledMapType).toHaveBeenCalledTimes(1);
     expect(google.maps.StyledMapType.calls.count()).toEqual(1);
-    // expect(map.mapTypes.set).toHaveBeenCalledTimes(1);
     expect(map.mapTypes.set.calls.count()).toEqual(1);
-    // expect(map.setMapTypeId).toHaveBeenCalledTimes(1);
     expect(map.setMapTypeId.calls.count()).toEqual(1);
   });
 
   it("get bbox", function() {
     expect(getBbox(mapScope)).toEqual("-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637");
-    // expect(mapScope.getBounds).toHaveBeenCalledTimes(1);
     expect(mapScope.getBounds.calls.count()).toEqual(1);
-    // expect(mapBounds.getNorthEast).toHaveBeenCalledTimes(2);
     expect(mapBounds.getNorthEast.calls.count()).toEqual(2);
-    // expect(mapBounds.getSouthWest).toHaveBeenCalledTimes(2);
     expect(mapBounds.getSouthWest.calls.count()).toEqual(2);
   });
 
@@ -238,11 +230,8 @@ describe ('Testing map operations', function() {
     var fitBoundsSpy = spyOn(mapScope, 'fitBounds');
 
     jumpToLocation(geocodeViewport);
-    // expect(google.maps.LatLngBounds).toHaveBeenCalledTimes(1);
     expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
-    // expect(google.maps.LatLng).toHaveBeenCalledTimes(2);
     expect(google.maps.LatLng.calls.count()).toEqual(2);
-    // expect(mapScope.fitBounds).toHaveBeenCalledTimes(1);
     expect(mapScope.fitBounds.calls.count()).toEqual(1);
   });
 
@@ -252,9 +241,7 @@ describe ('Testing map operations', function() {
     var markerSetSpy = spyOn(Marker, 'setMap');
 
     updateMarkers(markerLocation);
-    // expect(google.maps.Marker).toHaveBeenCalledTimes(1);
     expect(google.maps.Marker.calls.count()).toEqual(1);
-    // expect(Marker.setMap).toHaveBeenCalledTimes(1);
     expect(Marker.setMap.calls.count()).toEqual(1);
     expect(mapMarkers[0]).not.toEqual(Marker);  //because the test replaces it with a new spy from google.maps.Marker
   });
