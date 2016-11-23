@@ -10,6 +10,7 @@ $.fn.sidebar = function() {
 
   this.update = function() {
     if (!$sidebar.hasClass('on')) {
+      $('#sidebar').css('display', 'block');
       $sidebar.addClass('on');
       $('#sidebar-button').html('<i class="fa fa-chevron-right"></i>');
     } else {

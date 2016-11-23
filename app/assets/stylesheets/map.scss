@@ -92,6 +92,7 @@ ul.hubzone-filter-menu label {
 
 /* Map sidebar */
 #sidebar {
+  display: none;
   position: absolute;
   background-color: #fff;
   right: -38rem;
@@ -99,9 +100,7 @@ ul.hubzone-filter-menu label {
   width: 38rem;
   transition-duration: 400ms;
   z-index: 2;
-  -webkit-box-shadow: 0 0 3px 0 rgba(0,0,0,0.50);
-  -moz-box-shadow: 0 0 3px 0 rgba(0,0,0,0.50);
-  box-shadow: 0 0 3px 0 rgba(0,0,0,0.50);
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
 }
 #sidebar.on {
   right: 0;
