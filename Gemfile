@@ -36,6 +36,8 @@ group :development, :test do
   gem 'rubocop' # Enforce ruby code style
   gem 'selenium-webdriver'
   gem 'simplecov', require: false # determine code coverage of tests
+  gem 'teaspoon'
+  gem 'teaspoon-jasmine'
 end
 
 group :development do
