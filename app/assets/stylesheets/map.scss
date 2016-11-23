@@ -1,7 +1,10 @@
 /* Top level navigation */
 #sba-logo {
-  max-width: 11rem;
+  max-width: 10rem;
   float: left;
+}
+.usa-header {
+  border-bottom: none;
 }
 .usa-logo-text a {
   font-size: 3.6rem;
@@ -13,15 +16,15 @@
   border-bottom: none;
 }
 .usa-nav-secondary {
-  top: -5.3rem;
+  top: -5rem;
 }
 
 /* Map inputs and controls */
 #map-search #search-field-small {
   background-color: #1a406e;
   border: 0;
-  height: 5.3rem;
-  font-size: 2.7rem;
+  height: 4.4rem;
+  font-size: 2.4rem;
   color: #fff;
 }
 #map-search #search-field-small::-webkit-input-placeholder {
@@ -36,7 +39,7 @@
 #map-search button {
   background-color: #0071bb;
   background-size: 45px;
-  height: 5.3rem;
+  height: 4.4rem;
   float: left;
 }
 .usa-search.usa-search-small [type="search"],
@@ -48,7 +51,7 @@
   border: 3px solid #1a406e;
   margin-right: 1em;
   color: #fff;
-  padding-top: 1.5rem;
+  padding-top: 1.2rem;
   padding-left: 2.5rem;
   background-image: none;
 }
@@ -67,7 +70,7 @@
   color: #0071bb;
 }
 .usa-nav-primary > li:first-child {
-  height: 5.3rem;
+  height: 4.4rem;
   float: left;
   margin-left: 0;
 }
@@ -95,9 +98,9 @@ ul.hubzone-filter-menu label {
   display: none;
   position: absolute;
   background-color: #fff;
-  right: -38rem;
+  right: -36rem;
   height: 100%;
-  width: 38rem;
+  width: 36rem;
   transition-duration: 400ms;
   z-index: 2;
   box-shadow: 0 0 20px rgba(0,0,0,0.3);
@@ -130,7 +133,7 @@ ul.hubzone-filter-menu label {
 }
 #search-address {
   font-family: inherit;
-  font-size: 2.8rem;
+  font-size: 2.3rem;
   font-weight: normal;
   padding: 0 2rem 0 5rem;
   display: table-cell;
@@ -146,7 +149,7 @@ ul.hubzone-filter-menu label {
 }
 #hubzone-status {
   font-family: inherit;
-  font-size: 3.2rem;
+  font-size: 3rem;
   margin: 0.4rem 0 0 5.5rem;
 }
 .sidebar-hubzone-status .fa.fa-times-circle-o, .fa.fa-check-circle-o {
@@ -164,7 +167,7 @@ ul.hubzone-filter-menu label {
   font-weight: normal;
 }
 #hubzone-qualifications li{
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 .gm-bundled-control {
   transition-duration: 400ms;
@@ -174,7 +177,7 @@ ul.hubzone-filter-menu label {
 .map-body {
   position: absolute;
   width: 100%;
-  height: calc(100% - 176px);
+  height: calc(100% - 150px);
 }
 #map {
   height: 100%;
@@ -190,10 +193,10 @@ ul.hubzone-filter-menu label {
     margin-top: 0;
   }
   .map-header {
-    padding-top: .6em;
-    padding-bottom: .4em;
+    height: 5.5rem;
+    padding-top: .5rem;
     background: #122e51;
-    border-bottom: 1px solid #afb0b5;
+    border-bottom: none;
   }
   .usa-search.usa-search-small [type="search"],
   .usa-search.usa-search-small .usa-search-input {
@@ -215,9 +218,6 @@ ul.hubzone-filter-menu label {
 
 /* Medium for phones */
 @media only screen and (max-width: 950px)  {
-  #sidebar {
-    display: none;
-  }
   #sba-logo {
     max-width: 7.6rem;
     padding-top: .3rem;
@@ -235,13 +235,13 @@ ul.hubzone-filter-menu label {
     display: none;
   }
   .map-body {
-    height: calc(100% - 116px);
+    height: calc(100% - 107px);
   }
 }
 
 /* Small for small phones and devices */
 @media only screen and (max-width: 480px) {
   .map-body {
-    height: calc(100% - 136px);
+    height: calc(100% - 127px);
   }
 }
