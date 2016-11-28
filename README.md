@@ -63,7 +63,12 @@ First install Istanbul:
 npm install -g istanbul
 ```
 
-To run Teaspoon tests, run:
+To run Teaspoon for unit tests, run:
+```
+  RAILS_ENV=test bundle exec teaspoon
+```
+
+To include Istanbul coverage tests, run:
 ```
   RAILS_ENV=test bundle exec teaspoon --coverage=default  
 ```
@@ -72,5 +77,3 @@ To view interactive report of test coverage, open:
 ```
 coverage/default/index.html
 ```
-
-!
