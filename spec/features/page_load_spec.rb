@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "the page loads", type: :feature do
+describe "the page", type: :feature do
   before do
     visit('/map')
   end

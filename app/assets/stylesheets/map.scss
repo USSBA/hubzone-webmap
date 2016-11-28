@@ -1,4 +1,7 @@
 /* Top level navigation */
+.hidden {
+  display: none;
+}
 #sba-logo {
   max-width: 10rem;
   float: left;
@@ -101,7 +104,6 @@ ul.hubzone-filter-menu label {
 
 /* Map sidebar */
 #sidebar {
-  display: none;
   position: absolute;
   background-color: #fff;
   right: -36rem;
