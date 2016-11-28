@@ -18,13 +18,19 @@
 .usa-nav-secondary {
   top: -5rem;
 }
+.usa-nav-secondary-links li:not(:last-child)::after {
+  content: none;
+}
+.usa-nav-secondary-links li {
+  padding-left: 2.5rem;
+}
 
 /* Map inputs and controls */
 #map-search #search-field-small {
   background-color: #1a406e;
   border: 0;
   height: 4.4rem;
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   color: #fff;
 }
 #map-search #search-field-small::-webkit-input-placeholder {
@@ -47,11 +53,12 @@
   max-width: 100%;
 }
 #filter-button {
+  display: none;
   height: 100%;
   border: 3px solid #1a406e;
   margin-right: 1em;
   color: #fff;
-  padding-top: 1.2rem;
+  padding-top: 1.1rem;
   padding-left: 2.5rem;
   background-image: none;
 }
@@ -164,9 +171,10 @@ ul.hubzone-filter-menu label {
   font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
   margin: 0;
   font-weight: normal;
+  font-size: 2rem;
 }
 #hubzone-qualifications li{
-  font-size: 1.8rem;
+  font-size: 1.5rem;
 }
 .gm-bundled-control {
   transition-duration: 400ms;
@@ -193,7 +201,7 @@ ul.hubzone-filter-menu label {
   }
   .map-header {
     height: 5.5rem;
-    padding-top: .5rem;
+    padding-top: .55rem;
     background: #122e51;
     border-bottom: none;
   }
@@ -221,6 +229,10 @@ ul.hubzone-filter-menu label {
     max-width: 7.6rem;
     padding-top: .3rem;
   }
+  #map-search button {
+    background-color: #1a406e;
+    background-size: 3.5rem;
+  }
   .usa-grid {
     padding: 0;
     width: 100%;
@@ -235,6 +247,17 @@ ul.hubzone-filter-menu label {
   }
   .map-body {
     height: calc(100% - 107px);
+  }
+  #sidebar-button {
+    display: none;
+  }
+  #sidebar {
+    width: 100%;
+    height: 11rem;
+    bottom: 10rem;
+  }
+  .sidebar-search-address {
+    min-height: 11rem;
   }
 }
 
