@@ -171,7 +171,7 @@ describe ('Testing map operations', function() {
     var southWestSpy = spyOn(mapBounds, 'getSouthWest').and.callThrough();
   });
 
-  it("creates a new Google map", function() {
+  it("should create a new Google map", function() {
     var styledMapTypeSpy = spyOn(google.maps, 'StyledMapType');
     var mapTypesSetSpy = spyOn(map.mapTypes, 'set');
     var mapSetMapTypIdSpy = spyOn(map, 'setMapTypeId');
@@ -184,19 +184,19 @@ describe ('Testing map operations', function() {
     expect(map.setMapTypeId.calls.count()).toEqual(1);
   });
 
-  it("get bbox", function() {
+  it("should get bbox", function() {
     expect(getBbox(mapScope)).toEqual("-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637");
     expect(mapScope.getBounds.calls.count()).toEqual(1);
     expect(mapBounds.getNorthEast.calls.count()).toEqual(2);
     expect(mapBounds.getSouthWest.calls.count()).toEqual(2);
   });
 
-  it("sets the map style", function() {
+  it("should set the map style", function() {
     mapScope.data.setStyle(defaultMapStyle);
     expect(mapScope.data.style).toEqual(defaultMapStyle);
   });
 
-  it("updates the map", function(){
+  it("should update the map", function(){
     sinon.stub(jQuery, "ajax");
     var bbox = getBbox(mapScope);
     var url = getUrl(bbox);
@@ -208,20 +208,28 @@ describe ('Testing map operations', function() {
     expect(jQuery.ajax.calledWithMatch({url: url})).toBe(true);
   });
 
-  it("create a new MapGeoJson class object and add data", function(){
+  it("should create a new MapGeoJson class object and add data", function(){
     var mapGeoJson = new MapGeoJson();
     var diffFeatures = mapGeoJson.diffData(mockData1);
     expect(diffFeatures.toAdd.fc).toEqual(mockData1);
   });
 
-  it("produce the correct diff between two datasets", function(){
+  it("should produce the correct diff between two datasets", function(){
     var mapGeoJson = new MapGeoJson();
-    mapGeoJson.uniqueID = 'id';
     mapGeoJson.mapScope = mapScope;
     var diffFeatures = {};
     diffFeatures = mapGeoJson.diffData(mockData1);
     diffFeatures = mapGeoJson.diffData(mockData2);
     expect(diffFeatures.toRemove.ids).toEqual(mockFeaturesToRemove);
+  });
+
+  it("should empty the currentFeatures state", function(){
+    var mapGeoJson = new MapGeoJson();
+    mapGeoJson.mapScope = mapScope;
+    var diffFeatures = {};
+    diffFeatures = mapGeoJson.diffData(mockData1);
+    mapGeoJson.emptyCurrentFeatures();
+    expect(mapGeoJson.currentFeatures.ids.length).toEqual(0);
   });
 
   it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){

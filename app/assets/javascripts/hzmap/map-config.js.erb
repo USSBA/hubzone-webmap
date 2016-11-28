@@ -32,8 +32,13 @@ var MapGeoJson = function(){
   };
 
   //holders for the current features already rendered in the map 'map data state'
-  var currentFeatures = new FeatureDataset();
+  this.currentFeatures = new FeatureDataset();
   
+  // helper method to purge currentFeatures if the fetch returns no new geometry 
+  this.emptyCurrentFeatures = function(){
+    this.currentFeatures =  new FeatureDataset();
+  };
+
   // helper method of MapGeoJson for comparing current data with new incoming data
   // and generating two new datasets: 
   //  1) a collection of features not currently in the map that need to be added
@@ -56,7 +61,7 @@ var MapGeoJson = function(){
       newFeatures.ids.push(featureID);
       newFeatures.fc.features.push(feature);
 
-      if (currentFeatures.ids.indexOf(featureID) === -1){
+      if (this.currentFeatures.ids.indexOf(featureID) === -1){
         //these are new and need to get added by google maps
         diffFeatures.toAdd.fc.features.push(feature);
         diffFeatures.toAdd.fc.totalFeatures += 1;
@@ -69,19 +74,19 @@ var MapGeoJson = function(){
 
     //go across the current features, if any are not in newFeatures, remove
     //else push them into updatedFeatures, which becomes the complete list
-    for (var k = 0; k < currentFeatures.ids.length; k++) {
-      if (newFeatures.ids.indexOf(currentFeatures.ids[k]) === -1){
-        diffFeatures.toRemove.ids.push(currentFeatures.ids[k]);
+    for (var k = 0; k < this.currentFeatures.ids.length; k++) {
+      if (newFeatures.ids.indexOf(this.currentFeatures.ids[k]) === -1){
+        diffFeatures.toRemove.ids.push(this.currentFeatures.ids[k]);
       } else {
-        updatedFeatures.fc.features.push(currentFeatures.fc.features[k]);
-        updatedFeatures.ids.push(currentFeatures.ids[k]);
+        updatedFeatures.fc.features.push(this.currentFeatures.fc.features[k]);
+        updatedFeatures.ids.push(this.currentFeatures.ids[k]);
       }
     }
 
     //finally update currentFeatures 
-    currentFeatures.ids = updatedFeatures.ids;
-    currentFeatures.fc.features = updatedFeatures.fc.features;
-    currentFeatures.fc.totalFeatures = updatedFeatures.fc.features.length;
+    this.currentFeatures.ids = updatedFeatures.ids;
+    this.currentFeatures.fc.features = updatedFeatures.fc.features;
+    this.currentFeatures.fc.totalFeatures = updatedFeatures.fc.features.length;
     
     return diffFeatures;
   };
