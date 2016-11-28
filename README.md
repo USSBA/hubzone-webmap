@@ -58,6 +58,11 @@ Then point your browser to http://localhost:3000/map/fake
 ### Javascript Tests ###
 Teaspoon is used for Javascript testing and coverage.  It runs Jasmine for unit and integration tests and Istanbul for test coverage.
 
+First install Istanbul:
+```
+npm install -g istanbul
+```
+
 To run Teaspoon tests, run:
 ```
   RAILS_ENV=test bundle exec teaspoon --coverage=default  
