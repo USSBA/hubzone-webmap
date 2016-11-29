@@ -52,4 +52,28 @@ rails server
 ```
 Then point your browser to http://localhost:3000/map/fake
 
-!
+## Running Tests ##
+
+
+### Javascript Tests ###
+Teaspoon is used for Javascript testing and coverage.  It runs Jasmine for unit and integration tests and Istanbul for test coverage.
+
+First install Istanbul:
+```
+npm install -g istanbul
+```
+
+To run Teaspoon for unit tests, run:
+```
+  RAILS_ENV=test bundle exec teaspoon
+```
+
+To include Istanbul coverage tests, run:
+```
+  RAILS_ENV=test bundle exec teaspoon --coverage=default  
+```
+
+To view interactive report of test coverage, open:
+```
+coverage/default/index.html
+```
