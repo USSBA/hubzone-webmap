@@ -50,7 +50,7 @@ cd hubzone_map
 git checkout map-playground
 rails server
 ```
-Then point your browser to http://localhost:3000/map/fake
+Then point your browser to http://localhost:3000/map
 
 ## Running Tests ##
 
