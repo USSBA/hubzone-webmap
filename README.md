@@ -52,10 +52,11 @@ rails server
 ```
 Then point your browser to http://localhost:3000/map/fake
 
-## Running Tests ##
+# Running Tests #
 
 
-### Javascript Tests ###
+## Javascript Tests ##
+### Teaspoon / Jasmine / Istanbul Unit and Coverage tests ###
 Teaspoon is used for Javascript testing and coverage.  It runs Jasmine for unit and integration tests and Istanbul for test coverage.
 
 First install Istanbul:
@@ -76,4 +77,12 @@ To include Istanbul coverage tests, run:
 To view interactive report of test coverage, open:
 ```
 coverage/default/index.html
+```
+
+### JSHint Lint Tests ###
+Tring to use this JSHint gem [JSHint](https://github.com/damian/jshint), per its docs:
+
+Add `gem 'jshint'` to the Gemfile under `group :development, :test`
+
+Run `bundle` to install, then run `bundle exec rake jshint` to run tests.
 ```
