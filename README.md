@@ -44,10 +44,11 @@ To run the test suite, simply run:
 * `rspec`
 * or with verbose output: `rspec -f d`
 
-To look at the map from the google-maps-api-playground repo, run the following:
+To launch the map:
 ``` bash
 cd hubzone_map
-git checkout map-playground
+git checkout develop
+git pull
 rails server
 ```
 Then point your browser to http://localhost:3000/map
@@ -70,7 +71,7 @@ To run Teaspoon for unit tests, run:
 
 To include Istanbul coverage tests, run:
 ```
-  RAILS_ENV=test bundle exec teaspoon --coverage=default  
+  RAILS_ENV=test bundle exec teaspoon --coverage=default
 ```
 
 To view interactive report of test coverage, open:
