@@ -84,5 +84,4 @@ Tring to use this JSHint gem [JSHint](https://github.com/damian/jshint), per its
 
 Add `gem 'jshint'` to the Gemfile under `group :development, :test`
 
-Run `bundle` to install, then run `bundle exec rake jshint` to run tests.
-```
+Run `bundle` to install, then run `bundle exec rake jshint` to run test.  Currently this is running the linter then causing a rake error, which appears to be an ongoing issue with this gem.
