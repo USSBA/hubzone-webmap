@@ -6,7 +6,7 @@ function initMap() {
     zoom: 9,
     zoomControl: true,
     mapTypeControlOptions: {
-      mapTypeIds: ['hz_map', 'roadmap', 'satellite' ], 
+      mapTypeIds: ['hz_map', 'roadmap', 'satellite' ],
       style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
     }
   });
@@ -15,6 +15,9 @@ function initMap() {
   var hzStyledMap = new google.maps.StyledMapType(hzBaseMapStyle, {name: 'Default'});
   map.mapTypes.set('hz_map', hzStyledMap);
   map.setMapTypeId('hz_map');
+
+  //adds the map legend
+  map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('legend'));
 
   // adds listener that triggers whenever the map is idle to update with new features.
   google.maps.event.addListener(map, 'idle', function(){
@@ -88,10 +91,10 @@ function parseGeoserverResponse(resp){
     console.error('Error Fetching from GeoServer', resp);
   } else if (resp.totalFeatures > 0){
     var diffFeatures = mapGeoJson.diffData(resp);
-    if (diffFeatures.toAdd.fc.totalFeatures > 0) { 
+    if (diffFeatures.toAdd.fc.totalFeatures > 0) {
       mapScope.data.addGeoJson(diffFeatures.toAdd.fc);
     }
-    if (diffFeatures.toRemove.ids.length > 0){ 
+    if (diffFeatures.toRemove.ids.length > 0){
       for (var i = 0; i < diffFeatures.toRemove.ids.length; i++) {
         mapScope.data.remove(mapScope.data.getFeatureById(diffFeatures.toRemove.ids[i]));
       }
