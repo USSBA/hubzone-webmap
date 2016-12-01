@@ -106,9 +106,9 @@ ul.hubzone-filter-menu label {
 #sidebar {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.95);
-  right: -36rem;
+  right: -32rem;
   height: 100%;
-  width: 36rem;
+  width: 32rem;
   transition-duration: 400ms;
   z-index: 2;
   box-shadow: 0 0 20px rgba(0,0,0,0.3);
@@ -128,16 +128,16 @@ ul.hubzone-filter-menu label {
 .sidebar-search-address {
   font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
   color: #112e51;
-  min-height: 12rem;
+  min-height: 10rem;
   width: 100%;
-  padding: 2rem;
+  padding: 1rem;
   display: table;
 }
 .sidebar-search-address .fa.fa-map-marker {
   position: absolute;
-  font-size: 6rem;
+  font-size: 5rem;
   left: 2.2rem;
-  top: 3rem;
+  top: 2.5rem;
 }
 #search-address {
   font-family: inherit;
@@ -150,20 +150,18 @@ ul.hubzone-filter-menu label {
 .sidebar-hubzone-status {
   font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
   background-color: #112e51;
-  min-height: 10rem;
-  padding: 2.5rem 2rem 2.5rem 2rem;
+  padding: 2rem 1rem 2.5rem 2rem;
   width: 100%;
   color: #fff;
 }
 #hubzone-status {
   font-family: inherit;
-  font-size: 3rem;
-  margin: 0.4rem 0 0 5.5rem;
+  font-size: 2.8rem;
+  margin: 0 0 0 4.8rem;
 }
 .sidebar-hubzone-status .fa.fa-times-circle-o, .fa.fa-check-circle-o {
   position: absolute;
-  float: left;
-  font-size: 5rem;
+  font-size: 4rem;
 }
 .sidebar-hubzone-qualifications {
   color: #5b616a;
