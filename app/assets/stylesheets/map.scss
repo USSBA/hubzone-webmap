@@ -104,13 +104,27 @@ ul.hubzone-filter-menu label {
 
 /* Map Legend */
 #legend {
+  font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
+  font-size: 1.5em;
   background-color: #fff;
-  margin-left: 0.6em;
-  padding: .5em;
+  border: 2px solid #AEB0B5;
+  border-radius: 4px;
+  margin: 0 0 .8em 0.3em;
+  padding: .6em;
 }
 #legend ul {
   list-style-type: none;
   padding-left: 0;
+  margin: 0;
+}
+#legend i {
+  padding-right: .5em;
+}
+.legend-qualified {
+  color: #4DAF4A;
+}
+.legend-expiring {
+  color: #343434;
 }
 
 /* Map sidebar */
