@@ -7,15 +7,18 @@
 $.fn.sidebar = function() {
   var $sidebar = this;
   var $container = $('#sidebar');
+  this.currentClass = 'hidden';
 
   this.update = function() {
     if (!$sidebar.hasClass('on')) {
       $sidebar.addClass('on');
       $sidebar.removeClass('hidden');
       $('#sidebar-button').html('<i class="fa fa-chevron-right"></i>');
+      this.currentClass = 'on';
     } else {
       $sidebar.removeClass('on');
       $('#sidebar-button').html('<i class="fa fa-chevron-left"></i>');
+      this.currentClass = 'hidden';
     }
   }
   /*** Open the sidebar ***/
