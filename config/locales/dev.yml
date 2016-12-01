@@ -50,7 +50,7 @@ dev:
     qualified: "HUBZone Calificado"
     not_qualified: "HUBZone No Calificado"
     qct: "Tramo de Censo Calificado"
-    qualified_county: "Condado calificado"
+    qnmc: "Condado calificado"
     indian_lands: "Tierras Indígenas"
     brac: "Antiguas bases militares (BRAC)"
     disaster_area: "Área de Desastre Designada"

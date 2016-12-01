@@ -51,7 +51,7 @@ en:
     not_qualified: "Not Qualified"
     expiring: "Expiring"
     qct: "Qualified Census Tract"
-    qualified_county: "Qualified County"
+    qnmc: "Qualified County"
     indian_lands: "Indian Lands"
     brac: "Former Military Bases (BRAC)"
     disaster_area: "Designated Disaster Area"
