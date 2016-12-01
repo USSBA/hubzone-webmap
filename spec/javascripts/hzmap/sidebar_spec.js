@@ -1,6 +1,12 @@
 //= require hzmap
 
 describe ('Testing sidebar operations', function() {
+  beforeAll(function(done) {
+    $('#sidebar').remove();
+    $('body').append('<div id="sidebar" class="hidden"></div>');
+    sidebar = $('#sidebar').sidebar();
+    done();
+  });
 
   beforeEach(function(done) {
     setTimeout(function() {

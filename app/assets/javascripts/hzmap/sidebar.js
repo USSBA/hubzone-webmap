@@ -16,6 +16,7 @@ $.fn.sidebar = function() {
       $('#sidebar-button').html('<i class="fa fa-chevron-right"></i>');
       this.currentClass = 'on';
     } else {
+      $sidebar.addClass('hidden');
       $sidebar.removeClass('on');
       $('#sidebar-button').html('<i class="fa fa-chevron-left"></i>');
       this.currentClass = 'hidden';
@@ -23,7 +24,7 @@ $.fn.sidebar = function() {
   }
   /*** Open the sidebar ***/
   this.open = function() {
-    if (!$sidebar.hasClass('on')) {
+    if ($sidebar.hasClass('hidden')) {
       $sidebar.update();
     }
   };
