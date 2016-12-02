@@ -22,6 +22,14 @@ var hzMapLayerStyle = {
         strokeColor: '#0571B0',
         strokeOpacity: 1,
         strokeWeight: 0.8
+    },
+    "qnmc": {
+        fillColor: '#0571B0',
+        zIndex: 5,
+        opacity: 0.75,
+        strokeColor: '#0571B0',
+        strokeOpacity: 1,
+        strokeWeight: 0.8
     }
 };
 
