@@ -9,14 +9,29 @@ options:
   expr:       true
   immed:      true
   indent:     2
-  latedef:    true
+  latedef:    nofunc
   maxcomplexity: 5
   newcap:     true
   noarg:      true
   sub:        true
   trailing:   true
   undef:      true
-  unused:     true
+  unused:     vars
   globals:
     jQuery:   true
     "$":      true
+    console:  true
+    App: true
+    ActionCable: true
+    geomWFSSettings: true
+    google:   true
+    hzBaseMapStyle: true
+    hzMapLayerStyle: true
+    initMap: true
+    jumpToLocation: true
+    map: true
+    mapGeoJson: true
+    mapMarkers: true
+    mapScope: true
+    updateMarkers: true
+

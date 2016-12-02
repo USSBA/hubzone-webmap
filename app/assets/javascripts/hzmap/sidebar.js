@@ -17,7 +17,7 @@ $.fn.sidebar = function() {
       $sidebar.removeClass('on');
       $('#sidebar-button').html('<i class="fa fa-chevron-left"></i>');
     }
-  }
+  };
   /*** Open the sidebar ***/
   this.open = function() {
     if (!$sidebar.hasClass('on')) {
@@ -40,6 +40,6 @@ $(function() {
   sidebar = $('#sidebar').sidebar();
 
   $('#sidebar-button').click(function() {
-    $('#sidebar').hasClass('on') ? sidebar.close() : sidebar.open()
-  })
+    $('#sidebar').hasClass('on') ? sidebar.close() : sidebar.open();
+  });
 });
