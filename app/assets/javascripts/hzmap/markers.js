@@ -14,6 +14,7 @@ function setMapOnAll(map) {
 }
 
 // add a marker to the map, removing any other markers
+/* exported updateMarkers */
 function updateMarkers(geocodeLocation){
   clearMarkers();
   if (geocodeLocation !== null && geocodeLocation !== undefined){
