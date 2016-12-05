@@ -1,5 +1,6 @@
-files: ["**/*.js"] # No need to put app/assets/ or vendor/assets here
-exclude_paths: []
+files: ["**/*.js", "**/*.js.erb"] # No need to put app/assets/ or vendor/assets here
+exclude_paths: ["vendor/assets/*", "**/helpers/"]
+include_paths: ["spec/javascripts", "app/views/"]
 options:
   boss:       true
   browser:    true
@@ -16,7 +17,8 @@ options:
   sub:        true
   trailing:   true
   undef:      true
-  unused:     vars
+  unused:     true
+  jasmine:    true
   globals:
     jQuery:   true
     "$":      true
@@ -33,5 +35,6 @@ options:
     mapGeoJson: true
     mapMarkers: true
     mapScope: true
+    sinon: true
     updateMarkers: true
 
