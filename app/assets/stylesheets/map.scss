@@ -24,7 +24,7 @@
 .usa-nav-secondary-links li:not(:last-child)::after {
   content: none;
 }
-.usa-nav-secondary-links li {
+.usa-nav-secondary-links > li {
   padding-left: 2.5rem;
 }
 
