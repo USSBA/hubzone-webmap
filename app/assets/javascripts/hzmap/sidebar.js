@@ -21,7 +21,7 @@ $.fn.sidebar = function() {
       $('#sidebar-button').html('<i class="fa fa-chevron-left"></i>');
       this.currentClass = 'hidden';
     }
-  }
+  };
   /*** Open the sidebar ***/
   this.open = function() {
     if ($sidebar.hasClass('hidden')) {
@@ -44,6 +44,6 @@ $(function() {
   sidebar = $('#sidebar').sidebar();
 
   $('#sidebar-button').click(function() {
-    $('#sidebar').hasClass('on') ? sidebar.close() : sidebar.open()
-  })
+    $('#sidebar').hasClass('on') ? sidebar.close() : sidebar.open();
+  });
 });
