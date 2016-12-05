@@ -1,6 +1,6 @@
 files: ["**/*.js", "**/*.js.erb"] # No need to put app/assets/ or vendor/assets here
 exclude_paths: ["vendor/assets/*", "**/helpers/"]
-include_paths: ["spec/javascripts", "app/views/"]
+include_paths: ["app/views/"]
 options:
   boss:       true
   browser:    true
@@ -18,7 +18,6 @@ options:
   trailing:   true
   undef:      true
   unused:     true
-  jasmine:    true
   globals:
     jQuery:   true
     "$":      true
