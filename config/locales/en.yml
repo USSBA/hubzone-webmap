@@ -50,6 +50,7 @@ en:
     qualified: "Qualified HUBZone"
     not_qualified: "Not Qualified"
     expiring: "Expiring"
+    expires: "Expires"
     qct: "Qualified Census Tract"
     qct_e: "Qualified Census Tract"
     qct_b: "Qualified Census Tract"

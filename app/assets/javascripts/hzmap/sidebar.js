@@ -45,3 +45,21 @@ $(function() {
     $('#sidebar').hasClass('on') ? sidebar.close() : sidebar.open();
   });
 });
+
+function updateAccordions () {
+  $('button.usa-accordion-button').on('click', function(){
+    var accordionID = this.getAttribute('aria-controls');
+    var content = $('#' + accordionID);
+
+    console.log( 'button[aria-controls='+accordionID+']' );
+
+    if( $( this ).attr('aria-expanded') ) {
+      $( 'button[aria-controls=' + accordionID + ']' ).attr('aria-expanded', true ) ;
+      content.attr('aria-hidden', false);
+      console.log( $( this ).attr('aria-expanded') );
+    } else if ( !$( this ).attr('aria-expanded') ) {
+      $( this ).attr('aria-expanded', false ) ;
+      content.attr('aria-hidden', true);
+    }
+  });
+}
