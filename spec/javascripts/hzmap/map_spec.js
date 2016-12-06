@@ -262,6 +262,15 @@ describe ('Testing map operations', function() {
     expect(mapMarkers[0]).not.toEqual(Marker);  //because the test replaces it with a new spy from google.maps.Marker
   });
 
+  it("should empty the  marker object", function(){
+    //this code touches all 3 marker functions (updateMarkers, setMapOnAll, clearMarkers)
+    var markerSpy = spyOn(google.maps, 'Marker');
+    var markerSetSpy = spyOn(Marker, 'setMap');
+
+    updateMarkers();
+    expect(mapMarkers.length).toEqual(0); 
+  });
+
   it("should return a correctly formatted url request on map click", function(){
     var click = catchMapClick(markerLocation);
     var latlngUrl = '/search?latlng=' + markerLocation.lat + ',' + markerLocation.lng;
