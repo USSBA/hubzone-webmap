@@ -15,4 +15,7 @@ describe "the sidebar", type: :feature do
       expect(page).not_to have_css("#sidebar.hidden")
     end
   end
+  it "should show qualifications label" do
+    expect(page).to have_css("#hubzone-qualifications")
+  end
 end
