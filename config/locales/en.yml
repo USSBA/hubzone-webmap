@@ -54,6 +54,8 @@ en:
     qct_e: "Qualified Census Tract"
     qct_b: "Qualified Census Tract"
     qnmc: "Qualified County"
+    qnmc_e: "Qualified County"
+    qnmc_b: "Qualified County"
     indian_lands: "Indian Lands"
     brac: "Former Military Bases (BRAC)"
     disaster_area: "Designated Disaster Area"
