@@ -152,7 +152,7 @@ function jumpToLocation(geocodeLocation){
   }
 }
 
-// turn latlng object into 
+// turn latlng object into url
 function catchMapClick(clickEvent){
   var clicklng = clickEvent.latLng.lng();
   var clicklat = clickEvent.latLng.lat();
