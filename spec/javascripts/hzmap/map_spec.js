@@ -150,6 +150,10 @@ var mapScope = {
 var mapBounds = mapScope.getBounds();
 
 var map = {
+  addListener: function() {},
+  data: {
+    addListener: function() {}
+  },
   mapTypes: {
     set: function(){
       return;
@@ -160,10 +164,57 @@ var map = {
   }
 };
 
+var mapClick = {
+  latLng: {
+    lat: function(){
+      return markerLocation.lat;
+    },
+    lng: function(){
+      return markerLocation.lng;
+    }
+  }
+};
+
+var mapMarkers = [ Marker]
+
+var mockFeaturesToRemove = ['hz_current_lowestres.601'];
+
+var markerLocation = {
+  lat: 39.29024048029149,
+  lng: -76.60564721970849
+};
+
+var geocodeLocation = {
+  location: markerLocation,
+  viewport: {
+    northeast: {
+      lat: 39.29024048029149,
+      lng: -76.60564721970849
+    },
+    southwest: {
+      lat: 39.2875425197085,
+      lng: -76.6083451802915
+    }
+  }
+};
+
+var geocodeLocationNoViewport = {
+  location: markerLocation
+};
+
+var DummyFeature = function(hztype){
+  this.hztype = hztype,
+  this.getProperty = function(type){
+    return this[type];
+  }
+};
+
 describe ('Testing map operations', function() {
   beforeEach(function() {
     var constructorSpy = spyOn(google.maps, 'Map').and.returnValue(map);
     var eventSpy = spyOn(google.maps.event, 'addListener');
+    var mapListenerSpy = spyOn(map, 'addListener');
+    var mapDataListenerSpy = spyOn(map.data, 'addListener');
 
 
     var mapScopeSpy = spyOn(mapScope, 'getBounds').and.returnValue(mapBounds);
@@ -179,6 +230,8 @@ describe ('Testing map operations', function() {
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map.calls.count()).toEqual(1);
     expect(google.maps.event.addListener.calls.count()).toEqual(1);
+    expect(map.addListener.calls.count()).toEqual(1);
+    expect(map.data.addListener.calls.count()).toEqual(1);
     expect(google.maps.StyledMapType.calls.count()).toEqual(1);
     expect(map.mapTypes.set.calls.count()).toEqual(1);
     expect(map.setMapTypeId.calls.count()).toEqual(1);
@@ -189,6 +242,13 @@ describe ('Testing map operations', function() {
     expect(mapScope.getBounds.calls.count()).toEqual(1);
     expect(mapBounds.getNorthEast.calls.count()).toEqual(2);
     expect(mapBounds.getSouthWest.calls.count()).toEqual(2);
+  });
+
+  it("should get the current table based on zoom level", function (){
+    expect(getTableBasedOnZoomLevel(13)).toEqual(geomWFSSettings.tableHighRes);
+    expect(getTableBasedOnZoomLevel(10)).toEqual(geomWFSSettings.tableLowRes);
+    expect(getTableBasedOnZoomLevel(6)).toEqual(geomWFSSettings.tableLowerRes);
+    expect(getTableBasedOnZoomLevel(5)).toEqual(geomWFSSettings.tableLowestRes);
   });
 
   it("should set the map style", function() {
@@ -232,12 +292,17 @@ describe ('Testing map operations', function() {
     expect(mapGeoJson.currentFeatures.ids.length).toEqual(0);
   });
 
+  it("should return the correct style object per hztype", function(){
+    var dummyFeature = new DummyFeature('indianLands');
+    expect(defaultMapStyle(dummyFeature)).toEqual(hzMapLayerStyle['indianLands']);
+  });
+
   it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){
     var latLngBoundsSpy = spyOn(google.maps, 'LatLngBounds');
     var latLngSpy = spyOn(google.maps, 'LatLng');
     var fitBoundsSpy = spyOn(mapScope, 'fitBounds');
 
-    jumpToLocation(geocodeViewport);
+    jumpToLocation(geocodeLocation);
     expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
     expect(google.maps.LatLng.calls.count()).toEqual(2);
     expect(mapScope.fitBounds.calls.count()).toEqual(1);
@@ -254,34 +319,25 @@ describe ('Testing map operations', function() {
     expect(mapMarkers[0]).not.toEqual(Marker);  //because the test replaces it with a new spy from google.maps.Marker
   });
 
+  xit("should empty the  marker object", function(){
+    //this code touches all 3 marker functions (updateMarkers, setMapOnAll, clearMarkers)
+    var markerSpy = spyOn(google.maps, 'Marker');
+    var markerSetSpy = spyOn(Marker, 'setMap');
+
+    updateMarkers();
+    expect(mapMarkers.length).toEqual(0); 
+  });
+
+  it("should return a correctly formatted url request on map click", function(){
+    var latlngUrl = '/search?latlng=' + mapClick.latLng.lat() + ',' + mapClick.latLng.lng();
+    var clickUrl = catchMapClick(mapClick);
+    expect(clickUrl).toEqual(latlngUrl);  
+  });
 
 });
 
 
 
-////////////////////////////////////////////////////////////////////////////
-//  testing data
-////////////////////////////////////////////////////////////////////////////
-
-var mapMarkers = [ Marker]
-
-var mockFeaturesToRemove = ['hz_current_lowestres.601'];
-
-var markerLocation = {
-  lat: 39.29024048029149,
-  lng: -76.60564721970849
-};
-
-var geocodeViewport = {
-  northeast: {
-    lat: 39.29024048029149,
-    lng: -76.60564721970849
-  },
-  southwest: {
-    lat: 39.2875425197085,
-    lng: -76.6083451802915
-  }
-};
 
 var mockData1 = {
   "type": "FeatureCollection",

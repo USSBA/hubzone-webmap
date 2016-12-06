@@ -35,6 +35,10 @@ function initMap() {
 
   });
 
+  map.addListener('click', catchMapClick);
+
+  map.data.addListener('click', catchMapClick);
+
   //returns the map as a promise
   return map;
 }
@@ -49,8 +53,7 @@ function getBbox(mapScope) {
   return [SWLng, SWLat, NELng, NELat].join(',');
 }
 
-function getUrl(bbox, currentZoom) {
-
+function getTableBasedOnZoomLevel(currentZoom){
   var table = geomWFSSettings.tableHighRes;
   if (currentZoom >= 12) {
     table = geomWFSSettings.tableHighRes;
@@ -61,7 +64,12 @@ function getUrl(bbox, currentZoom) {
   } else {
     table = geomWFSSettings.tableLowestRes;
   }
+  return table;
+}
 
+function getUrl(bbox, currentZoom) {
+
+  var table = getTableBasedOnZoomLevel(currentZoom);
   return [
     geomWFSSettings.urlRoot,
     'version=1.0.0',
@@ -134,12 +142,23 @@ function updateMap(options, callback){
 
 //jump to location on the map based on the geocode viewport object
 /* exported jumpToLocation */
-function jumpToLocation(geocodeViewport){
-  if (geocodeViewport){
+function jumpToLocation(geocodeLocation){
+  if (geocodeLocation.viewport){
     var newBounds = new google.maps.LatLngBounds(
-      new google.maps.LatLng(geocodeViewport.southwest.lat, geocodeViewport.southwest.lng),
-      new google.maps.LatLng(geocodeViewport.northeast.lat, geocodeViewport.northeast.lng)
+      new google.maps.LatLng(geocodeLocation.viewport.southwest.lat, geocodeLocation.viewport.southwest.lng),
+      new google.maps.LatLng(geocodeLocation.viewport.northeast.lat, geocodeLocation.viewport.northeast.lng)
     );
     mapScope.fitBounds(newBounds);
   }
+}
+
+// turn latlng object into url
+function catchMapClick(clickEvent){
+  var clicklng = clickEvent.latLng.lng();
+  var clicklat = clickEvent.latLng.lat();
+  var url = "/search?latlng=" + clicklat + ',' + clicklng;
+  $.ajax({
+    url: url
+  });
+  return url;
 }
