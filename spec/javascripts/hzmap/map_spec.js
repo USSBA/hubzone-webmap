@@ -198,6 +198,16 @@ var geocodeLocation = {
   }
 };
 
+var geocodeLocationNoViewport = {
+  location: markerLocation
+};
+
+var DummyFeature = function(hztype){
+  this.hztype = hztype,
+  this.getProperty = function(type){
+    return this[type];
+  }
+};
 
 describe ('Testing map operations', function() {
   beforeEach(function() {
@@ -280,6 +290,11 @@ describe ('Testing map operations', function() {
     diffFeatures = mapGeoJson.diffData(mockData1);
     mapGeoJson.emptyCurrentFeatures();
     expect(mapGeoJson.currentFeatures.ids.length).toEqual(0);
+  });
+
+  it("should return the correct style object per hztype", function(){
+    var dummyFeature = new DummyFeature('indianLands');
+    expect(defaultMapStyle(dummyFeature)).toEqual(hzMapLayerStyle['indianLands']);
   });
 
   it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){

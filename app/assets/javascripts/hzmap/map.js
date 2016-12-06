@@ -152,7 +152,6 @@ function jumpToLocation(geocodeLocation){
   }
 }
 
-
 // turn latlng object into 
 function catchMapClick(clickEvent){
   var clicklng = clickEvent.latLng.lng();
