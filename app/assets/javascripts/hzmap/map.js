@@ -35,6 +35,18 @@ function initMap() {
 
   });
 
+  map.addListener('click', function(e){
+    var clicklat = e.latLng.lat();
+    var clicklng = e.latLng.lng();
+    catchMapClick({lat: clicklat, lng: clicklng});
+  });
+
+  map.data.addListener('click', function(e){
+    var clicklat = e.latLng.lat();
+    var clicklng = e.latLng.lng();
+    catchMapClick({lat: clicklat, lng: clicklng});
+  });
+
   //returns the map as a promise
   return map;
 }
@@ -134,12 +146,26 @@ function updateMap(options, callback){
 
 //jump to location on the map based on the geocode viewport object
 /* exported jumpToLocation */
-function jumpToLocation(geocodeViewport){
-  if (geocodeViewport){
+function jumpToLocation(geocodeLocation){
+  if (geocodeLocation.viewport){
     var newBounds = new google.maps.LatLngBounds(
-      new google.maps.LatLng(geocodeViewport.southwest.lat, geocodeViewport.southwest.lng),
-      new google.maps.LatLng(geocodeViewport.northeast.lat, geocodeViewport.northeast.lng)
+      new google.maps.LatLng(geocodeLocation.viewport.southwest.lat, geocodeLocation.viewport.southwest.lng),
+      new google.maps.LatLng(geocodeLocation.viewport.northeast.lat, geocodeLocation.viewport.northeast.lng)
     );
     mapScope.fitBounds(newBounds);
+  } else if (geocodeLocation.location){
+    //move to location
   }
+}
+
+// event handler for catching a map click
+function catchMapClick(clickEvent){
+
+  var url = "/search?latlng=" + clickEvent.lat + ',' + clickEvent.lng;
+
+  $.ajax({
+    url: url
+  });
+
+  return url;
 }

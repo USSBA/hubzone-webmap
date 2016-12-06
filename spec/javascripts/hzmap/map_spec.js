@@ -150,6 +150,10 @@ var mapScope = {
 var mapBounds = mapScope.getBounds();
 
 var map = {
+  addListener: function() {},
+  data: {
+    addListener: function() {}
+  },
   mapTypes: {
     set: function(){
       return;
@@ -164,6 +168,8 @@ describe ('Testing map operations', function() {
   beforeEach(function() {
     var constructorSpy = spyOn(google.maps, 'Map').and.returnValue(map);
     var eventSpy = spyOn(google.maps.event, 'addListener');
+    var mapListenerSpy = spyOn(map, 'addListener');
+    var mapDataListenerSpy = spyOn(map.data, 'addListener');
 
 
     var mapScopeSpy = spyOn(mapScope, 'getBounds').and.returnValue(mapBounds);
@@ -179,6 +185,8 @@ describe ('Testing map operations', function() {
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map.calls.count()).toEqual(1);
     expect(google.maps.event.addListener.calls.count()).toEqual(1);
+    expect(map.addListener.calls.count()).toEqual(1);
+    expect(map.data.addListener.calls.count()).toEqual(1);
     expect(google.maps.StyledMapType.calls.count()).toEqual(1);
     expect(map.mapTypes.set.calls.count()).toEqual(1);
     expect(map.setMapTypeId.calls.count()).toEqual(1);
@@ -254,6 +262,11 @@ describe ('Testing map operations', function() {
     expect(mapMarkers[0]).not.toEqual(Marker);  //because the test replaces it with a new spy from google.maps.Marker
   });
 
+  it("should return a correctly formatted url request on map click", function(){
+    var click = catchMapClick(markerLocation);
+    var latlngUrl = '/search?latlng=' + markerLocation.lat + ',' + markerLocation.lng;
+    expect(click).toEqual(latlngUrl);  
+  });
 
 });
 

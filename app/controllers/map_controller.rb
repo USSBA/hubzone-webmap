@@ -10,12 +10,15 @@ class MapController < ApplicationController
   end
 
   def search
-    query = URI.encode_www_form("q" => params[:search] ||= ' ')
+    query = if params[:search].present?
+              URI.encode_www_form("q" => params[:search] ||= ' ')
+            elsif params[:latlng].present?
+              URI.encode_www_form("latlng" => params[:latlng] ||= ' ')
+            end
     response = connection.request(method: :get,
                                   path: "/search?#{query}")
     @body = response.data[:body]
     respond_to do |format|
-      format.html {}
       format.js {}
     end
   end
