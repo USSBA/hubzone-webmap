@@ -1,4 +1,5 @@
 //create the map on load, when idle, jump to updateMap to get features
+/* exported initMap */
 function initMap() {
 
   map = new google.maps.Map(document.getElementById('map'), {
@@ -135,6 +136,7 @@ function updateMap(options, callback){
 }
 
 //jump to location on the map based on the geocode viewport object
+/* exported jumpToLocation */
 function jumpToLocation(geocodeViewport){
   if (geocodeViewport){
     var newBounds = new google.maps.LatLngBounds(
