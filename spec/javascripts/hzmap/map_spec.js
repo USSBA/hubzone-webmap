@@ -245,7 +245,7 @@ describe ('Testing map operations', function() {
     var latLngSpy = spyOn(google.maps, 'LatLng');
     var fitBoundsSpy = spyOn(mapScope, 'fitBounds');
 
-    jumpToLocation(geocodeViewport);
+    jumpToLocation(geocodeLocation);
     expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
     expect(google.maps.LatLng.calls.count()).toEqual(2);
     expect(mapScope.fitBounds.calls.count()).toEqual(1);
@@ -285,14 +285,17 @@ var markerLocation = {
   lng: -76.60564721970849
 };
 
-var geocodeViewport = {
-  northeast: {
-    lat: 39.29024048029149,
-    lng: -76.60564721970849
-  },
-  southwest: {
-    lat: 39.2875425197085,
-    lng: -76.6083451802915
+var geocodeLocation = {
+  location: markerLocation,
+  viewport: {
+    northeast: {
+      lat: 39.29024048029149,
+      lng: -76.60564721970849
+    },
+    southwest: {
+      lat: 39.2875425197085,
+      lng: -76.6083451802915
+    }
   }
 };
 
