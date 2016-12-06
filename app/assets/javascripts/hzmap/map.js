@@ -153,8 +153,6 @@ function jumpToLocation(geocodeLocation){
       new google.maps.LatLng(geocodeLocation.viewport.northeast.lat, geocodeLocation.viewport.northeast.lng)
     );
     mapScope.fitBounds(newBounds);
-  } else if (geocodeLocation.location){
-    //move to location
   }
 }
 
