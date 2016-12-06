@@ -1,1 +1,12 @@
-<li><%= t(('hubzone_assertions.' + qualification["hz_type"]).to_s) %></li>
+ <li>
+  <button class="usa-accordion-button"
+    aria-expanded="true" aria-controls="<%= qualification['hz_type'] %>">
+    <%= t(('hubzone_assertions.' + qualification["hz_type"]).to_s) %>
+  </button>
+  <div id="<%= qualification['hz_type'] %>" class="usa-accordion-content">
+    <p>
+    <%= qualification["county"].to_s %>
+    </p>
+  </div>
+</li>
+<li>
