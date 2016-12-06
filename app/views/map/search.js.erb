@@ -1,6 +1,5 @@
 $('#sidebar-content').html("<%= j render partial: "map_sidebar", locals: {body: JSON.parse(@body)} %>");
 var responseBody = JSON.parse('<%= @body.html_safe %>');
-console.log(responseBody);
 var geocodeLocation = null;
 if (responseBody.geometry){
   jumpToLocation({
