@@ -31,6 +31,7 @@ group :development, :test do
   gem 'capybara' # allow interaction with DOM in tests
   gem 'poltergeist'
   gem 'jasmine-rails' # JavaScript testing
+  gem 'jshint'
   gem 'launchy'
   gem 'rspec-rails', '~> 3.5' # Use RSpec for tests
   gem 'rubocop' # Enforce ruby code style

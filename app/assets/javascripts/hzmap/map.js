@@ -1,4 +1,5 @@
 //create the map on load, when idle, jump to updateMap to get features
+/* exported initMap */
 function initMap() {
 
   map = new google.maps.Map(document.getElementById('map'), {
@@ -24,7 +25,7 @@ function initMap() {
     var bbox = getBbox(mapScope);
 
     //build the fetch url from settings
-    var currentZoom = mapScope.getZoom()
+    var currentZoom = mapScope.getZoom();
     var url = getUrl(bbox, currentZoom);
 
     updateMap({
@@ -36,7 +37,7 @@ function initMap() {
 
   //returns the map as a promise
   return map;
-};
+}
 
 function getBbox(mapScope) {
   //get the bounding box of the current map and parse as a string
@@ -46,9 +47,9 @@ function getBbox(mapScope) {
   var SWLat = mapBounds.getSouthWest().lat();
   var SWLng = mapBounds.getSouthWest().lng();
   return [SWLng, SWLat, NELng, NELat].join(',');
-};
+}
 
-var getUrl = function(bbox, currentZoom) {
+function getUrl(bbox, currentZoom) {
 
   var table = geomWFSSettings.tableHighRes;
   if (currentZoom >= 12) {
@@ -70,13 +71,13 @@ var getUrl = function(bbox, currentZoom) {
     'srsname=EPSG:'+ geomWFSSettings.srs,
     'bbox=' + bbox + ',EPSG:4326'
   ].join('&');
-};
+}
 
-var defaultMapStyle = function(feature) {
+function defaultMapStyle(feature) {
   var hzType = feature.getProperty('hztype');
 
   return hzMapLayerStyle[hzType];
-};
+}
 
 //callback for handling the goeserver response
 //block of code proves problematic to test since it relys on the google map functions addGeoJson, forEach, and remove...
@@ -106,14 +107,14 @@ function parseGeoserverResponse(resp){
   }
 
   return mapGeoJson;
-};
+}
 
 //function to update the map based on new bounds, get new features from
 //geoserver,remove from map any features not in view, add to map
 //any new features in view.
 function updateMap(options, callback){
   var mapScope = options.mapScope;
-  var url = options.url
+  var url = options.url;
 
   //ajax request to geoserver for features,
   $.ajax({
@@ -129,9 +130,10 @@ function updateMap(options, callback){
   //perform some stlying of features based on some rules, in case arbitrary levels based on size.
   mapScope.data.setStyle(defaultMapStyle);
   return mapScope;
-};
+}
 
 //jump to location on the map based on the geocode viewport object
+/* exported jumpToLocation */
 function jumpToLocation(geocodeViewport){
   if (geocodeViewport){
     var newBounds = new google.maps.LatLngBounds(
@@ -140,4 +142,4 @@ function jumpToLocation(geocodeViewport){
     );
     mapScope.fitBounds(newBounds);
   }
-};
+}

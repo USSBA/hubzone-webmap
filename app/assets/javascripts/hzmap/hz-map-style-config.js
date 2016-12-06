@@ -1,3 +1,4 @@
+/* jshint unused: false */
 var hzMapLayerStyle = {
     "indianLands": {
         fillColor: '#0571B0',
@@ -265,4 +266,4 @@ var hzBaseMapStyle = [
             }
         ]
     }
-]
+];
