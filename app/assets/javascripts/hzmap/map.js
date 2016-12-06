@@ -35,17 +35,9 @@ function initMap() {
 
   });
 
-  map.addListener('click', function(e){
-    var clicklat = e.latLng.lat();
-    var clicklng = e.latLng.lng();
-    catchMapClick({lat: clicklat, lng: clicklng});
-  });
+  map.addListener('click', catchMapClick);
 
-  map.data.addListener('click', function(e){
-    var clicklat = e.latLng.lat();
-    var clicklng = e.latLng.lng();
-    catchMapClick({lat: clicklat, lng: clicklng});
-  });
+  map.data.addListener('click', catchMapClick);
 
   //returns the map as a promise
   return map;
@@ -61,8 +53,7 @@ function getBbox(mapScope) {
   return [SWLng, SWLat, NELng, NELat].join(',');
 }
 
-function getUrl(bbox, currentZoom) {
-
+function getTableBasedOnZoomLevel(currentZoom){
   var table = geomWFSSettings.tableHighRes;
   if (currentZoom >= 12) {
     table = geomWFSSettings.tableHighRes;
@@ -73,7 +64,12 @@ function getUrl(bbox, currentZoom) {
   } else {
     table = geomWFSSettings.tableLowestRes;
   }
+  return table;
+}
 
+function getUrl(bbox, currentZoom) {
+
+  var table = getTableBasedOnZoomLevel(currentZoom);
   return [
     geomWFSSettings.urlRoot,
     'version=1.0.0',
@@ -156,14 +152,14 @@ function jumpToLocation(geocodeLocation){
   }
 }
 
-// event handler for catching a map click
+
+// turn latlng object into 
 function catchMapClick(clickEvent){
-
-  var url = "/search?latlng=" + clickEvent.lat + ',' + clickEvent.lng;
-
+  var clicklng = clickEvent.latLng.lng();
+  var clicklat = clickEvent.latLng.lat();
+  var url = "/search?latlng=" + clicklat + ',' + clicklng;
   $.ajax({
     url: url
   });
-
   return url;
 }

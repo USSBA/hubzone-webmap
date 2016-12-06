@@ -164,6 +164,41 @@ var map = {
   }
 };
 
+var mapClick = {
+  latLng: {
+    lat: function(){
+      return markerLocation.lat;
+    },
+    lng: function(){
+      return markerLocation.lng;
+    }
+  }
+};
+
+var mapMarkers = [ Marker]
+
+var mockFeaturesToRemove = ['hz_current_lowestres.601'];
+
+var markerLocation = {
+  lat: 39.29024048029149,
+  lng: -76.60564721970849
+};
+
+var geocodeLocation = {
+  location: markerLocation,
+  viewport: {
+    northeast: {
+      lat: 39.29024048029149,
+      lng: -76.60564721970849
+    },
+    southwest: {
+      lat: 39.2875425197085,
+      lng: -76.6083451802915
+    }
+  }
+};
+
+
 describe ('Testing map operations', function() {
   beforeEach(function() {
     var constructorSpy = spyOn(google.maps, 'Map').and.returnValue(map);
@@ -197,6 +232,13 @@ describe ('Testing map operations', function() {
     expect(mapScope.getBounds.calls.count()).toEqual(1);
     expect(mapBounds.getNorthEast.calls.count()).toEqual(2);
     expect(mapBounds.getSouthWest.calls.count()).toEqual(2);
+  });
+
+  it("should get the current table based on zoom level", function (){
+    expect(getTableBasedOnZoomLevel(13)).toEqual(geomWFSSettings.tableHighRes);
+    expect(getTableBasedOnZoomLevel(10)).toEqual(geomWFSSettings.tableLowRes);
+    expect(getTableBasedOnZoomLevel(6)).toEqual(geomWFSSettings.tableLowerRes);
+    expect(getTableBasedOnZoomLevel(5)).toEqual(geomWFSSettings.tableLowestRes);
   });
 
   it("should set the map style", function() {
@@ -272,41 +314,15 @@ describe ('Testing map operations', function() {
   });
 
   it("should return a correctly formatted url request on map click", function(){
-    var click = catchMapClick(markerLocation);
-    var latlngUrl = '/search?latlng=' + markerLocation.lat + ',' + markerLocation.lng;
-    expect(click).toEqual(latlngUrl);  
+    var latlngUrl = '/search?latlng=' + mapClick.latLng.lat() + ',' + mapClick.latLng.lng();
+    var clickUrl = catchMapClick(mapClick);
+    expect(clickUrl).toEqual(latlngUrl);  
   });
 
 });
 
 
 
-////////////////////////////////////////////////////////////////////////////
-//  testing data
-////////////////////////////////////////////////////////////////////////////
-
-var mapMarkers = [ Marker]
-
-var mockFeaturesToRemove = ['hz_current_lowestres.601'];
-
-var markerLocation = {
-  lat: 39.29024048029149,
-  lng: -76.60564721970849
-};
-
-var geocodeLocation = {
-  location: markerLocation,
-  viewport: {
-    northeast: {
-      lat: 39.29024048029149,
-      lng: -76.60564721970849
-    },
-    southwest: {
-      lat: 39.2875425197085,
-      lng: -76.6083451802915
-    }
-  }
-};
 
 var mockData1 = {
   "type": "FeatureCollection",
