@@ -24,7 +24,7 @@
 .usa-nav-secondary-links li:not(:last-child)::after {
   content: none;
 }
-.usa-nav-secondary-links li {
+.usa-nav-secondary-links > li {
   padding-left: 2.5rem;
 }
 
@@ -102,13 +102,38 @@ ul.hubzone-filter-menu label {
   color: #0071bb;
 }
 
+/* Map Legend */
+#legend {
+  font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
+  font-size: 1.5em;
+  background-color: #fff;
+  border: 2px solid #AEB0B5;
+  border-radius: 4px;
+  margin: 0 0 .8em 0.3em;
+  padding: .6em;
+}
+#legend ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
+#legend i {
+  padding-right: .5em;
+}
+.legend-qualified {
+  color: #4DAF4A;
+}
+.legend-expiring {
+  color: #343434;
+}
+
 /* Map sidebar */
 #sidebar {
   position: absolute;
-  background-color: #fff;
-  right: -36rem;
+  background-color: rgba(255, 255, 255, 0.95);
+  right: -32rem;
   height: 100%;
-  width: 36rem;
+  width: 32rem;
   transition-duration: 400ms;
   z-index: 2;
   box-shadow: 0 0 20px rgba(0,0,0,0.3);
@@ -128,42 +153,40 @@ ul.hubzone-filter-menu label {
 .sidebar-search-address {
   font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
   color: #112e51;
-  min-height: 12rem;
+  min-height: 10rem;
   width: 100%;
-  padding: 2rem;
+  padding: 1rem;
   display: table;
 }
 .sidebar-search-address .fa.fa-map-marker {
   position: absolute;
-  font-size: 6rem;
+  font-size: 5rem;
   left: 2.2rem;
-  top: 3rem;
+  top: 2.5rem;
 }
 #search-address {
   font-family: inherit;
   font-size: 2.3rem;
   font-weight: normal;
-  padding: 0 2rem 0 5rem;
+  padding: 0 2rem 0 6rem;
   display: table-cell;
   vertical-align: middle;
 }
 .sidebar-hubzone-status {
   font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
   background-color: #112e51;
-  min-height: 10rem;
-  padding: 2.5rem 2rem 2.5rem 2rem;
+  padding: 2rem 1rem 2.5rem 2rem;
   width: 100%;
   color: #fff;
 }
 #hubzone-status {
   font-family: inherit;
-  font-size: 3rem;
-  margin: 0.4rem 0 0 5.5rem;
+  font-size: 2.8rem;
+  margin: 0 0 0 4.8rem;
 }
 .sidebar-hubzone-status .fa.fa-times-circle-o, .fa.fa-check-circle-o {
   position: absolute;
-  float: left;
-  font-size: 5rem;
+  font-size: 4rem;
 }
 .sidebar-hubzone-qualifications {
   color: #5b616a;
@@ -171,15 +194,38 @@ ul.hubzone-filter-menu label {
 }
 .hubzone-sidebar-qualifications {
   font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
-  margin: 0;
+  margin: 0 0 1rem 0;
   font-weight: normal;
-  font-size: 2rem;
+  font-size: 1em;
 }
 #hubzone-qualifications li{
   font-size: 1.5rem;
 }
 .gm-bundled-control {
   transition-duration: 400ms;
+}
+#sidebar .usa-accordion-button {
+  background-color: #fafafa;
+  padding: 1.5rem 5.5rem 1.5rem 1rem;
+  font-weight: 400;
+}
+#sidebar .usa-accordion-bordered .usa-accordion-content {
+  border-bottom: 3px solid #fafafa;
+  border-left: 3px solid #fafafa;
+  border-right: 3px solid #fafafa;
+  padding: 0;
+}
+#sidebar .usa-accordion-bordered .usa-accordion-content table{
+  margin: 0;
+}
+.hubzone-qualification-details,
+.hubzone-qualification-details tr,
+.hubzone-qualification-details th,
+.hubzone-qualification-details td{
+  border: 0;
+}
+.hubzone-qualification-details th {
+  font-weight: 700;
 }
 
 /* Map body */

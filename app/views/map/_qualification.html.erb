@@ -1,1 +1,20 @@
-<li><%= t(('hubzone_assertions.' + qualification["hz_type"]).to_s) %></li>
+ <li>
+  <button class="usa-accordion-button"
+    aria-expanded="false" aria-controls="<%= qualification['hz_type'] %>">
+    <%= t(('hubzone_assertions.' + qualification["hz_type"]).to_s)  %>
+  </button>
+  <div id="<%= qualification['hz_type'] %>" class="usa-accordion-content" aria-hidden="true">
+    <p>
+    <!-- <span class="usa-label"><%= t('hubzone_assertions.expires') %> <%= qualification["start"].to_s %></span> -->
+    <table class="usa-table-borderless hubzone-qualification-details">
+    <tbody>
+      <tr>
+        <th scope="row"><%= t('hubzone_assertions.expires') %></th>
+        <td><%= qualification["stop"].to_s %></td>
+      </tr>
+      </tbody>
+    </table>
+    </p>
+  </div>
+</li>
+<li>

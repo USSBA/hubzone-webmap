@@ -46,10 +46,11 @@ en:
       unknown_error: "Unknown error"
   hubzone_assertions:
     qualified_by: "Qualified by: "
-    qualifications_title: "HUBZone Qualifications"
+    qualifications_title: "Qualifications"
     qualified: "Qualified HUBZone"
     not_qualified: "Not Qualified"
     expiring: "Expiring"
+    expires: "Expires"
     qct: "Qualified Census Tract"
     qct_e: "Qualified Census Tract"
     qct_b: "Qualified Census Tract"
