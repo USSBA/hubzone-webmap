@@ -10,10 +10,10 @@ describe 'map search', type: :feature, js: true do
                                       http_status: 200,
                                       hubzone: [
                                         {
-                                          hz_type: 'Indian Lands'
+                                          hz_type: "indian_lands"
                                         },
                                         {
-                                          hz_type: 'Qualified Census Tract'
+                                          hz_type: "qct"
                                         }
                                       ],
                                       geometry: {} },
@@ -26,60 +26,67 @@ describe 'map search', type: :feature, js: true do
                                 http_status: 200,
                                 hubzone: [],
                                 geometry: {} } }
-  statuses = { qualified: 'Qualified HUBZone',
-               non_qualified: 'Not Qualified' }
+  statuses = { qualified: "hubzone_assertions.qualified",
+               non_qualified: "hubzone_assertions.not_qualified" }
 
-  before do
-    visit root_path
-  end
+  
+  %w(en dev).each do |locale|
+    context "in the #{locale} locale" do
 
-  after(:each) do
-    Excon.stubs.clear
-  end
-
-  context 'with qualified hubzone query that has multiple hubzones' do
-    before do
-      Excon.stub({},
-                 body: responses[:qualified_multiple].to_json)
+      before do
+        I18n.locale = locale
+        visit root_path({locale: locale})
+      end
+    
+      after(:each) do
+        Excon.stubs.clear
+      end
+    
+      context 'with qualified hubzone query that has multiple hubzones' do
+        before do
+          Excon.stub({},
+                     body: responses[:qualified_multiple].to_json)
+        end
+        it "should return qualified hubzone status" do
+          fill_in 'search', with: queries[:qualified_multiple]
+          click_button 'hubzone-search-button'
+          expect(page).to have_content(t(statuses[:qualified]))
+        end
+        it "should display indian lands hubzone designation type" do
+          fill_in 'search', with: queries[:qualified_multiple]
+          click_button 'hubzone-search-button'
+          expect(page).to have_content(t("hubzone_assertions." + responses[:qualified_multiple][:hubzone][0][:hz_type].to_s))
+        end
+        it "should display qct hubzone designation type" do
+          fill_in 'search', with: queries[:qualified_multiple]
+          click_button 'hubzone-search-button'
+          expect(page).to have_content(t("hubzone_assertions." + responses[:qualified_multiple][:hubzone][1][:hz_type].to_s))
+        end
+      end
+  
+      context 'with non-qualified hubzone query' do
+        before do
+          Excon.stub({},
+                     body: responses[:non_qualified].to_json)
+        end
+        it "should return non qualified hubzone status" do
+          fill_in 'search', with: queries[:non_qualified]
+          click_button 'hubzone-search-button'
+          expect(page).to have_content(t(statuses[:non_qualified]))
+        end
+      end
+    
+      context 'when searching for intersection' do
+        before do
+          Excon.stub({},
+                     body: responses[:intersection].to_json)
+        end
+        it "should return the full address of the intersection" do
+          fill_in 'search', with: queries[:intersection]
+          click_button 'hubzone-search-button'
+          expect(page).to have_content(responses[:intersection][:formatted_address])
+        end
+      end
     end
-    it "should return qualified hubzone status" do
-      fill_in 'search', with: queries[:qualified_multiple]
-      click_button 'hubzone-search-button'
-      expect(page).to have_content(statuses[:qualified])
-    end
-    it "should display indian lands hubzone designation type" do
-      fill_in 'search', with: queries[:qualified_multiple]
-      click_button 'hubzone-search-button'
-      expect(page).to have_content(responses[:qualified_multiple][:hubzone][0][:hz_type])
-    end
-    it "should display qct hubzone designation type" do
-      fill_in 'search', with: queries[:qualified_multiple]
-      click_button 'hubzone-search-button'
-      expect(page).to have_content(responses[:qualified_multiple][:hubzone][1][:hz_type])
-    end
-  end
-
-  context 'with non-qualified hubzone query' do
-    before do
-      Excon.stub({},
-                 body: responses[:non_qualified].to_json)
-    end
-    it "should return non qualified hubzone status" do
-      fill_in 'search', with: queries[:non_qualified]
-      click_button 'hubzone-search-button'
-      expect(page).to have_content(statuses[:non_qualified])
-    end
-  end
-
-  context 'when searching for intersection' do
-    before do
-      Excon.stub({},
-                 body: responses[:intersection].to_json)
-    end
-    it "should return the full address of the intersection" do
-      fill_in 'search', with: queries[:intersection]
-      click_button 'hubzone-search-button'
-      expect(page).to have_content(responses[:intersection][:formatted_address])
-    end
-  end
+  end  
 end
