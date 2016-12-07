@@ -1,6 +1,6 @@
  <li>
   <button class="usa-accordion-button"
-    aria-expanded="false" aria-controls="<%= qualification['hz_type'] %>">
+    aria-expanded="false" aria-controls="<%= qualification['hz_type'] %>" id="<%= qualification['hz_type'] %>_button">
     <%= t(('hubzone_assertions.' + qualification["hz_type"]).to_s)  %>
   </button>
   <div id="<%= qualification['hz_type'] %>" class="usa-accordion-content" aria-hidden="true">

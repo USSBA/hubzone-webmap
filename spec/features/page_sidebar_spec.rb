@@ -75,8 +75,8 @@ describe "the sidebar", type: :feature do
     it "should show one qualification" do
       fill_in 'search', with: queries[:qualified_single]
       click_button 'hubzone-search-button'
-      puts page.body
-      expect(page).to have_css("#indian_lands")
+      # puts page.body
+      expect(page).to have_css("#indian_lands_button")
     end
   end
 
