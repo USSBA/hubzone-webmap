@@ -7,7 +7,8 @@ var google = {
     BicyclingLayer: function() {},
     Circle: function () {},
     ControlPosition: {
-      TOP_RIGHT: {}
+      TOP_RIGHT: [],
+      LEFT_BOTTOM: []
     },
     Data: function() {},
     DirectionsRenderer: function() {},
@@ -161,8 +162,11 @@ var map = {
   },
   setMapTypeId: function(){
     return;
-  }
+  },
+  controls: []
 };
+map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
+map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
 
 var mapClick = {
   latLng: {

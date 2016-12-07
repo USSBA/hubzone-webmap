@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'map search', type: :feature, js: true do
+describe 'the map search', type: :feature, js: true do
   queries = { qualified_multiple: 'navajo',
               qualified_single: 'tiffany peak, co',
               non_qualified: 'banana',
