@@ -39,6 +39,10 @@ describe "the sidebar", type: :feature do
     end
   end
   context "after a search performed", js: true do
+    before do
+      Excon.stub({},
+                 body: '')
+    end
     it "should be visible" do
       click_button "hubzone-search-button"
       expect(page).not_to have_css("#sidebar.hidden")
