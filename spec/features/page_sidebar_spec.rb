@@ -4,33 +4,30 @@ describe "the sidebar", type: :feature do
   queries = { qualified_multiple: 'navajo',
             qualified_single: 'tiffany peak, co',
             non_qualified: 'banana' }
+
   responses = { qualified_multiple: { formatted_address: 'Yup',
-                          http_status: 200,
-                          hubzone: [
-                            {
-                              hz_type: 'Indian Lands'
-                            },
-                            {
-                              hz_type: 'Qualified Census Tract'
-                            }
-                          ],
-                          geometry: {} },
-    non_qualified: { formatted_address: "Nope",
-                     http_status: 200,
-                     hubzone: [],
-                     geometry: {} },
-    intersection: { formatted_address:
-                    'St Paul St & E 25th St, Baltimore, MD 21218, USA',
-                    http_status: 200,
-                    hubzone: [],
-                    geometry: {} } }
+                                      http_status: 200,
+                                      hubzone: [
+                                        {
+                                          hz_type: 'Indian Lands'
+                                        },
+                                        {
+                                          hz_type: 'Qualified Census Tract'
+                                        }
+                                      ],
+                                      geometry: {} },
+                non_qualified: { formatted_address: "Nope",
+                                 http_status: 200,
+                                 hubzone: [],
+                                 geometry: {} },
+                intersection: { formatted_address:
+                                'St Paul St & E 25th St, Baltimore, MD 21218, USA',
+                                http_status: 200,
+                                hubzone: [],
+                                geometry: {} } }
 
   before do
     visit('/map')
-  end
-
-  after(:each) do
-    Excon.stubs.clear
   end
 
   context "before any interactions" do
@@ -66,7 +63,6 @@ describe "the sidebar", type: :feature do
     it "should show one qualification" do
       fill_in 'search', with: queries[:qualified_single]
       click_button 'hubzone-search-button'
-      puts page.body
       expect(page).to have_css("#indian_lands")
     end
   end
