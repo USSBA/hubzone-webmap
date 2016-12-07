@@ -86,8 +86,13 @@ function getUrl(bbox, currentZoom) {
 
 function defaultMapStyle(feature) {
   var hzType = feature.getProperty('hztype');
+  var hzStopDate = feature.getProperty('stop');
 
-  return hzMapLayerStyle[hzType];
+  if (hzStopDate == null) {
+    return hzMapLayerStyle[hzType];
+  } else {
+    return hzMapLayerStyle[hzType + "_expiring"];
+  }
 }
 
 //callback for handling the goeserver response

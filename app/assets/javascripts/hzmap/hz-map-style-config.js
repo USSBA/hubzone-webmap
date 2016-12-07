@@ -8,7 +8,7 @@ var hzMapLayerStyle = {
         strokeOpacity: 1,
         strokeWeight: 1.25
     },
-    "brac": {
+    "brac_expiring": {
         fillColor: '#FF7F00',
         zIndex: 30,
         opacity: 0.75,
@@ -31,7 +31,24 @@ var hzMapLayerStyle = {
         strokeColor: '#377EB8',
         strokeOpacity: 1,
         strokeWeight: 1.25
+    },
+    "qct_expiring": {
+        fillColor: '#000000',
+        zIndex: 20,
+        opacity: 0.75,
+        strokeColor: '#000000',
+        strokeOpacity: 1,
+        strokeWeight: 1.25
+    },
+    "qnmc_expiring": {
+        fillColor: '#000000',
+        zIndex: 5,
+        opacity: 0.75,
+        strokeColor: '#000000',
+        strokeOpacity: 1,
+        strokeWeight: 1.25
     }
+
 };
 
 var hzBaseMapStyle = [
