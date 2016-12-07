@@ -41,23 +41,30 @@ var sidebar = {};
 $(function() {
   sidebar = $('#sidebar').sidebar();
 
-  $('#sidebar-button').click(function() {
-    $('#sidebar').hasClass('on') ? sidebar.close() : sidebar.open();
-  });
+  $('#sidebar-button').click(triggerSidebar);
 });
 
-function updateAccordions () {
-  $('button.usa-accordion-button').on('click', function(){
-    var accordionID = this.getAttribute('aria-controls');
-    var content = $('#' + accordionID);
-    var accordionIsOpen = $( this ).attr('aria-expanded');
+// event handler for clicks to sidebar button
+function triggerSidebar(){
+  $('#sidebar').hasClass('on') ? sidebar.close() : sidebar.open();
+}
 
-    if( accordionIsOpen === 'false' ) {
-      $( 'button[aria-controls=' + accordionID + ']' ).attr('aria-expanded', 'true' );
-      content.attr('aria-hidden', 'false');
-    } else if ( accordionIsOpen === 'true' ) {
-      $( 'button[aria-controls=' + accordionID + ']' ).attr('aria-expanded', 'false' );
-      content.attr('aria-hidden', 'true');
-    }
-  });
+/* exported updateAccordions */
+function updateAccordions () {
+  $('button.usa-accordion-button').on('click', triggerAccordion);
+}
+
+// event handler for clicks on an accorion button
+function triggerAccordion(el){
+  var accordionID = el.currentTarget.getAttribute('aria-controls');
+  var content = $('#' + accordionID);
+  var accordionIsOpen = el.currentTarget.getAttribute('aria-expanded');
+
+  if( accordionIsOpen === 'false' ) {
+    $( 'button[aria-controls=' + accordionID + ']' ).attr('aria-expanded', 'true' );
+    content.attr('aria-hidden', 'false');
+  } else if ( accordionIsOpen === 'true' ) {
+    $( 'button[aria-controls=' + accordionID + ']' ).attr('aria-expanded', 'false' );
+    content.attr('aria-hidden', 'true');
+  }
 }
