@@ -50,16 +50,14 @@ function updateAccordions () {
   $('button.usa-accordion-button').on('click', function(){
     var accordionID = this.getAttribute('aria-controls');
     var content = $('#' + accordionID);
+    var accordionIsOpen = $( this ).attr('aria-expanded');
 
-    console.log( 'button[aria-controls='+accordionID+']' );
-
-    if( $( this ).attr('aria-expanded') ) {
-      $( 'button[aria-controls=' + accordionID + ']' ).attr('aria-expanded', true ) ;
-      content.attr('aria-hidden', false);
-      console.log( $( this ).attr('aria-expanded') );
-    } else if ( !$( this ).attr('aria-expanded') ) {
-      $( this ).attr('aria-expanded', false ) ;
-      content.attr('aria-hidden', true);
+    if( accordionIsOpen === 'false' ) {
+      $( 'button[aria-controls=' + accordionID + ']' ).attr('aria-expanded', 'true' );
+      content.attr('aria-hidden', 'false');
+    } else if ( accordionIsOpen === 'true' ) {
+      $( 'button[aria-controls=' + accordionID + ']' ).attr('aria-expanded', 'false' );
+      content.attr('aria-hidden', 'true');
     }
   });
 }
