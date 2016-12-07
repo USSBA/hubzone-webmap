@@ -17,6 +17,12 @@ production:
     <<: *default_wfs
     db: hzgeo_prd
 
+demo:
+  <<: *defaults
+  geomWFSSettings:
+    <<: *default_wfs
+    db: hzgeo_demo
+
 development:
   <<: *defaults
   geomWFSSettings:
