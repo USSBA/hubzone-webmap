@@ -29,19 +29,17 @@ describe 'map search', type: :feature, js: true do
   statuses = { qualified: "hubzone_assertions.qualified",
                non_qualified: "hubzone_assertions.not_qualified" }
 
-  
   %w(en dev).each do |locale|
     context "in the #{locale} locale" do
-
       before do
         I18n.locale = locale
-        visit root_path({locale: locale})
+        visit root_path(locale: locale)
       end
-    
+
       after(:each) do
         Excon.stubs.clear
       end
-    
+
       context 'with qualified hubzone query that has multiple hubzones' do
         before do
           Excon.stub({},
@@ -63,7 +61,7 @@ describe 'map search', type: :feature, js: true do
           expect(page).to have_content(t("hubzone_assertions." + responses[:qualified_multiple][:hubzone][1][:hz_type].to_s))
         end
       end
-  
+
       context 'with non-qualified hubzone query' do
         before do
           Excon.stub({},
@@ -75,7 +73,7 @@ describe 'map search', type: :feature, js: true do
           expect(page).to have_content(t(statuses[:non_qualified]))
         end
       end
-    
+
       context 'when searching for intersection' do
         before do
           Excon.stub({},
@@ -88,5 +86,5 @@ describe 'map search', type: :feature, js: true do
         end
       end
     end
-  end  
+  end
 end
