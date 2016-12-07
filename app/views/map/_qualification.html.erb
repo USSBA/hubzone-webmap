@@ -9,16 +9,8 @@
     <table class="usa-table-borderless hubzone-qualification-details">
     <tbody>
       <tr>
-        <th scope="row">Expires</th>
+        <th scope="row"><%= t('hubzone_assertions.expires') %></th>
         <td><%= qualification["stop"].to_s %></td>
-      </tr>
-      <tr>
-        <th scope="row">Nearest City</th>
-        <td><%= qualification["city"].to_s %></td>
-      </tr>
-      <tr>
-        <th scope="row">County</th>
-        <td><%= qualification["county"].to_s %></td>
       </tr>
       </tbody>
     </table>
