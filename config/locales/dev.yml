@@ -46,7 +46,7 @@ dev:
       unknown_error: "Error desconocido"
   hubzone_assertions:
     qualified_by: "Calificado por: "
-    qualifications_title: "HUBZone Calificaciones"
+    qualifications_title: "Calificaciones"
     qualified: "HUBZone Calificado"
     not_qualified: "HUBZone No Calificado"
     qct: "Tramo de Censo Calificado"
