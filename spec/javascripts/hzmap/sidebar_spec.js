@@ -28,4 +28,16 @@ describe ('Testing sidebar operations', function() {
     sidebar.close();
     expect(sidebar.currentClass).toEqual('hidden');
   });
+  
+  it ("should catch the button click to trigger the sidebar to close", function() {
+    sidebar.open();
+    triggerSidebar();
+    expect(sidebar.currentClass).toEqual('hidden');
+  });
+
+  it ("should catch the button click to trigger the sidebar to open", function() {
+    sidebar.close();
+    triggerSidebar();
+    expect(sidebar.currentClass).toEqual('on');
+  });
 });
