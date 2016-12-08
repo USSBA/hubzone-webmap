@@ -2,17 +2,18 @@ require 'rails_helper'
 
 describe "the sidebar", type: :feature do
   queries = { qualified_multiple: 'navajo',
-            qualified_single: 'tiffany peak, co',
-            non_qualified: 'banana' }
+              qualified_single: 'tiffany peak, co',
+              non_qualified: 'banana',
+              intersection: '25th & st. paul, baltimore' }
 
   responses = { qualified_multiple: { formatted_address: 'Yup',
                                       http_status: 200,
                                       hubzone: [
                                         {
-                                          hz_type: 'Indian Lands'
+                                          hz_type: "indian_lands"
                                         },
                                         {
-                                          hz_type: 'Qualified Census Tract'
+                                          hz_type: "qct"
                                         }
                                       ],
                                       geometry: {} },
@@ -30,6 +31,10 @@ describe "the sidebar", type: :feature do
     visit('/map')
   end
 
+  after(:each) do
+    Excon.stubs.clear
+  end
+
   context "before any interactions" do
     it "should exist and be hidden" do
       expect(page).to have_css("#sidebar.hidden")
@@ -38,16 +43,18 @@ describe "the sidebar", type: :feature do
       expect(page).to have_css("#hubzone-qualifications")
     end
   end
+
   context "after a search performed", js: true do
     before do
       Excon.stub({},
-                 body: '')
+                 body: responses[:non_qualified].to_json)
     end
     it "should be visible" do
       click_button "hubzone-search-button"
       expect(page).not_to have_css("#sidebar.hidden")
     end
   end
+
   context "with a non-qualified address", js: true do
     before do
       Excon.stub({},
@@ -56,9 +63,10 @@ describe "the sidebar", type: :feature do
     it "should show no qualifications" do
       fill_in 'search', with: queries[:non_qualified]
       click_button 'hubzone-search-button'
-      expect(page).not_to have_css("#qct_e")
+      expect(page).not_to have_css("#qct_e", visible: false)
     end
   end
+
   context "with a qualified address", js: true do
     before do
       Excon.stub({},
@@ -67,16 +75,7 @@ describe "the sidebar", type: :feature do
     it "should show one qualification" do
       fill_in 'search', with: queries[:qualified_single]
       click_button 'hubzone-search-button'
-      expect(page).to have_css("#indian_lands")
+      expect(page).to have_css("#indian_lands", visible: false)
     end
   end
-  # context "with a multi-qualified address", js: true do
-  #   it "should show multiple qualifications" do
-  #     fill_in 'search', with: queries[:qualified_multiple]
-  #     click_button 'hubzone-search-button'
-  #     expect(page).to have_css("#qct_e")
-  #     expect(page).to have_css("#qnmc_e")
-  #     expect(page).to have_css("#indian_lands")
-  #   end
-  # end
 end
