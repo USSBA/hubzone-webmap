@@ -58,12 +58,12 @@ describe "the sidebar", type: :feature do
   context "with a non-qualified address", js: true do
     before do
       Excon.stub({},
-                 body: responses[:qualified_multiple].to_json)
+                 body: responses[:non_qualified].to_json)
     end
     it "should show no qualifications" do
       fill_in 'search', with: queries[:non_qualified]
       click_button 'hubzone-search-button'
-      expect(page).not_to have_css("#qct_e")
+      expect(page).not_to have_css("#qct_e", visible: false)
     end
   end
 
@@ -75,9 +75,7 @@ describe "the sidebar", type: :feature do
     it "should show one qualification" do
       fill_in 'search', with: queries[:qualified_single]
       click_button 'hubzone-search-button'
-      # puts page.body
-      expect(page).to have_css("#indian_lands_button")
+      expect(page).to have_css("#indian_lands", visible: false)
     end
   end
-
 end

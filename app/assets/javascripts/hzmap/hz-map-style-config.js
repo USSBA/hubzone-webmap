@@ -1,26 +1,26 @@
 /* jshint unused: false */
 var hzMapLayerStyle = {
     "indianLands": {
-        fillColor: '#984EA3',
+        fillColor: '#377EB8',
         zIndex: 10,
         opacity: 0.75,
-        strokeColor: '#984EA3',
+        strokeColor: '#377EB8',
         strokeOpacity: 1,
         strokeWeight: 1.25
     },
     "brac_expiring": {
-        fillColor: '#FF7F00',
+        fillColor: '#377EB8',
         zIndex: 30,
         opacity: 0.75,
-        strokeColor: '#FF7F00',
+        strokeColor: '#377EB8',
         strokeOpacity: 1,
         strokeWeight: 1.25
     },
     "qct": {
-        fillColor: '#4DAF4A',
+        fillColor: '#377EB8',
         zIndex: 20,
         opacity: 0.75,
-        strokeColor: '#4DAF4A',
+        strokeColor: '#377EB8',
         strokeOpacity: 1,
         strokeWeight: 1.25
     },
