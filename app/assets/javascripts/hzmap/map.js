@@ -20,29 +20,34 @@ function initMap() {
   //adds the map legend
   map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('legend'));
 
+  var newHZOverlay = generateHZOverlay();
+
+  map.overlayMapTypes.push(newHZOverlay);
+
   // adds listener that triggers whenever the map is idle to update with new features.
-  google.maps.event.addListener(map, 'idle', function(){
-    mapScope = this;
+  // google.maps.event.addListener(map, 'idle', function(){
+  //   mapScope = this;
 
-    //get the bbox from the mapScope
-    var bbox = getBbox(mapScope);
+  //   //get the bbox from the mapScope
+  //   var bbox = getBbox(mapScope);
 
-    //build the fetch url from settings
-    var currentZoom = mapScope.getZoom();
-    var url = getUrl(bbox, currentZoom);
+  //   //build the fetch url from settings
+  //   var currentZoom = mapScope.getZoom();
+  //   var url = getUrl(bbox, currentZoom);
 
-    updateMap({
-      mapScope: mapScope,
-      url: url
-    }, parseGeoserverResponse);
+  //   updateMap({
+  //     mapScope: mapScope,
+  //     url: url
+  //   }, parseGeoserverResponse);
 
-  });
+  // });
 
   map.addListener('click', catchMapClick);
 
   map.data.addListener('click', catchMapClick);
 
   //returns the map as a promise
+  mapScope = map;
   return map;
 }
 
@@ -170,3 +175,61 @@ function catchMapClick(clickEvent){
   });
   return url;
 }
+
+function generateHZOverlay(){
+  return new google.maps.ImageMapType({
+              getTileUrl: function (coord, zoom) {
+                  var proj = map.getProjection();
+                  var zfactor = Math.pow(2, zoom);
+                  // get Long Lat coordinates
+                  var top = proj.fromPointToLatLng(new google.maps.Point(coord.x * 256 / zfactor, coord.y * 256 / zfactor));
+                  var bot = proj.fromPointToLatLng(new google.maps.Point((coord.x + 1) * 256 / zfactor, (coord.y + 1) * 256 / zfactor));
+
+                  //corrections for the slight shift of the SLP (mapserver)
+                  var deltaX = 0;
+                  var deltaY = 0;
+
+                  //create the Bounding box string
+                  var bbox =     (top.lng() + deltaX) + "," +
+                               (bot.lat() + deltaY) + "," +
+                               (bot.lng() + deltaX) + "," +
+                               (top.lat() + deltaY);
+
+                  //base WMS URL
+                  var url = "http://localhost:8080/geoserver/hubzone-test/wms?service=WMS";
+                  url += "&REQUEST=GetMap"; //WMS operation
+                  url += "&SERVICE=WMS";    //WMS service
+                  url += "&VERSION=1.1.0";  //WMS version  
+                  url += "&LAYERS=" + "hubzone-test:hz_current"; //WMS layers
+                  url += "&FORMAT=image/png" ; //WMS format
+                  // url += "&BGCOLOR=0xFFFFFF";  
+                  url += "&TRANSPARENT=TRUE";
+                  url += "&SRS=EPSG:4326";     //set WGS84 
+                  url += "&BBOX=" + bbox;      // set bounding box
+                  url += "&WIDTH=256";         //tile size in google
+                  url += "&HEIGHT=256";
+                  return url;                 // return URL for the tile
+
+              },
+              tileSize: new google.maps.Size(256, 256),
+              isPng: true,
+              // opacity: 0.5
+          }); 
+}
+
+
+
+//timers for testing only
+var docLoaded = null;
+var windowReady = null;
+
+$( document ).ready(function() {
+  docLoaded = Date.now();
+  console.log( "document loaded" );
+});
+
+$( window ).load(function() {
+  windowReady = Date.now();
+  console.log( "window loaded" );
+  console.log( (windowReady - docLoaded)/1000 +  " seconds" );
+});
