@@ -21,22 +21,42 @@ function initMap() {
   map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('legend'));
 
   // adds listener that triggers whenever the map is idle to update with new features.
-  google.maps.event.addListener(map, 'idle', function(){
-    mapScope = this;
-    //for each layer defined in the wmsGroundOverlay object call the fetchNewWMS function
-    // update the WMS call for that layer
-    Object.keys(wmsGroundOverlay).map(function(layer){
-      fetchNewWMS({
-        layer: layer,
-        mapScope: mapScope
-      })
-    });
-  });
+  google.maps.event.addListener(map, 'idle', updateIdleMap);
 
   map.addListener('click', catchMapClick);
 
   //returns the map
   return map;
+}
+
+function updateIdleMap(){
+  mapScope = this;
+  //for each layer defined in the wmsGroundOverlay object call the fetchNewWMS function
+  // update the WMS call for that layer
+  Object.keys(wmsGroundOverlay).map(function(layer){
+    fetchNewWMS({
+      mapScope: mapScope,
+      layer: layer
+    });
+  });
+}
+
+function fetchNewWMS(options){
+  //get the map extents
+  var bbox = getBbox(options.mapScope);
+  var imageBounds = getImageBounds(bbox);
+
+  var url = buildWMSUrl({
+    layer: options.layer,
+    bbox: bbox
+  });
+
+  updateLayerWMSOverlay({
+    layer: options.layer, 
+    url: url, 
+    imageBounds: imageBounds,
+    mapScope: options.mapScope
+  });
 }
 
 function getBbox(mapScope) {
@@ -51,7 +71,7 @@ function getBbox(mapScope) {
 
 function getImageBounds(bbox){
   var bboxArr = bbox.split(',');
-  var imageBounds = creatGoogleLatLngBounds(
+  var imageBounds = createGoogleLatLngBounds(
                       parseFloat(bboxArr[0]),
                       parseFloat(bboxArr[1]),
                       parseFloat(bboxArr[2]),
@@ -77,7 +97,7 @@ function getTableBasedOnZoomLevel(currentZoom){
 
 //helper for building google lat lng bounds objectfrom a set of lat long coordinates
 //coordinate order corresponds to min X, min Y, max X, max Y
-function creatGoogleLatLngBounds(SWLng, SWLat, NELng, NELat){
+function createGoogleLatLngBounds(SWLng, SWLat, NELng, NELat){
   return new google.maps.LatLngBounds(
       new google.maps.LatLng(SWLat, SWLng),
       new google.maps.LatLng(NELat, NELng)
@@ -85,34 +105,29 @@ function creatGoogleLatLngBounds(SWLng, SWLat, NELng, NELat){
 }
 
 // builds out the custom wms url
-function buildWMSUrl(layer, bbox){
+function buildWMSUrl(options){
   var url = "http://localhost:8080/geoserver/hubzone-test/wms?service=WMS";
   url += "&REQUEST=GetMap"; 
   url += "&SERVICE=WMS";    
   url += "&VERSION=1.1.0";    
-  url += "&LAYERS=" + "hubzone-test:" + layer; 
+  url += "&LAYERS=" + "hubzone-test:" + options.layer; 
   url += "&FORMAT=image/png" ; 
   url += "&TRANSPARENT=TRUE";
   url += "&SRS=EPSG:4326";      
-  url += "&BBOX=" + bbox;
+  url += "&BBOX=" + options.bbox;
   url += "&WIDTH=" + $('#map').width();         
   url += "&HEIGHT=" + $('#map').height();
+  url += ('&SLD_BODY=' + xml_styles[options.layer]);
   return url;             
 }
 
-function fetchNewWMS(options){
-  //get the map extents
-  var bbox = getBbox(options.mapScope);
-  var imageBounds = getImageBounds(bbox);
-
-  var layer = options.layer;
-  var url = buildWMSUrl(layer, bbox, false);
-  url += ('&SLD_BODY=' + xml_styles[layer]);
-
+//helper function for updating a single layer's WMS overlay
+function updateLayerWMSOverlay(options){
+  var layer = options.layer
   //push a new groundOverlay into the wmsGroundOverlay array container
   wmsGroundOverlay[layer].push(new google.maps.GroundOverlay(
-      url,
-      imageBounds
+      options.url,
+      options.imageBounds
   ));
 
   if (wmsGroundOverlay[layer].length === 1){
@@ -122,7 +137,7 @@ function fetchNewWMS(options){
     wmsGroundOverlay[layer][0].setMap(null);
     wmsGroundOverlay[layer].shift();
   }
-  wmsGroundOverlay[layer][0].addListener('click', catchMapClick);
+  wmsGroundOverlay[layer][0].addListener('click', catchMapClick);  
 }
 
 // turn latlng object into url
@@ -140,7 +155,7 @@ function catchMapClick(clickEvent){
 /* exported jumpToLocation */
 function jumpToLocation(geocodeLocation){
   if (geocodeLocation.viewport){
-    var newBounds = creatGoogleLatLngBounds(
+    var newBounds = createGoogleLatLngBounds(
                       geocodeLocation.viewport.southwest.lng,
                       geocodeLocation.viewport.southwest.lat,
                       geocodeLocation.viewport.northeast.lng,

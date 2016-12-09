@@ -230,15 +230,21 @@ describe ('Testing map operations', function() {
   });
 
   it("should return correct imageBounds object", function(){
-    var latLngBoundsSpy = spyOn(google.maps, 'LatLngBounds');
-    var latLngSpy = spyOn(google.maps, 'LatLng');
-
+    var createLatLngSpy = spyOn(window, 'createGoogleLatLngBounds');
     var bboxStr = [coordinates.west, coordinates.south, coordinates.east, coordinates.north].join(',');
+    
     var imageBounds = getImageBounds(bboxStr);
     expect(imageBounds).not.toBe(null);
+    expect(window.createGoogleLatLngBounds).toHaveBeenCalled();
+  });
+
+  it("should run google latlng methods", function(){
+    var latLngBoundsSpy = spyOn(google.maps, 'LatLngBounds');
+    var latLngSpy = spyOn(google.maps, 'LatLng');    
+    
+    createGoogleLatLngBounds(coordinates.west, coordinates.south, coordinates.east, coordinates.north)
     expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
     expect(google.maps.LatLng.calls.count()).toEqual(2);
-
   });
 
   it("should get the current table based on zoom level", function (){
@@ -250,9 +256,37 @@ describe ('Testing map operations', function() {
 
   it("should build the correct URL", function() {
     var bbox = getBbox(mapScope);
-    var url = buildWMSUrl('hz_current', bbox);
-    var urlExpect = 'http://localhost:8080/geoserver/hubzone-test/wms?service=WMS&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.0&LAYERS=hubzone-test:hz_current&FORMAT=image/png&TRANSPARENT=TRUE&SRS=EPSG:4326&BBOX=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637&WIDTH=null&HEIGHT=null'
+    var layer = 'hz_current';
+    var url = buildWMSUrl({
+      layer: layer, 
+      bbox: bbox});
+    var urlExpect = 'http://localhost:8080/geoserver/hubzone-test/wms?service=WMS&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.0&LAYERS=hubzone-test:' + layer + '&FORMAT=image/png&TRANSPARENT=TRUE&SRS=EPSG:4326&BBOX=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637&WIDTH=null&HEIGHT=null&SLD_BODY=' + xml_styles[layer];
     expect(url).toEqual(urlExpect);
+  });
+
+
+  it("should call the wms map layer stack", function(){
+    var bboxSpy = spyOn(window, 'getBbox');
+    var imageBoundsSpy = spyOn(window, 'getImageBounds');
+    var buildWMSUrlSpy = spyOn(window, 'buildWMSUrl');
+    var updateLayerWMSSpy = spyOn(window, 'updateLayerWMSOverlay');
+
+    fetchNewWMS({
+      mapScope: mapScope, 
+      layer: 'hz_current'
+    });
+
+    expect(window.getBbox.calls.count()).toEqual(1);
+    expect(window.getImageBounds.calls.count()).toEqual(1);
+    expect(window.buildWMSUrl.calls.count()).toEqual(1);
+    expect(window.updateLayerWMSOverlay.calls.count()).toEqual(1);
+  });
+
+  it("should fetchNewWMS for as many layers as are defined", function(){
+    var newfetchSpy = spyOn(window, 'fetchNewWMS');
+    updateIdleMap();
+    var layerLength = Object.keys(wmsGroundOverlay).length;
+    expect(window.fetchNewWMS.calls.count()).toEqual(layerLength);
   });
 
   xit("should update the map", function(){
