@@ -201,8 +201,14 @@ ul.hubzone-filter-menu label {
 #hubzone-qualifications li{
   font-size: 1.5rem;
 }
-.gm-bundled-control {
+.gm-svpc {
   transition-duration: 400ms;
+}
+.gmnoprint {
+  transition-duration: 400ms;
+}
+.gm-sidebar-on {
+  left: -32rem !important;
 }
 #sidebar .usa-accordion-button {
   background-color: #fafafa;
