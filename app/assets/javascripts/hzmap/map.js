@@ -23,26 +23,31 @@ function initMap() {
   // var newHZCurrentOverlay = generateHZOverlay('hz_current');
   // var newHZILOverlay = generateHZOverlay('indian_lands');
 
-  map.overlayMapTypes.push(generateHZOverlay('hz_current'));
-  map.overlayMapTypes.push(generateHZOverlay('indian_lands'));
+  // map.overlayMapTypes.push(generateHZOverlay('hz_current'));
+  // map.overlayMapTypes.push(generateHZOverlay('indian_lands'));
 
   // adds listener that triggers whenever the map is idle to update with new features.
-  // google.maps.event.addListener(map, 'idle', function(){
-  //   mapScope = this;
+  google.maps.event.addListener(map, 'idle', function(){
+    mapScope = this;
 
-  //   //get the bbox from the mapScope
-  //   var bbox = getBbox(mapScope);
+    //get the bbox from the mapScope
+    var bbox = getBbox(mapScope);
 
-  //   //build the fetch url from settings
-  //   var currentZoom = mapScope.getZoom();
-  //   var url = getUrl(bbox, currentZoom);
+    //build the fetch url from settings
+    var currentZoom = mapScope.getZoom();
+    
+    updateMapWMS({
+      bbox: bbox,
+      mapScope, mapScope
+    });
 
-  //   updateMap({
-  //     mapScope: mapScope,
-  //     url: url
-  //   }, parseGeoserverResponse);
+    // var url = getUrl(bbox, currentZoom);
+    // updateMap({
+    //   mapScope: mapScope,
+    //   url: url
+    // }, parseGeoserverResponse);
 
-  // });
+  });
 
   map.addListener('click', catchMapClick);
 
@@ -155,14 +160,30 @@ function updateMap(options, callback){
   return mapScope;
 }
 
+//helper for building google lat lng bounds objectfrom a set of lat long coordinates
+//coordinate order corresponds to min X, min Y, max X, max Y
+function creatGoogleLatLngBounds(SWLng, SWLat, NELng, NELat){
+  return new google.maps.LatLngBounds(
+      new google.maps.LatLng(SWLat, SWLng),
+      new google.maps.LatLng(NELat, NELng)
+    );
+}
+
+
 //jump to location on the map based on the geocode viewport object
 /* exported jumpToLocation */
 function jumpToLocation(geocodeLocation){
   if (geocodeLocation.viewport){
-    var newBounds = new google.maps.LatLngBounds(
-      new google.maps.LatLng(geocodeLocation.viewport.southwest.lat, geocodeLocation.viewport.southwest.lng),
-      new google.maps.LatLng(geocodeLocation.viewport.northeast.lat, geocodeLocation.viewport.northeast.lng)
-    );
+    var newBounds = creatGoogleLatLngBounds(
+                      geocodeLocation.viewport.southwest.lng,
+                      geocodeLocation.viewport.southwest.lat,
+                      geocodeLocation.viewport.northeast.lng,
+                      geocodeLocation.viewport.northeast.lat
+      )
+    // var newBounds = new google.maps.LatLngBounds(
+    //   new google.maps.LatLng(geocodeLocation.viewport.southwest.lat, geocodeLocation.viewport.southwest.lng),
+    //   new google.maps.LatLng(geocodeLocation.viewport.northeast.lat, geocodeLocation.viewport.northeast.lng)
+    // );
     mapScope.fitBounds(newBounds);
   }
 }
@@ -176,6 +197,60 @@ function catchMapClick(clickEvent){
     url: url
   });
   return url;
+}
+
+function updateMapWMS(options){
+  console.log(wmsGroundOverlay);
+
+  // if (Object.keys(wmsGroundOverlay).length >0){
+  //   wmsGroundOverlay.setMap(null);
+  // }
+  var url = buildWMSUrl('hz_current', options.bbox, false);
+  var bboxArr = options.bbox.split(',');
+  var imageBounds = creatGoogleLatLngBounds(
+                      parseFloat(bboxArr[0]),
+                      parseFloat(bboxArr[1]),
+                      parseFloat(bboxArr[2]),
+                      parseFloat(bboxArr[3])
+                    );
+
+  //push a new groundOverlay into the wmsGroundOverlay array container
+  wmsGroundOverlay.push(new google.maps.GroundOverlay(
+      url,
+      imageBounds
+  ));
+  if (wmsGroundOverlay.length === 1){
+    wmsGroundOverlay[0].setMap(options.mapScope);
+  } else if (wmsGroundOverlay.length === 2){
+    wmsGroundOverlay[1].setMap(options.mapScope);
+    wmsGroundOverlay[0].setMap(null)
+    wmsGroundOverlay.shift();
+  }
+}
+
+// builds out the custom wms url
+function buildWMSUrl(layer, bbox, tiled){
+  var url = "http://localhost:8080/geoserver/hubzone-test/wms?service=WMS";
+  url += "&REQUEST=GetMap"; //WMS operation
+  url += "&SERVICE=WMS";    //WMS service
+  url += "&VERSION=1.1.0";  //WMS version  
+  url += "&LAYERS=" + "hubzone-test:" + layer; //WMS layers
+  url += "&FORMAT=image/png" ; //WMS format
+  url += "&TRANSPARENT=TRUE";
+  url += "&SRS=EPSG:4326";     //set WGS84 
+  url += "&BBOX=" + bbox;      // set bounding box
+  
+  var width, height;
+  if (tiled){
+    width = 256;
+    height = width;
+  } else {
+    width = $('#map').width();
+    height = $('#map').height();
+  }
+  url += "&WIDTH=" + width;         //tile size in google
+  url += "&HEIGHT=" + height;
+  return url;             
 }
 
 function generateHZOverlay(layer){
@@ -196,19 +271,7 @@ function generateHZOverlay(layer){
                            bot.lng() + "," +
                            top.lat();
 
-                //base WMS URL
-                var url = "http://localhost:8080/geoserver/hubzone-test/wms?service=WMS";
-                url += "&REQUEST=GetMap"; //WMS operation
-                url += "&SERVICE=WMS";    //WMS service
-                url += "&VERSION=1.1.0";  //WMS version  
-                url += "&LAYERS=" + "hubzone-test:" + layer; //WMS layers
-                url += "&FORMAT=image/png" ; //WMS format
-                url += "&TRANSPARENT=TRUE";
-                url += "&SRS=EPSG:4326";     //set WGS84 
-                url += "&BBOX=" + bbox;      // set bounding box
-                url += "&WIDTH=256";         //tile size in google
-                url += "&HEIGHT=256";
-                return url;                 // return URL for the tile
+                return buildWMSUrl(layer, bbox, true);
 
               },
               tileSize: new google.maps.Size(256, 256),
