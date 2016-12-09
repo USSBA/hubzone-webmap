@@ -20,41 +20,22 @@ function initMap() {
   //adds the map legend
   map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('legend'));
 
-  // var newHZCurrentOverlay = generateHZOverlay('hz_current');
-  // var newHZILOverlay = generateHZOverlay('indian_lands');
-
-  // map.overlayMapTypes.push(generateHZOverlay('hz_current'));
-  // map.overlayMapTypes.push(generateHZOverlay('indian_lands'));
-
   // adds listener that triggers whenever the map is idle to update with new features.
   google.maps.event.addListener(map, 'idle', function(){
     mapScope = this;
-
-    //get the bbox from the mapScope
-    var bbox = getBbox(mapScope);
-
-    //build the fetch url from settings
-    var currentZoom = mapScope.getZoom();
-    
-    updateMapWMS({
-      bbox: bbox,
-      mapScope, mapScope
+    //for each layer defined in the wmsGroundOverlay object call the fetchNewWMS function
+    // update the WMS call for that layer
+    Object.keys(wmsGroundOverlay).map(function(layer){
+      fetchNewWMS({
+        layer: layer,
+        mapScope: mapScope
+      })
     });
-
-    // var url = getUrl(bbox, currentZoom);
-    // updateMap({
-    //   mapScope: mapScope,
-    //   url: url
-    // }, parseGeoserverResponse);
-
   });
 
   map.addListener('click', catchMapClick);
 
-  // map.data.addListener('click', catchMapClick);
-
-  //returns the map as a promise
-  mapScope = map;
+  //returns the map
   return map;
 }
 
@@ -68,6 +49,18 @@ function getBbox(mapScope) {
   return [SWLng, SWLat, NELng, NELat].join(',');
 }
 
+function getImageBounds(bbox){
+  var bboxArr = bbox.split(',');
+  var imageBounds = creatGoogleLatLngBounds(
+                      parseFloat(bboxArr[0]),
+                      parseFloat(bboxArr[1]),
+                      parseFloat(bboxArr[2]),
+                      parseFloat(bboxArr[3])
+  );
+  return imageBounds;
+}
+
+// var currentZoom = mapScope.getZoom();
 function getTableBasedOnZoomLevel(currentZoom){
   var table = geomWFSSettings.tableHighRes;
   if (currentZoom >= 12) {
@@ -82,84 +75,6 @@ function getTableBasedOnZoomLevel(currentZoom){
   return table;
 }
 
-function getUrl(bbox, currentZoom) {
-
-  var table = getTableBasedOnZoomLevel(currentZoom);
-  return [
-    geomWFSSettings.urlRoot,
-    'version=1.0.0',
-    'request=GetFeature',
-    'typename=' + geomWFSSettings.db + ':' + table,
-    'outputFormat=application/json',
-    'srsname=EPSG:'+ geomWFSSettings.srs,
-    'bbox=' + bbox + ',EPSG:4326'
-  ].join('&');
-}
-
-function defaultMapStyle(feature) {
-  var hzType = feature.getProperty('hztype');
-  var hzStopDate = feature.getProperty('stop');
-
-  if (hzStopDate == null) {
-    return hzMapLayerStyle[hzType];
-  } else {
-    return hzMapLayerStyle[hzType + "_expiring"];
-  }
-}
-
-//callback for handling the goeserver response
-//block of code proves problematic to test since it relys on the google map functions addGeoJson, forEach, and remove...
-//but its helper class (mapGeoJson) has been tested, and the ajax method that calls it was tested
-function parseGeoserverResponse(resp){
-
-  // on successful fetch of new features in the bbox, compare old with new and update the map
-  if (resp.totalFeatures === null || resp.totalFeatures === undefined){
-    console.error('Error Fetching from GeoServer', resp);
-  } else if (resp.totalFeatures > 0){
-    var diffFeatures = mapGeoJson.diffData(resp);
-    if (diffFeatures.toAdd.fc.totalFeatures > 0) {
-      mapScope.data.addGeoJson(diffFeatures.toAdd.fc);
-    }
-    if (diffFeatures.toRemove.ids.length > 0){
-      for (var i = 0; i < diffFeatures.toRemove.ids.length; i++) {
-        mapScope.data.remove(mapScope.data.getFeatureById(diffFeatures.toRemove.ids[i]));
-      }
-    }
-  } else {
-    console.warn('No features returned by Geoserver');
-    // if there are not new features, make sure to dump all the old ones
-    mapGeoJson.emptyCurrentFeatures();
-    mapScope.data.forEach(function(feature){
-      mapScope.data.remove(feature);
-    });
-  }
-
-  return mapGeoJson;
-}
-
-//function to update the map based on new bounds, get new features from
-//geoserver,remove from map any features not in view, add to map
-//any new features in view.
-function updateMap(options, callback){
-  var mapScope = options.mapScope;
-  var url = options.url;
-
-  //ajax request to geoserver for features,
-  $.ajax({
-    url: url,
-    success: function(resp){
-      callback(resp);
-    },
-    error: function(err){
-      console.error('Error Fetching from GeoServer:', err.status, err.responseText);
-    }
-  });
-
-  //perform some stlying of features based on some rules, in case arbitrary levels based on size.
-  mapScope.data.setStyle(defaultMapStyle);
-  return mapScope;
-}
-
 //helper for building google lat lng bounds objectfrom a set of lat long coordinates
 //coordinate order corresponds to min X, min Y, max X, max Y
 function creatGoogleLatLngBounds(SWLng, SWLat, NELng, NELat){
@@ -167,6 +82,58 @@ function creatGoogleLatLngBounds(SWLng, SWLat, NELng, NELat){
       new google.maps.LatLng(SWLat, SWLng),
       new google.maps.LatLng(NELat, NELng)
     );
+}
+
+// builds out the custom wms url
+function buildWMSUrl(layer, bbox){
+  var url = "http://localhost:8080/geoserver/hubzone-test/wms?service=WMS";
+  url += "&REQUEST=GetMap"; 
+  url += "&SERVICE=WMS";    
+  url += "&VERSION=1.1.0";    
+  url += "&LAYERS=" + "hubzone-test:" + layer; 
+  url += "&FORMAT=image/png" ; 
+  url += "&TRANSPARENT=TRUE";
+  url += "&SRS=EPSG:4326";      
+  url += "&BBOX=" + bbox;
+  url += "&WIDTH=" + $('#map').width();         
+  url += "&HEIGHT=" + $('#map').height();
+  return url;             
+}
+
+function fetchNewWMS(options){
+  //get the map extents
+  var bbox = getBbox(options.mapScope);
+  var imageBounds = getImageBounds(bbox);
+
+  var layer = options.layer;
+  var url = buildWMSUrl(layer, bbox, false);
+  url += ('&SLD_BODY=' + xml_styles[layer]);
+
+  //push a new groundOverlay into the wmsGroundOverlay array container
+  wmsGroundOverlay[layer].push(new google.maps.GroundOverlay(
+      url,
+      imageBounds
+  ));
+
+  if (wmsGroundOverlay[layer].length === 1){
+    wmsGroundOverlay[layer][0].setMap(options.mapScope);
+  } else if (wmsGroundOverlay[layer].length === 2){
+    wmsGroundOverlay[layer][1].setMap(options.mapScope);
+    wmsGroundOverlay[layer][0].setMap(null);
+    wmsGroundOverlay[layer].shift();
+  }
+  wmsGroundOverlay[layer][0].addListener('click', catchMapClick);
+}
+
+// turn latlng object into url
+function catchMapClick(clickEvent){
+  var clicklng = clickEvent.latLng.lng();
+  var clicklat = clickEvent.latLng.lat();
+  var url = "/search?latlng=" + clicklat + ',' + clicklng;
+  $.ajax({
+    url: url
+  });
+  return url;
 }
 
 //jump to location on the map based on the geocode viewport object
@@ -182,101 +149,6 @@ function jumpToLocation(geocodeLocation){
     mapScope.fitBounds(newBounds);
   }
 }
-
-// turn latlng object into url
-function catchMapClick(clickEvent){
-  var clicklng = clickEvent.latLng.lng();
-  var clicklat = clickEvent.latLng.lat();
-  var url = "/search?latlng=" + clicklat + ',' + clicklng;
-  $.ajax({
-    url: url
-  });
-  return url;
-}
-
-function updateMapWMS(options){
-
-  var layers = ['hz_current', 'indian_lands'];
-
-  layers.map(function(layer){
-    var url = buildWMSUrl(layer, options.bbox, false);
-    url += ('&SLD_BODY=' + xml_styles[layer]);
-    var bboxArr = options.bbox.split(',');
-    var imageBounds = creatGoogleLatLngBounds(
-                        parseFloat(bboxArr[0]),
-                        parseFloat(bboxArr[1]),
-                        parseFloat(bboxArr[2]),
-                        parseFloat(bboxArr[3])
-                      );
-
-    //push a new groundOverlay into the wmsGroundOverlay array container
-    wmsGroundOverlay[layer].push(new google.maps.GroundOverlay(
-        url,
-        imageBounds
-    ));
-
-    if (wmsGroundOverlay[layer].length === 1){
-      wmsGroundOverlay[layer][0].setMap(options.mapScope);
-    } else if (wmsGroundOverlay[layer].length === 2){
-      wmsGroundOverlay[layer][1].setMap(options.mapScope);
-      wmsGroundOverlay[layer][0].setMap(null)
-      wmsGroundOverlay[layer].shift();
-    }
-    wmsGroundOverlay[layer][0].addListener('click', catchMapClick);
-  });
-}
-
-// builds out the custom wms url
-function buildWMSUrl(layer, bbox, tiled){
-  var url = "http://localhost:8080/geoserver/hubzone-test/wms?service=WMS";
-  url += "&REQUEST=GetMap"; //WMS operation
-  url += "&SERVICE=WMS";    //WMS service
-  url += "&VERSION=1.1.0";  //WMS version  
-  url += "&LAYERS=" + "hubzone-test:" + layer; //WMS layers
-  url += "&FORMAT=image/png" ; //WMS format
-  url += "&TRANSPARENT=TRUE";
-  url += "&SRS=EPSG:4326";     //set WGS84 
-  url += "&BBOX=" + bbox;      // set bounding box
-  
-  var width, height;
-  if (tiled){
-    width = 256;
-    height = width;
-  } else {
-    width = $('#map').width();
-    height = $('#map').height();
-  }
-  url += "&WIDTH=" + width;         //tile size in google
-  url += "&HEIGHT=" + height;
-  return url;             
-}
-
-function generateHZOverlay(layer){
-  return new google.maps.ImageMapType({
-
-              getTileUrl: function (coord, zoom) {
-                console.log('here', coord);
-
-                var proj = map.getProjection();
-                var zfactor = Math.pow(2, zoom);
-                // get Long Lat coordinates
-                var top = proj.fromPointToLatLng(new google.maps.Point(coord.x * 256 / zfactor, coord.y * 256 / zfactor));
-                var bot = proj.fromPointToLatLng(new google.maps.Point((coord.x + 1) * 256 / zfactor, (coord.y + 1) * 256 / zfactor));
-
-                //create the Bounding box string
-                var bbox = top.lng() + "," +
-                           bot.lat() + "," +
-                           bot.lng() + "," +
-                           top.lat();
-
-                return buildWMSUrl(layer, bbox, true);
-
-              },
-              tileSize: new google.maps.Size(256, 256),
-              isPng: true,
-          }); 
-}
-
 
 var hz_current_sld = (
    '<?xml version="1.0" encoding="UTF-8"?>' +

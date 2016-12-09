@@ -4,7 +4,6 @@
 function clearMarkers() {
   setMapOnAll(null);
   mapMarkers = [];
-  return mapMarkers;
 }
 
 // Sets the map on all markers in the array.

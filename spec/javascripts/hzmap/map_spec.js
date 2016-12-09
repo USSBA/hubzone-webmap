@@ -139,13 +139,6 @@ var mapScope = {
         };
       }
     };
-  },
-  data: {
-    style: function() {},
-    setStyle: function(styleFunction) {
-      mapScope.data.style = styleFunction;
-    }
-
   }
 };
 var mapBounds = mapScope.getBounds();
@@ -181,8 +174,6 @@ var mapClick = {
 
 var mapMarkers = [ Marker]
 
-var mockFeaturesToRemove = ['hz_current_lowestres.601'];
-
 var markerLocation = {
   lat: 39.29024048029149,
   lng: -76.60564721970849
@@ -206,20 +197,11 @@ var geocodeLocationNoViewport = {
   location: markerLocation
 };
 
-var DummyFeature = function(hztype){
-  this.hztype = hztype,
-  this.getProperty = function(type){
-    return this[type];
-  }
-};
-
 describe ('Testing map operations', function() {
   beforeEach(function() {
     var constructorSpy = spyOn(google.maps, 'Map').and.returnValue(map);
     var eventSpy = spyOn(google.maps.event, 'addListener');
     var mapListenerSpy = spyOn(map, 'addListener');
-    var mapDataListenerSpy = spyOn(map.data, 'addListener');
-
 
     var mapScopeSpy = spyOn(mapScope, 'getBounds').and.returnValue(mapBounds);
     var northEastSpy = spyOn(mapBounds, 'getNorthEast').and.callThrough();
@@ -235,7 +217,6 @@ describe ('Testing map operations', function() {
     expect(google.maps.Map.calls.count()).toEqual(1);
     expect(google.maps.event.addListener.calls.count()).toEqual(1);
     expect(map.addListener.calls.count()).toEqual(1);
-    expect(map.data.addListener.calls.count()).toEqual(1);
     expect(google.maps.StyledMapType.calls.count()).toEqual(1);
     expect(map.mapTypes.set.calls.count()).toEqual(1);
     expect(map.setMapTypeId.calls.count()).toEqual(1);
@@ -255,50 +236,22 @@ describe ('Testing map operations', function() {
     expect(getTableBasedOnZoomLevel(5)).toEqual(geomWFSSettings.tableLowestRes);
   });
 
-  it("should set the map style", function() {
-    mapScope.data.setStyle(defaultMapStyle);
-    expect(mapScope.data.style).toEqual(defaultMapStyle);
+  it("should build the correct URL", function() {
+    var bbox = getBbox(mapScope);
+    var url = buildWMSUrl('hz_current', bbox);
+    var urlExpect = 'http://localhost:8080/geoserver/hubzone-test/wms?service=WMS&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.0&LAYERS=hubzone-test:hz_current&FORMAT=image/png&TRANSPARENT=TRUE&SRS=EPSG:4326&BBOX=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637&WIDTH=null&HEIGHT=null'
+    expect(url).toEqual(urlExpect);
   });
 
-  it("should update the map", function(){
+  xit("should update the map", function(){
     sinon.stub(jQuery, "ajax");
     var bbox = getBbox(mapScope);
-    var url = getUrl(bbox);
-    updateMap({
-      mapScope: mapScope,
-      url: url
+    fetchNewWMS({
+      bbox: bbox,
+      mapScope: mapScope
     }, sinon.spy());
 
     expect(jQuery.ajax.calledWithMatch({url: url})).toBe(true);
-  });
-
-  it("should create a new MapGeoJson class object and add data", function(){
-    var mapGeoJson = new MapGeoJson();
-    var diffFeatures = mapGeoJson.diffData(mockData1);
-    expect(diffFeatures.toAdd.fc).toEqual(mockData1);
-  });
-
-  it("should produce the correct diff between two datasets", function(){
-    var mapGeoJson = new MapGeoJson();
-    mapGeoJson.mapScope = mapScope;
-    var diffFeatures = {};
-    diffFeatures = mapGeoJson.diffData(mockData1);
-    diffFeatures = mapGeoJson.diffData(mockData2);
-    expect(diffFeatures.toRemove.ids).toEqual(mockFeaturesToRemove);
-  });
-
-  it("should empty the currentFeatures state", function(){
-    var mapGeoJson = new MapGeoJson();
-    mapGeoJson.mapScope = mapScope;
-    var diffFeatures = {};
-    diffFeatures = mapGeoJson.diffData(mockData1);
-    mapGeoJson.emptyCurrentFeatures();
-    expect(mapGeoJson.currentFeatures.ids.length).toEqual(0);
-  });
-
-  it("should return the correct style object per hztype", function(){
-    var dummyFeature = new DummyFeature('indianLands');
-    expect(defaultMapStyle(dummyFeature)).toEqual(hzMapLayerStyle['indianLands']);
   });
 
   it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){
@@ -323,8 +276,8 @@ describe ('Testing map operations', function() {
     expect(mapMarkers[0]).not.toEqual(Marker);  //because the test replaces it with a new spy from google.maps.Marker
   });
 
-  xit("should empty the  marker object", function(){
-    //this code touches all 3 marker functions (updateMarkers, setMapOnAll, clearMarkers)
+  it("should empty the marker object", function(){
+    mapMarkers = [Marker];
     var markerSpy = spyOn(google.maps, 'Marker');
     var markerSetSpy = spyOn(Marker, 'setMap');
 
@@ -339,250 +292,3 @@ describe ('Testing map operations', function() {
   });
 
 });
-
-
-
-
-var mockData1 = {
-  "type": "FeatureCollection",
-  "totalFeatures": 3,
-  "features": [
-    {
-      "type": "Feature",
-      "id": "hz_current_lowestres.114",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-95.713734, 39.704843],
-              [-95.71379, 39.697069],
-              [-95.727995, 39.69713],
-              [-95.72803, 39.704982 ]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "res": "high",
-        "sourceid": 583,
-        "hztype": "indianLands"
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "hz_current_lowestres.115",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-95.728027, 39.824793],
-              [-95.503444, 39.825089],
-              [-95.503249, 39.507281],
-              [-95.728189, 39.568686],
-              [-95.727995, 39.69713],
-              [-95.71379, 39.697069],
-              [-95.713734, 39.704843],
-              [-95.72803, 39.704982 ]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "res": "high",
-        "sourceid": 584,
-        "hztype": "indianLands"
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "hz_current_lowestres.601",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-95.942545,39.37525],
-              [-95.942143, 39.420822],
-              [-95.738544, 39.422111],
-              [-95.738336, 39.260006],
-              [-95.942477, 39.260081],
-              [-95.942545, 39.37525 ]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "res": "high",
-        "sourceid": 582,
-        "hztype": "indianLands"
-      }
-    }
-  ],
-  "crs": {
-    "type": "name",
-    "properties": {
-      "name": "urn:ogc:def:crs:EPSG::4326"
-    }
-  }
-};
-
-var mockData2 = {
-  "type": "FeatureCollection",
-  "totalFeatures": 6,
-  "features": [
-    {
-      "type": "Feature",
-      "id": "hz_current_lowestres.114",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-95.72803,39.704982],
-              [95.713734,39.704843],
-              [-95.71379,39.697069],
-              [-95.727995,39.69713]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "res": "high",
-        "sourceid": 583,
-        "hztype": "indianLands"
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "hz_current_lowestres.115",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-95.72803,39.704982],
-              [95.728027,39.824793],
-              [95.503444,39.825089],
-              [95.503249,39.507281],
-              [95.728189,39.568686],
-              [-95.727995, 39.69713],
-              [-95.71379,39.697069],
-              [95.713734,39.704843]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "res": "high",
-        "sourceid": 584,
-        "hztype": "indianLands"
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "hz_current_lowestres.585",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-95.45391,40.008235],
-              [-95.46307,40.000016],
-              [95.565376,40.000241],
-              [95.565737,40.002496],
-              [95.569048,40.003243]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "res": "high",
-        "sourceid": 586,
-        "hztype": "indianLands"
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "hz_current_lowestres.586",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [95.455283,40.000307],
-              [-95.45304,39.997518],
-              [95.435991,40.000207],
-              [95.472935,39.994356]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "res": "high",
-        "sourceid": 587,
-        "hztype": "indianLands"
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "hz_current_lowestres.602",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-95.46307,40.000016],
-              [95.468492,39.996478],
-              [95.466714,39.995939],
-              [95.467085,39.994557]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "res": "high",
-        "sourceid": 585,
-        "hztype": "indianLands"
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "hz_current_lowestres.603",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-95.46307,40.000016],
-              [95.468492,39.996478],
-              [95.466714,39.995939],
-              [95.467085,39.994557]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "res": "high",
-        "sourceid": 588,
-        "hztype": "indianLands"
-      }
-    }
-  ],
-  "crs": {
-    "type": "name",
-    "properties": {
-      "name": "urn:ogc:def:crs:EPSG::4326"
-    }
-  }
-};
