@@ -6,7 +6,11 @@ var currentFeaturesIDs = [];
 var geocodeQuery = ''; // string of geocodequery from input text
 var googleCDNURL = 'https://maps.googleapis.com/maps/api/js?key=<%=MAP_CONFIG[:google_api_key]%>'
 var mapMarkers = [];
-var wmsGroundOverlay = [];
+var wmsGroundOverlay = {
+  'hz_current': [],
+  'indian_lands': []
+};
+
 
 var geomWFSSettings = JSON.parse('<%= MAP_CONFIG[:geomWFSSettings].to_json %>');
 

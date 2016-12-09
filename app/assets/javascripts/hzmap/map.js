@@ -51,7 +51,7 @@ function initMap() {
 
   map.addListener('click', catchMapClick);
 
-  map.data.addListener('click', catchMapClick);
+  // map.data.addListener('click', catchMapClick);
 
   //returns the map as a promise
   mapScope = map;
@@ -200,32 +200,34 @@ function catchMapClick(clickEvent){
 }
 
 function updateMapWMS(options){
-  console.log(wmsGroundOverlay);
 
-  // if (Object.keys(wmsGroundOverlay).length >0){
-  //   wmsGroundOverlay.setMap(null);
-  // }
-  var url = buildWMSUrl('hz_current', options.bbox, false);
-  var bboxArr = options.bbox.split(',');
-  var imageBounds = creatGoogleLatLngBounds(
-                      parseFloat(bboxArr[0]),
-                      parseFloat(bboxArr[1]),
-                      parseFloat(bboxArr[2]),
-                      parseFloat(bboxArr[3])
-                    );
+  var layers = ['hz_current', 'indian_lands'];
 
-  //push a new groundOverlay into the wmsGroundOverlay array container
-  wmsGroundOverlay.push(new google.maps.GroundOverlay(
-      url,
-      imageBounds
-  ));
-  if (wmsGroundOverlay.length === 1){
-    wmsGroundOverlay[0].setMap(options.mapScope);
-  } else if (wmsGroundOverlay.length === 2){
-    wmsGroundOverlay[1].setMap(options.mapScope);
-    wmsGroundOverlay[0].setMap(null)
-    wmsGroundOverlay.shift();
-  }
+  layers.map(function(layer){
+    var url = buildWMSUrl(layer, options.bbox, false);
+    var bboxArr = options.bbox.split(',');
+    var imageBounds = creatGoogleLatLngBounds(
+                        parseFloat(bboxArr[0]),
+                        parseFloat(bboxArr[1]),
+                        parseFloat(bboxArr[2]),
+                        parseFloat(bboxArr[3])
+                      );
+
+    //push a new groundOverlay into the wmsGroundOverlay array container
+    wmsGroundOverlay[layer].push(new google.maps.GroundOverlay(
+        url,
+        imageBounds
+    ));
+
+    if (wmsGroundOverlay[layer].length === 1){
+      wmsGroundOverlay[layer][0].setMap(options.mapScope);
+    } else if (wmsGroundOverlay[layer].length === 2){
+      wmsGroundOverlay[layer][1].setMap(options.mapScope);
+      wmsGroundOverlay[layer][0].setMap(null)
+      wmsGroundOverlay[layer].shift();
+    }
+    wmsGroundOverlay[layer][0].addListener('click', catchMapClick);
+  });
 }
 
 // builds out the custom wms url
