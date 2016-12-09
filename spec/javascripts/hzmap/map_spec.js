@@ -229,6 +229,18 @@ describe ('Testing map operations', function() {
     expect(mapBounds.getSouthWest.calls.count()).toEqual(2);
   });
 
+  it("should return correct imageBounds object", function(){
+    var latLngBoundsSpy = spyOn(google.maps, 'LatLngBounds');
+    var latLngSpy = spyOn(google.maps, 'LatLng');
+
+    var bboxStr = [coordinates.west, coordinates.south, coordinates.east, coordinates.north].join(',');
+    var imageBounds = getImageBounds(bboxStr);
+    expect(imageBounds).not.toBe(null);
+    expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
+    expect(google.maps.LatLng.calls.count()).toEqual(2);
+
+  });
+
   it("should get the current table based on zoom level", function (){
     expect(getTableBasedOnZoomLevel(13)).toEqual(geomWFSSettings.tableHighRes);
     expect(getTableBasedOnZoomLevel(10)).toEqual(geomWFSSettings.tableLowRes);
