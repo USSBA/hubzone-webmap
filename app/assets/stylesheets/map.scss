@@ -315,3 +315,34 @@ ul.hubzone-filter-menu label {
     height: calc(100% - 127px);
   }
 }
+
+@media print {
+  body {
+    position: absolute;
+    width: auto;
+    height: auto;
+  }
+  #sba-logo {
+    max-width: 6em;
+  }
+  .usa-menu-btn {
+    display: none;
+  }
+  .usa-banner {
+    display: none;
+  }
+  .map-body {
+    position: absolute;
+    left: 0;
+    height: 450px;
+    width: 450px;
+  }
+  #sidebar {
+    position: relative;
+    height: auto;
+  }
+  #sidebar-button {
+    display: none;
+  }
+
+}
