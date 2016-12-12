@@ -37,8 +37,8 @@ function initMap() {
   return map;
 }
 
-function updateIdleMap(mapScope){
-  mapScope = mapScope || this;
+function updateIdleMap(){
+  mapScope = this;
   //for each layer defined in the wmsGroundOverlay object call the fetchNewWMS function
   // update the WMS call for that layer
   Object.keys(wmsGroundOverlay).map(function(layer){
