@@ -104,12 +104,6 @@ var coordinates = {
   east: -96.64306640625,
   south: 34.99419475828389,
   west: -98.35693359375
-}
-
-var Marker = {
-  setMap: function(map){
-    return map;
-  }
 };
 
 var mapScope = {
@@ -158,43 +152,33 @@ var map = {
   },
   controls: []
 };
-map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
-map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
 
-var mapClick = {
-  latLng: {
-    lat: function(){
-      return markerLocation.lat;
-    },
-    lng: function(){
-      return markerLocation.lng;
-    }
+
+
+//////////////////
+// Marker Helpers
+/////////////////
+var Marker = {
+  setMap: function(map){
+    return map;
   }
 };
 
-var mapMarkers = [ Marker]
+var mapMarkers = [ Marker ]
 
 var markerLocation = {
   lat: 39.29024048029149,
   lng: -76.60564721970849
 };
+/////////////////
 
-var geocodeLocation = {
-  location: markerLocation,
-  viewport: {
-    northeast: {
-      lat: 39.29024048029149,
-      lng: -76.60564721970849
-    },
-    southwest: {
-      lat: 39.2875425197085,
-      lng: -76.6083451802915
-    }
+// helper for new ground overlays
+var newOverlay = function(name){
+  return {
+    setMap: function(){},
+    addListener: function(){},
+    name: name
   }
-};
-
-var geocodeLocationNoViewport = {
-  location: markerLocation
 };
 
 describe ('Testing map operations', function() {
@@ -202,16 +186,15 @@ describe ('Testing map operations', function() {
     var constructorSpy = spyOn(google.maps, 'Map').and.returnValue(map);
     var eventSpy = spyOn(google.maps.event, 'addListener');
     var mapListenerSpy = spyOn(map, 'addListener');
-
-    var mapScopeSpy = spyOn(mapScope, 'getBounds').and.returnValue(mapBounds);
-    var northEastSpy = spyOn(mapBounds, 'getNorthEast').and.callThrough();
-    var southWestSpy = spyOn(mapBounds, 'getSouthWest').and.callThrough();
   });
 
   it("should create a new Google map", function() {
     var styledMapTypeSpy = spyOn(google.maps, 'StyledMapType');
     var mapTypesSetSpy = spyOn(map.mapTypes, 'set');
     var mapSetMapTypIdSpy = spyOn(map, 'setMapTypeId');
+    
+    map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
+    map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
 
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map.calls.count()).toEqual(1);
@@ -223,6 +206,10 @@ describe ('Testing map operations', function() {
   });
 
   it("should get bbox", function() {
+    var mapScopeSpy = spyOn(mapScope, 'getBounds').and.returnValue(mapBounds);
+    var northEastSpy = spyOn(mapBounds, 'getNorthEast').and.callThrough();
+    var southWestSpy = spyOn(mapBounds, 'getSouthWest').and.callThrough();
+    
     expect(getBbox(mapScope)).toEqual("-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637");
     expect(mapScope.getBounds.calls.count()).toEqual(1);
     expect(mapBounds.getNorthEast.calls.count()).toEqual(2);
@@ -269,6 +256,7 @@ describe ('Testing map operations', function() {
     var bboxSpy = spyOn(window, 'getBbox');
     var imageBoundsSpy = spyOn(window, 'getImageBounds');
     var buildWMSUrlSpy = spyOn(window, 'buildWMSUrl');
+    var groundOverlaySpy = spyOn(google.maps, 'GroundOverlay');
     var updateLayerWMSSpy = spyOn(window, 'updateLayerWMSOverlay');
 
     fetchNewWMS({
@@ -279,25 +267,51 @@ describe ('Testing map operations', function() {
     expect(window.getBbox.calls.count()).toEqual(1);
     expect(window.getImageBounds.calls.count()).toEqual(1);
     expect(window.buildWMSUrl.calls.count()).toEqual(1);
+    expect(google.maps.GroundOverlay.calls.count()).toEqual(1);
     expect(window.updateLayerWMSOverlay.calls.count()).toEqual(1);
   });
 
   it("should fetchNewWMS for as many layers as are defined", function(){
     var newfetchSpy = spyOn(window, 'fetchNewWMS');
-    updateIdleMap();
+    updateIdleMap(mapScope);
     var layerLength = Object.keys(wmsGroundOverlay).length;
     expect(window.fetchNewWMS.calls.count()).toEqual(layerLength);
   });
 
-  xit("should update the map", function(){
-    sinon.stub(jQuery, "ajax");
-    var bbox = getBbox(mapScope);
-    fetchNewWMS({
-      bbox: bbox,
+  it("should update the map WMS layer, adding a new overlay where there was none before", function(){
+    
+    wmsGroundOverlay['hz_current'][0] = new newOverlay();
+    
+    var newOverlaySetMapSpy = spyOn(wmsGroundOverlay['hz_current'][0], 'setMap');
+    var newOverlayListenterSpy = spyOn(wmsGroundOverlay['hz_current'][0], 'addListener');
+    
+    updateLayerWMSOverlay({
+      layer: 'hz_current', 
       mapScope: mapScope
-    }, sinon.spy());
+    });
 
-    expect(jQuery.ajax.calledWithMatch({url: url})).toBe(true);
+    expect(wmsGroundOverlay['hz_current'][0].setMap.calls.count()).toEqual(1);
+    expect(wmsGroundOverlay['hz_current'][0].addListener.calls.count()).toEqual(1);
+  });
+
+  it("should update the map WMS layer, replacing the old overlay with a new one", function(){
+    
+    wmsGroundOverlay['hz_current'][0] = new newOverlay('first');
+    wmsGroundOverlay['hz_current'][1] = new newOverlay('second');
+     
+    var oldOverlaySetMapSpy = spyOn(wmsGroundOverlay['hz_current'][0], 'setMap');
+    var newOverlaySetMapSpy = spyOn(wmsGroundOverlay['hz_current'][1], 'setMap');
+    var OvenewrlayListenterSpy = spyOn(wmsGroundOverlay['hz_current'][1], 'addListener');
+    
+    updateLayerWMSOverlay({
+      layer: 'hz_current', 
+      mapScope: mapScope
+    });
+ 
+    //here the indexing changes because updateLayerWMSOverlay removes the 0'th 'old' layer
+    //can be checked by console logging console.log(wmsGroundOverlay[layer][0].name) before and after the function call
+    expect(wmsGroundOverlay['hz_current'][0].setMap.calls.count()).toEqual(1);
+    expect(wmsGroundOverlay['hz_current'][0].addListener.calls.count()).toEqual(1);
   });
 
   it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){
@@ -305,10 +319,35 @@ describe ('Testing map operations', function() {
     var latLngSpy = spyOn(google.maps, 'LatLng');
     var fitBoundsSpy = spyOn(mapScope, 'fitBounds');
 
+    var geocodeLocation = {
+      location: markerLocation,
+      viewport: {
+        northeast: {
+          lat: 39.29024048029149,
+          lng: -76.60564721970849
+        },
+        southwest: {
+          lat: 39.2875425197085,
+          lng: -76.6083451802915
+        }
+      }
+    };
+
     jumpToLocation(geocodeLocation);
     expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
     expect(google.maps.LatLng.calls.count()).toEqual(2);
     expect(mapScope.fitBounds.calls.count()).toEqual(1);
+  });
+
+  it("should pass over a geocodeLocation that does not contain a viewport, doing nothing", function(){
+    var fitBoundsSpy = spyOn(mapScope, 'fitBounds');
+
+    var geocodeLocationNoViewport = {
+      location: markerLocation
+    };
+
+    jumpToLocation(geocodeLocationNoViewport);
+    expect(mapScope.fitBounds.calls.count()).toEqual(0);
   });
 
   it("should add a marker object", function(){
@@ -332,6 +371,17 @@ describe ('Testing map operations', function() {
   });
 
   it("should return a correctly formatted url request on map click", function(){
+    var mapClick = {
+      latLng: {
+        lat: function(){
+          return markerLocation.lat;
+        },
+        lng: function(){
+          return markerLocation.lng;
+        }
+      }
+    };
+
     var latlngUrl = '/search?latlng=' + mapClick.latLng.lat() + ',' + mapClick.latLng.lng();
     var clickUrl = catchMapClick(mapClick);
     expect(clickUrl).toEqual(latlngUrl);  

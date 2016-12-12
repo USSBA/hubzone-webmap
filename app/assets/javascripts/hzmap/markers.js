@@ -1,4 +1,5 @@
 // code for handling marker behavior
+var mapMarkers = [];
 
 // Removes the markers from the map
 function clearMarkers() {

@@ -22,8 +22,8 @@ options:
     jQuery:   true
     "$":      true
     console:  true
-    App: true
     ActionCable: true
+    App: true
     geomWFSSettings: true
     google:   true
     hzBaseMapStyle: true
@@ -36,4 +36,6 @@ options:
     mapScope: true
     sinon: true
     updateMarkers: true
+    wmsGroundOverlay: true
+    xml_styles: true
 

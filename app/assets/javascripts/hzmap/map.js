@@ -1,3 +1,15 @@
+//defining global variables for hubzone map controllers
+var map = {}; //the map object
+var infoWindow = {}; //infowindow object
+var apiKey = '<%= MAP_CONFIG[:google_api_key] %>'; //google maps api key
+var googleCDNURL = 'https://maps.googleapis.com/maps/api/js?key=<%=MAP_CONFIG[:google_api_key]%>';
+var wmsGroundOverlay = {
+  'hz_current': [],
+  'indian_lands': []
+};
+
+var geomWFSSettings = JSON.parse('<%= MAP_CONFIG[:geomWFSSettings].to_json %>');
+
 //create the map on load, when idle, jump to updateMap to get features
 /* exported initMap */
 function initMap() {
@@ -29,8 +41,8 @@ function initMap() {
   return map;
 }
 
-function updateIdleMap(){
-  mapScope = this;
+function updateIdleMap(mapScope){
+  mapScope = mapScope || this;
   //for each layer defined in the wmsGroundOverlay object call the fetchNewWMS function
   // update the WMS call for that layer
   Object.keys(wmsGroundOverlay).map(function(layer){
@@ -42,19 +54,25 @@ function updateIdleMap(){
 }
 
 function fetchNewWMS(options){
-  //get the map extents
+  //get the map extents and build URL
   var bbox = getBbox(options.mapScope);
   var imageBounds = getImageBounds(bbox);
+  var layer = options.layer;
 
   var url = buildWMSUrl({
-    layer: options.layer,
+    layer: layer,
     bbox: bbox
   });
 
+  //push a new groundOverlay into the wmsGroundOverlay array container
+  wmsGroundOverlay[layer].push(new google.maps.GroundOverlay(
+      url,
+      imageBounds
+  ));
+
+  //update WMS layers, removing old and adding new to the map
   updateLayerWMSOverlay({
-    layer: options.layer, 
-    url: url, 
-    imageBounds: imageBounds,
+    layer: layer, 
     mapScope: options.mapScope
   });
 }
@@ -123,12 +141,7 @@ function buildWMSUrl(options){
 
 //helper function for updating a single layer's WMS overlay
 function updateLayerWMSOverlay(options){
-  var layer = options.layer
-  //push a new groundOverlay into the wmsGroundOverlay array container
-  wmsGroundOverlay[layer].push(new google.maps.GroundOverlay(
-      options.url,
-      options.imageBounds
-  ));
+  var layer = options.layer;
 
   if (wmsGroundOverlay[layer].length === 1){
     wmsGroundOverlay[layer][0].setMap(options.mapScope);
