@@ -21,3 +21,6 @@ coverage/
 
 # Ignore coverage reports
 coverage
+
+# Ignore public compiled assets
+public/assets/
