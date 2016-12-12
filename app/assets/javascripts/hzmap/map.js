@@ -47,7 +47,8 @@ function initMap() {
   var options = {
     types: ['geocode']
   };
-  autocomplete = new google.maps.places.Autocomplete(searchInput, options);
+  /* exported autocomplete */
+  var autocomplete = new google.maps.places.Autocomplete(searchInput, options);
 
   //returns the map as a promise
   return map;

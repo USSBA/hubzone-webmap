@@ -90,7 +90,7 @@ var google = {
         addListener: function () { }
     },
     places: {
-        AutocompleteService: function () {
+        Autocomplete: function () {
             return {
                 getPlacePredictions: function () { }
             };
@@ -230,6 +230,7 @@ describe ('Testing map operations', function() {
     var styledMapTypeSpy = spyOn(google.maps, 'StyledMapType');
     var mapTypesSetSpy = spyOn(map.mapTypes, 'set');
     var mapSetMapTypIdSpy = spyOn(map, 'setMapTypeId');
+    var autoComplete = spyOn(google.maps.places, 'Autocomplete');
 
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map.calls.count()).toEqual(1);
@@ -239,6 +240,7 @@ describe ('Testing map operations', function() {
     expect(google.maps.StyledMapType.calls.count()).toEqual(1);
     expect(map.mapTypes.set.calls.count()).toEqual(1);
     expect(map.setMapTypeId.calls.count()).toEqual(1);
+    expect(google.maps.places.Autocomplete.calls.count()).toEqual(1);
   });
 
   it("should get bbox", function() {
