@@ -47,7 +47,8 @@ describe 'the map search', type: :feature, js: true do
         end
         it "should return autocomplete results" do
           fill_in 'search', with: '8 mark'
-          expect(page).to have_css('div.pac-container', visible: false)
+          expect(page).to have_css('div.pac-container', visible: true)
+          expect(page).to have_css('div.pac-item', count: 5)
         end
         it "should return qualified hubzone status" do
           fill_in 'search', with: queries[:qualified_multiple]
