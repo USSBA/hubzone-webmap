@@ -234,7 +234,7 @@ describe ('Testing map operations', function() {
     expect(google.maps.LatLng.calls.count()).toEqual(2);
   });
 
-  it("should get the current table based on zoom level", function (){
+  xit("should get the current table based on zoom level", function (){
     expect(getTableBasedOnZoomLevel(13)).toEqual(geomWFSSettings.tableHighRes);
     expect(getTableBasedOnZoomLevel(10)).toEqual(geomWFSSettings.tableLowRes);
     expect(getTableBasedOnZoomLevel(6)).toEqual(geomWFSSettings.tableLowerRes);

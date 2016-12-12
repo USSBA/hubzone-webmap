@@ -1,13 +1,10 @@
 //defining global variables for hubzone map controllers
 var map = {}; //the map object
-var apiKey = '<%= MAP_CONFIG[:google_api_key] %>'; //google maps api key
-var googleCDNURL = 'https://maps.googleapis.com/maps/api/js?key=<%=MAP_CONFIG[:google_api_key]%>';
 var wmsGroundOverlay = {
   'hz_current': [],
   'indian_lands': []
 };
 
-var geomWFSSettings = JSON.parse('<%= MAP_CONFIG[:geomWFSSettings].to_json %>');
 
 //create the map on load, when idle, jump to updateMap to get features
 /* exported initMap */
@@ -97,20 +94,22 @@ function getImageBounds(bbox){
   return imageBounds;
 }
 
+//commented out for now since switching do WMS does not immeaditely require
+// var geomWFSSettings = JSON.parse('<%= MAP_CONFIG[:geomWFSSettings].to_json %>');
 // var currentZoom = mapScope.getZoom();
-function getTableBasedOnZoomLevel(currentZoom){
-  var table = geomWFSSettings.tableHighRes;
-  if (currentZoom >= 12) {
-    table = geomWFSSettings.tableHighRes;
-  } else if (currentZoom >= 10){
-    table = geomWFSSettings.tableLowRes;
-  } else if (currentZoom >= 6){
-    table = geomWFSSettings.tableLowerRes;
-  } else {
-    table = geomWFSSettings.tableLowestRes;
-  }
-  return table;
-}
+// function getTableBasedOnZoomLevel(currentZoom){
+//   var table = geomWFSSettings.tableHighRes;
+//   if (currentZoom >= 12) {
+//     table = geomWFSSettings.tableHighRes;
+//   } else if (currentZoom >= 10){
+//     table = geomWFSSettings.tableLowRes;
+//   } else if (currentZoom >= 6){
+//     table = geomWFSSettings.tableLowerRes;
+//   } else {
+//     table = geomWFSSettings.tableLowestRes;
+//   }
+//   return table;
+// }
 
 //helper for building google lat lng bounds objectfrom a set of lat long coordinates
 //coordinate order corresponds to min X, min Y, max X, max Y
