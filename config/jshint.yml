@@ -34,7 +34,9 @@ options:
     mapGeoJson: true
     mapMarkers: true
     mapScope: true
+    sidebar: true
     sinon: true
+    updateAccordions: true
     updateMarkers: true
     wmsGroundOverlay: true
     xml_styles: true

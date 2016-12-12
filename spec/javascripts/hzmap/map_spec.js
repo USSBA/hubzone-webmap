@@ -107,9 +107,6 @@ var coordinates = {
 };
 
 var mapScope = {
-  fitBounds: function(){
-    return
-  },
   getBounds: function() {
     return {
       getNorthEast: function() {
@@ -138,6 +135,9 @@ var mapScope = {
 var mapBounds = mapScope.getBounds();
 
 var map = {
+  fitBounds: function(){
+    return
+  },
   addListener: function() {},
   data: {
     addListener: function() {}
@@ -317,7 +317,7 @@ describe ('Testing map operations', function() {
   it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){
     var latLngBoundsSpy = spyOn(google.maps, 'LatLngBounds');
     var latLngSpy = spyOn(google.maps, 'LatLng');
-    var fitBoundsSpy = spyOn(mapScope, 'fitBounds');
+    var fitBoundsSpy = spyOn(map, 'fitBounds');
 
     var geocodeLocation = {
       location: markerLocation,
@@ -336,18 +336,18 @@ describe ('Testing map operations', function() {
     jumpToLocation(geocodeLocation);
     expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
     expect(google.maps.LatLng.calls.count()).toEqual(2);
-    expect(mapScope.fitBounds.calls.count()).toEqual(1);
+    expect(map.fitBounds.calls.count()).toEqual(1);
   });
 
   it("should pass over a geocodeLocation that does not contain a viewport, doing nothing", function(){
-    var fitBoundsSpy = spyOn(mapScope, 'fitBounds');
+    var fitBoundsSpy = spyOn(map, 'fitBounds');
 
     var geocodeLocationNoViewport = {
       location: markerLocation
     };
 
     jumpToLocation(geocodeLocationNoViewport);
-    expect(mapScope.fitBounds.calls.count()).toEqual(0);
+    expect(map.fitBounds.calls.count()).toEqual(0);
   });
 
   it("should add a marker object", function(){

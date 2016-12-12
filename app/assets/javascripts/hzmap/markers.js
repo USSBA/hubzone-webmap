@@ -21,7 +21,7 @@ function updateMarkers(geocodeLocation){
   if (geocodeLocation !== null && geocodeLocation !== undefined){
     var marker = new google.maps.Marker({
       position: geocodeLocation,
-      map: mapScope,
+      map: map,
       icon: new google.maps.MarkerImage('/assets/hubzone-map-marker.svg')
     });
     mapMarkers.push(marker);
