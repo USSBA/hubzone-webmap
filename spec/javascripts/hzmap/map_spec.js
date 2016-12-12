@@ -296,8 +296,8 @@ describe ('Testing map operations', function() {
 
   it("should update the map WMS layer, replacing the old overlay with a new one", function(){
     
-    wmsGroundOverlay['hz_current'][0] = new newOverlay('first');
-    wmsGroundOverlay['hz_current'][1] = new newOverlay('second');
+    wmsGroundOverlay['hz_current'][0] = new newOverlay('old');
+    wmsGroundOverlay['hz_current'][1] = new newOverlay('new');
      
     var oldOverlaySetMapSpy = spyOn(wmsGroundOverlay['hz_current'][0], 'setMap');
     var newOverlaySetMapSpy = spyOn(wmsGroundOverlay['hz_current'][1], 'setMap');
@@ -312,6 +312,16 @@ describe ('Testing map operations', function() {
     //can be checked by console logging console.log(wmsGroundOverlay[layer][0].name) before and after the function call
     expect(wmsGroundOverlay['hz_current'][0].setMap.calls.count()).toEqual(1);
     expect(wmsGroundOverlay['hz_current'][0].addListener.calls.count()).toEqual(1);
+  });
+
+  it("should handle an empty WMS update call", function(){
+    var layer = 'hz_current';
+    wmsGroundOverlay[layer] = [];
+    var updateState = updateLayerWMSOverlay({
+      layer: layer, 
+      mapScope: mapScope
+    });
+    expect(updateState).toBe(null);
   });
 
   it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){

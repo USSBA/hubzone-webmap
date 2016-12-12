@@ -140,13 +140,19 @@ function buildWMSUrl(options){
 //helper function for updating a single layer's WMS overlay
 function updateLayerWMSOverlay(options){
   var layer = options.layer;
-
   if (wmsGroundOverlay[layer].length === 1){
     wmsGroundOverlay[layer][0].setMap(options.mapScope);
-  } else if (wmsGroundOverlay[layer].length === 2){
-    wmsGroundOverlay[layer][1].setMap(options.mapScope);
-    wmsGroundOverlay[layer][0].setMap(null);
-    wmsGroundOverlay[layer].shift();
+  } else if (wmsGroundOverlay[layer].length > 1){ //assume last is newest and any other have to go
+    var tmpLayer = wmsGroundOverlay[layer][wmsGroundOverlay[layer].length-1];
+    for (var i = 0; i < wmsGroundOverlay[layer].length-1; i++) {
+      wmsGroundOverlay[layer][i].setMap(null);
+    }
+    wmsGroundOverlay[layer] = [];
+    wmsGroundOverlay[layer].push(tmpLayer);
+    wmsGroundOverlay[layer][0].setMap(options.mapScope);
+  } else { //
+    console.warn('no WMS found in layer');
+    return null;
   }
   wmsGroundOverlay[layer][0].addListener('click', catchMapClick);  
 }
