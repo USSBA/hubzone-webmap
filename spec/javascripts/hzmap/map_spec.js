@@ -112,20 +112,20 @@ var mapScope = {
       getNorthEast: function() {
         return {
           lat: function() {
-            return coordinates.north
+            return coordinates.north;
           },
           lng: function() {
-            return coordinates.east
+            return coordinates.east;
           }
         };
       },
       getSouthWest: function() {
         return {
           lat: function() {
-            return coordinates.south
+            return coordinates.south;
           },
           lng: function() {
-            return coordinates.west
+            return coordinates.west;
           }
         };
       }
@@ -136,7 +136,7 @@ var mapBounds = mapScope.getBounds();
 
 var map = {
   fitBounds: function(){
-    return
+    return;
   },
   addListener: function() {},
   data: {
@@ -164,7 +164,7 @@ var Marker = {
   }
 };
 
-var mapMarkers = [ Marker ]
+var mapMarkers = [ Marker ];
 
 var markerLocation = {
   lat: 39.29024048029149,
@@ -178,7 +178,7 @@ var newOverlay = function(name){
     setMap: function(){},
     addListener: function(){},
     name: name
-  }
+  };
 };
 
 describe ('Testing map operations', function() {
@@ -192,7 +192,7 @@ describe ('Testing map operations', function() {
     var styledMapTypeSpy = spyOn(google.maps, 'StyledMapType');
     var mapTypesSetSpy = spyOn(map.mapTypes, 'set');
     var mapSetMapTypIdSpy = spyOn(map, 'setMapTypeId');
-    
+
     map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
     map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
 
@@ -209,7 +209,7 @@ describe ('Testing map operations', function() {
     var mapScopeSpy = spyOn(mapScope, 'getBounds').and.returnValue(mapBounds);
     var northEastSpy = spyOn(mapBounds, 'getNorthEast').and.callThrough();
     var southWestSpy = spyOn(mapBounds, 'getSouthWest').and.callThrough();
-    
+
     expect(getBbox(mapScope)).toEqual("-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637");
     expect(mapScope.getBounds.calls.count()).toEqual(1);
     expect(mapBounds.getNorthEast.calls.count()).toEqual(2);
@@ -219,7 +219,7 @@ describe ('Testing map operations', function() {
   it("should return correct imageBounds object", function(){
     var createLatLngSpy = spyOn(window, 'createGoogleLatLngBounds');
     var bboxStr = [coordinates.west, coordinates.south, coordinates.east, coordinates.north].join(',');
-    
+
     var imageBounds = getImageBounds(bboxStr);
     expect(imageBounds).not.toBe(null);
     expect(window.createGoogleLatLngBounds).toHaveBeenCalled();
@@ -227,9 +227,9 @@ describe ('Testing map operations', function() {
 
   it("should run google latlng methods", function(){
     var latLngBoundsSpy = spyOn(google.maps, 'LatLngBounds');
-    var latLngSpy = spyOn(google.maps, 'LatLng');    
-    
-    createGoogleLatLngBounds(coordinates.west, coordinates.south, coordinates.east, coordinates.north)
+    var latLngSpy = spyOn(google.maps, 'LatLng');
+
+    createGoogleLatLngBounds(coordinates.west, coordinates.south, coordinates.east, coordinates.north);
     expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
     expect(google.maps.LatLng.calls.count()).toEqual(2);
   });
@@ -245,7 +245,7 @@ describe ('Testing map operations', function() {
     var bbox = getBbox(mapScope);
     var layer = 'hz_current';
     var url = buildWMSUrl({
-      layer: layer, 
+      layer: layer,
       bbox: bbox});
     var urlExpect = 'http://localhost:8080/geoserver/hubzone-test/wms?service=WMS&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.0&LAYERS=hubzone-test:' + layer + '&FORMAT=image/png&TRANSPARENT=TRUE&SRS=EPSG:4326&BBOX=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637&WIDTH=null&HEIGHT=null&SLD_BODY=' + xml_styles[layer];
     expect(url).toEqual(urlExpect);
@@ -260,7 +260,7 @@ describe ('Testing map operations', function() {
     var updateLayerWMSSpy = spyOn(window, 'updateLayerWMSOverlay');
 
     fetchNewWMS({
-      mapScope: mapScope, 
+      mapScope: mapScope,
       layer: 'hz_current'
     });
 
@@ -279,46 +279,46 @@ describe ('Testing map operations', function() {
   });
 
   it("should update the map WMS layer, adding a new overlay where there was none before", function(){
-    
-    wmsGroundOverlay['hz_current'][0] = new newOverlay();
-    
-    var newOverlaySetMapSpy = spyOn(wmsGroundOverlay['hz_current'][0], 'setMap');
-    var newOverlayListenterSpy = spyOn(wmsGroundOverlay['hz_current'][0], 'addListener');
-    
+
+    wmsGroundOverlay.hz_current[0] = new newOverlay();
+
+    var newOverlaySetMapSpy = spyOn(wmsGroundOverlay.hz_current[0], 'setMap');
+    var newOverlayListenterSpy = spyOn(wmsGroundOverlay.hz_current[0], 'addListener');
+
     updateLayerWMSOverlay({
-      layer: 'hz_current', 
+      layer: 'hz_current',
       mapScope: mapScope
     });
 
-    expect(wmsGroundOverlay['hz_current'][0].setMap.calls.count()).toEqual(1);
-    expect(wmsGroundOverlay['hz_current'][0].addListener.calls.count()).toEqual(1);
+    expect(wmsGroundOverlay.hz_current[0].setMap.calls.count()).toEqual(1);
+    expect(wmsGroundOverlay.hz_current[0].addListener.calls.count()).toEqual(1);
   });
 
   it("should update the map WMS layer, replacing the old overlay with a new one", function(){
-    
-    wmsGroundOverlay['hz_current'][0] = new newOverlay('old');
-    wmsGroundOverlay['hz_current'][1] = new newOverlay('new');
-     
-    var oldOverlaySetMapSpy = spyOn(wmsGroundOverlay['hz_current'][0], 'setMap');
-    var newOverlaySetMapSpy = spyOn(wmsGroundOverlay['hz_current'][1], 'setMap');
-    var OvenewrlayListenterSpy = spyOn(wmsGroundOverlay['hz_current'][1], 'addListener');
-    
+
+    wmsGroundOverlay.hz_current[0] = new newOverlay('old');
+    wmsGroundOverlay.hz_current[1] = new newOverlay('new');
+
+    var oldOverlaySetMapSpy = spyOn(wmsGroundOverlay.hz_current[0], 'setMap');
+    var newOverlaySetMapSpy = spyOn(wmsGroundOverlay.hz_current[1], 'setMap');
+    var OvenewrlayListenterSpy = spyOn(wmsGroundOverlay.hz_current[1], 'addListener');
+
     updateLayerWMSOverlay({
-      layer: 'hz_current', 
+      layer: 'hz_current',
       mapScope: mapScope
     });
- 
+
     //here the indexing changes because updateLayerWMSOverlay removes the 0'th 'old' layer
     //can be checked by console logging console.log(wmsGroundOverlay[layer][0].name) before and after the function call
-    expect(wmsGroundOverlay['hz_current'][0].setMap.calls.count()).toEqual(1);
-    expect(wmsGroundOverlay['hz_current'][0].addListener.calls.count()).toEqual(1);
+    expect(wmsGroundOverlay.hz_current[0].setMap.calls.count()).toEqual(1);
+    expect(wmsGroundOverlay.hz_current[0].addListener.calls.count()).toEqual(1);
   });
 
   it("should handle an empty WMS update call", function(){
     var layer = 'hz_current';
     wmsGroundOverlay[layer] = [];
     var updateState = updateLayerWMSOverlay({
-      layer: layer, 
+      layer: layer,
       mapScope: mapScope
     });
     expect(updateState).toBe(null);
@@ -377,7 +377,7 @@ describe ('Testing map operations', function() {
     var markerSetSpy = spyOn(Marker, 'setMap');
 
     updateMarkers();
-    expect(mapMarkers.length).toEqual(0); 
+    expect(mapMarkers.length).toEqual(0);
   });
 
   it("should return a correctly formatted url request on map click", function(){
@@ -394,7 +394,7 @@ describe ('Testing map operations', function() {
 
     var latlngUrl = '/search?latlng=' + mapClick.latLng.lat() + ',' + mapClick.latLng.lng();
     var clickUrl = catchMapClick(mapClick);
-    expect(clickUrl).toEqual(latlngUrl);  
+    expect(clickUrl).toEqual(latlngUrl);
   });
 
 });
