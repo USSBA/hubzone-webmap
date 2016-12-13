@@ -90,7 +90,7 @@ var google = {
         addListener: function () { }
     },
     places: {
-        AutocompleteService: function () {
+        Autocomplete: function () {
             return {
                 getPlacePredictions: function () { }
             };
@@ -230,6 +230,7 @@ describe ('Testing map operations', function() {
     var styledMapTypeSpy = spyOn(google.maps, 'StyledMapType');
     var mapTypesSetSpy = spyOn(map.mapTypes, 'set');
     var mapSetMapTypIdSpy = spyOn(map, 'setMapTypeId');
+    var autoComplete = spyOn(google.maps.places, 'Autocomplete');
 
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map.calls.count()).toEqual(1);
@@ -239,6 +240,7 @@ describe ('Testing map operations', function() {
     expect(google.maps.StyledMapType.calls.count()).toEqual(1);
     expect(map.mapTypes.set.calls.count()).toEqual(1);
     expect(map.setMapTypeId.calls.count()).toEqual(1);
+    expect(google.maps.places.Autocomplete.calls.count()).toEqual(1);
   });
 
   it("should get bbox", function() {
@@ -329,14 +331,27 @@ describe ('Testing map operations', function() {
     var markerSetSpy = spyOn(Marker, 'setMap');
 
     updateMarkers();
-    expect(mapMarkers.length).toEqual(0); 
+    expect(mapMarkers.length).toEqual(0);
   });
 
   it("should return a correctly formatted url request on map click", function(){
     var latlngUrl = '/search?latlng=' + mapClick.latLng.lat() + ',' + mapClick.latLng.lng();
     var clickUrl = catchMapClick(mapClick);
-    expect(clickUrl).toEqual(latlngUrl);  
+    expect(clickUrl).toEqual(latlngUrl);
   });
+
+  // it("should show autocomplete results when a search is started", function(){
+  //   var testDivForAutocomplete = document.createElement('pac-test');
+  //   $('body').append(testDivForAutocomplete);
+  //   var autoCompleteResults = '<div class="pac-container pac-logo" style="width: 500px; position: absolute; left: 260px; top: 145px; display: none;">' +
+  //     '<div class="pac-item"><span class="pac-icon pac-icon-marker"></span><span class="pac-item-query"><span class="pac-matched">8</span>29</span><span>North Charles Street, Baltimore, MD, United States</span></div>' +
+  //     '<div class="pac-item"><span class="pac-icon pac-icon-marker"></span><span class="pac-item-query"><span class="pac-matched">8</span>27</span><span>Washington Boulevard, Baltimore, MD, United States</span></div>' +
+  //     '<div class="pac-item"><span class="pac-icon pac-icon-marker"></span><span class="pac-item-query"><span class="pac-matched">8</span>88</span><span>South Broadway, Baltimore, MD, United States</span></div>' +
+  //     '<div class="pac-item"><span class="pac-icon pac-icon-marker"></span><span class="pac-item-query"><span class="pac-matched">8</span>20</span><span>Frederick Avenue, Baltimore, MD, United States</span></div>' +
+  //     '<div class="pac-item"><span class="pac-icon pac-icon-marker"></span><span class="pac-item-query"><span class="pac-matched">8</span>01</span><span>Cherry Hill Road, Baltimore, MD, United States</span></div>' +
+  //     '</div>';
+  //   $(testDivForAutocomplete).append(autoCompleteResults);
+  // });
 
 });
 

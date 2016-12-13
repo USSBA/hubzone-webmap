@@ -45,6 +45,11 @@ describe 'the map search', type: :feature, js: true do
           Excon.stub({},
                      body: responses[:qualified_multiple].to_json)
         end
+        it "should return autocomplete results", js: true do
+          fill_in 'search', with: '8 mark'
+          expect(page).to have_css('div.pac-container', visible: true)
+          expect(page).to have_css('div.pac-item', count: 5)
+        end
         it "should return qualified hubzone status" do
           fill_in 'search', with: queries[:qualified_multiple]
           click_button 'hubzone-search-button'

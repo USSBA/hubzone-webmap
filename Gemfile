@@ -27,12 +27,12 @@ gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'chromedriver-helper'
   gem 'capybara' # allow interaction with DOM in tests
-  gem 'poltergeist'
+  gem 'chromedriver-helper'
   gem 'jasmine-rails' # JavaScript testing
   gem 'jshint'
   gem 'launchy'
+  gem 'poltergeist'
   gem 'rspec-rails', '~> 3.5' # Use RSpec for tests
   gem 'rubocop' # Enforce ruby code style
   gem 'selenium-webdriver'

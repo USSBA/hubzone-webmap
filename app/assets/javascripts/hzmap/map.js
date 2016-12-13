@@ -42,6 +42,14 @@ function initMap() {
 
   map.data.addListener('click', catchMapClick);
 
+  //adds autocomplete
+  var searchInput = document.getElementById('search-field-small');
+  var options = {
+    types: ['geocode']
+  };
+  /* exported autocomplete */
+  var autocomplete = new google.maps.places.Autocomplete(searchInput, options);
+
   //returns the map as a promise
   return map;
 }
