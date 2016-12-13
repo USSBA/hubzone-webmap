@@ -13,10 +13,12 @@ $.fn.sidebar = function() {
       $sidebar.addClass('on');
       $sidebar.removeClass('hidden');
       $('#sidebar-button').html('<i class="fa fa-chevron-right"></i>');
+      $('div.gmnoprint[style*="top: 38px"], .gm-svpc').addClass('gm-sidebar-on');
       this.currentClass = 'on';
     } else {
       $sidebar.removeClass('on');
       $('#sidebar-button').html('<i class="fa fa-chevron-left"></i>');
+      $('div.gmnoprint[style*="top: 38px"], .gm-svpc').removeClass('gm-sidebar-on');
       this.currentClass = 'hidden';
     }
   };

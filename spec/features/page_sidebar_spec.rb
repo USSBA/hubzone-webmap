@@ -53,6 +53,13 @@ describe "the sidebar", type: :feature do
       click_button "hubzone-search-button"
       expect(page).not_to have_css("#sidebar.hidden")
     end
+    it "should move the zoom controls out" do
+      click_button "hubzone-search-button"
+      expect(page).to have_css(".gm-sidebar-on")
+    end
+    it "...and back in" do
+      expect(page).not_to have_css(".gm-sidebar-on")
+    end
   end
 
   context "with a non-qualified address", js: true do
