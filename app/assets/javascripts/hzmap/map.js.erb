@@ -38,7 +38,7 @@ function initMap() {
   var options = {
     types: ['geocode']
   };
-  /* exported autocomplete */
+  /* jshint unused: false */
   var autocomplete = new google.maps.places.Autocomplete(searchInput, options);
 
   //returns the map
@@ -159,7 +159,7 @@ function updateLayerWMSOverlay(options){
     wmsGroundOverlay[layer].push(tmpLayer);
     wmsGroundOverlay[layer][0].setMap(options.mapScope);
   } else { //
-    console.warn('no WMS found in layer');
+    // console.warn('no WMS found in layer');
     return null;
   }
   wmsGroundOverlay[layer][0].addListener('click', catchMapClick);  

@@ -24,7 +24,6 @@ options:
     console:  true
     ActionCable: true
     App: true
-    geomWFSSettings: true
     google:   true
     hzBaseMapStyle: true
     hzMapLayerStyle: true
@@ -40,4 +39,3 @@ options:
     updateMarkers: true
     wmsGroundOverlay: true
     xml_styles: true
-

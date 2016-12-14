@@ -19,11 +19,13 @@ function setMapOnAll(map) {
 function updateMarkers(geocodeLocation){
   clearMarkers();
   if (geocodeLocation !== null && geocodeLocation !== undefined){
+    /* jshint ignore:start */
     var marker = new google.maps.Marker({
       position: geocodeLocation,
       map: map,
       icon: new google.maps.MarkerImage('<%= image_path 'hubzone-map-marker.svg' %>')
     });
     mapMarkers.push(marker);
+    /* jshint ignore:end */
   }
 }
