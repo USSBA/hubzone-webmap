@@ -6,8 +6,9 @@ class MapController < ApplicationController
   # def fake
   #   render :layout => false
   # end
-  # def index
-  # end
+  # rubocop:disable Style/EmptyMethod
+  def index
+  end
 
   def search
     query = format_query params
