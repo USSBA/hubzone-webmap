@@ -6,7 +6,6 @@ class MapController < ApplicationController
   # def fake
   #   render :layout => false
   # end
-  # rubocop:disable Style/EmptyMethod
   def index
   end
 
