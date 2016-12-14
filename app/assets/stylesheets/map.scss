@@ -134,6 +134,15 @@ ul.hubzone-filter-menu label {
   margin-top: 1.5rem;
   color: #0071bb;
 }
+li.hubzone-map-print {
+  float: right;
+  cursor: pointer;
+}
+li.hubzone-map-print a {
+  color: #fff;
+  padding-right: 0;
+}
+
 
 /* Map Legend */
 #legend {

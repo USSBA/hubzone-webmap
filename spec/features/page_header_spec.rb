@@ -26,6 +26,6 @@ describe "the header", type: :feature do
     expect(page).to have_content 'Help'
   end
   it "should have Print icon" do
-    expect(page.find('#print-map')['src']).to have_content '<i class="fa fa-print" aria-hidden="true"></i>'
+    expect(page).to have_css('.hubzone-map-print')
   end
 end
