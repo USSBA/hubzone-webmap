@@ -172,9 +172,22 @@ function jumpToLocation(geocodeLocation){
 function catchMapClick(clickEvent){
   var clicklng = clickEvent.latLng.lng();
   var clicklat = clickEvent.latLng.lat();
-  var url = "/search?latlng=" + clicklat + ',' + clicklng;
+  var date = parseDate(new Date());
+  var url = "/search?latlng=" + clicklat + ',' + clicklng + '&query_date=' + date;
   $.ajax({
     url: url
   });
   return url;
 }
+
+//helper to parse a javascript date because, why?
+function parseDate(date){
+  var mm = date.getMonth() + 1;
+  var dd = date.getDate();
+
+  return [date.getFullYear(),
+          (mm>9 ? '' : '0') + mm,
+          (dd>9 ? '' : '0') + dd
+         ].join('-');  
+}
+
