@@ -335,9 +335,15 @@ describe ('Testing map operations', function() {
   });
 
   it("should return a correctly formatted url request on map click", function(){
-    var latlngUrl = '/search?latlng=' + mapClick.latLng.lat() + ',' + mapClick.latLng.lng();
+    var date = parseDate(new Date());
+    var latlngUrl = '/search?latlng=' + mapClick.latLng.lat() + ',' + mapClick.latLng.lng() + '&query_date=' + date;
     var clickUrl = catchMapClick(mapClick);
     expect(clickUrl).toEqual(latlngUrl);
+  });
+
+  it("should parse single digit dates correctly", function(){
+    var date = parseDate(new Date('1/1/2016'));
+    expect(date).toEqual('2016-01-01');
   });
 
   // it("should show autocomplete results when a search is started", function(){
