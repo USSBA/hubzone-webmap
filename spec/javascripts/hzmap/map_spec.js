@@ -104,53 +104,40 @@ var coordinates = {
   east: -96.64306640625,
   south: 34.99419475828389,
   west: -98.35693359375
-}
-
-var Marker = {
-  setMap: function(map){
-    return map;
-  }
 };
 
 var mapScope = {
-  fitBounds: function(){
-    return
-  },
   getBounds: function() {
     return {
       getNorthEast: function() {
         return {
           lat: function() {
-            return coordinates.north
+            return coordinates.north;
           },
           lng: function() {
-            return coordinates.east
+            return coordinates.east;
           }
         };
       },
       getSouthWest: function() {
         return {
           lat: function() {
-            return coordinates.south
+            return coordinates.south;
           },
           lng: function() {
-            return coordinates.west
+            return coordinates.west;
           }
         };
       }
     };
-  },
-  data: {
-    style: function() {},
-    setStyle: function(styleFunction) {
-      mapScope.data.style = styleFunction;
-    }
-
   }
 };
 var mapBounds = mapScope.getBounds();
 
 var map = {
+  fitBounds: function(){
+    return;
+  },
   addListener: function() {},
   data: {
     addListener: function() {}
@@ -165,52 +152,33 @@ var map = {
   },
   controls: []
 };
-map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
-map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
 
-var mapClick = {
-  latLng: {
-    lat: function(){
-      return markerLocation.lat;
-    },
-    lng: function(){
-      return markerLocation.lng;
-    }
+
+
+//////////////////
+// Marker Helpers
+/////////////////
+var Marker = {
+  setMap: function(map){
+    return map;
   }
 };
 
-var mapMarkers = [ Marker]
-
-var mockFeaturesToRemove = ['hz_current_lowestres.601'];
+var mapMarkers = [ Marker ];
 
 var markerLocation = {
   lat: 39.29024048029149,
   lng: -76.60564721970849
 };
+/////////////////
 
-var geocodeLocation = {
-  location: markerLocation,
-  viewport: {
-    northeast: {
-      lat: 39.29024048029149,
-      lng: -76.60564721970849
-    },
-    southwest: {
-      lat: 39.2875425197085,
-      lng: -76.6083451802915
-    }
-  }
-};
-
-var geocodeLocationNoViewport = {
-  location: markerLocation
-};
-
-var DummyFeature = function(hztype){
-  this.hztype = hztype,
-  this.getProperty = function(type){
-    return this[type];
-  }
+// helper for new ground overlays
+var newOverlay = function(name){
+  return {
+    setMap: function(){},
+    addListener: function(){},
+    name: name
+  };
 };
 
 describe ('Testing map operations', function() {
@@ -218,12 +186,6 @@ describe ('Testing map operations', function() {
     var constructorSpy = spyOn(google.maps, 'Map').and.returnValue(map);
     var eventSpy = spyOn(google.maps.event, 'addListener');
     var mapListenerSpy = spyOn(map, 'addListener');
-    var mapDataListenerSpy = spyOn(map.data, 'addListener');
-
-
-    var mapScopeSpy = spyOn(mapScope, 'getBounds').and.returnValue(mapBounds);
-    var northEastSpy = spyOn(mapBounds, 'getNorthEast').and.callThrough();
-    var southWestSpy = spyOn(mapBounds, 'getSouthWest').and.callThrough();
   });
 
   it("should create a new Google map", function() {
@@ -232,11 +194,13 @@ describe ('Testing map operations', function() {
     var mapSetMapTypIdSpy = spyOn(map, 'setMapTypeId');
     var autoComplete = spyOn(google.maps.places, 'Autocomplete');
 
+    map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
+    map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
+
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map.calls.count()).toEqual(1);
     expect(google.maps.event.addListener.calls.count()).toEqual(1);
     expect(map.addListener.calls.count()).toEqual(1);
-    expect(map.data.addListener.calls.count()).toEqual(1);
     expect(google.maps.StyledMapType.calls.count()).toEqual(1);
     expect(map.mapTypes.set.calls.count()).toEqual(1);
     expect(map.setMapTypeId.calls.count()).toEqual(1);
@@ -244,74 +208,158 @@ describe ('Testing map operations', function() {
   });
 
   it("should get bbox", function() {
+    var mapScopeSpy = spyOn(mapScope, 'getBounds').and.returnValue(mapBounds);
+    var northEastSpy = spyOn(mapBounds, 'getNorthEast').and.callThrough();
+    var southWestSpy = spyOn(mapBounds, 'getSouthWest').and.callThrough();
+
     expect(getBbox(mapScope)).toEqual("-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637");
     expect(mapScope.getBounds.calls.count()).toEqual(1);
     expect(mapBounds.getNorthEast.calls.count()).toEqual(2);
     expect(mapBounds.getSouthWest.calls.count()).toEqual(2);
   });
 
-  it("should get the current table based on zoom level", function (){
+  it("should return correct imageBounds object", function(){
+    var createLatLngSpy = spyOn(window, 'createGoogleLatLngBounds');
+    var bboxStr = [coordinates.west, coordinates.south, coordinates.east, coordinates.north].join(',');
+
+    var imageBounds = getImageBounds(bboxStr);
+    expect(imageBounds).not.toBe(null);
+    expect(window.createGoogleLatLngBounds).toHaveBeenCalled();
+  });
+
+  it("should run google latlng methods", function(){
+    var latLngBoundsSpy = spyOn(google.maps, 'LatLngBounds');
+    var latLngSpy = spyOn(google.maps, 'LatLng');
+
+    createGoogleLatLngBounds(coordinates.west, coordinates.south, coordinates.east, coordinates.north);
+    expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
+    expect(google.maps.LatLng.calls.count()).toEqual(2);
+  });
+
+  xit("should get the current table based on zoom level", function (){
     expect(getTableBasedOnZoomLevel(13)).toEqual(geomWFSSettings.tableHighRes);
     expect(getTableBasedOnZoomLevel(10)).toEqual(geomWFSSettings.tableLowRes);
     expect(getTableBasedOnZoomLevel(6)).toEqual(geomWFSSettings.tableLowerRes);
     expect(getTableBasedOnZoomLevel(5)).toEqual(geomWFSSettings.tableLowestRes);
   });
 
-  it("should set the map style", function() {
-    mapScope.data.setStyle(defaultMapStyle);
-    expect(mapScope.data.style).toEqual(defaultMapStyle);
-  });
-
-  it("should update the map", function(){
-    sinon.stub(jQuery, "ajax");
+  it("should build the correct URL", function() {
     var bbox = getBbox(mapScope);
-    var url = getUrl(bbox);
-    updateMap({
+    var layer = 'hz_current';
+    var url = buildWMSUrl({
+      layer: layer,
+      bbox: bbox});
+    var urlExpect = 'http://localhost:8080/geoserver/hubzone-test/wms?service=WMS&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.0&LAYERS=hubzone-test:' + layer + '&FORMAT=image/png&TRANSPARENT=TRUE&SRS=EPSG:4326&BBOX=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637&WIDTH=0&HEIGHT=0&SLD_BODY=' + xml_styles[layer];
+    expect(url).toEqual(urlExpect);
+  });
+
+
+  it("should call the wms map layer stack", function(){
+    var bboxSpy = spyOn(window, 'getBbox');
+    var imageBoundsSpy = spyOn(window, 'getImageBounds');
+    var buildWMSUrlSpy = spyOn(window, 'buildWMSUrl');
+    var groundOverlaySpy = spyOn(google.maps, 'GroundOverlay');
+    var updateLayerWMSSpy = spyOn(window, 'updateLayerWMSOverlay');
+
+    fetchNewWMS({
       mapScope: mapScope,
-      url: url
-    }, sinon.spy());
+      layer: 'hz_current'
+    });
 
-    expect(jQuery.ajax.calledWithMatch({url: url})).toBe(true);
+    expect(window.getBbox.calls.count()).toEqual(1);
+    expect(window.getImageBounds.calls.count()).toEqual(1);
+    expect(window.buildWMSUrl.calls.count()).toEqual(1);
+    expect(google.maps.GroundOverlay.calls.count()).toEqual(1);
+    expect(window.updateLayerWMSOverlay.calls.count()).toEqual(1);
   });
 
-  it("should create a new MapGeoJson class object and add data", function(){
-    var mapGeoJson = new MapGeoJson();
-    var diffFeatures = mapGeoJson.diffData(mockData1);
-    expect(diffFeatures.toAdd.fc).toEqual(mockData1);
+  it("should fetchNewWMS for as many layers as are defined", function(){
+    var newfetchSpy = spyOn(window, 'fetchNewWMS');
+    updateIdleMap(mapScope);
+    var layerLength = Object.keys(wmsGroundOverlay).length;
+    expect(window.fetchNewWMS.calls.count()).toEqual(layerLength);
   });
 
-  it("should produce the correct diff between two datasets", function(){
-    var mapGeoJson = new MapGeoJson();
-    mapGeoJson.mapScope = mapScope;
-    var diffFeatures = {};
-    diffFeatures = mapGeoJson.diffData(mockData1);
-    diffFeatures = mapGeoJson.diffData(mockData2);
-    expect(diffFeatures.toRemove.ids).toEqual(mockFeaturesToRemove);
+  it("should update the map WMS layer, adding a new overlay where there was none before", function(){
+
+    wmsGroundOverlay.hz_current[0] = new newOverlay();
+
+    var newOverlaySetMapSpy = spyOn(wmsGroundOverlay.hz_current[0], 'setMap');
+    var newOverlayListenterSpy = spyOn(wmsGroundOverlay.hz_current[0], 'addListener');
+
+    updateLayerWMSOverlay({
+      layer: 'hz_current',
+      mapScope: mapScope
+    });
+
+    expect(wmsGroundOverlay.hz_current[0].setMap.calls.count()).toEqual(1);
+    expect(wmsGroundOverlay.hz_current[0].addListener.calls.count()).toEqual(1);
   });
 
-  it("should empty the currentFeatures state", function(){
-    var mapGeoJson = new MapGeoJson();
-    mapGeoJson.mapScope = mapScope;
-    var diffFeatures = {};
-    diffFeatures = mapGeoJson.diffData(mockData1);
-    mapGeoJson.emptyCurrentFeatures();
-    expect(mapGeoJson.currentFeatures.ids.length).toEqual(0);
+  it("should update the map WMS layer, replacing the old overlay with a new one", function(){
+
+    wmsGroundOverlay.hz_current[0] = new newOverlay('old');
+    wmsGroundOverlay.hz_current[1] = new newOverlay('new');
+
+    var oldOverlaySetMapSpy = spyOn(wmsGroundOverlay.hz_current[0], 'setMap');
+    var newOverlaySetMapSpy = spyOn(wmsGroundOverlay.hz_current[1], 'setMap');
+    var OvenewrlayListenterSpy = spyOn(wmsGroundOverlay.hz_current[1], 'addListener');
+
+    updateLayerWMSOverlay({
+      layer: 'hz_current',
+      mapScope: mapScope
+    });
+
+    //here the indexing changes because updateLayerWMSOverlay removes the 0'th 'old' layer
+    //can be checked by console logging console.log(wmsGroundOverlay[layer][0].name) before and after the function call
+    expect(wmsGroundOverlay.hz_current[0].setMap.calls.count()).toEqual(1);
+    expect(wmsGroundOverlay.hz_current[0].addListener.calls.count()).toEqual(1);
   });
 
-  it("should return the correct style object per hztype", function(){
-    var dummyFeature = new DummyFeature('indianLands');
-    expect(defaultMapStyle(dummyFeature)).toEqual(hzMapLayerStyle['indianLands']);
+  it("should handle an empty WMS update call", function(){
+    var layer = 'hz_current';
+    wmsGroundOverlay[layer] = [];
+    var updateState = updateLayerWMSOverlay({
+      layer: layer,
+      mapScope: mapScope
+    });
+    expect(updateState).toBe(null);
   });
 
   it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){
     var latLngBoundsSpy = spyOn(google.maps, 'LatLngBounds');
     var latLngSpy = spyOn(google.maps, 'LatLng');
-    var fitBoundsSpy = spyOn(mapScope, 'fitBounds');
+    var fitBoundsSpy = spyOn(map, 'fitBounds');
+
+    var geocodeLocation = {
+      location: markerLocation,
+      viewport: {
+        northeast: {
+          lat: 39.29024048029149,
+          lng: -76.60564721970849
+        },
+        southwest: {
+          lat: 39.2875425197085,
+          lng: -76.6083451802915
+        }
+      }
+    };
 
     jumpToLocation(geocodeLocation);
     expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
     expect(google.maps.LatLng.calls.count()).toEqual(2);
-    expect(mapScope.fitBounds.calls.count()).toEqual(1);
+    expect(map.fitBounds.calls.count()).toEqual(1);
+  });
+
+  it("should pass over a geocodeLocation that does not contain a viewport, doing nothing", function(){
+    var fitBoundsSpy = spyOn(map, 'fitBounds');
+
+    var geocodeLocationNoViewport = {
+      location: markerLocation
+    };
+
+    jumpToLocation(geocodeLocationNoViewport);
+    expect(map.fitBounds.calls.count()).toEqual(0);
   });
 
   it("should add a marker object", function(){
@@ -325,8 +373,8 @@ describe ('Testing map operations', function() {
     expect(mapMarkers[0]).not.toEqual(Marker);  //because the test replaces it with a new spy from google.maps.Marker
   });
 
-  xit("should empty the  marker object", function(){
-    //this code touches all 3 marker functions (updateMarkers, setMapOnAll, clearMarkers)
+  it("should empty the marker object", function(){
+    mapMarkers = [Marker];
     var markerSpy = spyOn(google.maps, 'Marker');
     var markerSetSpy = spyOn(Marker, 'setMap');
 
@@ -335,6 +383,17 @@ describe ('Testing map operations', function() {
   });
 
   it("should return a correctly formatted url request on map click", function(){
+    var mapClick = {
+      latLng: {
+        lat: function(){
+          return markerLocation.lat;
+        },
+        lng: function(){
+          return markerLocation.lng;
+        }
+      }
+    };
+
     var latlngUrl = '/search?latlng=' + mapClick.latLng.lat() + ',' + mapClick.latLng.lng();
     var clickUrl = catchMapClick(mapClick);
     expect(clickUrl).toEqual(latlngUrl);
@@ -354,250 +413,3 @@ describe ('Testing map operations', function() {
   // });
 
 });
-
-
-
-
-var mockData1 = {
-  "type": "FeatureCollection",
-  "totalFeatures": 3,
-  "features": [
-    {
-      "type": "Feature",
-      "id": "hz_current_lowestres.114",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-95.713734, 39.704843],
-              [-95.71379, 39.697069],
-              [-95.727995, 39.69713],
-              [-95.72803, 39.704982 ]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "res": "high",
-        "sourceid": 583,
-        "hztype": "indianLands"
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "hz_current_lowestres.115",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-95.728027, 39.824793],
-              [-95.503444, 39.825089],
-              [-95.503249, 39.507281],
-              [-95.728189, 39.568686],
-              [-95.727995, 39.69713],
-              [-95.71379, 39.697069],
-              [-95.713734, 39.704843],
-              [-95.72803, 39.704982 ]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "res": "high",
-        "sourceid": 584,
-        "hztype": "indianLands"
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "hz_current_lowestres.601",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-95.942545,39.37525],
-              [-95.942143, 39.420822],
-              [-95.738544, 39.422111],
-              [-95.738336, 39.260006],
-              [-95.942477, 39.260081],
-              [-95.942545, 39.37525 ]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "res": "high",
-        "sourceid": 582,
-        "hztype": "indianLands"
-      }
-    }
-  ],
-  "crs": {
-    "type": "name",
-    "properties": {
-      "name": "urn:ogc:def:crs:EPSG::4326"
-    }
-  }
-};
-
-var mockData2 = {
-  "type": "FeatureCollection",
-  "totalFeatures": 6,
-  "features": [
-    {
-      "type": "Feature",
-      "id": "hz_current_lowestres.114",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-95.72803,39.704982],
-              [95.713734,39.704843],
-              [-95.71379,39.697069],
-              [-95.727995,39.69713]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "res": "high",
-        "sourceid": 583,
-        "hztype": "indianLands"
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "hz_current_lowestres.115",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-95.72803,39.704982],
-              [95.728027,39.824793],
-              [95.503444,39.825089],
-              [95.503249,39.507281],
-              [95.728189,39.568686],
-              [-95.727995, 39.69713],
-              [-95.71379,39.697069],
-              [95.713734,39.704843]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "res": "high",
-        "sourceid": 584,
-        "hztype": "indianLands"
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "hz_current_lowestres.585",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-95.45391,40.008235],
-              [-95.46307,40.000016],
-              [95.565376,40.000241],
-              [95.565737,40.002496],
-              [95.569048,40.003243]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "res": "high",
-        "sourceid": 586,
-        "hztype": "indianLands"
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "hz_current_lowestres.586",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [95.455283,40.000307],
-              [-95.45304,39.997518],
-              [95.435991,40.000207],
-              [95.472935,39.994356]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "res": "high",
-        "sourceid": 587,
-        "hztype": "indianLands"
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "hz_current_lowestres.602",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-95.46307,40.000016],
-              [95.468492,39.996478],
-              [95.466714,39.995939],
-              [95.467085,39.994557]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "res": "high",
-        "sourceid": 585,
-        "hztype": "indianLands"
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "hz_current_lowestres.603",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-95.46307,40.000016],
-              [95.468492,39.996478],
-              [95.466714,39.995939],
-              [95.467085,39.994557]
-            ]
-          ]
-        ]
-      },
-      "geometry_name": "geom",
-      "properties": {
-        "res": "high",
-        "sourceid": 588,
-        "hztype": "indianLands"
-      }
-    }
-  ],
-  "crs": {
-    "type": "name",
-    "properties": {
-      "name": "urn:ogc:def:crs:EPSG::4326"
-    }
-  }
-};
