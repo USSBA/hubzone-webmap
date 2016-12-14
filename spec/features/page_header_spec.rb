@@ -25,4 +25,7 @@ describe "the header", type: :feature do
   it "should have Help link" do
     expect(page).to have_content 'Help'
   end
+  it "should have Print icon" do
+    expect(page.find('#print-map')['src']).to have_content '<i class="fa fa-print" aria-hidden="true"></i>'
+  end
 end
