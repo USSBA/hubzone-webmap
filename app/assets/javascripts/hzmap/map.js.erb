@@ -6,6 +6,7 @@ var wmsGroundOverlay = {
   qct: [],
   brac: []
 };
+
 //create the map on load, when idle, jump to updateMap to get features
 /* exported initMap */
 function initMap() {
@@ -29,7 +30,7 @@ function initMap() {
   map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('legend'));
 
   // adds listener that triggers whenever the map is idle to update with new features.
-  google.maps.event.addListener(map, 'idle', updateIdleMap);
+  google.maps.event.addListener(map, 'tilesloaded', updateIdleMap);
 
   map.addListener('click', catchMapClick);
 
