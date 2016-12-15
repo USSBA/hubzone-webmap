@@ -398,7 +398,9 @@ describe ('Testing map operations', function() {
     };
 
     var date = parseDate(new Date());
-    var latlngUrl = '/search?latlng=' + mapClick.latLng.lat() + ',' + mapClick.latLng.lng() + '&query_date=' + date;
+    var latlngUrl = '/search?latlng=' + mapClick.latLng.lat() + ',' + mapClick.latLng.lng() + 
+                    '&query_date=' + date + 
+                    '&locale=en';
     var clickUrl = catchMapClick(mapClick);
     expect(clickUrl).toEqual(latlngUrl);
   });
