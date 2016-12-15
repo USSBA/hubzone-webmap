@@ -1,10 +1,5 @@
 //defining global variables for hubzone map controllers
 var map = {}; //the map object
-var wmsGroundOverlay = {
-  'hz_current': [],
-  'indian_lands': []
-};
-
 
 //create the map on load, when idle, jump to updateMap to get features
 /* exported initMap */
@@ -69,7 +64,7 @@ function fetchNewWMS(options){
   });
 
   //push a new groundOverlay into the wmsGroundOverlay array container
-  wmsGroundOverlay[layer].push(new google.maps.GroundOverlay(
+  wmsGroundOverlay[layer].overlay.push(new google.maps.GroundOverlay(
       url,
       imageBounds
   ));
@@ -141,28 +136,28 @@ function buildWMSUrl(options){
   url += "&BBOX=" + options.bbox;
   url += "&WIDTH=" + parseInt($('#map').width()*2); //double the resolution for better screens, but make sure its int        
   url += "&HEIGHT=" + parseInt($('#map').height()*2); //double the resolution for better screens, but make sure its int
-  url += ('&SLD_BODY=' + xml_styles[options.layer]);
+  url += ('&SLD_BODY=' + wmsGroundOverlay[options.layer].style);
   return url;             
 }
 
 //helper function for updating a single layer's WMS overlay
 function updateLayerWMSOverlay(options){
   var layer = options.layer;
-  if (wmsGroundOverlay[layer].length === 1){
-    wmsGroundOverlay[layer][0].setMap(options.mapScope);
-  } else if (wmsGroundOverlay[layer].length > 1){ //assume last is newest and any other have to go
-    var tmpLayer = wmsGroundOverlay[layer][wmsGroundOverlay[layer].length-1];
-    for (var i = 0; i < wmsGroundOverlay[layer].length-1; i++) {
-      wmsGroundOverlay[layer][i].setMap(null);
+  if (wmsGroundOverlay[layer].overlay.length === 1){
+    wmsGroundOverlay[layer].overlay[0].setMap(options.mapScope);
+  } else if (wmsGroundOverlay[layer].overlay.length > 1){ //assume last is newest and any other have to go
+    var tmpLayer = wmsGroundOverlay[layer].overlay[wmsGroundOverlay[layer].overlay.length-1];
+    for (var i = 0; i < wmsGroundOverlay[layer].overlay.length-1; i++) {
+      wmsGroundOverlay[layer].overlay[i].setMap(null);
     }
-    wmsGroundOverlay[layer] = [];
-    wmsGroundOverlay[layer].push(tmpLayer);
-    wmsGroundOverlay[layer][0].setMap(options.mapScope);
+    wmsGroundOverlay[layer].overlay = [];
+    wmsGroundOverlay[layer].overlay.push(tmpLayer);
+    wmsGroundOverlay[layer].overlay[0].setMap(options.mapScope);
   } else { //
     // console.warn('no WMS found in layer');
     return null;
   }
-  wmsGroundOverlay[layer][0].addListener('click', catchMapClick);  
+  wmsGroundOverlay[layer].overlay[0].addListener('click', catchMapClick);  
 }
 
 // turn latlng object into url

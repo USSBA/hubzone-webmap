@@ -108,9 +108,15 @@ var indian_lands_sld = (
   '</sld:StyledLayerDescriptor>'
 );
 
-var xml_styles = {
-  hz_current: encodeURIComponent(hz_current_sld),
-  indian_lands: encodeURIComponent(indian_lands_sld)
+var wmsGroundOverlay = {
+  hz_current: {
+    style: encodeURIComponent(hz_current_sld),
+    overlay: []
+  },
+  indian_lands: {
+    style: encodeURIComponent(indian_lands_sld),
+    overlay: []
+  }
 };
 
 var hzBaseMapStyle = [
