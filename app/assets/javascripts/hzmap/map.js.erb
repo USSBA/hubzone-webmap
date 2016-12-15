@@ -135,7 +135,7 @@ function buildWMSUrl(options){
   url += "&REQUEST=GetMap"; 
   url += "&SERVICE=WMS";    
   url += "&VERSION=1.1.0";    
-  url += "&LAYERS=" + "hubzone-test:" + options.layer; 
+  url += "&LAYERS=" + "hubzone-test:" + options.layer  ; 
   url += "&FORMAT=image/png" ; 
   url += "&TRANSPARENT=TRUE";
   url += "&SRS=EPSG:4326";      
@@ -189,14 +189,14 @@ function jumpToLocation(geocodeLocation){
       );
     map.fitBounds(newBounds);
   }
-}
+}''
 
 // helperf for building out the style object
 function constructSLDXML(options){
   return encodeURIComponent('<?xml version="1.0" encoding="UTF-8"?>' +
           '<StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0.0" xsi:schemaLocation="http://www.opengis.net/sld StyledLayerDescriptor.xsd">' + 
           '<NamedLayer>' +
-          `<Name>hubzone-test:${options.layer}</Name>` +
+          '<Name>hubzone-test:' + options.layer + '</Name>' +
           '<UserStyle>' +
           '<FeatureTypeStyle>' +
           (options.styleExpiring ? styleWithExpiration(options) : styleWithoutExpiration(options) ) + 
@@ -219,12 +219,12 @@ return ('<Rule>' +
         '</ogc:Filter>' + 
         '<PolygonSymbolizer>' + 
         '<Fill>' + 
-        `<CssParameter name="fill">${options.fillColor}</CssParameter>` + 
-        `<CssParameter name="fill-opacity">${options.fillOpacity}</CssParameter>` + 
+        '<CssParameter name="fill">' + options.fillColor + '</CssParameter>' + 
+        '<CssParameter name="fill-opacity">' + options.fillOpacity + '</CssParameter>' + 
         '</Fill>' + 
         '<Stroke>' + 
-        `<CssParameter name="stroke">${options.strokeColor}</CssParameter>` + 
-        `<CssParameter name="stroke-width">${options.strokeWidth}</CssParameter>` + 
+        '<CssParameter name="stroke">' + options.strokeColor + '</CssParameter>' + 
+        '<CssParameter name="stroke-width">' + options.strokeWidth + '</CssParameter>' + 
         '</Stroke>' + 
         '</PolygonSymbolizer>' + 
         '</Rule>' + 
@@ -245,8 +245,8 @@ return ('<Rule>' +
         '<Mark>' + 
         '<WellKnownName>shape://backslash</WellKnownName>' + 
         '<Stroke>' + 
-        `<CssParameter name="stroke">${options.strokeColor}</CssParameter>` + 
-        `<CssParameter name="stroke-width">${options.strokeWidth}</CssParameter>` + 
+        '<CssParameter name="stroke">' + options.strokeColor + '</CssParameter>' + 
+        '<CssParameter name="stroke-width">' + options.strokeWidth + '</CssParameter>' + 
         '</Stroke>' + 
         '</Mark>' + 
         '<Size>16</Size>' + 
@@ -254,8 +254,8 @@ return ('<Rule>' +
         '</GraphicFill>' + 
         '</Fill>' + 
         '<Stroke>' + 
-        `<CssParameter name="stroke">${options.strokeColor}</CssParameter>` + 
-        `<CssParameter name="stroke-width">${options.strokeWidth}</CssParameter>` + 
+        '<CssParameter name="stroke">' + options.strokeColor + '</CssParameter>' + 
+        '<CssParameter name="stroke-width">' + options.strokeWidth + '</CssParameter>' + 
         '</Stroke>' + 
         '</PolygonSymbolizer>' + 
         '</Rule>');
@@ -266,12 +266,12 @@ function styleWithoutExpiration(options){
           '<Name>not expiring</Name>' + 
           '<PolygonSymbolizer>' + 
           '<Fill>' + 
-          `<CssParameter name="fill">${options.fillColor}</CssParameter>` + 
-          `<CssParameter name="fill-opacity">${options.fillOpacity}</CssParameter>` + 
+          '<CssParameter name="fill">' + options.fillColor + '</CssParameter>' + 
+          '<CssParameter name="fill-opacity">' + options.fillOpacity + '</CssParameter>' + 
           '</Fill>' + 
           '<Stroke>' + 
-          `<CssParameter name="stroke">${options.strokeColor}</CssParameter>` + 
-          `<CssParameter name="stroke-width">${options.strokeWidth}</CssParameter>` + 
+          '<CssParameter name="stroke">' + options.strokeColor + '</CssParameter>' + 
+          '<CssParameter name="stroke-width">' + options.strokeWidth + '</CssParameter>' + 
           '</Stroke>' + 
           '</PolygonSymbolizer>' + 
           '</Rule>');
