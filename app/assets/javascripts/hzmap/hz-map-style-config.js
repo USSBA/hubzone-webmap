@@ -1,52 +1,71 @@
+
+var defaultFillOpacity = 0.75;
+var defaultStrokeOpacity = 1;
+var defaultStrokeWidth = 1.25;
 /* jshint unused: false */
 var hzMapLayerStyle = {
-    "indianLands": {
-        fillColor: '#377EB8',
+    "indian_lands": {
+        layer: "indian_lands",
+        fillColor: '#984EA3',
         zIndex: 10,
-        opacity: 0.75,
-        strokeColor: '#377EB8',
-        strokeOpacity: 1,
-        strokeWeight: 1.25
+        fillOpacity: defaultFillOpacity,
+        strokeColor: '#984EA3',
+        strokeOpacity: defaultStrokeOpacity,
+        strokeWidth: defaultStrokeWidth
+    },
+    "brac": {
+        layer: "brac",
+        fillColor: '#FF7F00',
+        zIndex: 30,
+        fillOpacity: defaultFillOpacity,
+        strokeColor: '#FF7F00',
+        strokeOpacity: defaultStrokeOpacity,
+        strokeWidth: defaultStrokeWidth
     },
     "brac_expiring": {
+        layer: "brac_expiring",
         fillColor: '#377EB8',
         zIndex: 30,
-        opacity: 0.75,
+        fillOpacity: defaultFillOpacity,
         strokeColor: '#377EB8',
-        strokeOpacity: 1,
-        strokeWeight: 1.25
+        strokeOpacity: defaultStrokeOpacity,
+        strokeWidth: defaultStrokeWidth
     },
     "qct": {
-        fillColor: '#377EB8',
+        layer: "qct",
+        fillColor: '#4DAF4A',
         zIndex: 20,
-        opacity: 0.75,
-        strokeColor: '#377EB8',
-        strokeOpacity: 1,
-        strokeWeight: 1.25
-    },
-    "qnmc": {
-        fillColor: '#377EB8',
-        zIndex: 5,
-        opacity: 0.75,
-        strokeColor: '#377EB8',
-        strokeOpacity: 1,
-        strokeWeight: 1.25
+        fillOpacity: defaultFillOpacity,
+        strokeColor: '#4DAF4A',
+        strokeOpacity: defaultStrokeOpacity,
+        strokeWidth: defaultStrokeWidth
     },
     "qct_expiring": {
+        layer: "qct_expiring",
         fillColor: '#000000',
         zIndex: 20,
-        opacity: 0.75,
+        fillOpacity: defaultFillOpacity,
         strokeColor: '#000000',
-        strokeOpacity: 1,
-        strokeWeight: 1.25
+        strokeOpacity: defaultStrokeOpacity,
+        strokeWidth: defaultStrokeWidth
+    },
+    "qnmc": {
+        layer: "qnmc",
+        fillColor: '#377EB8',
+        zIndex: 5,
+        fillOpacity: defaultFillOpacity,
+        strokeColor: '#377EB8',
+        strokeOpacity: defaultStrokeOpacity,
+        strokeWidth: defaultStrokeWidth
     },
     "qnmc_expiring": {
+        layer: "qnmc_expiring",
         fillColor: '#000000',
         zIndex: 5,
-        opacity: 0.75,
+        fillOpacity: defaultFillOpacity,
         strokeColor: '#000000',
-        strokeOpacity: 1,
-        strokeWeight: 1.25
+        strokeOpacity: defaultStrokeOpacity,
+        strokeWidth: defaultStrokeWidth
     }
 
 };
@@ -64,6 +83,32 @@ var hz_current_sld = (
    '<sld:Fill>' +
    '<sld:CssParameter name="fill">#377EB8</sld:CssParameter>' +
    '<sld:CssParameter name="fill-opacity">0.75</sld:CssParameter>' +
+   '</sld:Fill>' +
+   '<sld:Stroke>' +
+   '<sld:CssParameter name="stroke">#377EB8</sld:CssParameter>' +
+   '<sld:CssParameter name="stroke-width">1.25</sld:CssParameter>' +
+   '<sld:CssParameter name="stroke-opacity">1</sld:CssParameter>' +
+   '</sld:Stroke>' +
+   '</sld:PolygonSymbolizer>' +
+   '</sld:Rule>' +
+   '</sld:FeatureTypeStyle>' +
+   '</sld:UserStyle>' +
+   '</sld:NamedLayer>' +
+   '</sld:StyledLayerDescriptor>'
+);
+
+var qnmc = (
+   '<?xml version="1.0" encoding="UTF-8"?>' +
+   '<sld:StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:sld="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:gml="http://www.opengis.net/gml" version="1.0.0">' +
+   '<sld:NamedLayer>' +
+   '<sld:Name>hubzone-test:qnmc</sld:Name>' +
+   '<sld:UserStyle>' +
+   '<sld:FeatureTypeStyle>' +
+   '<sld:Rule>' +
+   '<sld:PolygonSymbolizer>' +
+   '<sld:Fill>' +
+   '<sld:CssParameter name="fill">#377EB8</sld:CssParameter>' +
+   '<sld:CssParameter name="fill-opacity">0.6</sld:CssParameter>' +
    '</sld:Fill>' +
    '<sld:Stroke>' +
    '<sld:CssParameter name="stroke">#377EB8</sld:CssParameter>' +
@@ -108,16 +153,7 @@ var indian_lands_sld = (
   '</sld:StyledLayerDescriptor>'
 );
 
-var wmsGroundOverlay = {
-  hz_current: {
-    style: encodeURIComponent(hz_current_sld),
-    overlay: []
-  },
-  indian_lands: {
-    style: encodeURIComponent(indian_lands_sld),
-    overlay: []
-  }
-};
+
 
 var hzBaseMapStyle = [
     {
