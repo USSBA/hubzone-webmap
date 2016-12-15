@@ -170,7 +170,8 @@ function catchMapClick(clickEvent){
   var clicklng = clickEvent.latLng.lng();
   var clicklat = clickEvent.latLng.lat();
   var date = parseDate(new Date());
-  var url = "/search?latlng=" + clicklat + ',' + clicklng + '&query_date=' + date;
+  var locale = "<%= I18n.locale %>";
+  var url = "/search?latlng=" + clicklat + ',' + clicklng + '&query_date=' + date + '&locale=' + locale;
   $.ajax({
     url: url
   });
