@@ -1,6 +1,6 @@
 files: ["**/*.js", "**/*.js.erb"] # No need to put app/assets/ or vendor/assets here
 exclude_paths: ["vendor/assets/*", "**/helpers/"]
-include_paths: ["app/views/"]
+include_paths: ["app/views/", "spec/javascripts"]
 options:
   boss:       true
   browser:    true
