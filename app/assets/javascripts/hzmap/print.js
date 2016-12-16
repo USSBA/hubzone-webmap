@@ -1,9 +1,9 @@
 // Catch control+p and re-layout page for printing
 $(document).bind("keydown", function(e){
-  if((e.ctrlKey || e.metaKey) && e.keyCode == 80){
+  if((e.ctrlKey || e.metaKey) && e.keyCode === 80){
     beforePrint();
     window.setTimeout(function(){
-      window.print()
+      window.print();
     }, 1000);
   }
 });
@@ -14,7 +14,7 @@ $(function() {
     console.log('print button selected');
     beforePrint();
     window.setTimeout(function(){
-      window.print()
+      window.print();
     }, 1000);
   });
 });
@@ -33,8 +33,8 @@ function beforePrint() {
     } else {
       map.setCenter(center);
     }
-    sidebar.close()
-};
+    sidebar.close();
+}
 
 function afterPrint() {
     console.log('After printing: ');
@@ -42,4 +42,4 @@ function afterPrint() {
     $('.map-body').height('100%');
     //map.setCenter(center);
     google.maps.event.trigger(map, 'resize');
-};
+}
