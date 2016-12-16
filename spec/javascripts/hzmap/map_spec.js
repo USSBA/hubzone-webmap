@@ -1,6 +1,7 @@
 //= require hzmap
 //= require ../helpers/sinon-1.17.6
 /* jshint unused: false */
+/* jshint undef: false */
 
 var google = {
   maps : {

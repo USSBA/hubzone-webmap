@@ -41,7 +41,7 @@ function initMap() {
 }
 
 function updateIdleMap(){
-  mapScope = this;
+  var mapScope = this;
   //for each layer defined in the hzWMSOverlays object call the fetchNewWMS function
   // update the WMS call for that layer
   Object.keys(hzWMSOverlays).map(function(layer){

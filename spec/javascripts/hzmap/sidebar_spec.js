@@ -1,5 +1,7 @@
 //= require hzmap
 //= require ../helpers/sinon-1.17.6
+/* jshint unused: false */
+/* jshint undef: false */
 
 describe ('Testing sidebar operations', function() {
   beforeAll(function(done) {

@@ -19,40 +19,14 @@ options:
   undef:      true
   unused:     true
   globals:
-    jQuery:   true
     "$":      true
-    console:  true
     ActionCable: true
     App: true
-    beforeAll: true
-    beforeEach: true
-    buildWMSUrl: true
-    catchMapClick: true
     constructSLDXML: true
-    createGoogleLatLngBounds: true
-    describe: true
-    expect: true
-    fetchNewWMS: true
-    geomWFSSettings: true
-    getImageBounds: true
-    getTableBasedOnZoomLevel: true
     google:   true
     hzBaseMapStyle: true
     hzWMSOverlays: true
-    initMap: true
-    it: true
     jumpToLocation: true
-    map: true
-    mapGeoJson: true
-    mapMarkers: true
-    mapScope: true
     sidebar: true
-    sinon: true
-    spyOn: true
-    triggerSidebar: true
     updateAccordions: true
-    updateIdleMap: true
-    updateLayerWMSOverlay: true
     updateMarkers: true
-    xit: true
-
