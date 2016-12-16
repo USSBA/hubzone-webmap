@@ -381,10 +381,13 @@ li.hubzone-map-print a {
     left: 0;
   }
   .usa-grid {
-    padding: 0;
+    padding: 1em 0 1em 0;
     margin: 0;
   }
   .usa-menu-btn {
+    display: none;
+  }
+  .pac-container {
     display: none;
   }
   #map-print {
