@@ -34,6 +34,13 @@ function beforePrint() {
       map.setCenter(center);
     }
     sidebar.close();
+    var accordions = $('#sidebar button.usa-accordion-button');
+    accordions.map(clickAccordion);
+
+}
+
+function clickAccordion(index, el){
+  $(el).trigger('click');
 }
 
 function afterPrint() {
