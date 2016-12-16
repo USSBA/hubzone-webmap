@@ -1,5 +1,6 @@
 //= require hzmap
 //= require ../helpers/sinon-1.17.6
+/* jshint unused: false */
 
 var google = {
   maps : {
@@ -290,7 +291,7 @@ describe ('Testing map operations', function() {
   });
 
   it("should update the map WMS layer, adding a new overlay where there was none before", function(){
-    var layer = 'qct'
+    var layer = 'qct';
 
     hzWMSOverlays[layer].overlay[0] = new newOverlay();
 
@@ -307,7 +308,7 @@ describe ('Testing map operations', function() {
   });
 
   it("should update the map WMS layer, replacing the old overlay with a new one", function(){
-    var layer = 'qct'
+    var layer = 'qct';
     hzWMSOverlays[layer].overlay[0] = new newOverlay('old');
     hzWMSOverlays[layer].overlay[1] = new newOverlay('new');
 

@@ -47,6 +47,7 @@ $(function() {
 });
 
 // event handler for clicks to sidebar button
+/* exported triggerSidebar */
 function triggerSidebar(){
   $('#sidebar').hasClass('on') ? sidebar.close() : sidebar.open();
 }

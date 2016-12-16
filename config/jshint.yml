@@ -38,3 +38,10 @@ options:
     sinon: true
     updateAccordions: true
     updateMarkers: true
+    spyOn: true
+    expect: true
+    describe: true
+    beforeEach: true
+    it: true
+    xit: true
+    triggerSidebar: true
