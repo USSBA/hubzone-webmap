@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='<%= I18n.locale %>'>
   <head>
     <title>HUBZone Map</title>
     <%= csrf_meta_tags %>
@@ -50,7 +50,7 @@
         <div class="usa-logo" id="logo">
           <em class="usa-logo-text">
             <%= image_tag("sba-logo.png", id: "sba-logo", alt: "U.S. Small Business Administration logo") %>
-            <a href="/map" accesskey="1" title="Home" aria-label="Home"><%= t('hubzone_map') %></a>
+            <a href="/map" title="Home" aria-label="Home"><h1><%= t('hubzone_map') %></h1></a>
           </em>
         </div>
       </div>
