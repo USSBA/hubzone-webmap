@@ -1,11 +1,12 @@
 //container for map bounds so we can reset it after print
 var mapBounds = {};
 var mapCenter = {};
+var mapZoom = null;
 
 // Catch control+p and re-layout page for printing
 $(document).bind("keydown", function(e){
   if((e.ctrlKey || e.metaKey) && e.keyCode === 80){
-    catchPrintEvent();
+    catchPrintEvent(1000);
   }
 });
 
@@ -13,31 +14,42 @@ $(document).bind("keydown", function(e){
 $(function() {
   $('#map-print').click(function() {
     console.log('print button selected');
-    catchPrintEvent();
+    catchPrintEvent(1000);
   });
 });
 
 //handle the print event
-function catchPrintEvent(){
+function catchPrintEvent(wait){
   beforePrint();
   window.setTimeout(function(){
     window.print();
-  }, 1000);
+  }, wait);
 }
 
+//web-kit
 var mediaQueryList = window.matchMedia('print');
-mediaQueryList.addListener(function(mql) {
+mediaQueryList.addListener(function(mql){  
   if (!mql.matches) {
-      afterPrint();
+      afterPrint(mapBounds);
+  } else {
+    // catchPrintEvent(2000);
   }
 });
+
+// window.onbeforeprint = function() {
+//     console.log('This will be called before the user prints.');
+// };
+// window.onafterprint = function() {
+//     console.log('This will be called after the user prints');   
+// };
 
 
 //rebuild the map before printing
 function beforePrint() {
     console.log('Before printing: ');
-    var mapBounds = map.getBounds();
-    var mapCenter = map.getCenter();
+    mapBounds = map.getBounds();
+    mapCenter = map.getCenter();
+    mapZoom = map.getZoom();
     $('.map-body').addClass('print');
     google.maps.event.trigger(map, 'resize');
     map.fitBounds(mapBounds);
@@ -52,12 +64,12 @@ function beforePrint() {
 }
 
 //reset the map after print
-function afterPrint() {
+function afterPrint(mapBounds) {
     console.log('After printing: ');
     $('.map-body').removeClass('print');
     google.maps.event.trigger(map, 'resize');
-    // map.setCenter(mapCenter);
-    map.fitBounds(mapBounds);
+    map.setCenter(mapCenter);
+    map.setZoom(mapZoom);
     sidebar.open();
     $('#sidebar button.usa-accordion-button').map(clickAccordion);
 }
