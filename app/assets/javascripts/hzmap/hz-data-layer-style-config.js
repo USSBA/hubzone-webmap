@@ -58,85 +58,85 @@ function constructSLDXML(layer){
 	var style = hzWMSOverlays[layer].style;
   return encodeURIComponent('<?xml version="1.0" encoding="UTF-8"?>' +
           '<StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0.0" xsi:schemaLocation="http://www.opengis.net/sld StyledLayerDescriptor.xsd">' + 
-          '<NamedLayer>' +
-          '<Name>hubzone-test:' + layer + '</Name>' +
-          '<UserStyle>' +
-          '<FeatureTypeStyle>' +
-          (style.styleExpiring ? styleWithExpiration(style) : styleWithoutExpiration(style) ) + 
-          '</FeatureTypeStyle>' +
-          '</UserStyle>' +
-          '</NamedLayer>' +
+	          '<NamedLayer>' +
+		          '<Name>hubzone-test:' + layer + '</Name>' +
+			          '<UserStyle>' +
+				          '<FeatureTypeStyle>' +
+				          	(style.styleExpiring ? styleWithExpiration(style) : styleWithoutExpiration(style) ) + 
+				          '</FeatureTypeStyle>' +
+			          '</UserStyle>' +
+	          '</NamedLayer>' +
           '</StyledLayerDescriptor>');
 }
 
 function styleWithExpiration(style){
 return ('<Rule>' + 
-        '<Name>not expiring</Name>' + 
-        '<ogc:Filter>' + 
-        '<ogc:PropertyIsEqualTo>' + 
-        '<ogc:Function name="isNull">' + 
-        '<ogc:PropertyName>stop</ogc:PropertyName>' + 
-        '</ogc:Function>' + 
-        '<ogc:Literal>true</ogc:Literal>' + 
-        '</ogc:PropertyIsEqualTo>' + 
-        '</ogc:Filter>' + 
-        '<PolygonSymbolizer>' + 
-        '<Fill>' + 
-        '<CssParameter name="fill">' + style.fillColor + '</CssParameter>' + 
-        '<CssParameter name="fill-opacity">' + style.fillOpacity + '</CssParameter>' + 
-        '</Fill>' + 
-        '<Stroke>' + 
-        '<CssParameter name="stroke">' + style.strokeColor + '</CssParameter>' + 
-        '<CssParameter name="stroke-width">' + style.strokeWidth + '</CssParameter>' + 
-        '</Stroke>' + 
-        '</PolygonSymbolizer>' + 
+	        '<Name>not expiring</Name>' + 
+	        '<ogc:Filter>' + 
+		        '<ogc:PropertyIsEqualTo>' + 
+			        '<ogc:Function name="isNull">' + 
+			        	'<ogc:PropertyName>stop</ogc:PropertyName>' + 
+			        '</ogc:Function>' + 
+			        '<ogc:Literal>true</ogc:Literal>' + 
+		        '</ogc:PropertyIsEqualTo>' + 
+	        '</ogc:Filter>' + 
+	        '<PolygonSymbolizer>' + 
+		        '<Fill>' + 
+			        '<CssParameter name="fill">' + style.fillColor + '</CssParameter>' + 
+			        '<CssParameter name="fill-opacity">' + style.fillOpacity + '</CssParameter>' + 
+		        '</Fill>' + 
+		        '<Stroke>' + 
+			        '<CssParameter name="stroke">' + style.strokeColor + '</CssParameter>' + 
+			        '<CssParameter name="stroke-width">' + style.strokeWidth + '</CssParameter>' + 
+		        '</Stroke>' + 
+	        '</PolygonSymbolizer>' + 
         '</Rule>' + 
         '<Rule>' + 
-        '<Name>expiring</Name>' + 
-        '<ogc:Filter>' + 
-        '<ogc:PropertyIsEqualTo>' + 
-        '<ogc:Function name="isNull">' + 
-        '<ogc:PropertyName>stop</ogc:PropertyName>' + 
-        '</ogc:Function>' + 
-        '<ogc:Literal>false</ogc:Literal>' + 
-        '</ogc:PropertyIsEqualTo>' + 
-        '</ogc:Filter>' + 
-        '<PolygonSymbolizer>' + 
-        '<Fill>' + 
-        '<GraphicFill>' + 
-        '<Graphic>' + 
-        '<Mark>' + 
-        '<WellKnownName>shape://backslash</WellKnownName>' + 
-        '<Stroke>' + 
-        '<CssParameter name="stroke">' + style.strokeColor + '</CssParameter>' + 
-        '<CssParameter name="stroke-width">' + style.strokeWidth + '</CssParameter>' + 
-        '</Stroke>' + 
-        '</Mark>' + 
-        '<Size>16</Size>' + 
-        '</Graphic>' + 
-        '</GraphicFill>' + 
-        '</Fill>' + 
-        '<Stroke>' + 
-        '<CssParameter name="stroke">' + style.strokeColor + '</CssParameter>' + 
-        '<CssParameter name="stroke-width">' + style.strokeWidth + '</CssParameter>' + 
-        '</Stroke>' + 
-        '</PolygonSymbolizer>' + 
+	        '<Name>expiring</Name>' + 
+	        '<ogc:Filter>' + 
+		        '<ogc:PropertyIsEqualTo>' + 
+		        	'<ogc:Function name="isNull">' + 
+			        	'<ogc:PropertyName>stop</ogc:PropertyName>' + 
+		        	'</ogc:Function>' + 
+		        	'<ogc:Literal>false</ogc:Literal>' + 
+	        	'</ogc:PropertyIsEqualTo>' + 
+	        '</ogc:Filter>' + 
+	        '<PolygonSymbolizer>' + 
+		        '<Fill>' + 
+			        '<GraphicFill>' + 
+				        '<Graphic>' + 
+					        '<Mark>' + 
+						        '<WellKnownName>shape://backslash</WellKnownName>' + 
+						        '<Stroke>' + 
+							        '<CssParameter name="stroke">' + style.strokeColor + '</CssParameter>' + 
+							        '<CssParameter name="stroke-width">' + style.strokeWidth + '</CssParameter>' + 
+						        '</Stroke>' + 
+					        '</Mark>' + 
+					        '<Size>16</Size>' + 
+				        '</Graphic>' + 
+			        '</GraphicFill>' + 
+		        '</Fill>' + 
+		        '<Stroke>' + 
+			        '<CssParameter name="stroke">' + style.strokeColor + '</CssParameter>' + 
+			        '<CssParameter name="stroke-width">' + style.strokeWidth + '</CssParameter>' + 
+		        '</Stroke>' + 
+	        '</PolygonSymbolizer>' + 
         '</Rule>');
 }
 
 function styleWithoutExpiration(style){
   return ('<Rule>' + 
-          '<Name>not expiring</Name>' + 
-          '<PolygonSymbolizer>' + 
-          '<Fill>' + 
-          '<CssParameter name="fill">' + style.fillColor + '</CssParameter>' + 
-          '<CssParameter name="fill-opacity">' + style.fillOpacity + '</CssParameter>' + 
-          '</Fill>' + 
-          '<Stroke>' + 
-          '<CssParameter name="stroke">' + style.strokeColor + '</CssParameter>' + 
-          '<CssParameter name="stroke-width">' + style.strokeWidth + '</CssParameter>' + 
-          '</Stroke>' + 
-          '</PolygonSymbolizer>' + 
+	          '<Name>not expiring</Name>' + 
+	          '<PolygonSymbolizer>' + 
+		          '<Fill>' + 
+			          '<CssParameter name="fill">' + style.fillColor + '</CssParameter>' + 
+			          '<CssParameter name="fill-opacity">' + style.fillOpacity + '</CssParameter>' + 
+		          '</Fill>' + 
+		          '<Stroke>' + 
+			          '<CssParameter name="stroke">' + style.strokeColor + '</CssParameter>' + 
+			          '<CssParameter name="stroke-width">' + style.strokeWidth + '</CssParameter>' + 
+		          '</Stroke>' + 
+	          '</PolygonSymbolizer>' + 
           '</Rule>');
 }
 
