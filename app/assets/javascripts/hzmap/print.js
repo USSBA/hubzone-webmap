@@ -1,10 +1,11 @@
+//container for map bounds so we can reset it after print
+var mapBounds = {};
+var mapCenter = {};
+
 // Catch control+p and re-layout page for printing
 $(document).bind("keydown", function(e){
   if((e.ctrlKey || e.metaKey) && e.keyCode === 80){
-    beforePrint();
-    window.setTimeout(function(){
-      window.print();
-    }, 1000);
+    catchPrintEvent();
   }
 });
 
@@ -12,41 +13,56 @@ $(document).bind("keydown", function(e){
 $(function() {
   $('#map-print').click(function() {
     console.log('print button selected');
-    beforePrint();
-    window.setTimeout(function(){
-      window.print();
-    }, 1000);
+    catchPrintEvent();
   });
 });
 
+//handle the print event
+function catchPrintEvent(){
+  beforePrint();
+  window.setTimeout(function(){
+    window.print();
+  }, 1000);
+}
+
+var mediaQueryList = window.matchMedia('print');
+mediaQueryList.addListener(function(mql) {
+  if (!mql.matches) {
+      afterPrint();
+  }
+});
+
+
+//rebuild the map before printing
 function beforePrint() {
     console.log('Before printing: ');
-
-    var bounds = map.getBounds();
-    var center = map.getCenter();
-    $('.map-body').width(450);
-    $('.map-body').height(450);
+    var mapBounds = map.getBounds();
+    var mapCenter = map.getCenter();
+    $('.map-body').addClass('print');
     google.maps.event.trigger(map, 'resize');
-    map.fitBounds(bounds);
+    map.fitBounds(mapBounds);
     if (mapMarkers.length > 0){
       map.setCenter(mapMarkers[0].position);
     } else {
-      map.setCenter(center);
+      map.setCenter(mapCenter);
     }
     sidebar.close();
-    var accordions = $('#sidebar button.usa-accordion-button');
-    accordions.map(clickAccordion);
+    $('#sidebar button.usa-accordion-button').map(clickAccordion);
 
 }
 
-function clickAccordion(index, el){
-  $(el).trigger('click');
-}
-
+//reset the map after print
 function afterPrint() {
     console.log('After printing: ');
-    $('.map-body').width('100%');
-    $('.map-body').height('100%');
-    //map.setCenter(center);
+    $('.map-body').removeClass('print');
     google.maps.event.trigger(map, 'resize');
+    // map.setCenter(mapCenter);
+    map.fitBounds(mapBounds);
+    sidebar.open();
+    $('#sidebar button.usa-accordion-button').map(clickAccordion);
+}
+
+//helper for triggering accordions
+function clickAccordion(index, el){
+  $(el).trigger('click');
 }
