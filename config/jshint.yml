@@ -24,7 +24,9 @@ options:
     console:  true
     ActionCable: true
     App: true
+    ga: true
     google:   true
+    HZ: true
     hzBaseMapStyle: true
     hzMapLayerStyle: true
     initMap: true

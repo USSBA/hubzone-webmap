@@ -7,6 +7,15 @@
     <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag 'hzmap' %>
     <link rel="Shortcut Icon" type="image/png" href="<%= asset_path "icons/57x57.png" %>">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', '<%= MAP_CONFIG[:google_analytics_tracking_id] %>', 'auto');
+      ga('send', 'pageview');
+    </script>
   </head>
   <body class="hubzone-map">
     <a class="usa-skipnav" href="#main-content"><%= t('header.skip_to_main') %></a>
@@ -50,7 +59,11 @@
         <div class="usa-logo" id="logo">
           <em class="usa-logo-text">
             <%= image_tag("sba-logo.png", id: "sba-logo", alt: "U.S. Small Business Administration logo") %>
-            <a href="/map" accesskey="1" title="Home" aria-label="Home"><%= t('hubzone_map') %></a>
+            <%= link_to( t('hubzone_map'), root_path, accesskey: '1',
+                                                      title: 'Home',
+                                                      'aria-label' => 'Home',
+                                                      onclick: "HZ.openLink( '#{root_path}', 'map', 'title-link' );" )
+                                                     %>
           </em>
         </div>
       </div>
@@ -62,13 +75,19 @@
           <div class="usa-nav-secondary">
             <ul class="usa-unstyled-list usa-nav-secondary-links">
               <li>
-                <a href="https://www.sba.gov/contracting/government-contracting-programs/hubzone-program"><%= t('menu.hubzone_program') %></a>
+                <%= link_to( t('menu.hubzone_program'),
+                             "https://www.sba.gov/contracting/government-contracting-programs/hubzone-program",
+                             onclick: "HZ.openLink( 'https://www.sba.gov/contracting/government-contracting-programs/hubzone-program', 'map', 'program-link' );" ) %>
               </li>
               <li>
-                <a href="#"><%= t('menu.accessible_version') %></a>
+                <%= link_to( t('menu.accessible_version'),
+                             "#",
+                             onclick: "HZ.openLink( '#', 'map', 'accessible-link' );" ) %>
               </li>
               <li>
-                <a href="#"><%= t('menu.help') %></a>
+                <%= link_to( t('menu.help'),
+                             "#",
+                             onclick: "HZ.openLink( '#', 'map', 'help-link' );" ) %>
               </li>
             </ul>
           </div>
