@@ -42,9 +42,9 @@ function initMap() {
 
 function updateIdleMap(){
   mapScope = this;
-  //for each layer defined in the wmsGroundOverlay object call the fetchNewWMS function
+  //for each layer defined in the hzWMSOverlays object call the fetchNewWMS function
   // update the WMS call for that layer
-  Object.keys(wmsGroundOverlay).map(function(layer){
+  Object.keys(hzWMSOverlays).map(function(layer){
     fetchNewWMS({
       mapScope: mapScope,
       layer: layer
@@ -63,8 +63,8 @@ function fetchNewWMS(options){
     bbox: bbox
   });
 
-  //push a new groundOverlay into the wmsGroundOverlay array container
-  wmsGroundOverlay[layer].push(new google.maps.GroundOverlay(
+  //push a new groundOverlay into the hzWMSOverlays array container
+  hzWMSOverlays[layer].overlay.push(new google.maps.GroundOverlay(
       url,
       imageBounds
   ));
@@ -136,28 +136,29 @@ function buildWMSUrl(options){
   url += "&BBOX=" + options.bbox;
   url += "&WIDTH=" + parseInt($('#map').width()*1); //double the resolution for better screens, but make sure its int        
   url += "&HEIGHT=" + parseInt($('#map').height()*1); //double the resolution for better screens, but make sure its int
-  url += ('&SLD_BODY=' + constructSLDXML(hzMapLayerStyle[options.layer]));
+  url += ('&SLD_BODY=' + constructSLDXML(options.layer));
   return url;             
 }
 
 //helper function for updating a single layer's WMS overlay
 function updateLayerWMSOverlay(options){
-  var layer = options.layer;
-  if (wmsGroundOverlay[layer].length === 1){
-    wmsGroundOverlay[layer][0].setMap(options.mapScope);
-  } else if (wmsGroundOverlay[layer].length > 1){ //assume last is newest and any other have to go
-    var tmpLayer = wmsGroundOverlay[layer][wmsGroundOverlay[layer].length-1];
-    for (var i = 0; i < wmsGroundOverlay[layer].length-1; i++) {
-      wmsGroundOverlay[layer][i].setMap(null);
+  var wmsLayer = hzWMSOverlays[options.layer].overlay;
+  if (wmsLayer.length === 1){
+    wmsLayer[0].setMap(options.mapScope);
+  } else if (wmsLayer.length > 1){ //assume last is newest and any other have to go
+    var tmpLayer = wmsLayer[wmsLayer.length-1];
+    for (var i = 0; i < wmsLayer.length-1; i++) {
+      wmsLayer[i].setMap(null);
     }
-    wmsGroundOverlay[layer] = [];
-    wmsGroundOverlay[layer].push(tmpLayer);
-    wmsGroundOverlay[layer][0].setMap(options.mapScope);
+    hzWMSOverlays[options.layer].overlay = [];
+    hzWMSOverlays[options.layer].overlay.push(tmpLayer);
+    hzWMSOverlays[options.layer].overlay[0].setMap(options.mapScope);
   } else { //
     // console.warn('no WMS found in layer');
     return null;
   }
-  wmsGroundOverlay[layer][0].addListener('click', catchMapClick);  
+
+  hzWMSOverlays[options.layer].overlay[0].addListener('click', catchMapClick);  
 }
 
 // turn latlng object into url

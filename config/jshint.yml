@@ -24,9 +24,10 @@ options:
     console:  true
     ActionCable: true
     App: true
+    constructSLDXML: true
     google:   true
     hzBaseMapStyle: true
-    hzMapLayerStyle: true
+    hzWMSOverlays: true
     initMap: true
     jumpToLocation: true
     map: true
@@ -37,5 +38,3 @@ options:
     sinon: true
     updateAccordions: true
     updateMarkers: true
-    wmsGroundOverlay: true
-    xml_styles: true

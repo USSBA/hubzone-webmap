@@ -1,3 +1,5 @@
+// hubzone google basemap vector tile styling array
+/* jshint unused: false */
 var hzBaseMapStyle = [
   {
     "featureType": "administrative.province",

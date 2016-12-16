@@ -249,7 +249,7 @@ describe ('Testing map operations', function() {
     var url = buildWMSUrl({
       layer: layer,
       bbox: bbox});
-    var urlExpect = 'http://localhost:8080/geoserver/hubzone-test/wms?service=WMS&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.0&LAYERS=hubzone-test:' + layer + '&FORMAT=image/png&TRANSPARENT=TRUE&SRS=EPSG:4326&BBOX=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637&WIDTH=0&HEIGHT=0&SLD_BODY=' + constructSLDXML(hzMapLayerStyle[layer]);
+    var urlExpect = 'http://localhost:8080/geoserver/hubzone-test/wms?service=WMS&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.0&LAYERS=hubzone-test:' + layer + '&FORMAT=image/png&TRANSPARENT=TRUE&SRS=EPSG:4326&BBOX=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637&WIDTH=0&HEIGHT=0&SLD_BODY=' + constructSLDXML(layer);
     expect(url).toEqual(urlExpect);
   });
 
@@ -259,7 +259,7 @@ describe ('Testing map operations', function() {
     var url = buildWMSUrl({
       layer: layer,
       bbox: bbox});
-    var urlExpect = 'http://localhost:8080/geoserver/hubzone-test/wms?service=WMS&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.0&LAYERS=hubzone-test:' + layer + '&FORMAT=image/png&TRANSPARENT=TRUE&SRS=EPSG:4326&BBOX=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637&WIDTH=0&HEIGHT=0&SLD_BODY=' + constructSLDXML(hzMapLayerStyle[layer]);
+    var urlExpect = 'http://localhost:8080/geoserver/hubzone-test/wms?service=WMS&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.0&LAYERS=hubzone-test:' + layer + '&FORMAT=image/png&TRANSPARENT=TRUE&SRS=EPSG:4326&BBOX=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637&WIDTH=0&HEIGHT=0&SLD_BODY=' + constructSLDXML(layer);
     expect(url).toEqual(urlExpect);
   });
 
@@ -285,34 +285,35 @@ describe ('Testing map operations', function() {
   it("should fetchNewWMS for as many layers as are defined", function(){
     var newfetchSpy = spyOn(window, 'fetchNewWMS');
     updateIdleMap(mapScope);
-    var layerLength = Object.keys(wmsGroundOverlay).length;
+    var layerLength = Object.keys(hzWMSOverlays).length;
     expect(window.fetchNewWMS.calls.count()).toEqual(layerLength);
   });
 
   it("should update the map WMS layer, adding a new overlay where there was none before", function(){
     var layer = 'qct'
-    wmsGroundOverlay[layer][0] = new newOverlay();
 
-    var newOverlaySetMapSpy = spyOn(wmsGroundOverlay[layer][0], 'setMap');
-    var newOverlayListenterSpy = spyOn(wmsGroundOverlay[layer][0], 'addListener');
+    hzWMSOverlays[layer].overlay[0] = new newOverlay();
+
+    var newOverlaySetMapSpy = spyOn(hzWMSOverlays[layer].overlay[0], 'setMap');
+    var newOverlayListenterSpy = spyOn(hzWMSOverlays[layer].overlay[0], 'addListener');
 
     updateLayerWMSOverlay({
       layer: layer,
       mapScope: mapScope
     });
 
-    expect(wmsGroundOverlay[layer][0].setMap.calls.count()).toEqual(1);
-    expect(wmsGroundOverlay[layer][0].addListener.calls.count()).toEqual(1);
+    expect(hzWMSOverlays[layer].overlay[0].setMap.calls.count()).toEqual(1);
+    expect(hzWMSOverlays[layer].overlay[0].addListener.calls.count()).toEqual(1);
   });
 
   it("should update the map WMS layer, replacing the old overlay with a new one", function(){
     var layer = 'qct'
-    wmsGroundOverlay[layer][0] = new newOverlay('old');
-    wmsGroundOverlay[layer][1] = new newOverlay('new');
+    hzWMSOverlays[layer].overlay[0] = new newOverlay('old');
+    hzWMSOverlays[layer].overlay[1] = new newOverlay('new');
 
-    var oldOverlaySetMapSpy = spyOn(wmsGroundOverlay[layer][0], 'setMap');
-    var newOverlaySetMapSpy = spyOn(wmsGroundOverlay[layer][1], 'setMap');
-    var OvenewrlayListenterSpy = spyOn(wmsGroundOverlay[layer][1], 'addListener');
+    var oldOverlaySetMapSpy = spyOn(hzWMSOverlays[layer].overlay[0], 'setMap');
+    var newOverlaySetMapSpy = spyOn(hzWMSOverlays[layer].overlay[1], 'setMap');
+    var newOverlayListenterSpy = spyOn(hzWMSOverlays[layer].overlay[1], 'addListener');
 
     updateLayerWMSOverlay({
       layer: layer,
@@ -320,14 +321,15 @@ describe ('Testing map operations', function() {
     });
 
     //here the indexing changes because updateLayerWMSOverlay removes the 0'th 'old' layer
-    //can be checked by console logging console.log(wmsGroundOverlay[layer][0].name) before and after the function call
-    expect(wmsGroundOverlay[layer][0].setMap.calls.count()).toEqual(1);
-    expect(wmsGroundOverlay[layer][0].addListener.calls.count()).toEqual(1);
+    //can be checked by console logging console.log(hzWMSOverlays[layer].overlay[0].name) before and after the function call
+    // console.log(hzWMSOverlays[layer].overlay[0].name);
+    expect(hzWMSOverlays[layer].overlay[0].setMap.calls.count()).toEqual(1);
+    expect(hzWMSOverlays[layer].overlay[0].addListener.calls.count()).toEqual(1);
   });
 
   it("should handle an empty WMS update call", function(){
-    var layer = 'hz_current';
-    wmsGroundOverlay[layer] = [];
+    var layer = 'qct';
+    hzWMSOverlays[layer].overlay = [];
     var updateState = updateLayerWMSOverlay({
       layer: layer,
       mapScope: mapScope
