@@ -4,6 +4,12 @@
   if body
     address = body['formatted_address'].nil? ? t(body['message']) : body['formatted_address']
 
+    date = if body['query_date'].present?
+             date = Date.parse(body['query_date'])
+             date = I18n.l date, format: :full
+           else
+             body['query_date']
+           end
     if body['formatted_address'].nil?
       hubzone_status_indicator = 'fa fa-times-circle-o'
     elsif body['hubzone'].size > 0
@@ -34,6 +40,7 @@
 <div class="sidebar-hubzone-qualifications">
   <h2 class="hubzone-sidebar-qualifications">
     <%= t('hubzone_assertions.qualifications_title') %>
+    <%= date %>
   </h2>
   <div id="hubzone-qualifications">
     <ul class="usa-accordion-bordered">
