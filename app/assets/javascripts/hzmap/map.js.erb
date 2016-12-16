@@ -24,7 +24,7 @@ function initMap() {
   map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('legend'));
 
   // adds listener that triggers whenever the map is idle to update with new features.
-  google.maps.event.addListener(map, 'tilesloaded', updateIdleMap);
+  google.maps.event.addListener(map, 'idle', updateIdleMap);
 
   map.addListener('click', catchMapClick);
 
