@@ -36,4 +36,5 @@ options:
     mapScope: true
     sinon: true
     updateMarkers: true
+    sidebar: true
 

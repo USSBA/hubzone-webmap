@@ -30,17 +30,17 @@ function catchPrintEvent(wait){
 var mediaQueryList = window.matchMedia('print');
 mediaQueryList.addListener(function(mql){  
   if (!mql.matches) {
-      afterPrint(mapBounds);
+      afterPrint();
   } else {
     // catchPrintEvent(2000);
   }
 });
 
 // window.onbeforeprint = function() {
-//     console.log('This will be called before the user prints.');
+//   catchPrintEvent(1000);
 // };
 // window.onafterprint = function() {
-//     console.log('This will be called after the user prints');   
+//   afterPrint(mapBounds);
 // };
 
 
@@ -64,7 +64,7 @@ function beforePrint() {
 }
 
 //reset the map after print
-function afterPrint(mapBounds) {
+function afterPrint() {
     console.log('After printing: ');
     $('.map-body').removeClass('print');
     google.maps.event.trigger(map, 'resize');
