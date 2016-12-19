@@ -77,16 +77,19 @@
               <li>
                 <%= link_to( t('menu.hubzone_program'),
                              "https://www.sba.gov/contracting/government-contracting-programs/hubzone-program",
+                             id: "hubzone-program-link",
                              onclick: "HZ.openLink( 'https://www.sba.gov/contracting/government-contracting-programs/hubzone-program', 'map', 'program-link' );" ) %>
               </li>
               <li>
                 <%= link_to( t('menu.accessible_version'),
                              "#",
+                             id: "hubzone-accessible-link",
                              onclick: "HZ.openLink( '#', 'map', 'accessible-link' );" ) %>
               </li>
               <li>
                 <%= link_to( t('menu.help'),
                              "#",
+                             id: "hubzone-help-link",
                              onclick: "HZ.openLink( '#', 'map', 'help-link' );" ) %>
               </li>
             </ul>
