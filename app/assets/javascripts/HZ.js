@@ -8,7 +8,7 @@ var HZ = (function() {
 
   return {
     openLink : function( url, category, action, label, value ) {
-      console.log( "HZ.openLink: ", url, category, action, label, value );
+      //console.log( "HZ.openLink: ", url, category, action, label, value );
       if ( typeof ga === "function" ) {
         var timeout = setTimeout( function() { document.location = url; }, 500 );
         ga( 'send', 'event', category || "outbound", action || "click", label || url, value, {
@@ -22,7 +22,7 @@ var HZ = (function() {
       }
     },
     track : function( category, action, label, value ) {
-      console.log( "HZ.track: ", category, action, label, value );
+      //console.log( "HZ.track: ", category, action, label, value );
       if ( typeof ga === "function" ) {
         ga( "send", "event", category, action, label, value );
       }
