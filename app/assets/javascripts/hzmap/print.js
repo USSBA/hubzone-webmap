@@ -12,7 +12,8 @@ $(document).bind("keydown", function(e){
 
 // Listener for map icon click
 $(function() {
-  $('#map-print').click(function() {
+  $('#map-print').click(function(event) {
+    event.preventDefault();
     console.log('print button selected');
     catchPrintEvent(1000);
   });
@@ -50,7 +51,7 @@ function beforePrint() {
   mapCenter = map.getCenter();
   mapZoom = map.getZoom();
 
-  $('.map-body').addClass('print');
+  $('.map-body').addClass('printable-map');
   google.maps.event.trigger(map, 'resize');
   map.fitBounds(mapBounds);
 
@@ -69,7 +70,7 @@ function beforePrint() {
 //reset the map after print
 function afterPrint() {
   console.log('After printing: ');
-  $('.map-body').removeClass('print');
+  $('.map-body').removeClass('printable-map');
   google.maps.event.trigger(map, 'resize');
   map.setCenter(mapCenter);
   map.setZoom(mapZoom);
