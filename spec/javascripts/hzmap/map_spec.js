@@ -375,6 +375,38 @@ describe ('Testing print operations', function() {
     var mapBodyDiv = document.createElement('div');
     $(mapBodyDiv).addClass('map-body');
     $('body').append(mapBodyDiv);
+
+    $('body').append('<div id="sidebar" class="hidden"></div>');
+    var dummySidebar = document.createElement('div');
+    $('#sidebar').append(dummySidebar)
+    $('#sidebar').css('display', 'none');
+    var accordion = '<li>' + 
+      '<button id="test_button" class="usa-accordion-button" aria-expanded="false" aria-controls="indian_lands">' + 
+        'Indian Lands' + 
+      '</button>' +
+      '<div id="indian_lands" class="usa-accordion-content" aria-hidden="true">' +
+        '<p>' +
+        '</p><table class="usa-table-borderless hubzone-qualification-details">' +
+        '<tbody>' +
+          '<tr>' +
+            '<th scope="row">Expires</th>' +
+            '<td></td>' +
+          '</tr>' +
+          '</tbody>' +
+        '</table' +
+        '<p></p>' +
+      '</div>' + 
+    '</li>';
+    $(dummySidebar).append(accordion);
+    updateAccordions();
+    setTimeout(function() {
+      done();
+    }, 1);
+  });
+
+  afterEach(function(done){
+    $('.map-body').remove();
+    $('#sidebar').remove();
     setTimeout(function() {
       done();
     }, 1);
@@ -400,7 +432,9 @@ describe ('Testing print operations', function() {
     expect(map.fitBounds.calls.count()).toEqual(1);
     expect(map.setCenter.calls.count()).toEqual(1);
     expect(google.maps.event.trigger.calls.count()).toEqual(1);
-    expect(mapBodyDivClasses).toContain('print');
+    expect(mapBodyDivClasses).toContain('print');    
+    expect($('#test_button').attr('aria-expanded')).toEqual("true");
+    expect($('#indian_lands').attr('aria-hidden')).toEqual("false");
   });
   
   it ("should update the map div before print with a marker present", function(){
@@ -422,6 +456,9 @@ describe ('Testing print operations', function() {
     expect(map.setCenter.calls.count()).toEqual(1);
     expect(google.maps.event.trigger.calls.count()).toEqual(1);
     expect(mapBodyDivClasses).toContain('print');
+    expect($('#test_button').attr('aria-expanded')).toEqual("true");
+    expect($('#indian_lands').attr('aria-hidden')).toEqual("false");
+
   });
 
   it ("should reset the map view", function(){
@@ -429,15 +466,17 @@ describe ('Testing print operations', function() {
     spyOn(map, 'setZoom');
     spyOn(google.maps.event, 'trigger');
 
+    beforePrint();
     afterPrint();
     var mapBodyDivClasses = $('.map-body').attr('class');
 
-    expect(map.setCenter.calls.count()).toEqual(1);
+    expect(map.setCenter.calls.count()).toEqual(2);
     expect(map.setZoom.calls.count()).toEqual(1);
-    expect(google.maps.event.trigger.calls.count()).toEqual(1);
+    expect(google.maps.event.trigger.calls.count()).toEqual(2);
     expect(mapBodyDivClasses).not.toContain('print');
+    expect($('#test_button').attr('aria-expanded')).toEqual("false");
+    expect($('#indian_lands').attr('aria-hidden')).toEqual("true");
   });
-
 
 });
 
