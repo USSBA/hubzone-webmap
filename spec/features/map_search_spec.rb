@@ -69,7 +69,7 @@ describe 'the map search', type: :feature, js: true do
         it "should display the date of the search" do
           fill_in 'search', with: queries[:qualified_multiple]
           click_button 'hubzone-search-button'
-          expect(page).to have_content(I18n.l Date.today, format: :full)
+          expect(page).to have_content(I18n.l(Date.today, format: :full))
         end
       end
 
