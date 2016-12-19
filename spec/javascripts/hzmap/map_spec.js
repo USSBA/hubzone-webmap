@@ -87,14 +87,15 @@ var google = {
     ZoomControlStyle: {},
     __gjsload__: function () { },
     event: {
-        addListener: function () { }
+      addListener: function () {},
+      trigger: function() {}
     },
     places: {
-        Autocomplete: function () {
-            return {
-                getPlacePredictions: function () { }
-            };
-        }
+      Autocomplete: function () {
+        return {
+           getPlacePredictions: function () { }
+        };
+      }
     }
   }
 };
@@ -109,11 +110,15 @@ var coordinates = {
 var Marker = {
   setMap: function(map){
     return map;
-  }
+  },
+  position: function() {}
 };
 
 var mapScope = {
   fitBounds: function(){
+    return
+  },
+  getCenter: function(){
     return
   },
   getBounds: function() {
@@ -151,6 +156,12 @@ var mapScope = {
 var mapBounds = mapScope.getBounds();
 
 var map = {
+  getBounds: function() {},
+  getCenter: function() {},
+  getZoom: function() {},
+  fitBounds: function() {},
+  setCenter: function() {},
+  setZoom: function() {},
   addListener: function() {},
   data: {
     addListener: function() {}
@@ -179,7 +190,7 @@ var mapClick = {
   }
 };
 
-var mapMarkers = [ Marker]
+var mapMarkers = [ Marker ]
 
 var mockFeaturesToRemove = ['hz_current_lowestres.601'];
 
@@ -317,7 +328,7 @@ describe ('Testing map operations', function() {
   it("should add a marker object", function(){
     //this code touches all 3 marker functions (updateMarkers, setMapOnAll, clearMarkers)
     var markerSpy = spyOn(google.maps, 'Marker');
-    var markerSetSpy = spyOn(Marker, 'setMap');
+    spyOn(Marker, 'setMap');
 
     updateMarkers(markerLocation);
     expect(google.maps.Marker.calls.count()).toEqual(1);
@@ -328,7 +339,7 @@ describe ('Testing map operations', function() {
   xit("should empty the  marker object", function(){
     //this code touches all 3 marker functions (updateMarkers, setMapOnAll, clearMarkers)
     var markerSpy = spyOn(google.maps, 'Marker');
-    var markerSetSpy = spyOn(Marker, 'setMap');
+    spyOn(Marker, 'setMap');
 
     updateMarkers();
     expect(mapMarkers.length).toEqual(0);
@@ -355,7 +366,80 @@ describe ('Testing map operations', function() {
 
 });
 
+describe ('Testing print operations', function() {
+  beforeAll(function(done) {
+    done();
+  });
 
+  beforeEach(function(done) {
+    var mapBodyDiv = document.createElement('div');
+    $(mapBodyDiv).addClass('map-body');
+    $('body').append(mapBodyDiv);
+    setTimeout(function() {
+      done();
+    }, 1);
+  });
+
+  //google and map objects are inherited from map_spec.js
+  it ("should update the map div before print with no marker present", function(){
+    mapMarkers = [];
+    spyOn(map, 'getBounds');
+    spyOn(map, 'getCenter');
+    spyOn(map, 'getZoom');
+    spyOn(map, 'fitBounds');
+    spyOn(map, 'setCenter');
+    spyOn(google.maps.event, 'trigger');
+
+    beforePrint();
+
+    var mapBodyDivClasses = $('.map-body').attr('class');
+
+    expect(map.getBounds.calls.count()).toEqual(1);
+    expect(map.getCenter.calls.count()).toEqual(1);
+    expect(map.getZoom.calls.count()).toEqual(1);
+    expect(map.fitBounds.calls.count()).toEqual(1);
+    expect(map.setCenter.calls.count()).toEqual(1);
+    expect(google.maps.event.trigger.calls.count()).toEqual(1);
+    expect(mapBodyDivClasses).toContain('print');
+  });
+  
+  it ("should update the map div before print with a marker present", function(){
+    mapMarkers = [Marker];
+    spyOn(map, 'getBounds');
+    spyOn(map, 'getCenter');
+    spyOn(map, 'getZoom');
+    spyOn(map, 'fitBounds');
+    spyOn(map, 'setCenter');
+    spyOn(google.maps.event, 'trigger');
+
+    beforePrint();
+    var mapBodyDivClasses = $('.map-body').attr('class');
+
+    expect(map.getBounds.calls.count()).toEqual(1);
+    expect(map.getCenter.calls.count()).toEqual(1);
+    expect(map.getZoom.calls.count()).toEqual(1);
+    expect(map.fitBounds.calls.count()).toEqual(1);
+    expect(map.setCenter.calls.count()).toEqual(1);
+    expect(google.maps.event.trigger.calls.count()).toEqual(1);
+    expect(mapBodyDivClasses).toContain('print');
+  });
+
+  it ("should reset the map view", function(){
+    spyOn(map, 'setCenter');
+    spyOn(map, 'setZoom');
+    spyOn(google.maps.event, 'trigger');
+
+    afterPrint();
+    var mapBodyDivClasses = $('.map-body').attr('class');
+
+    expect(map.setCenter.calls.count()).toEqual(1);
+    expect(map.setZoom.calls.count()).toEqual(1);
+    expect(google.maps.event.trigger.calls.count()).toEqual(1);
+    expect(mapBodyDivClasses).not.toContain('print');
+  });
+
+
+});
 
 
 var mockData1 = {
