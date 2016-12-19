@@ -1,4 +1,4 @@
-//container for map bounds so we can reset it after print
+// Container for map bounds so we can reset it after print
 var mapBounds = {};
 var mapCenter = {};
 var mapZoom = null;
@@ -18,7 +18,7 @@ $(function() {
   });
 });
 
-//handle the print event
+// Handle the print event
 function catchPrintEvent(wait){
   beforePrint();
   window.setTimeout(function(){
@@ -26,9 +26,9 @@ function catchPrintEvent(wait){
   }, wait);
 }
 
-//web-kit
+// Web-kit
 var mediaQueryList = window.matchMedia('print');
-mediaQueryList.addListener(function(mql){  
+mediaQueryList.addListener(function(mql){
   if (!mql.matches) {
       afterPrint(mapBounds);
   } else {
@@ -36,45 +36,38 @@ mediaQueryList.addListener(function(mql){
   }
 });
 
-// window.onbeforeprint = function() {
-//     console.log('This will be called before the user prints.');
-// };
-// window.onafterprint = function() {
-//     console.log('This will be called after the user prints');   
-// };
-
-
-//rebuild the map before printing
+// Rebuild the map before printing
 function beforePrint() {
-    console.log('Before printing: ');
-    mapBounds = map.getBounds();
-    mapCenter = map.getCenter();
-    mapZoom = map.getZoom();
-    $('.map-body').addClass('print');
-    google.maps.event.trigger(map, 'resize');
-    map.fitBounds(mapBounds);
-    if (mapMarkers.length > 0){
-      map.setCenter(mapMarkers[0].position);
-    } else {
-      map.setCenter(mapCenter);
-    }
-    sidebar.close();
-    $('#sidebar button.usa-accordion-button').map(clickAccordion);
+  mapBounds = map.getBounds();
+  mapCenter = map.getCenter();
+  mapZoom = map.getZoom();
 
-}
+  $('.map-body').addClass('print');
+  google.maps.event.trigger(map, 'resize');
+  map.fitBounds(mapBounds);
 
-//reset the map after print
-function afterPrint(mapBounds) {
-    console.log('After printing: ');
-    $('.map-body').removeClass('print');
-    google.maps.event.trigger(map, 'resize');
+  if (mapMarkers.length > 0){
+    map.setCenter(mapMarkers[0].position);
+  } else {
     map.setCenter(mapCenter);
-    map.setZoom(mapZoom);
-    sidebar.open();
-    $('#sidebar button.usa-accordion-button').map(clickAccordion);
+  }
+
+  sidebar.close();
+
+  $('#sidebar button.usa-accordion-button').map(clickAccordion);
 }
 
-//helper for triggering accordions
+// Reset the map after print
+function afterPrint(mapBounds) {
+  $('.map-body').removeClass('print');
+  google.maps.event.trigger(map, 'resize');
+  map.setCenter(mapCenter);
+  map.setZoom(mapZoom);
+  sidebar.open();
+  $('#sidebar button.usa-accordion-button').map(clickAccordion);
+}
+
+// Helper for triggering accordions
 function clickAccordion(index, el){
   $(el).trigger('click');
 }

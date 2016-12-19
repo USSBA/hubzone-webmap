@@ -283,11 +283,6 @@ li.hubzone-map-print a {
   height: calc(100% - 151px);
 }
 
-.map-body.print {
-  width: 600px;
-  height: 600px;
-}
-
 #map {
   height: 100%;
   width: 100%;
@@ -371,7 +366,6 @@ li.hubzone-map-print a {
 }
 
 @media print {
-
   .usa-banner {
     display: none;
   }
@@ -403,4 +397,8 @@ li.hubzone-map-print a {
   #sidebar-button {
     display: none;
   }
+}
+.map-body.print {
+  width: 500px;
+  height: 500px;
 }
