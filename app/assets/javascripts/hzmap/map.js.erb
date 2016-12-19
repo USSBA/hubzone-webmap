@@ -134,8 +134,8 @@ function buildWMSUrl(options){
   url += "&TRANSPARENT=TRUE";
   url += "&SRS=EPSG:4326";      
   url += "&BBOX=" + options.bbox;
-  url += "&WIDTH=" + parseInt($('#map').width()*1); //double the resolution for better screens, but make sure its int        
-  url += "&HEIGHT=" + parseInt($('#map').height()*1); //double the resolution for better screens, but make sure its int
+  url += "&WIDTH=" + parseInt($('#map').width()*2); //double the resolution for better screens, but make sure its int        
+  url += "&HEIGHT=" + parseInt($('#map').height()*2); //double the resolution for better screens, but make sure its int
   url += ('&SLD_BODY=' + constructSLDXML(options.layer));
   return url;             
 }
