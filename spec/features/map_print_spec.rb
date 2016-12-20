@@ -1,7 +1,7 @@
 require 'rails_helper'
+require 'chunky_png'
 
 describe "the page when printing", js: true, type: :feature do
-
   queries = { qualified_multiple: 'navajo',
               qualified_single: 'tiffany peak, co',
               non_qualified: 'banana',
@@ -43,10 +43,10 @@ describe "the page when printing", js: true, type: :feature do
                  body: responses[:qualified_multiple].to_json)
     end
     it "should psuedo-hide the sidebar" do
-        fill_in 'search', with: queries[:qualified_multiple]
-        click_button 'hubzone-search-button'
-        click_on 'map-print'
-        expect(page).not_to have_selector('.on')
+      fill_in 'search', with: queries[:qualified_multiple]
+      click_button 'hubzone-search-button'
+      click_on 'map-print'
+      expect(page).not_to have_selector('.on')
     end
   end
   context " and provided a known good layout image" do
@@ -58,8 +58,22 @@ describe "the page when printing", js: true, type: :feature do
       fill_in 'search', with: queries[:qualified_multiple]
       click_button 'hubzone-search-button'
       click_on 'map-print'
-      sleep(20)
+      sleep(10)
       page.save_screenshot('test_screenshot.png')
+
+      images = [
+        ChunkyPNG::Image.from_file('./tmp/capybara/test_screenshot.png'),
+        ChunkyPNG::Image.from_file('./spec/print_layout.png')
+      ]
+
+      diff = []
+
+      images.first.height.times do |y|
+        images.first.row(y).each_with_index do |pixel, x|
+          diff << [x, y] unless pixel == images.last[x, y]
+        end
+      end
+      expect((diff.length.to_f / images.first.pixels.length) * 100).to eql(0.0)
     end
   end
 end
