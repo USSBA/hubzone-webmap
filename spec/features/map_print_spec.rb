@@ -37,6 +37,18 @@ describe "the page when printing", js: true, type: :feature do
     click_on 'map-print'
     expect(page).to have_selector('.printable-map')
   end
+  context "and a search was previously performed" do
+    before do
+      Excon.stub({},
+                 body: responses[:qualified_multiple].to_json)
+    end
+    it "should psuedo-hide the sidebar" do
+        fill_in 'search', with: queries[:qualified_multiple]
+        click_button 'hubzone-search-button'
+        click_on 'map-print'
+        expect(page).not_to have_selector('.on')
+    end
+  end
   context " and provided a known good layout image" do
     before do
       Excon.stub({},
@@ -46,7 +58,7 @@ describe "the page when printing", js: true, type: :feature do
       fill_in 'search', with: queries[:qualified_multiple]
       click_button 'hubzone-search-button'
       click_on 'map-print'
-      sleep(10)
+      sleep(20)
       page.save_screenshot('test_screenshot.png')
     end
   end
