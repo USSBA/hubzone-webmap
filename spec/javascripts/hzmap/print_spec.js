@@ -168,4 +168,41 @@ describe ('Testing print operations', function() {
     expect(window.print.calls.count()).toEqual(1);
   });
 
+  it ("should trigger catchPrintEvent on ctrl-p", function(){
+    spyOn(window, 'catchPrintEvent');
+
+    var printE = {
+      ctrlKey: true,
+      metaKey: false, 
+      keyCode: 80
+    };
+    catchKeyStrokeToPrint(printE);
+    expect(window.catchPrintEvent.calls.count()).toEqual(1);
+  });
+
+  it ("should trigger catchPrintEvent on cmd-p", function(){
+    spyOn(window, 'catchPrintEvent');
+
+    var printE = {
+      ctrlKey: false,
+      metaKey: true, 
+      keyCode: 80
+    };
+    catchKeyStrokeToPrint(printE);
+    expect(window.catchPrintEvent.calls.count()).toEqual(1);
+  });
+
+  it ("should do nothing on other key strokes", function(){
+    spyOn(window, 'catchPrintEvent');
+
+    var printE = {
+      ctrlKey: false,
+      metaKey: false, 
+      keyCode: 80
+    };
+    catchKeyStrokeToPrint(printE);
+    expect(window.catchPrintEvent.calls.count()).toEqual(0);
+  });
+
+
 });

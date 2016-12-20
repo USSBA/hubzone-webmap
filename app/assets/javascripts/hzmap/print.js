@@ -4,11 +4,15 @@ var mapCenter = {};
 var mapZoom = null;
 
 // Catch control+p and re-layout page for printing
-$(document).bind("keydown", function(e){
+$(document).bind("keydown", catchKeyStrokeToPrint);
+
+function catchKeyStrokeToPrint(e){
   if((e.ctrlKey || e.metaKey) && e.keyCode === 80){
     catchPrintEvent(1000);
+  } else {
+    return;
   }
-});
+}
 
 // Listener for map icon click
 $(function() {
