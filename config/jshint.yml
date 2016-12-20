@@ -1,6 +1,6 @@
 files: ["**/*.js", "**/*.js.erb"] # No need to put app/assets/ or vendor/assets here
 exclude_paths: ["vendor/assets/*", "**/helpers/"]
-include_paths: ["app/views/"]
+include_paths: ["app/views/", "spec/javascripts"]
 options:
   boss:       true
   browser:    true
@@ -19,22 +19,14 @@ options:
   undef:      true
   unused:     true
   globals:
-    jQuery:   true
     "$":      true
-    console:  true
-    App: true
     ActionCable: true
-    geomWFSSettings: true
+    App: true
+    constructSLDXML: true
     google:   true
     hzBaseMapStyle: true
-    hzMapLayerStyle: true
-    initMap: true
+    hzWMSOverlays: true
     jumpToLocation: true
-    map: true
-    mapGeoJson: true
-    mapMarkers: true
-    mapScope: true
-    sinon: true
-    updateMarkers: true
     sidebar: true
-
+    updateAccordions: true
+    updateMarkers: true

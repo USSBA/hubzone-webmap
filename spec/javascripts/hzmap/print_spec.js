@@ -1,5 +1,7 @@
 //= require hzmap
 //= require ../helpers/sinon-1.17.6
+/* jshint unused: false */
+/* jshint undef: false */
 
 //define map if it hasn't been already (e.g., if map_spec wasn't run)
 if (Object.keys(map).length === 0 ){

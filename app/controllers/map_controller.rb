@@ -10,13 +10,19 @@ class MapController < ApplicationController
   end
 
   def search
-    query = parse_search_query params
+    query = format_query params
     response = connection.request(method: :get,
                                   path: "/search?#{query}")
     @body = response.data[:body]
     respond_to do |format|
       format.js {}
     end
+  end
+
+  def format_query(params)
+    query = parse_search_query params
+    query += "&" + URI.encode_www_form("query_date" => params[:query_date] ||= ' ') if params[:query_date].present?
+    query
   end
 
   def parse_search_query(params)
