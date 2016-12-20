@@ -37,13 +37,13 @@ if (google === null || google === undefined){
   };
 }
 
-if (Marker === null || Marker === undefined){
-  var Marker = {
+if (Object.keys(Marker).length === 0){
+  Marker = {
     setMap: function(map){
       return map;
     },
     position: function() {}
-};
+  };
 }
 
 describe ('Testing print operations', function() {
@@ -54,7 +54,7 @@ describe ('Testing print operations', function() {
 
     $('body').append('<div id="sidebar" class="hidden"></div>');
     var dummySidebar = document.createElement('div');
-    $('#sidebar').append(dummySidebar)
+    $('#sidebar').append(dummySidebar);
     $('#sidebar').css('display', 'none');
     var accordion = '<li>' + 
       '<button id="test_button" class="usa-accordion-button" aria-expanded="false" aria-controls="indian_lands">' + 

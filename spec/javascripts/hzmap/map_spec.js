@@ -107,7 +107,7 @@ var coordinates = {
   east: -96.64306640625,
   south: 34.99419475828389,
   west: -98.35693359375
-}
+};
 
 var Marker = {
   setMap: function(map){
@@ -118,10 +118,10 @@ var Marker = {
 
 var mapScope = {
   fitBounds: function(){
-    return
+    return;
   },
   getCenter: function(){
-    return
+    return;
   },
   getBounds: function() {
     return {
@@ -181,7 +181,7 @@ var Marker = {
   }
 };
 
-var mapMarkers = [ Marker ]
+var mapMarkers = [ Marker ];
 
 var markerLocation = {
   lat: 39.29024048029149,
