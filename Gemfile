@@ -29,7 +29,7 @@ group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'capybara' # allow interaction with DOM in tests
   gem 'chromedriver-helper'
-  gem 'chunky_png' # read png images
+  # gem 'chunky_png' # read png images
   gem 'jasmine-rails' # JavaScript testing
   gem 'jshint'
   gem 'launchy'
