@@ -68,7 +68,6 @@ function beforePrint() {
 
 //reset the map after print
 function afterPrint() {
-  console.log('After printing: ');
   $('.map-body').removeClass('print');
   google.maps.event.trigger(map, 'resize');
   map.setCenter(mapCenter);
