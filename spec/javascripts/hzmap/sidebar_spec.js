@@ -1,5 +1,7 @@
 //= require hzmap
 //= require ../helpers/sinon-1.17.6
+/* jshint unused: false */
+/* jshint undef: false */
 
 describe ('Testing sidebar operations', function() {
   beforeAll(function(done) {
@@ -44,7 +46,7 @@ describe ('Testing sidebar operations', function() {
 
   it ("should call the the triggerAction function", function(){
     var testDiv = document.createElement('div');
-    $('#sidebar').append(testDiv)
+    $('#sidebar').append(testDiv);
     $('#sidebar').css('display', 'none');
     var accordion = '<li>' + 
       '<button id="test_button" class="usa-accordion-button" aria-expanded="false" aria-controls="indian_lands">' + 
