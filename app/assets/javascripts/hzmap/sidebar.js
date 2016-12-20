@@ -49,6 +49,8 @@ $(function() {
 // event handler for clicks to sidebar button
 /* exported triggerSidebar */
 function triggerSidebar(){
+  $('#sidebar').hasClass('on') ? HZ.track( 'map', 'sidebar', 'hide' ) :
+                                 HZ.track( 'map', 'sidebar', 'show' );
   $('#sidebar').hasClass('on') ? sidebar.close() : sidebar.open();
 }
 
@@ -64,9 +66,11 @@ function triggerAccordion(el){
   var accordionIsOpen = el.currentTarget.getAttribute('aria-expanded');
 
   if( accordionIsOpen === 'false' ) {
+    HZ.track( 'map', 'sidebar', accordionID + '-open' );
     $( 'button[aria-controls=' + accordionID + ']' ).attr('aria-expanded', 'true' );
     content.attr('aria-hidden', 'false');
   } else if ( accordionIsOpen === 'true' ) {
+    HZ.track( 'map', 'sidebar', accordionID + '-close' );
     $( 'button[aria-controls=' + accordionID + ']' ).attr('aria-expanded', 'false' );
     content.attr('aria-hidden', 'true');
   }

@@ -23,7 +23,9 @@ options:
     ActionCable: true
     App: true
     constructSLDXML: true
+    ga: true
     google:   true
+    HZ: true
     hzBaseMapStyle: true
     hzWMSOverlays: true
     jumpToLocation: true

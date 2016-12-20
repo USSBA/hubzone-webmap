@@ -71,7 +71,7 @@ function fetchNewWMS(options){
 
   //update WMS layers, removing old and adding new to the map
   updateLayerWMSOverlay({
-    layer: layer, 
+    layer: layer,
     mapScope: options.mapScope
   });
 }
@@ -126,18 +126,18 @@ function createGoogleLatLngBounds(SWLng, SWLat, NELng, NELat){
 // builds out the custom wms url
 function buildWMSUrl(options){
   var url = "http://localhost:8080/geoserver/hubzone-test/wms?service=WMS";
-  url += "&REQUEST=GetMap"; 
-  url += "&SERVICE=WMS";    
-  url += "&VERSION=1.1.0";    
-  url += "&LAYERS=" + "hubzone-test:" + options.layer  ; 
-  url += "&FORMAT=image/png" ; 
+  url += "&REQUEST=GetMap";
+  url += "&SERVICE=WMS";
+  url += "&VERSION=1.1.0";
+  url += "&LAYERS=" + "hubzone-test:" + options.layer;
+  url += "&FORMAT=image/png" ;
   url += "&TRANSPARENT=TRUE";
-  url += "&SRS=EPSG:4326";      
+  url += "&SRS=EPSG:4326";
   url += "&BBOX=" + options.bbox;
-  url += "&WIDTH=" + parseInt($('#map').width()*2); //double the resolution for better screens, but make sure its int        
+  url += "&WIDTH=" + parseInt($('#map').width()*2); //double the resolution for better screens, but make sure its int
   url += "&HEIGHT=" + parseInt($('#map').height()*2); //double the resolution for better screens, but make sure its int
   url += ('&SLD_BODY=' + constructSLDXML(options.layer));
-  return url;             
+  return url;
 }
 
 //helper function for updating a single layer's WMS overlay
@@ -157,8 +157,7 @@ function updateLayerWMSOverlay(options){
     // console.warn('no WMS found in layer');
     return null;
   }
-
-  hzWMSOverlays[options.layer].overlay[0].addListener('click', catchMapClick);  
+  hzWMSOverlays[options.layer].overlay[0].addListener('click', catchMapClick);
 }
 
 // turn latlng object into url
@@ -167,6 +166,8 @@ function catchMapClick(clickEvent){
   var clicklat = clickEvent.latLng.lat();
   var date = parseDate(new Date());
   var locale = "<%= I18n.locale %>";
+  // Log the click
+  HZ.track( 'map', 'click', clicklat + ',' + clicklng );
   var url = "/search?latlng=" + clicklat + ',' + clicklng + '&query_date=' + date + '&locale=' + locale;
   $.ajax({
     url: url
@@ -182,7 +183,7 @@ function parseDate(date){
   return [date.getFullYear(),
           (mm>9 ? '' : '0') + mm,
           (dd>9 ? '' : '0') + dd
-         ].join('-');  
+         ].join('-');
 }
 
 //jump to location on the map based on the geocode viewport object
