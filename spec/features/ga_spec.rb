@@ -28,29 +28,5 @@ describe "Google Analytics", type: :feature do
       form = find(:css, 'form.usa-search')
       expect(form[:onsubmit]).to match(/HZ.trackSubmit/)
     end
-
-    xit "should be ready to send an event when a user clicks on the map" do
-      # Don't know how to test this since the call to HZ.track is embedded in
-      # the JavaScript callback on that action.
-    end
-  end
-
-  context "Sidebar" do
-    xit "should be ready to send an event when a user hides the sidebar" do
-      # Don't know how to test this since the call to HZ.track is embedded in
-      # the JavaScript callback on that action.
-    end
-    xit "should be ready to send an event when a user shows the sidebar" do
-      # Don't know how to test this since the call to HZ.track is embedded in
-      # the JavaScript callback on that action.
-    end
-    xit "should be ready to send an event when a user expands a qualification" do
-      # Don't know how to test this since the call to HZ.track is embedded in
-      # the JavaScript callback on that action.
-    end
-    xit "should be ready to send an event when a user collapses a qualification" do
-      # Don't know how to test this since the call to HZ.track is embedded in
-      # the JavaScript callback on that action.
-    end
   end
 end
