@@ -16,7 +16,8 @@ describe 'the map search', type: :feature, js: true do
                                           hz_type: "qct"
                                         }
                                       ],
-                                      geometry: {} },
+                                      geometry: {},
+                                      query_date: Date.today },
                 non_qualified: { formatted_address: "Nope",
                                  http_status: 200,
                                  hubzone: [],
@@ -64,6 +65,11 @@ describe 'the map search', type: :feature, js: true do
           fill_in 'search', with: queries[:qualified_multiple]
           click_button 'hubzone-search-button'
           expect(page).to have_content(t("hubzone_assertions." + responses[:qualified_multiple][:hubzone][1][:hz_type].to_s))
+        end
+        it "should display the date of the search" do
+          fill_in 'search', with: queries[:qualified_multiple]
+          click_button 'hubzone-search-button'
+          expect(page).to have_content(I18n.l(Date.today, format: :full))
         end
       end
 
