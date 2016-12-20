@@ -47,6 +47,7 @@ $(function() {
 });
 
 // event handler for clicks to sidebar button
+/* exported triggerSidebar */
 function triggerSidebar(){
   $('#sidebar').hasClass('on') ? HZ.track( 'map', 'sidebar', 'hide' ) :
                                  HZ.track( 'map', 'sidebar', 'show' );
@@ -55,7 +56,7 @@ function triggerSidebar(){
 
 /* exported updateAccordions */
 function updateAccordions () {
-  $('button.usa-accordion-button').on('click', triggerAccordion);
+  $('#sidebar button.usa-accordion-button').on('click', triggerAccordion);
 }
 
 // event handler for clicks on an accorion button

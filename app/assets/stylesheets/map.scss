@@ -9,11 +9,13 @@
 .usa-header {
   border-bottom: none;
 }
-.usa-logo-text a {
-  font-size: 3.6rem;
+.usa-logo-text a > h1 {
+  font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
+  font-size: inherit;
   float: left;
-  margin-top: .4rem;
-  margin-left: 3rem;
+  clear: none;
+  margin: 0 0 0 3rem;
+  padding: 0;
 }
 .usa-navbar {
   border-bottom: none;
@@ -324,9 +326,9 @@ ul.hubzone-filter-menu label {
     padding: 0;
     width: 100%;
   }
-  .usa-logo-text a {
+  .usa-logo-text a > h1 {
     margin: 0 0 0 2rem;
-    padding: 0;
+    padding: 0.5rem 0 0 0 ;
     font-size: 2.2rem;
   }
   .hubzone-filter {
