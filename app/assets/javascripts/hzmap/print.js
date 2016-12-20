@@ -30,13 +30,16 @@ function catchPrintEvent(e, wait){
 
 // Web-kit
 var mediaQueryList = window.matchMedia('print');
-mediaQueryList.addListener(function(mql){
+mediaQueryList.addListener(catchMediaQuery);
+
+//helper for catching the media query
+function catchMediaQuery(mql){
   if (!mql.matches) {
       afterPrint();
   } else {
-    // catchPrintEvent(2000);
+    return;
   }
-});
+}
 
 // window.onbeforeprint = function() {
 //   catchPrintEvent(1000);

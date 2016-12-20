@@ -204,5 +204,25 @@ describe ('Testing print operations', function() {
     expect(window.catchPrintEvent.calls.count()).toEqual(0);
   });
 
+  it ("should handle after print media query", function(){
+    spyOn(window, 'afterPrint');
+
+    var mql = {
+      matches: false
+    };
+    catchMediaQuery(mql);
+    expect(window.afterPrint.calls.count()).toEqual(1);
+  });
+
+  it ("should ignore before print media query", function(){
+    spyOn(window, 'afterPrint');
+
+    var mql = {
+      matches: true
+    };
+    catchMediaQuery(mql);
+    expect(window.afterPrint.calls.count()).toEqual(0);
+  });
+
 
 });
