@@ -8,7 +8,7 @@ $(document).bind("keydown", catchKeyStrokeToPrint);
 
 function catchKeyStrokeToPrint(e){
   if((e.ctrlKey || e.metaKey) && e.keyCode === 80){
-    catchPrintEvent(1000);
+    catchPrintEvent(e, 1000);
   } else {
     return;
   }
@@ -16,14 +16,12 @@ function catchKeyStrokeToPrint(e){
 
 // Listener for map icon click
 $(function() {
-  $('#map-print').click(function() {
-    console.log('print button selected');
-    catchPrintEvent(1000);
-  });
+  $('#map-print').click(catchPrintEvent);
 });
 
 // Handle the print event
-function catchPrintEvent(wait){
+function catchPrintEvent(e, wait){
+  var wait = wait || 1000;
   beforePrint();
   window.setTimeout(function(){
     window.print();
