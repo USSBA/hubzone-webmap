@@ -116,61 +116,132 @@ var Marker = {
   position: function() {}
 };
 
-var mapScope = {
-  fitBounds: function(){
-    return;
-  },
-  getCenter: function(){
-    return;
-  },
-  getBounds: function() {
-    return {
-      getNorthEast: function() {
-        return {
-          lat: function() {
-            return coordinates.north;
-          },
-          lng: function() {
-            return coordinates.east;
-          }
-        };
-      },
-      getSouthWest: function() {
-        return {
-          lat: function() {
-            return coordinates.south;
-          },
-          lng: function() {
-            return coordinates.west;
-          }
-        };
-      }
-    };
-  }
-};
-var mapBounds = mapScope.getBounds();
+// var mapScope = {
+//   fitBounds: function(){
+//     return;
+//   },
+//   getCenter: function(){
+//     return;
+//   },
+//   getBounds: function() {
+//     return {
+//       getNorthEast: function() {
+//         return {
+//           lat: function() {
+//             return coordinates.north;
+//           },
+//           lng: function() {
+//             return coordinates.east;
+//           }
+//         };
+//       },
+//       getSouthWest: function() {
+//         return {
+//           lat: function() {
+//             return coordinates.south;
+//           },
+//           lng: function() {
+//             return coordinates.west;
+//           }
+//         };
+//       }
+//     };
+//   }
+// };
 
-var map = {
-  getBounds: function() {},
-  getCenter: function() {},
-  getZoom: function() {},
-  fitBounds: function() {},
-  setCenter: function() {},
-  setZoom: function() {},
-  addListener: function() {},
-  data: {
-    addListener: function() {}
-  },
-  mapTypes: {
-    set: function(){
+// var mapBounds = mapScope.getBounds();
+
+var GoogleMap = function(){
+  return {
+    getBounds: function() {
+      return {
+        getNorthEast: function() {
+          return {
+            lat: function() {
+              return coordinates.north;
+            },
+            lng: function() {
+              return coordinates.east;
+            }
+          };
+        },
+        getSouthWest: function() {
+          return {
+            lat: function() {
+              return coordinates.south;
+            },
+            lng: function() {
+              return coordinates.west;
+            }
+          };
+        }
+      };
+    },
+    getCenter: function() {},
+    getZoom: function() {},
+    fitBounds: function() {},
+    setCenter: function() {},
+    setZoom: function() {},
+    addListener: function() {},
+    data: {
+      addListener: function() {}
+    },
+    mapTypes: {
+      set: function(){
+        return;
+      }
+    },
+    setMapTypeId: function(){
       return;
-    }
-  },
-  setMapTypeId: function(){
-    return;
-  },
-  controls: []
-};
+    },
+    controls: []
+  }
+}
+
+// var map = {
+//   getBounds: function() {
+//     return {
+//       getNorthEast: function() {
+//         return {
+//           lat: function() {
+//             return coordinates.north;
+//           },
+//           lng: function() {
+//             return coordinates.east;
+//           }
+//         };
+//       },
+//       getSouthWest: function() {
+//         return {
+//           lat: function() {
+//             return coordinates.south;
+//           },
+//           lng: function() {
+//             return coordinates.west;
+//           }
+//         };
+//       }
+//     };
+//   },
+//   getCenter: function() {},
+//   getZoom: function() {},
+//   fitBounds: function() {},
+//   setCenter: function() {},
+//   setZoom: function() {},
+//   addListener: function() {},
+//   data: {
+//     addListener: function() {}
+//   },
+//   mapTypes: {
+//     set: function(){
+//       return;
+//     }
+//   },
+//   setMapTypeId: function(){
+//     return;
+//   },
+//   controls: []
+// };
 
 //////////////////
 // Marker Helpers
@@ -200,27 +271,32 @@ var newOverlay = function(name){
 
 describe ('Testing map operations', function() {
   beforeEach(function() {
+    mapScope = new GoogleMap();
     var constructorSpy = spyOn(google.maps, 'Map').and.returnValue(map);
     var eventSpy = spyOn(google.maps.event, 'addListener');
-    var mapListenerSpy = spyOn(map, 'addListener');
+    var mapListenerSpy = spyOn(mapScope, 'addListener');
+  });
+
+  afterEach(function(){
+    mapScope = {};
   });
 
   it("should create a new Google map", function() {
     var styledMapTypeSpy = spyOn(google.maps, 'StyledMapType');
-    var mapTypesSetSpy = spyOn(map.mapTypes, 'set');
-    var mapSetMapTypIdSpy = spyOn(map, 'setMapTypeId');
+    var mapTypesSetSpy = spyOn(mapScope.mapTypes, 'set');
+    var mapSetMapTypIdSpy = spyOn(mapScope, 'setMapTypeId');
     var autoComplete = spyOn(google.maps.places, 'Autocomplete');
 
-    map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
-    map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
+    mapScope.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
+    mapScope.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
 
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map.calls.count()).toEqual(1);
     expect(google.maps.event.addListener.calls.count()).toEqual(1);
-    expect(map.addListener.calls.count()).toEqual(1);
+    expect(mapScope.addListener.calls.count()).toEqual(1);
     expect(google.maps.StyledMapType.calls.count()).toEqual(1);
-    expect(map.mapTypes.set.calls.count()).toEqual(1);
-    expect(map.setMapTypeId.calls.count()).toEqual(1);
+    expect(mapScope.mapTypes.set.calls.count()).toEqual(1);
+    expect(mapScope.setMapTypeId.calls.count()).toEqual(1);
     expect(google.maps.places.Autocomplete.calls.count()).toEqual(1);
   });
 
@@ -363,7 +439,7 @@ describe ('Testing map operations', function() {
   it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){
     var latLngBoundsSpy = spyOn(google.maps, 'LatLngBounds');
     var latLngSpy = spyOn(google.maps, 'LatLng');
-    var fitBoundsSpy = spyOn(map, 'fitBounds');
+    var fitBoundsSpy = spyOn(mapScope, 'fitBounds');
 
     var geocodeLocation = {
       location: markerLocation,
@@ -382,7 +458,7 @@ describe ('Testing map operations', function() {
     jumpToLocation(geocodeLocation);
     expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
     expect(google.maps.LatLng.calls.count()).toEqual(2);
-    expect(map.fitBounds.calls.count()).toEqual(1);
+    expect(mapScope.fitBounds.calls.count()).toEqual(1);
   });
 
   it("should pass over a geocodeLocation that does not contain a viewport, doing nothing", function(){
@@ -393,7 +469,7 @@ describe ('Testing map operations', function() {
     };
 
     jumpToLocation(geocodeLocationNoViewport);
-    expect(map.fitBounds.calls.count()).toEqual(0);
+    expect(mapScope.fitBounds.calls.count()).toEqual(0);
   });
 
   it("should add a marker object", function(){
