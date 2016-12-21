@@ -30,7 +30,7 @@
         </ul>
       </li>
       <li class="hubzone-search">
-        <%= form_tag search_path, remote: true, method: :get, class: "usa-search usa-search-small" do %>
+        <%= form_tag search_path, remote: true, method: :get, class: "usa-search usa-search-small", onsubmit: "HZ.trackSubmit('search', '#search-field-small')" do %>
         <div id="map-search" role="search">
           <%= hidden_field_tag "locale", I18n.locale %>
           <%= hidden_field_tag "query_date", Date.today %>
