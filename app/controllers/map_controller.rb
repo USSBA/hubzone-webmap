@@ -21,6 +21,9 @@ class MapController < ApplicationController
 
   def format_query(params)
     query = parse_search_query params
+    return query if query.nil?
+
+    # Add in the query date if present
     query += "&" + URI.encode_www_form("query_date" => params[:query_date] ||= ' ') if params[:query_date].present?
     query
   end

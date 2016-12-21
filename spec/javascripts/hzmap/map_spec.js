@@ -89,14 +89,15 @@ var google = {
     ZoomControlStyle: {},
     __gjsload__: function () { },
     event: {
-        addListener: function () { }
+      addListener: function () {},
+      trigger: function() {}
     },
     places: {
-        Autocomplete: function () {
-            return {
-                getPlacePredictions: function () { }
-            };
-        }
+      Autocomplete: function () {
+        return {
+           getPlacePredictions: function () { }
+        };
+      }
     }
   }
 };
@@ -108,7 +109,20 @@ var coordinates = {
   west: -98.35693359375
 };
 
+var Marker = {
+  setMap: function(map){
+    return map;
+  },
+  position: function() {}
+};
+
 var mapScope = {
+  fitBounds: function(){
+    return;
+  },
+  getCenter: function(){
+    return;
+  },
   getBounds: function() {
     return {
       getNorthEast: function() {
@@ -137,9 +151,12 @@ var mapScope = {
 var mapBounds = mapScope.getBounds();
 
 var map = {
-  fitBounds: function(){
-    return;
-  },
+  getBounds: function() {},
+  getCenter: function() {},
+  getZoom: function() {},
+  fitBounds: function() {},
+  setCenter: function() {},
+  setZoom: function() {},
   addListener: function() {},
   data: {
     addListener: function() {}
@@ -154,8 +171,6 @@ var map = {
   },
   controls: []
 };
-
-
 
 //////////////////
 // Marker Helpers
@@ -384,7 +399,7 @@ describe ('Testing map operations', function() {
   it("should add a marker object", function(){
     //this code touches all 3 marker functions (updateMarkers, setMapOnAll, clearMarkers)
     var markerSpy = spyOn(google.maps, 'Marker');
-    var markerSetSpy = spyOn(Marker, 'setMap');
+    spyOn(Marker, 'setMap');
 
     updateMarkers(markerLocation);
     expect(google.maps.Marker.calls.count()).toEqual(1);
@@ -395,7 +410,7 @@ describe ('Testing map operations', function() {
   it("should empty the marker object", function(){
     mapMarkers = [Marker];
     var markerSpy = spyOn(google.maps, 'Marker');
-    var markerSetSpy = spyOn(Marker, 'setMap');
+    spyOn(Marker, 'setMap');
 
     updateMarkers();
     expect(mapMarkers.length).toEqual(0);
