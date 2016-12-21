@@ -39,13 +39,52 @@ var google = {
     Map: function () {
         return {
             setTilt: function () { },
-            mapTypes: {
-                set: function () { }
-            },
             overlayMapTypes: {
                 insertAt: function () { },
                 removeAt: function () { }
-            }
+            },
+            getBounds: function() {
+              return {
+                getNorthEast: function() {
+                  return {
+                    lat: function() {
+                      return coordinates.north;
+                    },
+                    lng: function() {
+                      return coordinates.east;
+                    }
+                  };
+                },
+                getSouthWest: function() {
+                  return {
+                    lat: function() {
+                      return coordinates.south;
+                    },
+                    lng: function() {
+                      return coordinates.west;
+                    }
+                  };
+                }
+              };
+            },
+            getCenter: function() {},
+            getZoom: function() {},
+            fitBounds: function() {},
+            setCenter: function() {},
+            setZoom: function() {},
+            addListener: function() {},
+            data: {
+              addListener: function() {}
+            },
+            mapTypes: {
+              set: function(){
+                return;
+              }
+            },
+            setMapTypeId: function(){
+              return;
+            },
+            controls: []
         };
     },
     MapTypeControlStyle: {},
@@ -116,133 +155,6 @@ var Marker = {
   position: function() {}
 };
 
-// var mapScope = {
-//   fitBounds: function(){
-//     return;
-//   },
-//   getCenter: function(){
-//     return;
-//   },
-//   getBounds: function() {
-//     return {
-//       getNorthEast: function() {
-//         return {
-//           lat: function() {
-//             return coordinates.north;
-//           },
-//           lng: function() {
-//             return coordinates.east;
-//           }
-//         };
-//       },
-//       getSouthWest: function() {
-//         return {
-//           lat: function() {
-//             return coordinates.south;
-//           },
-//           lng: function() {
-//             return coordinates.west;
-//           }
-//         };
-//       }
-//     };
-//   }
-// };
-
-// var mapBounds = mapScope.getBounds();
-
-var GoogleMap = function(){
-  return {
-    getBounds: function() {
-      return {
-        getNorthEast: function() {
-          return {
-            lat: function() {
-              return coordinates.north;
-            },
-            lng: function() {
-              return coordinates.east;
-            }
-          };
-        },
-        getSouthWest: function() {
-          return {
-            lat: function() {
-              return coordinates.south;
-            },
-            lng: function() {
-              return coordinates.west;
-            }
-          };
-        }
-      };
-    },
-    getCenter: function() {},
-    getZoom: function() {},
-    fitBounds: function() {},
-    setCenter: function() {},
-    setZoom: function() {},
-    addListener: function() {},
-    data: {
-      addListener: function() {}
-    },
-    mapTypes: {
-      set: function(){
-        return;
-      }
-    },
-    setMapTypeId: function(){
-      return;
-    },
-    controls: []
-  }
-}
-
-// var map = {
-//   getBounds: function() {
-//     return {
-//       getNorthEast: function() {
-//         return {
-//           lat: function() {
-//             return coordinates.north;
-//           },
-//           lng: function() {
-//             return coordinates.east;
-//           }
-//         };
-//       },
-//       getSouthWest: function() {
-//         return {
-//           lat: function() {
-//             return coordinates.south;
-//           },
-//           lng: function() {
-//             return coordinates.west;
-//           }
-//         };
-//       }
-//     };
-//   },
-//   getCenter: function() {},
-//   getZoom: function() {},
-//   fitBounds: function() {},
-//   setCenter: function() {},
-//   setZoom: function() {},
-//   addListener: function() {},
-//   data: {
-//     addListener: function() {}
-//   },
-//   mapTypes: {
-//     set: function(){
-//       return;
-//     }
-//   },
-//   setMapTypeId: function(){
-//     return;
-//   },
-//   controls: []
-// };
-
 //////////////////
 // Marker Helpers
 /////////////////
@@ -270,43 +182,43 @@ var newOverlay = function(name){
 };
 
 describe ('Testing map operations', function() {
-  beforeEach(function() {
-    mapScope = new GoogleMap();
-    var constructorSpy = spyOn(google.maps, 'Map').and.returnValue(map);
-    var eventSpy = spyOn(google.maps.event, 'addListener');
-    var mapListenerSpy = spyOn(mapScope, 'addListener');
+  beforeEach(function(){
+    map = new google.maps.Map();
+    spyOn(google.maps, 'Map').and.returnValue(map);
+    spyOn(google.maps.event, 'addListener');
+    spyOn(map, 'addListener');
   });
 
   afterEach(function(){
-    mapScope = {};
+    map = {};
   });
 
   it("should create a new Google map", function() {
-    var styledMapTypeSpy = spyOn(google.maps, 'StyledMapType');
-    var mapTypesSetSpy = spyOn(mapScope.mapTypes, 'set');
-    var mapSetMapTypIdSpy = spyOn(mapScope, 'setMapTypeId');
-    var autoComplete = spyOn(google.maps.places, 'Autocomplete');
+    console.log(map);
+    spyOn(google.maps, 'StyledMapType');
+    spyOn(map.mapTypes, 'set');
+    spyOn(map, 'setMapTypeId');
+    spyOn(google.maps.places, 'Autocomplete');
 
-    mapScope.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
-    mapScope.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
+    map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
+    map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
 
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map.calls.count()).toEqual(1);
     expect(google.maps.event.addListener.calls.count()).toEqual(1);
-    expect(mapScope.addListener.calls.count()).toEqual(1);
+    expect(map.addListener.calls.count()).toEqual(1);
     expect(google.maps.StyledMapType.calls.count()).toEqual(1);
-    expect(mapScope.mapTypes.set.calls.count()).toEqual(1);
-    expect(mapScope.setMapTypeId.calls.count()).toEqual(1);
+    expect(map.mapTypes.set.calls.count()).toEqual(1);
+    expect(map.setMapTypeId.calls.count()).toEqual(1);
     expect(google.maps.places.Autocomplete.calls.count()).toEqual(1);
   });
 
   it("should get bbox", function() {
-    var mapScopeSpy = spyOn(mapScope, 'getBounds').and.returnValue(mapBounds);
-    var northEastSpy = spyOn(mapBounds, 'getNorthEast').and.callThrough();
-    var southWestSpy = spyOn(mapBounds, 'getSouthWest').and.callThrough();
-
-    expect(getBbox(mapScope)).toEqual("-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637");
-    expect(mapScope.getBounds.calls.count()).toEqual(1);
+    var mapBounds = map.getBounds();
+    spyOn(mapBounds, 'getNorthEast').and.callThrough();
+    spyOn(mapBounds, 'getSouthWest').and.callThrough();
+    
+    expect(getBbox(mapBounds)).toEqual("-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637");
     expect(mapBounds.getNorthEast.calls.count()).toEqual(2);
     expect(mapBounds.getSouthWest.calls.count()).toEqual(2);
   });
@@ -337,7 +249,8 @@ describe ('Testing map operations', function() {
   });
 
   it("should build the correct URL for data with expiration", function() {
-    var bbox = getBbox(mapScope);
+    var mapBounds = map.getBounds();
+    var bbox = getBbox(mapBounds);
     var layer = 'qct';
     var url = buildWMSUrl({
       layer: layer,
@@ -350,7 +263,8 @@ describe ('Testing map operations', function() {
   });
 
   it("should build the correct URL for data without expiration", function() {
-    var bbox = getBbox(mapScope);
+    var mapBounds = map.getBounds();
+    var bbox = getBbox(mapBounds);
     var layer = 'indian_lands';
     var url = buildWMSUrl({
       layer: layer,
