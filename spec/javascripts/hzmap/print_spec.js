@@ -62,9 +62,11 @@ describe ('Testing print operations', function() {
     $(mapBodyDiv).addClass('map-body');
     $('body').append(mapBodyDiv);
 
+
     $('body').append('<div id="sidebar" class="hidden"></div>');
-    var dummySidebar = document.createElement('div');
-    $('#sidebar').append(dummySidebar);
+    sidebar = $('#sidebar').sidebar();
+    var testDiv = document.createElement('div');
+    $('#sidebar').append(testDiv);
     $('#sidebar').css('display', 'none');
     var accordion = '<li>' + 
       '<button id="test_button" class="usa-accordion-button" aria-expanded="false" aria-controls="indian_lands">' + 
@@ -83,7 +85,7 @@ describe ('Testing print operations', function() {
         '<p></p>' +
       '</div>' + 
     '</li>';
-    $(dummySidebar).append(accordion);
+    $(testDiv).append(accordion);
     updateAccordions();
     setTimeout(function() {
       done();
