@@ -48,6 +48,16 @@ if (Object.keys(Marker).length === 0){
 
 describe ('Testing print operations', function() {
   beforeEach(function(done) {
+    //set spies
+    spyOn(map, 'getBounds');
+    spyOn(map, 'getCenter');
+    spyOn(map, 'getZoom');
+    spyOn(map, 'fitBounds');
+    spyOn(map, 'setCenter');
+    spyOn(map, 'setZoom');
+    spyOn(google.maps.event, 'trigger');
+
+    //build a dummy sidebar and mapbody
     var mapBodyDiv = document.createElement('div');
     $(mapBodyDiv).addClass('map-body');
     $('body').append(mapBodyDiv);
@@ -91,13 +101,6 @@ describe ('Testing print operations', function() {
   //google and map objects are inherited from map_spec.js
   it ("should update the map div before print with no marker present", function(){
     mapMarkers = [];
-    spyOn(map, 'getBounds');
-    spyOn(map, 'getCenter');
-    spyOn(map, 'getZoom');
-    spyOn(map, 'fitBounds');
-    spyOn(map, 'setCenter');
-    spyOn(google.maps.event, 'trigger');
-
     beforePrint();
 
     var mapBodyDivClasses = $('.map-body').attr('class');
@@ -115,13 +118,6 @@ describe ('Testing print operations', function() {
   
   it ("should update the map div before print with a marker present", function(){
     mapMarkers = [Marker];
-    spyOn(map, 'getBounds');
-    spyOn(map, 'getCenter');
-    spyOn(map, 'getZoom');
-    spyOn(map, 'fitBounds');
-    spyOn(map, 'setCenter');
-    spyOn(google.maps.event, 'trigger');
-
     beforePrint();
     var mapBodyDivClasses = $('.map-body').attr('class');
 
@@ -138,10 +134,6 @@ describe ('Testing print operations', function() {
   });
 
   it ("should reset the map view", function(){
-    spyOn(map, 'setCenter');
-    spyOn(map, 'setZoom');
-    spyOn(google.maps.event, 'trigger');
-
     beforePrint();
     afterPrint();
     var mapBodyDivClasses = $('.map-body').attr('class');
@@ -155,6 +147,10 @@ describe ('Testing print operations', function() {
   });
 
   it ("should run beforePrint then window.Print", function(){
+    var printEvent = {
+      preventDefault: function(){}
+    };
+    spyOn(printEvent, 'preventDefault');
     spyOn(window, 'beforePrint');
     //basically mocks setTimeout since I couldn't get it to
     // run print 
@@ -164,7 +160,8 @@ describe ('Testing print operations', function() {
     });
     spyOn(window, 'print');
 
-    catchPrintEvent(1);
+    catchPrintEvent(printEvent, 1);
+    expect(printEvent.preventDefault.calls.count()).toEqual(1);
     expect(window.beforePrint.calls.count()).toEqual(1);
     expect(window.setTimeout.calls.count()).toEqual(1);
     expect(window.print.calls.count()).toEqual(1);

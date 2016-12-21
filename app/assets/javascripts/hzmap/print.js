@@ -21,7 +21,7 @@ $(function() {
 
 // Handle the print event
 function catchPrintEvent(e, wait){
-  event.preventDefault();
+  e.preventDefault();
   wait = wait || 1000;
   beforePrint();
   window.setTimeout(function(){
