@@ -172,6 +172,13 @@ var NewOverlay = function(name){
   };
 };
 
+//helper for resetting the hzWMSoverlays during testing, removing spys
+function resetOverlays(){
+  Object.keys(hzWMSOverlays).map(function(layer){
+    hzWMSOverlays[layer].overlay = [];
+  });
+}
+
 //build a dummy sidebar and mapbody
 var mockPage = {
   build: function(){

@@ -10,6 +10,7 @@ describe ('Testing map operations', function() {
     spyOn(google.maps, 'Map').and.returnValue(map);
     spyOn(google.maps.event, 'addListener');
     spyOn(map, 'addListener');
+    resetOverlays();
   });
 
   afterEach(function(){
@@ -126,45 +127,44 @@ describe ('Testing map operations', function() {
 
   it("should update the map WMS layer, adding a new overlay where there was none before", function(){
     var layer = 'qct';
-
-    hzWMSOverlays[layer].overlay[0] = new NewOverlay();
-
-    spyOn(hzWMSOverlays[layer].overlay[0], 'setMap');
-    spyOn(hzWMSOverlays[layer].overlay[0], 'addListener');
+    var mockOverlay = new NewOverlay('new');
+    spyOn(mockOverlay, 'setMap');
+    spyOn(mockOverlay, 'addListener');
+    hzWMSOverlays[layer].overlay.push(mockOverlay);
 
     updateLayerWMSOverlay({
       layer: layer,
       mapScope: map
     });
 
-    expect(hzWMSOverlays[layer].overlay[0].setMap.calls.count()).toEqual(1);
-    expect(hzWMSOverlays[layer].overlay[0].addListener.calls.count()).toEqual(1);
+    expect(mockOverlay.setMap.calls.count()).toEqual(1);
+    expect(mockOverlay.addListener.calls.count()).toEqual(1);
   });
 
   it("should update the map WMS layer, replacing the old overlay with a new one", function(){
     var layer = 'qct';
-    hzWMSOverlays[layer].overlay[0] = new NewOverlay('old');
-    hzWMSOverlays[layer].overlay[1] = new NewOverlay('new');
+    
+    var mockOverlayOld = new NewOverlay('old');
+    var mockOverlayNew = new NewOverlay('new');
 
-    spyOn(hzWMSOverlays[layer].overlay[0], 'setMap');
-    spyOn(hzWMSOverlays[layer].overlay[1], 'setMap');
-    spyOn(hzWMSOverlays[layer].overlay[1], 'addListener');
+    spyOn(mockOverlayOld, 'setMap');
+    spyOn(mockOverlayNew, 'setMap');
+    spyOn(mockOverlayNew, 'addListener');
+    hzWMSOverlays[layer].overlay.push(mockOverlayOld);
+    hzWMSOverlays[layer].overlay.push(mockOverlayNew);
 
     updateLayerWMSOverlay({
       layer: layer,
       mapScope: map
     });
 
-    //here the indexing changes because updateLayerWMSOverlay removes the 0'th 'old' layer
-    //can be checked by console logging console.log(hzWMSOverlays[layer].overlay[0].name) before and after the function call
-    // console.log(hzWMSOverlays[layer].overlay[0].name);
-    expect(hzWMSOverlays[layer].overlay[0].setMap.calls.count()).toEqual(1);
-    expect(hzWMSOverlays[layer].overlay[0].addListener.calls.count()).toEqual(1);
+    expect(mockOverlayNew.setMap.calls.count()).toEqual(1);
+    expect(mockOverlayNew.addListener.calls.count()).toEqual(1);
   });
 
   it("should handle an empty WMS update call", function(){
     var layer = 'qct';
-    hzWMSOverlays[layer].overlay = [];
+    resetOverlays();
     var updateState = updateLayerWMSOverlay({
       layer: layer,
       mapScope: map
