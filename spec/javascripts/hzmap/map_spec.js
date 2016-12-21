@@ -1,215 +1,27 @@
 //= require hzmap
 //= require ../helpers/sinon-1.17.6
+//= require ../helpers/hz-jasmine
 /* jshint unused: false */
 /* jshint undef: false */
 
-var google = {
-  maps : {
-    Animation: {},
-    BicyclingLayer: function() {},
-    Circle: function () {},
-    ControlPosition: {
-      TOP_RIGHT: [],
-      LEFT_BOTTOM: []
-    },
-    Data: function() {},
-    DirectionsRenderer: function() {},
-    DirectionsService: function() {},
-    DirectionsStatus: {},
-    DirectionsTravelMode: {},
-    DirectionsUnitSystem: {},
-    DistanceMatrixElementStatus: {},
-    DistanceMatrixService: function() {},
-    DistanceMatrixStatus: {},
-    ElevationService: function() {},
-    ElevationStatus: {},
-    FusionTablesLayer: function() {},
-    Geocoder: function() {},
-    GeocoderLocationType: {},
-    GeocoderStatus: {},
-    GroundOverlay: function() {},
-    ImageMapType: function () {},
-    InfoWindow: function() {},
-    KmlLayer: function() {},
-    KmlLayerStatus: {},
-    LatLng: function() {},
-    LatLngBounds: function() {},
-    MVCArray: function() {},
-    MVCObject: function() {},
-    Map: function () {
-        return {
-            setTilt: function () { },
-            mapTypes: {
-                set: function () { }
-            },
-            overlayMapTypes: {
-                insertAt: function () { },
-                removeAt: function () { }
-            }
-        };
-    },
-    MapTypeControlStyle: {},
-    MapTypeId: {
-        HYBRID: '',
-        ROADMAP: '',
-        SATELLITE: '',
-        TERRAIN: ''
-    },
-    MapTypeRegistry: function() {},
-    Marker: function() {},
-    MarkerImage: function() {},
-    MaxZoomService: function () {
-        return {
-            getMaxZoomAtLatLng: function () { }
-        };
-    },
-    MaxZoomStatus: {},
-    NavigationControlStyle: {},
-    OverlayView: function () { },
-    Point: function() {},
-    Polygon: function() {},
-    Polyline: function() {},
-    Rectangle: function() {},
-    SaveWidget: function() {},
-    ScaleControlStyle: {},
-    Size: function() {},
-    StreetViewCoverageLayer: function() {},
-    StreetViewPanorama: function() {},
-    StreetViewService: function() {},
-    StreetViewStatus: {},
-    StrokePosition: {},
-    StyledMapType: function() {},
-    SymbolPath: {},
-    TrafficLayer: function() {},
-    TransitLayer: function() {},
-    TransitMode: {},
-    TransitRoutePreference: {},
-    TravelMode: {},
-    UnitSystem: {},
-    ZoomControlStyle: {},
-    __gjsload__: function () { },
-    event: {
-      addListener: function () {},
-      trigger: function() {}
-    },
-    places: {
-      Autocomplete: function () {
-        return {
-           getPlacePredictions: function () { }
-        };
-      }
-    }
-  }
-};
-
-var coordinates = {
-  north: 36.00264017338637,
-  east: -96.64306640625,
-  south: 34.99419475828389,
-  west: -98.35693359375
-};
-
-var Marker = {
-  setMap: function(map){
-    return map;
-  },
-  position: function() {}
-};
-
-var mapScope = {
-  fitBounds: function(){
-    return;
-  },
-  getCenter: function(){
-    return;
-  },
-  getBounds: function() {
-    return {
-      getNorthEast: function() {
-        return {
-          lat: function() {
-            return coordinates.north;
-          },
-          lng: function() {
-            return coordinates.east;
-          }
-        };
-      },
-      getSouthWest: function() {
-        return {
-          lat: function() {
-            return coordinates.south;
-          },
-          lng: function() {
-            return coordinates.west;
-          }
-        };
-      }
-    };
-  }
-};
-var mapBounds = mapScope.getBounds();
-
-var map = {
-  getBounds: function() {},
-  getCenter: function() {},
-  getZoom: function() {},
-  fitBounds: function() {},
-  setCenter: function() {},
-  setZoom: function() {},
-  addListener: function() {},
-  data: {
-    addListener: function() {}
-  },
-  mapTypes: {
-    set: function(){
-      return;
-    }
-  },
-  setMapTypeId: function(){
-    return;
-  },
-  controls: []
-};
-
-//////////////////
-// Marker Helpers
-/////////////////
-var Marker = {
-  setMap: function(map){
-    return map;
-  }
-};
-
-var mapMarkers = [ Marker ];
-
-var markerLocation = {
-  lat: 39.29024048029149,
-  lng: -76.60564721970849
-};
-/////////////////
-
-// helper for new ground overlays
-var newOverlay = function(name){
-  return {
-    setMap: function(){},
-    addListener: function(){},
-    name: name
-  };
-};
-
 describe ('Testing map operations', function() {
-  beforeEach(function() {
-    var constructorSpy = spyOn(google.maps, 'Map').and.returnValue(map);
-    var eventSpy = spyOn(google.maps.event, 'addListener');
-    var mapListenerSpy = spyOn(map, 'addListener');
+  beforeEach(function(){
+    map = new google.maps.Map();
+    spyOn(google.maps, 'Map').and.returnValue(map);
+    spyOn(google.maps.event, 'addListener');
+    spyOn(map, 'addListener');
+    resetOverlays();
+  });
+
+  afterEach(function(){
+    map = {};
   });
 
   it("should create a new Google map", function() {
-    var styledMapTypeSpy = spyOn(google.maps, 'StyledMapType');
-    var mapTypesSetSpy = spyOn(map.mapTypes, 'set');
-    var mapSetMapTypIdSpy = spyOn(map, 'setMapTypeId');
-    var autoComplete = spyOn(google.maps.places, 'Autocomplete');
+    spyOn(google.maps, 'StyledMapType');
+    spyOn(map.mapTypes, 'set');
+    spyOn(map, 'setMapTypeId');
+    spyOn(google.maps.places, 'Autocomplete');
 
     map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
     map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
@@ -225,18 +37,17 @@ describe ('Testing map operations', function() {
   });
 
   it("should get bbox", function() {
-    var mapScopeSpy = spyOn(mapScope, 'getBounds').and.returnValue(mapBounds);
-    var northEastSpy = spyOn(mapBounds, 'getNorthEast').and.callThrough();
-    var southWestSpy = spyOn(mapBounds, 'getSouthWest').and.callThrough();
-
-    expect(getBbox(mapScope)).toEqual("-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637");
-    expect(mapScope.getBounds.calls.count()).toEqual(1);
+    var mapBounds = map.getBounds();
+    spyOn(mapBounds, 'getNorthEast').and.callThrough();
+    spyOn(mapBounds, 'getSouthWest').and.callThrough();
+    
+    expect(getBbox(mapBounds)).toEqual("-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637");
     expect(mapBounds.getNorthEast.calls.count()).toEqual(2);
     expect(mapBounds.getSouthWest.calls.count()).toEqual(2);
   });
 
   it("should return correct imageBounds object", function(){
-    var createLatLngSpy = spyOn(window, 'createGoogleLatLngBounds');
+    spyOn(window, 'createGoogleLatLngBounds');
     var bboxStr = [coordinates.west, coordinates.south, coordinates.east, coordinates.north].join(',');
 
     var imageBounds = getImageBounds(bboxStr);
@@ -245,23 +56,24 @@ describe ('Testing map operations', function() {
   });
 
   it("should run google latlng methods", function(){
-    var latLngBoundsSpy = spyOn(google.maps, 'LatLngBounds');
-    var latLngSpy = spyOn(google.maps, 'LatLng');
+    spyOn(google.maps, 'LatLngBounds');
+    spyOn(google.maps, 'LatLng');
 
     createGoogleLatLngBounds(coordinates.west, coordinates.south, coordinates.east, coordinates.north);
     expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
     expect(google.maps.LatLng.calls.count()).toEqual(2);
   });
 
-  xit("should get the current table based on zoom level", function (){
-    expect(getTableBasedOnZoomLevel(13)).toEqual(geomWFSSettings.tableHighRes);
-    expect(getTableBasedOnZoomLevel(10)).toEqual(geomWFSSettings.tableLowRes);
-    expect(getTableBasedOnZoomLevel(6)).toEqual(geomWFSSettings.tableLowerRes);
-    expect(getTableBasedOnZoomLevel(5)).toEqual(geomWFSSettings.tableLowestRes);
-  });
+  // xit("should get the current table based on zoom level", function (){
+  //   expect(getTableBasedOnZoomLevel(13)).toEqual(geomWFSSettings.tableHighRes);
+  //   expect(getTableBasedOnZoomLevel(10)).toEqual(geomWFSSettings.tableLowRes);
+  //   expect(getTableBasedOnZoomLevel(6)).toEqual(geomWFSSettings.tableLowerRes);
+  //   expect(getTableBasedOnZoomLevel(5)).toEqual(geomWFSSettings.tableLowestRes);
+  // });
 
   it("should build the correct URL for data with expiration", function() {
-    var bbox = getBbox(mapScope);
+    var mapBounds = map.getBounds();
+    var bbox = getBbox(mapBounds);
     var layer = 'qct';
     var url = buildWMSUrl({
       layer: layer,
@@ -274,7 +86,8 @@ describe ('Testing map operations', function() {
   });
 
   it("should build the correct URL for data without expiration", function() {
-    var bbox = getBbox(mapScope);
+    var mapBounds = map.getBounds();
+    var bbox = getBbox(mapBounds);
     var layer = 'indian_lands';
     var url = buildWMSUrl({
       layer: layer,
@@ -287,14 +100,14 @@ describe ('Testing map operations', function() {
   });
 
   it("should call the wms map layer stack", function(){
-    var bboxSpy = spyOn(window, 'getBbox');
-    var imageBoundsSpy = spyOn(window, 'getImageBounds');
-    var buildWMSUrlSpy = spyOn(window, 'buildWMSUrl');
-    var groundOverlaySpy = spyOn(google.maps, 'GroundOverlay');
-    var updateLayerWMSSpy = spyOn(window, 'updateLayerWMSOverlay');
+    spyOn(window, 'getBbox');
+    spyOn(window, 'getImageBounds');
+    spyOn(window, 'buildWMSUrl');
+    spyOn(google.maps, 'GroundOverlay');
+    spyOn(window, 'updateLayerWMSOverlay');
 
     fetchNewWMS({
-      mapScope: mapScope,
+      mapScope: map,
       layer: 'qct'
     });
 
@@ -306,64 +119,63 @@ describe ('Testing map operations', function() {
   });
 
   it("should fetchNewWMS for as many layers as are defined", function(){
-    var newfetchSpy = spyOn(window, 'fetchNewWMS');
-    updateIdleMap(mapScope);
+    spyOn(window, 'fetchNewWMS');
+    updateIdleMap(map);
     var layerLength = Object.keys(hzWMSOverlays).length;
     expect(window.fetchNewWMS.calls.count()).toEqual(layerLength);
   });
 
   it("should update the map WMS layer, adding a new overlay where there was none before", function(){
     var layer = 'qct';
-
-    hzWMSOverlays[layer].overlay[0] = new newOverlay();
-
-    var newOverlaySetMapSpy = spyOn(hzWMSOverlays[layer].overlay[0], 'setMap');
-    var newOverlayListenterSpy = spyOn(hzWMSOverlays[layer].overlay[0], 'addListener');
+    var mockOverlay = new NewOverlay('new');
+    spyOn(mockOverlay, 'setMap');
+    spyOn(mockOverlay, 'addListener');
+    hzWMSOverlays[layer].overlay.push(mockOverlay);
 
     updateLayerWMSOverlay({
       layer: layer,
-      mapScope: mapScope
+      mapScope: map
     });
 
-    expect(hzWMSOverlays[layer].overlay[0].setMap.calls.count()).toEqual(1);
-    expect(hzWMSOverlays[layer].overlay[0].addListener.calls.count()).toEqual(1);
+    expect(mockOverlay.setMap.calls.count()).toEqual(1);
+    expect(mockOverlay.addListener.calls.count()).toEqual(1);
   });
 
   it("should update the map WMS layer, replacing the old overlay with a new one", function(){
     var layer = 'qct';
-    hzWMSOverlays[layer].overlay[0] = new newOverlay('old');
-    hzWMSOverlays[layer].overlay[1] = new newOverlay('new');
+    
+    var mockOverlayOld = new NewOverlay('old');
+    var mockOverlayNew = new NewOverlay('new');
 
-    var oldOverlaySetMapSpy = spyOn(hzWMSOverlays[layer].overlay[0], 'setMap');
-    var newOverlaySetMapSpy = spyOn(hzWMSOverlays[layer].overlay[1], 'setMap');
-    var newOverlayListenterSpy = spyOn(hzWMSOverlays[layer].overlay[1], 'addListener');
+    spyOn(mockOverlayOld, 'setMap');
+    spyOn(mockOverlayNew, 'setMap');
+    spyOn(mockOverlayNew, 'addListener');
+    hzWMSOverlays[layer].overlay.push(mockOverlayOld);
+    hzWMSOverlays[layer].overlay.push(mockOverlayNew);
 
     updateLayerWMSOverlay({
       layer: layer,
-      mapScope: mapScope
+      mapScope: map
     });
 
-    //here the indexing changes because updateLayerWMSOverlay removes the 0'th 'old' layer
-    //can be checked by console logging console.log(hzWMSOverlays[layer].overlay[0].name) before and after the function call
-    // console.log(hzWMSOverlays[layer].overlay[0].name);
-    expect(hzWMSOverlays[layer].overlay[0].setMap.calls.count()).toEqual(1);
-    expect(hzWMSOverlays[layer].overlay[0].addListener.calls.count()).toEqual(1);
+    expect(mockOverlayNew.setMap.calls.count()).toEqual(1);
+    expect(mockOverlayNew.addListener.calls.count()).toEqual(1);
   });
 
   it("should handle an empty WMS update call", function(){
     var layer = 'qct';
-    hzWMSOverlays[layer].overlay = [];
+    resetOverlays();
     var updateState = updateLayerWMSOverlay({
       layer: layer,
-      mapScope: mapScope
+      mapScope: map
     });
     expect(updateState).toBe(null);
   });
 
   it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){
-    var latLngBoundsSpy = spyOn(google.maps, 'LatLngBounds');
-    var latLngSpy = spyOn(google.maps, 'LatLng');
-    var fitBoundsSpy = spyOn(map, 'fitBounds');
+    spyOn(google.maps, 'LatLngBounds');
+    spyOn(google.maps, 'LatLng');
+    spyOn(map, 'fitBounds');
 
     var geocodeLocation = {
       location: markerLocation,
@@ -386,7 +198,7 @@ describe ('Testing map operations', function() {
   });
 
   it("should pass over a geocodeLocation that does not contain a viewport, doing nothing", function(){
-    var fitBoundsSpy = spyOn(map, 'fitBounds');
+    spyOn(map, 'fitBounds');
 
     var geocodeLocationNoViewport = {
       location: markerLocation
@@ -397,20 +209,22 @@ describe ('Testing map operations', function() {
   });
 
   it("should add a marker object", function(){
+    var stubMapMarker = new MapMarker();
+    mapMarkers = [stubMapMarker];
     //this code touches all 3 marker functions (updateMarkers, setMapOnAll, clearMarkers)
-    var markerSpy = spyOn(google.maps, 'Marker');
-    spyOn(Marker, 'setMap');
+    spyOn(google.maps, 'Marker');
+    spyOn(stubMapMarker, 'setMap');
 
     updateMarkers(markerLocation);
     expect(google.maps.Marker.calls.count()).toEqual(1);
-    expect(Marker.setMap.calls.count()).toEqual(1);
-    expect(mapMarkers[0]).not.toEqual(Marker);  //because the test replaces it with a new spy from google.maps.Marker
+    expect(stubMapMarker.setMap.calls.count()).toEqual(1);
+    expect(mapMarkers[0]).not.toEqual(stubMapMarker);  //because the test replaces it with a new spy from google.maps.Marker
   });
 
   it("should empty the marker object", function(){
-    mapMarkers = [Marker];
-    var markerSpy = spyOn(google.maps, 'Marker');
-    spyOn(Marker, 'setMap');
+    var stubMapMarker = new MapMarker();
+    mapMarkers = [stubMapMarker];
+    spyOn(google.maps, 'Marker');
 
     updateMarkers();
     expect(mapMarkers.length).toEqual(0);

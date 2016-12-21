@@ -1,53 +1,14 @@
 //= require hzmap
 //= require ../helpers/sinon-1.17.6
+//= require ../helpers/hz-jasmine
 /* jshint unused: false */
 /* jshint undef: false */
 
-//define map if it hasn't been already (e.g., if map_spec wasn't run)
-if (Object.keys(map).length === 0 ){
-  map = {
-    getBounds: function() {},
-    getCenter: function() {},
-    getZoom: function() {},
-    fitBounds: function() {},
-    setCenter: function() {},
-    setZoom: function() {},
-    addListener: function() {},
-    data: {
-      addListener: function() {}
-    },
-    mapTypes: {
-      set: function(){
-        return;
-      }
-    },
-    setMapTypeId: function(){
-      return;
-    },
-    controls: []
-  };
-} 
-if (google === null || google === undefined){
-  var google = {
-    maps: {
-      event: {
-        trigger: function () {}
-      }
-    }
-  };
-}
-
-if (Object.keys(Marker).length === 0){
-  Marker = {
-    setMap: function(map){
-      return map;
-    },
-    position: function() {}
-  };
-}
 
 describe ('Testing print operations', function() {
   beforeEach(function(done) {
+    map = new google.maps.Map();
+    var sidebar = mockPage.build();
     //set spies
     spyOn(map, 'getBounds');
     spyOn(map, 'getCenter');
@@ -57,42 +18,15 @@ describe ('Testing print operations', function() {
     spyOn(map, 'setZoom');
     spyOn(google.maps.event, 'trigger');
 
-    //build a dummy sidebar and mapbody
-    var mapBodyDiv = document.createElement('div');
-    $(mapBodyDiv).addClass('map-body');
-    $('body').append(mapBodyDiv);
-
-    $('body').append('<div id="sidebar" class="hidden"></div>');
-    var dummySidebar = document.createElement('div');
-    $('#sidebar').append(dummySidebar);
-    $('#sidebar').css('display', 'none');
-    var accordion = '<li>' + 
-      '<button id="test_button" class="usa-accordion-button" aria-expanded="false" aria-controls="indian_lands">' + 
-        'Indian Lands' + 
-      '</button>' +
-      '<div id="indian_lands" class="usa-accordion-content" aria-hidden="true">' +
-        '<p>' +
-        '</p><table class="usa-table-borderless hubzone-qualification-details">' +
-        '<tbody>' +
-          '<tr>' +
-            '<th scope="row">Expires</th>' +
-            '<td></td>' +
-          '</tr>' +
-          '</tbody>' +
-        '</table' +
-        '<p></p>' +
-      '</div>' + 
-    '</li>';
-    $(dummySidebar).append(accordion);
-    updateAccordions();
     setTimeout(function() {
       done();
     }, 1);
   });
 
   afterEach(function(done){
-    $('.map-body').remove();
-    $('#sidebar').remove();
+    map = {};
+    mapMarkers = [];
+    mockPage.destroy();
     setTimeout(function() {
       done();
     }, 1);
@@ -100,6 +34,7 @@ describe ('Testing print operations', function() {
 
   //google and map objects are inherited from map_spec.js
   it ("should update the map div before print with no marker present", function(){
+    // fails at http://localhost:3000/specs?random=true&seed=64916
     mapMarkers = [];
     beforePrint();
 
@@ -117,7 +52,8 @@ describe ('Testing print operations', function() {
   });
   
   it ("should update the map div before print with a marker present", function(){
-    mapMarkers = [Marker];
+    var stubMapMarker = new MapMarker();
+    mapMarkers = [stubMapMarker];    
     beforePrint();
     var mapBodyDivClasses = $('.map-body').attr('class');
 

@@ -41,12 +41,12 @@ function initMap() {
 }
 
 function updateIdleMap(){
-  var mapScope = this;
+  var map = this;
   //for each layer defined in the hzWMSOverlays object call the fetchNewWMS function
   // update the WMS call for that layer
   Object.keys(hzWMSOverlays).map(function(layer){
     fetchNewWMS({
-      mapScope: mapScope,
+      mapScope: map,
       layer: layer
     });
   });
@@ -54,7 +54,7 @@ function updateIdleMap(){
 
 function fetchNewWMS(options){
   //get the map extents and build URL
-  var bbox = getBbox(options.mapScope);
+  var bbox = getBbox(options.mapScope.getBounds());
   var imageBounds = getImageBounds(bbox);
   var layer = options.layer;
 
@@ -76,9 +76,8 @@ function fetchNewWMS(options){
   });
 }
 
-function getBbox(mapScope) {
+function getBbox(mapBounds) {
   //get the bounding box of the current map and parse as a string
-  var mapBounds = mapScope.getBounds();
   var NELat = mapBounds.getNorthEast().lat();
   var NELng = mapBounds.getNorthEast().lng();
   var SWLat = mapBounds.getSouthWest().lat();

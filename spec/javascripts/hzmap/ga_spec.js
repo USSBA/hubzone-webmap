@@ -4,8 +4,9 @@
 /* jshint undef: false */
 
 describe ('Testing Google Analytics integration', function() {
+
   beforeEach(function(done) {
-    // window = window || {}; //what was this for?  JS Hint doesn't like it
+  window = window || {}; //what was this for?  JS Hint doesn't like it
     window.ga = window.ga || function(a,b,c,d){};
     spyOn(window, 'ga');
     done();
@@ -22,43 +23,22 @@ describe ('Testing Google Analytics integration', function() {
 
   describe ('with the Sidebar', function() {
     beforeEach(function(done) {
-      $('body').append('<div id="sidebar" class="hidden"></div>');
-      sidebar = $('#sidebar').sidebar();
-      var testDiv = document.createElement('div');
-      $('#sidebar').append(testDiv);
-      $('#sidebar').css('display', 'none');
-      var accordion = '<li>' + 
-        '<button id="test_button" class="usa-accordion-button" aria-expanded="false" aria-controls="indian_lands">' + 
-          'Indian Lands' + 
-        '</button>' +
-        '<div id="indian_lands" class="usa-accordion-content" aria-hidden="true">' +
-          '<p>' +
-          '</p><table class="usa-table-borderless hubzone-qualification-details">' +
-          '<tbody>' +
-            '<tr>' +
-              '<th scope="row">Expires</th>' +
-              '<td></td>' +
-            '</tr>' +
-            '</tbody>' +
-          '</table' +
-          '<p></p>' +
-        '</div>' + 
-      '</li>';
-      $(testDiv).append(accordion);
-      updateAccordions();
+      var sidebar = mockPage.build();
       setTimeout(function() {
         done();
       }, 1);
     });
+
     afterEach(function(done) {
-      $('#sidebar').remove();
+      mockPage.destroy();
       setTimeout(function() {
         done();
       }, 1);
     });
-
-
+    
     it('should send an event when a user toggles the sidebar', function() {
+      //fails sporadically http://localhost:3000/specs?random=true&seed=51235
+
       // open the sidebar...
       triggerSidebar();
       expect(sidebar.currentClass).toEqual('on');
@@ -70,7 +50,7 @@ describe ('Testing Google Analytics integration', function() {
     });
 
     it('should send an event when a qualification is toggled', function() {
-
+      //fails sporadically where ga.call.count = 2 and not 1
       $('button.usa-accordion-button').trigger('click');
 
       expect(window.ga.calls.count()).toEqual(1);
