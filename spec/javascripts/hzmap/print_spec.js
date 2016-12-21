@@ -8,7 +8,7 @@
 describe ('Testing print operations', function() {
   beforeEach(function(done) {
     map = new google.maps.Map();
-
+    var sidebar = mockPage.build();
     //set spies
     spyOn(map, 'getBounds');
     spyOn(map, 'getCenter');
@@ -18,36 +18,6 @@ describe ('Testing print operations', function() {
     spyOn(map, 'setZoom');
     spyOn(google.maps.event, 'trigger');
 
-    //build a dummy sidebar and mapbody
-    var mapBodyDiv = document.createElement('div');
-    $(mapBodyDiv).addClass('map-body');
-    $('body').append(mapBodyDiv);
-
-
-    $('body').append('<div id="sidebar" class="hidden"></div>');
-    sidebar = $('#sidebar').sidebar();
-    var testDiv = document.createElement('div');
-    $('#sidebar').append(testDiv);
-    $('#sidebar').css('display', 'none');
-    var accordion = '<li>' + 
-      '<button id="test_button" class="usa-accordion-button" aria-expanded="false" aria-controls="indian_lands">' + 
-        'Indian Lands' + 
-      '</button>' +
-      '<div id="indian_lands" class="usa-accordion-content" aria-hidden="true">' +
-        '<p>' +
-        '</p><table class="usa-table-borderless hubzone-qualification-details">' +
-        '<tbody>' +
-          '<tr>' +
-            '<th scope="row">Expires</th>' +
-            '<td></td>' +
-          '</tr>' +
-          '</tbody>' +
-        '</table' +
-        '<p></p>' +
-      '</div>' + 
-    '</li>';
-    $(testDiv).append(accordion);
-    updateAccordions();
     setTimeout(function() {
       done();
     }, 1);
@@ -56,8 +26,7 @@ describe ('Testing print operations', function() {
   afterEach(function(done){
     map = {};
     mapMarkers = [];
-    $('.map-body').remove();
-    $('#sidebar').remove();
+    mockPage.destroy();
     setTimeout(function() {
       done();
     }, 1);
