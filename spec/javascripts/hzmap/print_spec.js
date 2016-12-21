@@ -1,53 +1,14 @@
 //= require hzmap
 //= require ../helpers/sinon-1.17.6
+//= require ../helpers/hz-jasmine
 /* jshint unused: false */
 /* jshint undef: false */
 
 
 describe ('Testing print operations', function() {
   beforeEach(function(done) {
-    //define map if it hasn't been already (e.g., if map_spec wasn't run)
-    if (Object.keys(map).length === 0 ){
-      map = {
-        getBounds: function() {},
-        getCenter: function() {},
-        getZoom: function() {},
-        fitBounds: function() {},
-        setCenter: function() {},
-        setZoom: function() {},
-        addListener: function() {},
-        data: {
-          addListener: function() {}
-        },
-        mapTypes: {
-          set: function(){
-            return;
-          }
-        },
-        setMapTypeId: function(){
-          return;
-        },
-        controls: []
-      };
-    } 
-    if (google === null || google === undefined){
-      var google = {
-        maps: {
-          event: {
-            trigger: function () {}
-          }
-        }
-      };
-    }
+    map = new google.maps.Map();
 
-    if (Object.keys(Marker).length === 0){
-      Marker = {
-        setMap: function(map){
-          return map;
-        },
-        position: function() {}
-      };
-    }
     //set spies
     spyOn(map, 'getBounds');
     spyOn(map, 'getCenter');
@@ -94,8 +55,7 @@ describe ('Testing print operations', function() {
 
   afterEach(function(done){
     map = {};
-    Marker = {};
-    google = {};
+    mapMarkers = [];
     $('.map-body').remove();
     $('#sidebar').remove();
     setTimeout(function() {
@@ -122,7 +82,8 @@ describe ('Testing print operations', function() {
   });
   
   it ("should update the map div before print with a marker present", function(){
-    mapMarkers = [Marker];
+    var stubMapMarker = new MapMarker();
+    mapMarkers = [stubMapMarker];    
     beforePrint();
     var mapBodyDivClasses = $('.map-body').attr('class');
 

@@ -1,5 +1,6 @@
 //= require hzmap
 //= require ../helpers/sinon-1.17.6
+//= require ../helpers/hz-jasmine
 /* jshint unused: false */
 /* jshint undef: false */
 
