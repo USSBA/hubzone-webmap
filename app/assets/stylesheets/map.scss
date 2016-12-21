@@ -136,6 +136,15 @@ ul.hubzone-filter-menu label {
   margin-top: 1.5rem;
   color: #0071bb;
 }
+li.hubzone-map-print {
+  float: right;
+  cursor: pointer;
+}
+li.hubzone-map-print a {
+  color: #fff;
+  padding-right: 0;
+}
+
 
 /* Map Legend */
 #legend {
@@ -275,6 +284,7 @@ ul.hubzone-filter-menu label {
   width: 100%;
   height: calc(100% - 151px);
 }
+
 #map {
   height: 100%;
   width: 100%;
@@ -355,4 +365,42 @@ ul.hubzone-filter-menu label {
   .map-body {
     height: calc(100% - 127px);
   }
+}
+
+@media print {
+  .usa-banner {
+    display: none;
+  }
+  .usa-nav-primary > li {
+    border: 0;
+  }
+  .usa-nav-primary > li:first-child {
+    height: auto;
+  }
+  section.map-header {
+    margin: 0;
+    padding: 0;
+    width: 500px;
+    left: 0;
+  }
+  .usa-grid {
+    padding: 1em 0 1em 0;
+    margin: 0;
+  }
+  .usa-menu-btn {
+    display: none;
+  }
+  .pac-container {
+    display: none;
+  }
+  #map-print {
+    display: none;
+  }
+  #sidebar-button {
+    display: none;
+  }
+}
+.map-body.printable-map {
+  width: 450px;
+  height: 450px;
 }

@@ -4,14 +4,37 @@
 /* jshint undef: false */
 
 describe ('Testing sidebar operations', function() {
-  beforeAll(function(done) {
-    $('#sidebar').remove();
+  beforeEach(function(done) {
     $('body').append('<div id="sidebar" class="hidden"></div>');
     sidebar = $('#sidebar').sidebar();
-    done();
+    var testDiv = document.createElement('div');
+    $('#sidebar').append(testDiv);
+    $('#sidebar').css('display', 'none');
+    var accordion = '<li>' + 
+      '<button id="test_button" class="usa-accordion-button" aria-expanded="false" aria-controls="indian_lands">' + 
+        'Indian Lands' + 
+      '</button>' +
+      '<div id="indian_lands" class="usa-accordion-content" aria-hidden="true">' +
+        '<p>' +
+        '</p><table class="usa-table-borderless hubzone-qualification-details">' +
+        '<tbody>' +
+          '<tr>' +
+            '<th scope="row">Expires</th>' +
+            '<td></td>' +
+          '</tr>' +
+          '</tbody>' +
+        '</table' +
+        '<p></p>' +
+      '</div>' + 
+    '</li>';
+    $(testDiv).append(accordion);
+    updateAccordions();
+    setTimeout(function() {
+      done();
+    }, 1);
   });
-
-  beforeEach(function(done) {
+  afterEach(function(done) {
+    $('#sidebar').remove();
     setTimeout(function() {
       done();
     }, 1);
@@ -45,28 +68,6 @@ describe ('Testing sidebar operations', function() {
   });
 
   it ("should call the the triggerAction function", function(){
-    var testDiv = document.createElement('div');
-    $('#sidebar').append(testDiv);
-    $('#sidebar').css('display', 'none');
-    var accordion = '<li>' + 
-      '<button id="test_button" class="usa-accordion-button" aria-expanded="false" aria-controls="indian_lands">' + 
-        'Indian Lands' + 
-      '</button>' +
-      '<div id="indian_lands" class="usa-accordion-content" aria-hidden="true">' +
-        '<p>' +
-        '</p><table class="usa-table-borderless hubzone-qualification-details">' +
-        '<tbody>' +
-          '<tr>' +
-            '<th scope="row">Expires</th>' +
-            '<td></td>' +
-          '</tr>' +
-          '</tbody>' +
-        '</table' +
-        '<p></p>' +
-      '</div>' + 
-    '</li>';
-    $(testDiv).append(accordion);
-    updateAccordions();
     $('button.usa-accordion-button').trigger('click');
     expect($('#test_button').attr('aria-expanded')).toEqual("true");
     expect($('#indian_lands').attr('aria-hidden')).toEqual("false");

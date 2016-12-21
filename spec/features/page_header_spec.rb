@@ -25,4 +25,7 @@ describe "the header", type: :feature do
   it "should have Help link" do
     expect(page).to have_content 'Help'
   end
+  it "should have Print icon" do
+    expect(page).to have_css('.hubzone-map-print')
+  end
 end
