@@ -164,7 +164,7 @@ var markerLocation = {
 /////////////////
 
 // helper for new ground overlays
-var newOverlay = function(name){
+var NewOverlay = function(name){
   return {
     setMap: function(){},
     addListener: function(){},

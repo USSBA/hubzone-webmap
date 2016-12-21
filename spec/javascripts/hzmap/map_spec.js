@@ -127,7 +127,7 @@ describe ('Testing map operations', function() {
   it("should update the map WMS layer, adding a new overlay where there was none before", function(){
     var layer = 'qct';
 
-    hzWMSOverlays[layer].overlay[0] = new newOverlay();
+    hzWMSOverlays[layer].overlay[0] = new NewOverlay();
 
     spyOn(hzWMSOverlays[layer].overlay[0], 'setMap');
     spyOn(hzWMSOverlays[layer].overlay[0], 'addListener');
@@ -143,8 +143,8 @@ describe ('Testing map operations', function() {
 
   it("should update the map WMS layer, replacing the old overlay with a new one", function(){
     var layer = 'qct';
-    hzWMSOverlays[layer].overlay[0] = new newOverlay('old');
-    hzWMSOverlays[layer].overlay[1] = new newOverlay('new');
+    hzWMSOverlays[layer].overlay[0] = new NewOverlay('old');
+    hzWMSOverlays[layer].overlay[1] = new NewOverlay('new');
 
     spyOn(hzWMSOverlays[layer].overlay[0], 'setMap');
     spyOn(hzWMSOverlays[layer].overlay[1], 'setMap');
