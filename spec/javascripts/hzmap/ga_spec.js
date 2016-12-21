@@ -5,9 +5,11 @@
 
 describe ('Testing Google Analytics integration', function() {
   beforeEach(function(done) {
-//   window = window || {}; //what was this for?  JS Hint doesn't like it
+  window = window || {}; //what was this for?  JS Hint doesn't like it
     window.ga = window.ga || function(a,b,c,d){};
+    console.log(window.ga);
     spyOn(window, 'ga');
+    console.log(window.ga.calls.count());
     done();
   });
 
@@ -36,7 +38,10 @@ describe ('Testing Google Analytics integration', function() {
     });
     
     it('should send an event when a user toggles the sidebar', function() {
+      //fails sporadically http://localhost:3000/specs?random=true&seed=51235
+
       // open the sidebar...
+      console.log(sidebar.currentClass);
       triggerSidebar();
       expect(sidebar.currentClass).toEqual('on');
       expect(window.ga.calls.count()).toEqual(1);
@@ -47,7 +52,7 @@ describe ('Testing Google Analytics integration', function() {
     });
 
     it('should send an event when a qualification is toggled', function() {
-
+      //fails sporadically where ga.call.count = 2 and not 1
       $('button.usa-accordion-button').trigger('click');
 
       expect(window.ga.calls.count()).toEqual(1);

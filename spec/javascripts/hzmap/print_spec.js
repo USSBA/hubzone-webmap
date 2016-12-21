@@ -34,6 +34,7 @@ describe ('Testing print operations', function() {
 
   //google and map objects are inherited from map_spec.js
   it ("should update the map div before print with no marker present", function(){
+    // fails at http://localhost:3000/specs?random=true&seed=64916
     mapMarkers = [];
     beforePrint();
 
