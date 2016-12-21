@@ -6,6 +6,7 @@
 
 
 describe ('Testing print operations', function() {
+  console.log('run print specs');
   beforeEach(function(done) {
     map = new google.maps.Map();
     var sidebar = mockPage.build();

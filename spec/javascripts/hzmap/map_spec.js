@@ -5,6 +5,7 @@
 /* jshint undef: false */
 
 describe ('Testing map operations', function() {
+  console.log('running map specs');
   beforeEach(function(){
     map = new google.maps.Map();
     spyOn(google.maps, 'Map').and.returnValue(map);
