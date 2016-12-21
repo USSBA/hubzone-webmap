@@ -64,12 +64,12 @@ describe ('Testing map operations', function() {
     expect(google.maps.LatLng.calls.count()).toEqual(2);
   });
 
-  xit("should get the current table based on zoom level", function (){
-    expect(getTableBasedOnZoomLevel(13)).toEqual(geomWFSSettings.tableHighRes);
-    expect(getTableBasedOnZoomLevel(10)).toEqual(geomWFSSettings.tableLowRes);
-    expect(getTableBasedOnZoomLevel(6)).toEqual(geomWFSSettings.tableLowerRes);
-    expect(getTableBasedOnZoomLevel(5)).toEqual(geomWFSSettings.tableLowestRes);
-  });
+  // xit("should get the current table based on zoom level", function (){
+  //   expect(getTableBasedOnZoomLevel(13)).toEqual(geomWFSSettings.tableHighRes);
+  //   expect(getTableBasedOnZoomLevel(10)).toEqual(geomWFSSettings.tableLowRes);
+  //   expect(getTableBasedOnZoomLevel(6)).toEqual(geomWFSSettings.tableLowerRes);
+  //   expect(getTableBasedOnZoomLevel(5)).toEqual(geomWFSSettings.tableLowestRes);
+  // });
 
   it("should build the correct URL for data with expiration", function() {
     var mapBounds = map.getBounds();
