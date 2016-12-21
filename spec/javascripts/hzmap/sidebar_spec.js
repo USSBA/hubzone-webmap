@@ -5,7 +5,6 @@
 /* jshint undef: false */
 
 describe ('Testing sidebar operations', function() {
-  console.log('run sidebar specs');
   beforeEach(function(done) {
     var sidebar = mockPage.build();
     setTimeout(function() {

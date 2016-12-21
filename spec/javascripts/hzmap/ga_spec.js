@@ -8,14 +8,11 @@ describe ('Testing Google Analytics integration', function() {
   beforeEach(function(done) {
   window = window || {}; //what was this for?  JS Hint doesn't like it
     window.ga = window.ga || function(a,b,c,d){};
-    console.log(window.ga);
     spyOn(window, 'ga');
-    console.log(window.ga.calls.count());
     done();
   });
 
   describe ('with clicking locations on the map', function() {
-    console.log('running GA map click spec');
     it('should send an event when a user clicks on the map', function() {
       clickEvent = { 'latLng': { 'lat': function() { return 39.28885; },
                             'lng': function() { return -76.6070; } } };
@@ -25,7 +22,6 @@ describe ('Testing Google Analytics integration', function() {
   });
 
   describe ('with the Sidebar', function() {
-    console.log('running the GA sidbar spec');
     beforeEach(function(done) {
       var sidebar = mockPage.build();
       setTimeout(function() {
@@ -44,7 +40,6 @@ describe ('Testing Google Analytics integration', function() {
       //fails sporadically http://localhost:3000/specs?random=true&seed=51235
 
       // open the sidebar...
-      console.log(sidebar.currentClass);
       triggerSidebar();
       expect(sidebar.currentClass).toEqual('on');
       expect(window.ga.calls.count()).toEqual(1);
