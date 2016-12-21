@@ -5,7 +5,7 @@
 
 describe ('Testing Google Analytics integration', function() {
   beforeEach(function(done) {
-    // window = window || {}; //what was this for?  JS Hint doesn't like it
+//   window = window || {}; //what was this for?  JS Hint doesn't like it
     window.ga = window.ga || function(a,b,c,d){};
     spyOn(window, 'ga');
     done();

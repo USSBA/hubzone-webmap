@@ -148,23 +148,16 @@ var coordinates = {
   west: -98.35693359375
 };
 
-var Marker = {
-  setMap: function(map){
-    return map;
-  },
-  position: function() {}
-};
-
-//////////////////
-// Marker Helpers
-/////////////////
-var Marker = {
-  setMap: function(map){
-    return map;
+var MapMarker = function(){
+  return {
+    setMap: function(map){
+      return map;
+    },
+    position: function() {}
   }
 };
 
-var mapMarkers = [ Marker ];
+// var mapMarkers = [ new MapMarker() ];
 
 var markerLocation = {
   lat: 39.29024048029149,
@@ -224,7 +217,7 @@ describe ('Testing map operations', function() {
   });
 
   it("should return correct imageBounds object", function(){
-    var createLatLngSpy = spyOn(window, 'createGoogleLatLngBounds');
+    spyOn(window, 'createGoogleLatLngBounds');
     var bboxStr = [coordinates.west, coordinates.south, coordinates.east, coordinates.north].join(',');
 
     var imageBounds = getImageBounds(bboxStr);
@@ -233,8 +226,8 @@ describe ('Testing map operations', function() {
   });
 
   it("should run google latlng methods", function(){
-    var latLngBoundsSpy = spyOn(google.maps, 'LatLngBounds');
-    var latLngSpy = spyOn(google.maps, 'LatLng');
+    spyOn(google.maps, 'LatLngBounds');
+    spyOn(google.maps, 'LatLng');
 
     createGoogleLatLngBounds(coordinates.west, coordinates.south, coordinates.east, coordinates.north);
     expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
@@ -277,14 +270,14 @@ describe ('Testing map operations', function() {
   });
 
   it("should call the wms map layer stack", function(){
-    var bboxSpy = spyOn(window, 'getBbox');
-    var imageBoundsSpy = spyOn(window, 'getImageBounds');
-    var buildWMSUrlSpy = spyOn(window, 'buildWMSUrl');
-    var groundOverlaySpy = spyOn(google.maps, 'GroundOverlay');
-    var updateLayerWMSSpy = spyOn(window, 'updateLayerWMSOverlay');
+    spyOn(window, 'getBbox');
+    spyOn(window, 'getImageBounds');
+    spyOn(window, 'buildWMSUrl');
+    spyOn(google.maps, 'GroundOverlay');
+    spyOn(window, 'updateLayerWMSOverlay');
 
     fetchNewWMS({
-      mapScope: mapScope,
+      mapScope: map,
       layer: 'qct'
     });
 
@@ -296,8 +289,8 @@ describe ('Testing map operations', function() {
   });
 
   it("should fetchNewWMS for as many layers as are defined", function(){
-    var newfetchSpy = spyOn(window, 'fetchNewWMS');
-    updateIdleMap(mapScope);
+    spyOn(window, 'fetchNewWMS');
+    updateIdleMap(map);
     var layerLength = Object.keys(hzWMSOverlays).length;
     expect(window.fetchNewWMS.calls.count()).toEqual(layerLength);
   });
@@ -307,12 +300,12 @@ describe ('Testing map operations', function() {
 
     hzWMSOverlays[layer].overlay[0] = new newOverlay();
 
-    var newOverlaySetMapSpy = spyOn(hzWMSOverlays[layer].overlay[0], 'setMap');
-    var newOverlayListenterSpy = spyOn(hzWMSOverlays[layer].overlay[0], 'addListener');
+    spyOn(hzWMSOverlays[layer].overlay[0], 'setMap');
+    spyOn(hzWMSOverlays[layer].overlay[0], 'addListener');
 
     updateLayerWMSOverlay({
       layer: layer,
-      mapScope: mapScope
+      mapScope: map
     });
 
     expect(hzWMSOverlays[layer].overlay[0].setMap.calls.count()).toEqual(1);
@@ -324,13 +317,13 @@ describe ('Testing map operations', function() {
     hzWMSOverlays[layer].overlay[0] = new newOverlay('old');
     hzWMSOverlays[layer].overlay[1] = new newOverlay('new');
 
-    var oldOverlaySetMapSpy = spyOn(hzWMSOverlays[layer].overlay[0], 'setMap');
-    var newOverlaySetMapSpy = spyOn(hzWMSOverlays[layer].overlay[1], 'setMap');
-    var newOverlayListenterSpy = spyOn(hzWMSOverlays[layer].overlay[1], 'addListener');
+    spyOn(hzWMSOverlays[layer].overlay[0], 'setMap');
+    spyOn(hzWMSOverlays[layer].overlay[1], 'setMap');
+    spyOn(hzWMSOverlays[layer].overlay[1], 'addListener');
 
     updateLayerWMSOverlay({
       layer: layer,
-      mapScope: mapScope
+      mapScope: map
     });
 
     //here the indexing changes because updateLayerWMSOverlay removes the 0'th 'old' layer
@@ -345,15 +338,15 @@ describe ('Testing map operations', function() {
     hzWMSOverlays[layer].overlay = [];
     var updateState = updateLayerWMSOverlay({
       layer: layer,
-      mapScope: mapScope
+      mapScope: map
     });
     expect(updateState).toBe(null);
   });
 
   it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){
-    var latLngBoundsSpy = spyOn(google.maps, 'LatLngBounds');
-    var latLngSpy = spyOn(google.maps, 'LatLng');
-    var fitBoundsSpy = spyOn(mapScope, 'fitBounds');
+    spyOn(google.maps, 'LatLngBounds');
+    spyOn(google.maps, 'LatLng');
+    spyOn(map, 'fitBounds');
 
     var geocodeLocation = {
       location: markerLocation,
@@ -372,35 +365,37 @@ describe ('Testing map operations', function() {
     jumpToLocation(geocodeLocation);
     expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
     expect(google.maps.LatLng.calls.count()).toEqual(2);
-    expect(mapScope.fitBounds.calls.count()).toEqual(1);
+    expect(map.fitBounds.calls.count()).toEqual(1);
   });
 
   it("should pass over a geocodeLocation that does not contain a viewport, doing nothing", function(){
-    var fitBoundsSpy = spyOn(map, 'fitBounds');
+    spyOn(map, 'fitBounds');
 
     var geocodeLocationNoViewport = {
       location: markerLocation
     };
 
     jumpToLocation(geocodeLocationNoViewport);
-    expect(mapScope.fitBounds.calls.count()).toEqual(0);
+    expect(map.fitBounds.calls.count()).toEqual(0);
   });
 
   it("should add a marker object", function(){
+    var stubMapMarker = new MapMarker();
+    mapMarkers = [stubMapMarker];
     //this code touches all 3 marker functions (updateMarkers, setMapOnAll, clearMarkers)
-    var markerSpy = spyOn(google.maps, 'Marker');
-    spyOn(Marker, 'setMap');
+    spyOn(google.maps, 'Marker');
+    spyOn(stubMapMarker, 'setMap');
 
     updateMarkers(markerLocation);
     expect(google.maps.Marker.calls.count()).toEqual(1);
-    expect(Marker.setMap.calls.count()).toEqual(1);
-    expect(mapMarkers[0]).not.toEqual(Marker);  //because the test replaces it with a new spy from google.maps.Marker
+    expect(stubMapMarker.setMap.calls.count()).toEqual(1);
+    expect(mapMarkers[0]).not.toEqual(stubMapMarker);  //because the test replaces it with a new spy from google.maps.Marker
   });
 
   it("should empty the marker object", function(){
-    mapMarkers = [Marker];
-    var markerSpy = spyOn(google.maps, 'Marker');
-    spyOn(Marker, 'setMap');
+    var stubMapMarker = new MapMarker();
+    mapMarkers = [stubMapMarker];
+    spyOn(google.maps, 'Marker');
 
     updateMarkers();
     expect(mapMarkers.length).toEqual(0);
