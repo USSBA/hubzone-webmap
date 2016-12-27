@@ -12,14 +12,17 @@
     if body['formatted_address'].nil?
       sidebar_display = 'hidden'
       hubzone_status_indicator = 'fa fa-times-circle-o'
+      hubzone_status_style = 'qualified-hubzone'
     elsif body['hubzone'].size > 0
       sidebar_display = 'sidebar-qualifications'
-      hubzone_status_indicator = 'fa fa-check-circle-o'
+      hubzone_status_indicator = 'fa fa-check-circle-o qualified-hubzone'
+      hubzone_status_style = 'qualified-hubzone'
       hubzone_status = t('hubzone_assertions.qualified')
       hubzones = body["hubzone"]
     else
       sidebar_display = 'sidebar-qualifications'
-      hubzone_status_indicator ='fa fa-times-circle-o'
+      hubzone_status_style = 'non-qualified-hubzone'
+      hubzone_status_indicator ='fa fa-times-circle-o non-qualified-hubzone'
       hubzone_status = t('hubzone_assertions.not_qualified')
     end
   end
@@ -34,18 +37,21 @@
 
 <table id="hubzone-qualifications" class="<%= sidebar_display %>">
   <thead>
-    <th scope="row">
-      <div class="hubzone-status-indicator">
+    <th class="<%= hubzone_status_style %>" scope="row">
+      <div class="hubzone-status-indicator <%= hubzone_status_style %>">
         <i class="<%= hubzone_status_indicator %>" aria-hidden="true"></i>
       </div>
-      <h2 id="hubzone-status"><%= hubzone_status %></h2>
+      <div id="hubzone-status"><%= hubzone_status %></div>
     </th>
   </thead>
+   <tfoot>
+    <tr>
+      <td><%= t('hubzone_assertions.qualifications_effective') %><%= date %></td>
+    </tr>
+  </tfoot>
   <tbody>
     <%= render partial: "qualification", collection: hubzones %>
   </tbody>
 </table>
-
-<%= t('hubzone_assertions.qualifications_effective') %><%= date %>
 
 

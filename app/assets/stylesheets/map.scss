@@ -32,7 +32,7 @@
 
 /* Map inputs and controls */
 #search-field-small {
-  background-color: #1A406e;
+  background-color: #1a406e;
   border: 0;
   height: 4.4rem;
   font-size: 2.2rem;
@@ -58,7 +58,7 @@
   max-width: 100%;
 }
 .pac-container {
-  background-color: #1A406e;
+  background-color: #1a406e;
   color: #fff;
   border: 0;
 }
@@ -82,11 +82,11 @@
   font-size: 1.8rem;
 }
 .pac-item-selected {
-  background-color: #0071BB;
+  background-color: #0071bb;
   color: #fff;
 }
 .pac-item:hover {
-  background-color: #0071BB;
+  background-color: #0071bb;
   color: #fff;
 }
 
@@ -154,7 +154,7 @@ li.hubzone-map-print a {
   font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
   font-size: 1.5em;
   background-color: #fff;
-  border: 2px solid #AEB0B5;
+  border: 2px solid #aeb0b5;
   border-radius: 4px;
   margin: 0 0 .8em 0.3em;
   padding: .6em;
@@ -177,7 +177,7 @@ li.hubzone-map-print a {
 /* Map sidebar */
 #sidebar {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.85);
   right: -35rem;
   height: 100%;
   width: 35rem;
@@ -207,8 +207,8 @@ li.hubzone-map-print a {
 }
 .sidebar-search-address .fa.fa-map-marker {
   position: absolute;
-  font-size: 4.5rem;
-  left: 2.8rem;
+  font-size: 4rem;
+  left: 3.4rem;
   top: 2.5rem;
 }
 #search-address {
@@ -220,17 +220,46 @@ li.hubzone-map-print a {
   vertical-align: middle;
 }
 #hubzone-status {
-  font-family: inherit;
+  float: left;
   font-size: 2.4rem;
-  margin: 0 0 0 4.8rem;
+  font-weight: normal;
+  padding-left: 0.8rem;
+}
+.qualified-hubzone {
+  background-color: #2e8540;
+  color: #fafafa;
+}
+.non-qualified-hubzone {
+  background-color: #5b616a;
+  color: #fafafa;
 }
 .hubzone-status-indicator .fa.fa-times-circle-o, .fa.fa-check-circle-o {
-  position: absolute;
-  font-size: 4rem;
+  float: left;
+  font-size: 3rem;
 }
 .sidebar-qualifications {
-  margin: 0;
-  padding: 0;
+  width: 90%;
+  min-width: auto;
+  margin: 0 auto;
+  border-radius: 6px;
+  border-collapse: separate;
+  overflow: hidden;
+}
+.sidebar-qualifications thead th {
+  border: none;
+}
+.sidebar-qualifications tbody th {
+  background-color: #fafafa;
+  border: 1px solid #f1f1f1;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.sidebar-qualifications th > span {
+  float: right;
+}
+.sidebar-qualifications tfoot tr td{
+  border: none;
+  font-size: 1.5rem;
 }
 
 
