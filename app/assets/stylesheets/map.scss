@@ -178,9 +178,9 @@ li.hubzone-map-print a {
 #sidebar {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.95);
-  right: -32rem;
+  right: -35rem;
   height: 100%;
-  width: 32rem;
+  width: 35rem;
   transition-duration: 400ms;
   z-index: 2;
   box-shadow: 0 0 20px rgba(0,0,0,0.3);
@@ -207,47 +207,34 @@ li.hubzone-map-print a {
 }
 .sidebar-search-address .fa.fa-map-marker {
   position: absolute;
-  font-size: 5rem;
-  left: 2.2rem;
+  font-size: 4.5rem;
+  left: 2.8rem;
   top: 2.5rem;
 }
 #search-address {
   font-family: inherit;
-  font-size: 2.3rem;
+  font-size: 2rem;
   font-weight: normal;
   padding: 0 2rem 0 6rem;
   display: table-cell;
   vertical-align: middle;
 }
-.sidebar-hubzone-status {
-  font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
-  background-color: #112e51;
-  padding: 2rem 1rem 2.5rem 2rem;
-  width: 100%;
-  color: #fff;
-}
 #hubzone-status {
   font-family: inherit;
-  font-size: 2.8rem;
+  font-size: 2.4rem;
   margin: 0 0 0 4.8rem;
 }
-.sidebar-hubzone-status .fa.fa-times-circle-o, .fa.fa-check-circle-o {
+.hubzone-status-indicator .fa.fa-times-circle-o, .fa.fa-check-circle-o {
   position: absolute;
   font-size: 4rem;
 }
-.sidebar-hubzone-qualifications {
-  color: #5b616a;
-  padding: 2rem;
+.sidebar-qualifications {
+  margin: 0;
+  padding: 0;
 }
-.hubzone-sidebar-qualifications {
-  font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
-  margin: 0 0 1rem 0;
-  font-weight: normal;
-  font-size: 1em;
-}
-#hubzone-qualifications li{
-  font-size: 1.5rem;
-}
+
+
+/* Google Maps Controls */
 .gm-svpc {
   transition-duration: 400ms;
 }
@@ -255,30 +242,7 @@ li.hubzone-map-print a {
   transition-duration: 400ms;
 }
 .gm-sidebar-on {
-  left: -32rem !important;
-}
-#sidebar .usa-accordion-button {
-  background-color: #fafafa;
-  padding: 1.5rem 5.5rem 1.5rem 1rem;
-  font-weight: 400;
-}
-#sidebar .usa-accordion-bordered .usa-accordion-content {
-  border-bottom: 3px solid #fafafa;
-  border-left: 3px solid #fafafa;
-  border-right: 3px solid #fafafa;
-  padding: 0;
-}
-#sidebar .usa-accordion-bordered .usa-accordion-content table{
-  margin: 0;
-}
-.hubzone-qualification-details,
-.hubzone-qualification-details tr,
-.hubzone-qualification-details th,
-.hubzone-qualification-details td{
-  border: 0;
-}
-.hubzone-qualification-details th {
-  font-weight: 700;
+  left: -35rem !important;
 }
 
 /* Map body */
@@ -360,6 +324,9 @@ li.hubzone-map-print a {
   }
   .sidebar-search-address {
     min-height: 11rem;
+  }
+  .hubzone-map-print {
+    display: none;
   }
 }
 

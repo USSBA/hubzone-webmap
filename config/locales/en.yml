@@ -29,7 +29,7 @@ en:
     block_body_ssl: "This site is also protected by an SSL (Secure Sockets Layer) certificate that’s been signed by the U.S. government. The <strong>https://</strong> means all transmitted data is encrypted  — in other words, any information or browsing history that you provide is transmitted securely."
   date:
     formats:
-      full: " as of %B %d %Y"
+      full: " %B %d %Y"
   menu:
     hubzone_program: "HUBZone Program"
     accessible_version: "Accessible Version"
@@ -49,7 +49,7 @@ en:
       unknown_error: "Unknown error"
   hubzone_assertions:
     qualified_by: "Qualified by: "
-    qualifications_title: "Qualifications"
+    qualifications_effective: "Effective"
     qualified: "Qualified HUBZone"
     not_qualified: "Not Qualified"
     expiring: "Expiring"

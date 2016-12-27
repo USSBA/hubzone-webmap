@@ -67,8 +67,6 @@ function beforePrint() {
   }
 
   sidebar.close();
-
-  $('#sidebar button.usa-accordion-button').map(clickAccordion);
 }
 
 
@@ -79,7 +77,6 @@ function afterPrint() {
   map.setCenter(mapCenter);
   map.setZoom(mapZoom);
   sidebar.open();
-  $('#sidebar button.usa-accordion-button').map(clickAccordion);
 }
 
 // Helper for triggering accordions
