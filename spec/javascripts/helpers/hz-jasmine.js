@@ -189,26 +189,7 @@ var mockPage = {
     var testDiv = document.createElement('div');
     $('#sidebar').append(testDiv);
     $('#sidebar').css('display', 'none');
-    var accordion = '<li>' + 
-      '<button id="test_button" class="usa-accordion-button" aria-expanded="false" aria-controls="indian_lands">' + 
-        'Indian Lands' + 
-      '</button>' +
-      '<div id="indian_lands" class="usa-accordion-content" aria-hidden="true">' +
-        '<p>' +
-        '</p><table class="usa-table-borderless hubzone-qualification-details">' +
-        '<tbody>' +
-          '<tr>' +
-            '<th scope="row">Expires</th>' +
-            '<td></td>' +
-          '</tr>' +
-          '</tbody>' +
-        '</table' +
-        '<p></p>' +
-      '</div>' + 
-    '</li>';
-    $(testDiv).append(accordion);
     sidebar = $('#sidebar').sidebar();
-    updateAccordions();
     return sidebar;
   },
   destroy: function(){
