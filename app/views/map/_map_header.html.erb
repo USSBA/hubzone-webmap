@@ -1,0 +1,32 @@
+<section class="map-header">
+  <div class="usa-grid">
+    <ul class="usa-nav-primary">
+      <li class="hubzone-filter usa-accordion">
+        <button id="filter-button" class="
+        usa-accordion-button usa-nav-link" aria-expanded="false" aria-controls="side-nav-1">
+          <span><%= t('map.filter') %></span>
+        </button>
+        <ul id="side-nav-1" class="usa-nav-submenu hubzone-filter-menu" aria-hidden="true">
+          <li>
+            <a href="#">Filter 1</a>
+          </li>
+          <li>
+            <a href="#">Filter 2</a>
+          </li>
+          <li>
+            <a href="#">Filter 3</a>
+          </li>
+        </ul>
+      </li>
+      <li class="hubzone-search">
+        <%= form_tag search_path, remote: true, method: :get, class: "usa-search usa-search-small" do %>
+        <div id="map-search" role="search">
+          <%= label_tag "search", 'HUBZone Map Search', class: "usa-sr-only" %>
+          <%= search_field_tag "search", nil, placeholder: t('map.enter_address'), id: "search-field-small"%>
+          <%= button_tag '<span class="usa-sr-only search-icon">Search</span>'.html_safe, id: "hubzone-search-button" %>
+        </div>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</section>
