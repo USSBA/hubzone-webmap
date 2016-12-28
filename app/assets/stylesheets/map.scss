@@ -258,7 +258,11 @@ li.hubzone-map-print a {
   float: right;
 }
 .sidebar-qualifications tfoot tr td{
-  border: none;
+  border-left: 1px solid #f1f1f1;
+  border-right: 1px solid #f1f1f1;
+  border-bottom: 1px solid #f1f1f1;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
   font-size: 1.5rem;
 }
 
