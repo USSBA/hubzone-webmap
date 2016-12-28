@@ -202,18 +202,18 @@ li.hubzone-map-print a {
   width: 90%;
   min-height: 4em;
   margin: 1rem auto 1rem auto;
+  padding: 1.5rem 0 1.5rem 0;
   background-color: #fafafa;
   border: 1px solid #f1f1f1;
   border-radius: 6px;
   display: table;
 }
 .sidebar-search-address h2 {
-  margin: 0;
   display: table-cell;
   vertical-align: middle;
-  position: relative;
-  top: -1rem;
+  top: 1rem;
   max-width: 11rem;
+  margin: 0;
   padding-right: 1rem;
   font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
   font-size: 2rem;
@@ -222,7 +222,6 @@ li.hubzone-map-print a {
 }
 .sidebar-search-address .fa.fa-map-marker {
   position: relative;
-  top: 1rem;
   left: 2rem;
   font-size: 4.5rem;
   color: #112e51;
@@ -256,6 +255,7 @@ li.hubzone-map-print a {
 }
 .sidebar-qualifications thead th {
   border: none;
+  padding: 1rem 1.5rem 1rem 1.5rem;
 }
 .sidebar-qualifications tbody th {
   background-color: #fafafa;
