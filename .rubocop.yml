@@ -1,0 +1,20 @@
+Style/Encoding:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/BlockComments:
+  Enabled: false
+
+Style/LeadingCommentSpace:
+  Enabled: false
+
+Style/SpaceInsideBrackets:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 199

@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  get 'map/fake'
+  mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
+  #get 'map/fake'
 
+  root to: 'map#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  get 'map', to: 'map#index'
+
+  get 'search', to: 'map#search'
 end
