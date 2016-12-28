@@ -1,4 +1,3 @@
-<!-- Sidebar -->
 <%
   # expecting body to be a hash that has either a message or a formatted_address and hubzones from hzutil search
   if body
@@ -11,13 +10,19 @@
              body['query_date']
            end
     if body['formatted_address'].nil?
+      sidebar_display = 'hidden'
       hubzone_status_indicator = 'fa fa-times-circle-o'
+      hubzone_status_style = 'qualified-hubzone'
     elsif body['hubzone'].size > 0
-      hubzone_status_indicator = 'fa fa-check-circle-o'
+      sidebar_display = 'sidebar-qualifications'
+      hubzone_status_indicator = 'fa fa-check-circle-o qualified-hubzone'
+      hubzone_status_style = 'qualified-hubzone'
       hubzone_status = t('hubzone_assertions.qualified')
       hubzones = body["hubzone"]
     else
-      hubzone_status_indicator ='fa fa-times-circle-o'
+      sidebar_display = 'sidebar-qualifications'
+      hubzone_status_style = 'non-qualified-hubzone'
+      hubzone_status_indicator ='fa fa-times-circle-o non-qualified-hubzone'
       hubzone_status = t('hubzone_assertions.not_qualified')
     end
   end
@@ -29,23 +34,24 @@
     <%= address %>
   </h2>
 </div>
-<div class="sidebar-hubzone-status">
-  <div class="hubzone-status-indicator">
-    <i class="<%= hubzone_status_indicator %>" aria-hidden="true"></i>
-  </div>
-  <h2 id="hubzone-status" class="hubzone-sidebar-qualification">
-    <%= hubzone_status %>
-  </h2>
-</div>
-<div class="sidebar-hubzone-qualifications">
-  <h2 class="hubzone-sidebar-qualifications">
-    <%= t('hubzone_assertions.qualifications_title') %>
-    <%= date %>
-  </h2>
-  <div id="hubzone-qualifications">
-    <ul class="usa-accordion-bordered">
-      <%= render partial: "qualification", collection: hubzones %>
-    </ul>
-  </div>
-</div>
+
+<table id="hubzone-qualifications" class="<%= sidebar_display %>">
+  <thead>
+    <th class="<%= hubzone_status_style %>" scope="row">
+      <div class="hubzone-status-indicator <%= hubzone_status_style %>">
+        <i class="<%= hubzone_status_indicator %>" aria-hidden="true"></i>
+      </div>
+      <div id="hubzone-status"><%= hubzone_status %></div>
+    </th>
+  </thead>
+   <tfoot>
+    <tr>
+      <td><%= t('hubzone_assertions.qualifications_effective') %><%= date %></td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <%= render partial: "qualification", collection: hubzones %>
+  </tbody>
+</table>
+
 

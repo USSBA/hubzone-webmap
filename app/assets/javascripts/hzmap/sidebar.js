@@ -53,25 +53,3 @@ function triggerSidebar(){
                                  HZ.track( 'map', 'sidebar', 'show' );
   $('#sidebar').hasClass('on') ? sidebar.close() : sidebar.open();
 }
-
-/* exported updateAccordions */
-function updateAccordions () {
-  $('#sidebar button.usa-accordion-button').on('click', triggerAccordion);
-}
-
-// event handler for clicks on an accorion button
-function triggerAccordion(el){
-  var accordionID = el.currentTarget.getAttribute('aria-controls');
-  var content = $('#' + accordionID);
-  var accordionIsOpen = el.currentTarget.getAttribute('aria-expanded');
-
-  if( accordionIsOpen === 'false' ) {
-    HZ.track( 'map', 'sidebar', accordionID + '-open' );
-    $( 'button[aria-controls=' + accordionID + ']' ).attr('aria-expanded', 'true' );
-    content.attr('aria-hidden', 'false');
-  } else if ( accordionIsOpen === 'true' ) {
-    HZ.track( 'map', 'sidebar', accordionID + '-close' );
-    $( 'button[aria-controls=' + accordionID + ']' ).attr('aria-expanded', 'false' );
-    content.attr('aria-hidden', 'true');
-  }
-}

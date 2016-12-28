@@ -46,14 +46,12 @@ describe ('Testing print operations', function() {
     expect(map.fitBounds.calls.count()).toEqual(1);
     expect(map.setCenter.calls.count()).toEqual(1);
     expect(google.maps.event.trigger.calls.count()).toEqual(1);
-    expect(mapBodyDivClasses).toContain('print');    
-    expect($('#test_button').attr('aria-expanded')).toEqual("true");
-    expect($('#indian_lands').attr('aria-hidden')).toEqual("false");
+    expect(mapBodyDivClasses).toContain('print');
   });
-  
+
   it ("should update the map div before print with a marker present", function(){
     var stubMapMarker = new MapMarker();
-    mapMarkers = [stubMapMarker];    
+    mapMarkers = [stubMapMarker];
     beforePrint();
     var mapBodyDivClasses = $('.map-body').attr('class');
 
@@ -64,9 +62,6 @@ describe ('Testing print operations', function() {
     expect(map.setCenter.calls.count()).toEqual(1);
     expect(google.maps.event.trigger.calls.count()).toEqual(1);
     expect(mapBodyDivClasses).toContain('print');
-    expect($('#test_button').attr('aria-expanded')).toEqual("true");
-    expect($('#indian_lands').attr('aria-hidden')).toEqual("false");
-
   });
 
   it ("should reset the map view", function(){
@@ -78,8 +73,6 @@ describe ('Testing print operations', function() {
     expect(map.setZoom.calls.count()).toEqual(1);
     expect(google.maps.event.trigger.calls.count()).toEqual(2);
     expect(mapBodyDivClasses).not.toContain('print');
-    expect($('#test_button').attr('aria-expanded')).toEqual("false");
-    expect($('#indian_lands').attr('aria-hidden')).toEqual("true");
   });
 
   it ("should run beforePrint then window.Print", function(){
@@ -89,7 +82,7 @@ describe ('Testing print operations', function() {
     spyOn(printEvent, 'preventDefault');
     spyOn(window, 'beforePrint');
     //basically mocks setTimeout since I couldn't get it to
-    // run print 
+    // run print
     spyOn(window, 'setTimeout').and.callFake(function(fn){
       fn.apply(null, arguments);
       return;
@@ -108,7 +101,7 @@ describe ('Testing print operations', function() {
 
     var printE = {
       ctrlKey: true,
-      metaKey: false, 
+      metaKey: false,
       keyCode: 80
     };
     catchKeyStrokeToPrint(printE);
@@ -120,7 +113,7 @@ describe ('Testing print operations', function() {
 
     var printE = {
       ctrlKey: false,
-      metaKey: true, 
+      metaKey: true,
       keyCode: 80
     };
     catchKeyStrokeToPrint(printE);
@@ -132,7 +125,7 @@ describe ('Testing print operations', function() {
 
     var printE = {
       ctrlKey: false,
-      metaKey: false, 
+      metaKey: false,
       keyCode: 80
     };
     catchKeyStrokeToPrint(printE);
@@ -158,6 +151,4 @@ describe ('Testing print operations', function() {
     catchMediaQuery(mql);
     expect(window.afterPrint.calls.count()).toEqual(0);
   });
-
-
 });

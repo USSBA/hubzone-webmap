@@ -32,7 +32,7 @@
 
 /* Map inputs and controls */
 #search-field-small {
-  background-color: #1A406e;
+  background-color: #1a406e;
   border: 0;
   height: 4.4rem;
   font-size: 2.2rem;
@@ -58,7 +58,7 @@
   max-width: 100%;
 }
 .pac-container {
-  background-color: #1A406e;
+  background-color: #1a406e;
   color: #fff;
   border: 0;
 }
@@ -82,11 +82,11 @@
   font-size: 1.8rem;
 }
 .pac-item-selected {
-  background-color: #0071BB;
+  background-color: #0071bb;
   color: #fff;
 }
 .pac-item:hover {
-  background-color: #0071BB;
+  background-color: #0071bb;
   color: #fff;
 }
 
@@ -144,6 +144,9 @@ li.hubzone-map-print a {
   color: #fff;
   padding-right: 0;
 }
+.gm-iv-address {
+  height: auto !important;
+}
 
 
 /* Map Legend */
@@ -151,7 +154,7 @@ li.hubzone-map-print a {
   font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
   font-size: 1.5em;
   background-color: #fff;
-  border: 2px solid #AEB0B5;
+  border: 2px solid #aeb0b5;
   border-radius: 4px;
   margin: 0 0 .8em 0.3em;
   padding: .6em;
@@ -174,10 +177,10 @@ li.hubzone-map-print a {
 /* Map sidebar */
 #sidebar {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.95);
-  right: -32rem;
+  background-color: rgba(255, 255, 255, 0.85);
+  right: -35rem;
   height: 100%;
-  width: 32rem;
+  width: 35rem;
   transition-duration: 400ms;
   z-index: 2;
   box-shadow: 0 0 20px rgba(0,0,0,0.3);
@@ -204,47 +207,67 @@ li.hubzone-map-print a {
 }
 .sidebar-search-address .fa.fa-map-marker {
   position: absolute;
-  font-size: 5rem;
-  left: 2.2rem;
+  font-size: 4rem;
+  left: 3.4rem;
   top: 2.5rem;
 }
 #search-address {
   font-family: inherit;
-  font-size: 2.3rem;
+  font-size: 2rem;
   font-weight: normal;
   padding: 0 2rem 0 6rem;
   display: table-cell;
   vertical-align: middle;
 }
-.sidebar-hubzone-status {
-  font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
-  background-color: #112e51;
-  padding: 2rem 1rem 2.5rem 2rem;
-  width: 100%;
-  color: #fff;
-}
 #hubzone-status {
-  font-family: inherit;
-  font-size: 2.8rem;
-  margin: 0 0 0 4.8rem;
-}
-.sidebar-hubzone-status .fa.fa-times-circle-o, .fa.fa-check-circle-o {
-  position: absolute;
-  font-size: 4rem;
-}
-.sidebar-hubzone-qualifications {
-  color: #5b616a;
-  padding: 2rem;
-}
-.hubzone-sidebar-qualifications {
-  font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
-  margin: 0 0 1rem 0;
+  float: left;
+  font-size: 2.4rem;
   font-weight: normal;
-  font-size: 1em;
+  padding-left: 0.8rem;
 }
-#hubzone-qualifications li{
+.qualified-hubzone {
+  background-color: #2e8540;
+  color: #fafafa;
+}
+.non-qualified-hubzone {
+  background-color: #5b616a;
+  color: #fafafa;
+}
+.hubzone-status-indicator .fa.fa-times-circle-o, .fa.fa-check-circle-o {
+  float: left;
+  font-size: 3rem;
+}
+.sidebar-qualifications {
+  width: 90%;
+  min-width: auto;
+  margin: 0 auto;
+  border-radius: 6px;
+  border-collapse: separate;
+  overflow: hidden;
+}
+.sidebar-qualifications thead th {
+  border: none;
+}
+.sidebar-qualifications tbody th {
+  background-color: #fafafa;
+  border: 1px solid #f1f1f1;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.sidebar-qualifications th > span {
+  float: right;
+}
+.sidebar-qualifications tfoot tr td{
+  border-left: 1px solid #f1f1f1;
+  border-right: 1px solid #f1f1f1;
+  border-bottom: 1px solid #f1f1f1;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
   font-size: 1.5rem;
 }
+
+
+/* Google Maps Controls */
 .gm-svpc {
   transition-duration: 400ms;
 }
@@ -252,30 +275,7 @@ li.hubzone-map-print a {
   transition-duration: 400ms;
 }
 .gm-sidebar-on {
-  left: -32rem !important;
-}
-#sidebar .usa-accordion-button {
-  background-color: #fafafa;
-  padding: 1.5rem 5.5rem 1.5rem 1rem;
-  font-weight: 400;
-}
-#sidebar .usa-accordion-bordered .usa-accordion-content {
-  border-bottom: 3px solid #fafafa;
-  border-left: 3px solid #fafafa;
-  border-right: 3px solid #fafafa;
-  padding: 0;
-}
-#sidebar .usa-accordion-bordered .usa-accordion-content table{
-  margin: 0;
-}
-.hubzone-qualification-details,
-.hubzone-qualification-details tr,
-.hubzone-qualification-details th,
-.hubzone-qualification-details td{
-  border: 0;
-}
-.hubzone-qualification-details th {
-  font-weight: 700;
+  left: -35rem !important;
 }
 
 /* Map body */
@@ -357,6 +357,9 @@ li.hubzone-map-print a {
   }
   .sidebar-search-address {
     min-height: 11rem;
+  }
+  .hubzone-map-print {
+    display: none;
   }
 }
 
