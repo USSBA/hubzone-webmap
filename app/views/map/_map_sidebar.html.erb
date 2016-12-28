@@ -41,14 +41,15 @@
       <div class="hubzone-status-indicator <%= hubzone_status_style %>">
         <i class="<%= hubzone_status_indicator %>" aria-hidden="true"></i>
       </div>
-      <div id="hubzone-status"><%= hubzone_status %></div>
+      <div id="hubzone-status"><%= hubzone_status %><div class="hubzone-status-date"><%= t('hubzone_assertions.qualifications_effective') %><%= date %></div></div>
+
     </th>
   </thead>
-   <tfoot>
+  <!--  <tfoot>
     <tr>
-      <td><%= t('hubzone_assertions.qualifications_effective') %><%= date %></td>
+      <td></td>
     </tr>
-  </tfoot>
+  </tfoot> -->
   <tbody>
     <%= render partial: "qualification", collection: hubzones %>
   </tbody>

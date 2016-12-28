@@ -178,9 +178,9 @@ li.hubzone-map-print a {
 #sidebar {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.85);
-  right: -35rem;
+  right: -34rem;
   height: 100%;
-  width: 35rem;
+  width: 34rem;
   transition-duration: 400ms;
   z-index: 2;
   box-shadow: 0 0 20px rgba(0,0,0,0.3);
@@ -235,7 +235,7 @@ li.hubzone-map-print a {
 }
 .hubzone-status-indicator .fa.fa-times-circle-o, .fa.fa-check-circle-o {
   float: left;
-  font-size: 3rem;
+  font-size: 4rem;
 }
 .sidebar-qualifications {
   width: 90%;
@@ -256,6 +256,7 @@ li.hubzone-map-print a {
 }
 .sidebar-qualifications th > span {
   float: right;
+  font-weight: normal;
 }
 .sidebar-qualifications tfoot tr td{
   border-left: 1px solid #f1f1f1;
@@ -264,6 +265,10 @@ li.hubzone-map-print a {
   border-top: none;
   border-radius: 0 0 6px 6px;
   font-size: 1.5rem;
+}
+.hubzone-status-date {
+  font-weight: normal;
+  font-size: 1.3rem;
 }
 
 
@@ -275,7 +280,10 @@ li.hubzone-map-print a {
   transition-duration: 400ms;
 }
 .gm-sidebar-on {
-  left: -35rem !important;
+  left: -34rem !important;
+}
+.gm-iv-address-link a {
+  font-size: 10px !important;
 }
 
 /* Map body */

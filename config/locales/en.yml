@@ -49,7 +49,7 @@ en:
       unknown_error: "Unknown error"
   hubzone_assertions:
     qualified_by: "Qualified by: "
-    qualifications_effective: "Effective"
+    qualifications_effective: "As of"
     qualified: "Qualified HUBZone"
     not_qualified: "Not Qualified"
     expiring: "Expiring"

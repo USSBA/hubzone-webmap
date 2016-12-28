@@ -51,7 +51,7 @@ dev:
       unknown_error: "Error desconocido"
   hubzone_assertions:
     qualified_by: "Calificado por: "
-    qualifications_effective: "Eficaz"
+    qualifications_effective: "A partir de"
     qualified: "HUBZone Calificado"
     not_qualified: "HUBZone No Calificado"
     qct: "Zona censal"
