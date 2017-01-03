@@ -1,6 +1,6 @@
 # HUBZone Map
 
-This application will eventually house the new and improved HUBZone Map for the Small Business Administration.
+This application houses the new and improved HUBZone Map for the Small Business Administration.  All development is currently being done off of the `develop` branch.
 
 Requirements:
 * rvm
@@ -14,20 +14,20 @@ Requirements:
     * `nvm install 5`
 * bundler 1.12.5
   - `gem install -v 1.12.5 bundler`
-* postgresql 9.6
+* postgresql 9.5
   * Mac
     - I use [Postgres.app](http://postgresapp.com/)
     - could also use `brew install postgresql`
     - set `PGSQL_HOME` to your installation dir
-      - e.g. `export PGSQL_HOME=/Applications/Postgres.app/Contents/Versions/9.6`
+      - e.g. `export PGSQL_HOME=/Applications/Postgres.app/Contents/Versions/9.5`
     - ensure that the bin directory is in your path
       - e.g. `export PATH=${PATH}:${PGSQL_HOME}/bin`
   * Linux (rhel)
     * Install:
-      * `yum install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-redhat96-9.6-3.noarch.rpm`
-      * `yum install postgresql96-server postgresql96-devel`
+      * `yum install https://download.postgresql.org/pub/repos/yum/9.5/redhat/rhel-6-x86_64/pgdg-redhat95-9.5-3.noarch.rpm`
+      * `yum install postgresql95-server postgresql95-devel`
     * Configure:
-      * `echo 'export PGSQL_HOME=/usr/pgsql-9.6' >> ~/.bashrc`
+      * `echo 'export PGSQL_HOME=/usr/pgsql-9.5' >> ~/.bashrc`
       * `echo 'export PATH=${PATH}:${PGSQL_HOME}/bin' >> ~/.bashrc`
 
 After cloning the repo, run the following:
@@ -51,7 +51,7 @@ git checkout develop
 git pull
 rails server
 ```
-Then point your browser to http://localhost:3000/map
+Then point your browser to http://localhost:3000/
 
 # Running Tests #
 
