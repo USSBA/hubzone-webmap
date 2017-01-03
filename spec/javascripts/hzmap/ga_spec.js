@@ -6,6 +6,7 @@
 describe ('Testing Google Analytics integration', function() {
 
   beforeEach(function(done) {
+  /* global window:true */
   window = window || {}; //what was this for?  JS Hint doesn't like it
     window.ga = window.ga || function(a,b,c,d){};
     spyOn(window, 'ga');
