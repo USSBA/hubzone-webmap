@@ -6,6 +6,7 @@
 describe ('Testing Google Analytics integration', function() {
 
   beforeEach(function(done) {
+  /* global window:true */
   window = window || {}; //what was this for?  JS Hint doesn't like it
     window.ga = window.ga || function(a,b,c,d){};
     spyOn(window, 'ga');
@@ -35,7 +36,7 @@ describe ('Testing Google Analytics integration', function() {
         done();
       }, 1);
     });
-    
+
     it('should send an event when a user toggles the sidebar', function() {
       //fails sporadically http://localhost:3000/specs?random=true&seed=51235
 
@@ -47,13 +48,6 @@ describe ('Testing Google Analytics integration', function() {
       triggerSidebar();
       expect(sidebar.currentClass).toEqual('hidden');
       expect(window.ga.calls.count()).toEqual(2);
-    });
-
-    it('should send an event when a qualification is toggled', function() {
-      //fails sporadically where ga.call.count = 2 and not 1
-      $('button.usa-accordion-button').trigger('click');
-
-      expect(window.ga.calls.count()).toEqual(1);
     });
   });
 

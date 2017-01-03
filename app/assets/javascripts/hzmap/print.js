@@ -49,7 +49,6 @@ function catchMediaQuery(mql){
 //   afterPrint(mapBounds);
 // };
 
-
 // Rebuild the map before printing
 function beforePrint() {
   mapBounds = map.getBounds();
@@ -67,10 +66,7 @@ function beforePrint() {
   }
 
   sidebar.close();
-
-  $('#sidebar button.usa-accordion-button').map(clickAccordion);
 }
-
 
 //reset the map after print
 function afterPrint() {
@@ -79,10 +75,4 @@ function afterPrint() {
   map.setCenter(mapCenter);
   map.setZoom(mapZoom);
   sidebar.open();
-  $('#sidebar button.usa-accordion-button').map(clickAccordion);
-}
-
-// Helper for triggering accordions
-function clickAccordion(index, el){
-  $(el).trigger('click');
 }
