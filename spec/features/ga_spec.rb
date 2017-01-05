@@ -6,8 +6,10 @@ describe "Google Analytics", type: :feature do
   end
 
   context "Header links" do
-    links = { title:      { selector: '#logo a',
+    links = { title:      { selector: '#logo a.title-link',
                             description: 'Title link' },
+              logo:       { selector: '#logo a.logo-link',
+                            description: 'Logo link' },
               program:    { selector: 'a#hubzone-program-link',
                             description: 'Program link' },
               accessible: { selector: 'a#hubzone-accessible-link',
