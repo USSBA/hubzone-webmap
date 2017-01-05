@@ -364,11 +364,17 @@ li.hubzone-map-print a {
 @media only screen and (max-width: 950px)  {
   #sba-logo {
     max-width: 7.6rem;
-    padding-top: .3rem;
+    padding-top: .6rem;
   }
   #map-search button {
     background-color: #1a406e;
     background-size: 3.5rem;
+  }
+  .usa-banner-header {
+    padding-left: .5rem;
+  }
+  .usa-logo {
+    margin-left: .5rem;
   }
   .usa-grid {
     padding: 0;
@@ -405,10 +411,15 @@ li.hubzone-map-print a {
 /* Small for small phones and devices */
 @media only screen and (max-width: 480px) {
   .map-body {
-    height: calc(100% - 127px);
+    height: calc(100% - 40px);
+  }
+  .usa-banner {
+    display: none;
   }
 }
 
+
+/* Printing styles */
 @media print {
   .usa-banner {
     display: none;
