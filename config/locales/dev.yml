@@ -23,10 +23,6 @@ dev:
   hubzone_map: "Mapa de HUBZone"
   usa_banner:
     title: "Un sitio web oficial del gobierno de los Estados Unidos"
-    button_text: "He aquí cómo usted sabe"
-    block_body_strong: "El .gov significa que es oficial."
-    block_body_text: "Sitios web del gobierno federal siempre utilizan un .gov o dominio .mil. Antes de compartir información sensible en línea, asegúrese de que está en un .gov .mil o sitio mediante la inspección de direcciones del navegador (o ubicación) bar."
-    block_body_ssl: "Este sitio también está protegido por un certificado SSL (Secure Sockets Layer), que ha sido firmado por el gobierno de EE.UU.. El <strong>https://</strong> medio se cifra todos los datos transmitidos - en otras palabras, cualquier información o historial de navegación que proporciona se transmite de forma segura."
   date:
     month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
     abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic]

@@ -23,36 +23,12 @@
     <header class="usa-header usa-header-extended" role="banner">
       <!-- Gov banner BEGIN -->
       <div class="usa-banner">
-        <div class="usa-accordion">
           <header class="usa-banner-header">
             <div class="usa-grid usa-banner-inner">
             <%= image_tag("img/favicons/favicon-57.png", alt: "U.S. flag") %>
             <p><%= t('usa_banner.title') %></p>
-            <button class="usa-accordion-button usa-banner-button"
-              aria-expanded="false" aria-controls="gov-banner">
-              <span class="usa-banner-button-text"><%= t('usa_banner.button_text') %></span>
-            </button>
             </div>
           </header>
-          <div class="usa-banner-content usa-grid usa-accordion-content" id="gov-banner">
-            <div class="usa-banner-guidance-gov usa-width-one-half">
-              <%= image_tag("img/icon-dot-gov.svg", class: "usa-banner-icon usa-media_block-img", alt: "Dot gov") %>
-              <div class="usa-media_block-body">
-                <p>
-                  <strong><%= t('usa_banner.block_body_strong') %></strong>
-                  <br>
-                  <%= t('usa_banner.block_body_text') %>
-                </p>
-              </div>
-            </div>
-            <div class="usa-banner-guidance-ssl usa-width-one-half">
-              <%= image_tag("img/icon-https.svg", class: "usa-banner-icon usa-media_block-img", alt: "SSL") %>
-              <div class="usa-media_block-body">
-                <p><%= t('usa_banner.block_body_ssl').html_safe %></p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
       <!-- Gov banner END -->
       <div class="usa-navbar">
@@ -81,12 +57,6 @@
                              "https://www.sba.gov/contracting/government-contracting-programs/hubzone-program",
                              id: "hubzone-program-link",
                              onclick: "HZ.openLink( 'https://www.sba.gov/contracting/government-contracting-programs/hubzone-program', 'map', 'program-link' );" ) %>
-              </li>
-              <li>
-                <%= link_to( t('menu.accessible_version'),
-                             "#",
-                             id: "hubzone-accessible-link",
-                             onclick: "HZ.openLink( '#', 'map', 'accessible-link' );" ) %>
               </li>
               <li>
                 <%= link_to( t('menu.help'),
