@@ -124,11 +124,11 @@ function createGoogleLatLngBounds(SWLng, SWLat, NELng, NELat){
 
 // builds out the custom wms url
 function buildWMSUrl(options){
-  var url = "http://localhost:8080/geoserver/hubzone-test/wms?service=WMS";
+  var url = "<%= MAP_CONFIG[:geom_wms_settings][:url_root] %>";
   url += "&REQUEST=GetMap";
   url += "&SERVICE=WMS";
   url += "&VERSION=1.1.0";
-  url += "&LAYERS=" + "hubzone-test:" + options.layer;
+  url += "&LAYERS=" + "<%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:" + options.layer;
   url += "&FORMAT=image/png" ;
   url += "&TRANSPARENT=TRUE";
   url += "&SRS=EPSG:4326";

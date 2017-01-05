@@ -4,34 +4,31 @@ default: &defaults
   google_api_key: <%= ENV["HUBZONE_GOOGLE_API_KEY"] ||
                       "need to set HUBZONE_GOOGLE_API_KEY in your environment!"
                       %>
-  geomWFSSettings: &default_wfs
-    urlRoot: <%= ENV["HUBZONE_WFS_URL_ROOT"] || "http://localhost:8080/geoserver/hubzone-test/ows?service=WFS" %>
-    tableHighRes: hz_current
-    tableLowRes: hz_current_lowres
-    tableLowerRes: hz_current_lowerres
-    tableLowestRes: hz_current_lowestres
+  geom_wms_settings: &default_wms
+    url_root: <%= ENV["HUBZONE_WMS_URL_ROOT"] || "http://localhost:8080/geoserver/hubzone/wms?service=WMS" %>
+    workspace: <%= ENV["HUBZONE_WMS_WORKSPACE"] || "hubzone" %>
     srs: 4326
 
 production:
   <<: *defaults
-  geomWFSSettings:
-    <<: *default_wfs
+  geom_wms_settings:
+    <<: *default_wms
     db: hzgeo_prd
 
 demo:
   <<: *defaults
-  geomWFSSettings:
-    <<: *default_wfs
+  geom_wms_settings:
+    <<: *default_wms
     db: hzgeo_demo
 
 development:
   <<: *defaults
-  geomWFSSettings:
-    <<: *default_wfs
+  geom_wms_settings:
+    <<: *default_wms
     db: hzgeo_dev
 
 test:
   <<: *defaults
-  geomWFSSettings:
-    <<: *default_wfs
-    db: why_are_you_hitting_the_WFS_server_in_test
+  geom_wms_settings:
+    <<: *default_wms
+    db: why_are_you_hitting_the_WMS_server_in_test

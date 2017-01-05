@@ -40,7 +40,7 @@ describe ('Testing map operations', function() {
     var mapBounds = map.getBounds();
     spyOn(mapBounds, 'getNorthEast').and.callThrough();
     spyOn(mapBounds, 'getSouthWest').and.callThrough();
-    
+
     expect(getBbox(mapBounds)).toEqual("-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637");
     expect(mapBounds.getNorthEast.calls.count()).toEqual(2);
     expect(mapBounds.getSouthWest.calls.count()).toEqual(2);
@@ -78,9 +78,13 @@ describe ('Testing map operations', function() {
     var url = buildWMSUrl({
       layer: layer,
       bbox: bbox});
-    var urlExpect = 'http://localhost:8080/geoserver/hubzone-test/wms?service=WMS&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.0&LAYERS=hubzone-test:' + 
-                    layer + 
-                    '&FORMAT=image/png&TRANSPARENT=TRUE&SRS=EPSG:4326&BBOX=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637&WIDTH=0&HEIGHT=0&SLD_BODY=' + 
+    /* jshint ignore:start */
+    var wmsURL = "<%= ENV["HUBZONE_WMS_URL_ROOT"] || "http://localhost:8080/geoserver/hubzone/wms?service=WMS" %>";
+    var wmsWorkspace =  "<%= ENV["HUBZONE_WMS_WORKSPACE"] || "hubzone" %>";
+    /* jshint ignore:end */
+    var urlExpect = wmsURL + '&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.0&LAYERS=' + wmsWorkspace + ':' +
+                    layer +
+                    '&FORMAT=image/png&TRANSPARENT=TRUE&SRS=EPSG:4326&BBOX=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637&WIDTH=0&HEIGHT=0&SLD_BODY=' +
                     constructSLDXML(layer);
     expect(url).toEqual(urlExpect);
   });
@@ -92,9 +96,13 @@ describe ('Testing map operations', function() {
     var url = buildWMSUrl({
       layer: layer,
       bbox: bbox});
-    var urlExpect = 'http://localhost:8080/geoserver/hubzone-test/wms?service=WMS&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.0&LAYERS=hubzone-test:' + 
-                    layer + 
-                    '&FORMAT=image/png&TRANSPARENT=TRUE&SRS=EPSG:4326&BBOX=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637&WIDTH=0&HEIGHT=0&SLD_BODY=' + 
+    /* jshint ignore:start */
+    var wmsURL = "<%= ENV["HUBZONE_WMS_URL_ROOT"] || "http://localhost:8080/geoserver/hubzone/wms?service=WMS" %>";
+    var wmsWorkspace =  "<%= ENV["HUBZONE_WMS_WORKSPACE"] || "hubzone" %>";
+    /* jshint ignore:end */
+    var urlExpect = wmsURL + '&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.0&LAYERS=' + wmsWorkspace + ':' +
+                    layer +
+                    '&FORMAT=image/png&TRANSPARENT=TRUE&SRS=EPSG:4326&BBOX=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637&WIDTH=0&HEIGHT=0&SLD_BODY=' +
                     constructSLDXML(layer);
     expect(url).toEqual(urlExpect);
   });
@@ -143,7 +151,7 @@ describe ('Testing map operations', function() {
 
   it("should update the map WMS layer, replacing the old overlay with a new one", function(){
     var layer = 'qct';
-    
+
     var mockOverlayOld = new NewOverlay('old');
     var mockOverlayNew = new NewOverlay('new');
 
