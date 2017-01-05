@@ -32,7 +32,7 @@ describe ('Testing sidebar operations', function() {
     sidebar.close();
     expect(sidebar.currentClass).toEqual('hidden');
   });
-  
+
   it ("should catch the button click to trigger the sidebar to close", function() {
     sidebar.open();
     triggerSidebar();
@@ -44,11 +44,4 @@ describe ('Testing sidebar operations', function() {
     triggerSidebar();
     expect(sidebar.currentClass).toEqual('on');
   });
-
-  it ("should call the the triggerAction function", function(){
-    $('button.usa-accordion-button').trigger('click');
-    expect($('#test_button').attr('aria-expanded')).toEqual("true");
-    expect($('#indian_lands').attr('aria-hidden')).toEqual("false");
-  });
-
 });

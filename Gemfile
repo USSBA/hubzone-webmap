@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'coffee-rails', '~> 4.2' # Use CoffeeScript for .coffee assets and views
+gem 'dotenv-rails' # Use dotenv to load environment variables
 gem 'excon-rails' # Use excon rails for http requests
 gem 'font-awesome-rails', '>= 4.7.0' # Use Font Awesome for CSS Icons
 gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
