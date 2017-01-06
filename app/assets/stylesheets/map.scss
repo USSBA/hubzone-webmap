@@ -3,9 +3,9 @@
   display: none;
 }
 #sba-logo {
-  max-width: 10rem;
+  max-width: 8.5rem;
   float: left;
-  padding-top: .3rem;
+  padding-top: .7rem;
 }
 .usa-header {
   border-bottom: none;
@@ -14,7 +14,7 @@
   font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
   font-size: 3.5rem;
   font-weight: 400;
-  color: #5b616b;
+  color: #323A44;
   float: left;
   clear: none;
   margin: 0 0 0 2rem;
@@ -41,25 +41,27 @@
   left: 1.6rem;
 }
 #search-field-small {
-  background-color: #1a406e;
-  border: 0;
-  height: 4.4rem;
-  font-size: 2.2rem;
-  color: #fff;
+  background-color: #ffffff;
+  border: .5px solid #858585;
+  border-right: none;
+  height: 4rem;
+  font-size: 2rem;
+  color: #323A44;
 }
 #search-field-small::-webkit-input-placeholder {
-  color: #efefef;
+  color: #323A44;
 }
 #search-field-small::-moz-placeholder {
-  color: #efefef;
+  color: #323A44;
+  opacity: 1;
 }
 #search-field-small:-ms-input-placeholder {
-  color: #efefef;
+  color: #323A44;
 }
 #map-search button {
-  background-color: #0071bb;
-  background-size: 4.2rem;
-  height: 4.4rem;
+  background-color: #323A44;
+  background-size: 4rem;
+  height: 4rem;
   float: left;
 }
 .usa-search.usa-search-small [type="search"],
@@ -67,36 +69,38 @@
   max-width: 100%;
 }
 .pac-container {
-  background-color: #1a406e;
-  color: #fff;
-  border: 0;
+  background-color: #fff;
+  color: #323A44;
+  border-top: none;
+  border-radius: 0;
+  margin-left: 1px;
 }
 .pac-icon {
   display: none;
 }
 .pac-item {
   font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
-  color: #fff;
+  color: #323A44;
   border: 0;
-  padding: .5em 0 .5em 1.5em;
+  padding: .4em 0 .4em 1.25em;
   font-size: 1.7rem;
 }
 .pac-matched {
-  color: #fff;
+  color: #323A44;
   font-weight: bold;
   font-size: 1.8rem;
 }
 .pac-item-query {
-  color: #fff;
+  color: #323A44;
   font-size: 1.8rem;
 }
 .pac-item-selected {
-  background-color: #0071bb;
-  color: #fff;
+  background-color: #f1f1f1;
+  color: #323A44;
 }
 .pac-item:hover {
-  background-color: #0071bb;
-  color: #fff;
+  background-color: #f1f1f1;
+  color: #323A44;
 }
 
 #filter-button {
@@ -124,7 +128,7 @@
   color: #0071bb;
 }
 .usa-nav-primary > li:first-child {
-  height: 4.4rem;
+  height: 4rem;
   float: left;
 }
 .usa-nav-submenu {
@@ -146,11 +150,10 @@ ul.hubzone-filter-menu label {
   color: #0071bb;
 }
 li.hubzone-map-print {
-  float: right;
   cursor: pointer;
 }
 li.hubzone-map-print a {
-  color: #fff;
+  color: #323A44;
   padding-right: 0;
 }
 .gm-iv-address {
@@ -186,7 +189,7 @@ li.hubzone-map-print a {
 /* Map sidebar */
 #sidebar {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.75);
   right: -34rem;
   height: 100%;
   width: 34rem;
@@ -198,14 +201,15 @@ li.hubzone-map-print a {
 }
 #sidebar-button {
   position: absolute;
-  margin-left: -3.4rem;
+  margin-left: -2.9rem;
   margin-top: 2.3rem;
-  padding: 2rem .5rem 2rem 0.8rem;
+  padding: 2rem .3rem 2rem 0.5rem;
   z-index: 2;
   border-radius: 4px 0 0 4px;
   font-size: 3rem;
+  background-color: rgba(50, 58, 68, 0.85);
 }
-.sidebar-search-address {
+.sidebar-card {
   position: relative;
   width: 90%;
   min-height: 4em;
@@ -216,7 +220,7 @@ li.hubzone-map-print a {
   border-radius: 6px;
   display: table;
 }
-.sidebar-search-address h2 {
+.sidebar-card h2 {
   display: table-cell;
   vertical-align: middle;
   top: 1rem;
@@ -226,13 +230,13 @@ li.hubzone-map-print a {
   font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
   font-size: 2rem;
   font-weight: normal;
-  color: #112e51;
+  color: #323A44;
 }
-.sidebar-search-address .fa.fa-map-marker {
+.sidebar-card .fa.fa-map-marker {
   position: relative;
   left: 2rem;
   font-size: 4.5rem;
-  color: #112e51;
+  color: #323A44;
 }
 #hubzone-status {
   float: left;
@@ -241,11 +245,11 @@ li.hubzone-map-print a {
   padding-left: 0.8rem;
 }
 .qualified-hubzone {
-  background-color: #2e8540;
+  background-color: #4aa564;
   color: #fafafa;
 }
 .non-qualified-hubzone {
-  background-color: #5b616a;
+  background-color: #5b616b;
   color: #fafafa;
 }
 .hubzone-status-indicator .fa.fa-times-circle-o, .fa.fa-check-circle-o {
@@ -268,8 +272,9 @@ li.hubzone-map-print a {
 .sidebar-qualifications tbody th {
   background-color: #fafafa;
   border: 1px solid #f1f1f1;
+  color: #323A44;
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 400;
 }
 .sidebar-qualifications th > span {
   float: right;
@@ -303,7 +308,9 @@ li.hubzone-map-print a {
 .gm-iv-address-link a {
   font-size: 9px !important;
 }
-
+div[dir="ltr"] {
+  margin-top: 5rem;
+}
 /* Map body */
 .map-body {
   position: absolute;
@@ -356,7 +363,7 @@ li.hubzone-map-print a {
   }
   #map-search button {
     border-radius: 0 4px 4px 0;
-    width: 7rem;
+    width: 6rem;
   }
 }
 
@@ -364,7 +371,7 @@ li.hubzone-map-print a {
 @media only screen and (max-width: 950px)  {
   #sba-logo {
     max-width: 7.6rem;
-    padding-top: .6rem;
+    padding-top: .7rem;
   }
   #map-search button {
     background-color: #1a406e;
@@ -400,7 +407,7 @@ li.hubzone-map-print a {
     height: 11rem;
     bottom: 10rem;
   }
-  .sidebar-search-address {
+  .sidebar-card {
     min-height: 11rem;
   }
   .hubzone-map-print {
