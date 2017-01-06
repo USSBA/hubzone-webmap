@@ -215,7 +215,7 @@ li.hubzone-map-print a {
   min-height: 4em;
   margin: 1rem auto 1rem auto;
   padding: 1.5rem 0 1.5rem 0;
-  background-color: #fafafa;
+  background-color: #fff;
   border: 1px solid #f1f1f1;
   border-radius: 6px;
   display: table;
@@ -262,7 +262,6 @@ li.hubzone-map-print a {
   margin: 0 auto;
   border-radius: 6px;
   border-collapse: separate;
-  border: 1px solid #f1f1f1;
   overflow: hidden;
 }
 .sidebar-qualifications thead th {
@@ -270,11 +269,14 @@ li.hubzone-map-print a {
   padding: 1rem 1.5rem 1rem 1.5rem;
 }
 .sidebar-qualifications tbody th {
-  background-color: #fafafa;
-  border: 1px solid #f1f1f1;
+  background-color: #fff;
+  border-top: 1px solid #f1f1f1;
   color: #323A44;
   font-size: 1.5rem;
   font-weight: 400;
+}
+.sidebar-qualifications tbody th:last-of-type {
+  border: none;
 }
 .sidebar-qualifications th > span {
   float: right;
@@ -292,6 +294,11 @@ li.hubzone-map-print a {
   font-weight: normal;
   font-size: 1.3rem;
   padding-left: 2px;
+}
+i.fa.fa-print {
+  font-size: 2.5rem;
+  color: #323a45;
+  padding: .5rem 2rem 0 2rem;
 }
 
 
@@ -431,6 +438,13 @@ div[dir="ltr"] {
   .usa-banner {
     display: none;
   }
+  .usa-navbar {
+    margin-left: 0;
+    margin-bottom: 1rem;
+  }
+  .hubzone-search {
+    display: none;
+  }
   .usa-nav-primary > li {
     border: 0;
   }
@@ -442,6 +456,9 @@ div[dir="ltr"] {
     padding: 0;
     width: 500px;
     left: 0;
+  }
+  .map-print {
+    display: none;
   }
   .usa-grid {
     padding: 1em 0 1em 0;
