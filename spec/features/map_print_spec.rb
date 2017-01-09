@@ -31,9 +31,11 @@ describe "the page when printing", js: true, type: :feature do
     visit('/map')
   end
   it "should have a print button" do
+    click_button 'hubzone-search-button'
     expect(page).to have_selector('#map-print')
   end
   it "should add map classes" do
+    click_button 'hubzone-search-button'
     click_on 'map-print'
     expect(page).to have_selector('.printable-map')
   end

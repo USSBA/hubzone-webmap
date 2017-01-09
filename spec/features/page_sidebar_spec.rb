@@ -49,6 +49,10 @@ describe "the sidebar", type: :feature do
       Excon.stub({},
                  body: responses[:non_qualified].to_json)
     end
+    it "should have Print icon" do
+      click_button "hubzone-search-button"
+      expect(page).to have_css('.map-print')
+    end
     it "should be visible" do
       click_button "hubzone-search-button"
       expect(page).not_to have_css("#sidebar.hidden")
