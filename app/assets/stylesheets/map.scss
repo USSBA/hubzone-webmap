@@ -264,6 +264,9 @@ li.hubzone-map-print a {
   border-collapse: separate;
   overflow: hidden;
 }
+table.sidebar-qualifications th{
+  border: none;
+}
 .sidebar-qualifications thead th {
   border: none;
   padding: 1rem 1.5rem 1rem 1.5rem;
@@ -274,9 +277,6 @@ li.hubzone-map-print a {
   color: #323A44;
   font-size: 1.5rem;
   font-weight: 400;
-}
-.sidebar-qualifications tbody th:last-of-type {
-  border: none;
 }
 .sidebar-qualifications th > span {
   float: right;

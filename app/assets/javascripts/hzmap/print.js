@@ -16,7 +16,7 @@ function catchKeyStrokeToPrint(e){
 
 // Listener for map icon click
 $(function() {
-  $('#map-print').click(catchPrintEvent);
+  $(document).on('click','#map-print', catchPrintEvent);
 });
 
 // Handle the print event
