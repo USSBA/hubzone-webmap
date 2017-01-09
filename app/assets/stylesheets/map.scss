@@ -377,47 +377,100 @@ div[dir="ltr"] {
 /* Medium for phones */
 @media only screen and (max-width: 950px)  {
   #sba-logo {
-    max-width: 7.6rem;
-    padding-top: .7rem;
+    max-width: 6rem;
+    padding-top: 1rem;
   }
   #map-search button {
-    background-color: #1a406e;
     background-size: 3.5rem;
   }
   .usa-banner-header {
     padding-left: .5rem;
   }
+  .usa-banner-inner {
+    padding-left: 0;
+  }
   .usa-logo {
     margin-left: .5rem;
   }
-  .usa-grid {
-    padding: 0;
-    width: 100%;
-  }
   .usa-logo-text a > h1 {
-    margin: 0 0 0 2rem;
-    padding: 0.5rem 0 0 0 ;
+    margin: 0.7rem 0 0 1rem;
     font-size: 2.2rem;
     font-weight: 400;
   }
-  .hubzone-filter {
-    display: none;
-  }
   .map-body {
     height: calc(100% - 60px);
+  }
+  .hubzone-search {
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-left: none;
+  }
+  #search-field-small {
+    border-left: none;
+    padding-left: 0.5rem;
+  }
+  #map-search button {
+    border-radius: 0;
+  }
+  .pac-container {
+    margin-left: 0;
+    border: none;
+  }
+  .pac-item {
+    padding-left: .25rem;
+  }
+  .map-print {
+    display: none;
+  }
+  .usa-menu-btn {
+    display: none;
+  }
+  #legend {
+    display: none;
+  }
+  .gmnoprint {
+    display: none;
   }
   #sidebar-button {
     display: none;
   }
   #sidebar {
     width: 100%;
-    height: 11rem;
-    bottom: 10rem;
+    height: auto;
+    bottom: 0;
+    background-color: transparent;
   }
   .sidebar-card {
-    min-height: 11rem;
+    width: 100%;
+    border-radius: 0;
+    margin: 0;
+    padding: 0.5rem;
+    min-height: auto;
   }
-  .hubzone-map-print {
+  .sidebar-qualifications {
+    width: 100%;
+    border: none;
+    border-radius: 0;
+  }
+  .sidebar-card > h2 {
+    font-size: 1em;
+    width: 100%;
+    padding-left: 3.3rem;
+  }
+  .sidebar-card .fa.fa-map-marker {
+    font-size: 3.5rem;
+  }
+  .sidebar-qualifications thead th {
+    padding: 0.5rem 1.5rem 0.5rem 2rem;
+  }
+  .hubzone-status-indicator .fa.fa-times-circle-o, .fa.fa-check-circle-o {
+    font-size: 3.5rem;
+  }
+  #hubzone-status {
+    font-size: 1em;
+  }
+  .sidebar-qualifications tbody {
     display: none;
   }
 }
