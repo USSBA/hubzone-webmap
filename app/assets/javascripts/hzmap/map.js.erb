@@ -6,7 +6,7 @@ var map = {}; //the map object
 function initMap() {
 
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 35.5, lng: -97.5},
+    center: getUserGeolocation(),
     zoom: 9,
     zoomControl: true,
     mapTypeControlOptions: {
@@ -36,6 +36,11 @@ function initMap() {
   /* jshint unused: false */
   var autocomplete = new google.maps.places.Autocomplete(searchInput, options);
 
+  //returns the map
+  return map;
+}
+
+function getUserGeolocation() {
   //grab users location and set map around it
   if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
@@ -52,11 +57,7 @@ function initMap() {
     //browser doesn't support Geolocation
     handleLocationError(false);
   }
-
-  //returns the map
-  return map;
 }
-
 
 function handleLocationError(browserHasGeolocation) {
   if(browserHasGeolocation){
