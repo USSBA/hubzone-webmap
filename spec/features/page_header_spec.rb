@@ -10,8 +10,9 @@ describe "the header", type: :feature do
   it "should have header section" do
     expect(page).to have_selector('header')
   end
-  it "should have SBA Logo" do
+  it "should have SBA Logo and link to SBA.gov" do
     expect(page.find('#sba-logo')['src']).to have_content 'sba-logo'
+    expect(page).to have_css('.logo-link')
   end
   it "should have HUBZone Map title" do
     expect(page).to have_content 'HUBZone Map'
