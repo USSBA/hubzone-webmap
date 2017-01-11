@@ -9,9 +9,15 @@ function initMap() {
     center: {lat: 39.29, lng: -76.62},
     zoom: 10,
     zoomControl: true,
+    zoomControlOptions: {
+      position: google.maps.ControlPosition.RIGHT_BOTTOM
+    },
+    streetViewControlOptions: {
+      position: google.maps.ControlPosition.RIGHT_BOTTOM
+    },
     mapTypeControlOptions: {
-      mapTypeIds: ['hz_map', 'roadmap', 'satellite' ],
-      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+      mapTypeIds: ['hz_map','roadmap', 'satellite' ],
+      position: google.maps.ControlPosition.BOTTOM_CENTER
     }
   });
 

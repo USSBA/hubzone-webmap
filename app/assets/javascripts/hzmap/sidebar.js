@@ -44,6 +44,7 @@ $(function() {
   sidebar = $('#sidebar').sidebar();
 
   $('#sidebar-button').click(triggerSidebar);
+
 });
 
 // event handler for clicks to sidebar button

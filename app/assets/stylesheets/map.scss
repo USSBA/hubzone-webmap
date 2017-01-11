@@ -1,27 +1,40 @@
+@import 'variables';
+
 /* Top level navigation */
 .hidden {
   display: none;
 }
 #sba-logo {
-  max-width: 10rem;
+  max-width: 8.5rem;
   float: left;
+  padding-top: .7rem;
 }
 .usa-header {
   border-bottom: none;
+ /* background: rgba(255,255,255,1);
+  background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(241,241,241,1) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(241,241,241,1)));
+  background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(241,241,241,1) 100%);
+  background: -o-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(241,241,241,1) 100%);
+  background: -ms-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(241,241,241,1) 100%);
+  background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(241,241,241,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f1f1f1', GradientType=1 );*/
 }
 .usa-logo-text a > h1 {
-  font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
-  font-size: inherit;
+  font-family: $font-sans;
+  font-size: 3.6rem;
+  font-weight: 700;
+  color: $gray-dark;
   float: left;
   clear: none;
-  margin: 0 0 0 3rem;
+  margin: 0 0 0 2rem;
   padding: 0;
 }
 .usa-navbar {
   border-bottom: none;
 }
 .usa-nav-secondary {
-  top: -5rem;
+  top: -4.5rem;
 }
 .usa-nav-secondary-links li:not(:last-child)::after {
   content: none;
@@ -31,26 +44,34 @@
 }
 
 /* Map inputs and controls */
+.hubzone-search {
+  position: absolute;
+  top: 10px;
+  z-index: 3;
+  left: 1.6rem;
+}
 #search-field-small {
-  background-color: #1a406e;
-  border: 0;
-  height: 4.4rem;
-  font-size: 2.2rem;
-  color: #fff;
+  background-color: $white;
+  border: .5px solid $gray;
+  border-right: none;
+  height: 4rem;
+  font-size: 2rem;
+  color: $gray;
 }
 #search-field-small::-webkit-input-placeholder {
-  color: #efefef;
+  color: $gray;
 }
 #search-field-small::-moz-placeholder {
-  color: #efefef;
+  color: $gray;
+  opacity: 1;
 }
 #search-field-small:-ms-input-placeholder {
-  color: #efefef;
+  color: $gray;
 }
 #map-search button {
-  background-color: #0071bb;
-  background-size: 4.2rem;
-  height: 4.4rem;
+  background-color: $gray-dark;
+  background-size: 4rem;
+  height: 4rem;
   float: left;
 }
 .usa-search.usa-search-small [type="search"],
@@ -58,103 +79,53 @@
   max-width: 100%;
 }
 .pac-container {
-  background-color: #1a406e;
-  color: #fff;
-  border: 0;
+  background-color: $white;
+  color: $gray-dark;
+  border-top: none;
+  border-radius: 0;
+  margin-left: 1px;
 }
 .pac-icon {
   display: none;
 }
 .pac-item {
-  font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
-  color: #fff;
+  font-family: $font-sans;
+  color: $gray-dark;
   border: 0;
-  padding: .5em 0 .5em 1.5em;
+  padding: .4em 0 .4em 1.25em;
   font-size: 1.7rem;
 }
 .pac-matched {
-  color: #fff;
+  color: $gray-dark;
   font-weight: bold;
   font-size: 1.8rem;
 }
 .pac-item-query {
-  color: #fff;
+  color: $gray-dark;
   font-size: 1.8rem;
 }
 .pac-item-selected {
-  background-color: #0071bb;
-  color: #fff;
+  background-color: $gray-lightest;
+  color: $gray-dark;
 }
 .pac-item:hover {
-  background-color: #0071bb;
-  color: #fff;
-}
-
-#filter-button {
-  display: none;
-  height: 100%;
-  border: 3px solid #1a406e;
-  margin-right: 1em;
-  color: #fff;
-  padding-top: 1.1rem;
-  padding-left: 2.5rem;
-  background-image: none;
-}
-#filter-button:hover {
-  height: 100%;
-  border: 3px solid #fff;
-  margin-right: 1em;
-  background-color: #fff;
-  color: #0071bb;
-}
-#filter-button:focus {
-  height: 100%;
-  border: 3px solid #fff;
-  background-color: #fff;
-  margin-right: 1em;
-  color: #0071bb;
-}
-.usa-nav-primary > li:first-child {
-  height: 4.4rem;
-  float: left;
-}
-.usa-nav-submenu {
-  z-index: 3;
-}
-ul.hubzone-filter-menu {
-  background-color: #fff;
-  width: 27rem;
-  padding: 1rem 2rem 2rem 3rem;
-}
-ul.hubzone-filter-menu li {
-  background-color: #fff;
-}
-ul.hubzone-filter-menu a {
-  background-color: #fff;
-}
-ul.hubzone-filter-menu label {
-  margin-top: 1.5rem;
-  color: #0071bb;
+  background-color: $gray-lightest;
+  color: $gray-dark;
 }
 li.hubzone-map-print {
-  float: right;
   cursor: pointer;
 }
 li.hubzone-map-print a {
-  color: #fff;
+  color: $gray-dark;
   padding-right: 0;
 }
-.gm-iv-address {
-  height: auto !important;
-}
-
 
 /* Map Legend */
 #legend {
-  font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
+  font-family: $font-sans;
   font-size: 1.5em;
-  background-color: #fff;
-  border: 2px solid #aeb0b5;
+  background-color: $white;
+  border: .5px solid $gray-light;
   border-radius: 4px;
   margin: 0 0 .8em 0.3em;
   padding: .6em;
@@ -168,63 +139,66 @@ li.hubzone-map-print a {
   padding-right: .5em;
 }
 .legend-qualified {
-  color: #377EB8;
+  color: $cool-blue-light;
 }
 .legend-expiring {
-  color: #343434;
+  color: $gray-dark;
 }
 
 /* Map sidebar */
 #sidebar {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.80);
   right: -34rem;
   height: 100%;
   width: 34rem;
   transition-duration: 400ms;
   z-index: 2;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
 }
 #sidebar.on {
   right: 0;
 }
 #sidebar-button {
   position: absolute;
-  margin-left: -3.4rem;
+  margin-left: -2.9rem;
   margin-top: 2.3rem;
-  padding: 2rem .5rem 2rem 0.8rem;
+  padding: 2rem .3rem 2rem 0.5rem;
   z-index: 2;
   border-radius: 4px 0 0 4px;
   font-size: 3rem;
+  background-color: rgba(255, 255, 255, 0.80);
 }
-.sidebar-search-address {
+#sidebar i.fa-chevron-right, i.fa-chevron-left {
+  color: $gray-dark;
+}
+.sidebar-card {
   position: relative;
   width: 90%;
   min-height: 4em;
   margin: 1rem auto 1rem auto;
   padding: 1.5rem 0 1.5rem 0;
-  background-color: #fafafa;
-  border: 1px solid #f1f1f1;
+  background-color: $white;
+  border: 1px solid $gray-lightest;
   border-radius: 6px;
   display: table;
 }
-.sidebar-search-address h2 {
+.sidebar-card h2 {
   display: table-cell;
   vertical-align: middle;
   top: 1rem;
   max-width: 11rem;
   margin: 0;
   padding-right: 1rem;
-  font-family: 'Source Sans Pro', Helvetica Neue, Arial, sans-serif;
+  font-family: $font-sans;
   font-size: 2rem;
   font-weight: normal;
-  color: #112e51;
+  color: $gray-dark;
 }
-.sidebar-search-address .fa.fa-map-marker {
+.sidebar-card .fa.fa-map-marker {
   position: relative;
   left: 2rem;
   font-size: 4.5rem;
-  color: #112e51;
+  color: $gray-dark;
 }
 #hubzone-status {
   float: left;
@@ -233,12 +207,12 @@ li.hubzone-map-print a {
   padding-left: 0.8rem;
 }
 .qualified-hubzone {
-  background-color: #2e8540;
-  color: #fafafa;
+  background-color: $green-light;
+  color: $white;
 }
 .non-qualified-hubzone {
-  background-color: #5b616a;
-  color: #fafafa;
+  background-color: $gray-dark;
+  color: $white;
 }
 .hubzone-status-indicator .fa.fa-times-circle-o, .fa.fa-check-circle-o {
   float: left;
@@ -250,27 +224,30 @@ li.hubzone-map-print a {
   margin: 0 auto;
   border-radius: 6px;
   border-collapse: separate;
-  border: 1px solid #f1f1f1;
   overflow: hidden;
+}
+table.sidebar-qualifications th{
+  border: none;
 }
 .sidebar-qualifications thead th {
   border: none;
   padding: 1rem 1.5rem 1rem 1.5rem;
 }
 .sidebar-qualifications tbody th {
-  background-color: #fafafa;
-  border: 1px solid #f1f1f1;
+  background-color: $white;
+  border-top: 1px solid $gray-lightest;
+  color: $gray-dark;
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 400;
 }
 .sidebar-qualifications th > span {
   float: right;
   font-weight: normal;
 }
 .sidebar-qualifications tfoot tr td{
-  border-left: 1px solid #f1f1f1;
-  border-right: 1px solid #f1f1f1;
-  border-bottom: 1px solid #f1f1f1;
+  border-left: 1px solid $gray-lightest;
+  border-right: 1px solid $gray-lightest;
+  border-bottom: 1px solid $gray-lightest;
   border-top: none;
   border-radius: 0 0 6px 6px;
   font-size: 1.5rem;
@@ -280,7 +257,11 @@ li.hubzone-map-print a {
   font-size: 1.3rem;
   padding-left: 2px;
 }
-
+i.fa.fa-print {
+  font-size: 2.5rem;
+  color: $gray-dark;
+  padding: .5rem 2rem 0 2rem;
+}
 
 /* Google Maps Controls */
 .gm-svpc {
@@ -295,32 +276,44 @@ li.hubzone-map-print a {
 .gm-iv-address-link a {
   font-size: 9px !important;
 }
+div[dir="ltr"] {
+  margin-top: 5rem;
+}
+.gm-iv-address {
+  height: auto !important;
+}
 
 /* Map body */
 .map-body {
   position: absolute;
   width: 100%;
-  height: calc(100% - 151px);
+  height: calc(100% - 85px);
 }
-
 #map {
   height: 100%;
   width: 100%;
 }
+
 
 /*
 ** Responsive Queries
 */
 /* Large for tablet and desktop */
 @media screen and (min-width: 951px) {
+  .usa-header-extended .usa-navbar {
+    max-width: 100%;
+    padding: 0 2rem 0 2rem;
+  }
   .usa-header-extended .usa-nav-inner {
     margin-top: 0;
+    max-width: 100%;
   }
-  .map-header {
-    height: 5.55rem;
-    padding-top: .55rem;
-    background: #122e51;
-    border-bottom: none;
+  .usa-banner-inner {
+    max-width: 100%;
+    padding: 0 2rem 0 2rem;
+  }
+  .usa-grid {
+    max-width: 100%;
   }
   .usa-search.usa-search-small [type="search"],
   .usa-search.usa-search-small .usa-search-input {
@@ -331,65 +324,139 @@ li.hubzone-map-print a {
     border-top: none;
   }
   .usa-header-extended .usa-logo {
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
   #map-search button {
     border-radius: 0 4px 4px 0;
-    width: 7rem;
+    width: 6rem;
   }
 }
+
 
 /* Medium for phones */
 @media only screen and (max-width: 950px)  {
   #sba-logo {
-    max-width: 7.6rem;
-    padding-top: .3rem;
+    max-width: 6rem;
+    padding-top: 1rem;
   }
   #map-search button {
-    background-color: #1a406e;
     background-size: 3.5rem;
   }
-  .usa-grid {
-    padding: 0;
-    width: 100%;
+  .usa-banner-header {
+    padding-left: .5rem;
+  }
+  .usa-banner-inner {
+    padding-left: 0;
+  }
+  .usa-logo {
+    margin-left: .5rem;
   }
   .usa-logo-text a > h1 {
-    margin: 0 0 0 2rem;
-    padding: 0.5rem 0 0 0 ;
+    margin: 0.7rem 0 0 1rem;
     font-size: 2.2rem;
-  }
-  .hubzone-filter {
-    display: none;
+    font-weight: 400;
   }
   .map-body {
-    height: calc(100% - 107px);
+    height: calc(100% - 60px);
+  }
+  .hubzone-search {
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-left: none;
+  }
+  #search-field-small {
+    border-left: none;
+    padding-left: 0.5rem;
+  }
+  #map-search button {
+    border-radius: 0;
+  }
+  .pac-container {
+    margin-left: 0;
+    border: none;
+  }
+  .pac-item {
+    padding-left: .25rem;
+  }
+  .map-print {
+    display: none;
+  }
+  .usa-menu-btn {
+    display: none;
+  }
+  #legend {
+    display: none;
+  }
+  .gmnoprint {
+    display: none;
   }
   #sidebar-button {
     display: none;
   }
   #sidebar {
     width: 100%;
-    height: 11rem;
-    bottom: 10rem;
+    height: auto;
+    bottom: 0;
+    background-color: transparent;
   }
-  .sidebar-search-address {
-    min-height: 11rem;
+  .sidebar-card {
+    width: 100%;
+    border-radius: 0;
+    margin: 0;
+    padding: 0.5rem;
+    min-height: auto;
   }
-  .hubzone-map-print {
+  .sidebar-qualifications {
+    width: 100%;
+    border: none;
+    border-radius: 0;
+  }
+  .sidebar-card > h2 {
+    font-size: 1em;
+    width: 100%;
+    padding-left: 3.3rem;
+  }
+  .sidebar-card .fa.fa-map-marker {
+    font-size: 3.5rem;
+  }
+  .sidebar-qualifications thead th {
+    padding: 0.5rem 1.5rem 0.5rem 2rem;
+  }
+  .hubzone-status-indicator .fa.fa-times-circle-o, .fa.fa-check-circle-o {
+    font-size: 3.5rem;
+  }
+  #hubzone-status {
+    font-size: 1em;
+  }
+  .sidebar-qualifications tbody {
     display: none;
   }
 }
 
+
 /* Small for small phones and devices */
 @media only screen and (max-width: 480px) {
   .map-body {
-    height: calc(100% - 127px);
+    height: calc(100% - 40px);
+  }
+  .usa-banner {
+    display: none;
   }
 }
 
+
+/* Printing styles */
 @media print {
   .usa-banner {
+    display: none;
+  }
+  .usa-navbar {
+    margin-left: 0;
+    margin-bottom: 1rem;
+  }
+  .hubzone-search {
     display: none;
   }
   .usa-nav-primary > li {
@@ -403,6 +470,9 @@ li.hubzone-map-print a {
     padding: 0;
     width: 500px;
     left: 0;
+  }
+  .map-print {
+    display: none;
   }
   .usa-grid {
     padding: 1em 0 1em 0;
