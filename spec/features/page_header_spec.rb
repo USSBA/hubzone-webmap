@@ -4,8 +4,8 @@ describe "the header", type: :feature do
   before do
     visit('/map')
   end
-  it "should have copy in the U.S. Official Website header" do
-    expect(page).to have_content 'The .gov means it’s official.'
+  it "should have Official U.S. Gov website copy" do
+    expect(page).to have_content 'An official website of the United States government'
   end
   it "should have header section" do
     expect(page).to have_selector('header')
@@ -20,13 +20,7 @@ describe "the header", type: :feature do
   it "should have HUBZone Program link" do
     expect(page).to have_content 'HUBZone Program'
   end
-  it "should have Accessible Version link" do
-    expect(page).to have_content 'Accessible Version'
-  end
   it "should have Help link" do
     expect(page).to have_content 'Help'
-  end
-  it "should have Print icon" do
-    expect(page).to have_css('.hubzone-map-print')
   end
 end

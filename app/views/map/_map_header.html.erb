@@ -1,4 +1,4 @@
-<section class="map-header">
+<!-- <section class="map-header">
   <div class="usa-grid">
     <ul class="usa-nav-primary">
       <li class="hubzone-filter usa-accordion">
@@ -29,20 +29,9 @@
           </li>
         </ul>
       </li>
-      <li class="hubzone-search">
-        <%= form_tag search_path, remote: true, method: :get, class: "usa-search usa-search-small", onsubmit: "HZ.trackSubmit('search', '#search-field-small')" do %>
-        <div id="map-search" role="search">
-          <%= hidden_field_tag "locale", I18n.locale %>
-          <%= hidden_field_tag "query_date", Date.today %>
-          <%= label_tag "search", 'HUBZone Map Search', class: "usa-sr-only" %>
-          <%= search_field_tag "search", nil, placeholder: t('map.enter_address'), id: "search-field-small"%>
-          <%= button_tag '<span class="usa-sr-only search-icon">Search</span>'.html_safe, id: "hubzone-search-button" %>
-        </div>
-        <% end %>
-      </li>
-      <li class="hubzone-map-print">
-        <a href="map-print" id="map-print"><i class="fa fa-print" aria-hidden="true"></i></a>
-      </li>
+
+
     </ul>
   </div>
 </section>
+ -->

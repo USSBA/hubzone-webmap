@@ -12,8 +12,6 @@ describe "Google Analytics", type: :feature do
                             description: 'Logo link' },
               program:    { selector: 'a#hubzone-program-link',
                             description: 'Program link' },
-              accessible: { selector: 'a#hubzone-accessible-link',
-                            description: 'Accessible link' },
               help:       { selector: 'a#hubzone-help-link',
                             description: 'Help link' } }
 
