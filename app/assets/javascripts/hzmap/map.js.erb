@@ -7,7 +7,7 @@ function initMap() {
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 35.29, lng: -97.62},
-    zoom: 10,
+    zoom: 5,
     zoomControl: true,
     zoomControlOptions: {
       position: google.maps.ControlPosition.RIGHT_BOTTOM
@@ -16,15 +16,15 @@ function initMap() {
       position: google.maps.ControlPosition.RIGHT_BOTTOM
     },
     mapTypeControlOptions: {
-      mapTypeIds: ['hz_map','roadmap', 'satellite' ],
+      mapTypeIds: ['roadmap', 'hz_map', 'hybrid' ],
       position: google.maps.ControlPosition.BOTTOM_CENTER
-    }
+    },
   });
 
   //adds in the hz style into the basemap picker
-  var hzStyledMap = new google.maps.StyledMapType(hzBaseMapStyle, {name: 'Default'});
+  var hzStyledMap = new google.maps.StyledMapType(hzBaseMapStyle, {name: 'Gray'});
   map.mapTypes.set('hz_map', hzStyledMap);
-  map.setMapTypeId('hz_map');
+  map.setMapTypeId('roadmap', {name: 'Wow'});
 
   //adds the map legend
   map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('legend'));
@@ -42,45 +42,37 @@ function initMap() {
   /* jshint unused: false */
   var autocomplete = new google.maps.places.Autocomplete(searchInput, options);
 
-  getUserLocation();
+  getUserLocation(navigator.geolocation);
 
   //returns the map
   return map;
 }
 
-function getUserLocation() {
+function getUserLocation(navLocation) {
   //grab users location and set map around it
-  if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        //set map to that location
-        console.log(pos);
-        map.setCenter(pos);
-        map.setZoom(15);
-        var markerGeolocation = new google.maps.Marker({
-          position: pos,
-          map: map,
-          icon: new google.maps.MarkerImage('<%= image_path 'geolocation-marker.svg' %>')
-        });
-      }, function() {
-        handleGeolocationError(true);
-      });
+  if (navLocation) {
+      navLocation.getCurrentPosition(moveMapToUserLocation);
   } else {
     //browser doesn't support Geolocation
-    handleGeolocationError(false);
+    console.warn('browser does not support geolocation');
   }
 }
 
-function handleGeolocationError(browserHasGeolocation) {
-  if(browserHasGeolocation){
-    console.log('geolocation failed');
-  } else {
-    console.log('browser does not support geolocation');
-  }
-}
+function moveMapToUserLocation(position){
+  console.log(position);
+  var pos = {
+    lat: position.coords.latitude,
+    lng: position.coords.longitude
+  };
+  //set map to that location
+  map.setCenter(pos);
+  map.setZoom(15);
+  var markerGeolocation = new google.maps.Marker({
+    position: pos,
+    map: map,
+    icon: new google.maps.MarkerImage('<%= image_path 'geolocation-marker.svg' %>')
+  });
+};
 
 function updateIdleMap(){
   var map = this;

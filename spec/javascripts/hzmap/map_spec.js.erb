@@ -263,6 +263,34 @@ describe ('Testing map operations', function() {
     expect(date).toEqual('2016-01-01');
   });
 
+  it("should get users location", function(){
+    spyOn(navigator.geolocation, 'getCurrentPosition');
+    getUserLocation(navigator.geolocation);
+    expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(1);
+  });
+
+  it("should log if browser doesn't support geolocation", function(){
+    spyOn(navigator.geolocation, 'getCurrentPosition');
+    getUserLocation(undefined);
+    expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(0);
+  });
+
+  it("should move to a users location", function(){
+    spyOn(map, 'setCenter');
+    spyOn(map, 'setZoom');
+
+    mockLocation = {coords: {latitude: 39.2896, longitude: -76.6076}, timestamp: 1484169325902}
+
+    moveMapToUserLocation(mockLocation);
+    expect(map.setCenter.calls.count()).toEqual(1);
+    expect(map.setZoom.calls.count()).toEqual(1);
+
+  });
+
+  // it("should move the map to users location", function(){
+
+  // });
+
   // it("should show autocomplete results when a search is started", function(){
   //   var testDivForAutocomplete = document.createElement('pac-test');
   //   $('body').append(testDivForAutocomplete);
