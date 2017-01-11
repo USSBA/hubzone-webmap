@@ -11,9 +11,7 @@ describe "Google Analytics", type: :feature do
               logo:       { selector: '#logo a.logo-link',
                             description: 'Logo link' },
               program:    { selector: 'a#hubzone-program-link',
-                            description: 'Program link' },
-              help:       { selector: 'a#hubzone-help-link',
-                            description: 'Help link' } }
+                            description: 'Program link' } }
 
     links.each do |_key, info|
       it "should be ready to send an event for the #{info[:description]} link" do
