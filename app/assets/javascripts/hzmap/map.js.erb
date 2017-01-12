@@ -51,10 +51,11 @@ function initMap() {
 function getUserLocation(navLocation) {
   //grab users location and set map around it
   if (navLocation) {
-      navLocation.getCurrentPosition(moveMapToUserLocation);
+      return navLocation.getCurrentPosition(moveMapToUserLocation);
   } else {
     //browser doesn't support Geolocation
-    console.warn('browser does not support geolocation');
+    // console.warn('browser does not support geolocation');
+    return null;
   }
 }
 

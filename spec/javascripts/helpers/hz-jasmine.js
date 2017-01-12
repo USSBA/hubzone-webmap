@@ -143,10 +143,10 @@ var HZSpecHelper = {
     });
   },
   fakeGeolocation: function(){
-    if(!navigator.geolocation) {
-      webpage.onInitialized = function() {
-        webpage.injectJs('geolocation.js')
-      };
+    if (navigator.geolocation === null || navigator.geolocation === undefined){
+      return null;
+    } else {
+      return spyOn(navigator.geolocation, 'getCurrentPosition');      
     }
   }
 };

@@ -269,18 +269,21 @@ describe ('Testing map operations', function() {
   });
 
   it("should get users location", function(){
-    console.log(navigator.geolocation);
-    HZSpecHelper.fakeGeolocation();
-    spyOn(navigator.geolocation, 'getCurrentPosition');
-    getUserLocation(navigator.geolocation);
-    expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(1);
+    var geoLocationSpy = HZSpecHelper.fakeGeolocation();
+    if (geoLocationSpy !== null){
+      getUserLocation(navigator.geolocation);
+      expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(1);
+    }
   });
 
   it("should log if browser doesn't support geolocation", function(){
-    HZSpecHelper.fakeGeolocation();
-    spyOn(navigator.geolocation, 'getCurrentPosition');
-    getUserLocation(undefined);
-    expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(0);
+    var geoLocationSpy = HZSpecHelper.fakeGeolocation();
+    var locationResp = getUserLocation(undefined);
+    if (geoLocationSpy !== null){
+      expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(0);
+    } else {
+      expect(locationResp).toEqual(null);
+    }
   });
 
   it("should move to a users location", function(){
