@@ -6,12 +6,12 @@
 
 describe ('Testing map operations', function() {
   beforeEach(function(){
+    google = HZSpecHelper.google;
     map = new google.maps.Map();
     spyOn(google.maps, 'Map').and.returnValue(map);
     spyOn(google.maps.event, 'addListener');
     spyOn(map, 'addListener');
-    resetOverlays();
-
+    HZSpecHelper.resetOverlays();
   });
 
   afterEach(function(){
@@ -51,6 +51,7 @@ describe ('Testing map operations', function() {
 
   it("should return correct imageBounds object", function(){
     spyOn(window, 'createGoogleLatLngBounds');
+    var coordinates = HZSpecHelper.coordinates;
     var bboxStr = [coordinates.west, coordinates.south, coordinates.east, coordinates.north].join(',');
 
     var imageBounds = getImageBounds(bboxStr);
@@ -59,6 +60,7 @@ describe ('Testing map operations', function() {
   });
 
   it("should run google latlng methods", function(){
+    var coordinates = HZSpecHelper.coordinates;
     spyOn(google.maps, 'LatLngBounds');
     spyOn(google.maps, 'LatLng');
 
@@ -138,7 +140,7 @@ describe ('Testing map operations', function() {
 
   it("should update the map WMS layer, adding a new overlay where there was none before", function(){
     var layer = 'qct';
-    var mockOverlay = new NewOverlay('new');
+    var mockOverlay = new HZSpecHelper.NewOverlay('new');
     spyOn(mockOverlay, 'setMap');
     spyOn(mockOverlay, 'addListener');
     hzWMSOverlays[layer].overlay.push(mockOverlay);
@@ -155,8 +157,8 @@ describe ('Testing map operations', function() {
   it("should update the map WMS layer, replacing the old overlay with a new one", function(){
     var layer = 'qct';
 
-    var mockOverlayOld = new NewOverlay('old');
-    var mockOverlayNew = new NewOverlay('new');
+    var mockOverlayOld = new HZSpecHelper.NewOverlay('old');
+    var mockOverlayNew = new HZSpecHelper.NewOverlay('new');
 
     spyOn(mockOverlayOld, 'setMap');
     spyOn(mockOverlayNew, 'setMap');
@@ -175,7 +177,7 @@ describe ('Testing map operations', function() {
 
   it("should handle an empty WMS update call", function(){
     var layer = 'qct';
-    resetOverlays();
+    HZSpecHelper.resetOverlays();
     var updateState = updateLayerWMSOverlay({
       layer: layer,
       mapScope: map
@@ -189,7 +191,7 @@ describe ('Testing map operations', function() {
     spyOn(map, 'fitBounds');
 
     var geocodeLocation = {
-      location: markerLocation,
+      location: HZSpecHelper.markerLocation,
       viewport: {
         northeast: {
           lat: 39.29024048029149,
@@ -212,7 +214,7 @@ describe ('Testing map operations', function() {
     spyOn(map, 'fitBounds');
 
     var geocodeLocationNoViewport = {
-      location: markerLocation
+      location: HZSpecHelper.markerLocation
     };
 
     jumpToLocation(geocodeLocationNoViewport);
@@ -220,20 +222,20 @@ describe ('Testing map operations', function() {
   });
 
   it("should add a marker object", function(){
-    var stubMapMarker = new MapMarker();
+    var stubMapMarker = new HZSpecHelper.MapMarker();
     mapMarkers = [stubMapMarker];
     //this code touches all 3 marker functions (updateMarkers, setMapOnAll, clearMarkers)
     spyOn(google.maps, 'Marker');
     spyOn(stubMapMarker, 'setMap');
 
-    updateMarkers(markerLocation);
+    updateMarkers(HZSpecHelper.markerLocation);
     expect(google.maps.Marker.calls.count()).toEqual(1);
     expect(stubMapMarker.setMap.calls.count()).toEqual(1);
     expect(mapMarkers[0]).not.toEqual(stubMapMarker);  //because the test replaces it with a new spy from google.maps.Marker
   });
 
   it("should empty the marker object", function(){
-    var stubMapMarker = new MapMarker();
+    var stubMapMarker = new HZSpecHelper.MapMarker();
     mapMarkers = [stubMapMarker];
     spyOn(google.maps, 'Marker');
 
@@ -245,10 +247,10 @@ describe ('Testing map operations', function() {
     var mapClick = {
       latLng: {
         lat: function(){
-          return markerLocation.lat;
+          return HZSpecHelper.markerLocation.lat;
         },
         lng: function(){
-          return markerLocation.lng;
+          return HZSpecHelper.markerLocation.lng;
         }
       }
     };
@@ -267,14 +269,15 @@ describe ('Testing map operations', function() {
   });
 
   it("should get users location", function(){
-    fakeGeolocation();
+    console.log(navigator.geolocation);
+    HZSpecHelper.fakeGeolocation();
     spyOn(navigator.geolocation, 'getCurrentPosition');
     getUserLocation(navigator.geolocation);
     expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(1);
   });
 
   it("should log if browser doesn't support geolocation", function(){
-    fakeGeolocation();
+    HZSpecHelper.fakeGeolocation();
     spyOn(navigator.geolocation, 'getCurrentPosition');
     getUserLocation(undefined);
     expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(0);

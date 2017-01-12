@@ -7,8 +7,9 @@
 
 describe ('Testing print operations', function() {
   beforeEach(function(done) {
+    google = HZSpecHelper.google;
     map = new google.maps.Map();
-    var sidebar = mockPage.build();
+    var sidebar = HZSpecHelper.mockPage.build();
     //set spies
     spyOn(map, 'getBounds');
     spyOn(map, 'getCenter');
@@ -26,7 +27,7 @@ describe ('Testing print operations', function() {
   afterEach(function(done){
     map = {};
     mapMarkers = [];
-    mockPage.destroy();
+    HZSpecHelper.mockPage.destroy();
     setTimeout(function() {
       done();
     }, 1);
@@ -50,7 +51,7 @@ describe ('Testing print operations', function() {
   });
 
   it ("should update the map div before print with a marker present", function(){
-    var stubMapMarker = new MapMarker();
+    var stubMapMarker = new HZSpecHelper.MapMarker();
     mapMarkers = [stubMapMarker];
     beforePrint();
     var mapBodyDivClasses = $('.map-body').attr('class');
