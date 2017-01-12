@@ -26,8 +26,9 @@ function initMap() {
   map.mapTypes.set('hz_map', hzStyledMap);
   map.setMapTypeId('roadmap', {name: 'Wow'});
 
-  //adds the map legend
+  //adds the map legend and geolocation button
   map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('legend'));
+  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('geolocation'));
 
   // adds listener that triggers whenever the map is idle to update with new features.
   google.maps.event.addListener(map, 'idle', updateIdleMap);

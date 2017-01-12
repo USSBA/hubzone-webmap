@@ -49,6 +49,7 @@ dev:
     qualified_by: "Calificado por: "
     qualifications_effective: "A partir de"
     qualified: "HUBZone Calificado"
+    qualified_short: "Calificado"
     not_qualified: "HUBZone No Calificado"
     qct: "Zona censal"
     qct_e: "Zona censal"

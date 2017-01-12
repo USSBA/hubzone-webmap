@@ -19,9 +19,12 @@
   </div>
   <div id="legend">
     <ul>
-      <li class="legend-qualified"><i class="fa fa-square" aria-hidden="true"></i>Qualified</li>
-      <li class="legend-expiring"><i class="fa fa-square" aria-hidden="true"></i>Expiring</li>
+      <li class="legend-qualified"><i class="fa fa-square" aria-hidden="true"></i><%= t('hubzone_assertions.qualified_short') %></li>
+      <li class="legend-expiring"><i class="fa fa-square" aria-hidden="true"></i><%= t('hubzone_status.expiring') %></li>
     </ul>
+  </div>
+  <div id="geolocation" class="gmnoprint">
+    <%= image_tag("geolocation-button.png", alt: "Find my Location Button") %>
   </div>
   <script src="https://maps.googleapis.com/maps/api/js?key=<%= MAP_CONFIG[:google_api_key] %>&callback=initMap&libraries=places" async=""></script>
 </section>
