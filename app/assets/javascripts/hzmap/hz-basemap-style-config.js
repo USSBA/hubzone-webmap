@@ -47,7 +47,7 @@ var hzBaseMapStyle = [
     "elementType": "geometry.stroke",
     "stylers": [
       {
-        "color": "#Aeb0b5"
+        "color": "#adb0b5"
       },
       {
         "visibility": "on"
@@ -119,6 +119,18 @@ var hzBaseMapStyle = [
   },
   {
     "featureType": "road.highway",
+    "elementType": "labels.icon",
+    "stylers": [
+      {
+        "saturation": -100
+      },
+      {
+        "visibility": "on"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
     "elementType": "labels.text.fill",
     "stylers": [
       {
@@ -171,4 +183,4 @@ var hzBaseMapStyle = [
       }
     ]
   }
-];
+]
