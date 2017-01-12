@@ -264,20 +264,25 @@ describe ('Testing map operations', function() {
   });
 
   it("should get users location", function(){
-    if(navigator.geolocation) {
-      spyOn(navigator.geolocation, 'getCurrentPosition');
-      getUserLocation(navigator.geolocation);
-      expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(1);
+    if(!navigator.geolocation) {
+      webpage.onInitialized = function() {
+        webpage.injectJs('geolocation.js')
+      };
     }
+    spyOn(navigator.geolocation, 'getCurrentPosition');
+    getUserLocation(navigator.geolocation);
+    expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(1);
   });
 
-  it("should log if browser doesn't support geolocation", function(){
-    if(navigator.geolocation) {
-      spyOn(navigator.geolocation, 'getCurrentPosition');
-      getUserLocation(undefined);
-      expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(0);
-    }
-  });
+  // it("should log if browser doesn't support geolocation", function(){
+  //   if(navigator.geolocation) {
+  //     spyOn(navigator.geolocation, 'getCurrentPosition');
+  //     getUserLocation(undefined);
+  //     expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(0);
+  //   } else {
+  //     console.log("testing suite does not support navigator.geolocation");
+  //   }
+  // });
 
   it("should move to a users location", function(){
     spyOn(map, 'setCenter');

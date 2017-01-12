@@ -198,3 +198,4 @@ var mockPage = {
     $('.map-body').remove();
   }
 }
+
