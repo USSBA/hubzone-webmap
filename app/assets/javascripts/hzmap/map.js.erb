@@ -1,5 +1,7 @@
 //defining global variables for hubzone map controllers
 var map = {}; //the map object
+var hzQueryMarker = {};
+var hzUserLocation = {};
 
 //create the map on load, when idle, jump to updateMap to get features
 /* exported initMap */
@@ -43,6 +45,13 @@ function initMap() {
   /* jshint unused: false */
   var autocomplete = new google.maps.places.Autocomplete(searchInput, options);
 
+  hzQueryMarker = new HubzoneMapMarker({
+    icon: '<%= image_path 'hubzone-map-marker.svg' %>'
+  });
+  hzUserLocation = new HubzoneMapMarker({
+    icon: '<%= image_path 'geolocation-marker.svg' %>'
+  });
+
   getUserLocation(navigator.geolocation);
 
   //returns the map
@@ -51,6 +60,8 @@ function initMap() {
 
 function getUserLocation(navLocation) {
   //grab users location and set map around it
+  // $('#geolocation img').css("display", "none");
+  // $('.spinner').css("display", "block");
   if (navLocation) {
       navLocation.getCurrentPosition(moveMapToUserLocation);
   } else {
@@ -67,11 +78,11 @@ function moveMapToUserLocation(position){
   //set map to that location
   map.setCenter(pos);
   map.setZoom(15);
-  var markerGeolocation = new google.maps.Marker({
-    position: pos,
-    map: map,
-    icon: new google.maps.MarkerImage('<%= image_path 'geolocation-marker.svg' %>')
-  });
+
+  hzUserLocation.updateMarkers(pos);
+
+  // $('#geolocation img').css("display", "block");
+  // $('.spinner').css("display", "none");
 };
 
 function updateIdleMap(){
