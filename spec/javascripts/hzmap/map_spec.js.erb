@@ -271,7 +271,8 @@ describe ('Testing map operations', function() {
   it("should get users location", function(){
     var geoLocationSpy = HZSpecHelper.fakeGeolocation();
     if (geoLocationSpy !== null){
-      getUserLocation(navigator.geolocation);
+      var locationResp = getUserLocation(navigator.geolocation);
+      expect(locationResp).toBeDefined();
       expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(1);
     }
   });
@@ -291,7 +292,7 @@ describe ('Testing map operations', function() {
     spyOn(map, 'setZoom');
     spyOn(google.maps, 'Marker');
 
-    position = {coords: {latitude: 39.2896, longitude: -76.6076}, timestamp: 1484169325902}
+    position = {coords: {latitude: 39.2896, longitude: -76.6076}, timestamp: 1484169325902};
 
     moveMapToUserLocation(position);
     expect(map.setCenter).toHaveBeenCalledWith({

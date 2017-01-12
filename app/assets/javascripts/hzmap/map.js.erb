@@ -51,7 +51,8 @@ function initMap() {
 function getUserLocation(navLocation) {
   //grab users location and set map around it
   if (navLocation) {
-      return navLocation.getCurrentPosition(moveMapToUserLocation);
+      navLocation.getCurrentPosition(moveMapToUserLocation);
+      return navLocation;
   } else {
     //browser doesn't support Geolocation
     // console.warn('browser does not support geolocation');
@@ -67,12 +68,14 @@ function moveMapToUserLocation(position){
   //set map to that location
   map.setCenter(pos);
   map.setZoom(15);
+  /* jshint ignore:start */
   var markerGeolocation = new google.maps.Marker({
     position: pos,
     map: map,
     icon: new google.maps.MarkerImage('<%= image_path 'geolocation-marker.svg' %>')
   });
-};
+  /* jshint ignore:end */
+}
 
 function updateIdleMap(){
   var map = this;
