@@ -11,6 +11,7 @@ describe ('Testing map operations', function() {
     spyOn(google.maps.event, 'addListener');
     spyOn(map, 'addListener');
     resetOverlays();
+
   });
 
   afterEach(function(){
@@ -22,6 +23,7 @@ describe ('Testing map operations', function() {
     spyOn(map.mapTypes, 'set');
     spyOn(map, 'setMapTypeId');
     spyOn(google.maps.places, 'Autocomplete');
+    spyOn(window, 'getUserLocation');
 
     map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
     map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
@@ -34,6 +36,7 @@ describe ('Testing map operations', function() {
     expect(map.mapTypes.set.calls.count()).toEqual(1);
     expect(map.setMapTypeId.calls.count()).toEqual(1);
     expect(google.maps.places.Autocomplete.calls.count()).toEqual(1);
+    expect(window.getUserLocation.calls.count()).toEqual(1);
   });
 
   it("should get bbox", function() {
@@ -264,25 +267,18 @@ describe ('Testing map operations', function() {
   });
 
   it("should get users location", function(){
-    if(!navigator.geolocation) {
-      webpage.onInitialized = function() {
-        webpage.injectJs('geolocation.js')
-      };
-    }
+    fakeGeolocation();
     spyOn(navigator.geolocation, 'getCurrentPosition');
     getUserLocation(navigator.geolocation);
     expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(1);
   });
 
-  // it("should log if browser doesn't support geolocation", function(){
-  //   if(navigator.geolocation) {
-  //     spyOn(navigator.geolocation, 'getCurrentPosition');
-  //     getUserLocation(undefined);
-  //     expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(0);
-  //   } else {
-  //     console.log("testing suite does not support navigator.geolocation");
-  //   }
-  // });
+  it("should log if browser doesn't support geolocation", function(){
+    fakeGeolocation();
+    spyOn(navigator.geolocation, 'getCurrentPosition');
+    getUserLocation(undefined);
+    expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(0);
+  });
 
   it("should move to a users location", function(){
     spyOn(map, 'setCenter');

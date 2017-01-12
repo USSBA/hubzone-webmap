@@ -199,3 +199,11 @@ var mockPage = {
   }
 }
 
+// stub geolocation if needed
+function fakeGeolocation(){  
+  if(!navigator.geolocation) {
+    webpage.onInitialized = function() {
+      webpage.injectJs('geolocation.js')
+    };
+  }
+}
