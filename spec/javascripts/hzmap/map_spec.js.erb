@@ -12,12 +12,12 @@ describe ('Testing map operations', function() {
     spyOn(google.maps.event, 'addListener');
     spyOn(HZApp.map, 'addListener');
     HZSpecHelper.resetOverlays();
-    HZApp.markers.hzUserLocation = new HZapp.markers.HubzoneMapMarker({icon: null});  
+    HZApp.markers.hzUserLocation = new HZApp.constructors.HubzoneMapMarker({icon: null});  
   });
 
   afterEach(function(){
-    map = {};
-    hzUserLocation = {};
+    HZApp.map = {};
+    HZApp.markers.hzUserLocation = {};
   });
 
   it("should create a new Google map", function() {
@@ -71,13 +71,6 @@ describe ('Testing map operations', function() {
     expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
     expect(google.maps.LatLng.calls.count()).toEqual(2);
   });
-
-  // xit("should get the current table based on zoom level", function (){
-  //   expect(getTableBasedOnZoomLevel(13)).toEqual(geomWFSSettings.tableHighRes);
-  //   expect(getTableBasedOnZoomLevel(10)).toEqual(geomWFSSettings.tableLowRes);
-  //   expect(getTableBasedOnZoomLevel(6)).toEqual(geomWFSSettings.tableLowerRes);
-  //   expect(getTableBasedOnZoomLevel(5)).toEqual(geomWFSSettings.tableLowestRes);
-  // });
 
   it("should build the correct URL for data with expiration", function() {
     var mapBounds = map.getBounds();
@@ -166,8 +159,8 @@ describe ('Testing map operations', function() {
     spyOn(mockOverlayOld, 'setMap');
     spyOn(mockOverlayNew, 'setMap');
     spyOn(mockOverlayNew, 'addListener');
-    hzWMSOverlays[layer].overlay.push(mockOverlayOld);
-    hzWMSOverlays[layer].overlay.push(mockOverlayNew);
+    HZApp.layers.hzWMSOverlays[layer].overlay.push(mockOverlayOld);
+    HZApp.layers.hzWMSOverlays[layer].overlay.push(mockOverlayNew);
 
     updateLayerWMSOverlay({
       layer: layer,
