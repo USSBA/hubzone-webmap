@@ -1,6 +1,6 @@
 <%
   # toggle the expiration label on only if date exists
-  if qualification["stop"].nil?
+  if qualification["expires"].nil?
     expiration_display = 'hidden'
   else
     expiration_display = 'usa-label'
@@ -10,6 +10,6 @@
 <tr>
   <th id="<%= qualification['hz_type'] %>">
     <%= t(('hubzone_assertions.' + qualification["hz_type"]).to_s)  %>
-    <span class="<%= expiration_display %>"><%= t('hubzone_assertions.expires') %> <%= qualification["stop"].to_s %></span>
+    <span class="<%= expiration_display %>"><%= t('hubzone_assertions.expires') %> <%= qualification["expires"].to_s %></span>
   </th>
 </tr>
