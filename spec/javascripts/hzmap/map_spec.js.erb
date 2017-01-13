@@ -224,28 +224,6 @@ describe ('Testing map operations', function() {
     expect(map.fitBounds.calls.count()).toEqual(0);
   });
 
-  it("should add a marker object", function(){
-    var stubMapMarker = new HubzoneMapMarker({icon: null});  
-    var stubGoogleMarker = new HZSpecHelper.MapMarker();
-    spyOn(stubGoogleMarker, 'setMap');
-    spyOn(google.maps, 'Marker');
-    stubMapMarker.markers.push(stubGoogleMarker);
-    stubMapMarker.updateMarkers(HZSpecHelper.markerLocation);
-    expect(google.maps.Marker.calls.count()).toEqual(1);
-    expect(stubGoogleMarker.setMap.calls.count()).toEqual(1);
-    expect(stubMapMarker.markers[0]).not.toEqual(stubGoogleMarker);
-  });
-
-  it("should empty the marker object", function(){
-    var stubMapMarker = new HubzoneMapMarker({icon: null});  
-    var stubGoogleMarker = new HZSpecHelper.MapMarker();
-    spyOn(stubGoogleMarker, 'setMap');
-    spyOn(google.maps, 'Marker');
-    stubMapMarker.markers.push(stubGoogleMarker);
-    stubMapMarker.updateMarkers();
-    expect(stubMapMarker.markers.length).toEqual(0);
-  });
-
   it("should return a correctly formatted url request on map click", function(){
     var mapClick = {
       latLng: {
