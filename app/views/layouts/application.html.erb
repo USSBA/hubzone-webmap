@@ -40,14 +40,14 @@
                          class: 'logo-link',
                          title: 'SBA Home',
                          'aria-label' => 'SBA Home',
-                         onclick: "HZ.openLink( 'https://sba.gov', 'map', 'logo-link' );" )
+                         onclick: "HZApp.GA.openLink( 'https://sba.gov', 'map', 'logo-link' );" )
             %>
             <%= link_to( "<h1>#{t('hubzone_map')}</h1>".html_safe,
                          root_path,
                          class: 'title-link',
                          title: 'Home',
                          'aria-label' => 'Home',
-                         onclick: "HZ.openLink( '#{root_path}', 'map', 'title-link' );" )
+                         onclick: "HZApp.GA.openLink( '#{root_path}', 'map', 'title-link' );" )
             %>
           </em>
         </div>
@@ -63,7 +63,7 @@
                 <%= link_to( t('menu.hubzone_program'),
                              "https://www.sba.gov/contracting/government-contracting-programs/hubzone-program",
                              id: "hubzone-program-link",
-                             onclick: "HZ.openLink( 'https://www.sba.gov/contracting/government-contracting-programs/hubzone-program', 'map', 'program-link' );" ) %>
+                             onclick: "HZApp.GA.openLink( 'https://www.sba.gov/contracting/government-contracting-programs/hubzone-program', 'map', 'program-link' );" ) %>
               </li>
             </ul>
           </div>

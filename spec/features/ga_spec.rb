@@ -16,7 +16,7 @@ describe "Google Analytics", type: :feature do
     links.each do |_key, info|
       it "should be ready to send an event for the #{info[:description]} link" do
         link = find(:css, info[:selector])
-        expect(link[:onclick]).to match(/HZ.openLink/)
+        expect(link[:onclick]).to match(/HZApp.GA.openLink/)
       end
     end
   end
@@ -24,7 +24,7 @@ describe "Google Analytics", type: :feature do
   context "Searching" do
     it "should be ready to send an event when a user searches an address" do
       form = find(:css, 'form.usa-search')
-      expect(form[:onsubmit]).to match(/HZ.trackSubmit/)
+      expect(form[:onsubmit]).to match(/HZApp.GA.trackSubmit/)
     end
   end
 end

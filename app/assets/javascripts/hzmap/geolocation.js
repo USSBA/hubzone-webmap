@@ -10,17 +10,24 @@ HZApp.GeoLocation = (function() {
   return {
     getUserLocation: function(navLocation){
 		  //grab users location and set map around it
-		  // $('#geolocation img').css("display", "none");
-		  // $('.spinner').css("display", "block");
+  		$('#geolocation i').css("display", "none");
+  		$('.geolocation-loading').css("display", "block");
 		  if (navLocation) {
-		      navLocation.getCurrentPosition(this.moveMapToUserLocation);
+		      navLocation.getCurrentPosition(this.moveMapToUserLocation, this.geolocationError);
 		      return navLocation;
 		  } else {
 		    //browser doesn't support Geolocation
-		    window.console.warn('browser does not support geolocation');
+        $('#geolocation i').css("display", "block");
+    		$('.geolocation-loading').css("display", "none");
+		    // window.console.warn('browser does not support geolocation');
 		    return null;
 		  }
     },
+    geolocationError: function() {
+	    $('#geolocation i').css("display", "block");
+	    $('.geolocation-loading').css("display", "none");
+	    window.console.log("unable to retrieve user location");
+		},
     moveMapToUserLocation: function(position){
 		  var pos = {
 		    lat: position.coords.latitude,
@@ -30,8 +37,8 @@ HZApp.GeoLocation = (function() {
 		  HZApp.map.setCenter(pos);
 		  HZApp.map.setZoom(15);
 		  HZApp.Markers.hzUserLocation.updateMarkers(pos);
-		  // $('#geolocation img').css("display", "block");
-		  // $('.spinner').css("display", "none");
+		  $('#geolocation i').css("display", "block");
+		  $('.geolocation-loading').css("display", "none");
     }
   };
 })();
