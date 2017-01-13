@@ -27,7 +27,8 @@ var HZSpecHelper = {
     maps : {
       ControlPosition: {
         TOP_RIGHT: [],
-        LEFT_BOTTOM: []
+        LEFT_BOTTOM: [],
+        RIGHT_BOTTOM: []
       },
       GroundOverlay: function(){},
       LatLng: function(){},

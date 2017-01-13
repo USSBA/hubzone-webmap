@@ -27,6 +27,7 @@ describe ('Testing map operations', function() {
 
     map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
     map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
+    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM] = [];
 
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map.calls.count()).toEqual(1);
@@ -222,25 +223,25 @@ describe ('Testing map operations', function() {
   });
 
   it("should add a marker object", function(){
-    var stubMapMarker = new HZSpecHelper.MapMarker();
-    mapMarkers = [stubMapMarker];
-    //this code touches all 3 marker functions (updateMarkers, setMapOnAll, clearMarkers)
+    var stubMapMarker = new HubzoneMapMarker({icon: null});  
+    var stubGoogleMarker = new HZSpecHelper.MapMarker();
+    spyOn(stubGoogleMarker, 'setMap');
     spyOn(google.maps, 'Marker');
-    spyOn(stubMapMarker, 'setMap');
-
-    updateMarkers(HZSpecHelper.markerLocation);
+    stubMapMarker.markers.push(stubGoogleMarker);
+    stubMapMarker.updateMarkers(HZSpecHelper.markerLocation);
     expect(google.maps.Marker.calls.count()).toEqual(1);
-    expect(stubMapMarker.setMap.calls.count()).toEqual(1);
-    expect(mapMarkers[0]).not.toEqual(stubMapMarker);  //because the test replaces it with a new spy from google.maps.Marker
+    expect(stubGoogleMarker.setMap.calls.count()).toEqual(1);
+    expect(stubMapMarker.markers[0]).not.toEqual(stubGoogleMarker);
   });
 
   it("should empty the marker object", function(){
-    var stubMapMarker = new HZSpecHelper.MapMarker();
-    mapMarkers = [stubMapMarker];
+    var stubMapMarker = new HubzoneMapMarker({icon: null});  
+    var stubGoogleMarker = new HZSpecHelper.MapMarker();
+    spyOn(stubGoogleMarker, 'setMap');
     spyOn(google.maps, 'Marker');
-
-    updateMarkers();
-    expect(mapMarkers.length).toEqual(0);
+    stubMapMarker.markers.push(stubGoogleMarker);
+    stubMapMarker.updateMarkers();
+    expect(stubMapMarker.markers.length).toEqual(0);
   });
 
   it("should return a correctly formatted url request on map click", function(){
