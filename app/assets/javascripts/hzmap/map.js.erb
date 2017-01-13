@@ -64,9 +64,11 @@ function getUserLocation(navLocation) {
   // $('.spinner').css("display", "block");
   if (navLocation) {
       navLocation.getCurrentPosition(moveMapToUserLocation);
+      return navLocation;
   } else {
     //browser doesn't support Geolocation
-    console.warn('browser does not support geolocation');
+    // console.warn('browser does not support geolocation');
+    return null;
   }
 }
 
@@ -78,9 +80,7 @@ function moveMapToUserLocation(position){
   //set map to that location
   map.setCenter(pos);
   map.setZoom(15);
-
   hzUserLocation.updateMarkers(pos);
-
   // $('#geolocation img').css("display", "block");
   // $('.spinner').css("display", "none");
 };
