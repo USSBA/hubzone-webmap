@@ -30,7 +30,9 @@ options:
     hzWMSOverlays: true
     jumpToLocation: true
     map: true
-    mapMarkers: true
     sidebar: true
     updateAccordions: true
     updateMarkers: true
+    hzUserLocation: true
+    hzQueryMarker: true
+    GeoLocation: true

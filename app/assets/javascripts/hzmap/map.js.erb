@@ -1,6 +1,10 @@
 //defining global variables for hubzone map controllers
 var map = {}; //the map object
+
+/* exported hzQueryMarker */
 var hzQueryMarker = {};
+
+/* exported hzUserLocation */
 var hzUserLocation = {};
 
 //create the map on load, when idle, jump to updateMap to get features
@@ -34,7 +38,6 @@ function initMap() {
 
   // adds listener that triggers whenever the map is idle to update with new features.
   google.maps.event.addListener(map, 'idle', updateIdleMap);
-
   map.addListener('click', catchMapClick);
 
   //adds autocomplete
@@ -45,45 +48,23 @@ function initMap() {
   /* jshint unused: false */
   var autocomplete = new google.maps.places.Autocomplete(searchInput, options);
 
+  // build out the markers
+  /* jshint ignore:start */
   hzQueryMarker = new HubzoneMapMarker({
     icon: '<%= image_path 'hubzone-map-marker.svg' %>'
   });
   hzUserLocation = new HubzoneMapMarker({
     icon: '<%= image_path 'geolocation-marker.svg' %>'
   });
+  /* jshint ignore:end */
 
-  getUserLocation(navigator.geolocation);
+
+  //initialize user location
+  GeoLocation.getUserLocation(navigator.geolocation);
 
   //returns the map
   return map;
 }
-
-function getUserLocation(navLocation) {
-  //grab users location and set map around it
-  // $('#geolocation img').css("display", "none");
-  // $('.spinner').css("display", "block");
-  if (navLocation) {
-      navLocation.getCurrentPosition(moveMapToUserLocation);
-      return navLocation;
-  } else {
-    //browser doesn't support Geolocation
-    // console.warn('browser does not support geolocation');
-    return null;
-  }
-}
-
-function moveMapToUserLocation(position){
-  var pos = {
-    lat: position.coords.latitude,
-    lng: position.coords.longitude
-  };
-  //set map to that location
-  map.setCenter(pos);
-  map.setZoom(15);
-  hzUserLocation.updateMarkers(pos);
-  // $('#geolocation img').css("display", "block");
-  // $('.spinner').css("display", "none");
-};
 
 function updateIdleMap(){
   var map = this;

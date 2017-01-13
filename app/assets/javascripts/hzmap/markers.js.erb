@@ -1,16 +1,17 @@
 // // code for handling marker behavior
 
+/* exported HubzoneMapMarker */
 var HubzoneMapMarker = function(options) {
   this.markers = [];
   this.clearMarkers = function() {
     this.setMapOnAll(null);
     this.markers = [];
-  }
+  };
   this.setMapOnAll = function(map) {
     for (var i = 0; i < this.markers.length; i++) {
       this.markers[i].setMap(map);
     }
-  }
+  };
 
   this.updateMarkers = function(geocodeLocation){
     this.clearMarkers();
@@ -23,6 +24,5 @@ var HubzoneMapMarker = function(options) {
       google.maps.event.addListener(marker, 'click', catchMapClick);
       this.markers.push(marker);
     }
-  }
-
+  };
 };
