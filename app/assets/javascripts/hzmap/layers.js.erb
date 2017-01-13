@@ -74,7 +74,7 @@ HZApp.Layers = (function(){
     	        '<ogc:Filter>' +
     		        '<ogc:PropertyIsEqualTo>' +
     			        '<ogc:Function name="isNull">' +
-    			        	'<ogc:PropertyName>stop</ogc:PropertyName>' +
+    			        	'<ogc:PropertyName>expires</ogc:PropertyName>' +
     			        '</ogc:Function>' +
     			        '<ogc:Literal>true</ogc:Literal>' +
     		        '</ogc:PropertyIsEqualTo>' +
@@ -95,7 +95,7 @@ HZApp.Layers = (function(){
     	        '<ogc:Filter>' +
     		        '<ogc:PropertyIsEqualTo>' +
     		        	'<ogc:Function name="isNull">' +
-    			        	'<ogc:PropertyName>stop</ogc:PropertyName>' +
+    			        	'<ogc:PropertyName>expires</ogc:PropertyName>' +
     		        	'</ogc:Function>' +
     		        	'<ogc:Literal>false</ogc:Literal>' +
     	        	'</ogc:PropertyIsEqualTo>' +
