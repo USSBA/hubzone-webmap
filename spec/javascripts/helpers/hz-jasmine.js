@@ -9,7 +9,8 @@ var google = {
     Circle: function () {},
     ControlPosition: {
       TOP_RIGHT: [],
-      LEFT_BOTTOM: []
+      LEFT_BOTTOM: [],
+      RIGHT_BOTTOM: []
     },
     Data: function() {},
     DirectionsRenderer: function() {},

@@ -59,8 +59,8 @@ function beforePrint() {
   google.maps.event.trigger(map, 'resize');
   map.fitBounds(mapBounds);
 
-  if (mapMarkers.length > 0){
-    map.setCenter(mapMarkers[0].position);
+  if (hzQueryMarker.markers.length > 0){
+    map.setCenter(hzQueryMarker.markers[0].position);
   } else {
     map.setCenter(mapCenter);
   }
