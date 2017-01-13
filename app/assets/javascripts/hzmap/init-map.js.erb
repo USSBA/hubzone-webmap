@@ -41,16 +41,16 @@ function initMap() {
 
   // build out the markers
   /* jshint ignore:start */
-  HZApp.markers.hzQueryMarker = new HZApp.utils.HubzoneMapMarker({
+  HZApp.markers.hzQueryMarker = new HZApp.constructors.HubzoneMapMarker({
     icon: '<%= image_path 'hubzone-map-marker.svg' %>'
   });
-  HZApp.markers.hzUserLocation = new HZApp.utils.HubzoneMapMarker({
+  HZApp.markers.hzUserLocation = new HZApp.constructors.HubzoneMapMarker({
     icon: '<%= image_path 'geolocation-marker.svg' %>'
   });
   /* jshint ignore:end */
 
   //initialize user location
-  HZApp.utils.GeoLocation.getUserLocation(navigator.geolocation);
+  HZApp.GeoLocation.getUserLocation(navigator.geolocation);
 
   //returns the map
   return HZApp.map;

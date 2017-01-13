@@ -1,5 +1,5 @@
 /* exported GeoLocation */
-HZApp.utils.GeoLocation = (function() {
+HZApp.GeoLocation = (function() {
 	// GeoLocation button listener
 	$(function() {
 	  $('#geolocation').click(function(){
