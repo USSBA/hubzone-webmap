@@ -9,5 +9,4 @@ if (responseBody.geometry){
   geocodeLocation = responseBody.geometry.location;
 }
 sidebar.open();
-hzQueryMarker.updateMarkers(geocodeLocation);
-updateAccordions();
+HZApp.markers.hzQueryMarker.updateMarkers(geocodeLocation);

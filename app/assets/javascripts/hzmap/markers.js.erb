@@ -18,7 +18,7 @@ var HubzoneMapMarker = function(options) {
     if (geocodeLocation !== null && geocodeLocation !== undefined){
       var marker = new google.maps.Marker({
         position: geocodeLocation,
-        map: map,
+        map: HZApp.map,
         icon: new google.maps.MarkerImage(options.icon)
       });
       google.maps.event.addListener(marker, 'click', catchMapClick);

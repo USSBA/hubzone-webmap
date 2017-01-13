@@ -25,7 +25,7 @@ describe ('Testing map operations', function() {
     spyOn(map.mapTypes, 'set');
     spyOn(map, 'setMapTypeId');
     spyOn(google.maps.places, 'Autocomplete');
-    spyOn(GeoLocation, 'getUserLocation');
+    spyOn(HZApp.GeoLocation, 'getUserLocation');
 
     map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
     map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
@@ -39,7 +39,7 @@ describe ('Testing map operations', function() {
     expect(map.mapTypes.set.calls.count()).toEqual(1);
     expect(map.setMapTypeId.calls.count()).toEqual(1);
     expect(google.maps.places.Autocomplete.calls.count()).toEqual(1);
-    expect(GeoLocation.getUserLocation.calls.count()).toEqual(1);
+    expect(HZApp.GeoLocation.getUserLocation.calls.count()).toEqual(1);
   });
 
   it("should get bbox", function() {
@@ -274,7 +274,7 @@ describe ('Testing map operations', function() {
   it("should get users location", function(){
     var geoLocationSpy = HZSpecHelper.fakeGeolocation();
     if (geoLocationSpy !== null){
-      var locationResp = GeoLocation.getUserLocation(navigator.geolocation);
+      var locationResp = HZApp.GeoLocation.getUserLocation(navigator.geolocation);
       expect(locationResp).toBeDefined();
       expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(1);
     }
@@ -282,7 +282,7 @@ describe ('Testing map operations', function() {
 
   it("should log if browser doesn't support geolocation", function(){
     var geoLocationSpy = HZSpecHelper.fakeGeolocation();
-    var locationResp = GeoLocation.getUserLocation(undefined);
+    var locationResp = HZApp.GeoLocation.getUserLocation(undefined);
     if (geoLocationSpy !== null){
       expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(0);
     } else {
@@ -297,7 +297,7 @@ describe ('Testing map operations', function() {
 
     position = {coords: {latitude: 39.2896, longitude: -76.6076}, timestamp: 1484169325902};
 
-    GeoLocation.moveMapToUserLocation(position);
+    HZApp.GeoLocation.moveMapToUserLocation(position);
     expect(map.setCenter).toHaveBeenCalledWith({
       lat: position.coords.latitude,
       lng: position.coords.longitude

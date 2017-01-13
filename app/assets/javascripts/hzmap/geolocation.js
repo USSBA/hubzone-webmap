@@ -1,14 +1,13 @@
 /* exported GeoLocation */
-var GeoLocation = (function() {
-	// Geolocation button listener
+HZApp.GeoLocation = (function() {
+	// GeoLocation button listener
 	$(function() {
-	  $('#geolocation').click(GeoLocation.getLocation);
+	  $('#geolocation').click(function(){
+	  	HZApp.GeoLocation.getUserLocation(window.navigator.geolocation);
+	  });
 	});
 
   return {
-    getLocation: function( ) {
-   		GeoLocation.getUserLocation(window.navigator.geolocation); 
-    },
     getUserLocation: function(navLocation){
 		  //grab users location and set map around it
 		  // $('#geolocation img').css("display", "none");
@@ -28,9 +27,9 @@ var GeoLocation = (function() {
 		    lng: position.coords.longitude
 		  };
 		  //set map to that location
-		  map.setCenter(pos);
-		  map.setZoom(15);
-		  hzUserLocation.updateMarkers(pos);
+		  HZApp.map.setCenter(pos);
+		  HZApp.map.setZoom(15);
+		  HZApp.markers.hzUserLocation.updateMarkers(pos);
 		  // $('#geolocation img').css("display", "block");
 		  // $('.spinner').css("display", "none");
     }

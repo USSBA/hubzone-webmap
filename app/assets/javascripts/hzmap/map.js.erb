@@ -56,23 +56,6 @@ function getImageBounds(bbox){
   return imageBounds;
 }
 
-//commented out for now since switching do WMS does not immeaditely require
-// var geomWFSSettings = JSON.parse('<%= MAP_CONFIG[:geomWFSSettings].to_json %>');
-// var currentZoom = mapScope.getZoom();
-// function getTableBasedOnZoomLevel(currentZoom){
-//   var table = geomWFSSettings.tableHighRes;
-//   if (currentZoom >= 12) {
-//     table = geomWFSSettings.tableHighRes;
-//   } else if (currentZoom >= 10){
-//     table = geomWFSSettings.tableLowRes;
-//   } else if (currentZoom >= 6){
-//     table = geomWFSSettings.tableLowerRes;
-//   } else {
-//     table = geomWFSSettings.tableLowestRes;
-//   }
-//   return table;
-// }
-
 //helper for building google lat lng bounds objectfrom a set of lat long coordinates
 //coordinate order corresponds to min X, min Y, max X, max Y
 function createGoogleLatLngBounds(SWLng, SWLat, NELng, NELat){
@@ -126,7 +109,7 @@ function catchMapClick(clickEvent){
   var date = parseDate(new Date());
   var locale = "<%= I18n.locale %>";
   // Log the click
-  HZ.track( 'map', 'click', clicklat + ',' + clicklng );
+  HZApp.GA.track( 'map', 'click', clicklat + ',' + clicklng );
   var url = "/search?latlng=" + clicklat + ',' + clicklng + '&query_date=' + date + '&locale=' + locale;
   $.ajax({
     url: url
@@ -155,6 +138,6 @@ function jumpToLocation(geocodeLocation){
                       geocodeLocation.viewport.northeast.lng,
                       geocodeLocation.viewport.northeast.lat
       );
-    map.fitBounds(newBounds);
+    HZApp.map.fitBounds(newBounds);
   }
 }

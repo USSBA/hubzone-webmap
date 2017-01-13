@@ -52,7 +52,7 @@ $(function() {
 // event handler for clicks to sidebar button
 /* exported triggerSidebar */
 function triggerSidebar(){
-  $('#sidebar').hasClass('on') ? HZ.track( 'map', 'sidebar', 'hide' ) :
-                                 HZ.track( 'map', 'sidebar', 'show' );
+  $('#sidebar').hasClass('on') ? HZApp.GA.track( 'map', 'sidebar', 'hide' ) :
+                                 HZApp.GA.track( 'map', 'sidebar', 'show' );
   $('#sidebar').hasClass('on') ? sidebar.close() : sidebar.open();
 }
