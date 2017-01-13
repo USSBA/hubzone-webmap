@@ -3,7 +3,7 @@ HZApp.GeoLocation = (function() {
 	// GeoLocation button listener
 	$(function() {
 	  $('#geolocation').click(function(){
-	  	HZApp.utils.GeoLocation.getUserLocation(window.navigator.geolocation);
+	  	HZApp.GeoLocation.getUserLocation(window.navigator.geolocation);
 	  });
 	});
 
@@ -17,7 +17,7 @@ HZApp.GeoLocation = (function() {
 		      return navLocation;
 		  } else {
 		    //browser doesn't support Geolocation
-		    // console.warn('browser does not support geolocation');
+		    console.warn('browser does not support geolocation');
 		    return null;
 		  }
     },
