@@ -2,11 +2,13 @@
 /* exported HZApp */
 window.HZApp = {
   GA: {},
-  GeoLocation: {},
   layers: {},
   map: {},
   markers: {},
   print: {},
   sidebar: {},
-  style: {}
+  style: {},
+  utils: {
+    GeoLocation: {}
+  }
 };

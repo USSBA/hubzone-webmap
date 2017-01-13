@@ -1,9 +1,9 @@
 /* exported GeoLocation */
-HZApp.GeoLocation = (function() {
+HZApp.utils.GeoLocation = (function() {
 	// GeoLocation button listener
 	$(function() {
 	  $('#geolocation').click(function(){
-	  	HZApp.GeoLocation.getUserLocation(window.navigator.geolocation);
+	  	HZApp.utils.GeoLocation.getUserLocation(window.navigator.geolocation);
 	  });
 	});
 
