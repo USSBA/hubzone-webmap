@@ -63,15 +63,21 @@ function getUserLocation(navLocation) {
   $('#geolocation i').css("display", "none");
   $('.geolocation-loading').css("display", "block");
   if (navLocation) {
-      navLocation.getCurrentPosition(moveMapToUserLocation);
+      navLocation.getCurrentPosition(moveMapToUserLocation, geolocationError);
       return navLocation;
   } else {
     //browser doesn't support Geolocation
     $('#geolocation i').css("display", "block");
     $('.geolocation-loading').css("display", "none");
-    // console.warn('browser does not support geolocation');
+    //console.warn('browser does not support geolocation');
     return null;
   }
+}
+
+function geolocationError() {
+    $('#geolocation i').css("display", "block");
+    $('.geolocation-loading').css("display", "none");
+    console.log("unable to retrieve user location");
 }
 
 function moveMapToUserLocation(position){
@@ -85,7 +91,7 @@ function moveMapToUserLocation(position){
   hzUserLocation.updateMarkers(pos);
   $('#geolocation i').css("display", "block");
   $('.geolocation-loading').css("display", "none");
-};
+}
 
 function updateIdleMap(){
   var map = this;
