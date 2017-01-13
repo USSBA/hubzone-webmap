@@ -18,6 +18,10 @@ describe ('Testing print operations', function() {
     spyOn(map, 'setCenter');
     spyOn(map, 'setZoom');
     spyOn(google.maps.event, 'trigger');
+    // spyOn(google.maps, 'Marker');
+
+    hzQueryMarker = new HubzoneMapMarker({icon: null});
+    hzUserLocation = new HubzoneMapMarker({icon: null});
 
     setTimeout(function() {
       done();
@@ -26,7 +30,8 @@ describe ('Testing print operations', function() {
 
   afterEach(function(done){
     map = {};
-    mapMarkers = [];
+    hzQueryMarker = {};
+    hzUserLocation = {};
     HZSpecHelper.mockPage.destroy();
     setTimeout(function() {
       done();
