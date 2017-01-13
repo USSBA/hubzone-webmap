@@ -23,7 +23,7 @@ describe ('Testing map operations', function() {
     spyOn(map.mapTypes, 'set');
     spyOn(map, 'setMapTypeId');
     spyOn(google.maps.places, 'Autocomplete');
-    spyOn(window, 'getUserLocation');
+    spyOn(GeoLocation, 'getUserLocation');
 
     map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
     map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
@@ -36,7 +36,7 @@ describe ('Testing map operations', function() {
     expect(map.mapTypes.set.calls.count()).toEqual(1);
     expect(map.setMapTypeId.calls.count()).toEqual(1);
     expect(google.maps.places.Autocomplete.calls.count()).toEqual(1);
-    expect(window.getUserLocation.calls.count()).toEqual(1);
+    expect(GeoLocation.getUserLocation.calls.count()).toEqual(1);
   });
 
   it("should get bbox", function() {
