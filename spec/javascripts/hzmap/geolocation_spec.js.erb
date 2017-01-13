@@ -1,0 +1,58 @@
+//= require hzmap
+//= require ../helpers/sinon-1.17.6
+//= require ../helpers/hz-jasmine
+/* jshint unused: false */
+/* jshint undef: false */
+
+describe ('Testing geolocation operations', function() {
+  beforeEach(function(){
+    google = HZSpecHelper.google;
+    HZApp.map = new google.maps.Map();
+    spyOn(google.maps, 'Map').and.returnValue(HZApp.map);
+    spyOn(google.maps.event, 'addListener');
+    spyOn(HZApp.map, 'addListener');
+    HZApp.markers.hzUserLocation = new HubzoneMapMarker({icon: null});  
+  });
+
+  afterEach(function(){
+    HZApp.map = {};
+    HZApp.markers.hzUserLocation = {};
+  });
+
+  it("should get users location", function(){
+    var geoLocationSpy = HZSpecHelper.fakeGeolocation();
+    if (geoLocationSpy !== null){
+      var locationResp = HZApp.GeoLocation.getUserLocation(navigator.geolocation);
+      expect(locationResp).toBeDefined();
+      expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(1);
+    }
+  });
+
+  it("should log if browser doesn't support geolocation", function(){
+    var geoLocationSpy = HZSpecHelper.fakeGeolocation();
+    var locationResp = HZApp.GeoLocation.getUserLocation(undefined);
+    if (geoLocationSpy !== null){
+      expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(0);
+    } else {
+      expect(locationResp).toEqual(null);
+    }
+  });
+
+  it("should move to a users location", function(){
+    spyOn(HZApp.map, 'setCenter');
+    spyOn(HZApp.map, 'setZoom');
+    spyOn(google.maps, 'Marker');
+
+    position = {coords: {latitude: 39.2896, longitude: -76.6076}, timestamp: 1484169325902};
+
+    HZApp.GeoLocation.moveMapToUserLocation(position);
+    expect(HZApp.map.setCenter).toHaveBeenCalledWith({
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    });
+    expect(HZApp.map.setCenter.calls.count()).toEqual(1);
+    expect(HZApp.map.setZoom.calls.count()).toEqual(1);
+    expect(google.maps.Marker.calls.count()).toEqual(1);
+
+  });
+});
