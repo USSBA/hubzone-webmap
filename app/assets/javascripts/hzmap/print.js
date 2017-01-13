@@ -1,15 +1,15 @@
 // Container for map bounds so we can reset it after print
-HZApp.print = (function(){
+HZApp.Print = (function(){
   (function initialize(){
     // Catch control+p and re-layout page for printing
-    $(document).bind("keydown", HZApp.print.catchKeyStrokeToPrint);
+    $(document).bind("keydown", HZApp.Print.catchKeyStrokeToPrint);
 
     // Listener for map icon click
     $(function() {
       // Web-kit
       this.mediaQueryList = window.matchMedia('print');
-      this.mediaQueryList.addListener(HZApp.print.catchMediaQuery);
-      $(document).on('click','#map-print', HZApp.print.catchPrintEvent);
+      this.mediaQueryList.addListener(HZApp.Print.catchMediaQuery);
+      $(document).on('click','#map-print', HZApp.Print.catchPrintEvent);
     });
   })();
 
@@ -19,7 +19,7 @@ HZApp.print = (function(){
     mapZoom: null,
     catchKeyStrokeToPrint: function(e){
       if((e.ctrlKey || e.metaKey) && e.keyCode === 80){
-        HZApp.print.catchPrintEvent(e, 1000);
+        HZApp.Print.catchPrintEvent(e, 1000);
       } else {
         return;
       }
@@ -27,14 +27,14 @@ HZApp.print = (function(){
     catchPrintEvent: function(e, wait){
       e.preventDefault();
       wait = wait || 1000;
-      HZApp.print.beforePrint();
+      HZApp.Print.beforePrint();
       window.setTimeout(function(){
         window.print();
       }, wait);
     },
     catchMediaQuery: function(mql){
       if (!mql.matches) {
-          HZApp.print.afterPrint();
+          HZApp.Print.afterPrint();
       } else {
         return;
       }
@@ -48,8 +48,8 @@ HZApp.print = (function(){
       google.maps.event.trigger(HZApp.map, 'resize');
       HZApp.map.fitBounds(this.mapBounds);
 
-      if (HZApp.markers.hzQueryMarker.markers.length > 0){
-        HZApp.map.setCenter(HZApp.markers.hzQueryMarker.markers[0].position);
+      if (HZApp.Markers.hzQueryMarker.markers.length > 0){
+        HZApp.map.setCenter(HZApp.Markers.hzQueryMarker.markers[0].position);
       } else {
         HZApp.map.setCenter(this.mapCenter);
       }

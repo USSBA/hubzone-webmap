@@ -139,8 +139,8 @@ var HZSpecHelper = {
     };
   },
   resetOverlays: function(){
-    Object.keys(HZApp.layers.hzWMSOverlays).map(function(layer){
-      HZApp.layers.hzWMSOverlays[layer].overlay = [];
+    Object.keys(HZApp.Layers.hzWMSOverlays).map(function(layer){
+      HZApp.Layers.hzWMSOverlays[layer].overlay = [];
     });
   },
   fakeGeolocation: function(){

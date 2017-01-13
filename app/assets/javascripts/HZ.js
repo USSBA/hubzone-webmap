@@ -3,12 +3,12 @@
 window.HZApp = {
   GA: {},
   GeoLocation: {},
-  constructors: {},
-  layers: {},
+  Constructors: {},
+  Layers: {},
   map: {},
   MapUtils: {},
-  markers: {},
-  print: {},
+  Markers: {},
+  Print: {},
   sidebar: {},
   Styles: {}
 };

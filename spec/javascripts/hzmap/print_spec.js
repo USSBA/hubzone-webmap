@@ -20,8 +20,8 @@ describe ('Testing print operations', function() {
     spyOn(google.maps.event, 'trigger');
     // spyOn(google.maps, 'Marker');
 
-    HZApp.markers.hzQueryMarker = new HZApp.constructors.HubzoneMapMarker({icon: null});
-    HZApp.markers.hzUserLocation = new HZApp.constructors.HubzoneMapMarker({icon: null});
+    HZApp.Markers.hzQueryMarker = new HZApp.Constructors.HubzoneMapMarker({icon: null});
+    HZApp.Markers.hzUserLocation = new HZApp.Constructors.HubzoneMapMarker({icon: null});
 
     setTimeout(function() {
       done();
@@ -30,8 +30,8 @@ describe ('Testing print operations', function() {
 
   afterEach(function(done){
     HZApp.map = {};
-    HZApp.markers.hzQueryMarker = {};
-    HZApp.markers.hzUserLocation = {};
+    HZApp.Markers.hzQueryMarker = {};
+    HZApp.Markers.hzUserLocation = {};
     HZSpecHelper.mockPage.destroy();
     setTimeout(function() {
       done();
@@ -42,7 +42,7 @@ describe ('Testing print operations', function() {
   it ("should update the map div before print with no marker present", function(){
     // fails at http://localhost:3000/specs?random=true&seed=64916
     mapMarkers = [];
-    HZApp.print.beforePrint();
+    HZApp.Print.beforePrint();
 
     var mapBodyDivClasses = $('.map-body').attr('class');
 
@@ -56,11 +56,11 @@ describe ('Testing print operations', function() {
   });
 
   it ("should update the map div before print with a marker present", function(){
-    var stubMapMarker = new HZApp.constructors.HubzoneMapMarker({icon: null});  
+    var stubMapMarker = new HZApp.Constructors.HubzoneMapMarker({icon: null});  
     var stubGoogleMarker = new HZSpecHelper.MapMarker();
     stubMapMarker.markers.push(stubGoogleMarker);
 
-    HZApp.print.beforePrint();
+    HZApp.Print.beforePrint();
     var mapBodyDivClasses = $('.map-body').attr('class');
     expect(HZApp.map.getBounds.calls.count()).toEqual(1);
     expect(HZApp.map.getCenter.calls.count()).toEqual(1);
@@ -72,8 +72,8 @@ describe ('Testing print operations', function() {
   });
 
   it ("should reset the map view", function(){
-    HZApp.print.beforePrint();
-    HZApp.print.afterPrint();
+    HZApp.Print.beforePrint();
+    HZApp.Print.afterPrint();
     var mapBodyDivClasses = $('.map-body').attr('class');
 
     expect(HZApp.map.setCenter.calls.count()).toEqual(2);
@@ -87,7 +87,7 @@ describe ('Testing print operations', function() {
       preventDefault: function(){}
     };
     spyOn(printEvent, 'preventDefault');
-    spyOn(HZApp.print, 'beforePrint');
+    spyOn(HZApp.Print, 'beforePrint');
     //basically mocks setTimeout since I couldn't get it to
     // run print
     spyOn(window, 'setTimeout').and.callFake(function(fn){
@@ -96,66 +96,66 @@ describe ('Testing print operations', function() {
     });
     spyOn(window, 'print');
 
-    HZApp.print.catchPrintEvent(printEvent, 1);
+    HZApp.Print.catchPrintEvent(printEvent, 1);
     expect(printEvent.preventDefault.calls.count()).toEqual(1);
-    expect(HZApp.print.beforePrint.calls.count()).toEqual(1);
+    expect(HZApp.Print.beforePrint.calls.count()).toEqual(1);
     expect(window.setTimeout.calls.count()).toEqual(1);
     expect(window.print.calls.count()).toEqual(1);
   });
 
   it ("should trigger catchPrintEvent on ctrl-p", function(){
-    spyOn(HZApp.print, 'catchPrintEvent');
+    spyOn(HZApp.Print, 'catchPrintEvent');
 
     var printE = {
       ctrlKey: true,
       metaKey: false,
       keyCode: 80
     };
-    HZApp.print.catchKeyStrokeToPrint(printE);
-    expect(HZApp.print.catchPrintEvent.calls.count()).toEqual(1);
+    HZApp.Print.catchKeyStrokeToPrint(printE);
+    expect(HZApp.Print.catchPrintEvent.calls.count()).toEqual(1);
   });
 
   it ("should trigger catchPrintEvent on cmd-p", function(){
-    spyOn(HZApp.print, 'catchPrintEvent');
+    spyOn(HZApp.Print, 'catchPrintEvent');
 
     var printE = {
       ctrlKey: false,
       metaKey: true,
       keyCode: 80
     };
-    HZApp.print.catchKeyStrokeToPrint(printE);
-    expect(HZApp.print.catchPrintEvent.calls.count()).toEqual(1);
+    HZApp.Print.catchKeyStrokeToPrint(printE);
+    expect(HZApp.Print.catchPrintEvent.calls.count()).toEqual(1);
   });
 
   it ("should do nothing on other key strokes", function(){
-    spyOn(HZApp.print, 'catchPrintEvent');
+    spyOn(HZApp.Print, 'catchPrintEvent');
 
     var printE = {
       ctrlKey: false,
       metaKey: false,
       keyCode: 80
     };
-    HZApp.print.catchKeyStrokeToPrint(printE);
-    expect(HZApp.print.catchPrintEvent.calls.count()).toEqual(0);
+    HZApp.Print.catchKeyStrokeToPrint(printE);
+    expect(HZApp.Print.catchPrintEvent.calls.count()).toEqual(0);
   });
 
   it ("should handle after print media query", function(){
-    spyOn(HZApp.print, 'afterPrint');
+    spyOn(HZApp.Print, 'afterPrint');
 
     var mql = {
       matches: false
     };
-    HZApp.print.catchMediaQuery(mql);
-    expect(HZApp.print.afterPrint.calls.count()).toEqual(1);
+    HZApp.Print.catchMediaQuery(mql);
+    expect(HZApp.Print.afterPrint.calls.count()).toEqual(1);
   });
 
   it ("should ignore before print media query", function(){
-    spyOn(HZApp.print, 'afterPrint');
+    spyOn(HZApp.Print, 'afterPrint');
 
     var mql = {
       matches: true
     };
-    HZApp.print.catchMediaQuery(mql);
-    expect(HZApp.print.afterPrint.calls.count()).toEqual(0);
+    HZApp.Print.catchMediaQuery(mql);
+    expect(HZApp.Print.afterPrint.calls.count()).toEqual(0);
   });
 });

@@ -29,7 +29,7 @@ HZApp.GeoLocation = (function() {
 		  //set map to that location
 		  HZApp.map.setCenter(pos);
 		  HZApp.map.setZoom(15);
-		  HZApp.markers.hzUserLocation.updateMarkers(pos);
+		  HZApp.Markers.hzUserLocation.updateMarkers(pos);
 		  // $('#geolocation img').css("display", "block");
 		  // $('.spinner').css("display", "none");
     }
