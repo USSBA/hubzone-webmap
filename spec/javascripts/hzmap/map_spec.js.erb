@@ -271,43 +271,6 @@ describe ('Testing map operations', function() {
     expect(date).toEqual('2016-01-01');
   });
 
-  it("should get users location", function(){
-    var geoLocationSpy = HZSpecHelper.fakeGeolocation();
-    if (geoLocationSpy !== null){
-      var locationResp = HZApp.GeoLocation.getUserLocation(navigator.geolocation);
-      expect(locationResp).toBeDefined();
-      expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(1);
-    }
-  });
-
-  it("should log if browser doesn't support geolocation", function(){
-    var geoLocationSpy = HZSpecHelper.fakeGeolocation();
-    var locationResp = HZApp.GeoLocation.getUserLocation(undefined);
-    if (geoLocationSpy !== null){
-      expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(0);
-    } else {
-      expect(locationResp).toEqual(null);
-    }
-  });
-
-  it("should move to a users location", function(){
-    spyOn(map, 'setCenter');
-    spyOn(map, 'setZoom');
-    spyOn(google.maps, 'Marker');
-
-    position = {coords: {latitude: 39.2896, longitude: -76.6076}, timestamp: 1484169325902};
-
-    HZApp.GeoLocation.moveMapToUserLocation(position);
-    expect(map.setCenter).toHaveBeenCalledWith({
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-    });
-    expect(map.setCenter.calls.count()).toEqual(1);
-    expect(map.setZoom.calls.count()).toEqual(1);
-    expect(google.maps.Marker.calls.count()).toEqual(1);
-
-  });
-
   // it("should show autocomplete results when a search is started", function(){
   //   var testDivForAutocomplete = document.createElement('pac-test');
   //   $('body').append(testDivForAutocomplete);

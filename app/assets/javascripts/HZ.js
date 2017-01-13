@@ -1,11 +1,12 @@
 //this is our base level hubzone app namespace
 /* exported HZApp */
 window.HZApp = {
-  map: {},
-  GeoLocation: {},
-  print: {},
   GA: {},
-  sidebar: {},
+  GeoLocation: {},
+  layers: {},
+  map: {},
   markers: {},
+  print: {},
+  sidebar: {},
   style: {}
 };
