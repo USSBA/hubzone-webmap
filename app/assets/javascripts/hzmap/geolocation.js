@@ -23,7 +23,7 @@ HZApp.GeoLocation = (function() {
 		    return null;
 		  }
     },
-    geolocationError: function(positionError) {
+    geolocationError: function() {
 	    $('#geolocation i').css("display", "block");
 	    $('.geolocation-loading').css("display", "none");
 	    window.console.log("unable to retrieve user location");
