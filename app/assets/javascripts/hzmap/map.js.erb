@@ -60,13 +60,15 @@ function initMap() {
 
 function getUserLocation(navLocation) {
   //grab users location and set map around it
-  // $('#geolocation img').css("display", "none");
-  // $('.spinner').css("display", "block");
+  $('#geolocation i').css("display", "none");
+  $('.geolocation-loading').css("display", "block");
   if (navLocation) {
       navLocation.getCurrentPosition(moveMapToUserLocation);
       return navLocation;
   } else {
     //browser doesn't support Geolocation
+    $('#geolocation i').css("display", "block");
+    $('.geolocation-loading').css("display", "none");
     // console.warn('browser does not support geolocation');
     return null;
   }
@@ -81,8 +83,8 @@ function moveMapToUserLocation(position){
   map.setCenter(pos);
   map.setZoom(15);
   hzUserLocation.updateMarkers(pos);
-  // $('#geolocation img').css("display", "block");
-  // $('.spinner').css("display", "none");
+  $('#geolocation i').css("display", "block");
+  $('.geolocation-loading').css("display", "none");
 };
 
 function updateIdleMap(){

@@ -24,7 +24,11 @@
     </ul>
   </div>
   <div id="geolocation" class="gmnoprint">
-    <%= image_tag("geolocation-button.png", alt: "Find my Location Button") %>
+    <i class="fa fa-location-arrow" aria-hidden="true"></i>
+    <div class="geolocation-loading">
+      <div class="circle1"></div>
+      <div class="circle2"></div>
+    </div>
   </div>
   <script src="https://maps.googleapis.com/maps/api/js?key=<%= MAP_CONFIG[:google_api_key] %>&callback=initMap&libraries=places" async=""></script>
 </section>
