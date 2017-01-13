@@ -7,18 +7,21 @@ HZApp.GA = (function() {
   }
 
   return {
+    navigateToPage: function(url){
+      return document.location = url;
+    },
     openLink : function( url, category, action, label, value ) {
-      //console.log( "GA.openLink: ", url, category, action, label, value );
+      // console.log( "GA.openLink: ", url, category, action, label, value );
       if ( typeof ga === "function" ) {
-        var timeout = setTimeout( function() { document.location = url; }, 500 );
+        var timeout = setTimeout( function() { HZApp.GA.navigateToPage(url); }, 500 );
         ga( 'send', 'event', category || "outbound", action || "click", label || url, value, {
           hitCallback : function() {
             clearTimeout( timeout );
-            document.location = url;
+            HZApp.GA.navigateToPage(url);
           }
         });
       } else {
-        document.location = url;
+        HZApp.GA.navigateToPage(url);
       }
     },
     track : function( category, action, label, value ) {

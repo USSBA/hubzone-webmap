@@ -49,6 +49,16 @@ describe ('Testing Google Analytics integration', function() {
       expect(sidebar.currentClass).toEqual('hidden');
       expect(window.ga.calls.count()).toEqual(2);
     });
-  });
 
+    it('should send an event when links are clicked', function() {
+      spyOn(HZApp.GA, 'navigateToPage');
+      spyOn(window, 'setTimeout').and.callFake(function(fn){
+        fn.apply(null, arguments);
+        return;
+      });
+      HZApp.GA.openLink( 'https://sba.gov', 'map', 'logo-link' );
+      expect(HZApp.GA.navigateToPage.calls.count()).toEqual(1);
+      expect(window.setTimeout.calls.count()).toEqual(1);
+    });
+  });
 });
