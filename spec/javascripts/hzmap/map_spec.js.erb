@@ -272,7 +272,7 @@ describe ('Testing map operations', function() {
   it("should get users location", function(){
     var geoLocationSpy = HZSpecHelper.fakeGeolocation();
     if (geoLocationSpy !== null){
-      var locationResp = getUserLocation(navigator.geolocation);
+      var locationResp = GeoLocation.getUserLocation(navigator.geolocation);
       expect(locationResp).toBeDefined();
       expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(1);
     }
@@ -280,7 +280,7 @@ describe ('Testing map operations', function() {
 
   it("should log if browser doesn't support geolocation", function(){
     var geoLocationSpy = HZSpecHelper.fakeGeolocation();
-    var locationResp = getUserLocation(undefined);
+    var locationResp = GeoLocation.getUserLocation(undefined);
     if (geoLocationSpy !== null){
       expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(0);
     } else {
@@ -295,7 +295,7 @@ describe ('Testing map operations', function() {
 
     position = {coords: {latitude: 39.2896, longitude: -76.6076}, timestamp: 1484169325902};
 
-    moveMapToUserLocation(position);
+    GeoLocation.moveMapToUserLocation(position);
     expect(map.setCenter).toHaveBeenCalledWith({
       lat: position.coords.latitude,
       lng: position.coords.longitude

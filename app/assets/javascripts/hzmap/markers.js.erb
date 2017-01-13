@@ -9,7 +9,6 @@ var HubzoneMapMarker = function(options) {
   };
   this.setMapOnAll = function(map) {
     for (var i = 0; i < this.markers.length; i++) {
-      console.log(this.markers[i]);
       this.markers[i].setMap(map);
     }
   };
