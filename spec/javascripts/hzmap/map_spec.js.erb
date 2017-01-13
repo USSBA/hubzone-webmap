@@ -22,44 +22,44 @@ describe ('Testing map operations', function() {
 
   it("should create a new Google map", function() {
     spyOn(google.maps, 'StyledMapType');
-    spyOn(map.mapTypes, 'set');
-    spyOn(map, 'setMapTypeId');
+    spyOn(HZApp.map.mapTypes, 'set');
+    spyOn(HZApp.map, 'setMapTypeId');
     spyOn(google.maps.places, 'Autocomplete');
     spyOn(HZApp.GeoLocation, 'getUserLocation');
 
-    map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
-    map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
-    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM] = [];
+    HZApp.map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
+    HZApp.map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
+    HZApp.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM] = [];
 
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map.calls.count()).toEqual(1);
     expect(google.maps.event.addListener.calls.count()).toEqual(1);
-    expect(map.addListener.calls.count()).toEqual(1);
-    expect(google.maps.StyledMapType.calls.count()).toEqual(1);
-    expect(map.mapTypes.set.calls.count()).toEqual(1);
-    expect(map.setMapTypeId.calls.count()).toEqual(1);
     expect(google.maps.places.Autocomplete.calls.count()).toEqual(1);
+    expect(google.maps.StyledMapType.calls.count()).toEqual(1);
+    expect(HZApp.map.addListener.calls.count()).toEqual(1);
+    expect(HZApp.map.mapTypes.set.calls.count()).toEqual(1);
+    expect(HZApp.map.setMapTypeId.calls.count()).toEqual(1);
     expect(HZApp.GeoLocation.getUserLocation.calls.count()).toEqual(1);
   });
 
   it("should get bbox", function() {
-    var mapBounds = map.getBounds();
+    var mapBounds = HZApp.map.getBounds();
     spyOn(mapBounds, 'getNorthEast').and.callThrough();
     spyOn(mapBounds, 'getSouthWest').and.callThrough();
 
-    expect(getBbox(mapBounds)).toEqual("-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637");
+    expect(HZApp.MapUtils.getBbox(mapBounds)).toEqual("-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637");
     expect(mapBounds.getNorthEast.calls.count()).toEqual(2);
     expect(mapBounds.getSouthWest.calls.count()).toEqual(2);
   });
 
   it("should return correct imageBounds object", function(){
-    spyOn(window, 'createGoogleLatLngBounds');
+    spyOn(HZApp.MapUtils, 'createGoogleLatLngBounds');
     var coordinates = HZSpecHelper.coordinates;
     var bboxStr = [coordinates.west, coordinates.south, coordinates.east, coordinates.north].join(',');
 
-    var imageBounds = getImageBounds(bboxStr);
+    var imageBounds = HZApp.MapUtils.getImageBounds(bboxStr);
     expect(imageBounds).not.toBe(null);
-    expect(window.createGoogleLatLngBounds).toHaveBeenCalled();
+    expect(HZApp.MapUtils.createGoogleLatLngBounds).toHaveBeenCalled();
   });
 
   it("should run google latlng methods", function(){
@@ -67,16 +67,16 @@ describe ('Testing map operations', function() {
     spyOn(google.maps, 'LatLngBounds');
     spyOn(google.maps, 'LatLng');
 
-    createGoogleLatLngBounds(coordinates.west, coordinates.south, coordinates.east, coordinates.north);
+    HZApp.MapUtils.createGoogleLatLngBounds(coordinates.west, coordinates.south, coordinates.east, coordinates.north);
     expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
     expect(google.maps.LatLng.calls.count()).toEqual(2);
   });
 
   it("should build the correct URL for data with expiration", function() {
-    var mapBounds = map.getBounds();
-    var bbox = getBbox(mapBounds);
+    var mapBounds = HZApp.map.getBounds();
+    var bbox = HZApp.MapUtils.getBbox(mapBounds);
     var layer = 'qct';
-    var url = buildWMSUrl({
+    var url = HZApp.MapUtils.buildWMSUrl({
       layer: layer,
       bbox: bbox});
     /* jshint ignore:start */
@@ -86,15 +86,15 @@ describe ('Testing map operations', function() {
     var urlExpect = wmsURL + '&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.0&LAYERS=' + wmsWorkspace + ':' +
                     layer +
                     '&FORMAT=image/png&TRANSPARENT=TRUE&SRS=EPSG:4326&BBOX=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637&WIDTH=0&HEIGHT=0&SLD_BODY=' +
-                    constructSLDXML(layer);
+                    HZApp.layers.constructSLDXML(layer);
     expect(url).toEqual(urlExpect);
   });
 
   it("should build the correct URL for data without expiration", function() {
-    var mapBounds = map.getBounds();
-    var bbox = getBbox(mapBounds);
+    var mapBounds = HZApp.map.getBounds();
+    var bbox = HZApp.MapUtils.getBbox(mapBounds);
     var layer = 'indian_lands';
-    var url = buildWMSUrl({
+    var url = HZApp.MapUtils.buildWMSUrl({
       layer: layer,
       bbox: bbox});
     /* jshint ignore:start */
@@ -104,34 +104,34 @@ describe ('Testing map operations', function() {
     var urlExpect = wmsURL + '&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.0&LAYERS=' + wmsWorkspace + ':' +
                     layer +
                     '&FORMAT=image/png&TRANSPARENT=TRUE&SRS=EPSG:4326&BBOX=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637&WIDTH=0&HEIGHT=0&SLD_BODY=' +
-                    constructSLDXML(layer);
+                    HZApp.layers.constructSLDXML(layer);
     expect(url).toEqual(urlExpect);
   });
 
   it("should call the wms map layer stack", function(){
-    spyOn(window, 'getBbox');
-    spyOn(window, 'getImageBounds');
-    spyOn(window, 'buildWMSUrl');
+    spyOn(HZApp.MapUtils, 'getBbox');
+    spyOn(HZApp.MapUtils, 'getImageBounds');
+    spyOn(HZApp.MapUtils, 'buildWMSUrl');
+    spyOn(HZApp.MapUtils, 'updateLayerWMSOverlay');
     spyOn(google.maps, 'GroundOverlay');
-    spyOn(window, 'updateLayerWMSOverlay');
 
-    fetchNewWMS({
-      mapScope: map,
+    HZApp.MapUtils.fetchNewWMS({
+      mapScope: HZApp.map,
       layer: 'qct'
     });
 
-    expect(window.getBbox.calls.count()).toEqual(1);
-    expect(window.getImageBounds.calls.count()).toEqual(1);
-    expect(window.buildWMSUrl.calls.count()).toEqual(1);
+    expect(HZApp.MapUtils.getBbox.calls.count()).toEqual(1);
+    expect(HZApp.MapUtils.getImageBounds.calls.count()).toEqual(1);
+    expect(HZApp.MapUtils.buildWMSUrl.calls.count()).toEqual(1);
+    expect(HZApp.MapUtils.updateLayerWMSOverlay.calls.count()).toEqual(1);
     expect(google.maps.GroundOverlay.calls.count()).toEqual(1);
-    expect(window.updateLayerWMSOverlay.calls.count()).toEqual(1);
   });
 
   it("should fetchNewWMS for as many layers as are defined", function(){
-    spyOn(window, 'fetchNewWMS');
-    updateIdleMap(map);
-    var layerLength = Object.keys(hzWMSOverlays).length;
-    expect(window.fetchNewWMS.calls.count()).toEqual(layerLength);
+    spyOn(HZApp.MapUtils, 'fetchNewWMS');
+    HZApp.MapUtils.updateIdleMap(HZApp.map);
+    var layerLength = Object.keys(HZApp.layers.hzWMSOverlays).length;
+    expect(HZApp.MapUtils.fetchNewWMS.calls.count()).toEqual(layerLength);
   });
 
   it("should update the map WMS layer, adding a new overlay where there was none before", function(){
@@ -139,11 +139,11 @@ describe ('Testing map operations', function() {
     var mockOverlay = new HZSpecHelper.NewOverlay('new');
     spyOn(mockOverlay, 'setMap');
     spyOn(mockOverlay, 'addListener');
-    hzWMSOverlays[layer].overlay.push(mockOverlay);
+    HZApp.layers.hzWMSOverlays[layer].overlay.push(mockOverlay);
 
-    updateLayerWMSOverlay({
+    HZApp.MapUtils.updateLayerWMSOverlay({
       layer: layer,
-      mapScope: map
+      mapScope: HZApp.map
     });
 
     expect(mockOverlay.setMap.calls.count()).toEqual(1);
@@ -162,9 +162,9 @@ describe ('Testing map operations', function() {
     HZApp.layers.hzWMSOverlays[layer].overlay.push(mockOverlayOld);
     HZApp.layers.hzWMSOverlays[layer].overlay.push(mockOverlayNew);
 
-    updateLayerWMSOverlay({
+    HZApp.MapUtils.updateLayerWMSOverlay({
       layer: layer,
-      mapScope: map
+      mapScope: HZApp.map
     });
 
     expect(mockOverlayNew.setMap.calls.count()).toEqual(1);
@@ -174,9 +174,9 @@ describe ('Testing map operations', function() {
   it("should handle an empty WMS update call", function(){
     var layer = 'qct';
     HZSpecHelper.resetOverlays();
-    var updateState = updateLayerWMSOverlay({
+    var updateState = HZApp.MapUtils.updateLayerWMSOverlay({
       layer: layer,
-      mapScope: map
+      mapScope: HZApp.map
     });
     expect(updateState).toBe(null);
   });
@@ -184,7 +184,7 @@ describe ('Testing map operations', function() {
   it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){
     spyOn(google.maps, 'LatLngBounds');
     spyOn(google.maps, 'LatLng');
-    spyOn(map, 'fitBounds');
+    spyOn(HZApp.map, 'fitBounds');
 
     var geocodeLocation = {
       location: HZSpecHelper.markerLocation,
@@ -200,21 +200,21 @@ describe ('Testing map operations', function() {
       }
     };
 
-    jumpToLocation(geocodeLocation);
+    HZApp.MapUtils.jumpToLocation(geocodeLocation);
     expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
     expect(google.maps.LatLng.calls.count()).toEqual(2);
-    expect(map.fitBounds.calls.count()).toEqual(1);
+    expect(HZApp.map.fitBounds.calls.count()).toEqual(1);
   });
 
   it("should pass over a geocodeLocation that does not contain a viewport, doing nothing", function(){
-    spyOn(map, 'fitBounds');
+    spyOn(HZApp.map, 'fitBounds');
 
     var geocodeLocationNoViewport = {
       location: HZSpecHelper.markerLocation
     };
 
-    jumpToLocation(geocodeLocationNoViewport);
-    expect(map.fitBounds.calls.count()).toEqual(0);
+    HZApp.MapUtils.jumpToLocation(geocodeLocationNoViewport);
+    expect(HZApp.map.fitBounds.calls.count()).toEqual(0);
   });
 
   it("should return a correctly formatted url request on map click", function(){
@@ -229,16 +229,16 @@ describe ('Testing map operations', function() {
       }
     };
 
-    var date = parseDate(new Date());
+    var date = HZApp.MapUtils.parseDate(new Date());
     var latlngUrl = '/search?latlng=' + mapClick.latLng.lat() + ',' + mapClick.latLng.lng() +
                     '&query_date=' + date +
                     '&locale=en';
-    var clickUrl = catchMapClick(mapClick);
+    var clickUrl = HZApp.MapUtils.catchMapClick(mapClick);
     expect(clickUrl).toEqual(latlngUrl);
   });
 
   it("should parse single digit dates correctly", function(){
-    var date = parseDate(new Date('1/1/2016'));
+    var date = HZApp.MapUtils.parseDate(new Date('1/1/2016'));
     expect(date).toEqual('2016-01-01');
   });
 

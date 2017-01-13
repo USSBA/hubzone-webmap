@@ -17,7 +17,7 @@ HZApp.GeoLocation = (function() {
 		      return navLocation;
 		  } else {
 		    //browser doesn't support Geolocation
-		    console.warn('browser does not support geolocation');
+		    window.console.warn('browser does not support geolocation');
 		    return null;
 		  }
     },

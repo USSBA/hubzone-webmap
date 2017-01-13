@@ -1,143 +1,57 @@
+//create the map on load, when idle, jump to updateMap to get features
+/* exported initMap */
+function initMap() {
 
-/* exported updateIdleMap */
-function updateIdleMap(){
-  var map = this;
-  //for each layer defined in the hzWMSOverlays object call the fetchNewWMS function
-  // update the WMS call for that layer
-  Object.keys(HZApp.layers.hzWMSOverlays).map(function(layer){
-    fetchNewWMS({
-      mapScope: map,
-      layer: layer
-    });
-  });
-}
-
-function fetchNewWMS(options){
-  //get the map extents and build URL
-  var bbox = getBbox(options.mapScope.getBounds());
-  var imageBounds = getImageBounds(bbox);
-  var layer = options.layer;
-
-  var url = buildWMSUrl({
-    layer: layer,
-    bbox: bbox
+  HZApp.map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 39.8282, lng: -98.5795},
+    zoom: 5,
+    zoomControl: true,
+    zoomControlOptions: {
+      position: google.maps.ControlPosition.RIGHT_BOTTOM
+    },
+    streetViewControlOptions: {
+      position: google.maps.ControlPosition.RIGHT_BOTTOM
+    },
+    mapTypeControlOptions: {
+      mapTypeIds: ['roadmap', 'hz_map', 'hybrid' ],
+      position: google.maps.ControlPosition.BOTTOM_CENTER
+    },
   });
 
-  //push a new groundOverlay into the hzWMSOverlays array container
-  HZApp.layers.hzWMSOverlays[layer].overlay.push(new google.maps.GroundOverlay(
-      url,
-      imageBounds
-  ));
+  //adds in the hz style into the basemap picker
+  var hzStyledMap = new google.maps.StyledMapType(HZApp.Styles.hzBaseMapStyle, {name: 'Gray'});
+  HZApp.map.mapTypes.set('hz_map', hzStyledMap);
+  HZApp.map.setMapTypeId('roadmap', {name: 'Wow'});
 
-  //update WMS layers, removing old and adding new to the map
-  updateLayerWMSOverlay({
-    layer: layer,
-    mapScope: options.mapScope
+  //adds the map legend and geolocation button
+  HZApp.map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('legend'));
+  HZApp.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('geolocation'));
+
+  // adds listener that triggers whenever the map is idle to update with new features.
+  google.maps.event.addListener(HZApp.map, 'idle', HZApp.MapUtils.updateIdleMap);
+  HZApp.map.addListener('click', HZApp.MapUtils.catchMapClick);
+
+  //adds autocomplete
+  var searchInput = document.getElementById('search-field-small');
+  var options = {
+    types: ['geocode']
+  };
+  /* jshint unused: false */
+  var autocomplete = new google.maps.places.Autocomplete(searchInput, options);
+
+  // build out the markers
+  /* jshint ignore:start */
+  HZApp.markers.hzQueryMarker = new HZApp.constructors.HubzoneMapMarker({
+    icon: '<%= image_path 'hubzone-map-marker.svg' %>'
   });
-}
-
-function getBbox(mapBounds) {
-  //get the bounding box of the current map and parse as a string
-  var NELat = mapBounds.getNorthEast().lat();
-  var NELng = mapBounds.getNorthEast().lng();
-  var SWLat = mapBounds.getSouthWest().lat();
-  var SWLng = mapBounds.getSouthWest().lng();
-  return [SWLng, SWLat, NELng, NELat].join(',');
-}
-
-function getImageBounds(bbox){
-  var bboxArr = bbox.split(',');
-  var imageBounds = createGoogleLatLngBounds(
-                      parseFloat(bboxArr[0]),
-                      parseFloat(bboxArr[1]),
-                      parseFloat(bboxArr[2]),
-                      parseFloat(bboxArr[3])
-  );
-  return imageBounds;
-}
-
-//helper for building google lat lng bounds objectfrom a set of lat long coordinates
-//coordinate order corresponds to min X, min Y, max X, max Y
-function createGoogleLatLngBounds(SWLng, SWLat, NELng, NELat){
-  return new google.maps.LatLngBounds(
-      new google.maps.LatLng(SWLat, SWLng),
-      new google.maps.LatLng(NELat, NELng)
-    );
-}
-
-// builds out the custom wms url
-function buildWMSUrl(options){
-  var url = "<%= MAP_CONFIG[:geom_wms_settings][:url_root] %>";
-  url += "&REQUEST=GetMap";
-  url += "&SERVICE=WMS";
-  url += "&VERSION=1.1.0";
-  url += "&LAYERS=" + "<%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:" + options.layer;
-  url += "&FORMAT=image/png" ;
-  url += "&TRANSPARENT=TRUE";
-  url += "&SRS=EPSG:4326";
-  url += "&BBOX=" + options.bbox;
-  url += "&WIDTH=" + parseInt($('#map').width()*2); //double the resolution for better screens, but make sure its int
-  url += "&HEIGHT=" + parseInt($('#map').height()*2); //double the resolution for better screens, but make sure its int
-  url += ('&SLD_BODY=' + HZApp.layers.constructSLDXML(options.layer));
-  return url;
-}
-
-//helper function for updating a single layer's WMS overlay
-function updateLayerWMSOverlay(options){
-  var wmsLayer = HZApp.layers.hzWMSOverlays[options.layer].overlay;
-  if (wmsLayer.length === 1){
-    wmsLayer[0].setMap(options.mapScope);
-  } else if (wmsLayer.length > 1){ //assume last is newest and any other have to go
-    var tmpLayer = wmsLayer[wmsLayer.length-1];
-    for (var i = 0; i < wmsLayer.length-1; i++) {
-      wmsLayer[i].setMap(null);
-    }
-    HZApp.layers.hzWMSOverlays[options.layer].overlay = [];
-    HZApp.layers.hzWMSOverlays[options.layer].overlay.push(tmpLayer);
-    HZApp.layers.hzWMSOverlays[options.layer].overlay[0].setMap(options.mapScope);
-  } else { //
-    // console.warn('no WMS found in layer');
-    return null;
-  }
-  HZApp.layers.hzWMSOverlays[options.layer].overlay[0].addListener('click', catchMapClick);
-}
-
-// turn latlng object into url
-function catchMapClick(clickEvent){
-  var clicklng = clickEvent.latLng.lng();
-  var clicklat = clickEvent.latLng.lat();
-  var date = parseDate(new Date());
-  var locale = "<%= I18n.locale %>";
-  // Log the click
-  HZApp.GA.track( 'map', 'click', clicklat + ',' + clicklng );
-  var url = "/search?latlng=" + clicklat + ',' + clicklng + '&query_date=' + date + '&locale=' + locale;
-  $.ajax({
-    url: url
+  HZApp.markers.hzUserLocation = new HZApp.constructors.HubzoneMapMarker({
+    icon: '<%= image_path 'geolocation-marker.svg' %>'
   });
-  return url;
-}
+  /* jshint ignore:end */
 
-//helper to parse a javascript date because, why?
-function parseDate(date){
-  var mm = date.getMonth() + 1;
-  var dd = date.getDate();
+  //initialize user location
+  HZApp.GeoLocation.getUserLocation(navigator.geolocation);
 
-  return [date.getFullYear(),
-          (mm>9 ? '' : '0') + mm,
-          (dd>9 ? '' : '0') + dd
-         ].join('-');
-}
-
-//jump to location on the map based on the geocode viewport object
-/* exported jumpToLocation */
-function jumpToLocation(geocodeLocation){
-  if (geocodeLocation.viewport){
-    var newBounds = createGoogleLatLngBounds(
-                      geocodeLocation.viewport.southwest.lng,
-                      geocodeLocation.viewport.southwest.lat,
-                      geocodeLocation.viewport.northeast.lng,
-                      geocodeLocation.viewport.northeast.lat
-      );
-    HZApp.map.fitBounds(newBounds);
-  }
+  //returns the map
+  return HZApp.map;
 }

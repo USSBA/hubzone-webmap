@@ -17,7 +17,7 @@ describe ('Testing Google Analytics integration', function() {
     it('should send an event when a user clicks on the map', function() {
       clickEvent = { 'latLng': { 'lat': function() { return 39.28885; },
                             'lng': function() { return -76.6070; } } };
-      catchMapClick(clickEvent);
+      HZApp.MapUtils.catchMapClick(clickEvent);
       expect(window.ga.calls.count()).toEqual(1);
     });
   });

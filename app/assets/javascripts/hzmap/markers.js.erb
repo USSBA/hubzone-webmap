@@ -21,7 +21,7 @@ HZApp.constructors.HubzoneMapMarker = function(options) {
         map: HZApp.map,
         icon: new google.maps.MarkerImage(options.icon)
       });
-      google.maps.event.addListener(marker, 'click', catchMapClick);
+      google.maps.event.addListener(marker, 'click', HZApp.MapUtils.catchMapClick);
       this.markers.push(marker);
     }
   };

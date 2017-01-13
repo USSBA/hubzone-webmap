@@ -6,8 +6,9 @@ window.HZApp = {
   constructors: {},
   layers: {},
   map: {},
+  MapUtils: {},
   markers: {},
   print: {},
   sidebar: {},
-  style: {}
+  Styles: {}
 };

@@ -1,6 +1,6 @@
 // hubzone google basemap vector tile styling array
 /* jshint unused: false */
-var hzBaseMapStyle = [
+HZApp.Styles.hzBaseMapStyle = [
   {
     "elementType": "geometry",
     "stylers": [
