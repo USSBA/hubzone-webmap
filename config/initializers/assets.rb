@@ -17,3 +17,7 @@ Rails.application.config.assets.paths <<
 Rails.application.config.assets.precompile += %w(google-maps-api.js)
 Rails.application.config.assets.precompile += %w(hzmap.js)
 Rails.application.config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.svg)
+
+# Allow path helpers in JavaScript assets.
+# http://stackoverflow.com/questions/7451517/using-a-rails-helper-method-within-a-javascript-asset
+Sprockets::Context.send :include, Rails.application.routes.url_helpers
