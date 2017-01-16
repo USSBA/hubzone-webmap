@@ -20,4 +20,51 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  hubzone_map: "HUBZone Map"
+  usa_banner:
+    title: "An official website of the United States government"
+  date:
+    formats:
+      full: " %B %d %Y"
+  menu:
+    hubzone_program: "HUBZone Program"
+    accessible_version: "Accessible Version"
+    help: "Help"
+  header:
+    skip_to_main: "Skip to main content"
+  map:
+    enter_address: "Enter address"
+    filter: "Filter"
+  api:
+    success: "Success"
+    error:
+      zero_results: "Zero Results"
+      invalid_request: "Invalid request"
+      over_query_limit: "Over query limit"
+      request_denied: "Request denied"
+      unknown_error: "Unknown error"
+  hubzone_assertions:
+    qualified_by: "Qualified by: "
+    qualifications_effective: "As of"
+    qualified: "Qualified HUBZone"
+    not_qualified: "Not Qualified"
+    expiring: "Expiring"
+    expires: "Expires"
+    qct: "Census Tract"
+    qct_e: "Census Tract"
+    qct_b: "Census Tract"
+    qnmc: "Qualified County"
+    qnmc_a: "Qualified County (unemployment)"
+    qnmc_ab: "Qualified County (income & unemployment)"
+    qnmc_b: "Qualified County (income)"
+    qnmc_c: "DDA County"
+    qnmc_dda: "DDA County"
+    qnmc_e: "Qualified County"
+    qnmc_brac: "BRAC County"
+    qnmc_r: "Redesignated County"
+    indian_lands: "Indian Lands"
+    brac: "Former Military Bases (BRAC)"
+    disaster_area: "Designated Disaster Area"
+
+
+

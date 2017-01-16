@@ -1,0 +1,27 @@
+<section class="map-body">
+  <div id="sidebar" class="hidden">
+    <button id="sidebar-button" class="usa-button"><i class="fa fa-chevron-left"></i></button>
+    <div id="sidebar-content" class="sidebar-content">
+      <%= render partial: "map_sidebar", locals: {body: nil} %>
+    </div>
+  </div>
+  <div id="map" class="sidebar-map"></div>
+  <div class="hubzone-search">
+        <%= form_tag search_path, remote: true, method: :get, class: "usa-search usa-search-small", onsubmit: "HZ.trackSubmit('search', '#search-field-small')" do %>
+        <div id="map-search" role="search">
+          <%= hidden_field_tag "locale", I18n.locale %>
+          <%= hidden_field_tag "query_date", Date.today %>
+          <%= label_tag "search", 'HUBZone Map Search', class: "usa-sr-only" %>
+          <%= search_field_tag "search", nil, placeholder: t('map.enter_address'), id: "search-field-small"%>
+          <%= button_tag '<span class="usa-sr-only search-icon">Search</span>'.html_safe, id: "hubzone-search-button" %>
+        </div>
+        <% end %>
+  </div>
+  <div id="legend">
+    <ul>
+      <li class="legend-qualified"><i class="fa fa-square" aria-hidden="true"></i>Qualified</li>
+      <li class="legend-expiring"><i class="fa fa-square" aria-hidden="true"></i>Expiring</li>
+    </ul>
+  </div>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= MAP_CONFIG[:google_api_key] %>&callback=initMap&libraries=places" async=""></script>
+</section>

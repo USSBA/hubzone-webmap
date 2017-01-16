@@ -4,8 +4,29 @@ require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'spec_helper'
+require 'hubzone_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
+
+# load up Capybara
+require 'capybara/rspec'
+require 'capybara/rails'
+
+# load up Selenium
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+# load up Poltergeist (not turning off js errors, b/c this is our app, we want to know about errors!)
+require 'capybara/poltergeist'
+
+Capybara.register_driver(:poltergeist) do |app|
+  Capybara::Poltergeist::Driver.new(app, js_errors: true)
+end
+
+Capybara.default_max_wait_time = 5
+Capybara.javascript_driver = :selenium # with browser interaction
+# Capybara.javascript_driver = :poltergeist # headless
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -27,6 +48,9 @@ require 'rspec/rails'
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  # include our helpers
+  config.include HubzoneHelper
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -54,4 +78,13 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # Mock by default and stub any request, returning the non-standard
+  # 598 Network read timeout error
+  #
+  config.before(:all) do
+    Excon.defaults[:mock] = true
+    Excon.stub({}, body: { message: 'Fallback stub response' }.to_json, status: 598)
+    # Add your own stubs here or in specific tests...
+  end
 end

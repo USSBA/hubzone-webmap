@@ -1,14 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang='<%= I18n.locale %>'>
   <head>
-    <title>HubzoneMap</title>
+    <title>HUBZone Map</title>
     <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'hzmap' %>
+    <link rel="Shortcut Icon" type="image/png" href="<%= asset_path "icons/57x57.png" %>">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+      ga('create', '<%= MAP_CONFIG[:google_analytics_tracking_id] %>', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   </head>
-
-  <body>
-    <%= yield %>
-  </body>
+  <body class="hubzone-map">
+    <a class="usa-skipnav" href="#main-content"><%= t('header.skip_to_main') %></a>
+    <header class="usa-header usa-header-extended" role="banner">
+      <!-- Gov banner BEGIN -->
+      <div class="usa-banner">
+          <header class="usa-banner-header">
+            <div class="usa-grid usa-banner-inner">
+            <%= image_tag("img/favicons/favicon-57.png", alt: "U.S. flag") %>
+            <p><%= t('usa_banner.title') %></p>
+            </div>
+          </header>
+      </div>
+      <!-- Gov banner END -->
+      <div class="usa-navbar">
+        <button class="usa-menu-btn">Menu</button>
+        <div class="usa-logo" id="logo">
+          <em class="usa-logo-text">
+            <%= link_to( image_tag("sba-logo.png", id: "sba-logo", alt: "U.S. Small Business Administration logo"),
+                         'https://sba.gov',
+                         class: 'logo-link',
+                         title: 'SBA Home',
+                         'aria-label' => 'SBA Home',
+                         onclick: "HZ.openLink( 'https://sba.gov', 'map', 'logo-link' );" )
+            %>
+            <%= link_to( "<h1>#{t('hubzone_map')}</h1>".html_safe,
+                         map_path,
+                         class: 'title-link',
+                         title: 'Home',
+                         'aria-label' => 'Home',
+                         onclick: "HZ.openLink( '#{map_path}', 'map', 'title-link' );" )
+            %>
+          </em>
+        </div>
+      </div>
+      <nav role="navigation" class="usa-nav">
+        <div class="usa-nav-inner">
+          <button class="usa-nav-close">
+            <%= image_tag("img/close.svg", alt: "close") %>
+          </button>
+          <div class="usa-nav-secondary">
+            <ul class="usa-unstyled-list usa-nav-secondary-links">
+              <li>
+                <%= link_to( t('menu.hubzone_program'),
+                             "https://www.sba.gov/contracting/government-contracting-programs/hubzone-program",
+                             id: "hubzone-program-link",
+                             onclick: "HZ.openLink( 'https://www.sba.gov/contracting/government-contracting-programs/hubzone-program', 'map', 'program-link' );" ) %>
+              </li>
+              <li>
+                <%= link_to( t('menu.help'),
+                             "#",
+                             id: "hubzone-help-link",
+                             onclick: "HZ.openLink( '#', 'map', 'help-link' );" ) %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="usa-overlay"></div>
+    <main id="main-content">
+      <%= yield %>
+    </main>
+    </body>
 </html>

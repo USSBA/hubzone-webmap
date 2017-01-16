@@ -1,0 +1,13 @@
+$('#sidebar-content').html("<%= j render partial: "map_sidebar", locals: {body: JSON.parse(@body)} %>");  // jshint ignore:line
+var responseBody = JSON.parse('<%= @body.html_safe %>');
+var geocodeLocation = null;
+if (responseBody.geometry){
+  jumpToLocation({
+    viewport: responseBody.geometry.viewport,
+    location: responseBody.geometry.location
+  });
+  geocodeLocation = responseBody.geometry.location;
+}
+sidebar.open();
+updateMarkers(geocodeLocation);
+updateAccordions();

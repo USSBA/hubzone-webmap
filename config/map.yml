@@ -1,0 +1,35 @@
+default: &defaults
+  google_analytics_tracking_id: <%= ENV["GOOGLE_ANALYTICS_TRACKING_ID"] %>
+  hubzone_api_host: <%= ENV["HUBZONE_API_HOST"] || "http://localhost:3001" %>
+  hubzone_api_search_path: '/api/search'
+  google_api_key: <%= ENV["HUBZONE_GOOGLE_API_KEY"] ||
+                      "need to set HUBZONE_GOOGLE_API_KEY in your environment!"
+                      %>
+  geom_wms_settings: &default_wms
+    url_root: <%= ENV["HUBZONE_WMS_URL_ROOT"] || "http://localhost:8080/geoserver/hubzone/wms?service=WMS" %>
+    workspace: <%= ENV["HUBZONE_WMS_WORKSPACE"] || "hubzone" %>
+    srs: 4326
+
+production:
+  <<: *defaults
+  geom_wms_settings:
+    <<: *default_wms
+    db: hzgeo_prd
+
+demo:
+  <<: *defaults
+  geom_wms_settings:
+    <<: *default_wms
+    db: hzgeo_demo
+
+development:
+  <<: *defaults
+  geom_wms_settings:
+    <<: *default_wms
+    db: hzgeo_dev
+
+test:
+  <<: *defaults
+  geom_wms_settings:
+    <<: *default_wms
+    db: why_are_you_hitting_the_WMS_server_in_test

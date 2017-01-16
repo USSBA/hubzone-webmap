@@ -6,12 +6,24 @@
 
 # Ignore bundler config.
 /.bundle
+vendor/bundle
+coverage/
 
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+.DS_Store
 
 # Ignore Byebug command history file.
 .byebug_history
+
+# Ignore coverage reports
+coverage
+
+# Ignore public compiled assets
+public/assets/
+
+# Ignore .env configuration
+.env*

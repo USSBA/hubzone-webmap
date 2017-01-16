@@ -1,0 +1,31 @@
+// code for handling marker behavior
+var mapMarkers = [];
+
+// Removes the markers from the map
+function clearMarkers() {
+  setMapOnAll(null);
+  mapMarkers = [];
+}
+
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+  for (var i = 0; i < mapMarkers.length; i++) {
+    mapMarkers[i].setMap(map);
+  }
+}
+
+// add a marker to the map, removing any other markers
+/* exported updateMarkers */
+function updateMarkers(geocodeLocation){
+  clearMarkers();
+  if (geocodeLocation !== null && geocodeLocation !== undefined){
+    /* jshint ignore:start */
+    var marker = new google.maps.Marker({
+      position: geocodeLocation,
+      map: map,
+      icon: new google.maps.MarkerImage('<%= image_path 'hubzone-map-marker.svg' %>')
+    });
+    mapMarkers.push(marker);
+    /* jshint ignore:end */
+  }
+}
