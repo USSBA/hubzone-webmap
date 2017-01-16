@@ -11,8 +11,9 @@ class MapController < ApplicationController
 
   def search
     query = format_query params
+    path = "#{MAP_CONFIG[:hubzone_api_search_path]}?#{query}"
     response = connection.request(method: :get,
-                                  path: "/search?#{query}")
+                                  path: path)
     @body = response.data[:body]
     respond_to do |format|
       format.js {}
