@@ -1,78 +1,75 @@
 // Container for map bounds so we can reset it after print
-var mapBounds = {};
-var mapCenter = {};
-var mapZoom = null;
+HZApp.Print = (function(){
+  (function initialize(){
+    // Catch control+p and re-layout page for printing
+    $(document).bind("keydown", HZApp.Print.catchKeyStrokeToPrint);
 
-// Catch control+p and re-layout page for printing
-$(document).bind("keydown", catchKeyStrokeToPrint);
+    // Listener for map icon click
+    $(function() {
+      // Web-kit
+      this.mediaQueryList = window.matchMedia('print');
+      this.mediaQueryList.addListener(HZApp.Print.catchMediaQuery);
+      $(document).on('click','#map-print', HZApp.Print.catchPrintEvent);
+    });
+  })();
 
-function catchKeyStrokeToPrint(e){
-  if((e.ctrlKey || e.metaKey) && e.keyCode === 80){
-    catchPrintEvent(e, 1000);
-  } else {
-    return;
-  }
-}
+  return {
+    mapBounds: {},
+    mapCenter: {},
+    mapZoom: null,
+    catchKeyStrokeToPrint: function(e){
+      if((e.ctrlKey || e.metaKey) && e.keyCode === 80){
+        HZApp.Print.catchPrintEvent(e, 1000);
+      } else {
+        return;
+      }
+    },
+    catchPrintEvent: function(e, wait){
+      e.preventDefault();
+      wait = wait || 1000;
+      HZApp.Print.beforePrint();
+      HZApp.Print.waitToPrint(wait);
+    },
+    waitToPrint: function(wait){
+      window.setTimeout(function(){
+        window.print();
+      }, wait);
+    },
+    catchMediaQuery: function(mql){
+      if (!mql.matches) {
+          HZApp.Print.afterPrint();
+      } else {
+        return;
+      }
+    },
+    beforePrint: function() {  // Rebuild the map before printing
+      this.mapBounds = HZApp.map.getBounds();
+      this.mapCenter = HZApp.map.getCenter();
+      this.mapZoom = HZApp.map.getZoom();
 
-// Listener for map icon click
-$(function() {
-  $(document).on('click','#map-print', catchPrintEvent);
-});
+      $('.map-body').addClass('printable-map');
+      google.maps.event.trigger(HZApp.map, 'resize');
+      HZApp.map.fitBounds(this.mapBounds);
 
-// Handle the print event
-function catchPrintEvent(e, wait){
-  e.preventDefault();
-  wait = wait || 1000;
-  beforePrint();
-  window.setTimeout(function(){
-    window.print();
-  }, wait);
-}
+      if (HZApp.Markers.hzQueryMarker.markers.length > 0){
+        HZApp.map.setCenter(HZApp.Markers.hzQueryMarker.markers[0].position);
+      } else {
+        HZApp.map.setCenter(this.mapCenter);
+      }
+      sidebar.close();
+    },
+    afterPrint: function() {  //reset the map after print
+      $('.map-body').removeClass('printable-map');
+      google.maps.event.trigger(HZApp.map, 'resize');
+      HZApp.map.setCenter(this.mapCenter);
+      HZApp.map.setZoom(this.mapZoom);
+      sidebar.open();
+    }
+  };
+})();
 
-// Web-kit
-var mediaQueryList = window.matchMedia('print');
-mediaQueryList.addListener(catchMediaQuery);
 
-//helper for catching the media query
-function catchMediaQuery(mql){
-  if (!mql.matches) {
-      afterPrint();
-  } else {
-    return;
-  }
-}
 
-// window.onbeforeprint = function() {
-//   catchPrintEvent(1000);
-// };
-// window.onafterprint = function() {
-//   afterPrint(mapBounds);
-// };
 
-// Rebuild the map before printing
-function beforePrint() {
-  mapBounds = map.getBounds();
-  mapCenter = map.getCenter();
-  mapZoom = map.getZoom();
 
-  $('.map-body').addClass('printable-map');
-  google.maps.event.trigger(map, 'resize');
-  map.fitBounds(mapBounds);
 
-  if (mapMarkers.length > 0){
-    map.setCenter(mapMarkers[0].position);
-  } else {
-    map.setCenter(mapCenter);
-  }
-
-  sidebar.close();
-}
-
-//reset the map after print
-function afterPrint() {
-  $('.map-body').removeClass('printable-map');
-  google.maps.event.trigger(map, 'resize');
-  map.setCenter(mapCenter);
-  map.setZoom(mapZoom);
-  sidebar.open();
-}

@@ -47,6 +47,7 @@ en:
     qualified_by: "Qualified by: "
     qualifications_effective: "As of"
     qualified: "Qualified HUBZone"
+    qualified_short: "Qualified"
     not_qualified: "Not Qualified"
     expiring: "Expiring"
     expires: "Expires"

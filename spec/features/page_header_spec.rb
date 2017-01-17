@@ -20,7 +20,4 @@ describe "the header", type: :feature do
   it "should have HUBZone Program link" do
     expect(page).to have_content 'HUBZone Program'
   end
-  it "should have Help link" do
-    expect(page).to have_content 'Help'
-  end
 end

@@ -14,11 +14,13 @@ $.fn.sidebar = function() {
       $sidebar.removeClass('hidden');
       $('#sidebar-button').html('<i class="fa fa-chevron-right"></i>');
       $('div.gmnoprint[style*="top: 38px"], .gm-svpc').addClass('gm-sidebar-on');
+      $('#geolocation').addClass('geolocation-sidebar-on');
       this.currentClass = 'on';
     } else {
       $sidebar.removeClass('on');
       $('#sidebar-button').html('<i class="fa fa-chevron-left"></i>');
       $('div.gmnoprint[style*="top: 38px"], .gm-svpc').removeClass('gm-sidebar-on');
+      $('#geolocation').removeClass('geolocation-sidebar-on');
       this.currentClass = 'hidden';
     }
   };
@@ -50,7 +52,7 @@ $(function() {
 // event handler for clicks to sidebar button
 /* exported triggerSidebar */
 function triggerSidebar(){
-  $('#sidebar').hasClass('on') ? HZ.track( 'map', 'sidebar', 'hide' ) :
-                                 HZ.track( 'map', 'sidebar', 'show' );
+  $('#sidebar').hasClass('on') ? HZApp.GA.track( 'map', 'sidebar', 'hide' ) :
+                                 HZApp.GA.track( 'map', 'sidebar', 'show' );
   $('#sidebar').hasClass('on') ? sidebar.close() : sidebar.open();
 }

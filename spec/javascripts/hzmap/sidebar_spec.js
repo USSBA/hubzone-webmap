@@ -6,13 +6,13 @@
 
 describe ('Testing sidebar operations', function() {
   beforeEach(function(done) {
-    var sidebar = mockPage.build();
+    var sidebar = HZSpecHelper.mockPage.build();
     setTimeout(function() {
       done();
     }, 1);
   });
   afterEach(function(done) {
-    mockPage.destroy();
+    HZSpecHelper.mockPage.destroy();
     setTimeout(function() {
       done();
     }, 1);

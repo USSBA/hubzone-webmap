@@ -7,7 +7,7 @@
   </div>
   <div id="map" class="sidebar-map"></div>
   <div class="hubzone-search">
-        <%= form_tag search_path, remote: true, method: :get, class: "usa-search usa-search-small", onsubmit: "HZ.trackSubmit('search', '#search-field-small')" do %>
+        <%= form_tag search_path, remote: true, method: :get, class: "usa-search usa-search-small", onsubmit: "HZApp.GA.trackSubmit('search', '#search-field-small')" do %>
         <div id="map-search" role="search">
           <%= hidden_field_tag "locale", I18n.locale %>
           <%= hidden_field_tag "query_date", Date.today %>
@@ -19,9 +19,16 @@
   </div>
   <div id="legend">
     <ul>
-      <li class="legend-qualified"><i class="fa fa-square" aria-hidden="true"></i>Qualified</li>
-      <li class="legend-expiring"><i class="fa fa-square" aria-hidden="true"></i>Expiring</li>
+      <li class="legend-qualified"><i class="fa fa-square" aria-hidden="true"></i><%= t('hubzone_assertions.qualified_short') %></li>
+      <li class="legend-expiring"><i class="fa fa-square" aria-hidden="true"></i><%= t('hubzone_status.expiring') %></li>
     </ul>
+  </div>
+  <div id="geolocation" class="gmnoprint">
+    <i class="fa fa-location-arrow" aria-hidden="true"></i>
+    <div class="geolocation-loading">
+      <div class="circle1"></div>
+      <div class="circle2"></div>
+    </div>
   </div>
   <script src="https://maps.googleapis.com/maps/api/js?key=<%= MAP_CONFIG[:google_api_key] %>&callback=initMap&libraries=places" async=""></script>
 </section>

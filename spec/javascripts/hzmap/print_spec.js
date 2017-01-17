@@ -7,16 +7,21 @@
 
 describe ('Testing print operations', function() {
   beforeEach(function(done) {
-    map = new google.maps.Map();
-    var sidebar = mockPage.build();
+    google = HZSpecHelper.google;
+    HZApp.map = new google.maps.Map();
+    var sidebar = HZSpecHelper.mockPage.build();
     //set spies
-    spyOn(map, 'getBounds');
-    spyOn(map, 'getCenter');
-    spyOn(map, 'getZoom');
-    spyOn(map, 'fitBounds');
-    spyOn(map, 'setCenter');
-    spyOn(map, 'setZoom');
+    spyOn(HZApp.map, 'getBounds');
+    spyOn(HZApp.map, 'getCenter');
+    spyOn(HZApp.map, 'getZoom');
+    spyOn(HZApp.map, 'fitBounds');
+    spyOn(HZApp.map, 'setCenter');
+    spyOn(HZApp.map, 'setZoom');
     spyOn(google.maps.event, 'trigger');
+    // spyOn(google.maps, 'Marker');
+
+    HZApp.Markers.hzQueryMarker = new HZApp.Constructors.HubzoneMapMarker({icon: null});
+    HZApp.Markers.hzUserLocation = new HZApp.Constructors.HubzoneMapMarker({icon: null});
 
     setTimeout(function() {
       done();
@@ -24,9 +29,10 @@ describe ('Testing print operations', function() {
   });
 
   afterEach(function(done){
-    map = {};
-    mapMarkers = [];
-    mockPage.destroy();
+    HZApp.map = {};
+    HZApp.Markers.hzQueryMarker = {};
+    HZApp.Markers.hzUserLocation = {};
+    HZSpecHelper.mockPage.destroy();
     setTimeout(function() {
       done();
     }, 1);
@@ -36,41 +42,39 @@ describe ('Testing print operations', function() {
   it ("should update the map div before print with no marker present", function(){
     // fails at http://localhost:3000/specs?random=true&seed=64916
     mapMarkers = [];
-    beforePrint();
+    HZApp.Print.beforePrint();
 
     var mapBodyDivClasses = $('.map-body').attr('class');
 
-    expect(map.getBounds.calls.count()).toEqual(1);
-    expect(map.getCenter.calls.count()).toEqual(1);
-    expect(map.getZoom.calls.count()).toEqual(1);
-    expect(map.fitBounds.calls.count()).toEqual(1);
-    expect(map.setCenter.calls.count()).toEqual(1);
+    expect(HZApp.map.getBounds.calls.count()).toEqual(1);
+    expect(HZApp.map.getCenter.calls.count()).toEqual(1);
+    expect(HZApp.map.getZoom.calls.count()).toEqual(1);
+    expect(HZApp.map.fitBounds.calls.count()).toEqual(1);
+    expect(HZApp.map.setCenter.calls.count()).toEqual(1);
     expect(google.maps.event.trigger.calls.count()).toEqual(1);
     expect(mapBodyDivClasses).toContain('print');
   });
 
   it ("should update the map div before print with a marker present", function(){
-    var stubMapMarker = new MapMarker();
-    mapMarkers = [stubMapMarker];
-    beforePrint();
+    HZApp.Markers.hzQueryMarker.updateMarkers(HZSpecHelper.markerLocation);
+    HZApp.Print.beforePrint();
     var mapBodyDivClasses = $('.map-body').attr('class');
-
-    expect(map.getBounds.calls.count()).toEqual(1);
-    expect(map.getCenter.calls.count()).toEqual(1);
-    expect(map.getZoom.calls.count()).toEqual(1);
-    expect(map.fitBounds.calls.count()).toEqual(1);
-    expect(map.setCenter.calls.count()).toEqual(1);
+    expect(HZApp.map.getBounds.calls.count()).toEqual(1);
+    expect(HZApp.map.getCenter.calls.count()).toEqual(1);
+    expect(HZApp.map.getZoom.calls.count()).toEqual(1);
+    expect(HZApp.map.fitBounds.calls.count()).toEqual(1);
+    expect(HZApp.map.setCenter.calls.count()).toEqual(1);
     expect(google.maps.event.trigger.calls.count()).toEqual(1);
     expect(mapBodyDivClasses).toContain('print');
   });
 
   it ("should reset the map view", function(){
-    beforePrint();
-    afterPrint();
+    HZApp.Print.beforePrint();
+    HZApp.Print.afterPrint();
     var mapBodyDivClasses = $('.map-body').attr('class');
 
-    expect(map.setCenter.calls.count()).toEqual(2);
-    expect(map.setZoom.calls.count()).toEqual(1);
+    expect(HZApp.map.setCenter.calls.count()).toEqual(2);
+    expect(HZApp.map.setZoom.calls.count()).toEqual(1);
     expect(google.maps.event.trigger.calls.count()).toEqual(2);
     expect(mapBodyDivClasses).not.toContain('print');
   });
@@ -80,7 +84,7 @@ describe ('Testing print operations', function() {
       preventDefault: function(){}
     };
     spyOn(printEvent, 'preventDefault');
-    spyOn(window, 'beforePrint');
+    spyOn(HZApp.Print, 'beforePrint');
     //basically mocks setTimeout since I couldn't get it to
     // run print
     spyOn(window, 'setTimeout').and.callFake(function(fn){
@@ -89,66 +93,80 @@ describe ('Testing print operations', function() {
     });
     spyOn(window, 'print');
 
-    catchPrintEvent(printEvent, 1);
+    HZApp.Print.catchPrintEvent(printEvent, 1);
     expect(printEvent.preventDefault.calls.count()).toEqual(1);
-    expect(window.beforePrint.calls.count()).toEqual(1);
+    expect(HZApp.Print.beforePrint.calls.count()).toEqual(1);
     expect(window.setTimeout.calls.count()).toEqual(1);
     expect(window.print.calls.count()).toEqual(1);
   });
 
   it ("should trigger catchPrintEvent on ctrl-p", function(){
-    spyOn(window, 'catchPrintEvent');
+    spyOn(HZApp.Print, 'catchPrintEvent');
 
     var printE = {
       ctrlKey: true,
       metaKey: false,
       keyCode: 80
     };
-    catchKeyStrokeToPrint(printE);
-    expect(window.catchPrintEvent.calls.count()).toEqual(1);
+    HZApp.Print.catchKeyStrokeToPrint(printE);
+    expect(HZApp.Print.catchPrintEvent.calls.count()).toEqual(1);
   });
 
   it ("should trigger catchPrintEvent on cmd-p", function(){
-    spyOn(window, 'catchPrintEvent');
+    spyOn(HZApp.Print, 'catchPrintEvent');
 
     var printE = {
       ctrlKey: false,
       metaKey: true,
       keyCode: 80
     };
-    catchKeyStrokeToPrint(printE);
-    expect(window.catchPrintEvent.calls.count()).toEqual(1);
+    HZApp.Print.catchKeyStrokeToPrint(printE);
+    expect(HZApp.Print.catchPrintEvent.calls.count()).toEqual(1);
   });
 
   it ("should do nothing on other key strokes", function(){
-    spyOn(window, 'catchPrintEvent');
+    spyOn(HZApp.Print, 'catchPrintEvent');
 
     var printE = {
       ctrlKey: false,
       metaKey: false,
       keyCode: 80
     };
-    catchKeyStrokeToPrint(printE);
-    expect(window.catchPrintEvent.calls.count()).toEqual(0);
+    HZApp.Print.catchKeyStrokeToPrint(printE);
+    expect(HZApp.Print.catchPrintEvent.calls.count()).toEqual(0);
+  });
+
+  it ("should trigger printing ", function(){
+    spyOn(HZApp.Print, 'beforePrint');
+    spyOn(HZApp.Print, 'waitToPrint');
+
+    var printE = {
+      preventDefault: function(){}
+    };
+
+    HZApp.Print.catchPrintEvent(printE);
+    expect(HZApp.Print.beforePrint.calls.count()).toEqual(1);
+    expect(HZApp.Print.waitToPrint.calls.count()).toEqual(1);
+    expect(HZApp.Print.waitToPrint.calls.allArgs()[0][0]).toEqual(1000);
   });
 
   it ("should handle after print media query", function(){
-    spyOn(window, 'afterPrint');
+    spyOn(HZApp.Print, 'afterPrint');
 
     var mql = {
       matches: false
     };
-    catchMediaQuery(mql);
-    expect(window.afterPrint.calls.count()).toEqual(1);
+    HZApp.Print.catchMediaQuery(mql);
+    expect(HZApp.Print.afterPrint.calls.count()).toEqual(1);
   });
 
   it ("should ignore before print media query", function(){
-    spyOn(window, 'afterPrint');
+    spyOn(HZApp.Print, 'afterPrint');
 
     var mql = {
       matches: true
     };
-    catchMediaQuery(mql);
-    expect(window.afterPrint.calls.count()).toEqual(0);
+    HZApp.Print.catchMediaQuery(mql);
+    expect(HZApp.Print.afterPrint.calls.count()).toEqual(0);
   });
 });
