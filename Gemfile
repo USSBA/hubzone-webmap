@@ -26,6 +26,12 @@ gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'rspec-rails', '~> 3.5'
+  gem 'capybara'
+  gem 'poltergeist'
+  gem 'launchy'
+  gem 'chromedriver-helper'
+  gem 'selenium-webdriver'
+  gem 'jasmine-rails'
 end
 
 group :development do

@@ -7,10 +7,12 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.paths << Emoji.images_path
 %w(js css img fonts).each do |p|
   Rails.application.config.assets.paths <<
-    Rails.root.join("vendor", "assets", "uswds-0.12.1", p)
+    Rails.root.join("vendor", "assets", "uswds-0.13.1", p)
 end
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 Rails.application.config.assets.precompile += %w( google-maps-api.js )
+Rails.application.config.assets.precompile += %w( hzmap.js )
+Rails.application.config.assets.precompile += %w( img/* )
