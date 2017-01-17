@@ -23,13 +23,14 @@ describe ('Testing geolocation operations', function() {
 
   it("should get users location", function(){
     var geoLocationSpy = HZSpecHelper.fakeGeolocation();
+    var locationResp;
     if (geoLocationSpy !== null){
-      var locationResp = HZApp.GeoLocation.getUserLocation(navigator.geolocation);
+      locationResp = HZApp.GeoLocation.getUserLocation(navigator.geolocation);
       expect(locationResp).toBeDefined();
       expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(1);
     } else {
       spyOn(HZSpecHelper.fakeNavLocation, 'getCurrentPosition');
-      var locationResp = HZApp.GeoLocation.getUserLocation(HZSpecHelper.fakeNavLocation);
+      locationResp = HZApp.GeoLocation.getUserLocation(HZSpecHelper.fakeNavLocation);
       expect(locationResp).toEqual(HZSpecHelper.fakeNavLocation);
       expect(HZSpecHelper.fakeNavLocation.getCurrentPosition.calls.count()).toEqual(1);
     }
