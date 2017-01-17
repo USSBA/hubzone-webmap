@@ -11,6 +11,9 @@ var HZSpecHelper = {
       $(mapBodyDiv).addClass('map-body');
       $('body').append(mapBodyDiv);
       $('body').append('<div id="sidebar" class="hidden"></div>');
+      $('body').append('<div id="geolocation" class="hidden"></div>');
+      $('#geolocation').append('<i class="fa fa-location-arrow" style="display: block;"></i>')
+      $('#geolocation').append('<div class="geolocation-loading" style="display: none;"></i>')
       var testDiv = document.createElement('div');
       $('#sidebar').append(testDiv);
       $('#sidebar').css('display', 'none');
@@ -21,6 +24,7 @@ var HZSpecHelper = {
       sidebar = {};
       $('#sidebar').remove();
       $('.map-body').remove();
+      $('#geolocation').remove();
     }
   },
   google: {
@@ -143,6 +147,9 @@ var HZSpecHelper = {
       HZApp.Layers.hzWMSOverlays[layer].overlay = [];
     });
   },
+  fakeNavLocation: {
+    getCurrentPosition: function(){}
+  },  
   fakeGeolocation: function(){
     if (navigator.geolocation === null || navigator.geolocation === undefined){
       return null;
