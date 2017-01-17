@@ -28,6 +28,12 @@ describe ('Testing geolocation operations', function() {
     }
   });
 
+  it("on button click, should trigger getCurrentPosition", function(){
+    spyOn(HZApp.GeoLocation, 'getUserLocation');
+    HZApp.GeoLocation.catchGeoLocationButtonClick();
+    expect(HZApp.GeoLocation.getUserLocation.calls.count()).toEqual(1);
+  });
+
   it("should log if browser doesn't support geolocation", function(){
     var geoLocationSpy = HZSpecHelper.fakeGeolocation();
     var locationResp = HZApp.GeoLocation.getUserLocation(undefined);

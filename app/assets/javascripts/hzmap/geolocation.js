@@ -2,12 +2,13 @@
 HZApp.GeoLocation = (function() {
 	// GeoLocation button listener
 	$(function() {
-	  $('#geolocation').click(function(){
-	  	HZApp.GeoLocation.getUserLocation(window.navigator.geolocation);
-	  });
+	  $('#geolocation').click(HZApp.GeoLocation.catchGeoLocationButtonClick);
 	});
 
   return {
+  	catchGeoLocationButtonClick: function(){
+	  	HZApp.GeoLocation.getUserLocation(window.navigator.geolocation);
+  	},
     getUserLocation: function(navLocation){
 		  //grab users location and set map around it
   		$('#geolocation i').css("display", "none");
