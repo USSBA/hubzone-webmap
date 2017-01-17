@@ -230,7 +230,7 @@ describe ('Testing map operations', function() {
     };
 
     var date = HZApp.MapUtils.parseDate(new Date());
-    var latlngUrl = '/search?latlng=' + mapClick.latLng.lat() + ',' + mapClick.latLng.lng() +
+    var latlngUrl = '<%= search_path %>?latlng=' + mapClick.latLng.lat() + ',' + mapClick.latLng.lng() +
                     '&query_date=' + date +
                     '&locale=en';
     var clickUrl = HZApp.MapUtils.catchMapClick(mapClick);

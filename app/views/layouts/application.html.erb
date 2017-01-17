@@ -43,11 +43,11 @@
                          onclick: "HZApp.GA.openLink( 'https://sba.gov', 'map', 'logo-link' );" )
             %>
             <%= link_to( "<h1>#{t('hubzone_map')}</h1>".html_safe,
-                         root_path,
+                         map_path,
                          class: 'title-link',
                          title: 'Home',
                          'aria-label' => 'Home',
-                         onclick: "HZApp.GA.openLink( '#{root_path}', 'map', 'title-link' );" )
+                         onclick: "HZApp.GA.openLink( '#{map_path}', 'map', 'title-link' );" )
             %>
           </em>
         </div>

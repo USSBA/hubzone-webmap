@@ -34,7 +34,7 @@ describe 'the map search', type: :feature, js: true do
     context "in the #{locale} locale" do
       before do
         I18n.locale = locale
-        visit root_path(locale: locale)
+        visit map_path(locale: locale)
       end
 
       after(:each) do
