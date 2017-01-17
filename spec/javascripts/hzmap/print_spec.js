@@ -56,10 +56,7 @@ describe ('Testing print operations', function() {
   });
 
   it ("should update the map div before print with a marker present", function(){
-    var stubMapMarker = new HZApp.Constructors.HubzoneMapMarker({icon: null});  
-    var stubGoogleMarker = new HZSpecHelper.MapMarker();
-    stubMapMarker.markers.push(stubGoogleMarker);
-
+    HZApp.Markers.hzQueryMarker.updateMarkers(HZSpecHelper.markerLocation);
     HZApp.Print.beforePrint();
     var mapBodyDivClasses = $('.map-body').attr('class');
     expect(HZApp.map.getBounds.calls.count()).toEqual(1);
@@ -137,6 +134,20 @@ describe ('Testing print operations', function() {
     };
     HZApp.Print.catchKeyStrokeToPrint(printE);
     expect(HZApp.Print.catchPrintEvent.calls.count()).toEqual(0);
+  });
+
+  it ("should trigger printing ", function(){
+    spyOn(HZApp.Print, 'beforePrint');
+    spyOn(HZApp.Print, 'waitToPrint');
+
+    var printE = {
+      preventDefault: function(){}
+    };
+
+    HZApp.Print.catchPrintEvent(printE);
+    expect(HZApp.Print.beforePrint.calls.count()).toEqual(1);
+    expect(HZApp.Print.waitToPrint.calls.count()).toEqual(1);
+    expect(HZApp.Print.waitToPrint.calls.allArgs()[0][0]).toEqual(1000);
   });
 
   it ("should handle after print media query", function(){

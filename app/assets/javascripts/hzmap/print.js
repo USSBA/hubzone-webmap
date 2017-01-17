@@ -28,6 +28,9 @@ HZApp.Print = (function(){
       e.preventDefault();
       wait = wait || 1000;
       HZApp.Print.beforePrint();
+      HZApp.Print.waitToPrint(wait);
+    },
+    waitToPrint: function(wait){
       window.setTimeout(function(){
         window.print();
       }, wait);
