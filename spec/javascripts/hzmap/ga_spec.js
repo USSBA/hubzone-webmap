@@ -60,5 +60,21 @@ describe ('Testing Google Analytics integration', function() {
       expect(HZApp.GA.navigateToPage.calls.count()).toEqual(1);
       expect(window.setTimeout.calls.count()).toEqual(1);
     });
+
+    it('should send links even when ga is not present', function() {
+      spyOn(HZApp.GA, 'navigateToPage');
+      window.ga = {};
+      HZApp.GA.openLink( 'https://sba.gov', 'map', 'logo-link' );
+      expect(HZApp.GA.navigateToPage.calls.count()).toEqual(1);
+    });
+
+    it('should track submitting form', function(){
+      spyOn(HZApp.GA, 'track');
+      HZApp.GA.trackSubmit('click','#search-field-small');
+      callArgs = HZApp.GA.track.calls.allArgs();
+      expect(HZApp.GA.track.calls.count()).toEqual(1);
+      expect(callArgs[0][0]).toEqual('map');
+      expect(callArgs[0][1]).toEqual('click');
+    });
   });
 });
