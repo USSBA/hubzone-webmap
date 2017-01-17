@@ -173,7 +173,7 @@ function catchMapClick(clickEvent){
   var locale = "<%= I18n.locale %>";
   // Log the click
   HZ.track( 'map', 'click', clicklat + ',' + clicklng );
-  var url = "/search?latlng=" + clicklat + ',' + clicklng + '&query_date=' + date + '&locale=' + locale;
+  var url = "<%= search_path %>?latlng=" + clicklat + ',' + clicklng + '&query_date=' + date + '&locale=' + locale;
   $.ajax({
     url: url
   });

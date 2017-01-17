@@ -43,11 +43,11 @@
                          onclick: "HZ.openLink( 'https://sba.gov', 'map', 'logo-link' );" )
             %>
             <%= link_to( "<h1>#{t('hubzone_map')}</h1>".html_safe,
-                         root_path,
+                         map_path,
                          class: 'title-link',
                          title: 'Home',
                          'aria-label' => 'Home',
-                         onclick: "HZ.openLink( '#{root_path}', 'map', 'title-link' );" )
+                         onclick: "HZ.openLink( '#{map_path}', 'map', 'title-link' );" )
             %>
           </em>
         </div>
