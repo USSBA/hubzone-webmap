@@ -48,30 +48,44 @@
       function loadPage(){
 
         // baltimore harbor
-        // var center = {
-        //  lat: 39.26642, 
-        //  lng: -76.57007
-        // };
-        // var zoom = 17;
-        // var check = []
-
-        // 4 corners
-        // var center = {
-        //  lat: 36.99871, 
-        //  lng: -109.04343
-        // };
-        // var zoom = 10;
-        // var check = []
-
-        // texas  multicolor
         var center = {
-          lat: 33.95020, 
-          lng: -99.37134
+         lat: 39.26642, 
+         lng: -76.57007
         };
-        var zoom = 8;
+        var zoom = 17;
         var check = []
 
-        // texas  downtown
+        // usa
+        var center = {
+         lat: 37.09024, 
+         lng: -95.44922
+        };
+        var zoom = 5;
+
+        // earth
+        var center = {
+         lat: 0, 
+         lng: 0
+        };
+        var zoom = 1;
+
+        // // // 4 corners
+        // // var center = {
+        // //  lat: 36.99871, 
+        // //  lng: -109.04343
+        // // };
+        // // var zoom = 10;
+        // // var check = []
+
+        // // // texas  multicolor
+        // // var center = {
+        // //   lat: 33.95020, 
+        // //   lng: -99.37134
+        // // };
+        // // var zoom = 8;
+        // // var check = []
+
+        // // texas  downtown
         // var center = {
         //  lat: 33.90234, 
         //  lng: -98.48419
@@ -84,6 +98,7 @@
         var scale = 1;
 
         var bbox = latLngToBbox(center.lat, center.lng, zoom, width, height, 256);
+        console.log(bbox);
 
         document.getElementById('qnmc-image').src = buildWMSUrl({
           bbox: bbox.join(','),
@@ -125,7 +140,7 @@
         n = 2**zoom;
         xtile = (n * (lng+180.0)/360.0);
         lat_rad = Math.radians(lat);
-        ytile = ((1.0 - Math.log(Math.tan(lat_rad) + (1 / Math.cos(lat_rad))) / Math.PI) / 2.0 * n);
+        ytile = ((1.0 - Math.log(Math.tan(lat_rad) + Math.sec(lat_rad) ) / Math.PI) / 2.0 * n);
         return [xtile, ytile];
       }
 
@@ -140,9 +155,11 @@
       }
 
       function latLngToBbox(lat, lng, zoom, width, height, tile_size){
-        var xtile_s, ytile_s, xtile_e, ytile_e, latlng_s, latlng_e;
+        var xtile_w, xtile_e, ytile_s, ytile_n;
         var bbox = {};
         var tileNumbers = getTileNumber(lat, lng, zoom);
+        var tileNumberX_fraction = 1*('0.' + tileNumbers[0].toString().split('.')[1]) || 0;
+        var tileNumberY_fraction = 1*('0.' + tileNumbers[1].toString().split('.')[1]) || 0;
         xtile_w = (tileNumbers[0] * tile_size - (width/2)) / tile_size;
         xtile_e = (tileNumbers[0] * tile_size + (width/2)) / tile_size;
         ytile_s = (tileNumbers[1] * tile_size + (height/2)) / tile_size;
@@ -151,7 +168,11 @@
         bbox.s = tile2Lat(ytile_s, zoom);
         bbox.e = tile2Lng(xtile_e, zoom);
         bbox.n = tile2Lat(ytile_n, zoom);
-        return [bbox.w, bbox.s, bbox.e, bbox.n];  
+        webMSW = toWebMercator(bbox.w, bbox.s);
+        webMNE = toWebMercator(bbox.e, bbox.n);
+        console.log(webMSW, webMNE);
+        // return [bbox.w, bbox.s, bbox.e, bbox.n];
+        return [webMSW[0], webMSW[1], webMNE[0], webMNE[1]]  
 
       }
 
@@ -167,7 +188,8 @@
         url += "&LAYERS=hubzone-test:" + options.layer;
         url += "&FORMAT=image/png" ;
         url += "&TRANSPARENT=TRUE";
-        url += "&SRS=EPSG:4326";
+        // url += "&SRS=EPSG:4326";
+        url += "&SRS=EPSG:900913";
         url += "&BBOX=" + options.bbox;
         url += "&WIDTH=" + options.width;
         url += "&HEIGHT=" + options.height;
@@ -189,6 +211,36 @@
       // ////////////////
       // math helpers
       // ////////////////
+
+      function toWebMercator(xLon, yLat){
+        var semimajorAxis, xLon, yLat, east, north, northing;
+        if ((Math.abs(xLon) > 180) && (Math.abs(yLat) > 90)){
+          // coordinate out of range
+          return;
+        } else {
+          semimajorAxis = 6378137.0;
+          east = xLon * 0.017453292519943295;
+          north = yLat * 0.017453292519943295;
+          northing = 3189068.5 * Math.log((1.0 + Math.sin(north)) / (1.0 - Math.sin(north)))
+          easting = semimajorAxis * east
+          return [easting, northing];
+        }
+      }
+
+      function toWGS84(xLon, yLat){
+        var semimajorAxis, xLon, yLat, east, latitude, longitude;
+        if ((Math.abs(xLon) < 180) && (Math.abs(yLat) > 90)){
+          // coordinate out of range
+          return;
+        } else if ((Math.abs(xLon) > 20037508.3427892) || (Math.abs(yLat) > 20037508.3427892)){
+          return;          
+        } else {
+          semimajorAxis = 6378137.0  
+          latitude = (1.5707963267948966 - (2.0 * Math.atan(Math.exp((-1.0 * yLat) / semimajorAxis)))) * (180/Math.PI);
+          longitude = ((xLon / semimajorAxis) * 57.295779513082323) - ((Math.floor((((xLon / semimajorAxis) * 57.295779513082323) + 180.0) / 360.0)) * 360.0);
+          return [longitude, latitude];
+        }
+      };
 
       // secant
       Math.sec = function(aValue){
