@@ -6,7 +6,8 @@ HZApp.Autocomplete = {
   options: {
     types: []
   }, 
+  autocomplete: {},
   createAutocomplete: function(){
-  	return new google.maps.places.Autocomplete(this.searchInput(), this.options);
+  	this.autocomplete = new google.maps.places.Autocomplete(this.searchInput(), this.options);
   }
 };

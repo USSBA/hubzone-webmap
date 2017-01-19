@@ -25,7 +25,8 @@ describe ('Testing map operations', function() {
     spyOn(HZApp.map.mapTypes, 'set');
     spyOn(HZApp.map, 'setMapTypeId');
     spyOn(google.maps.places, 'Autocomplete');
-    spyOn(HZApp.GeoLocation, 'getUserLocation');
+    spyOn(HZApp.GeoLocation, 'getUserLocation');  
+    spyOn(HZApp.Autocomplete, 'createAutocomplete');
 
     HZApp.map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
     HZApp.map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
@@ -34,12 +35,12 @@ describe ('Testing map operations', function() {
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map.calls.count()).toEqual(1);
     expect(google.maps.event.addListener.calls.count()).toEqual(1);
-    expect(google.maps.places.Autocomplete.calls.count()).toEqual(1);
     expect(google.maps.StyledMapType.calls.count()).toEqual(1);
     expect(HZApp.map.addListener.calls.count()).toEqual(1);
     expect(HZApp.map.mapTypes.set.calls.count()).toEqual(1);
     expect(HZApp.map.setMapTypeId.calls.count()).toEqual(1);
     expect(HZApp.GeoLocation.getUserLocation.calls.count()).toEqual(1);
+    expect(HZApp.Autocomplete.createAutocomplete.calls.count()).toEqual(1);
   });
 
   it("should get bbox", function() {
