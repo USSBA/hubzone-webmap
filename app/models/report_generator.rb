@@ -29,13 +29,16 @@ class ReportGenerator
 
     y_position = pdf.cursor
 
+    img_w = 256
+    img_h = 256
+
     base_map_url =  WmsUtil.google_static( {
                                    center: { lat: region[:lat], lng: region[:lng]},
                                    width: width,
                                    height: height,
                                    scale: 1,
                                    zoom: region[:zoom] } )
-    pdf.image open(base_map_url), at: [0, y_position], width: 512, height: 512
+    pdf.image open(base_map_url), at: [0, y_position], width: img_w, height: img_h
 
     qct_url = WmsUtil.build_wms_url( { bbox: bbox.join(','),
                                    width: width * scale,
@@ -50,18 +53,18 @@ class ReportGenerator
                                    height: height * scale,
                                    layer: :indian_lands } )
 
-    pdf.image open(indian_lands_url), at: [0, y_position], width: 512, height: 512
-    pdf.image open(qnmc_url), at: [0, y_position], width: 512, height: 512
-    pdf.image open(qct_url), at: [0, y_position], width: 512, height: 512
+    pdf.image open(indian_lands_url), at: [0, y_position], width: img_w, height: img_h
+    pdf.image open(qnmc_url), at: [0, y_position], width: img_w, height: img_h
+    pdf.image open(qct_url), at: [0, y_position], width: img_w, height: img_h
 
-    pdf.move_down 542
+    pdf.move_down img_h + 30
   end
 
   def add_report
     headers = addresses.headers
     render_header headers
-    addresses.each do |a|
-      render_row a, headers
+    addresses.each_with_index do |a, i|
+      render_row a, i, headers
     end
   end
 
@@ -85,7 +88,6 @@ class ReportGenerator
 
   def render_header(headers)
     pdf.font_size 16
-    pdf.font "Courier", style: :bold
 
     y_position = pdf.cursor
     pdf.draw_text "Address", at: [0, y_position]
@@ -93,16 +95,22 @@ class ReportGenerator
     pdf.draw_text "Longitude", at: [400, y_position]
 
     pdf.font_size 12
-    pdf.font "Helvetica", style: :normal
     pdf.move_down 20
   end
 
-  def render_row(row, headers)
+  def render_row(row, index, headers)
     table_new_page(headers) if pdf.cursor < 12
 
-    pdf.font "Courier", style: :bold
+    row_h = 14
+
     pdf.font_size 10
     y_position = pdf.cursor
+
+    if index % 2 == 0
+      pdf.fill_color "eeeeff"
+      pdf.fill_rectangle [0, y_position + 3], 512, row_h
+      pdf.fill_color "000000"
+    end
     pdf.text_box row['Address'], at: [  0, y_position],
                                  width: 290, height: 15,
                                  overflow: :shrink_to_fit,
@@ -113,8 +121,7 @@ class ReportGenerator
     pdf.text_box row['Long'],    at: [400, y_position],
                                  width: 90,  height: 15,
                                  overflow: :shrink_to_fit
-    pdf.move_down 15
-    pdf.font "Helvetica", style: :normal
+    pdf.move_down row_h
     pdf.font_size 12
   end
 
