@@ -25,8 +25,8 @@ Capybara.register_driver(:poltergeist) do |app|
 end
 
 Capybara.default_max_wait_time = 5
-Capybara.javascript_driver = :selenium # with browser interaction
-# Capybara.javascript_driver = :poltergeist # headless
+#Capybara.javascript_driver = :selenium # with browser interaction
+Capybara.javascript_driver = :poltergeist # headless
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

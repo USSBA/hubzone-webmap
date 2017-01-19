@@ -10,6 +10,8 @@ var HZSpecHelper = {
       var mapBodyDiv = document.createElement('div');
       $(mapBodyDiv).addClass('map-body');
       $('body').append(mapBodyDiv);
+      $('body').append('<div id="header" class="hidden"></div>');
+      $('#header').append('<div id="search-field-small" class="hidden"></div>')
       $('body').append('<div id="sidebar" class="hidden"></div>');
       $('body').append('<div id="geolocation" class="hidden"></div>');
       $('#geolocation').append('<i class="fa fa-location-arrow" style="display: block;"></i>')
