@@ -7,6 +7,7 @@ gem 'font-awesome-rails', '>= 4.7.0' # Use Font Awesome for CSS Icons
 gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jquery-rails' # Use jquery as the JavaScript library
 gem 'pg' # Use PostgreSQL as the database for Active Record
+gem 'prawn' # PDF generation
 gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rb-readline' # Why is this suddenly such a problem?
