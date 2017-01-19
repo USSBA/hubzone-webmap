@@ -32,12 +32,7 @@ function initMap() {
   HZApp.map.addListener('click', HZApp.MapUtils.catchMapClick);
 
   //adds autocomplete
-  var searchInput = document.getElementById('search-field-small');
-  var options = {
-    types: []
-  };
-  /* jshint unused: false */
-  var autocomplete = new google.maps.places.Autocomplete(searchInput, options);
+  HZApp.Autocomplete.createAutocomplete();
 
   // build out the markers
   /* jshint ignore:start */
