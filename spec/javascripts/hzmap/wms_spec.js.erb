@@ -65,40 +65,40 @@ describe ('Testing wms operations', function() {
     expect(url).toEqual(urlExpect);
   });
 
-  xit("should call the wms map layer stack", function(){
-    spyOn(HZApp.MapUtils, 'getBbox');
-    spyOn(HZApp.MapUtils, 'getImageBounds');
-    spyOn(HZApp.MapUtils, 'buildWMSUrl');
-    spyOn(HZApp.MapUtils, 'updateLayerWMSOverlay');
+  it("should call the wms map layer stack", function(){
+    spyOn(HZApp.WMSUtils, 'getBbox');
+    spyOn(HZApp.WMSUtils, 'getImageBounds');
+    spyOn(HZApp.WMSUtils, 'buildWMSUrl');
+    spyOn(HZApp.WMSUtils, 'updateLayerWMSOverlay');
     spyOn(google.maps, 'GroundOverlay');
 
-    HZApp.MapUtils.fetchNewWMS({
+    HZApp.WMSUtils.fetchNewWMS({
       mapScope: HZApp.map,
       layer: 'qct'
     });
 
-    expect(HZApp.MapUtils.getBbox.calls.count()).toEqual(1);
-    expect(HZApp.MapUtils.getImageBounds.calls.count()).toEqual(1);
-    expect(HZApp.MapUtils.buildWMSUrl.calls.count()).toEqual(1);
-    expect(HZApp.MapUtils.updateLayerWMSOverlay.calls.count()).toEqual(1);
+    expect(HZApp.WMSUtils.getBbox.calls.count()).toEqual(1);
+    expect(HZApp.WMSUtils.getImageBounds.calls.count()).toEqual(1);
+    expect(HZApp.WMSUtils.buildWMSUrl.calls.count()).toEqual(1);
+    expect(HZApp.WMSUtils.updateLayerWMSOverlay.calls.count()).toEqual(1);
     expect(google.maps.GroundOverlay.calls.count()).toEqual(1);
   });
 
-  xit("should fetchNewWMS for as many layers as are defined", function(){
-    spyOn(HZApp.MapUtils, 'fetchNewWMS');
-    HZApp.MapUtils.updateIdleMap(HZApp.map);
-    var layerLength = Object.keys(HZApp.Layers.hzWMSOverlays).length;
-    expect(HZApp.MapUtils.fetchNewWMS.calls.count()).toEqual(layerLength);
+  it("should fetchNewWMS for as many layers as are defined", function(){
+    spyOn(HZApp.WMSUtils, 'fetchNewWMS');
+    HZApp.WMSUtils.updateIdleMap(HZApp.map);
+    var layerLength = Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).length;
+    expect(HZApp.WMSUtils.fetchNewWMS.calls.count()).toEqual(layerLength);
   });
 
-  xit("should update the map WMS layer, adding a new overlay where there was none before", function(){
+  it("should update the map WMS layer, adding a new overlay where there was none before", function(){
     var layer = 'qct';
     var mockOverlay = new HZSpecHelper.NewOverlay('new');
     spyOn(mockOverlay, 'setMap');
     spyOn(mockOverlay, 'addListener');
-    HZApp.Layers.hzWMSOverlays[layer].overlay.push(mockOverlay);
+    HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay.push(mockOverlay);
 
-    HZApp.MapUtils.updateLayerWMSOverlay({
+    HZApp.WMSUtils.updateLayerWMSOverlay({
       layer: layer,
       mapScope: HZApp.map
     });
