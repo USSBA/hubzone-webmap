@@ -5,17 +5,18 @@
 // first object is drawn first, then next on top of that, etc.
 HZApp.Layers.LayerDefs = (function(){
   var defaults = {
-    defaultCircleSize: 3,
-    defaultColor: '#377EB8',
-    defaultCircleColor: '#FFFFFF',
-    defaultDisplacementX: 0,
-    defaultDisplacementY: 0,
-    defaultFillOpacity: 0.5,
-    defaultLineColor: '#000000',
-    defaultLineSize: 10,
-    defaultLineRotation: 0,
-    defaultStrokeOpacity: 1,
-    defaultStrokeWidth: 1.25
+    circleSize: 3,
+    fillColor: '#377EB8',
+    circleFillColor: '#FFFFFF',
+    displacementX: 0,
+    displacementY: 0,
+    fillOpacity: 0.5,
+    lineStrokeColor: '#000000',
+    lineSize: 10,
+    lineRotation: 0,
+    strokeColor: '#377EB8',
+    strokeOpacity: 1,
+    strokeWidth: 1.25
   };
 
   var hzWMSOverlays = {

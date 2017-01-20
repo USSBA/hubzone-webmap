@@ -46,11 +46,11 @@ describe ('Testing layer style operations', function() {
       };
 
       dummyLayer = new HZApp.Layers.LayerUtils.newSLDXMLStyle(layerOptions);
-      expect($(dummyLayer.styleRules).find('CssParameter[name="fill"]').text()).toEqual(HZApp.Layers.LayerDefs.defaults.defaultColor);
-      expect(parseFloat($(dummyLayer.styleRules).find('CssParameter[name="fill-opacity"]').text())).toEqual(HZApp.Layers.LayerDefs.defaults.defaultFillOpacity);
-      expect($(dummyLayer.styleRules).find('CssParameter[name="stroke"]').text()).toEqual(HZApp.Layers.LayerDefs.defaults.defaultColor);
-      expect(parseFloat($(dummyLayer.styleRules).find('CssParameter[name="stroke-width"]').text())).toEqual(HZApp.Layers.LayerDefs.defaults.defaultStrokeWidth);
-      expect(parseFloat($(dummyLayer.styleRules).find('CssParameter[name="stroke-opacity"]').text())).toEqual(HZApp.Layers.LayerDefs.defaults.defaultStrokeOpacity);
+      expect($(dummyLayer.styleRules).find('CssParameter[name="fill"]').text()).toEqual(HZApp.Layers.LayerDefs.defaults.fillColor);
+      expect(parseFloat($(dummyLayer.styleRules).find('CssParameter[name="fill-opacity"]').text())).toEqual(HZApp.Layers.LayerDefs.defaults.fillOpacity);
+      expect($(dummyLayer.styleRules).find('CssParameter[name="stroke"]').text()).toEqual(HZApp.Layers.LayerDefs.defaults.strokeColor);
+      expect(parseFloat($(dummyLayer.styleRules).find('CssParameter[name="stroke-width"]').text())).toEqual(HZApp.Layers.LayerDefs.defaults.strokeWidth);
+      expect(parseFloat($(dummyLayer.styleRules).find('CssParameter[name="stroke-opacity"]').text())).toEqual(HZApp.Layers.LayerDefs.defaults.strokeOpacity);
   });
 
   it("should create a polygon and circle PolygonSymbolizer SLD string with defaults when given nulls", function(){
@@ -69,15 +69,15 @@ describe ('Testing layer style operations', function() {
     dummyLayer = new HZApp.Layers.LayerUtils.newSLDXMLStyle(layerOptions);
     
     // test base fill
-    expect($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > CssParameter[name="fill"]').text()).toEqual(HZApp.Layers.LayerDefs.defaults.defaultColor);
-    expect(parseFloat($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > CssParameter[name="fill-opacity"]').text())).toEqual(HZApp.Layers.LayerDefs.defaults.defaultFillOpacity);
-    expect($(dummyLayer.styleRules).find('PolygonSymbolizer > Stroke > CssParameter[name="stroke"]').text()).toEqual(HZApp.Layers.LayerDefs.defaults.defaultColor);
-    expect(parseFloat($(dummyLayer.styleRules).find('PolygonSymbolizer > Stroke > CssParameter[name="stroke-width"]').text())).toEqual(HZApp.Layers.LayerDefs.defaults.defaultStrokeWidth);
-    expect(parseFloat($(dummyLayer.styleRules).find('PolygonSymbolizer > Stroke > CssParameter[name="stroke-opacity"]').text())).toEqual(HZApp.Layers.LayerDefs.defaults.defaultStrokeOpacity);
+    expect($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > CssParameter[name="fill"]').text()).toEqual(HZApp.Layers.LayerDefs.defaults.fillColor);
+    expect(parseFloat($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > CssParameter[name="fill-opacity"]').text())).toEqual(HZApp.Layers.LayerDefs.defaults.fillOpacity);
+    expect($(dummyLayer.styleRules).find('PolygonSymbolizer > Stroke > CssParameter[name="stroke"]').text()).toEqual(HZApp.Layers.LayerDefs.defaults.strokeColor);
+    expect(parseFloat($(dummyLayer.styleRules).find('PolygonSymbolizer > Stroke > CssParameter[name="stroke-width"]').text())).toEqual(HZApp.Layers.LayerDefs.defaults.strokeWidth);
+    expect(parseFloat($(dummyLayer.styleRules).find('PolygonSymbolizer > Stroke > CssParameter[name="stroke-opacity"]').text())).toEqual(HZApp.Layers.LayerDefs.defaults.strokeOpacity);
     
     // test for circle properties
-    expect($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > GraphicFill > Graphic Fill CssParameter[name="fill"]').text()).toEqual(HZApp.Layers.LayerDefs.defaults.defaultCircleColor);
-    expect(parseFloat($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > GraphicFill > Graphic > Size').text())).toEqual(HZApp.Layers.LayerDefs.defaults.defaultCircleSize);
+    expect($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > GraphicFill > Graphic Fill CssParameter[name="fill"]').text()).toEqual(HZApp.Layers.LayerDefs.defaults.circleFillColor);
+    expect(parseFloat($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > GraphicFill > Graphic > Size').text())).toEqual(HZApp.Layers.LayerDefs.defaults.circleSize);
   });
 
   it("should create a circle PolygonSymbolizer SLD string with parameters", function(){
@@ -86,7 +86,7 @@ describe ('Testing layer style operations', function() {
       styles: [
         {
           type: 'circle',
-          fillColor: '#4daf4a',
+          circleFillColor: '#4daf4a',
           fillOpacity: 0.5,
           strokeColor: '#4daf4a',
           strokeWidth: 1.0,
@@ -99,7 +99,7 @@ describe ('Testing layer style operations', function() {
     dummyLayer = new HZApp.Layers.LayerUtils.newSLDXMLStyle(layerOptions);
     
     // test for circle properties
-    expect($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > GraphicFill > Graphic Fill CssParameter[name="fill"]').text()).toEqual(layerOptions.styles[0].fillColor);
+    expect($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > GraphicFill > Graphic Fill CssParameter[name="fill"]').text()).toEqual(layerOptions.styles[0].circleFillColor);
     expect(parseFloat($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > GraphicFill > Graphic > Size').text())).toEqual(layerOptions.styles[0].circleSize);
   });
 
@@ -116,11 +116,11 @@ describe ('Testing layer style operations', function() {
     dummyLayer = new HZApp.Layers.LayerUtils.newSLDXMLStyle(layerOptions);
         
     // test for horline properties
-    expect($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > GraphicFill > Graphic > Mark > Stroke > CssParameter[name="stroke"]').text()).toEqual(HZApp.Layers.LayerDefs.defaults.defaultLineColor);
-    expect(parseFloat($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > GraphicFill > Graphic > Size').text())).toEqual(HZApp.Layers.LayerDefs.defaults.defaultLineSize);
-    expect(parseFloat($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > GraphicFill > Graphic > Rotation > ogc\\:Literal').text())).toEqual(HZApp.Layers.LayerDefs.defaults.defaultLineRotation);
-    expect(parseFloat($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > GraphicFill > Graphic > Displacement > DisplacementX').text())).toEqual(HZApp.Layers.LayerDefs.defaults.defaultDisplacementX);
-    expect(parseFloat($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > GraphicFill > Graphic > Displacement > DisplacementY').text())).toEqual(HZApp.Layers.LayerDefs.defaults.defaultDisplacementY);
+    expect($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > GraphicFill > Graphic > Mark > Stroke > CssParameter[name="stroke"]').text()).toEqual(HZApp.Layers.LayerDefs.defaults.lineStrokeColor);
+    expect(parseFloat($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > GraphicFill > Graphic > Size').text())).toEqual(HZApp.Layers.LayerDefs.defaults.lineSize);
+    expect(parseFloat($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > GraphicFill > Graphic > Rotation > ogc\\:Literal').text())).toEqual(HZApp.Layers.LayerDefs.defaults.lineRotation);
+    expect(parseFloat($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > GraphicFill > Graphic > Displacement > DisplacementX').text())).toEqual(HZApp.Layers.LayerDefs.defaults.displacementX);
+    expect(parseFloat($(dummyLayer.styleRules).find('PolygonSymbolizer > Fill > GraphicFill > Graphic > Displacement > DisplacementY').text())).toEqual(HZApp.Layers.LayerDefs.defaults.displacementY);
   });
 
   it("should create a horline PolygonSymbolizer SLD string with parameters", function(){
@@ -161,11 +161,11 @@ describe ('Testing layer style operations', function() {
       };
 
       dummyLayer = new HZApp.Layers.LayerUtils.newSLDXMLStyle(layerOptions);
-      expect($(dummyLayer.styleRules).find('CssParameter[name="fill"]').text()).toEqual(HZApp.Layers.LayerDefs.defaults.defaultColor);
-      expect(parseFloat($(dummyLayer.styleRules).find('CssParameter[name="fill-opacity"]').text())).toEqual(HZApp.Layers.LayerDefs.defaults.defaultFillOpacity);
-      expect($(dummyLayer.styleRules).find('CssParameter[name="stroke"]').text()).toEqual(HZApp.Layers.LayerDefs.defaults.defaultColor);
-      expect(parseFloat($(dummyLayer.styleRules).find('CssParameter[name="stroke-width"]').text())).toEqual(HZApp.Layers.LayerDefs.defaults.defaultStrokeWidth);
-      expect(parseFloat($(dummyLayer.styleRules).find('CssParameter[name="stroke-opacity"]').text())).toEqual(HZApp.Layers.LayerDefs.defaults.defaultStrokeOpacity);
+      expect($(dummyLayer.styleRules).find('CssParameter[name="fill"]').text()).toEqual(HZApp.Layers.LayerDefs.defaults.fillColor);
+      expect(parseFloat($(dummyLayer.styleRules).find('CssParameter[name="fill-opacity"]').text())).toEqual(HZApp.Layers.LayerDefs.defaults.fillOpacity);
+      expect($(dummyLayer.styleRules).find('CssParameter[name="stroke"]').text()).toEqual(HZApp.Layers.LayerDefs.defaults.strokeColor);
+      expect(parseFloat($(dummyLayer.styleRules).find('CssParameter[name="stroke-width"]').text())).toEqual(HZApp.Layers.LayerDefs.defaults.strokeWidth);
+      expect(parseFloat($(dummyLayer.styleRules).find('CssParameter[name="stroke-opacity"]').text())).toEqual(HZApp.Layers.LayerDefs.defaults.strokeOpacity);
   });
 
 });

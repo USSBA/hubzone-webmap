@@ -5,6 +5,10 @@ HZApp.Layers.LayerUtils = {
     this.layerName = options.layerName;
     this.styles = options.styles; //array of styles
 
+    for (var i = 0; i < this.styles.length; i++) {
+      this.styles[i] = HZApp.Layers.LayerUtils.checkStylesForNulls(this.styles[i]);
+    }
+
     this.styleRules = HZApp.Layers.LayerUtils.buildStyleRules(this.styles);
 
     //this is what will be passed to the URL
@@ -23,11 +27,23 @@ HZApp.Layers.LayerUtils = {
       } else if (styles[i].type === 'horline'){
         styleRules += HZApp.Layers.LayerUtils.newHorLineSymbolizer(styles[i]);
       } else { //return a a basic polygon if the type is not recognized
-        styleRules += HZApp.Layers.LayerUtils.newPolygonSymbolizer({});
+        styleRules += HZApp.Layers.LayerUtils.newPolygonSymbolizer(styles[i]);
       }
     }
     styleRules += '</Rule>';
     return styleRules;
+  },
+  checkStylesForNulls: function(style){
+    var type = style.type;
+    Object.keys(HZApp.Layers.LayerDefs.defaults).map(function(defaultStyle){
+      if (style[defaultStyle]){
+        style[defaultStyle] = style[defaultStyle];
+      } else {
+        style[defaultStyle] = HZApp.Layers.LayerDefs.defaults[defaultStyle];
+      }
+    });
+    style.type = type;
+    return style;
   },
   constructSLDXML: function(options){
     return  (
@@ -53,18 +69,18 @@ HZApp.Layers.LayerUtils = {
               '<Mark>' +
                 '<WellKnownName>horline</WellKnownName>' + 
                 '<Stroke>' +
-                  '<CssParameter name="stroke">' + (styleOptions.lineStrokeColor || HZApp.Layers.LayerDefs.defaults.defaultLineColor) + '</CssParameter>' +
-                  '<CssParameter name="stroke-width">' + (styleOptions.strokeWidth || HZApp.Layers.LayerDefs.defaults.defaultStrokeWidth) + '</CssParameter>' +
-                  '<CssParameter name="stroke-opacity">' + (styleOptions.strokeOpacity || HZApp.Layers.LayerDefs.defaults.defaultStrokeOpacity) + '</CssParameter>' +
+                  '<CssParameter name="stroke">' + styleOptions.lineStrokeColor + '</CssParameter>' +
+                  '<CssParameter name="stroke-width">' + styleOptions.strokeWidth + '</CssParameter>' +
+                  '<CssParameter name="stroke-opacity">' + styleOptions.strokeOpacity + '</CssParameter>' +
                 '</Stroke>' +
               '</Mark>' +
-              '<Size>' + (styleOptions.lineSize || HZApp.Layers.LayerDefs.defaults.defaultLineSize) + '</Size>' +
+              '<Size>' + styleOptions.lineSize + '</Size>' +
               '<Rotation>' + 
-                '<ogc:Literal>' + (styleOptions.lineRotation || HZApp.Layers.LayerDefs.defaults.defaultLineRotation) + '</ogc:Literal>' +
+                '<ogc:Literal>' + styleOptions.lineRotation + '</ogc:Literal>' +
               '</Rotation>' + 
               '<Displacement>' + 
-                '<DisplacementX>' + (styleOptions.displacementX || HZApp.Layers.LayerDefs.defaults.defaultDisplacementX) + '</DisplacementX>' +
-                '<DisplacementY>' + (styleOptions.displacementY || HZApp.Layers.LayerDefs.defaults.defaultDisplacementY) + '</DisplacementY>' +
+                '<DisplacementX>' + styleOptions.displacementX +  '</DisplacementX>' +
+                '<DisplacementY>' + styleOptions.displacementY +  '</DisplacementY>' +
               '</Displacement>' + 
             '</Graphic>' +
           '</GraphicFill>' +
@@ -81,10 +97,10 @@ HZApp.Layers.LayerUtils = {
               '<Mark>' +
                 '<WellKnownName>circle</WellKnownName>' + 
                 '<Fill>' +
-                  '<CssParameter name="fill">' + (styleOptions.fillColor || HZApp.Layers.LayerDefs.defaults.defaultCircleColor) +'</CssParameter>' +
+                  '<CssParameter name="fill">' + styleOptions.circleFillColor + '</CssParameter>' +
                 '</Fill>' +
               '</Mark>' +
-              '<Size>' + (styleOptions.circleSize || HZApp.Layers.LayerDefs.defaults.defaultCircleSize) + '</Size>' +
+              '<Size>' + styleOptions.circleSize + '</Size>' +
             '</Graphic>' +
           '</GraphicFill>' +
         '</Fill>' +
@@ -92,16 +108,18 @@ HZApp.Layers.LayerUtils = {
     );
   },
   newPolygonSymbolizer: function(styleOptions){
-    return ('<PolygonSymbolizer>' +
-              '<Fill>' +
-                '<CssParameter name="fill">' + (styleOptions.fillColor || HZApp.Layers.LayerDefs.defaults.defaultColor) +'</CssParameter>' +
-                '<CssParameter name="fill-opacity">' + (styleOptions.fillOpacity || HZApp.Layers.LayerDefs.defaults.defaultFillOpacity) + '</CssParameter>' +
-              '</Fill>' +
-              '<Stroke>' +
-                '<CssParameter name="stroke">' + (styleOptions.strokeColor || HZApp.Layers.LayerDefs.defaults.defaultColor) + '</CssParameter>' +
-                '<CssParameter name="stroke-width">' + (styleOptions.strokeWidth || HZApp.Layers.LayerDefs.defaults.defaultStrokeWidth) + '</CssParameter>' +
-                '<CssParameter name="stroke-opacity">' + (styleOptions.strokeOpacity || HZApp.Layers.LayerDefs.defaults.defaultStrokeOpacity) + '</CssParameter>' +
-              '</Stroke>' +
-            '</PolygonSymbolizer>');
+    return (
+      '<PolygonSymbolizer>' +
+        '<Fill>' +
+          '<CssParameter name="fill">' + styleOptions.fillColor +'</CssParameter>' +
+          '<CssParameter name="fill-opacity">' + styleOptions.fillOpacity + '</CssParameter>' +
+        '</Fill>' +
+        '<Stroke>' +
+          '<CssParameter name="stroke">' + styleOptions.strokeColor + '</CssParameter>' +
+          '<CssParameter name="stroke-width">' + styleOptions.strokeWidth + '</CssParameter>' +
+          '<CssParameter name="stroke-opacity">' + styleOptions.strokeOpacity + '</CssParameter>' +
+        '</Stroke>' +
+      '</PolygonSymbolizer>'
+    );
   } 
 };
