@@ -8,23 +8,20 @@ describe ('Testing map operations', function() {
   beforeEach(function(){
     google = HZSpecHelper.google;
     HZApp.map = new google.maps.Map();
-    spyOn(google.maps, 'Map').and.returnValue(HZApp.map);
-    spyOn(google.maps.event, 'addListener');
-    spyOn(HZApp.map, 'addListener');
-    HZSpecHelper.resetOverlays();
-    HZApp.Markers.hzUserLocation = new HZApp.Constructors.HubzoneMapMarker({icon: null});  
   });
 
   afterEach(function(){
     HZApp.map = {};
-    HZApp.Markers.hzUserLocation = {};
   });
 
   it("should create a new Google map", function() {
+    spyOn(google.maps, 'Map').and.returnValue(HZApp.map);
+    spyOn(google.maps.event, 'addListener');
+    spyOn(google.maps.places, 'Autocomplete');
     spyOn(google.maps, 'StyledMapType');
+    spyOn(HZApp.map, 'addListener');
     spyOn(HZApp.map.mapTypes, 'set');
     spyOn(HZApp.map, 'setMapTypeId');
-    spyOn(google.maps.places, 'Autocomplete');
     spyOn(HZApp.GeoLocation, 'getUserLocation');  
     spyOn(HZApp.Autocomplete, 'createAutocomplete');
 
