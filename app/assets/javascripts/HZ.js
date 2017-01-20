@@ -14,5 +14,6 @@ window.HZApp = {
   Markers: {},
   Print: {},
   sidebar: {},
-  Styles: {}
+  Styles: {},
+  WMSUtils: {}
 };
