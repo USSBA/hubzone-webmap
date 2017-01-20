@@ -1,10 +1,98 @@
 // hubzone data layer style config
+
+HZApp.Constructors.Layers.newPolygonSymbolizer = function(styleOptions){
+    return ('<PolygonSymbolizer>' +
+              '<Fill>' +
+                '<CssParameter name="fill">' + (styleOptions.fillColor || HZApp.Layers.defaults.defaultColor) +'</CssParameter>' +
+                '<CssParameter name="fill-opacity">' + (styleOptions.fillOpacity || HZApp.Layers.defaults.defaultFillOpacity) + '</CssParameter>' +
+              '</Fill>' +
+              '<Stroke>' +
+                '<CssParameter name="stroke">' + (styleOptions.strokeColor || HZApp.Layers.defaults.defaultColor) + '</CssParameter>' +
+                '<CssParameter name="stroke-width">' + (styleOptions.strokeWidth || HZApp.Layers.defaults.defaultStrokeWidth) + '</CssParameter>' +
+                '<CssParameter name="stroke-opacity">' + (styleOptions.strokeOpacity || HZApp.Layers.defaults.defaultStrokeOpacity) + '</CssParameter>' +
+              '</Stroke>' +
+            '</PolygonSymbolizer>');
+};
+
+HZApp.Constructors.Layers.newCircleSymbolizer = function(styleOptions){
+  var sldString = HZApp.Constructors.Layers.newPolygonSymbolizer(styleOptions);
+  return (
+    sldString +=
+    ('<PolygonSymbolizer>' +
+      '<Fill>' +
+        '<GraphicFill>' +
+          '<Graphic>' +
+            '<Mark>' +
+              '<WellKnownName>circle</WellKnownName>' + 
+              '<Fill>' +
+                '<CssParameter name="fill">' + (styleOptions.fillColor || HZApp.Layers.defaults.defaultCircleColor) +'</CssParameter>' +
+              '</Fill>' +
+            '</Mark>' +
+            '<Size>' + (styleOptions.circleSize || HZApp.Layers.defaults.defaultCircleSize) + '</Size>' +
+          '</Graphic>' +
+        '</GraphicFill>' +
+      '</Fill>' +
+    '</PolygonSymbolizer>')
+  );
+};
+
+
 HZApp.Layers = (function(){
-  var defaultFillOpacity = 0.5;
-  var defaultStrokeOpacity = 1;
-  var defaultStrokeWidth = 1.25;
-  
+  var defaults = { //this is temp until i can refactor the rest of HZApp.Layers
+    defaultCircleSize: 3,
+    defaultColor: '#377EB8',
+    defaultCircleColor: '#FFFFFF',
+    defaultFillOpacity: 0.5,
+    defaultStrokeOpacity: 1,
+    defaultStrokeWidth: 1.25
+  };
+
   return {
+    defaults: {
+      defaultCircleSize: 3,
+      defaultColor: '#377EB8',
+      defaultCircleColor: '#FFFFFF',
+      defaultFillOpacity: 0.5,
+      defaultStrokeOpacity: 1,
+      defaultStrokeWidth: 1.25
+    },
+    newLayer: function(options){
+      this.overlay = [];
+      this.layerName = options.layerName;
+      this.style = options.style;
+
+
+      this.buildStyleRules = function(){
+        var styleRules = '<Rule>';
+        if (this.style.type === 'polygon'){
+          styleRules += HZApp.Constructors.Layers.newPolygonSymbolizer(this.style);
+        } else if (this.style.type === 'circle'){
+          styleRules += HZApp.Constructors.Layers.newCircleSymbolizer(this.style);
+        }
+        styleRules += '</Rule>';
+        return styleRules;
+      };
+
+      this.styleRules = this.buildStyleRules();
+
+      this.constructSLDXML = function(){
+        return  (
+          ('<?xml version="1.0" encoding="UTF-8"?>' +
+            '<StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0.0" xsi:schemaLocation="http://www.opengis.net/sld StyledLayerDescriptor.xsd">' +
+              '<NamedLayer>' +
+                "<Name><%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:" + this.layerName + '</Name>' +
+                  '<UserStyle>' +
+                    '<FeatureTypeStyle>' +
+                      this.styleRules + 
+                    '</FeatureTypeStyle>' +
+                  '</UserStyle>' +
+              '</NamedLayer>' +
+            '</StyledLayerDescriptor>')
+        );
+      };
+      this.sldXML = this.constructSLDXML();
+
+    },
     // this object holds the current google overlays in the .overlay array and the per layer styles
     // order in this object defines draw order on the map:
     // first object is drawn first, then next on top of that, etc.
@@ -13,10 +101,10 @@ HZApp.Layers = (function(){
       	overlay: [],
       	style: {
     	    fillColor: '#984EA3',
-    	    fillOpacity: defaultFillOpacity,
+    	    fillOpacity: defaults.defaultFillOpacity,
     	    strokeColor: '#984EA3',
-    	    strokeOpacity: defaultStrokeOpacity,
-    	    strokeWidth: defaultStrokeWidth,
+    	    strokeOpacity: defaults.defaultStrokeOpacity,
+    	    strokeWidth: defaults.defaultStrokeWidth,
     	    styleExpiring: false
       	}
       },
@@ -24,10 +112,10 @@ HZApp.Layers = (function(){
       	overlay: [],
       	style: {
     	    fillColor: '#377EB8',
-    	    fillOpacity: defaultFillOpacity,
+    	    fillOpacity: defaults.defaultFillOpacity,
     	    strokeColor: '#377EB8',
-    	    strokeOpacity: defaultStrokeOpacity,
-    	    strokeWidth: defaultStrokeWidth,
+    	    strokeOpacity: defaults.defaultStrokeOpacity,
+    	    strokeWidth: defaults.defaultStrokeWidth,
     	    styleExpiring: true
       	}
       },
@@ -35,24 +123,28 @@ HZApp.Layers = (function(){
       	overlay:[],
       	style: {
     	    fillColor: '#4DAF4A',
-    	    fillOpacity: defaultFillOpacity,
+    	    fillOpacity: defaults.defaultFillOpacity,
     	    strokeColor: '#4DAF4A',
-    	    strokeOpacity: defaultStrokeOpacity,
-    	    strokeWidth: defaultStrokeWidth,
-    	    styleExpiring: true
-      	}
+    	    strokeOpacity: defaults.defaultStrokeOpacity,
+    	    strokeWidth: defaults.defaultStrokeWidth,
+    	    styleExpiring: true,
+          hzLayerType: 'economic'
+        }
       },
       brac: {
       	overlay: [],
       	style: {
     	    fillColor: '#FF7F00',
-    	    fillOpacity: defaultFillOpacity,
+    	    fillOpacity: defaults.defaultFillOpacity,
     	    strokeColor: '#FF7F00',
-    	    strokeOpacity: defaultStrokeOpacity,
-    	    strokeWidth: defaultStrokeWidth,
+    	    strokeOpacity: defaults.defaultStrokeOpacity,
+    	    strokeWidth: defaults.defaultStrokeWidth,
     	    styleExpiring: true
       	}
       }
+    },
+    createPolygonSymbolizer: function(options){
+      return options;
     },
     constructSLDXML: function(layer){
     	var style = this.hzWMSOverlays[layer].style;

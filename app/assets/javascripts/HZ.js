@@ -2,7 +2,9 @@
 /* exported HZApp */
 window.HZApp = {
   Autocomplete: {},
-  Constructors: {},
+  Constructors: {
+    Layers: {}
+  },
   GA: {},
   GeoLocation: {},
   Layers: {},
