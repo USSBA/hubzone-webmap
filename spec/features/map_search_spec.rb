@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# rubocop:disable Metrics/BlockLength
 describe 'the map search', type: :feature, js: true do
   queries = { qualified_multiple: 'navajo',
               qualified_single: 'tiffany peak, co',
