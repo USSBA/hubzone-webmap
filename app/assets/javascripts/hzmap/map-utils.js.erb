@@ -18,14 +18,7 @@ HZApp.MapUtils = (function(){
       var layer = options.layer;
 
       // build the layer XML styles if they dont exist
-      Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).map(function(layer){
-        if (!HZApp.Layers.LayerDefs.hzWMSOverlays[layer].sldXMLStyle) {
-          HZApp.Layers.LayerDefs.hzWMSOverlays[layer].sldXMLStyle = HZApp.Layers.LayerUtils.newSLDXMLStyle({
-            layerName: layer,
-            styles: HZApp.Layers.LayerDefs.hzWMSOverlays[layer].styleOptions
-          });
-        }
-      });
+      this.checkForLayerStyles();
 
       var url = this.buildWMSUrl({
         layer: layer,
@@ -43,6 +36,16 @@ HZApp.MapUtils = (function(){
       this.updateLayerWMSOverlay({
         layer: layer,
         mapScope: options.mapScope
+      });
+    },
+    checkForLayerStyles: function(){
+      Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).map(function(layer){
+        if (!HZApp.Layers.LayerDefs.hzWMSOverlays[layer].sldXMLStyle) {
+          HZApp.Layers.LayerDefs.hzWMSOverlays[layer].sldXMLStyle = HZApp.Layers.LayerUtils.newSLDXMLStyle({
+            layerName: layer,
+            styles: HZApp.Layers.LayerDefs.hzWMSOverlays[layer].styleOptions
+          });
+        }
       });
     },
     getBbox: function (mapBounds) {
