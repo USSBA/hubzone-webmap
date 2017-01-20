@@ -145,8 +145,8 @@ var HZSpecHelper = {
     };
   },
   resetOverlays: function(){
-    Object.keys(HZApp.Layers.hzWMSOverlays).map(function(layer){
-      HZApp.Layers.hzWMSOverlays[layer].overlay = [];
+    Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).map(function(layer){
+      HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay = [];
     });
   },
   fakeNavLocation: {
