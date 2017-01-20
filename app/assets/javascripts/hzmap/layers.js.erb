@@ -15,10 +15,8 @@ HZApp.Constructors.Layers.newPolygonSymbolizer = function(styleOptions){
 };
 
 HZApp.Constructors.Layers.newCircleSymbolizer = function(styleOptions){
-  var sldString = HZApp.Constructors.Layers.newPolygonSymbolizer(styleOptions);
   return (
-    sldString +=
-    ('<PolygonSymbolizer>' +
+    '<PolygonSymbolizer>' +
       '<Fill>' +
         '<GraphicFill>' +
           '<Graphic>' +
@@ -32,7 +30,27 @@ HZApp.Constructors.Layers.newCircleSymbolizer = function(styleOptions){
           '</Graphic>' +
         '</GraphicFill>' +
       '</Fill>' +
-    '</PolygonSymbolizer>')
+    '</PolygonSymbolizer>'
+  );
+};
+
+HZApp.Constructors.Layers.newHorLineSymbolizer = function(styleOptions){
+  return (
+    '<PolygonSymbolizer>' +
+      '<Fill>' +
+        '<GraphicFill>' +
+          '<Graphic>' +
+            '<Mark>' +
+              '<WellKnownName>circle</WellKnownName>' + 
+              '<Fill>' +
+                '<CssParameter name="fill">' + (styleOptions.fillColor || HZApp.Layers.defaults.defaultCircleColor) +'</CssParameter>' +
+              '</Fill>' +
+            '</Mark>' +
+            '<Size>' + (styleOptions.circleSize || HZApp.Layers.defaults.defaultCircleSize) + '</Size>' +
+          '</Graphic>' +
+        '</GraphicFill>' +
+      '</Fill>' +
+    '</PolygonSymbolizer>'
   );
 };
 
@@ -59,21 +77,26 @@ HZApp.Layers = (function(){
     newLayer: function(options){
       this.overlay = [];
       this.layerName = options.layerName;
-      this.style = options.style;
+      this.styles = options.styles; //array of styles
 
-
-      this.buildStyleRules = function(){
+      this.buildStyleRules = function(styles){
         var styleRules = '<Rule>';
-        if (this.style.type === 'polygon'){
-          styleRules += HZApp.Constructors.Layers.newPolygonSymbolizer(this.style);
-        } else if (this.style.type === 'circle'){
-          styleRules += HZApp.Constructors.Layers.newCircleSymbolizer(this.style);
+        for (var i = 0; i < styles.length; i++) {
+          if (styles[i].type === 'polygon'){
+            styleRules += HZApp.Constructors.Layers.newPolygonSymbolizer(styles[i]);
+          } else if (styles[i].type === 'circle'){
+            styleRules += HZApp.Constructors.Layers.newCircleSymbolizer(styles[i]);
+          } else if (styles[i].type === 'horline'){
+            styleRules += HZApp.Constructors.Layers.newHorLineSymbolizer(styles[i]);
+          } else { //return a a basic polygon if the type is not recognized
+            styleRules += HZApp.Constructors.Layers.newPolygonSymbolizer();
+          }
         }
         styleRules += '</Rule>';
         return styleRules;
       };
 
-      this.styleRules = this.buildStyleRules();
+      this.styleRules = this.buildStyleRules(this.styles);
 
       this.constructSLDXML = function(){
         return  (
