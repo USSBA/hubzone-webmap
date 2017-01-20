@@ -7,13 +7,19 @@ Requirements:
   - http://rvm.io/
 * ruby 2.3.3
   - `rvm install 2.3.3`
+* bundler 1.13.6
+  - `rvm @global do gem install -v 1.13.6 bundler`
 * JavaScript interpreter (node)
   * nvm
     * `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash`
   * Install node
     * `nvm install 5`
-* bundler 1.13.6
-  - `rvm @global do gem install -v 1.13.6 bundler`
+* PhantomJS 1.8.1, or newer (required for Capybara tests with Poltergeist)
+  * Mac
+    * `brew install phantomjs`
+  * Linux
+    * [download this tarball](https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2)
+    * Extract the tarball and copy `bin/phantomjs` into your `PATH`
 * postgresql 9.5
   * Mac
     - I use [Postgres.app](http://postgresapp.com/)
