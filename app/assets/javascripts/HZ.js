@@ -2,12 +2,13 @@
 /* exported HZApp */
 window.HZApp = {
   Autocomplete: {},
-  Constructors: {
-    Layers: {}
-  },
+  Constructors: {},
   GA: {},
   GeoLocation: {},
-  Layers: {},
+  Layers: {
+    LayerUtils: {},
+    LayerDefs: {}
+  },
   map: {},
   MapUtils: {},
   Markers: {},
