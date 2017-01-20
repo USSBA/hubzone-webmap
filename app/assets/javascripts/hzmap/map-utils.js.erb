@@ -4,7 +4,7 @@ HZApp.MapUtils = (function(){
       var map = this;
       //for each layer defined in the hzWMSOverlays object call the fetchNewWMS function
       // update the WMS call for that layer
-      Object.keys(HZApp.Layers.hzWMSOverlays).map(function(layer){
+      Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).map(function(layer){
         HZApp.MapUtils.fetchNewWMS({
           mapScope: map,
           layer: layer
@@ -17,13 +17,22 @@ HZApp.MapUtils = (function(){
       var imageBounds = this.getImageBounds(bbox);
       var layer = options.layer;
 
+      hzWMSOverlays  = HZApp.Layers.LayerDefs.hzWMSOverlays;
+      // build the layer XML styles if they dont exist
+      Object.keys(hzWMSOverlays).map(function(layer){
+        if (!hzWMSOverlays[layer].sldXMLStyle) {
+          hzWMSOverlays[layer].sldXMLStyle = HZApp.Layers.LayerUtils.newSLDXMLStyle(hzWMSOverlays[layer].styleOptions);
+        }
+      });
+
       var url = this.buildWMSUrl({
         layer: layer,
-        bbox: bbox
+        bbox: bbox,
+        sldXMLStyle: hzWMSOverlays[layer].sldXMLStyle
       });
 
       //push a new groundOverlay into the hzWMSOverlays array container
-      HZApp.Layers.hzWMSOverlays[layer].overlay.push(new google.maps.GroundOverlay(
+      HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay.push(new google.maps.GroundOverlay(
           url,
           imageBounds
       ));
@@ -70,12 +79,12 @@ HZApp.MapUtils = (function(){
       url += "&BBOX=" + options.bbox;
       url += "&WIDTH=" + parseInt($('#map').width()*2); //double the resolution for better screens, but make sure its int
       url += "&HEIGHT=" + parseInt($('#map').height()*2); //double the resolution for better screens, but make sure its int
-      url += ('&SLD_BODY=' + HZApp.Layers.constructSLDXML(options.layer));
+      url += ('&SLD_BODY=' + encodeURIComponent(options.sldXMLStyle));
       return url;
     },
     //helper function for updating a single layer's WMS overlay
     updateLayerWMSOverlay: function(options){
-      var wmsLayer = HZApp.Layers.hzWMSOverlays[options.layer].overlay;
+      var wmsLayer = HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].overlay;
       if (wmsLayer.length === 1){
         wmsLayer[0].setMap(options.mapScope);
       } else if (wmsLayer.length > 1){ //assume last is newest and any other have to go
@@ -83,14 +92,14 @@ HZApp.MapUtils = (function(){
         for (var i = 0; i < wmsLayer.length-1; i++) {
           wmsLayer[i].setMap(null);
         }
-        HZApp.Layers.hzWMSOverlays[options.layer].overlay = [];
-        HZApp.Layers.hzWMSOverlays[options.layer].overlay.push(tmpLayer);
-        HZApp.Layers.hzWMSOverlays[options.layer].overlay[0].setMap(options.mapScope);
+        HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].overlay = [];
+        HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].overlay.push(tmpLayer);
+        HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].overlay[0].setMap(options.mapScope);
       } else { //
         // console.warn('no WMS found in layer');
         return null;
       }
-      HZApp.Layers.hzWMSOverlays[options.layer].overlay[0].addListener('click', this.catchMapClick);
+      HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].overlay[0].addListener('click', this.catchMapClick);
     },
     // turn latlng object into url
     catchMapClick: function(clickEvent){

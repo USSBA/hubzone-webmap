@@ -18,57 +18,59 @@ HZApp.Layers.LayerDefs = (function(){
     defaultStrokeWidth: 1.25
   };
 
-  return {
-    defaults: defaults,
-    hzWMSOverlays: {
-      indian_lands: {
-      	overlay: [],
-        sldXMLStyle: '',
-        styleOptions: {
-          type: 'polygon',
-          fillColor: '#984EA3',
-          fillOpacity: defaults.defaultFillOpacity,
-          strokeColor: '#984EA3',
-          strokeOpacity: defaults.defaultStrokeOpacity,
-          strokeWidth: defaults.defaultStrokeWidth
-        }
-      },
-      qnmc: {
-        overlay: [],
-        sldXMLStyle: '',
-        styleOptions: {
-          type: 'polygon',
-          fillColor: '#377EB8',
-          fillOpacity: defaults.defaultFillOpacity,
-          strokeColor: '#377EB8',
-          strokeOpacity: defaults.defaultStrokeOpacity,
-          strokeWidth: defaults.defaultStrokeWidth
-        }
-      },
-      qct: {
-        overlay:[],
-        sldXMLStyle: '',
-        styleOptions: {
-          type: 'polygon',
-          fillColor: '#4DAF4A',
-          fillOpacity: defaults.defaultFillOpacity,
-          strokeColor: '#4DAF4A',
-          strokeOpacity: defaults.defaultStrokeOpacity,
-          strokeWidth: defaults.defaultStrokeWidth
-        }
-      },
-      brac: {
-        overlay: [],
-        sldXMLStyle: '',
-        styleOptions: {
-          type: 'polygon',
-          fillColor: '#FF7F00',
-          fillOpacity: defaults.defaultFillOpacity,
-          strokeColor: '#FF7F00',
-          strokeOpacity: defaults.defaultStrokeOpacity,
-          strokeWidth: defaults.defaultStrokeWidth
-        }
+  var hzWMSOverlays = {
+    indian_lands: {
+      overlay: [],
+      sldXMLStyle: null,
+      styleOptions: {
+        type: 'polygon',
+        fillColor: '#984EA3',
+        fillOpacity: defaults.defaultFillOpacity,
+        strokeColor: '#984EA3',
+        strokeOpacity: defaults.defaultStrokeOpacity,
+        strokeWidth: defaults.defaultStrokeWidth
+      }
+    },
+    qnmc: {
+      overlay: [],
+      sldXMLStyle: null,
+      styleOptions: {
+        type: 'polygon',
+        fillColor: '#377EB8',
+        fillOpacity: defaults.defaultFillOpacity,
+        strokeColor: '#377EB8',
+        strokeOpacity: defaults.defaultStrokeOpacity,
+        strokeWidth: defaults.defaultStrokeWidth
+      }
+    },
+    qct: {
+      overlay:[],
+      sldXMLStyle: null,
+      styleOptions: {
+        type: 'polygon',
+        fillColor: '#4DAF4A',
+        fillOpacity: defaults.defaultFillOpacity,
+        strokeColor: '#4DAF4A',
+        strokeOpacity: defaults.defaultStrokeOpacity,
+        strokeWidth: defaults.defaultStrokeWidth
+      }
+    },
+    brac: {
+      overlay: [],
+      sldXMLStyle: null,
+      styleOptions: {
+        type: 'polygon',
+        fillColor: '#FF7F00',
+        fillOpacity: defaults.defaultFillOpacity,
+        strokeColor: '#FF7F00',
+        strokeOpacity: defaults.defaultStrokeOpacity,
+        strokeWidth: defaults.defaultStrokeWidth
       }
     }
+  };
+
+  return {
+    defaults: defaults,
+    hzWMSOverlays: hzWMSOverlays
   };
 })();
