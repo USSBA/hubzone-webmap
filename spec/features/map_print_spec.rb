@@ -1,6 +1,7 @@
 require 'rails_helper'
 # require 'chunky_png'
 
+# rubocop:disable Metrics/BlockLength
 describe "the page when printing", js: true, type: :feature do
   queries = { qualified_multiple: 'navajo',
               qualified_single: 'tiffany peak, co',
