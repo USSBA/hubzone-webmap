@@ -17,18 +17,20 @@ HZApp.MapUtils = (function(){
       var imageBounds = this.getImageBounds(bbox);
       var layer = options.layer;
 
-      hzWMSOverlays  = HZApp.Layers.LayerDefs.hzWMSOverlays;
       // build the layer XML styles if they dont exist
-      Object.keys(hzWMSOverlays).map(function(layer){
-        if (!hzWMSOverlays[layer].sldXMLStyle) {
-          hzWMSOverlays[layer].sldXMLStyle = HZApp.Layers.LayerUtils.newSLDXMLStyle(hzWMSOverlays[layer].styleOptions);
+      Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).map(function(layer){
+        if (!HZApp.Layers.LayerDefs.hzWMSOverlays[layer].sldXMLStyle) {
+          HZApp.Layers.LayerDefs.hzWMSOverlays[layer].sldXMLStyle = HZApp.Layers.LayerUtils.newSLDXMLStyle({
+            layerName: layer,
+            styles: HZApp.Layers.LayerDefs.hzWMSOverlays[layer].styleOptions
+          });
         }
       });
 
       var url = this.buildWMSUrl({
         layer: layer,
         bbox: bbox,
-        sldXMLStyle: hzWMSOverlays[layer].sldXMLStyle
+        sldXMLStyle: HZApp.Layers.LayerDefs.hzWMSOverlays[layer].sldXMLStyle
       });
 
       //push a new groundOverlay into the hzWMSOverlays array container

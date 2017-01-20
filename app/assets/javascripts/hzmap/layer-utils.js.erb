@@ -8,7 +8,7 @@ HZApp.Layers.LayerUtils = {
     this.styleRules = HZApp.Layers.LayerUtils.buildStyleRules(this.styles);
 
     //this is what will be passed to the URL
-    this.sldXML = HZApp.Layers.LayerUtils.constructSLDXML({
+    return HZApp.Layers.LayerUtils.constructSLDXML({
       layerName: this.layerName,
       styleRules: this.styleRules  
     }); 
