@@ -1,0 +1,161 @@
+//= require hzmap
+//= require ../helpers/sinon-1.17.6
+//= require ../helpers/hz-jasmine
+/* jshint unused: false */
+/* jshint undef: false */
+
+describe ('Testing wms operations', function() {
+  beforeEach(function(){
+    google = HZSpecHelper.google;
+    HZApp.map = new google.maps.Map();
+    spyOn(google.maps, 'Map').and.returnValue(HZApp.map);
+    spyOn(google.maps.event, 'addListener');
+    spyOn(HZApp.map, 'addListener');
+    HZSpecHelper.resetOverlays();
+    HZApp.Markers.hzUserLocation = new HZApp.Constructors.HubzoneMapMarker({icon: null});  
+  });
+
+  afterEach(function(){
+    HZApp.map = {};
+    HZApp.Markers.hzUserLocation = {};
+  });
+
+  it("should get bbox", function() {
+    var mapBounds = HZApp.map.getBounds();
+    spyOn(mapBounds, 'getNorthEast').and.callThrough();
+    spyOn(mapBounds, 'getSouthWest').and.callThrough();
+
+    expect(HZApp.MapUtils.getBbox(mapBounds)).toEqual("-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637");
+    expect(mapBounds.getNorthEast.calls.count()).toEqual(2);
+    expect(mapBounds.getSouthWest.calls.count()).toEqual(2);
+  });
+
+  it("should return correct imageBounds object", function(){
+    spyOn(HZApp.MapUtils, 'createGoogleLatLngBounds');
+    var coordinates = HZSpecHelper.coordinates;
+    var bboxStr = [coordinates.west, coordinates.south, coordinates.east, coordinates.north].join(',');
+
+    var imageBounds = HZApp.MapUtils.getImageBounds(bboxStr);
+    expect(imageBounds).not.toBe(null);
+    expect(HZApp.MapUtils.createGoogleLatLngBounds).toHaveBeenCalled();
+  });
+
+  it("should run google latlng methods", function(){
+    var coordinates = HZSpecHelper.coordinates;
+    spyOn(google.maps, 'LatLngBounds');
+    spyOn(google.maps, 'LatLng');
+
+    HZApp.MapUtils.createGoogleLatLngBounds(coordinates.west, coordinates.south, coordinates.east, coordinates.north);
+    expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
+    expect(google.maps.LatLng.calls.count()).toEqual(2);
+  });
+
+  it("should build the correct URL for data with expiration", function() {
+    var mapBounds = HZApp.map.getBounds();
+    var bbox = HZApp.MapUtils.getBbox(mapBounds);
+    var layer = 'qct';
+    var url = HZApp.MapUtils.buildWMSUrl({
+      layer: layer,
+      bbox: bbox});
+    /* jshint ignore:start */
+    var wmsURL = "<%= ENV["HUBZONE_WMS_URL_ROOT"] || "http://localhost:8080/geoserver/hubzone/wms?service=WMS" %>";
+    var wmsWorkspace =  "<%= ENV["HUBZONE_WMS_WORKSPACE"] || "hubzone" %>";
+    /* jshint ignore:end */
+    var urlExpect = wmsURL + '&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.0&LAYERS=' + wmsWorkspace + ':' +
+                    layer +
+                    '&FORMAT=image/png&TRANSPARENT=TRUE&SRS=EPSG:4326&BBOX=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637&WIDTH=0&HEIGHT=0&SLD_BODY=' +
+                    HZApp.Layers.LayerUtils.constructSLDXML(layer);
+    expect(url).toEqual(urlExpect);
+  });
+
+  it("should build the correct URL for data without expiration", function() {
+    var mapBounds = HZApp.map.getBounds();
+    var bbox = HZApp.MapUtils.getBbox(mapBounds);
+    var layer = 'indian_lands';
+    var url = HZApp.MapUtils.buildWMSUrl({
+      layer: layer,
+      bbox: bbox});
+    /* jshint ignore:start */
+    var wmsURL = "<%= ENV["HUBZONE_WMS_URL_ROOT"] || "http://localhost:8080/geoserver/hubzone/wms?service=WMS" %>";
+    var wmsWorkspace =  "<%= ENV["HUBZONE_WMS_WORKSPACE"] || "hubzone" %>";
+    /* jshint ignore:end */
+    var urlExpect = wmsURL + '&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.0&LAYERS=' + wmsWorkspace + ':' +
+                    layer +
+                    '&FORMAT=image/png&TRANSPARENT=TRUE&SRS=EPSG:4326&BBOX=-98.35693359375,34.99419475828389,-96.64306640625,36.00264017338637&WIDTH=0&HEIGHT=0&SLD_BODY=' +
+                    HZApp.Layers.constructSLDXML(layer);
+    expect(url).toEqual(urlExpect);
+  });
+
+  it("should call the wms map layer stack", function(){
+    spyOn(HZApp.MapUtils, 'getBbox');
+    spyOn(HZApp.MapUtils, 'getImageBounds');
+    spyOn(HZApp.MapUtils, 'buildWMSUrl');
+    spyOn(HZApp.MapUtils, 'updateLayerWMSOverlay');
+    spyOn(google.maps, 'GroundOverlay');
+
+    HZApp.MapUtils.fetchNewWMS({
+      mapScope: HZApp.map,
+      layer: 'qct'
+    });
+
+    expect(HZApp.MapUtils.getBbox.calls.count()).toEqual(1);
+    expect(HZApp.MapUtils.getImageBounds.calls.count()).toEqual(1);
+    expect(HZApp.MapUtils.buildWMSUrl.calls.count()).toEqual(1);
+    expect(HZApp.MapUtils.updateLayerWMSOverlay.calls.count()).toEqual(1);
+    expect(google.maps.GroundOverlay.calls.count()).toEqual(1);
+  });
+
+  it("should fetchNewWMS for as many layers as are defined", function(){
+    spyOn(HZApp.MapUtils, 'fetchNewWMS');
+    HZApp.MapUtils.updateIdleMap(HZApp.map);
+    var layerLength = Object.keys(HZApp.Layers.hzWMSOverlays).length;
+    expect(HZApp.MapUtils.fetchNewWMS.calls.count()).toEqual(layerLength);
+  });
+
+  it("should update the map WMS layer, adding a new overlay where there was none before", function(){
+    var layer = 'qct';
+    var mockOverlay = new HZSpecHelper.NewOverlay('new');
+    spyOn(mockOverlay, 'setMap');
+    spyOn(mockOverlay, 'addListener');
+    HZApp.Layers.hzWMSOverlays[layer].overlay.push(mockOverlay);
+
+    HZApp.MapUtils.updateLayerWMSOverlay({
+      layer: layer,
+      mapScope: HZApp.map
+    });
+
+    expect(mockOverlay.setMap.calls.count()).toEqual(1);
+    expect(mockOverlay.addListener.calls.count()).toEqual(1);
+  });
+
+  it("should update the map WMS layer, replacing the old overlay with a new one", function(){
+    var layer = 'qct';
+
+    var mockOverlayOld = new HZSpecHelper.NewOverlay('old');
+    var mockOverlayNew = new HZSpecHelper.NewOverlay('new');
+
+    spyOn(mockOverlayOld, 'setMap');
+    spyOn(mockOverlayNew, 'setMap');
+    spyOn(mockOverlayNew, 'addListener');
+    HZApp.Layers.hzWMSOverlays[layer].overlay.push(mockOverlayOld);
+    HZApp.Layers.hzWMSOverlays[layer].overlay.push(mockOverlayNew);
+
+    HZApp.MapUtils.updateLayerWMSOverlay({
+      layer: layer,
+      mapScope: HZApp.map
+    });
+
+    expect(mockOverlayNew.setMap.calls.count()).toEqual(1);
+    expect(mockOverlayNew.addListener.calls.count()).toEqual(1);
+  });
+
+  it("should handle an empty WMS update call", function(){
+    var layer = 'qct';
+    HZSpecHelper.resetOverlays();
+    var updateState = HZApp.MapUtils.updateLayerWMSOverlay({
+      layer: layer,
+      mapScope: HZApp.map
+    });
+    expect(updateState).toBe(null);
+  });
+});
