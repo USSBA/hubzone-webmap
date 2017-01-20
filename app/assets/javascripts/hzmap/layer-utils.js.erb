@@ -1,0 +1,109 @@
+//  hubzone layer utilities
+
+HZApp.Layers.LayerUtils = (function(){
+  return {
+    newSLDXMLStyle: function(options){ //build a new style object instance based on passed in parameters
+      this.layerName = options.layerName;
+      this.styles = options.styles; //array of styles
+
+      this.styleRules = HZApp.Layers.LayerUtils.buildStyleRules(this.styles);
+
+      //this is what will be passed to the URL
+      this.sldXML = HZApp.Layers.LayerUtils.constructSLDXML({
+        layerName: this.layerName,
+        styleRules: this.styleRules  
+      }); 
+    },
+    buildStyleRules: function(styles){
+      var styleRules = '<Rule>';
+      for (var i = 0; i < styles.length; i++) {
+        if (styles[i].type === 'polygon'){
+          styleRules += HZApp.Layers.LayerUtils.newPolygonSymbolizer(styles[i]);
+        } else if (styles[i].type === 'circle'){
+          styleRules += HZApp.Layers.LayerUtils.newCircleSymbolizer(styles[i]);
+        } else if (styles[i].type === 'horline'){
+          styleRules += HZApp.Layers.LayerUtils.newHorLineSymbolizer(styles[i]);
+        } else { //return a a basic polygon if the type is not recognized
+          styleRules += HZApp.Layers.LayerUtils.newPolygonSymbolizer({});
+        }
+      }
+      styleRules += '</Rule>';
+      return styleRules;
+    },
+    constructSLDXML: function(options){
+      return  (
+        ('<?xml version="1.0" encoding="UTF-8"?>' +
+          '<StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0.0" xsi:schemaLocation="http://www.opengis.net/sld StyledLayerDescriptor.xsd">' +
+            '<NamedLayer>' +
+              "<Name><%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:" + options.layerName + '</Name>' +
+                '<UserStyle>' +
+                  '<FeatureTypeStyle>' +
+                    options.styleRules + 
+                  '</FeatureTypeStyle>' +
+                '</UserStyle>' +
+            '</NamedLayer>' +
+          '</StyledLayerDescriptor>')
+      );
+    },
+    newHorLineSymbolizer: function(styleOptions){
+      return (
+        '<PolygonSymbolizer>' +
+          '<Fill>' +
+            '<GraphicFill>' +
+              '<Graphic>' +
+                '<Mark>' +
+                  '<WellKnownName>horline</WellKnownName>' + 
+                  '<Stroke>' +
+                    '<CssParameter name="stroke">' + (styleOptions.lineStrokeColor || HZApp.Layers.LayerDefs.defaults.defaultLineColor) + '</CssParameter>' +
+                    '<CssParameter name="stroke-width">' + (styleOptions.strokeWidth || HZApp.Layers.LayerDefs.defaults.defaultStrokeWidth) + '</CssParameter>' +
+                    '<CssParameter name="stroke-opacity">' + (styleOptions.strokeOpacity || HZApp.Layers.LayerDefs.defaults.defaultStrokeOpacity) + '</CssParameter>' +
+                  '</Stroke>' +
+                '</Mark>' +
+                '<Size>' + (styleOptions.lineSize || HZApp.Layers.LayerDefs.defaults.defaultLineSize) + '</Size>' +
+                '<Rotation>' + 
+                  '<ogc:Literal>' + (styleOptions.lineRotation || HZApp.Layers.LayerDefs.defaults.defaultLineRotation) + '</ogc:Literal>' +
+                '</Rotation>' + 
+                '<Displacement>' + 
+                  '<DisplacementX>' + (styleOptions.displacementX || HZApp.Layers.LayerDefs.defaults.defaultDisplacementX) + '</DisplacementX>' +
+                  '<DisplacementY>' + (styleOptions.displacementY || HZApp.Layers.LayerDefs.defaults.defaultDisplacementY) + '</DisplacementY>' +
+                '</Displacement>' + 
+              '</Graphic>' +
+            '</GraphicFill>' +
+          '</Fill>' +
+        '</PolygonSymbolizer>'
+      );
+    },
+    newCircleSymbolizer: function(styleOptions){
+      return (
+        '<PolygonSymbolizer>' +
+          '<Fill>' +
+            '<GraphicFill>' +
+              '<Graphic>' +
+                '<Mark>' +
+                  '<WellKnownName>circle</WellKnownName>' + 
+                  '<Fill>' +
+                    '<CssParameter name="fill">' + (styleOptions.fillColor || HZApp.Layers.LayerDefs.defaults.defaultCircleColor) +'</CssParameter>' +
+                  '</Fill>' +
+                '</Mark>' +
+                '<Size>' + (styleOptions.circleSize || HZApp.Layers.LayerDefs.defaults.defaultCircleSize) + '</Size>' +
+              '</Graphic>' +
+            '</GraphicFill>' +
+          '</Fill>' +
+        '</PolygonSymbolizer>'
+      );
+    },
+    newPolygonSymbolizer: function(styleOptions){
+      return ('<PolygonSymbolizer>' +
+                '<Fill>' +
+                  '<CssParameter name="fill">' + (styleOptions.fillColor || HZApp.Layers.LayerDefs.defaults.defaultColor) +'</CssParameter>' +
+                  '<CssParameter name="fill-opacity">' + (styleOptions.fillOpacity || HZApp.Layers.LayerDefs.defaults.defaultFillOpacity) + '</CssParameter>' +
+                '</Fill>' +
+                '<Stroke>' +
+                  '<CssParameter name="stroke">' + (styleOptions.strokeColor || HZApp.Layers.LayerDefs.defaults.defaultColor) + '</CssParameter>' +
+                  '<CssParameter name="stroke-width">' + (styleOptions.strokeWidth || HZApp.Layers.LayerDefs.defaults.defaultStrokeWidth) + '</CssParameter>' +
+                  '<CssParameter name="stroke-opacity">' + (styleOptions.strokeOpacity || HZApp.Layers.LayerDefs.defaults.defaultStrokeOpacity) + '</CssParameter>' +
+                '</Stroke>' +
+              '</PolygonSymbolizer>');
+    } 
+  };
+})();
