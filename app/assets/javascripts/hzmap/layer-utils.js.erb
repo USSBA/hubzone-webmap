@@ -75,8 +75,8 @@ HZApp.Layers.LayerUtils = {
                 '<WellKnownName>shape://slash</WellKnownName>' + 
                 '<Stroke>' +
                   '<CssParameter name="stroke">' + styleOptions.lineStrokeColor + '</CssParameter>' +
-                  '<CssParameter name="stroke-width">' + styleOptions.strokeWidth + '</CssParameter>' +
-                  '<CssParameter name="stroke-opacity">' + styleOptions.strokeOpacity + '</CssParameter>' +
+                  '<CssParameter name="stroke-width">' + styleOptions.lineStrokeWidth + '</CssParameter>' +
+                  '<CssParameter name="stroke-opacity">' + styleOptions.lineStrokeOpacity + '</CssParameter>' +
                 '</Stroke>' +
               '</Mark>' +
               '<Size>' + styleOptions.tileSize + '</Size>' +
@@ -86,6 +86,11 @@ HZApp.Layers.LayerUtils = {
             '</Graphic>' +
           '</GraphicFill>' +
         '</Fill>' +
+        '<Stroke>' +
+          '<CssParameter name="stroke">' + styleOptions.strokeColor + '</CssParameter>' +
+          '<CssParameter name="stroke-width">' + styleOptions.strokeWidth + '</CssParameter>' +
+          '<CssParameter name="stroke-opacity">' + styleOptions.strokeOpacity + '</CssParameter>' +
+        '</Stroke>' +
       '</PolygonSymbolizer>'
     );
   },
@@ -99,12 +104,12 @@ HZApp.Layers.LayerUtils = {
                 '<WellKnownName>circle</WellKnownName>' + 
                 '<Fill>' +
                   '<CssParameter name="fill">' + styleOptions.circleFillColor +'</CssParameter>' +
-                  '<CssParameter name="fill-opacity">' + styleOptions.fillOpacity + '</CssParameter>' +
+                  '<CssParameter name="fill-opacity">' + styleOptions.circleFillOpacity + '</CssParameter>' +
                 '</Fill>' +
                 '<Stroke>' +
-                  '<CssParameter name="stroke">' + styleOptions.strokeColor + '</CssParameter>' +
-                  '<CssParameter name="stroke-opacity">' + styleOptions.strokeOpacity + '</CssParameter>' +
-                  '<CssParameter name="stroke-width">' + styleOptions.strokeWidth + '</CssParameter>' +
+                  '<CssParameter name="stroke">' + styleOptions.circleStrokeColor + '</CssParameter>' +
+                  '<CssParameter name="stroke-opacity">' + styleOptions.circleStrokeOpacity + '</CssParameter>' +
+                  '<CssParameter name="stroke-width">' + styleOptions.circleStrokeWidth + '</CssParameter>' +
                 '</Stroke>' +
               '</Mark>' +
               '<Size>' + styleOptions.tileSize + '</Size>' +
@@ -112,6 +117,11 @@ HZApp.Layers.LayerUtils = {
           '</GraphicFill>' +
         '</Fill>' +
         '<VendorOption name="graphic-margin">' + styleOptions.graphicSpacing + '</VendorOption>' +
+        '<Stroke>' +
+          '<CssParameter name="stroke">' + styleOptions.strokeColor + '</CssParameter>' +
+          '<CssParameter name="stroke-width">' + styleOptions.strokeWidth + '</CssParameter>' +
+          '<CssParameter name="stroke-opacity">' + styleOptions.strokeOpacity + '</CssParameter>' +
+        '</Stroke>' +
       '</PolygonSymbolizer>'
     );
   },
