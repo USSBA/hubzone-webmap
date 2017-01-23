@@ -18,7 +18,7 @@ HZApp.Layers.LayerUtils = {
     }); 
   },
   buildStyleRules: function(styles){
-    var styleRules = '<se:Rule>';
+    var styleRules = '<Rule>';
     for (var i = 0; i < styles.length; i++) {
       if (styles[i].type === 'polygon'){
         styleRules += HZApp.Layers.LayerUtils.newPolygonSymbolizer(styles[i]);
@@ -30,7 +30,7 @@ HZApp.Layers.LayerUtils = {
         styleRules += HZApp.Layers.LayerUtils.newPolygonSymbolizer(styles[i]);
       }
     }
-    styleRules += '</se:Rule>';
+    styleRules += '</Rule>';
     return styleRules;
   },
   checkStylesForNulls: function(style){
@@ -55,11 +55,11 @@ HZApp.Layers.LayerUtils = {
         'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0.0" xsi:schemaLocation="http://www.opengis.net/sld StyledLayerDescriptor.xsd" ' + 
         'xmlns:se="http://www.opengis.net/se">' +
           '<NamedLayer>' +
-            "<se:Name><%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:" + options.layerName + '</se:Name>' +
+            "<Name><%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:" + options.layerName + '</Name>' +
               '<UserStyle>' +
-                '<se:FeatureTypeStyle>' +
+                '<FeatureTypeStyle>' +
                   options.styleRules + 
-                '</se:FeatureTypeStyle>' +
+                '</FeatureTypeStyle>' +
               '</UserStyle>' +
           '</NamedLayer>' +
         '</StyledLayerDescriptor>')
@@ -92,22 +92,23 @@ HZApp.Layers.LayerUtils = {
   },
   newCircleSymbolizer: function(styleOptions){
     return (
-      '<se:PolygonSymbolizer>' +
-        '<se:Fill>' +
-          '<se:GraphicFill>' +
-            '<se:Graphic>' +
-              '<se:Mark>' +
-                '<se:WellKnownName>circle</se:WellKnownName>' + 
-                '<se:Fill>' +
-                  '<se:SvgParameter name="fill">' + styleOptions.circleFillColor + '</se:SvgParameter>' +
-                '</se:Fill>' +
-              '</se:Mark>' +
-              '<se:Size>' + styleOptions.tileSize + '</se:Size>' +
-            '</se:Graphic>' +
-          '</se:GraphicFill>' +
-        '</se:Fill>' +
-        '<VendorOption name="distance">' + 6 + ',' + 6 + '</VendorOption>' +
-      '</se:PolygonSymbolizer>'
+      '<PolygonSymbolizer>' +
+        '<Fill>' +
+          '<GraphicFill>' +
+            '<Graphic>' +
+              '<Mark>' +
+                '<WellKnownName>circle</WellKnownName>' + 
+                '<Fill>' +
+                  '<CssParameter name="fill">' + styleOptions.circleFillColor + '</CssParameter>' +
+                  '<CssParameter name="fill-opacity">' + styleOptions.fillOpacity + '</CssParameter>' +
+                '</Fill>' +
+              '</Mark>' +
+              '<Size>' + styleOptions.tileSize + '</Size>' +
+            '</Graphic>' +
+          '</GraphicFill>' +
+        '</Fill>' +
+        '<VendorOption name="graphic-margin">' + styleOptions.graphicSpacing + '</VendorOption>' +
+      '</PolygonSymbolizer>'
     );
   },
   newPolygonSymbolizer: function(styleOptions){

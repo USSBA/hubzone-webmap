@@ -5,12 +5,12 @@
 // first object is drawn first, then next on top of that, etc.
 HZApp.Layers.LayerDefs = (function(){
   var defaults = {
-    circleSize: 3,
-    fillColor: '#377EB8',
     circleFillColor: '#FFFFFF',
+    fillColor: '#377EB8',
     displacementX: 0,
     displacementY: 0,
     fillOpacity: 0.5,
+    graphicSpacing: 10,
     lineStrokeColor: '#000000',
     tileSize: 10,
     strokeColor: '#377EB8',
@@ -88,22 +88,20 @@ HZApp.Layers.LayerDefs = (function(){
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
-        // {
-        //   type: 'polygon',
-        //   fillColor: '#4DAF4A',
-        //   fillOpacity: defaults.fillOpacity,
-        //   strokeColor: '#4DAF4A',
-        //   strokeOpacity: defaults.ftrokeOpacity,
-        //   strokeWidth: defaults.strokeWidth
-        // },
+        {
+          type: 'polygon',
+          fillColor: '#4DAF4A',
+          fillOpacity: defaults.fillOpacity,
+          strokeColor: '#4DAF4A',
+          strokeOpacity: defaults.stokeOpacity,
+          strokeWidth: 1
+        },
         {
           type: 'circle',
           circleFillColor: '#FFFFFF',
-          fillOpacity: defaults.fillOpacity,
-          strokeColor: '#4DAF4A',
-          strokeWidth: defaults.strokeWidth,
-          strokeOpacity: defaults.stokeOpacity,
-          tileSize: defaults.tileSize
+          fillOpacity: 0.7,
+          tileSize: 15,
+          graphicSpacing: 5
         }
       ]
     },
