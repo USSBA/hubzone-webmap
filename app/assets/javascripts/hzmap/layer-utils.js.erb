@@ -48,7 +48,7 @@ HZApp.Layers.LayerUtils = {
   constructSLDXML: function(options){
     return  (
       ('<?xml version="1.0" encoding="UTF-8"?>' +
-        '<StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0.0" xsi:schemaLocation="http://www.opengis.net/sld StyledLayerDescriptor.xsd">' +
+        '<StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0.0" xsi:schemaLocation="http://www.opengis.net/sld StyledLayerDescriptor.xsd" xmlns:se="http://www.opengis.net/se">' +
           '<NamedLayer>' +
             "<Name><%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:" + options.layerName + '</Name>' +
               '<UserStyle>' +
@@ -67,17 +67,14 @@ HZApp.Layers.LayerUtils = {
           '<GraphicFill>' +
             '<Graphic>' +
               '<Mark>' +
-                '<WellKnownName>horline</WellKnownName>' + 
+                '<WellKnownName>shape://horline</WellKnownName>' + 
                 '<Stroke>' +
                   '<CssParameter name="stroke">' + styleOptions.lineStrokeColor + '</CssParameter>' +
                   '<CssParameter name="stroke-width">' + styleOptions.strokeWidth + '</CssParameter>' +
                   '<CssParameter name="stroke-opacity">' + styleOptions.strokeOpacity + '</CssParameter>' +
                 '</Stroke>' +
               '</Mark>' +
-              '<Size>' + styleOptions.lineSize + '</Size>' +
-              '<Rotation>' + 
-                '<ogc:Literal>' + styleOptions.lineRotation + '</ogc:Literal>' +
-              '</Rotation>' + 
+              '<Size>' + styleOptions.tileSize + '</Size>' +
               '<Displacement>' + 
                 '<DisplacementX>' + styleOptions.displacementX +  '</DisplacementX>' +
                 '<DisplacementY>' + styleOptions.displacementY +  '</DisplacementY>' +
@@ -100,7 +97,7 @@ HZApp.Layers.LayerUtils = {
                   '<CssParameter name="fill">' + styleOptions.circleFillColor + '</CssParameter>' +
                 '</Fill>' +
               '</Mark>' +
-              '<Size>' + styleOptions.circleSize + '</Size>' +
+              '<Size>' + styleOptions.tileSize + '</Size>' +
             '</Graphic>' +
           '</GraphicFill>' +
         '</Fill>' +

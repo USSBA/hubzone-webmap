@@ -12,8 +12,7 @@ HZApp.Layers.LayerDefs = (function(){
     displacementY: 0,
     fillOpacity: 0.5,
     lineStrokeColor: '#000000',
-    lineSize: 10,
-    lineRotation: 0,
+    tileSize: 10,
     strokeColor: '#377EB8',
     strokeOpacity: 1,
     strokeWidth: 1.25
@@ -27,10 +26,10 @@ HZApp.Layers.LayerDefs = (function(){
         {
           type: 'polygon',
           fillColor: '#984EA3',
-          fillOpacity: defaults.defaultFillOpacity,
+          fillOpacity: defaults.fillOpacity,
           strokeColor: '#984EA3',
-          strokeOpacity: defaults.defaultStrokeOpacity,
-          strokeWidth: defaults.defaultStrokeWidth
+          strokeOpacity: defaults.strokeOpacity,
+          strokeWidth: defaults.strokeWidth
         }
       ]
     },
@@ -41,41 +40,87 @@ HZApp.Layers.LayerDefs = (function(){
         {
           type: 'polygon',
           fillColor: '#377EB8',
-          fillOpacity: defaults.defaultFillOpacity,
+          fillOpacity: defaults.fillOpacity,
           strokeColor: '#377EB8',
-          strokeOpacity: defaults.defaultStrokeOpacity,
-          strokeWidth: defaults.defaultStrokeWidth
+          strokeOpacity: defaults.strokeOpacity,
+          strokeWidth: defaults.strokeWidth
         }
       ]
     },
-    qct: {
+    qct_e: {
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
         {
           type: 'polygon',
           fillColor: '#4DAF4A',
-          fillOpacity: defaults.defaultFillOpacity,
+          fillOpacity: defaults.fillOpacity,
           strokeColor: '#4DAF4A',
-          strokeOpacity: defaults.defaultStrokeOpacity,
-          strokeWidth: defaults.defaultStrokeWidth
+          strokeOpacity: defaults.strokeOpacity,
+          strokeWidth: defaults.strokeWidth
         }
       ]
     },
-    brac: {
-      overlay: [],
+    qct_r: {
+      overlay:[],
       sldXMLStyle: null,
       styleOptions: [
         {
           type: 'polygon',
-          fillColor: '#FF7F00',
-          fillOpacity: defaults.defaultFillOpacity,
-          strokeColor: '#FF7F00',
-          strokeOpacity: defaults.defaultStrokeOpacity,
-          strokeWidth: defaults.defaultStrokeWidth
+          fillColor: '#4DAF4A',
+          fillOpacity: defaults.fillOpacity,
+          strokeColor: '#4DAF4A',
+          strokeOpacity: defaults.strokeOpacity,
+          strokeWidth: defaults.strokeWidth
+        },
+        {
+          type: 'horline',
+          lineStrokeColor: '#FFFFFF',
+          strokeWidth: 3, 
+          strokeOpacity: 0.8,
+          tileSize: defaults.tileSize,
+          displacementX: 0,
+          displacementY: 0
         }
       ]
-    }
+    },
+    qct_brac: {
+      overlay:[],
+      sldXMLStyle: null,
+      styleOptions: [
+        {
+          type: 'polygon',
+          fillColor: '#4DAF4A',
+          fillOpacity: defaults.fillOpacity,
+          strokeColor: '#4DAF4A',
+          strokeOpacity: defaults.ftrokeOpacity,
+          strokeWidth: defaults.strokeWidth
+        },
+        {
+          type: 'circle',
+          circleFillColor: '#FFFFFF',
+          fillOpacity: defaults.fillOpacity,
+          strokeColor: '#4DAF4A',
+          strokeWidth: defaults.strokeWidth,
+          strokeOpacity: defaults.stokeOpacity,
+          tileSize: defaults.tileSize
+        }
+      ]
+    },
+    // brac: {
+    //   overlay: [],
+    //   sldXMLStyle: null,
+    //   styleOptions: [
+    //     {
+    //       type: 'polygon',
+    //       fillColor: '#FF7F00',
+    //       fillOpacity: defaults.defaultFillOpacity,
+    //       strokeColor: '#FF7F00',
+    //       strokeOpacity: defaults.defaultStrokeOpacity,
+    //       strokeWidth: defaults.defaultStrokeWidth
+    //     }
+    //   ]
+    // }
   };
 
   return {
