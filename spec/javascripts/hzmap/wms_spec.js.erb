@@ -115,7 +115,7 @@ describe ('Testing wms operations', function() {
     expect(mockOverlay.addListener.calls.count()).toEqual(1);
   });
 
-  xit("should update the map WMS layer, replacing the old overlay with a new one", function(){
+  it("should update the map WMS layer, replacing the old overlay with a new one", function(){
     var layer = 'qct';
 
     var mockOverlayOld = new HZSpecHelper.NewOverlay('old');
@@ -124,10 +124,10 @@ describe ('Testing wms operations', function() {
     spyOn(mockOverlayOld, 'setMap');
     spyOn(mockOverlayNew, 'setMap');
     spyOn(mockOverlayNew, 'addListener');
-    HZApp.Layers.hzWMSOverlays[layer].overlay.push(mockOverlayOld);
-    HZApp.Layers.hzWMSOverlays[layer].overlay.push(mockOverlayNew);
+    HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay.push(mockOverlayOld);
+    HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay.push(mockOverlayNew);
 
-    HZApp.MapUtils.updateLayerWMSOverlay({
+    HZApp.WMSUtils.updateLayerWMSOverlay({
       layer: layer,
       mapScope: HZApp.map
     });
@@ -136,10 +136,10 @@ describe ('Testing wms operations', function() {
     expect(mockOverlayNew.addListener.calls.count()).toEqual(1);
   });
 
-  xit("should handle an empty WMS update call", function(){
+  it("should handle an empty WMS update call", function(){
     var layer = 'qct';
     HZSpecHelper.resetOverlays();
-    var updateState = HZApp.MapUtils.updateLayerWMSOverlay({
+    var updateState = HZApp.WMSUtils.updateLayerWMSOverlay({
       layer: layer,
       mapScope: HZApp.map
     });
