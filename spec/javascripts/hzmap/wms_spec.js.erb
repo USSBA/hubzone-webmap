@@ -9,6 +9,7 @@ describe ('Testing wms operations', function() {
     google = HZSpecHelper.google;
     HZApp.map = new google.maps.Map();
     HZApp.WMSUtils.checkForLayerStyles();
+    layer  = 'qct_brac';
   });
 
   afterEach(function(){
@@ -49,7 +50,8 @@ describe ('Testing wms operations', function() {
   it("should build the correct URL", function() {
     var mapBounds = HZApp.map.getBounds();
     var bbox = HZApp.WMSUtils.getBbox(mapBounds);
-    var layer = 'qct';
+    HZApp.WMSUtils.checkForLayerStyles();
+
     var sldXMLStyle = HZApp.Layers.LayerDefs.hzWMSOverlays[layer].sldXMLStyle; 
     var url = HZApp.WMSUtils.buildWMSUrl({
       layer: layer,
@@ -82,7 +84,7 @@ describe ('Testing wms operations', function() {
 
     HZApp.WMSUtils.fetchNewWMS({
       mapScope: HZApp.map,
-      layer: 'qct'
+      layer: layer
     });
 
     expect(HZApp.WMSUtils.getBbox.calls.count()).toEqual(1);
@@ -100,7 +102,6 @@ describe ('Testing wms operations', function() {
   });
 
   it("should update the map WMS layer, adding a new overlay where there was none before", function(){
-    var layer = 'qct';
     var mockOverlay = new HZSpecHelper.NewOverlay('new');
     spyOn(mockOverlay, 'setMap');
     spyOn(mockOverlay, 'addListener');
@@ -116,7 +117,6 @@ describe ('Testing wms operations', function() {
   });
 
   it("should update the map WMS layer, replacing the old overlay with a new one", function(){
-    var layer = 'qct';
 
     var mockOverlayOld = new HZSpecHelper.NewOverlay('old');
     var mockOverlayNew = new HZSpecHelper.NewOverlay('new');
@@ -137,7 +137,6 @@ describe ('Testing wms operations', function() {
   });
 
   it("should handle an empty WMS update call", function(){
-    var layer = 'qct';
     HZSpecHelper.resetOverlays();
     var updateState = HZApp.WMSUtils.updateLayerWMSOverlay({
       layer: layer,
