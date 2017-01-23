@@ -88,14 +88,14 @@ HZApp.Layers.LayerDefs = (function(){
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
-        {
-          type: 'polygon',
-          fillColor: '#4DAF4A',
-          fillOpacity: defaults.fillOpacity,
-          strokeColor: '#4DAF4A',
-          strokeOpacity: defaults.ftrokeOpacity,
-          strokeWidth: defaults.strokeWidth
-        },
+        // {
+        //   type: 'polygon',
+        //   fillColor: '#4DAF4A',
+        //   fillOpacity: defaults.fillOpacity,
+        //   strokeColor: '#4DAF4A',
+        //   strokeOpacity: defaults.ftrokeOpacity,
+        //   strokeWidth: defaults.strokeWidth
+        // },
         {
           type: 'circle',
           circleFillColor: '#FFFFFF',

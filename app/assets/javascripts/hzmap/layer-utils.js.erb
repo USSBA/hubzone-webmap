@@ -18,7 +18,7 @@ HZApp.Layers.LayerUtils = {
     }); 
   },
   buildStyleRules: function(styles){
-    var styleRules = '<Rule>';
+    var styleRules = '<se:Rule>';
     for (var i = 0; i < styles.length; i++) {
       if (styles[i].type === 'polygon'){
         styleRules += HZApp.Layers.LayerUtils.newPolygonSymbolizer(styles[i]);
@@ -30,7 +30,7 @@ HZApp.Layers.LayerUtils = {
         styleRules += HZApp.Layers.LayerUtils.newPolygonSymbolizer(styles[i]);
       }
     }
-    styleRules += '</Rule>';
+    styleRules += '</se:Rule>';
     return styleRules;
   },
   checkStylesForNulls: function(style){
@@ -48,13 +48,18 @@ HZApp.Layers.LayerUtils = {
   constructSLDXML: function(options){
     return  (
       ('<?xml version="1.0" encoding="UTF-8"?>' +
-        '<StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0.0" xsi:schemaLocation="http://www.opengis.net/sld StyledLayerDescriptor.xsd" xmlns:se="http://www.opengis.net/se">' +
+        '<StyledLayerDescriptor ' + 
+        'xmlns="http://www.opengis.net/sld" ' + 
+        'xmlns:ogc="http://www.opengis.net/ogc" ' + 
+        'xmlns:xlink="http://www.w3.org/1999/xlink" ' + 
+        'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0.0" xsi:schemaLocation="http://www.opengis.net/sld StyledLayerDescriptor.xsd" ' + 
+        'xmlns:se="http://www.opengis.net/se">' +
           '<NamedLayer>' +
-            "<Name><%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:" + options.layerName + '</Name>' +
+            "<se:Name><%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:" + options.layerName + '</se:Name>' +
               '<UserStyle>' +
-                '<FeatureTypeStyle>' +
+                '<se:FeatureTypeStyle>' +
                   options.styleRules + 
-                '</FeatureTypeStyle>' +
+                '</se:FeatureTypeStyle>' +
               '</UserStyle>' +
           '</NamedLayer>' +
         '</StyledLayerDescriptor>')
@@ -87,21 +92,22 @@ HZApp.Layers.LayerUtils = {
   },
   newCircleSymbolizer: function(styleOptions){
     return (
-      '<PolygonSymbolizer>' +
-        '<Fill>' +
-          '<GraphicFill>' +
-            '<Graphic>' +
-              '<Mark>' +
-                '<WellKnownName>circle</WellKnownName>' + 
-                '<Fill>' +
-                  '<CssParameter name="fill">' + styleOptions.circleFillColor + '</CssParameter>' +
-                '</Fill>' +
-              '</Mark>' +
-              '<Size>' + styleOptions.tileSize + '</Size>' +
-            '</Graphic>' +
-          '</GraphicFill>' +
-        '</Fill>' +
-      '</PolygonSymbolizer>'
+      '<se:PolygonSymbolizer>' +
+        '<se:Fill>' +
+          '<se:GraphicFill>' +
+            '<se:Graphic>' +
+              '<se:Mark>' +
+                '<se:WellKnownName>circle</se:WellKnownName>' + 
+                '<se:Fill>' +
+                  '<se:SvgParameter name="fill">' + styleOptions.circleFillColor + '</se:SvgParameter>' +
+                '</se:Fill>' +
+              '</se:Mark>' +
+              '<se:Size>' + styleOptions.tileSize + '</se:Size>' +
+            '</se:Graphic>' +
+          '</se:GraphicFill>' +
+        '</se:Fill>' +
+        '<VendorOption name="distance">' + 6 + ',' + 6 + '</VendorOption>' +
+      '</se:PolygonSymbolizer>'
     );
   },
   newPolygonSymbolizer: function(styleOptions){
