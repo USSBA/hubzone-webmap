@@ -50,18 +50,26 @@ describe ('Testing wms operations', function() {
     var mapBounds = HZApp.map.getBounds();
     var bbox = HZApp.WMSUtils.getBbox(mapBounds);
     var layer = 'qct';
+    var sldXMLStyle = HZApp.Layers.LayerDefs.hzWMSOverlays[layer].sldXMLStyle; 
     var url = HZApp.WMSUtils.buildWMSUrl({
       layer: layer,
       bbox: bbox, 
-      sldXMLStyle: HZApp.Layers.LayerDefs.hzWMSOverlays[layer].sldXMLStyle
+      sldXMLStyle: sldXMLStyle
     });
     /* jshint ignore:start */
-    var wmsURL = "<%= ENV["HUBZONE_WMS_URL_ROOT"] || "http://localhost:8080/geoserver/hubzone/wms?service=WMS" %>";
-    var wmsWorkspace =  "<%= ENV["HUBZONE_WMS_WORKSPACE"] || "hubzone" %>";
+    var urlExpect = "<%= MAP_CONFIG[:geom_wms_settings][:url_root] %>";
+    urlExpect += "&REQUEST=GetMap";
+    urlExpect += "&SERVICE=WMS";
+    urlExpect += "&VERSION=1.1.0";
+    urlExpect += "&LAYERS=" + "<%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:" + layer;
+    urlExpect += "&FORMAT=image/png" ;
+    urlExpect += "&TRANSPARENT=TRUE";
+    urlExpect += "&SRS=EPSG:4326";
+    urlExpect += "&BBOX=" + bbox;
+    urlExpect += "&WIDTH=0"; // there is no map, so it will return a map with size 0
+    urlExpect += "&HEIGHT=0"; 
+    urlExpect += ('&SLD_BODY=' + encodeURIComponent(sldXMLStyle));
     /* jshint ignore:end */
-    var urlExpect = wmsURL + '&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.0&LAYERS=' + wmsWorkspace + ':' +
-                    layer + '&' + 
-                    HZSpecHelper.wmsURLFake;
     expect(url).toEqual(urlExpect);
   });
 
