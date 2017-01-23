@@ -6,6 +6,10 @@
 HZApp.Layers.LayerDefs = (function(){
   var defaults = {
     circleFillColor: '#FFFFFF',
+    circleFillOpacity: 0.5,
+    circleStrokeColor: '#CCCCCC',
+    circleStrokeOpacity: 1,
+    circleStrokeWidth: 1,
     displacementX: 0,
     displacementY: 0,
     fillColor: '#CCCCCC',
@@ -14,6 +18,7 @@ HZApp.Layers.LayerDefs = (function(){
     lineStrokeColor: '#000000',
     lineStrokeOpacity: 1,
     lineStrokeWidth: 1,
+    lineRotation: 0,
     strokeColor: '#CCCCCC',
     strokeOpacity: 1,
     strokeWidth: 1.25,
