@@ -75,12 +75,19 @@ HZApp.Layers.LayerDefs = (function(){
         },
         {
           type: 'horline',
-          lineStrokeColor: '#FFFFFF',
-          strokeWidth: 3, 
-          strokeOpacity: 0.8,
-          tileSize: defaults.tileSize,
-          displacementX: 0,
-          displacementY: 0
+          lineStrokeColor: '#ffffff',
+          strokeWidth: 5, 
+          strokeOpacity: 0.9,
+          tileSize: 30,
+          lineRotation: 0
+        },
+        {
+          type: 'horline',
+          lineStrokeColor: '#000000',
+          strokeWidth: 2, 
+          strokeOpacity: 0.9,
+          tileSize: 30,
+          lineRotation: 0
         }
       ]
     },
@@ -98,7 +105,8 @@ HZApp.Layers.LayerDefs = (function(){
         },
         {
           type: 'circle',
-          circleFillColor: '#FFFFFF',
+          circleFillColor: '#FFFFFFf',
+          strokeColor: '#000000',
           fillOpacity: 0.7,
           tileSize: 15,
           graphicSpacing: 5
