@@ -6,18 +6,19 @@
 HZApp.Layers.LayerDefs = (function(){
   var defaults = {
     circleFillColor: '#FFFFFF',
-    fillColor: '#CCCCCC',
     displacementX: 0,
     displacementY: 0,
+    fillColor: '#CCCCCC',
     fillOpacity: 0.5,
     graphicSpacing: 10,
     lineStrokeColor: '#000000',
-    lineStrokeWidth: 1,
     lineStrokeOpacity: 1,
-    tileSize: 10,
+    lineStrokeWidth: 1,
     strokeColor: '#CCCCCC',
     strokeOpacity: 1,
     strokeWidth: 1.25,
+    tileSize: 10,
+
     qctColor: '#4DAF4A',
     qnmcColor: '#377EB8',
     indianLandsColor: '#FF7F00'
@@ -80,7 +81,9 @@ HZApp.Layers.LayerDefs = (function(){
           circleStrokeColor: defaults.qnmcColor,
           circleStrokeOpacity: defaults.strokeOpacity,
           circleStrokeWidth: defaults.strokeWidth,
-          strokeColor: '#000000',
+          strokeColor: defaults.qnmcColor,
+          strokeOpacity: defaults.strokeOpacity,
+          strokeWidth: defaults.strokeWidth,
           tileSize: 15,
           graphicSpacing: 5
         }
