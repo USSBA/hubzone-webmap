@@ -101,4 +101,9 @@ describe ('Testing map operations', function() {
     expect(date).toEqual('2016-01-01');
   });
 
+  it("should parse double digit dates correctly", function(){
+    var date = HZApp.MapUtils.parseDate(new Date('10/11/2016'));
+    expect(date).toEqual('2016-10-11');
+  });
+
 });
