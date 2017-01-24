@@ -1,0 +1,79 @@
+// legend utilties
+HZApp.Legend = (function(){
+  return {
+    legend: {
+      'qct': {
+        title: "Census Tracts",
+        svg: []
+      },
+      'qnmc': {
+        title: "Non-Metro Counties",
+        svg: []
+      }, 
+      'indian_lands': {
+        title: "Indian Lands",
+        svg: []
+      },
+      'redesignated': {
+        title: "Redesignated",
+        svg: []
+      },
+      'brac': {
+        title: "Base Closure Area",
+        svg: []
+      }
+    },
+    buildLegend: function(layers){
+      Object.keys(layers).map(function(layer){
+        var legendConfig = HZApp.Legend.getConfigFromLayerStyle(layers[layer]);
+        HZApp.Legend.legend[legendConfig.legendType].svg.push(HZApp.Legend.svgFromStyle(legendConfig));
+      });
+
+      Object.keys(this.legend).map(HZApp.Legend.insertLegendItem);
+
+    },
+    getConfigFromLayerStyle: function(layer){
+      return {
+        legendType: layer.legendType,
+        styleType: layer.styleOptions[0].type,
+        styleColor: layer.styleOptions[0][HZApp.Legend.legendTypeToColorType[layer.styleOptions[0].type]]
+      };
+    },
+    svgFromStyle: function(style){
+      var width = 35, height = 35;
+      var svg = this.svgHeader(width, height);
+      svg += '<title>HUBZone Legend - ' + style.styleType + '</title>';
+      svg += '<defs></defs>';
+      svg += this.svgRectangle(style, width, height);
+      svg += '</svg>';
+      return svg;
+    },
+    svgHeader: function(width, height){
+      return ('<?xml version="1.0" encoding="UTF-8"?>' + 
+              '<svg width="' + width + 'px" height="' + height + 'px" viewBox="0 0 65 40" ' +
+              'version="1.1" xmlns="http://www.w3.org/2000/svg" ' +
+              'xmlns:xlink="http://www.w3.org/1999/xlink">'
+      );
+    },
+    svgRectangle: function(style, width, height){
+      return ( '<g fill="' + style.styleColor + '">' + 
+               '<rect width="' + width + '" height="' + height + '"></rect>' + 
+               '</g>'
+      );
+    },
+    insertLegendItem: function(legendItem){
+      var li = '<li id="legend-' + legendItem + '">';
+      HZApp.Legend.legend[legendItem].svg.map(function(svg){
+        li += svg;
+      });
+      li += '</li>';
+      $('#legend > ul').append(li);
+      $('#legend-' + legendItem).append(HZApp.Legend.legend[legendItem].title);
+    },
+    legendTypeToColorType: { //mapping style type to css/svg color parameter
+      'polygon': 'fillColor',
+      'circle': 'circleFillColor',
+      'horline': 'lineStrokeColor'
+    }, 
+  };
+})();
