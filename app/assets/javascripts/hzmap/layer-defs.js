@@ -90,7 +90,7 @@ HZApp.Layers.LayerDefs = (function(){
           strokeOpacity: defaults.strokeOpacity,
           strokeWidth: defaults.strokeWidth,
           tileSize: 15,
-          graphicSpacing: 5
+          graphicSpacing: defaults.graphicSpacing
         }
       ]
     },
@@ -140,7 +140,7 @@ HZApp.Layers.LayerDefs = (function(){
           strokeOpacity: defaults.strokeOpacity,
           strokeWidth: defaults.strokeWidth,
           tileSize: 15,
-          graphicSpacing: 5
+          graphicSpacing: defaults.graphicSpacing
         }
       ]
     },    
@@ -150,16 +150,16 @@ HZApp.Layers.LayerDefs = (function(){
       styleOptions: [
         {
           type: 'circle',
-          circleFillColor: '#FFFFFF',
+          circleFillColor: '#000',
           circleFillOpacity: defaults.fillOpacity,
-          circleStrokeColor: '#CCCCCC',
+          circleStrokeColor: '#000000',
           circleStrokeOpacity: defaults.strokeOpacity,
           circleStrokeWidth: defaults.strokeWidth,
-          strokeColor: '#CCCCCC',
+          strokeColor: '#000000',
           strokeOpacity: defaults.strokeOpacity,
           strokeWidth: defaults.strokeWidth,
           tileSize: 15,
-          graphicSpacing: 5
+          graphicSpacing: defaults.graphicSpacing
         }
       ]
     },
