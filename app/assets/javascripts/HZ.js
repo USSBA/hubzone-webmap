@@ -5,11 +5,15 @@ window.HZApp = {
   Constructors: {},
   GA: {},
   GeoLocation: {},
-  Layers: {},
+  Layers: {
+    LayerUtils: {},
+    LayerDefs: {}
+  },
   map: {},
   MapUtils: {},
   Markers: {},
   Print: {},
   sidebar: {},
-  Styles: {}
+  Styles: {},
+  WMSUtils: {}
 };
