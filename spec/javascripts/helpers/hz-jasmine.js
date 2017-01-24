@@ -158,5 +158,34 @@ var HZSpecHelper = {
     } else {
       return spyOn(navigator.geolocation, 'getCurrentPosition');      
     }
+  },
+  testLayers: {
+    qnmc_e: {
+      legendType: 'qnmc',
+      styleOptions: [
+        {
+          type: 'polygon',
+          fillColor: '#00FF00',
+        }
+      ]
+    },
+    qnmc_r: {
+      legendType: 'redesignated',
+      styleOptions: [
+        {
+          type: 'horline',
+          lineStrokeColor: '#FF0000',
+        }
+      ]
+    },
+    qnmc_brac: {
+      legendType: 'brac',
+      styleOptions: [
+        {
+          type: 'circle',
+          circleFillColor: '#0000FF',
+        }
+      ]
+    }
   }
 };

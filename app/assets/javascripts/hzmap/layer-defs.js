@@ -31,6 +31,7 @@ HZApp.Layers.LayerDefs = (function(){
 
   var hzWMSOverlays = {
     indian_lands: {
+      legendType: 'indian_lands',
       overlay: [],
       sldXMLStyle: null,
       styleOptions: [
@@ -45,6 +46,7 @@ HZApp.Layers.LayerDefs = (function(){
       ]
     },
     qnmc_e: {
+      legendType: 'qnmc',
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
@@ -59,6 +61,7 @@ HZApp.Layers.LayerDefs = (function(){
       ]
     },
     qnmc_r: {
+      legendType: 'redesignated',
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
@@ -76,6 +79,7 @@ HZApp.Layers.LayerDefs = (function(){
       ]
     },
     qnmc_brac: {
+      legendType: 'brac',
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
@@ -95,6 +99,7 @@ HZApp.Layers.LayerDefs = (function(){
       ]
     },
     qct_e: {
+      legendType: 'qct',
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
@@ -109,6 +114,7 @@ HZApp.Layers.LayerDefs = (function(){
       ]
     },
     qct_r: {
+      legendType: 'redesignated',
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
@@ -126,6 +132,7 @@ HZApp.Layers.LayerDefs = (function(){
       ]
     },
     qct_brac: {
+      legendType: 'brac',
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
@@ -145,6 +152,7 @@ HZApp.Layers.LayerDefs = (function(){
       ]
     },    
     brac: {
+      legendType: 'brac',
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
