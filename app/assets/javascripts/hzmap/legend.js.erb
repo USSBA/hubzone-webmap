@@ -40,25 +40,63 @@ HZApp.Legend = (function(){
       };
     },
     svgFromStyle: function(style){
-      var width = 35, height = 35;
+      var width = 25, height = 25;
       var svg = this.svgHeader(width, height);
       svg += '<title>HUBZone Legend - ' + style.styleType + '</title>';
-      svg += '<defs></defs>';
-      svg += this.svgRectangle(style, width, height);
+      if (style.styleType === 'horline'){
+        svg += HZApp.Legend.svg_horline(style, width, height);
+      } else if (style.styleType === 'circle') {
+        svg += HZApp.Legend.svg_circle(style, width, height);
+      }else {
+        svg += HZApp.Legend.svg_polygon(style, width, height);
+      }
       svg += '</svg>';
       return svg;
     },
     svgHeader: function(width, height){
-      return ('<?xml version="1.0" encoding="UTF-8"?>' + 
-              '<svg width="' + width + 'px" height="' + height + 'px" viewBox="0 0 65 40" ' +
+      return ('<svg width="' + width + 'px" height="' + height + 'px" viewBox="0 0 ' + (width + 5) + ' ' + height + '" ' +
               'version="1.1" xmlns="http://www.w3.org/2000/svg" ' +
               'xmlns:xlink="http://www.w3.org/1999/xlink">'
       );
     },
-    svgRectangle: function(style, width, height){
+    svg_polygon: function(style, width, height){
       return ( '<g fill="' + style.styleColor + '">' + 
                '<rect width="' + width + '" height="' + height + '"></rect>' + 
                '</g>'
+      );
+    },
+    svg_horline: function(style, width, height){
+      return ('<defs><rect id="path-1" x="0" y="0" width="' + width + '" height="' + height +'"></rect></defs>' +
+              '<g stroke="'+ style.styleColor + '" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                '<mask id="mask-2" fill="white"><use xlink:href="#path-1"></use></mask>' +
+                '<use fill="#FFFFFF" xlink:href="#path-1"></use>' + 
+                '<path d="M22.5,-5.5 L-5.5,31.5" id="Line" stroke="' + style.styleColor + '" stroke-width="6" stroke-linecap="square" mask="url(#mask-2)"></path>' +
+                '<path d="M45,-7 L9.5,39.5" id="Line-Copy" stroke="' + style.styleColor + '" stroke-width="6" stroke-linecap="square" mask="url(#mask-2)"></path>' +
+                '<path d="M63,0 L27.5,46.5" id="Line-Copy-2" stroke="' + style.styleColor + '" stroke-width="6" stroke-linecap="square" mask="url(#mask-2)"></path>' +
+                '<path d="M79,9 L43.5,55.5" id="Line-Copy-3" stroke="' + style.styleColor + '" stroke-width="6" stroke-linecap="square" mask="url(#mask-2)"></path>' +
+              '</g>'
+      );
+    },
+    svg_circle: function(style, width, height){
+      return ('<defs><rect id="path-2" x="0" y="0" width="' + width + '" height="' + height +'"></rect></defs>' +
+              '<g stroke="'+ style.styleColor + '" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                '<mask id="mask-2" fill="white"><use xlink:href="#path-1"></use></mask>' +
+                '<use fill="#FFFFFF" xlink:href="#path-2"></use>' + 
+                '<ellipse fill="' + style.styleColor +'" mask="url(#mask-2)" cx="12" cy="0" rx="5" ry="5"></ellipse>' +
+                '<ellipse fill="' + style.styleColor +'" mask="url(#mask-2)" cx="12" cy="28" rx="5" ry="5"></ellipse>' +
+                '<circle fill="' + style.styleColor +'" mask="url(#mask-2)" cx="33" cy="0" r="5"></circle>' +
+                '<circle fill="' + style.styleColor +'" mask="url(#mask-2)" cx="33" cy="28" r="5"></circle>' +
+                '<circle fill="' + style.styleColor +'" mask="url(#mask-2)" cx="54" cy="0" r="5"></circle>' +
+                '<circle fill="' + style.styleColor +'" mask="url(#mask-2)" cx="54" cy="28" r="5"></circle>' +
+                '<ellipse fill="' + style.styleColor +'" mask="url(#mask-2)" cx="22" cy="15" rx="5" ry="5"></ellipse>' +
+                '<ellipse fill="' + style.styleColor +'" mask="url(#mask-2)" cx="22" cy="43" rx="5" ry="5"></ellipse>' +
+                '<ellipse fill="' + style.styleColor +'" mask="url(#mask-2)" cx="1" cy="15" rx="5" ry="5"></ellipse>' +
+                '<ellipse fill="' + style.styleColor +'" mask="url(#mask-2)" cx="1" cy="43" rx="5" ry="5"></ellipse>' +
+                '<ellipse fill="' + style.styleColor +'" mask="url(#mask-2)" cx="44" cy="15" rx="5" ry="5"></ellipse>' +
+                '<ellipse fill="' + style.styleColor +'" mask="url(#mask-2)" cx="44" cy="43" rx="5" ry="5"></ellipse>' +
+                '<circle fill="' + style.styleColor +'" mask="url(#mask-2)" cx="65" cy="15" r="5"></circle>' +
+                '<circle fill="' + style.styleColor +'" mask="url(#mask-2)" cx="65" cy="43" r="5"></circle>' +
+              '</g>'
       );
     },
     insertLegendItem: function(legendItem){
@@ -68,7 +106,7 @@ HZApp.Legend = (function(){
       });
       li += '</li>';
       $('#legend > ul').append(li);
-      $('#legend-' + legendItem).append(HZApp.Legend.legend[legendItem].title);
+      $('#legend-' + legendItem).append('<span>' + HZApp.Legend.legend[legendItem].title + '</span>');
     },
     legendTypeToColorType: { //mapping style type to css/svg color parameter
       'polygon': 'fillColor',

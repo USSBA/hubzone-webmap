@@ -188,9 +188,19 @@ li.hubzone-map-print a {
   padding-left: 0;
   margin: 0;
 }
-#legend i {
+#legend li {
   padding-right: .5em;
+  /*margin-bottom: 0;*/
 }
+
+#legend li svg {
+  vertical-align: middle;
+}
+
+#legend li span {
+  vertical-align: middle;
+}
+
 .legend-qualified {
   color: $cool-blue-light;
 }
