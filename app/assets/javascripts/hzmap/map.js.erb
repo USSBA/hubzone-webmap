@@ -15,7 +15,7 @@ function initMap() {
     mapTypeControlOptions: {
       mapTypeIds: ['roadmap', 'hz_map', 'hybrid' ],
       position: google.maps.ControlPosition.BOTTOM_CENTER
-    },
+    }
   });
 
   //adds in the hz style into the basemap picker
@@ -29,7 +29,6 @@ function initMap() {
 
   // adds listener that triggers whenever the map is idle to update with new features.
   google.maps.event.addListener(HZApp.map, 'idle', HZApp.WMSUtils.updateIdleMap);
-  HZApp.map.addListener('click', HZApp.MapUtils.catchMapClick);
 
   //adds autocomplete
   HZApp.Autocomplete.createAutocomplete();

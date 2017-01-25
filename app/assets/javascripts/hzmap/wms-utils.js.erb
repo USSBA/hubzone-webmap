@@ -104,7 +104,27 @@ HZApp.WMSUtils = (function(){
         // console.warn('no WMS found in layer');
         return null;
       }
-      HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].overlay[0].addListener('click', HZApp.MapUtils.catchMapClick);
+
+      handleSingleClick = function(){
+        if(singleClick){
+            console.log('single click');
+            HZApp.MapUtils.catchMapClick;
+        } else {
+          console.log('double click');
+        }
+      };
+
+      HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].overlay[0].addListener('click', function() {
+          singleClick = true;
+          setTimeout(handleSingleClick, 400);
+      });
+
+      HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].overlay[0].addListener('dblclick', function() {
+           singleClick = false;
+      });
+
     }
   };
 })();
+
+
