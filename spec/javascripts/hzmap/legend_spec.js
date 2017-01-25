@@ -12,7 +12,6 @@ describe ('Testing legend operations', function() {
 
   afterEach(function(){
     HZSpecHelper.mockPage.destroy();
-    $('#legend').remove();
     Object.keys(HZApp.Legend.legend).map(function(legendItem){
       HZApp.Legend.legend[legendItem].svg = [];
     });
@@ -134,6 +133,31 @@ describe ('Testing legend operations', function() {
     Object.keys(HZApp.Legend.legend).map(function(legendItem){
       testLegend(legendItem);
     });
+  });
+
+  describe ('toggle legend visibility', function(){
+
+    beforeEach(function(){
+      HZApp.Legend.buildLegend(HZSpecHelper.testLayers);
+    });
+    
+    it('should collapse the legend', function(){
+      HZApp.Legend.hideLegend();
+      expect($('#legend li.legend-item').is(':visible')).toBe(false);
+      expect($('#hide-legend-button').is(':visible')).toBe(false);
+      expect($('#legend-header-title').css('display')).not.toEqual('none');
+      expect($('#show-legend-button').css('display')).not.toEqual('none');
+    }); 
+
+    it('should show the collapsed legend', function(){
+      HZApp.Legend.hideLegend();
+      HZApp.Legend.showLegend();
+
+      expect($('#legend li.legend-item').is(':visible')).toBe(true);
+      expect($('#hide-legend-button').is(':visible')).toBe(true);
+      expect($('#legend-header-title').is(':visible')).toBe(false);
+      expect($('#show-legend-button').is(':visible')).toBe(false);
+    }); 
   });
 });
 

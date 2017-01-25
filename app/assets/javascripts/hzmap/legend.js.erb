@@ -7,7 +7,7 @@ HZApp.Legend = (function(){
         svg: []
       },
       'qnmc': {
-        title: "Non-Metro Counties",
+        title: "Counties",
         svg: []
       }, 
       'indian_lands': {
@@ -31,6 +31,12 @@ HZApp.Legend = (function(){
 
       Object.keys(this.legend).map(HZApp.Legend.insertLegendItem);
 
+      this.addLegendButtonListeners();
+
+    },
+    addLegendButtonListeners: function(){
+      $('#hide-legend-button').click(this.hideLegend);
+      $('#show-legend-button').click(this.showLegend);
     },
     getConfigFromLayerStyle: function(layer){
       return {
@@ -95,7 +101,7 @@ HZApp.Legend = (function(){
       );
     },
     insertLegendItem: function(legendItem){
-      var li = '<li id="legend-' + legendItem + '">';
+      var li = '<li id="legend-' + legendItem + '" class="legend-item">';
       HZApp.Legend.legend[legendItem].svg.map(function(svg){ li += svg; });
       li += '</li>';
       $('#legend > ul').append(li);
@@ -106,5 +112,17 @@ HZApp.Legend = (function(){
       'circle': 'circleFillColor',
       'horline': 'lineStrokeColor'
     }, 
+    hideLegend: function(){
+      $('#legend li.legend-item').hide();
+      $('#hide-legend-button').hide();
+      $('#legend-header-title').show();
+      $('#show-legend-button').show();
+    },
+    showLegend: function(){
+      $('#legend li.legend-item').show();
+      $('#hide-legend-button').show();
+      $('#legend-header-title').hide();
+      $('#show-legend-button').hide();
+    }
   };
 })();
