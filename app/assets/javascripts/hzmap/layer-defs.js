@@ -24,9 +24,15 @@ HZApp.Layers.LayerDefs = (function(){
     strokeWidth: 1.25,
     tileSize: 10,
 
+    // USWDS Alt 1
     qctColor: '#4DAF4A',
     qnmcColor: '#377EB8',
     indianLandsColor: '#FF7F00'
+
+    // color brewer 2
+    // qctColor: '#1b9e77',
+    // qnmcColor: '#d95f02',
+    // indianLandsColor: '#7570b3'
   };
 
   var hzWMSOverlays = {
