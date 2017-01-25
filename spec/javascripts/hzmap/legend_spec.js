@@ -6,12 +6,42 @@
 
 describe ('Testing legend operations', function() {
   beforeEach(function(){
-    testLayers = HZSpecHelper.testLayers;
+    HZSpecHelper.mockPage.build();
+    HZApp.Legend.buildLegend(HZSpecHelper.testLayers);  
   });
 
   afterEach(function(){
+    HZSpecHelper.mockPage.destroy();
+    $('#legend').remove();
+    Object.keys(HZApp.Legend.legend).map(function(legendItem){
+      HZApp.Legend.legend[legendItem].svg = [];
+    });
   });
 
+  describe ('Testing legend style object utilities', function() {
+    beforeEach(function(){
+      testLayers = HZSpecHelper.testLayers;
+    });
+  
+    it("should run the getConfigFromLayerStyle method on each layer", function(){
+      spyOn(HZApp.Legend, 'getConfigFromLayerStyle').and.callThrough();
+      spyOn(HZApp.Legend, 'insertLegendItem');
+
+      HZApp.Legend.buildLegend(testLayers);
+      expect(HZApp.Legend.getConfigFromLayerStyle.calls.count()).toEqual(Object.keys(testLayers).length);
+      expect(HZApp.Legend.insertLegendItem.calls.count()).toEqual(Object.keys(HZApp.Legend.legend).length);
+    });
+
+    it("should parse the layer config into a legendConfig", function(){
+      var layer = testLayers['qnmc_e'];
+      var legendConfig = HZApp.Legend.getConfigFromLayerStyle(layer);
+      expect(legendConfig.legendType).toEqual(layer.legendType);
+      expect(legendConfig.styleType).toEqual(layer.styleOptions[0].type);
+      expect(legendConfig.styleColor).toEqual(layer.styleOptions[0][HZApp.Legend.legendTypeToColorType[legendConfig.styleType]]);
+    });
+  }); 
+
+  // these will test the SVG creatorsthat the correct styles are inserted in the right way
   describe ('Testing svg creators', function() {
     it("should make the correct svg header", function(){
       var width = 10, height = 11;
@@ -33,27 +63,78 @@ describe ('Testing legend operations', function() {
       expect($(svgPolyStr).attr('fill')).toEqual(style.styleColor);
     });
 
+    it("should make the correct lined svg", function(){
+      var width = 10, height = 11;
+      var style = {
+        styleColor: '#00FF00'
+      };
 
+      var svgLineStr = HZApp.Legend.svg_horline(style, width, height);
+      expect(parseInt($(svgLineStr).find('rect').attr('width'))).toEqual(width);
+      expect(parseInt($(svgLineStr).find('rect').attr('height'))).toEqual(height);
+      expect($(svgLineStr)[1].getAttribute('stroke')).toEqual(style.styleColor);
+      $(svgLineStr).find('path').each(function(idx, elem){
+        expect(elem.getAttribute('stroke')).toEqual(style.styleColor);
+      });
+    });
+
+    it("should make the correct dots svg", function(){
+      var width = 10, height = 11;
+      var style = {
+        styleColor: '#00FF00'
+      };
+
+      var svgCircleStr = HZApp.Legend.svg_circle(style, width, height);
+      expect(parseInt($(svgCircleStr).find('rect').attr('width'))).toEqual(width);
+      expect(parseInt($(svgCircleStr).find('rect').attr('height'))).toEqual(height);
+      expect($(svgCircleStr)[1].getAttribute('stroke')).toEqual(style.styleColor);
+      $(svgCircleStr).find('ellipse').each(function(idx, elem){
+        expect(elem.getAttribute('fill')).toEqual(style.styleColor);
+      });
+      $(svgCircleStr).find('circle').each(function(idx, elem){
+        expect(elem.getAttribute('fill')).toEqual(style.styleColor);
+      });
+    });
   });
 
-  describe ('Testing legend style object utilities', function() {
-
-    it("should run the getConfigFromLayerStyle method on each layer", function(){
-      spyOn(HZApp.Legend, 'getConfigFromLayerStyle').and.callThrough();
-
-      HZApp.Legend.buildLegend(testLayers);
-      expect(HZApp.Legend.getConfigFromLayerStyle.calls.count()).toEqual(Object.keys(testLayers).length);
+  // check that the correct svg creator method is called for each styleType
+  describe ('svgFromStyle', function() {
+    beforeEach(function(){
+      spyOn(HZApp.Legend, 'svgHeader');
+      style = {
+        styleType: ''
+      };
     });
 
-    it("should parse the layer config into a legendConfig", function(){
-      var layer = testLayers['qnmc_e'];
-      var legendConfig = HZApp.Legend.getConfigFromLayerStyle(layer);
-      expect(legendConfig.legendType).toEqual(layer.legendType);
-      expect(legendConfig.styleType).toEqual(layer.styleOptions[0].type);
-      expect(legendConfig.styleColor).toEqual(layer.styleOptions[0][HZApp.Legend.legendTypeToColorType[legendConfig.styleType]]);
+    ['polygon', 'horline', 'circle'].map(function(styleType){
+      var fn_name = "svg_" + styleType;
+      it(("should run " + fn_name) , function(){
+        spyOn(HZApp.Legend, fn_name);
+        style.styleType = styleType;
+        HZApp.Legend.svgFromStyle(style);
+        expect(HZApp.Legend[fn_name].calls.count()).toEqual(1);
+      });
     });
-  });    
+  });
 
+  describe ('insertLegendItem', function(){
+
+    var testLegend = function(legendItem){
+      describe('on ' + legendItem, function(){         
+        it ('builds out a legend with the correct features for ' + legendItem, function(){
+          var legendProps = HZApp.Legend.legend[legendItem];
+          expect($('#legend-' + legendItem + ' > span').text()).toEqual(legendProps.title);
+          var legendSvg = $('#legend-' + legendItem + ' > svg');
+          var legendSvgLength = legendSvg['length'] || 0;
+          expect(legendSvgLength).toEqual(legendProps.svg.length);
+        });
+      });
+    };
+
+    Object.keys(HZApp.Legend.legend).map(function(legendItem){
+      testLegend(legendItem);
+    });
+  });
 });
 
 

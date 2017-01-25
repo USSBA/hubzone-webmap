@@ -43,13 +43,8 @@ HZApp.Legend = (function(){
       var width = 25, height = 25;
       var svg = this.svgHeader(width, height);
       svg += '<title>HUBZone Legend - ' + style.styleType + '</title>';
-      if (style.styleType === 'horline'){
-        svg += HZApp.Legend.svg_horline(style, width, height);
-      } else if (style.styleType === 'circle') {
-        svg += HZApp.Legend.svg_circle(style, width, height);
-      }else {
-        svg += HZApp.Legend.svg_polygon(style, width, height);
-      }
+      var svg_fn_name = "svg_" + style.styleType;
+      svg += HZApp.Legend[svg_fn_name](style,width, height);
       svg += '</svg>';
       return svg;
     },
@@ -101,9 +96,7 @@ HZApp.Legend = (function(){
     },
     insertLegendItem: function(legendItem){
       var li = '<li id="legend-' + legendItem + '">';
-      HZApp.Legend.legend[legendItem].svg.map(function(svg){
-        li += svg;
-      });
+      HZApp.Legend.legend[legendItem].svg.map(function(svg){ li += svg; });
       li += '</li>';
       $('#legend > ul').append(li);
       $('#legend-' + legendItem).append('<span>' + HZApp.Legend.legend[legendItem].title + '</span>');

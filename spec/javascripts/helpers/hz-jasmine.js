@@ -7,15 +7,25 @@ var HZSpecHelper = {
   //build a dummy sidebar and mapbody
   mockPage: {
     build: function(){
+      //add map
       var mapBodyDiv = document.createElement('div');
       $(mapBodyDiv).addClass('map-body');
       $('body').append(mapBodyDiv);
+
+      //add header and search
       $('body').append('<div id="header" class="hidden"></div>');
       $('#header').append('<div id="search-field-small" class="hidden"></div>')
-      $('body').append('<div id="sidebar" class="hidden"></div>');
+      
+      //add legend
+      $('body').append('<div id="legend" style="display:none;"><ul></ul></dir>');
+
+      //add geolocation button
       $('body').append('<div id="geolocation" class="hidden"></div>');
       $('#geolocation').append('<i class="fa fa-location-arrow" style="display: block;"></i>')
       $('#geolocation').append('<div class="geolocation-loading" style="display: none;"></i>')
+
+      //add sidebar
+      $('body').append('<div id="sidebar" class="hidden"></div>');
       var testDiv = document.createElement('div');
       $('#sidebar').append(testDiv);
       $('#sidebar').css('display', 'none');
@@ -23,10 +33,12 @@ var HZSpecHelper = {
       return sidebar;
     },
     destroy: function(){
-      sidebar = {};
+      $('#legend').remove();
       $('#sidebar').remove();
       $('.map-body').remove();
       $('#geolocation').remove();
+      $('#header').remove();
+      sidebar = {};
     }
   },
   google: {
@@ -166,6 +178,15 @@ var HZSpecHelper = {
         {
           type: 'polygon',
           fillColor: '#00FF00',
+        }
+      ]
+    },
+    qct_r: {
+      legendType: 'redesignated',
+      styleOptions: [
+        {
+          type: 'horline',
+          lineStrokeColor: '#FF00FF',
         }
       ]
     },

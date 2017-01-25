@@ -1,4 +1,5 @@
-//= require hzmap
+//= require hzmap/layer-defs
+//= require hzmap/layer-utils
 //= require ../helpers/sinon-1.17.6
 //= require ../helpers/hz-jasmine
 /* jshint unused: false */

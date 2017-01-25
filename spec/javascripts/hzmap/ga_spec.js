@@ -1,4 +1,4 @@
-//= require hzmap
+//= require hzmap/ga
 //= require ../helpers/sinon-1.17.6
 /* jshint unused: false */
 /* jshint undef: false */
