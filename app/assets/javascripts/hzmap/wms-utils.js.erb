@@ -105,24 +105,13 @@ HZApp.WMSUtils = (function(){
         return null;
       }
 
-      handleSingleClick = function(){
-        if(singleClick){
-            console.log('single click');
-            HZApp.MapUtils.catchMapClick;
-        } else {
-          console.log('double click');
-        }
-      };
-
-      HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].overlay[0].addListener('click', function() {
-          singleClick = true;
-          setTimeout(handleSingleClick, 400);
+      HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].overlay[0].addListener('click', function(event) {
+          doubleClickTimer = setTimeout(function() { HZApp.MapUtils.catchMapClick(event) }, 500);
       });
 
       HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].overlay[0].addListener('dblclick', function() {
-           singleClick = false;
+          clearTimeout(doubleClickTimer);
       });
-
     }
   };
 })();
