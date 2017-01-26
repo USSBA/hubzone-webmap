@@ -105,14 +105,14 @@ HZApp.WMSUtils = (function(){
         return null;
       }
 
-      var doubleClickTimer;
+      var clickEventTimer;
 
       HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].overlay[0].addListener('click', function(event) {
-          doubleClickTimer = setTimeout(function() { HZApp.MapUtils.catchMapClick(event); }, 500);
+          clickEventTimer = setTimeout(function() { HZApp.MapUtils.catchMapClick(event); }, 400);
       });
 
       HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].overlay[0].addListener('dblclick', function() {
-          clearTimeout(doubleClickTimer);
+          clearTimeout(clickEventTimer);
       });
     }
   };
