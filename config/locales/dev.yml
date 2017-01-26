@@ -70,3 +70,5 @@ dev:
     qualified: "HUBZone calificado"
     expiring: "caducando"
     not_qualified: "No calificado"
+  legend:
+    title: "Leyenda"

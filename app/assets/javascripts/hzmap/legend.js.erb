@@ -3,15 +3,15 @@ HZApp.Legend = (function(){
   return {
     legend: {
       'qct': {
-        title: "Census Tracts",
+        title: "Census Tract",
         svg: []
       },
       'qnmc': {
-        title: "Counties",
+        title: "County",
         svg: []
       }, 
       'indian_lands': {
-        title: "Indian Lands",
+        title: "Indian Land",
         svg: []
       },
       'redesignated': {
@@ -115,13 +115,15 @@ HZApp.Legend = (function(){
     hideLegend: function(){
       $('#legend li.legend-item').hide();
       $('#hide-legend-button').hide();
-      $('#legend-header-title').show();
+      $('#legend-header-title-expanded').hide();
+      $('#legend-header-title-hidden').show();
       $('#show-legend-button').show();
     },
     showLegend: function(){
       $('#legend li.legend-item').show();
       $('#hide-legend-button').show();
-      $('#legend-header-title').hide();
+      $('#legend-header-title-expanded').show();
+      $('#legend-header-title-hidden').hide();
       $('#show-legend-button').hide();
     }
   };

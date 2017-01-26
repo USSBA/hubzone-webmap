@@ -145,7 +145,8 @@ describe ('Testing legend operations', function() {
       HZApp.Legend.hideLegend();
       expect($('#legend li.legend-item').is(':visible')).toBe(false);
       expect($('#hide-legend-button').is(':visible')).toBe(false);
-      expect($('#legend-header-title').css('display')).not.toEqual('none');
+      expect($('#legend-header-title-expanded').is(':visible')).toBe(false);
+      expect($('#legend-header-title-hidden').css('display')).not.toEqual('none');
       expect($('#show-legend-button').css('display')).not.toEqual('none');
     }); 
 
@@ -155,7 +156,8 @@ describe ('Testing legend operations', function() {
 
       expect($('#legend li.legend-item').is(':visible')).toBe(true);
       expect($('#hide-legend-button').is(':visible')).toBe(true);
-      expect($('#legend-header-title').is(':visible')).toBe(false);
+      expect($('#legend-header-title-hidden').is(':visible')).toBe(false);
+      expect($('#legend-header-title-expanded').css('display')).not.toEqual('none');
       expect($('#show-legend-button').is(':visible')).toBe(false);
     }); 
   });

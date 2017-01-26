@@ -53,7 +53,8 @@ en:
     expires: "Expires"
     qct: "Census Tract"
     qct_e: "Census Tract"
-    qct_b: "Census Tract"
+    qct_b: "Census Tract | Base Closure Area"
+    qct_r: "Census Tract | Redesignated " 
     qnmc: "Qualified County"
     qnmc_a: "Qualified County (unemployment)"
     qnmc_ab: "Qualified County (income & unemployment)"
@@ -61,11 +62,13 @@ en:
     qnmc_c: "DDA County"
     qnmc_dda: "DDA County"
     qnmc_e: "Qualified County"
-    qnmc_brac: "BRAC County"
+    qnmc_brac: "County | Base Closure Area"
     qnmc_r: "Redesignated County"
-    indian_lands: "Indian Lands"
-    brac: "Former Military Bases (BRAC)"
+    indian_lands: "Indian Land"
+    brac: "Base Closure"
     disaster_area: "Designated Disaster Area"
+  legend:
+    title: "Legend"
 
 
 
