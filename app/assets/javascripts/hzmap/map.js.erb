@@ -21,13 +21,12 @@ function initMap() {
   //adds in the hz style into the basemap picker
   var hzStyledMap = new google.maps.StyledMapType(HZApp.Styles.hzBaseMapStyle, {name: 'Gray'});
   HZApp.map.mapTypes.set('hz_map', hzStyledMap);
-  HZApp.map.setMapTypeId('roadmap');
 
   //adds the map legend and geolocation button
   HZApp.map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('legend'));
   HZApp.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('geolocation'));
 
-  // adds listener that triggers whenever the map is idle to update with new features.
+  //adds listener that triggers whenever the map is idle to update with new features.
   google.maps.event.addListener(HZApp.map, 'idle', HZApp.WMSUtils.updateIdleMap);
 
   //adds autocomplete

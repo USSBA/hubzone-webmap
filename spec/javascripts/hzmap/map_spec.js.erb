@@ -19,9 +19,7 @@ describe ('Testing map operations', function() {
     spyOn(google.maps.event, 'addListener');
     spyOn(google.maps.places, 'Autocomplete');
     spyOn(google.maps, 'StyledMapType');
-    spyOn(HZApp.map, 'addListener');
     spyOn(HZApp.map.mapTypes, 'set');
-    spyOn(HZApp.map, 'setMapTypeId');
     spyOn(HZApp.GeoLocation, 'getUserLocation');
     spyOn(HZApp.Autocomplete, 'createAutocomplete');
 
@@ -33,9 +31,7 @@ describe ('Testing map operations', function() {
     expect(google.maps.Map.calls.count()).toEqual(1);
     expect(google.maps.event.addListener.calls.count()).toEqual(1);
     expect(google.maps.StyledMapType.calls.count()).toEqual(1);
-    // expect(HZApp.map.addListener.calls.count()).toEqual(0);
     expect(HZApp.map.mapTypes.set.calls.count()).toEqual(1);
-    expect(HZApp.map.setMapTypeId.calls.count()).toEqual(1);
     expect(HZApp.GeoLocation.getUserLocation.calls.count()).toEqual(1);
     expect(HZApp.Autocomplete.createAutocomplete.calls.count()).toEqual(1);
   });
