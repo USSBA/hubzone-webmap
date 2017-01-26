@@ -105,7 +105,22 @@ HZApp.Legend = (function(){
       HZApp.Legend.legend[legendItem].svg.map(function(svg){ li += svg; });
       li += '</li>';
       $('#legend > ul').append(li);
-      $('#legend-' + legendItem).append('<span>' + HZApp.Legend.legend[legendItem].title + '</span>');
+      var locale = document.documentElement.lang || 'en'; //why cant I use rails locale here?
+      $.ajax({
+        url: 'map/translate', 
+        data: {
+          string: legendItem, 
+          translate_prefix: 'legend.',
+          callback: 'HZApp.Legend.insertLegendItemTitle', 
+          locale: locale,
+        },
+        error: function(){
+          HZApp.Legend.insertLegendItemTitle(HZApp.Legend.legend[legendItem].title, {string: legendItem} );
+        } 
+      });
+    },
+    insertLegendItemTitle: function(translated_string, options){
+      $('#legend-' + options.string).append('<span>' + translated_string + '</span>');
     },
     legendTypeToColorType: { //mapping style type to css/svg color parameter
       'polygon': 'fillColor',

@@ -5,7 +5,7 @@ HZApp.MapUtils = (function(){
       var clicklng = clickEvent.latLng.lng();
       var clicklat = clickEvent.latLng.lat();
       var date = HZApp.MapUtils.parseDate(new Date());
-      var locale = "<%= I18n.locale %>";
+      var locale = document.documentElement.lang || 'en';
       // Log the click
       HZApp.GA.track( 'map', 'click', clicklat + ',' + clicklng );
       var url = "<%= search_path %>?latlng=" + clicklat + ',' + clicklng + '&query_date=' + date + '&locale=' + locale;
