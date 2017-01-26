@@ -113,7 +113,7 @@ HZApp.WMSUtils = (function(){
     handleSingleClick: function(event) {
       this.clickEventTimer = setTimeout(function() { HZApp.MapUtils.catchMapClick(event); }, 400);
     },
-    handleDblClick: function(event) {
+    handleDblClick: function() {
       clearTimeout(this.clickEventTimer);
     },
     clickEventTimer: {}
