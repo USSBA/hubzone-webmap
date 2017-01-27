@@ -10,8 +10,8 @@ HZApp.Autocomplete = {
   createAutocomplete: function(){
   	this.autocomplete = new google.maps.places.Autocomplete(this.searchInput(), this.options);
   },
-  createListener: function(){
-    HZApp.Autocomplete.autocomplete.addListener('place_changed', function() {
+  createListener: function(autocompleteObject){
+    autocompleteObject.addListener('place_changed', function() {
       $('.usa-search').submit();
     });
   }

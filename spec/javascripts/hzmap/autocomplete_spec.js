@@ -8,6 +8,7 @@ describe ('Testing autocomplete operations', function() {
   beforeEach(function(){
     google = HZSpecHelper.google;
     HZSpecHelper.mockPage.build();
+    HZApp.map = new google.maps.Map();
   });
 
   afterEach(function(){
@@ -26,9 +27,12 @@ describe ('Testing autocomplete operations', function() {
   });
 
   it("should add a listener for when a place is selected", function() {
-    spyOn(HZApp.Autocomplete, 'addListener');
-    HZApp.Autocomplete.createListener();
-    expect(HZApp.Autocomplete.autocomplete.addListener.calls.count()).toEqual(1)
+    spyOn(HZApp.Autocomplete, 'createListener').and.callThrough();
+
+    autocompleteMock = new google.maps.places.Autocomplete('', '');
+    HZApp.Autocomplete.createListener(autocompleteMock);
+
+    expect(HZApp.Autocomplete.createListener.calls.count()).toEqual(1);
   });
 
 });
