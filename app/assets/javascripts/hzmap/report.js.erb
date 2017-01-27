@@ -1,0 +1,69 @@
+// reporting utility
+HZApp.Report = (function(){
+  $(function() {
+    $(document).on('click','#map-print', HZApp.Report.requestReport);
+  });
+
+  return {
+    requestReport: function() {  // fetch the app state to send off to the report
+      HZApp.Report.showReportWaiting();
+      var reportCenter;
+      var searchAddress = "";
+      var queryMarker = HZApp.Markers.hzQueryMarker.markers[0];
+      if (queryMarker){
+        reportCenter = [queryMarker.getPosition().lat(), queryMarker.getPosition().lng()].join(',');
+      } else {
+        reportCenter = [HZApp.map.getCenter().lat(), HZApp.map.getCenter().lng()].join(','); 
+      }
+      var mapZoom = HZApp.map.getZoom();
+
+      var url = 'map/report?';
+          url += 'latlng=' + reportCenter;
+          url += '&zoom=' + mapZoom;
+          url += '&formatted_address=';
+
+      // window.open(url, '_blank');
+
+      var req = new XMLHttpRequest();
+      req.open("GET", url, true);
+      req.responseType = "blob";
+      req.onerror = HZApp.Report.requestReportError;
+      req.onload = function (event) {
+        HZApp.Report.hideReportWaiting();
+        var blob = req.response;
+        var link=document.createElement('a');
+        link.target = '_blank';
+        link.href=window.URL.createObjectURL(blob);
+        link.download="hz_report" + "_address_" + searchAddress + "_latlng_" + reportCenter  + ".pdf";
+        link.click();
+        window.URL.revokeObjectURL(link.href);
+      };
+      req.send();
+    },
+    requestReportError: function(){
+      $('#report-waiting').html('Error Generating Report');
+      
+      setTimeout(function(){
+        $('#report-waiting').html();
+        $('#report-waiting').hide();
+      }, 7500);
+    },
+    showReportWaiting: function(){
+      $('#report-waiting').html('Generating Report...');
+      $('#report-waiting').show();
+    },
+    hideReportWaiting: function(){
+      $('#report-waiting').html('Report Created');
+      
+      setTimeout(function(){
+        $('#report-waiting').html();
+        $('#report-waiting').hide();
+      }, 5000);
+    }
+  };
+})();
+
+
+
+
+

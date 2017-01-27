@@ -1,17 +1,17 @@
 // Container for map bounds so we can reset it after print
 HZApp.Print = (function(){
-  (function initialize(){
-    // Catch control+p and re-layout page for printing
-    $(document).bind("keydown", HZApp.Print.catchKeyStrokeToPrint);
+  // (function initialize(){
+  //   // Catch control+p and re-layout page for printing
+  //   $(document).bind("keydown", HZApp.Print.catchKeyStrokeToPrint);
 
-    // Listener for map icon click
-    $(function() {
-      // Web-kit
-      this.mediaQueryList = window.matchMedia('print');
-      this.mediaQueryList.addListener(HZApp.Print.catchMediaQuery);
-      $(document).on('click','#map-print', HZApp.Print.catchPrintEvent);
-    });
-  })();
+  //   // Listener for map icon click
+  //   $(function() {
+  //     // Web-kit
+  //     this.mediaQueryList = window.matchMedia('print');
+  //     this.mediaQueryList.addListener(HZApp.Print.catchMediaQuery);
+  //     $(document).on('click','#map-print', HZApp.Print.catchPrintEvent);
+  //   });
+  // })();
 
   return {
     mapBounds: {},

@@ -14,6 +14,7 @@ window.HZApp = {
   MapUtils: {},
   Markers: {},
   Print: {},
+  Report: {},
   sidebar: {},
   Styles: {},
   WMSUtils: {},
