@@ -1,0 +1,94 @@
+// reporting utility
+HZApp.Report = (function(){
+  (function initialize(){
+    // Catch control+p and re-layout page for printing
+    $(document).bind("keydown", HZApp.Report.catchKeyStrokeToPrint);
+
+    // Listener for map icon click
+    $(function() {
+      // Web-kit
+      this.mediaQueryList = window.matchMedia('print');
+      this.mediaQueryList.addListener(HZApp.Report.catchMediaQuery);
+      $(document).on('click','#map-print', HZApp.Report.catchReportEvent);
+    });
+  })();
+
+  return {
+    mapBounds: {},
+    mapCenter: [],
+    mapZoom: null,
+    catchKeyStrokeToPrint: function(e){
+      if((e.ctrlKey || e.metaKey) && e.keyCode === 80){
+        HZApp.Report.catchPrintEvent(e, 1000);
+      } else {
+        return;
+      }
+    },
+    catchReportEvent: function(e, wait){
+      e.preventDefault();
+      wait = wait || 1000;
+      HZApp.Report.beforeReport();
+      // HZApp.Report.waitToReport(wait);
+    },
+    waitToReport: function(wait){
+      window.setTimeout(function(){
+        window.print();
+      }, wait);
+    },
+    catchMediaQuery: function(mql){
+      if (!mql.matches) {
+          HZApp.Report.afterReport();
+      } else {
+        return;
+      }
+    },
+    beforeReport: function() {  // fetch the app state to send off to the report
+      this.mapCenter = [HZApp.map.getCenter().lat(), HZApp.map.getCenter().lng()];
+      this.mapZoom = HZApp.map.getZoom();
+      var url = 'map/report?';
+          url += 'latlng=' + this.mapCenter.join(',');
+          url += '&zoom=' + this.mapZoom;
+          url += '&formatted_address=';
+      window.location.href = url
+      // $.ajax({
+      //   url: 'map/report',
+      //   data: {
+      //     latlng: this.mapCenter.join(','),
+      //     zoom: this.mapZoom, 
+      //     formatted_address: '',
+      //   },
+      //   success: function(resp){
+      //     console.log(resp);
+      //     // window.location.href = resp;
+      //   },
+      //   error: function(resp){
+      //     console.log(resp);
+      //   }
+      // });
+
+      // $('.map-body').addClass('printable-map');
+      // google.maps.event.trigger(HZApp.map, 'resize');
+      // HZApp.map.fitBounds(this.mapBounds);
+
+      // if (HZApp.Markers.hzQueryMarker.markers.length > 0){
+      //   HZApp.map.setCenter(HZApp.Markers.hzQueryMarker.markers[0].position);
+      // } else {
+      //   HZApp.map.setCenter(this.mapCenter);
+      // }
+      // sidebar.close();
+    },
+    afterReport: function() {  //reset the map after print
+      // $('.map-body').removeClass('printable-map');
+      // google.maps.event.trigger(HZApp.map, 'resize');
+      // HZApp.map.setCenter(this.mapCenter);
+      // HZApp.map.setZoom(this.mapZoom);
+      // sidebar.open();
+    }
+  };
+})();
+
+
+
+
+//http://localhost:3002/report?latlng=37,-109&zoom=8&formatted_address=829%20N%20Charles%20St,%20Baltimore,%20MD%2021201,%20USA
+

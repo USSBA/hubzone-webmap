@@ -27,3 +27,6 @@ public/assets/
 
 # Ignore .env configuration
 .env*
+
+# Ignore schema
+db/schema.rb

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get 'search', to: 'map#search'
     get 'translate', to: 'map#translate'
     get 'aws-hc', to: 'health_check#status'
+    get 'report', to: 'report#report'
     get '/', to: 'map#index', as: :map
   end
 end

@@ -2,6 +2,8 @@ default: &defaults
   google_analytics_tracking_id: <%= ENV["GOOGLE_ANALYTICS_TRACKING_ID"] %>
   hubzone_api_host: <%= ENV["HUBZONE_API_HOST"] || "http://localhost:3001" %>
   hubzone_api_search_path: '/api/search'
+  hubzone_report_host: <%= ENV["HUBZONE_REPORT_API_HOST"] || "http://localhost:3002" %>
+  hubzone_api_report_path: '/report'
   google_api_key: <%= ENV["HUBZONE_GOOGLE_API_KEY"] ||
                       "need to set HUBZONE_GOOGLE_API_KEY in your environment!"
                       %>
