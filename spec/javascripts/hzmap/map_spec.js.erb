@@ -22,8 +22,9 @@ describe ('Testing map operations', function() {
     spyOn(HZApp.map, 'addListener');
     spyOn(HZApp.map.mapTypes, 'set');
     spyOn(HZApp.map, 'setMapTypeId');
-    spyOn(HZApp.GeoLocation, 'getUserLocation');  
+    spyOn(HZApp.GeoLocation, 'getUserLocation');
     spyOn(HZApp.Autocomplete, 'createAutocomplete');
+    spyOn(HZApp.Autocomplete, 'createListener');
 
     HZApp.map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
     HZApp.map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
@@ -38,6 +39,7 @@ describe ('Testing map operations', function() {
     expect(HZApp.map.setMapTypeId.calls.count()).toEqual(1);
     expect(HZApp.GeoLocation.getUserLocation.calls.count()).toEqual(1);
     expect(HZApp.Autocomplete.createAutocomplete.calls.count()).toEqual(1);
+    expect(HZApp.Autocomplete.createListener.calls.count()).toEqual(1);
   });
 
   it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){

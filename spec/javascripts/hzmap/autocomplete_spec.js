@@ -24,4 +24,11 @@ describe ('Testing autocomplete operations', function() {
     expect(document.getElementById.calls.count()).toEqual(1);
     expect(document.getElementById.calls.allArgs()[0][0]).toEqual('search-field-small');
   });
+
+  it("should add a listener for when a place is selected", function() {
+    spyOn(HZApp.Autocomplete, 'addListener');
+    HZApp.Autocomplete.createListener();
+    expect(HZApp.Autocomplete.autocomplete.addListener.calls.count()).toEqual(1)
+  });
+
 });
