@@ -215,5 +215,13 @@ var HZSpecHelper = {
         }
       ]
     }
+  },
+  mockKeyEvent: function(ctrl, meta, key){
+    return {
+      preventDefault: function(){},
+      ctrlKey: ctrl,
+      metaKey: meta,
+      keyCode: key,
+    }
   }
 };

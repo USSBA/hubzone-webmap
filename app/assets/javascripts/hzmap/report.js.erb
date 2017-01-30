@@ -54,11 +54,7 @@ HZApp.Report = (function(){
     },
     requestReportError: function(){
       $('#report-waiting').html('Error Generating Report');
-      
-      setTimeout(function(){
-        $('#report-waiting').html();
-        $('#report-waiting').hide();
-      }, 7500);
+      HZApp.Report.clearReportWaiting(7500);
     },
     showReportWaiting: function(){
       $('#report-waiting').html('Generating Report...');
@@ -66,11 +62,13 @@ HZApp.Report = (function(){
     },
     hideReportWaiting: function(){
       $('#report-waiting').html('Report Created');
-      
+      HZApp.Report.clearReportWaiting(5000);
+    },
+    clearReportWaiting: function(timeout){
       setTimeout(function(){
         $('#report-waiting').html();
         $('#report-waiting').hide();
-      }, 5000);
+      }, timeout);
     }
   };
 })();
