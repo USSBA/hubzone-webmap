@@ -4,6 +4,7 @@ default: &defaults
   hubzone_api_search_path: '/api/search'
   hubzone_report_host: <%= ENV["HUBZONE_REPORT_API_HOST"] || "http://localhost:3002" %>
   hubzone_api_report_path: '/report'
+  hubzone_report_request_type: <%= ENV["HUBZONE_REPORT_REQUEST_TYPE"] || "ajax_get" %>
   google_api_key: <%= ENV["HUBZONE_GOOGLE_API_KEY"] ||
                       "need to set HUBZONE_GOOGLE_API_KEY in your environment!"
                       %>

@@ -51,6 +51,7 @@ en:
     not_qualified: "Not Qualified"
     expiring: "Expiring"
     expires: "Expires"
+    expired: "Expired"
     qct: "Census Tract"
     qct_e: "Census Tract"
     qct_b: "Census Tract | Base Closure Area"

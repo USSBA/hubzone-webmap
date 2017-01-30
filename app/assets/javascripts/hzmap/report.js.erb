@@ -18,39 +18,51 @@ HZApp.Report = (function(){
     },
     requestReport: function() {  // fetch the app state to send off to the report
       HZApp.Report.showReportWaiting();
-      var reportCenter;
-      var searchAddress = HZApp.HZQuery.formatted_address;
+
+      var url = "<%= MAP_CONFIG[:hubzone_report_host] + MAP_CONFIG[:hubzone_api_report_path] %>"; //jshint ignore:line
+      url += HZApp.Report.getRequestParams();
+
+      var request_type = "<%= MAP_CONFIG[:hubzone_report_request_type] %>"; //jshint ignore:line
+      if (request_type === "window_open"){
+        window.open(url, '_blank');
+      } else {
+        var req = new XMLHttpRequest();
+        req.open("GET", url, true);
+        req.responseType = "blob";
+        req.onerror = HZApp.Report.requestReportError;
+        req.onload = function (event) { // jshint ignore: line
+          HZApp.Report.hideReportWaiting();
+          var blob = req.response;
+          var link = document.createElement('a');
+          link.target = '_blank';
+          link.href = window.URL.createObjectURL(blob);
+          link.download = ("hz_report" + "_address_" + 
+                           HZApp.HZQuery.formatted_address.replace(' ', '-') + ".pdf");
+          link.click();
+          window.URL.revokeObjectURL(link.href);
+        };
+
+        req.send();
+      }
+    },
+    getRequestParams:function(){
+      var params = {};
+      params.hubzone = encodeURIComponent(JSON.stringify(HZApp.HZQuery.hubzone));
+      params.formatted_address = encodeURIComponent(HZApp.HZQuery.formatted_address);
+      params.zoom = HZApp.map.getZoom(); 
+      params.locale = document.documentElement.lang; //jshint ignore: line
       var queryMarker = HZApp.Markers.hzQueryMarker.markers[0];
       if (queryMarker){
-        reportCenter = [queryMarker.getPosition().lat(), queryMarker.getPosition().lng()].join(',');
+        params.latlng = [queryMarker.getPosition().lat(), queryMarker.getPosition().lng()].join(',');
       } else {
-        reportCenter = [HZApp.map.getCenter().lat(), HZApp.map.getCenter().lng()].join(','); 
+        params.latlng = [HZApp.map.getCenter().lat(), HZApp.map.getCenter().lng()].join(','); 
       }
-      var mapZoom = HZApp.map.getZoom();
 
-      var url = 'map/report?';
-          url += 'latlng=' + reportCenter;
-          url += '&zoom=' + mapZoom;
-          url += '&formatted_address=' + encodeURIComponent(searchAddress);
-
-      // window.open(url, '_blank');
-
-      var req = new XMLHttpRequest();
-      req.open("GET", url, true);
-      req.responseType = "blob";
-      req.onerror = HZApp.Report.requestReportError;
-      req.onload = function (event) { // jshint ignore: line
-        HZApp.Report.hideReportWaiting();
-        var blob = req.response;
-        var link=document.createElement('a');
-        link.target = '_blank';
-        link.href=window.URL.createObjectURL(blob);
-        link.download="hz_report" + "_address_" + searchAddress.replace(' ', '-') + "_latlng_" + reportCenter  + ".pdf";
-        link.click();
-        window.URL.revokeObjectURL(link.href);
-      };
-
-      req.send();
+      return ("?latlng=" + params.latlng + 
+              "&zoom=" + params.zoom + 
+              "&formatted_address=" + params.formatted_address + 
+              "&locale=" + params.locale + 
+              "&hubzone=" + params.hubzone);
     },
     requestReportError: function(){
       $('#report-waiting').html('Error Generating Report');
