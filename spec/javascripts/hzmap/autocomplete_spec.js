@@ -41,6 +41,7 @@ describe ('Testing autocomplete operations', function() {
 
     searchFormSelector = HZApp.Autocomplete.triggerSearch.calls.allArgs();
     expect(searchFormSelector[0][0].selector).toEqual('.usa-search');
+
     expect(HZApp.Autocomplete.triggerSearch.calls.count()).toEqual(1);
   });
 
