@@ -9,11 +9,12 @@ window.HZApp = {
     LayerUtils: {},
     LayerDefs: {}
   },
+  Legend: {},
   map: {},
   MapUtils: {},
   Markers: {},
   Print: {},
   sidebar: {},
   Styles: {},
-  WMSUtils: {}
+  WMSUtils: {},
 };

@@ -1,4 +1,5 @@
-//= require hzmap
+//= require hzmap/map
+//= require hzmap/map-utils
 //= require ../helpers/sinon-1.17.6
 //= require ../helpers/hz-jasmine
 /* jshint unused: false */
@@ -24,6 +25,7 @@ describe ('Testing map operations', function() {
     spyOn(HZApp.GeoLocation, 'getUserLocation');
     spyOn(HZApp.Autocomplete, 'createAutocomplete');
     spyOn(HZApp.Autocomplete, 'createListener');
+    spyOn(HZApp.Legend, 'buildLegend');
 
     HZApp.map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
     HZApp.map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
@@ -37,6 +39,8 @@ describe ('Testing map operations', function() {
     expect(HZApp.GeoLocation.getUserLocation.calls.count()).toEqual(1);
     expect(HZApp.Autocomplete.createAutocomplete.calls.count()).toEqual(1);
     expect(HZApp.Autocomplete.createListener.calls.count()).toEqual(1);
+    expect(HZApp.Legend.buildLegend.calls.count()).toEqual(1);
+
   });
 
   it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){
