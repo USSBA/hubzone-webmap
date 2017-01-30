@@ -31,7 +31,6 @@ describe ('Testing autocomplete operations', function() {
 
     autocompleteMock = new google.maps.places.Autocomplete('', '');
     HZApp.Autocomplete.createListener(autocompleteMock);
-
     expect(HZApp.Autocomplete.createListener.calls.count()).toEqual(1);
   });
 
