@@ -34,4 +34,14 @@ describe ('Testing autocomplete operations', function() {
     expect(HZApp.Autocomplete.createListener.calls.count()).toEqual(1);
   });
 
+  it("should trigger a search when place is clicked or entered", function() {
+    spyOn(HZApp.Autocomplete, 'triggerSearch');
+
+    HZApp.Autocomplete.triggerSearch($('.usa-search'));
+
+    searchFormSelector = HZApp.Autocomplete.triggerSearch.calls.allArgs();
+    expect(searchFormSelector[0][0].selector).toEqual('.usa-search');
+    expect(HZApp.Autocomplete.triggerSearch.calls.count()).toEqual(1);
+  });
+
 });
