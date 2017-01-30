@@ -1,0 +1,49 @@
+@import 'variables';
+
+#sba-logo {
+  max-width: 8.5rem;
+  float: left;
+  padding-top: .7rem;
+}
+.usa-header {
+  border-bottom: none;
+}
+.usa-logo-text a > h1 {
+  font-family: $font-sans;
+  font-size: 3.6rem;
+  font-weight: 700;
+  color: $gray-dark;
+  float: left;
+  clear: none;
+  margin: 0 0 0 2rem;
+  padding: 0;
+}
+.usa-navbar {
+  border-bottom: 1px solid $gray-lighter;
+}
+.usa-nav-secondary {
+  position: fixed;
+  top: -4.5rem;
+  right: 2rem;
+}
+.usa-nav-secondary-links li:not(:last-child)::after {
+  content: none;
+}
+.usa-nav-secondary-links > li {
+  padding-left: 2.5rem;
+}
+.usa-banner-inner {
+  max-width: 100%;
+  padding: 0 2rem 0 2rem;
+}
+.usa-header-extended .usa-logo {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.usa-header-extended .usa-nav {
+  border-top: none;
+}
+.usa-header-extended .usa-navbar {
+  max-width: 100%;
+  padding: 0 2rem 0 2rem;
+}
