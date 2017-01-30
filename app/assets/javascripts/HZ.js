@@ -5,6 +5,7 @@ window.HZApp = {
   Constructors: {},
   GA: {},
   GeoLocation: {},
+  HZQuery: {},
   Layers: {
     LayerUtils: {},
     LayerDefs: {}
