@@ -471,7 +471,7 @@ div[dir="ltr"] {
     padding-left: .25rem;
   }
   .map-print {
-    display: none;
+
   }
   .usa-menu-btn {
     display: none;
@@ -506,8 +506,11 @@ div[dir="ltr"] {
   #sidebar {
     width: 100%;
     height: auto;
-    bottom: 0;
+    top: 100%;
     background-color: transparent;
+  }
+  .sidebar-card.search-result {
+    margin-top: -95px;
   }
   .sidebar-card {
     width: 100%;
@@ -539,7 +542,7 @@ div[dir="ltr"] {
     font-size: 1em;
   }
   .sidebar-qualifications tbody {
-    display: none;
+
   }
 }
 
@@ -555,7 +558,7 @@ div[dir="ltr"] {
 }
 
 
-/* Printing styles */
+/* Printing styles
 @media print {
   .usa-banner {
     display: none;
@@ -604,3 +607,4 @@ div[dir="ltr"] {
   width: 450px;
   height: 450px;
 }
+*/
