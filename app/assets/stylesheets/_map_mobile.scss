@@ -21,6 +21,9 @@
   .usa-logo {
     margin-left: .5rem;
   }
+  .usa-header-extended .usa-navbar {
+    padding-left: 0rem;
+  }
   .usa-header-extended .usa-logo {
     margin-top: 0rem;
   }
@@ -92,7 +95,8 @@
     background-color: transparent;
   }
   .sidebar-card.search-result {
-    margin-top: -95px;
+    margin-top: -100px;
+    min-height: 5.1rem;
   }
   .sidebar-card {
     width: 100%;
