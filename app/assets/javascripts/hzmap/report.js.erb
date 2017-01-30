@@ -1,10 +1,21 @@
 // reporting utility
 HZApp.Report = (function(){
+
+  //adds listeners
   $(function() {
+    $(document).bind("keydown", HZApp.Report.catchKeyStrokeToPrint);
     $(document).on('click','#map-print', HZApp.Report.requestReport);
   });
 
   return {
+    catchKeyStrokeToPrint: function(e){
+      if((e.ctrlKey || e.metaKey) && e.keyCode === 80){
+        e.preventDefault();
+        HZApp.Report.requestReport();
+      } else {
+        return;
+      }
+    },
     requestReport: function() {  // fetch the app state to send off to the report
       HZApp.Report.showReportWaiting();
       var reportCenter;
@@ -28,7 +39,7 @@ HZApp.Report = (function(){
       req.open("GET", url, true);
       req.responseType = "blob";
       req.onerror = HZApp.Report.requestReportError;
-      req.onload = function (event) {
+      req.onload = function (event) { // jshint ignore: line
         HZApp.Report.hideReportWaiting();
         var blob = req.response;
         var link=document.createElement('a');
