@@ -14,6 +14,8 @@ HZApp.Autocomplete = {
     autocompleteObject.addListener('place_changed', this.triggerSearch($('.usa-search')) );
   },
   triggerSearch: function($selector) {
-    return function() {$selector.submit();}
+    return function() {
+      $selector.submit();
+    };
   }
 };
