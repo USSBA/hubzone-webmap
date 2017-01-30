@@ -29,8 +29,9 @@ function initMap() {
   //adds listener that triggers whenever the map is idle to update with new features.
   google.maps.event.addListener(HZApp.map, 'idle', HZApp.WMSUtils.updateIdleMap);
 
-  //adds autocomplete
+  //adds autocomplete and click listener
   HZApp.Autocomplete.createAutocomplete();
+  HZApp.Autocomplete.createListener(HZApp.Autocomplete.autocomplete);
 
   // build out the markers
   /* jshint ignore:start */

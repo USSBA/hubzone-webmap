@@ -113,6 +113,7 @@ var HZSpecHelper = {
       places: {
         Autocomplete: function () {
           return {
+             addListener: function () { },
              getPlacePredictions: function () { }
           };
         }
@@ -151,12 +152,12 @@ var HZSpecHelper = {
   },
   fakeNavLocation: {
     getCurrentPosition: function(){}
-  },  
+  },
   fakeGeolocation: function(){
     if (navigator.geolocation === null || navigator.geolocation === undefined){
       return null;
     } else {
-      return spyOn(navigator.geolocation, 'getCurrentPosition');      
+      return spyOn(navigator.geolocation, 'getCurrentPosition');
     }
   }
 };
