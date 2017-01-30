@@ -20,7 +20,7 @@ HZApp.Report = (function(){
       HZApp.Report.showReportWaiting();
 
       var url = "<%= MAP_CONFIG[:hubzone_report_host] + MAP_CONFIG[:hubzone_api_report_path] %>"; //jshint ignore:line
-      url += HZApp.Report.getRequestParams();
+      url += HZApp.Report.getReportRequestParams(HZApp.HZQuery);
 
       var request_type = "<%= MAP_CONFIG[:hubzone_report_request_type] %>"; //jshint ignore:line
       if (request_type === "window_open"){
@@ -37,7 +37,7 @@ HZApp.Report = (function(){
           link.target = '_blank';
           link.href = window.URL.createObjectURL(blob);
           link.download = ("hz_report" + "_address_" + 
-                           HZApp.HZQuery.formatted_address.replace(' ', '-') + ".pdf");
+                           HZApp.HZQuery.formatted_address.replace(' ', '_') + ".pdf");
           link.click();
           window.URL.revokeObjectURL(link.href);
         };
@@ -45,18 +45,20 @@ HZApp.Report = (function(){
         req.send();
       }
     },
-    getRequestParams:function(){
+    //takes a hzQuery object as input and parses it for a report GET
+    getReportRequestParams:function(hzQuery){
       var params = {};
-      params.hubzone = encodeURIComponent(JSON.stringify(HZApp.HZQuery.hubzone));
-      params.formatted_address = encodeURIComponent(HZApp.HZQuery.formatted_address);
-      params.zoom = HZApp.map.getZoom(); 
-      params.locale = document.documentElement.lang; //jshint ignore: line
-      var queryMarker = HZApp.Markers.hzQueryMarker.markers[0];
+      params.hubzone = encodeURIComponent(JSON.stringify(hzQuery.hubzone));
+      params.formatted_address = encodeURIComponent(hzQuery.formatted_address);
+      var queryMarker = hzQuery.geolocation;
       if (queryMarker){
-        params.latlng = [queryMarker.getPosition().lat(), queryMarker.getPosition().lng()].join(',');
+        params.latlng = [queryMarker.lat, queryMarker.lng].join(',');
       } else {
         params.latlng = [HZApp.map.getCenter().lat(), HZApp.map.getCenter().lng()].join(','); 
       }
+      
+      params.locale = document.documentElement.lang; //jshint ignore: line
+      params.zoom = HZApp.map.getZoom(); 
 
       return ("?latlng=" + params.latlng + 
               "&zoom=" + params.zoom + 
