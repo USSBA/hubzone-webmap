@@ -336,10 +336,18 @@ i.fa.fa-print {
   padding: .5rem 2rem 0 2rem;
 }
 
+#map-print{
+  cursor: pointer;
+  display: inline;
+}
 i.fa-file-pdf-o{
   font-size: 2.5rem;
   color: $gray-dark;
   padding: .5rem 2rem 0 2rem;
+}
+
+#report-waiting {
+  display: none;
 }
 
 /* Google Maps Controls */

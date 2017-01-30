@@ -10,7 +10,13 @@ class ReportController < ApplicationController
     path = "#{MAP_CONFIG[:hubzone_api_report_path]}?#{query}"
     response = connection.request(method: :get,
                                   path: path)
-    send_data response.body, :type => "application/pdf", :filename => "hubzone_assertion_report.pdf"
+    if response.status == 200
+      send_data response.body, :type => "application/pdf", 
+                               :filename => "hubzone_assertion_report.pdf",
+                               :disposition => "inline"
+    else
+      send_data :message => 'bad request', :status => 400
+    end
   end
 
   def format_query_string(params)

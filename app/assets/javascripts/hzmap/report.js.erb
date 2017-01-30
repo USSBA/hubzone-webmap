@@ -1,69 +1,64 @@
 // reporting utility
 HZApp.Report = (function(){
-  (function initialize(){
-    // Catch control+p and re-layout page for printing
-    $(document).bind("keydown", HZApp.Report.catchKeyStrokeToPrint);
-
-    // Listener for map icon click
-    $(function() {
-      // Web-kit
-      this.mediaQueryList = window.matchMedia('print');
-      this.mediaQueryList.addListener(HZApp.Report.catchMediaQuery);
-      $(document).on('click','#map-print', HZApp.Report.catchReportEvent);
-    });
-  })();
+  $(function() {
+    $(document).on('click','#map-print', HZApp.Report.requestReport);
+  });
 
   return {
-    mapBounds: {},
-    mapCenter: [],
-    mapZoom: null,
-    catchKeyStrokeToPrint: function(e){
-      if((e.ctrlKey || e.metaKey) && e.keyCode === 80){
-        HZApp.Report.catchReportEvent();
-      } else {
-        return;
-      }
-    },
-    catchReportEvent: function(e){
-      e.preventDefault();
-      HZApp.Report.requestReport();
-    },
-    catchMediaQuery: function(mql){
-      if (mql.matches) {
-        HZApp.Report.catchReportEvent();
-      } else {
-        return;
-      }
-    },
     requestReport: function() {  // fetch the app state to send off to the report
+      HZApp.Report.showReportWaiting();
       var reportCenter;
+      var searchAddress = "";
       var queryMarker = HZApp.Markers.hzQueryMarker.markers[0];
       if (queryMarker){
-        reportCenter = [queryMarker.getPosition().lat(), queryMarker.getPosition().lng()];
+        reportCenter = [queryMarker.getPosition().lat(), queryMarker.getPosition().lng()].join(',');
       } else {
-        reportCenter = [HZApp.map.getCenter().lat(), HZApp.map.getCenter().lng()]; 
+        reportCenter = [HZApp.map.getCenter().lat(), HZApp.map.getCenter().lng()].join(','); 
       }
       var mapZoom = HZApp.map.getZoom();
 
       var url = 'map/report?';
-          url += 'latlng=' + reportCenter.join(',');
+          url += 'latlng=' + reportCenter;
           url += '&zoom=' + mapZoom;
           url += '&formatted_address=';
 
-      window.open(url, '_blank');
+      // window.open(url, '_blank');
+
+      var req = new XMLHttpRequest();
+      req.open("GET", url, true);
+      req.responseType = "blob";
+      req.onerror = HZApp.Report.requestReportError;
+      req.onload = function (event) {
+        HZApp.Report.hideReportWaiting();
+        var blob = req.response;
+        var link=document.createElement('a');
+        link.target = '_blank';
+        link.href=window.URL.createObjectURL(blob);
+        link.download="hz_report" + "_address_" + searchAddress + "_latlng_" + reportCenter  + ".pdf";
+        link.click();
+        window.URL.revokeObjectURL(link.href);
+      };
+      req.send();
+    },
+    requestReportError: function(){
+      $('#report-waiting').html('Error Generating Report');
       
-      // var req = new XMLHttpRequest();
-      // req.open("GET", url, true);
-      // req.responseType = "blob";
-      // req.onload = function (event) {
-      //   var blob = req.response;
-      //   console.log(blob.size);
-      //   var link=document.createElement('a');
-      //   link.href=window.URL.createObjectURL(blob);
-      //   link.download="hz_report_" + new Date() + ".pdf";
-      //   link.click();
-      // };
-      // req.send();
+      setTimeout(function(){
+        $('#report-waiting').html();
+        $('#report-waiting').hide();
+      }, 7500);
+    },
+    showReportWaiting: function(){
+      $('#report-waiting').html('Generating Report...');
+      $('#report-waiting').show();
+    },
+    hideReportWaiting: function(){
+      $('#report-waiting').html('Report Created');
+      
+      setTimeout(function(){
+        $('#report-waiting').html();
+        $('#report-waiting').hide();
+      }, 5000);
     }
   };
 })();
