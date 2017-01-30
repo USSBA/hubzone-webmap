@@ -8,7 +8,7 @@ HZApp.Report = (function(){
     requestReport: function() {  // fetch the app state to send off to the report
       HZApp.Report.showReportWaiting();
       var reportCenter;
-      var searchAddress = "";
+      var searchAddress = HZApp.HZQuery.formatted_address;
       var queryMarker = HZApp.Markers.hzQueryMarker.markers[0];
       if (queryMarker){
         reportCenter = [queryMarker.getPosition().lat(), queryMarker.getPosition().lng()].join(',');
@@ -20,7 +20,7 @@ HZApp.Report = (function(){
       var url = 'map/report?';
           url += 'latlng=' + reportCenter;
           url += '&zoom=' + mapZoom;
-          url += '&formatted_address=';
+          url += '&formatted_address=' + encodeURIComponent(searchAddress);
 
       // window.open(url, '_blank');
 
@@ -34,10 +34,11 @@ HZApp.Report = (function(){
         var link=document.createElement('a');
         link.target = '_blank';
         link.href=window.URL.createObjectURL(blob);
-        link.download="hz_report" + "_address_" + searchAddress + "_latlng_" + reportCenter  + ".pdf";
+        link.download="hz_report" + "_address_" + searchAddress.replace(' ', '-') + "_latlng_" + reportCenter  + ".pdf";
         link.click();
         window.URL.revokeObjectURL(link.href);
       };
+
       req.send();
     },
     requestReportError: function(){

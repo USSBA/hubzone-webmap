@@ -20,7 +20,7 @@ class ReportController < ApplicationController
   end
 
   def format_query_string(params)
-    "latlng=#{params[:latlng]}&zoom=#{params[:zoom]}&formatted_address=#{params[:formatted_address]}"
+    URI.encode("latlng=#{params[:latlng]}&zoom=#{params[:zoom]}&formatted_address=#{params[:formatted_address]}")
   end
 
   private
