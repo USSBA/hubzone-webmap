@@ -24,13 +24,20 @@ HZApp.Layers.LayerDefs = (function(){
     strokeWidth: 1.25,
     tileSize: 10,
 
+    // USWDS Alt 1
     qctColor: '#4DAF4A',
     qnmcColor: '#377EB8',
     indianLandsColor: '#FF7F00'
+
+    // color brewer 2
+    // qctColor: '#1b9e77',
+    // qnmcColor: '#d95f02',
+    // indianLandsColor: '#7570b3'
   };
 
   var hzWMSOverlays = {
     indian_lands: {
+      legendType: 'indian_lands',
       overlay: [],
       sldXMLStyle: null,
       styleOptions: [
@@ -45,6 +52,7 @@ HZApp.Layers.LayerDefs = (function(){
       ]
     },
     qnmc_e: {
+      legendType: 'qnmc',
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
@@ -59,6 +67,7 @@ HZApp.Layers.LayerDefs = (function(){
       ]
     },
     qnmc_r: {
+      legendType: 'redesignated',
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
@@ -76,6 +85,7 @@ HZApp.Layers.LayerDefs = (function(){
       ]
     },
     qnmc_brac: {
+      legendType: 'brac',
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
@@ -95,6 +105,7 @@ HZApp.Layers.LayerDefs = (function(){
       ]
     },
     qct_e: {
+      legendType: 'qct',
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
@@ -109,6 +120,7 @@ HZApp.Layers.LayerDefs = (function(){
       ]
     },
     qct_r: {
+      legendType: 'redesignated',
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
@@ -126,6 +138,7 @@ HZApp.Layers.LayerDefs = (function(){
       ]
     },
     qct_brac: {
+      legendType: 'brac',
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
@@ -145,6 +158,7 @@ HZApp.Layers.LayerDefs = (function(){
       ]
     },    
     brac: {
+      legendType: 'brac',
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [

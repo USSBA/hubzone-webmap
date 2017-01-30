@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   scope '/map' do
     get 'search', to: 'map#search'
+    get 'translate', to: 'map#translate'
     get 'aws-hc', to: 'health_check#status'
     get '/', to: 'map#index', as: :map
   end

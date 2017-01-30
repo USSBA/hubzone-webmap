@@ -7,15 +7,33 @@ var HZSpecHelper = {
   //build a dummy sidebar and mapbody
   mockPage: {
     build: function(){
+      //add map
       var mapBodyDiv = document.createElement('div');
-      $(mapBodyDiv).addClass('map-body');
+      $(mapBodyDiv).addClass('map-body mock-page');
       $('body').append(mapBodyDiv);
-      $('body').append('<div id="header" class="hidden"></div>');
-      $('#header').append('<div id="search-field-small" class="hidden"></div>')
-      $('body').append('<div id="sidebar" class="hidden"></div>');
-      $('body').append('<div id="geolocation" class="hidden"></div>');
+
+      //add header and search
+      $('body').append('<div id="header" class=" mock-page hidden"></div>');
+      $('#header').append('<div id="search-field-small" class="mock-page hidden"></div>')
+      
+      //add legend
+      $('body').append('<div id="legend" class="mock-page"><ul>' + 
+                        '<li id="legend-header">' + 
+                          '<span id="legend-header-title" style="display: none;">Legend</span>' +
+                          '<div id="legend-button-div">' +
+                            '<i id="hide-legend-button" class="fa fa-chevron-down" aria-hidden="true"></i>' +
+                            '<i id="show-legend-button" class="fa fa-chevron-up" aria-hidden="true" style="display: none;"></i>' +
+                          '</div>' +
+                        '</li>' +
+                        '</ul></dir>');
+
+      //add geolocation button
+      $('body').append('<div id="geolocation" class=" mock-page hidden"></div>');
       $('#geolocation').append('<i class="fa fa-location-arrow" style="display: block;"></i>')
       $('#geolocation').append('<div class="geolocation-loading" style="display: none;"></i>')
+
+      //add sidebar
+      $('body').append('<div id="sidebar" class="mock-page hidden"></div>');
       var testDiv = document.createElement('div');
       $('#sidebar').append(testDiv);
       $('#sidebar').css('display', 'none');
@@ -23,10 +41,11 @@ var HZSpecHelper = {
       return sidebar;
     },
     destroy: function(){
+      var mockElements = document.getElementsByClassName('mock-page');
+      for (var i = mockElements.length - 1; i >= 0; i--) { //iterate over in reverse order since mockElements is a live list
+        mockElements[i].remove();
+      }
       sidebar = {};
-      $('#sidebar').remove();
-      $('.map-body').remove();
-      $('#geolocation').remove();
     }
   },
   google: {
@@ -157,6 +176,44 @@ var HZSpecHelper = {
       return null;
     } else {
       return spyOn(navigator.geolocation, 'getCurrentPosition');      
+    }
+  },
+  testLayers: {
+    qnmc_e: {
+      legendType: 'qnmc',
+      styleOptions: [
+        {
+          type: 'polygon',
+          fillColor: '#00FF00',
+        }
+      ]
+    },
+    qct_r: {
+      legendType: 'redesignated',
+      styleOptions: [
+        {
+          type: 'horline',
+          lineStrokeColor: '#FF00FF',
+        }
+      ]
+    },
+    qnmc_r: {
+      legendType: 'redesignated',
+      styleOptions: [
+        {
+          type: 'horline',
+          lineStrokeColor: '#FF0000',
+        }
+      ]
+    },
+    qnmc_brac: {
+      legendType: 'brac',
+      styleOptions: [
+        {
+          type: 'circle',
+          circleFillColor: '#0000FF',
+        }
+      ]
     }
   }
 };
