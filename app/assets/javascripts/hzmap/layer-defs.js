@@ -25,9 +25,9 @@ HZApp.Layers.LayerDefs = (function(){
     tileSize: 10,
 
     // USWDS Alt 1
-    qctColor: '#4DAF4A',
-    qnmcColor: '#377EB8',
-    indianLandsColor: '#FF7F00'
+    qctColor: '#2E8540',
+    qnmcColor: '#0071BB',
+    indianLandsColor: '#4C2C92'
 
     // color brewer 2
     // qctColor: '#1b9e77',
@@ -74,7 +74,7 @@ HZApp.Layers.LayerDefs = (function(){
         {
           type: 'horline',
           lineStrokeColor: defaults.qnmcColor,
-          lineStrokeWidth: 5, 
+          lineStrokeWidth: 5,
           lineStrokeOpacity: defaults.fillOpacity,
           strokeWidth: defaults.strokeWidth,
           strokeColor: defaults.qnmcColor,
@@ -127,7 +127,7 @@ HZApp.Layers.LayerDefs = (function(){
         {
           type: 'horline',
           lineStrokeColor: defaults.qctColor,
-          lineStrokeWidth: 5, 
+          lineStrokeWidth: 5,
           lineStrokeOpacity: defaults.fillOpacity,
           strokeWidth: defaults.strokeWidth,
           strokeColor: defaults.qctColor,
@@ -156,7 +156,7 @@ HZApp.Layers.LayerDefs = (function(){
           graphicSpacing: defaults.graphicSpacing
         }
       ]
-    },    
+    },
     brac: {
       legendType: 'brac',
       overlay:[],

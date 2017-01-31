@@ -1,0 +1,10 @@
+/* Map body */
+.map-body {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 87px);
+}
+#map {
+  height: 100%;
+  width: 100%;
+}

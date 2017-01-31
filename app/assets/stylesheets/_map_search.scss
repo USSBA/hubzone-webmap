@@ -1,0 +1,83 @@
+@import 'variables';
+
+/* Map search */
+.hubzone-search {
+  position: absolute;
+  top: 10px;
+  z-index: 3;
+  left: 1.6rem;
+}
+#search-field-small {
+  background-color: $white;
+  border: .5px solid $gray;
+  border-right: none;
+  height: 4rem;
+  font-size: 2rem;
+  color: $gray;
+}
+#search-field-small::-webkit-input-placeholder {
+  color: $gray;
+}
+#search-field-small::-moz-placeholder {
+  color: $gray;
+  opacity: 1;
+}
+#search-field-small:-ms-input-placeholder {
+  color: $gray;
+}
+#map-search button {
+  background-color: $gray-dark;
+  background-size: 4rem;
+  height: 4rem;
+  float: left;
+}
+.usa-search.usa-search-small [type="search"],
+.usa-search.usa-search-small .usa-search-input {
+  max-width: 100%;
+}
+.pac-container {
+  background-color: $white;
+  color: $gray-dark;
+  border-top: none;
+  border-radius: 0;
+  margin-left: 1px;
+}
+.pac-icon {
+  display: none;
+}
+.pac-item {
+  font-family: $font-sans;
+  color: $gray-dark;
+  border: 0;
+  padding: .4em 0 .4em 1.25em;
+  font-size: 1.7rem;
+}
+.pac-matched {
+  color: $gray-dark;
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+.pac-item-query {
+  color: $gray-dark;
+  font-size: 1.8rem;
+}
+.pac-item-selected {
+  background-color: $gray-lightest;
+  color: $gray-dark;
+}
+.pac-item:hover {
+  background-color: $gray-lightest;
+  color: $gray-dark;
+}
+
+@media screen and (min-width: 951px) {
+  .usa-search.usa-search-small [type="search"],
+  .usa-search.usa-search-small .usa-search-input {
+    max-width: 100%;
+    width: 50rem;
+  }
+  #map-search button {
+    border-radius: 0 4px 4px 0;
+    width: 6rem;
+  }
+}

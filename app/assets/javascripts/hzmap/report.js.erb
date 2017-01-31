@@ -4,7 +4,7 @@ HZApp.Report = (function(){
   //adds listeners
   $(function() {
     $(document).bind("keydown", HZApp.Report.catchKeyStrokeToPrint);
-    $(document).on('click','#map-print', HZApp.Report.requestReport);
+    $(document).on('click','#map-report', HZApp.Report.requestReport);
   });
 
   return {
@@ -47,7 +47,7 @@ HZApp.Report = (function(){
       var link = document.createElement('a');
       link.target = '_blank';
       link.href = window.URL.createObjectURL(blob);
-      link.download = ("hz_report" + "_address_" + 
+      link.download = ("hz_report" + "_address_" +
                        HZApp.HZQuery.formatted_address.replace(' ', '_') + ".pdf");
       return link;
     },
@@ -58,26 +58,26 @@ HZApp.Report = (function(){
     //takes a hzQuery object as input and parses it for a report GET
     getReportRequestParams:function(hzQuery){
       var params = {};
-      params.zoom = hzQuery.zoom; 
+      params.zoom = hzQuery.zoom;
       params.hubzone = encodeURIComponent(JSON.stringify(hzQuery.hubzone));
       params.formatted_address = encodeURIComponent(hzQuery.formatted_address);
       var queryMarker = hzQuery.geocodeLocation;
       if (queryMarker){
         params.latlng = [queryMarker.lat, queryMarker.lng].join(',');
       } else {
-        params.latlng = [HZApp.map.getCenter().lat(), HZApp.map.getCenter().lng()].join(','); 
+        params.latlng = [HZApp.map.getCenter().lat(), HZApp.map.getCenter().lng()].join(',');
       }
-      
+
       params.locale = document.documentElement.lang || 'en'; //jshint ignore: line
 
-      return ("?latlng=" + params.latlng + 
-              "&zoom=" + params.zoom + 
-              "&formatted_address=" + params.formatted_address + 
-              "&locale=" + params.locale + 
+      return ("?latlng=" + params.latlng +
+              "&zoom=" + params.zoom +
+              "&formatted_address=" + params.formatted_address +
+              "&locale=" + params.locale +
               "&hubzone=" + params.hubzone);
     },
     requestReportError: function requestReportError(){
-      
+
       $('#report-waiting').html("<%= I18n.t('report.error') %>");
       HZApp.Report.clearReportWaiting(7500);
     },
@@ -97,7 +97,3 @@ HZApp.Report = (function(){
     }
   };
 })();
-
-
-
-
