@@ -9,6 +9,7 @@ describe ('Testing autocomplete operations', function() {
     google = HZSpecHelper.google;
     HZSpecHelper.mockPage.build();
     HZApp.map = new google.maps.Map();
+
   });
 
   afterEach(function(){
@@ -27,22 +28,28 @@ describe ('Testing autocomplete operations', function() {
   });
 
   it("should add a listener for when a place is selected", function() {
-    spyOn(HZApp.Autocomplete, 'createListener').and.callThrough();
-
+    spyOn(HZApp.Autocomplete, 'triggerSearch');
     autocompleteMock = new google.maps.places.Autocomplete('', '');
+    spyOn(autocompleteMock, 'addListener');
+
     HZApp.Autocomplete.createListener(autocompleteMock);
-    expect(HZApp.Autocomplete.createListener.calls.count()).toEqual(1);
+    
+    expect(HZApp.Autocomplete.triggerSearch.calls.count()).toEqual(1);
+    expect(autocompleteMock.addListener.calls.count()).toEqual(1);
+
   });
 
   it("should trigger a search when place is clicked or entered", function() {
-    spyOn(HZApp.Autocomplete, 'triggerSearch');
+    $('body').append('<div id="test" class="test"></div>');
+    var testDiv = $('.test');
+    spyOn(testDiv, 'submit');
 
-    HZApp.Autocomplete.triggerSearch($('.usa-search'));
+    var triggerCallback = HZApp.Autocomplete.triggerSearch(testDiv);
+    console.log(triggerCallback);
+    triggerCallback();
 
-    searchFormSelector = HZApp.Autocomplete.triggerSearch.calls.allArgs();
-    expect(searchFormSelector[0][0].selector).toEqual('.usa-search');
-
-    expect(HZApp.Autocomplete.triggerSearch.calls.count()).toEqual(1);
+    expect(testDiv.submit.calls.count()).toEqual(1);
+    $('#test').remove();
   });
 
 });
