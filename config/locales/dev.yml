@@ -80,3 +80,7 @@ dev:
     redesignated: "Rediseñado"
     qnmc: "Condado"
     brac: "Antigua base militare"
+  report: 
+    error: "Error al generar el informe"
+    generating: "Generar informe..."
+    created: "Informe creado"

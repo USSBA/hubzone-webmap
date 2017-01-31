@@ -75,6 +75,10 @@ en:
     redesignated: "Redesignated"
     qnmc: "County"
     brac: "Base Closure Area"
+  report:
+    error: "Error Generating Report"
+    generating: "Generating Report..."
+    created: "Report Created"
 
 
 

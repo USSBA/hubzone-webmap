@@ -1,6 +1,6 @@
+"<%= I18n.locale %>"
 // reporting utility
 HZApp.Report = (function(){
-
   //adds listeners
   $(function() {
     $(document).bind("keydown", HZApp.Report.catchKeyStrokeToPrint);
@@ -77,15 +77,16 @@ HZApp.Report = (function(){
               "&hubzone=" + params.hubzone);
     },
     requestReportError: function requestReportError(){
-      $('#report-waiting').html('Error Generating Report');
+      
+      $('#report-waiting').html("<%= I18n.t('report.error') %>");
       HZApp.Report.clearReportWaiting(7500);
     },
     showReportWaiting: function(){
-      $('#report-waiting').html('Generating Report...');
+      $('#report-waiting').html("<%= I18n.t('report.generating') %>");
       $('#report-waiting').show();
     },
     hideReportWaiting: function(){
-      $('#report-waiting').html('Report Created');
+      $('#report-waiting').html("<%= I18n.t('report.created') %>");
       HZApp.Report.clearReportWaiting(5000);
     },
     clearReportWaiting: function(timeout){
@@ -96,7 +97,6 @@ HZApp.Report = (function(){
     }
   };
 })();
-
 
 
 
