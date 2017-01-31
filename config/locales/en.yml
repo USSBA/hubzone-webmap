@@ -24,6 +24,8 @@ en:
   usa_banner:
     title: "An official website of the United States government"
   date:
+    month_names: [~, January, Febuary, March, April, May, June, July, August, September, October, November, December]
+    abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
     formats:
       full: " %B %d %Y"
   menu:
@@ -54,8 +56,8 @@ en:
     qct: "Census Tract"
     qct_e: "Census Tract"
     qct_b: "Census Tract | Base Closure Area"
-    qct_r: "Census Tract | Redesignated " 
-    qnmc: "Qualified County"
+    qct_r: "Census Tract | Redesignated"
+    qnmc: "County"
     qnmc_a: "County (unemployment)"
     qnmc_ab: "County (income & unemployment)"
     qnmc_b: "County (income)"
@@ -74,6 +76,3 @@ en:
     redesignated: "Redesignated"
     qnmc: "County"
     brac: "Base Closure Area"
-
-
-
