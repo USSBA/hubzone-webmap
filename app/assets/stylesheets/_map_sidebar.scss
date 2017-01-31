@@ -124,8 +124,13 @@ i.fa.fa-print {
 i.fa-file-pdf-o {
   font-size: 2.5rem;
   color: $gray-dark;
-  padding: .5rem 2rem 0 2rem;
+  padding: 0;
 }
 #report-waiting {
   display: none;
+}
+button#map-print {
+  background: none;
+  margin: .5rem 0rem .5rem 2.5rem;
+  padding: 0rem;
 }
