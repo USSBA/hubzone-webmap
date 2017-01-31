@@ -1,6 +1,4 @@
 //= require hzmap/report
-//= require ../helpers/sinon-1.17.6
-//= require ../helpers/hz-jasmine
 /* jshint unused: false */
 /* jshint undef: false */
 
@@ -38,6 +36,208 @@ describe ('Testing report operations', function() {
       HZApp.Report.catchKeyStrokeToPrint(printE);
       expect(HZApp.Report.requestReport.calls.count()).toEqual(0);
       expect(printE.preventDefault.calls.count()).toEqual(0);
+    });
+  });
+
+  describe('requestReport', function(){
+    beforeEach(function(){
+      google = HZSpecHelper.google;
+      HZApp.map = new google.maps.Map();
+      HZApp.HZQuery = {
+        hubzone: [
+          {
+            city: "Baltimore",
+            effective: "2016-01-01",
+            expires: null, 
+            hubzone_st: "Qualified",
+            hz_type: "qct_e",
+            qualified1: "Yes",
+            qualified_: "Yes",
+            redesignated: false
+          }
+        ],
+        formatted_address: "Banana Shire Way, Rocky Top, USA",
+        geocodeLocation: {lat: 45, lng: -108 },
+        zoom: 15,
+      };
+    });
+
+    it ('should prepare the correct XMLHttpRequest', function(){
+      spyOn(HZApp.Report, 'showReportWaiting');
+      spyOn(HZApp.Report, 'getReportRequestParams');
+      spyOn(HZApp.map, 'getZoom');
+      spyOn(HZApp.Report, 'buildAndRunRequest');
+      spyOn(window, 'XMLHttpRequest');
+
+      HZApp.Report.requestReport();
+      expect(HZApp.Report.showReportWaiting.calls.count()).toEqual(1);
+      expect(HZApp.Report.getReportRequestParams.calls.count()).toEqual(1);
+      expect(HZApp.Report.buildAndRunRequest.calls.count()).toEqual(1);
+      expect(HZApp.map.getZoom.calls.count()).toEqual(1);
+      expect(window.XMLHttpRequest.calls.count()).toEqual(1);
+    });
+
+    it ('should simply open the window with the url if needed', function(){
+      spyOn(HZApp.Report, 'showReportWaiting');
+      spyOn(HZApp.Report, 'getReportRequestParams');
+      spyOn(HZApp.map, 'getZoom');
+      spyOn(HZApp.Report, 'buildAndRunRequest');
+      spyOn(window, 'XMLHttpRequest');
+      spyOn(window, 'open');
+
+      HZApp.Report.requestReport('window_open');
+      expect(HZApp.Report.showReportWaiting.calls.count()).toEqual(1);
+      expect(HZApp.Report.getReportRequestParams.calls.count()).toEqual(1);
+      expect(HZApp.Report.buildAndRunRequest.calls.count()).toEqual(0);
+      expect(HZApp.map.getZoom.calls.count()).toEqual(1);
+      expect(window.XMLHttpRequest.calls.count()).toEqual(0);
+      expect(window.open.calls.count()).toEqual(1);
+    });
+
+    it ('should run the correct XMLHttpRequest', function(){
+      var url = 'blah';
+      var req = new XMLHttpRequest();
+      spyOn(req, 'open');
+      spyOn(req, 'send');
+      HZApp.Report.buildAndRunRequest(req, url);
+      expect(req.open.calls.count()).toEqual(1);
+      expect(req.send.calls.count()).toEqual(1);
+      expect(req.onerror.name).toEqual('requestReportError');
+      expect(req.onload.name).toEqual('handleReportResponse');
+    });
+  });
+
+  describe ('getReportRequestParams', function(){
+    beforeEach(function(){
+      google = HZSpecHelper.google;
+      HZApp.map = new google.maps.Map();
+    });
+
+    afterEach(function(){
+      HZApp.map = {};
+      google = {};
+    });
+
+    it ('should form the correct url param string when a marker is present', function(){
+      var mockHZQuery = {
+        hubzone: [
+          {
+            city: "Baltimore",
+            effective: "2016-01-01",
+            expires: null, 
+            hubzone_st: "Qualified",
+            hz_type: "qct_e",
+            qualified1: "Yes",
+            qualified_: "Yes",
+            redesignated: false
+          }
+        ],
+        formatted_address: "Banana Shire Way, Rocky Top, USA",
+        geocodeLocation: {lat: 45, lng: -108 },
+        zoom: 15,
+      };
+      var params = HZApp.Report.getReportRequestParams(mockHZQuery);
+      var expected = ("?latlng=" + ([mockHZQuery.geocodeLocation.lat, mockHZQuery.geocodeLocation.lng].join(',')) + 
+                      "&zoom=" + mockHZQuery.zoom + 
+                      "&formatted_address=" + encodeURIComponent(mockHZQuery.formatted_address) + 
+                      "&locale=" + (document.documentElement.lang || 'en') + 
+                      "&hubzone=" + encodeURIComponent(JSON.stringify(mockHZQuery.hubzone)));
+      expect(params).toEqual(expected);
+    });
+
+    it ('should form the correct url param string when no marker is present', function(){
+      var mockHZQuery = {
+        hubzone: [
+          {
+            city: "Baltimore",
+            effective: "2016-01-01",
+            expires: null, 
+            hubzone_st: "Qualified",
+            hz_type: "qct_e",
+            qualified1: "Yes",
+            qualified_: "Yes",
+            redesignated: false
+          }
+        ],
+        formatted_address: "Banana Shire Way, Rocky Top, USA",
+        zoom: 15,
+      };
+      var params = HZApp.Report.getReportRequestParams(mockHZQuery);
+      var expected = ("?latlng=" + ([HZApp.map.getCenter().lat(), HZApp.map.getCenter().lng()].join(',')) + 
+                      "&zoom=" + mockHZQuery.zoom + 
+                      "&formatted_address=" + encodeURIComponent(mockHZQuery.formatted_address) + 
+                      "&locale=" + (document.documentElement.lang || 'en') + 
+                      "&hubzone=" + encodeURIComponent(JSON.stringify(mockHZQuery.hubzone)));
+      expect(params).toEqual(expected);
+    });
+  });
+
+  describe ('report download callback', function(){
+    beforeEach(function(){
+      HZApp.HZQuery = {
+        hubzone: [
+          {
+            city: "Baltimore",
+            effective: "2016-01-01",
+            expires: null, 
+            hubzone_st: "Qualified",
+            hz_type: "qct_e",
+            qualified1: "Yes",
+            qualified_: "Yes",
+            redesignated: false
+          }
+        ],
+        formatted_address: "Banana Shire Way, Rocky Top, USA",
+        geocodeLocation: {lat: 45, lng: -108 },
+        zoom: 15,
+      };
+      
+      mockResponse = {
+        currentTarget: {
+          response: new Blob([""], {type: 'application/pdf'})
+        }
+      };
+
+      fakeLinkDiv = document.createElement('div');
+    });
+
+    afterEach(function(){
+      fakeLinkDiv.remove();
+    });
+
+    it ('generateDownloadLink should generate the correct download link from a response object', function(){
+      spyOn(window.URL, 'createObjectURL');
+      var downloadLink = HZApp.Report.generateDownloadLink(mockResponse.currentTarget.response);
+      var expectedLink = ('<a target="_blank"' + 
+                          ' href=""' +
+                          ' download="hz_report_address_' + HZApp.HZQuery.formatted_address.replace(' ', '_') + '.pdf"' + 
+                          '></a>');
+      fakeLinkDiv.innerHTML = expectedLink;
+      
+      expect(downloadLink.download).toEqual(fakeLinkDiv.firstChild.download);
+      expect(downloadLink.target).toEqual(fakeLinkDiv.firstChild.target);
+      expect(window.URL.createObjectURL.calls.count()).toEqual(1);
+    });
+
+    it('downloadReport should click and then revoke a link', function(){
+      spyOn(window.URL, 'revokeObjectURL');
+      var downloadLink = HZApp.Report.generateDownloadLink(mockResponse.currentTarget.response);
+      spyOn(downloadLink, 'click');
+
+      HZApp.Report.downloadReport(downloadLink);
+      expect(downloadLink.click.calls.count()).toEqual(1);
+      expect(window.URL.revokeObjectURL.calls.allArgs()[0][0]).toEqual(downloadLink.href);
+    });
+
+    it ('handleReportResponse should be called with the response event', function(){
+      spyOn(HZApp.Report, 'hideReportWaiting');
+      spyOn(HZApp.Report, 'generateDownloadLink');
+      spyOn(HZApp.Report, 'downloadReport');
+
+      HZApp.Report.handleReportResponse(mockResponse);
+      expect(HZApp.Report.hideReportWaiting.calls.count()).toEqual(1);
+      expect(HZApp.Report.generateDownloadLink.calls.allArgs()[0][0]).toEqual(mockResponse.currentTarget.response);
+      expect(HZApp.Report.downloadReport.calls.count()).toEqual(1);
     });
   });
 
@@ -88,7 +288,5 @@ describe ('Testing report operations', function() {
       expect($('#report-waiting').html()).toEqual('Error Generating Report');
       expect(HZApp.Report.clearReportWaiting.calls.count()).toEqual(1);
     });
-
-
   });
 });
