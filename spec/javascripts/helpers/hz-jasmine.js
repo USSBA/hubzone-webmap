@@ -141,6 +141,7 @@ var HZSpecHelper = (function(){
         places: {
           Autocomplete: function () {
             return {
+               addListener: function () { },
                getPlacePredictions: function () { }
             };
           }
