@@ -117,7 +117,7 @@ i.fa.fa-print {
   color: $gray-dark;
   padding: .5rem 2rem 0 2rem;
 }
-#map-print {
+#map-report {
   cursor: pointer;
   display: inline;
 }
@@ -129,7 +129,7 @@ i.fa-file-pdf-o {
 #report-waiting {
   display: none;
 }
-button#map-print {
+button#map-report {
   background: none;
   margin: .5rem 0rem .5rem 2.5rem;
   padding: 0rem;

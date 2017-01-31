@@ -23,6 +23,7 @@
   }
   .usa-header-extended .usa-navbar {
     padding-left: 0rem;
+    border: none;
   }
   .usa-header-extended .usa-logo {
     margin-top: 0rem;
@@ -55,9 +56,6 @@
   .pac-item {
     padding-left: .25rem;
   }
-  .map-print {
-
-  }
   .usa-menu-btn {
     display: none;
   }
@@ -82,6 +80,11 @@
   #legend {
     display: none;
   }
+  button#map-report {
+    text-align: left;
+    margin: .5rem 0 .5rem 2rem;
+    cursor: pointer;
+  }
   .gmnoprint {
     display: none;
   }
@@ -94,8 +97,10 @@
     top: 100%;
     background-color: transparent;
   }
-  .sidebar-card.search-result {
+  #sidebar-content {
     margin-top: -100px;
+  }
+  .sidebar-card.search-result {
     min-height: 5.1rem;
   }
   .sidebar-card {

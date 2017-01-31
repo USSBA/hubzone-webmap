@@ -1,7 +1,7 @@
 // reporting utility
 HZApp.Report = (function(){
   $(function() {
-    $(document).on('click','#map-print', HZApp.Report.requestReport);
+    $(document).on('click','#map-report', HZApp.Report.requestReport);
   });
 
   return {
@@ -13,7 +13,7 @@ HZApp.Report = (function(){
       if (queryMarker){
         reportCenter = [queryMarker.getPosition().lat(), queryMarker.getPosition().lng()].join(',');
       } else {
-        reportCenter = [HZApp.map.getCenter().lat(), HZApp.map.getCenter().lng()].join(','); 
+        reportCenter = [HZApp.map.getCenter().lat(), HZApp.map.getCenter().lng()].join(',');
       }
       var mapZoom = HZApp.map.getZoom();
 
@@ -42,7 +42,7 @@ HZApp.Report = (function(){
     },
     requestReportError: function(){
       $('#report-waiting').html('Error Generating Report');
-      
+
       setTimeout(function(){
         $('#report-waiting').html();
         $('#report-waiting').hide();
@@ -54,7 +54,7 @@ HZApp.Report = (function(){
     },
     hideReportWaiting: function(){
       $('#report-waiting').html('Report Created');
-      
+
       setTimeout(function(){
         $('#report-waiting').html();
         $('#report-waiting').hide();

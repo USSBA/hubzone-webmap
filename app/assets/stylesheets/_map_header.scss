@@ -18,9 +18,6 @@
   margin: 0 0 0 2rem;
   padding: 0;
 }
-.usa-navbar {
-  border-bottom: 1px solid $gray-lighter;
-}
 .usa-nav-secondary {
   position: fixed;
   top: -4.5rem;
@@ -46,4 +43,5 @@
 .usa-header-extended .usa-navbar {
   max-width: 100%;
   padding: 0 2rem 0 2rem;
+  border-bottom: 2px solid $gray-lighter;
 }
