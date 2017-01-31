@@ -34,14 +34,6 @@ class MapController < ApplicationController
     end
   end
 
-  # helper route for translating a string - will simply accept a set of parameters and send them right back to the appropirate translate.js.erb templates
-  def translate
-    @body = params
-    respond_to do |format|
-      format.js
-    end
-  end
-
   private
 
   def connection

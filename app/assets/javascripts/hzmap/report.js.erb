@@ -1,7 +1,3 @@
-/* jshint ignore: start */
-"<%= I18n.locale %>" 
-/* jshint ignore: end */
-
 // reporting utility
 HZApp.Report = (function(){
   //adds listeners
@@ -81,15 +77,15 @@ HZApp.Report = (function(){
     },
     requestReportError: function requestReportError(){
 
-      $('#report-waiting').html("<%= I18n.t('report.error') %>");
+      $('#report-waiting').html(I18n.t('report.error'));
       HZApp.Report.clearReportWaiting(7500);
     },
     showReportWaiting: function(){
-      $('#report-waiting').html("<%= I18n.t('report.generating') %>");
+      $('#report-waiting').html(I18n.t('report.generating'));
       $('#report-waiting').show();
     },
     hideReportWaiting: function(){
-      $('#report-waiting').html("<%= I18n.t('report.created') %>");
+      $('#report-waiting').html(I18n.t('report.created'));
       HZApp.Report.clearReportWaiting(5000);
     },
     clearReportWaiting: function(timeout){

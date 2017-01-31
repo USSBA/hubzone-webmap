@@ -22,16 +22,17 @@ options:
     "$":      true
     ActionCable: true
     App: true
-    GeoLocation: true
-    HZ: true
-    HZApp: true
     constructSLDXML: true
     ga: true
+    GeoLocation: true
     google:   true
+    HZ: true
+    HZApp: true
     hzBaseMapStyle: true
     hzQueryMarker: true
     hzUserLocation: true
     hzWMSOverlays: true
+    I18n: true
     jumpToLocation: true
     map: true
     sidebar: true
