@@ -18,5 +18,5 @@ window.HZApp = {
   Report: {},
   sidebar: {},
   Styles: {},
-  WMSUtils: {},
+  WMSUtils: {}
 };

@@ -2,13 +2,13 @@
 HZApp.GA = (function() {
 
   window.console = window.console || { };
-  if ( window.console.log == null ) {
+  if ( window.console.log === null ) {
     window.console.log = function() { };
   }
 
   return {
     navigateToPage: function(url){
-      return document.location = url;
+      return (document.location = url);
     },
     openLink : function( url, category, action, label, value ) {
       // console.log( "GA.openLink: ", url, category, action, label, value );
