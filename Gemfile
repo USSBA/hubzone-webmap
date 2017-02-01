@@ -4,6 +4,7 @@ gem 'coffee-rails', '~> 4.2' # Use CoffeeScript for .coffee assets and views
 gem 'dotenv-rails' # Use dotenv to load environment variables
 gem 'excon-rails' # Use excon rails for http requests
 gem 'font-awesome-rails', '>= 4.7.0' # Use Font Awesome for CSS Icons
+gem 'i18n-js', ">= 3.0.0.rc15" #extend i18n support directly into JS
 gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jquery-rails' # Use jquery as the JavaScript library
 gem 'pg' # Use PostgreSQL as the database for Active Record
@@ -12,7 +13,6 @@ gem 'rails', '~> 5.0.1' # Bundle edge Rails instead: gem 'rails', github: 'rails
 gem 'rb-readline' # Why is this suddenly such a problem?
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
-gem 'i18n-js', ">= 3.0.0.rc15" #extend i18n support directly into JS
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 # gem 'turbolinks', '~> 5'
