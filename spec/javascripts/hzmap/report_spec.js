@@ -63,14 +63,12 @@ describe ('Testing report operations', function() {
     });
 
     it ('should prepare the correct XMLHttpRequest', function(){
-      spyOn(HZApp.Report, 'showReportWaiting');
       spyOn(HZApp.Report, 'getReportRequestParams');
       spyOn(HZApp.map, 'getZoom');
       spyOn(HZApp.Report, 'buildAndRunRequest');
       spyOn(window, 'XMLHttpRequest');
 
-      HZApp.Report.requestReport();
-      expect(HZApp.Report.showReportWaiting.calls.count()).toEqual(1);
+      HZApp.Report.requestReport({}, "ajax_get");
       expect(HZApp.Report.getReportRequestParams.calls.count()).toEqual(1);
       expect(HZApp.Report.buildAndRunRequest.calls.count()).toEqual(1);
       expect(HZApp.map.getZoom.calls.count()).toEqual(1);
@@ -78,15 +76,13 @@ describe ('Testing report operations', function() {
     });
 
     it ('should simply open the window with the url if needed', function(){
-      spyOn(HZApp.Report, 'showReportWaiting');
       spyOn(HZApp.Report, 'getReportRequestParams');
       spyOn(HZApp.map, 'getZoom');
       spyOn(HZApp.Report, 'buildAndRunRequest');
       spyOn(window, 'XMLHttpRequest');
       spyOn(window, 'open');
 
-      HZApp.Report.requestReport('window_open');
-      expect(HZApp.Report.showReportWaiting.calls.count()).toEqual(1);
+      HZApp.Report.requestReport({}, 'window_open');
       expect(HZApp.Report.getReportRequestParams.calls.count()).toEqual(1);
       expect(HZApp.Report.buildAndRunRequest.calls.count()).toEqual(0);
       expect(HZApp.map.getZoom.calls.count()).toEqual(1);
@@ -95,6 +91,7 @@ describe ('Testing report operations', function() {
     });
 
     it ('should run the correct XMLHttpRequest', function(){
+      spyOn(HZApp.Report, 'showReportWaiting');
       var url = 'blah';
       var req = new XMLHttpRequest();
       spyOn(req, 'open');
@@ -104,6 +101,7 @@ describe ('Testing report operations', function() {
       expect(req.send.calls.count()).toEqual(1);
       expect(req.onerror.name).toEqual('requestReportError');
       expect(req.onload.name).toEqual('handleReportResponse');
+      expect(HZApp.Report.showReportWaiting.calls.count()).toEqual(1);
     });
   });
 

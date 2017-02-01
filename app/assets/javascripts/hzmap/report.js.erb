@@ -15,14 +15,14 @@ HZApp.Report = (function(){
         return;
       }
     },
-    requestReport: function() {  // fetch the app state to send off to the report
-      HZApp.Report.showReportWaiting();
+
+    requestReport: function(event, request_type_arg) {  // fetch the app state to send off to the report
       HZApp.HZQuery.zoom = HZApp.map.getZoom();
 
       var url = "<%= MAP_CONFIG[:hubzone_report_host] + MAP_CONFIG[:hubzone_api_report_path] %>"; //jshint ignore:line
       url += HZApp.Report.getReportRequestParams(HZApp.HZQuery);
 
-      request_type = "<%= MAP_CONFIG[:hubzone_report_request_type] %>" //jshint ignore:line
+      var request_type = request_type_arg || "<%= MAP_CONFIG[:hubzone_report_request_type] %>" //jshint ignore:line
       if (request_type === "window_open"){
         window.open(url, '_blank');
       } else {
@@ -31,6 +31,7 @@ HZApp.Report = (function(){
       }
     },
     buildAndRunRequest: function(req, url){
+      HZApp.Report.showReportWaiting();
       req.open("GET", url, true);
       req.responseType = "blob";
       req.onerror = HZApp.Report.requestReportError;
