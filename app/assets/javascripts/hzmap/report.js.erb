@@ -10,19 +10,19 @@ HZApp.Report = (function(){
     catchKeyStrokeToPrint: function(e){
       if((e.ctrlKey || e.metaKey) && e.keyCode === 80){
         e.preventDefault();
-        HZApp.Report.requestReport("<%= MAP_CONFIG[:hubzone_report_request_type] %>"); //jshint ignore:line
+        HZApp.Report.requestReport(); 
       } else {
         return;
       }
     },
-    requestReport: function(request_type) {  // fetch the app state to send off to the report
+    requestReport: function() {  // fetch the app state to send off to the report
       HZApp.Report.showReportWaiting();
-
       HZApp.HZQuery.zoom = HZApp.map.getZoom();
 
       var url = "<%= MAP_CONFIG[:hubzone_report_host] + MAP_CONFIG[:hubzone_api_report_path] %>"; //jshint ignore:line
       url += HZApp.Report.getReportRequestParams(HZApp.HZQuery);
 
+      request_type = "<%= MAP_CONFIG[:hubzone_report_request_type] %>" //jshint ignore:line
       if (request_type === "window_open"){
         window.open(url, '_blank');
       } else {
