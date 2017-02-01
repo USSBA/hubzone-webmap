@@ -1,6 +1,4 @@
 //= require hzmap/autocomplete
-//= require ../helpers/sinon-1.17.6
-//= require ../helpers/hz-jasmine
 /* jshint unused: false */
 /* jshint undef: false */
 
@@ -45,7 +43,6 @@ describe ('Testing autocomplete operations', function() {
     spyOn(testDiv, 'submit');
 
     var triggerCallback = HZApp.Autocomplete.triggerSearch(testDiv);
-    console.log(triggerCallback);
     triggerCallback();
 
     expect(testDiv.submit.calls.count()).toEqual(1);

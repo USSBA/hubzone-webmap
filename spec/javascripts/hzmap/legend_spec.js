@@ -1,6 +1,4 @@
 //= require hzmap/legend
-//= require ../helpers/sinon-1.17.6
-//= require ../helpers/hz-jasmine
 /* jshint unused: false */
 /* jshint undef: false */
 
@@ -118,12 +116,10 @@ describe ('Testing legend operations', function() {
 
   describe ('insertLegendItem', function(){
 
-
     var testLegend = function(legendItem){
       describe('on ' + legendItem, function(){         
         it ('builds out a legend with the correct features for ' + legendItem, function(){
           var legendProps = HZApp.Legend.legend[legendItem];
-          $('#legend-' + legendItem).append('<span>' + HZApp.Legend.legend[legendItem].title + '</span>');
           expect($('#legend-' + legendItem + ' > span').text()).toEqual(legendProps.title);
           var legendSvg = $('#legend-' + legendItem + ' > svg');
           var legendSvgLength = legendSvg['length'] || 0;
@@ -135,32 +131,6 @@ describe ('Testing legend operations', function() {
     Object.keys(HZApp.Legend.legend).map(function(legendItem){
       testLegend(legendItem);
     });
-
-    it ('handles ajax error state too', function(){
-      spyOn(HZApp.Legend, 'insertLegendItemTitle');
-      var layer = 'qct';
-      HZApp.Legend.legend[layer].svg.push('<svg></svg>');
-
-      spyOn($, 'ajax').and.callFake(function(options){
-        options.error();
-      });
-
-      HZApp.Legend.insertLegendItem(layer);
-      expect(HZApp.Legend.insertLegendItemTitle.calls.count()).toEqual(1);
-    });
-  });
-
-  describe ('insertLegendItemTitle', function(){
-
-    it ('inserts the correct title', function(){
-      var fakeIdVal = 'Bananas';
-      var fakeId = 'legend-' + fakeIdVal;
-      var fakeString = 'cucumber';
-      $('#legend > ul').append('<li id="' + fakeId  + '"></li>');
-      HZApp.Legend.insertLegendItemTitle(fakeString, {string: fakeIdVal});
-      expect($('#'+fakeId + ' > span').text()).toEqual(fakeString);
-    });
-
   });
 
   describe ('toggle legend visibility', function(){

@@ -27,7 +27,7 @@ dev:
     month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
     abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic]
     formats:
-      full: " desde %B %d %Y"
+      full: " %B %d %Y"
   menu:
     hubzone_program: "Programa HUBZone"
     accessible_version: "Versión accesible"
@@ -51,9 +51,13 @@ dev:
     qualified: "HUBZone Calificado"
     qualified_short: "Calificado"
     not_qualified: "HUBZone No Calificado"
+    expired: "Muerto"
+    expiring: "Caducando"
+    expires: "Caduca"
     qct: "Zona censal"
     qct_e: "Zona censal"
     qct_b: "Zona censal | BRAC"
+    qct_r: "Zona censal | rediseñado"
     qnmc: "Condado"
     qnmc_a: "Condado (desempleo)"
     qnmc_ab: "Condado (ingresos y desempleo)"
@@ -66,10 +70,6 @@ dev:
     indian_lands: "Tierra Indígena"
     brac: "Antigua base militare (BRAC)"
     disaster_area: "Área de Desastre Designada"
-  hubzone_status:
-    qualified: "HUBZone calificado"
-    expiring: "caducando"
-    not_qualified: "No calificado"
   legend:
     title: "Leyenda"
     qct: "Zona censal"
@@ -77,3 +77,7 @@ dev:
     redesignated: "Rediseñado"
     qnmc: "Condado"
     brac: "Antigua base militare"
+  report:
+    error: "Error al generar el informe"
+    generating: "Generar informe..."
+    created: "Informe creado"

@@ -5,6 +5,7 @@ window.HZApp = {
   Constructors: {},
   GA: {},
   GeoLocation: {},
+  HZQuery: {},
   Layers: {
     LayerUtils: {},
     LayerDefs: {}
@@ -14,7 +15,8 @@ window.HZApp = {
   MapUtils: {},
   Markers: {},
   Print: {},
+  Report: {},
   sidebar: {},
   Styles: {},
-  WMSUtils: {},
+  WMSUtils: {}
 };

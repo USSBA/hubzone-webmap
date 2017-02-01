@@ -52,7 +52,7 @@ describe "the sidebar", type: :feature do
     end
     it "should have Print icon" do
       click_button "hubzone-search-button"
-      expect(page).to have_css('.map-print')
+      expect(page).to have_css('#map-report')
     end
     it "should be visible" do
       click_button "hubzone-search-button"

@@ -1,12 +1,12 @@
 $('#sidebar-content').html("<%= j render partial: "map_sidebar", locals: {body: JSON.parse(@body)} %>");  // jshint ignore:line
-var responseBody = JSON.parse('<%= @body.html_safe %>');
-var geocodeLocation = null;
-if (responseBody.geometry){
+HZApp.HZQuery = JSON.parse('<%= @body.html_safe %>');
+HZApp.HZQuery.geocodeLocation = null;
+if (HZApp.HZQuery.geometry){
   HZApp.MapUtils.jumpToLocation({
-    viewport: responseBody.geometry.viewport,
-    location: responseBody.geometry.location
+    viewport: HZApp.HZQuery.geometry.viewport,
+    location: HZApp.HZQuery.geometry.location
   });
-  geocodeLocation = responseBody.geometry.location;
+  HZApp.HZQuery.geocodeLocation = HZApp.HZQuery.geometry.location;
 }
 sidebar.open();
-HZApp.Markers.hzQueryMarker.updateMarkers(geocodeLocation);
+HZApp.Markers.hzQueryMarker.updateMarkers(HZApp.HZQuery.geocodeLocation);
