@@ -1,0 +1,83 @@
+//= require hzmap/geolocation
+/* jshint unused: false */
+/* jshint undef: false */
+
+describe ('Testing geolocation operations', function() {
+  beforeEach(function(){
+    google = HZSpecHelper.google;
+    HZApp.map = new google.maps.Map();
+    spyOn(google.maps, 'Map').and.returnValue(HZApp.map);
+    spyOn(google.maps.event, 'addListener');
+    spyOn(HZApp.map, 'addListener');
+    HZApp.Markers.hzUserLocation = new HZApp.Constructors.HubzoneMapMarker({icon: null});  
+    HZSpecHelper.mockPage.build();
+  });
+
+  afterEach(function(){
+    HZApp.map = {};
+    HZApp.Markers.hzUserLocation = {};
+    HZSpecHelper.mockPage.destroy();
+  });
+
+  it("should get users location", function(){
+    var geoLocationSpy = HZSpecHelper.fakeGeolocation();
+    var locationResp;
+    if (geoLocationSpy !== null){
+      locationResp = HZApp.GeoLocation.getUserLocation(navigator.geolocation);
+      expect(locationResp).toBeDefined();
+      expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(1);
+    } else {
+      spyOn(HZSpecHelper.fakeNavLocation, 'getCurrentPosition');
+      locationResp = HZApp.GeoLocation.getUserLocation(HZSpecHelper.fakeNavLocation);
+      expect(locationResp).toEqual(HZSpecHelper.fakeNavLocation);
+      expect(HZSpecHelper.fakeNavLocation.getCurrentPosition.calls.count()).toEqual(1);
+    }
+  });
+
+  it("should handle when no user location is available", function(){
+    var locationResp = HZApp.GeoLocation.getUserLocation(null);
+    expect(locationResp).toEqual(null);
+    expect($('#geolocation i').css('display')).toEqual('block');
+    expect($('.geolocation-loading').css('display')).toEqual('none');  
+  });
+
+  it("on button click, should trigger getCurrentPosition", function(){
+    spyOn(HZApp.GeoLocation, 'getUserLocation');
+    HZApp.GeoLocation.catchGeoLocationButtonClick();
+    expect(HZApp.GeoLocation.getUserLocation.calls.count()).toEqual(1);
+  });
+
+  it("should log if browser doesn't support geolocation", function(){
+    var geoLocationSpy = HZSpecHelper.fakeGeolocation();
+    var locationResp = HZApp.GeoLocation.getUserLocation(undefined);
+    if (geoLocationSpy !== null){
+      expect(navigator.geolocation.getCurrentPosition.calls.count()).toEqual(0);
+    } else {
+      expect(locationResp).toEqual(null);
+    }
+  });
+
+  it("should update button style on geolocation error", function(){
+    HZApp.GeoLocation.geolocationError();
+    expect($('#geolocation i').css('display')).toEqual('block');
+    expect($('.geolocation-loading').css('display')).toEqual('none');
+  });
+
+  it("should move to a users location", function(){
+    spyOn(HZApp.map, 'setCenter');
+    spyOn(HZApp.map, 'setZoom');
+    spyOn(google.maps, 'Marker');
+
+    position = {coords: {latitude: 39.2896, longitude: -76.6076}, timestamp: 1484169325902};
+
+    HZApp.GeoLocation.moveMapToUserLocation(position);
+    expect(HZApp.map.setCenter).toHaveBeenCalledWith({
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    });
+    expect(HZApp.map.setCenter.calls.count()).toEqual(1);
+    expect(HZApp.map.setZoom.calls.count()).toEqual(1);
+    expect(google.maps.Marker.calls.count()).toEqual(1);
+
+  });
+});

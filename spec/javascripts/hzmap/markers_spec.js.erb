@@ -1,0 +1,42 @@
+//= require hzmap/markers
+/* jshint unused: false */
+/* jshint undef: false */
+
+describe ('Testing marker operations', function() {
+  beforeEach(function(){
+    google = HZSpecHelper.google;
+    HZApp.map = new google.maps.Map();
+    spyOn(google.maps, 'Map').and.returnValue(HZApp.map);
+    spyOn(google.maps.event, 'addListener');
+    spyOn(HZApp.map, 'addListener');
+    HZSpecHelper.resetOverlays();
+    HZApp.Markers.hzUserLocation = new HZApp.Constructors.HubzoneMapMarker({icon: null});  
+  });
+
+  afterEach(function(){
+    HZApp.map = {};
+    HZApp.Markers.hzUserLocation = {};
+  });
+
+  it("should add a marker object", function(){
+    var stubMapMarker = new HZApp.Constructors.HubzoneMapMarker({icon: null});  
+    var stubGoogleMarker = new HZSpecHelper.MapMarker();
+    spyOn(stubGoogleMarker, 'setMap');
+    spyOn(google.maps, 'Marker');
+    stubMapMarker.markers.push(stubGoogleMarker);
+    stubMapMarker.updateMarkers(HZSpecHelper.markerLocation);
+    expect(google.maps.Marker.calls.count()).toEqual(1);
+    expect(stubGoogleMarker.setMap.calls.count()).toEqual(1);
+    expect(stubMapMarker.markers[0]).not.toEqual(stubGoogleMarker);
+  });
+
+  it("should empty the marker object", function(){
+    var stubMapMarker = new HZApp.Constructors.HubzoneMapMarker({icon: null});  
+    var stubGoogleMarker = new HZSpecHelper.MapMarker();
+    spyOn(stubGoogleMarker, 'setMap');
+    spyOn(google.maps, 'Marker');
+    stubMapMarker.markers.push(stubGoogleMarker);
+    stubMapMarker.updateMarkers();
+    expect(stubMapMarker.markers.length).toEqual(0);
+  });
+});

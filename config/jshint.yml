@@ -1,0 +1,40 @@
+files: ["**/*.js", "**/*.js.erb"] # No need to put app/assets/ or vendor/assets here
+exclude_paths: ["vendor/assets/*", "**/helpers/"]
+include_paths: ["app/views/", "spec/javascripts"]
+options:
+  boss:       true
+  browser:    true
+  curly:      true
+  eqeqeq:     true
+  eqnull:     true
+  expr:       true
+  immed:      true
+  indent:     2
+  latedef:    nofunc
+  maxcomplexity: 5
+  newcap:     true
+  noarg:      true
+  sub:        true
+  trailing:   true
+  undef:      true
+  unused:     true
+  globals:
+    "$":      true
+    ActionCable: true
+    App: true
+    constructSLDXML: true
+    ga: true
+    GeoLocation: true
+    google:   true
+    HZ: true
+    HZApp: true
+    hzBaseMapStyle: true
+    hzQueryMarker: true
+    hzUserLocation: true
+    hzWMSOverlays: true
+    I18n: true
+    jumpToLocation: true
+    map: true
+    sidebar: true
+    updateAccordions: true
+    updateMarkers: true
