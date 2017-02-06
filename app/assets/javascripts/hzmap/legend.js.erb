@@ -107,9 +107,10 @@ HZApp.Legend = (function(){
     insertLegendItem: function(legendItem){
       var li = '<li id="legend-' + legendItem + '" class="legend-item">';
       HZApp.Legend.legend[legendItem].svg.map(function(svg){ li += svg; });
+      li += "<input id='truth' type='checkbox' name=" + legendItem + " value='truth' checked>"
       li += '</li>';
       $('#legend > ul').append(li);
-      $('#legend-' + legendItem).append('<span>' + I18n.t('legend.' + legendItem) + '</span>');
+      $('#legend-' + legendItem).append('<label for=' + legendItem + '>' +I18n.t('legend.' + legendItem) + '</label>');
     },
     legendTypeToColorType: { //mapping style type to css/svg color parameter
       'polygon': 'fillColor',
