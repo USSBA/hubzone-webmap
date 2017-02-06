@@ -18,20 +18,7 @@
         <% end %>
   </div>
   <div id="legend">
-    <ul>
-      <li id="legend-header">
-        <span id="legend-header-title-expanded" class="legend-title">
-          HUBZones
-        </span>
-        <span id="legend-header-title-hidden" class="legend-title" style="display: none;">
-          <%= t('legend.title') %>
-        </span>
-        <div id="legend-button-div">
-          <i id="hide-legend-button" class="fa fa-chevron-down" aria-hidden="true"></i>
-          <i id="show-legend-button" class="fa fa-chevron-up" aria-hidden="true" style="display: none;"></i>
-        </div>
-      </li>
-    </ul>
+     <%= render partial: "map_legend", locals: {body: nil} %>
   </div>
   <div id="geolocation" class="gmnoprint">
     <i class="fa fa-location-arrow" aria-hidden="true"></i>

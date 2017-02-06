@@ -158,7 +158,7 @@ HZApp.Layers.LayerDefs = (function(){
       ]
     },
     brac: {
-      legendType: 'brac',
+      legendType: 'brac_base',
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
