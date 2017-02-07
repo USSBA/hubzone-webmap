@@ -4,6 +4,16 @@
   width: 100%;
   height: calc(100% - 87px);
 }
+@media only screen and (max-width: 950px)  {
+  .map-body {
+    height: calc(100% - 60px);
+  }
+}
+@media only screen and (max-width: 480px) {
+  .map-body {
+    height: calc(100% - 40px);
+  }
+}
 #map {
   height: 100%;
   width: 100%;

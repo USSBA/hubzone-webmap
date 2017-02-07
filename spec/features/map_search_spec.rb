@@ -67,6 +67,10 @@ describe 'the map search', type: :feature, js: true do
           click_button 'hubzone-search-button'
           expect(page).to have_content(I18n.l(Date.today, format: :full))
         end
+        it "should provide a clear search button" do
+          fill_in 'search', with: queries[:qualified_multiple]
+          expect(page).to have_css(".clear-search")
+        end
       end
 
       context 'with non-qualified hubzone query' do

@@ -3,12 +3,18 @@
 /* Google Maps Controls */
 .gm-svpc {
   transition-duration: 400ms;
+  border-radius: 3px !important;
 }
 .gm-tilt {
   transition-duration: 400ms;
+  border-radius: 3px !important;
 }
 .gmnoprint {
   transition-duration: 400ms;
+  border-radius: 3px !important;
+}
+.gmnoprint > div {
+  border-radius: 3px !important;
 }
 .gm-sidebar-on {
   left: -34rem !important;
@@ -22,7 +28,6 @@ div[dir="ltr"] {
 .gm-iv-address {
   height: auto !important;
 }
-
 /* Geolocation Loading Spinner */
 .geolocation-loading {
   width: 16px;
@@ -58,13 +63,12 @@ div[dir="ltr"] {
     -webkit-transform: scale(1.0);
   }
 }
-
 /* Geolocation Button */
 #geolocation {
   width: 28px;
   height: 28px;
   background-color: $white;
-  border-radius: 2px;
+  border-radius: 3px;
   -webkit-box-shadow: 0px 1px 4px -1px rgba(0,0,0,0.29);
   -moz-box-shadow: 0px 1px 4px -1px rgba(0,0,0,0.29);
   box-shadow: 0px 1px 4px -1px rgba(0,0,0,0.29);
@@ -78,4 +82,27 @@ div[dir="ltr"] {
 }
 .geolocation-sidebar-on {
   right: 34rem !important;
+}
+@media only screen and (max-width: 950px)  {
+  #geolocation {
+    display: block;
+    top: 50px;
+    width: 40px;
+    height: 40px;
+  }
+  #geolocation .fa-location-arrow {
+    font-size: 3rem;
+    margin-left: 2px;
+    margin-top: -1px;
+  }
+  .geolocation-loading {
+    width: 28px;
+    height: 28px;
+  }
+  .geolocation-sidebar-on {
+    right: 0rem !important;
+  }
+  .gmnoprint {
+    display: none;
+  }
 }

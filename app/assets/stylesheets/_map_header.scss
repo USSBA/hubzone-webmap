@@ -45,3 +45,41 @@
   padding: 0 2rem 0 2rem;
   border-bottom: 2px solid $gray-lighter;
 }
+@media only screen and (max-width: 950px)  {
+  #sba-logo {
+    max-width: 6rem;
+    padding-top: 1rem;
+  }
+  #map-search button {
+    background-size: 3.5rem;
+  }
+  .usa-navbar {
+    border-bottom: none;
+  }
+  .usa-banner-header {
+    padding-left: .5rem;
+  }
+  .usa-banner-inner {
+    padding-left: 0;
+  }
+  .usa-logo {
+    margin-left: .5rem;
+  }
+  .usa-header-extended .usa-navbar {
+    padding-left: 0rem;
+    border: none;
+  }
+  .usa-header-extended .usa-logo {
+    margin-top: 0rem;
+  }
+  .usa-logo-text a > h1 {
+    margin: 0.7rem 0 0 1rem;
+    font-size: 2.2rem;
+    font-weight: 400;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .usa-banner {
+    display: none;
+  }
+}
