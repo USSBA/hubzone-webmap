@@ -17,7 +17,7 @@
   margin: 0;
 }
 #legend li {
-
+  vertical-align: middle;
 }
 #legend li svg {
   vertical-align: middle;
@@ -39,7 +39,6 @@
   cursor: pointer;
   vertical-align: middle;
 }
-
 @media only screen and (max-width: 950px)  {
   #legend {
     display: none;

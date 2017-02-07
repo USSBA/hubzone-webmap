@@ -5,7 +5,7 @@
 describe ('Testing legend operations', function() {
   beforeEach(function(){
     HZSpecHelper.mockPage.build();
-    HZApp.Legend.buildLegend(HZSpecHelper.testLayers);  
+    HZApp.Legend.buildLegend(HZSpecHelper.testLayers);
   });
 
   afterEach(function(){
@@ -19,7 +19,7 @@ describe ('Testing legend operations', function() {
     beforeEach(function(){
       testLayers = HZSpecHelper.testLayers;
     });
-  
+
     it("should run the getConfigFromLayerStyle method on each layer", function(){
       spyOn(HZApp.Legend, 'getConfigFromLayerStyle').and.callThrough();
       spyOn(HZApp.Legend, 'insertLegendItem');
@@ -36,7 +36,7 @@ describe ('Testing legend operations', function() {
       expect(legendConfig.styleType).toEqual(layer.styleOptions[0].type);
       expect(legendConfig.styleColor).toEqual(layer.styleOptions[0][HZApp.Legend.legendTypeToColorType[legendConfig.styleType]]);
     });
-  }); 
+  });
 
   // these will test the SVG creatorsthat the correct styles are inserted in the right way
   describe ('Testing svg creators', function() {
@@ -117,11 +117,11 @@ describe ('Testing legend operations', function() {
   describe ('insertLegendItem', function(){
 
     var testLegend = function(legendItem){
-      describe('on ' + legendItem, function(){         
+      describe('on ' + legendItem, function(){
         it ('builds out a legend with the correct features for ' + legendItem, function(){
           var legendProps = HZApp.Legend.legend[legendItem];
-          expect($('#legend-' + legendItem + ' > span').text()).toEqual(legendProps.title);
-          var legendSvg = $('#legend-' + legendItem + ' > svg');
+          expect($('#legend-' + legendItem + '> label > span').text()).toEqual(legendProps.title);
+          var legendSvg = $('#legend-' + legendItem + '> label > svg');
           var legendSvgLength = legendSvg['length'] || 0;
           expect(legendSvgLength).toEqual(legendProps.svg.length);
         });
@@ -134,7 +134,7 @@ describe ('Testing legend operations', function() {
   });
 
   describe ('toggle legend visibility', function(){
-    
+
     it('should collapse the legend', function(){
       HZApp.Legend.hideLegend();
       expect($('#legend li.legend-item').is(':visible')).toBe(false);
@@ -142,7 +142,7 @@ describe ('Testing legend operations', function() {
       expect($('#legend-header-title-expanded').is(':visible')).toBe(false);
       expect($('#legend-header-title-hidden').css('display')).not.toEqual('none');
       expect($('#show-legend-button').css('display')).not.toEqual('none');
-    }); 
+    });
 
     it('should show the collapsed legend', function(){
       HZApp.Legend.hideLegend();
@@ -153,10 +153,10 @@ describe ('Testing legend operations', function() {
       expect($('#legend-header-title-hidden').is(':visible')).toBe(false);
       expect($('#legend-header-title-expanded').css('display')).not.toEqual('none');
       expect($('#show-legend-button').is(':visible')).toBe(false);
-    }); 
+    });
   });
 });
 
 
 
-        
+

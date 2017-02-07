@@ -105,11 +105,11 @@ HZApp.Legend = (function(){
       );
     },
     insertLegendItem: function(legendItem){
-      var li = '<li class="legend-item legend-' + legendItem + '">';
+      var li = '<li id="legend-' + legendItem + '"' + 'class="legend-item">';
       li += "<input id='truth' type='checkbox' name=" + legendItem + " value='truth' checked>";
       li += '<label for=' + legendItem + '>';
       HZApp.Legend.legend[legendItem].svg.map(function(svg){ li += svg; });
-      li += I18n.t('legend.' + legendItem);
+      li += '<span>' + I18n.t('legend.' + legendItem) + '</span>';
       li += '</label>';
       li += '</li>';
       $('#legend > ul').append(li);
