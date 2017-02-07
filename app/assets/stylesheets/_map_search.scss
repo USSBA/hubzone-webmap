@@ -1,6 +1,5 @@
 @import 'variables';
 
-/* Map search */
 .hubzone-search {
   position: absolute;
   top: 10px;
@@ -86,6 +85,32 @@ button.clear-search:hover {
 .pac-item:hover {
   background-color: $gray-lightest;
   color: $gray-dark;
+}
+
+@media only screen and (max-width: 950px)  {
+  .hubzone-search {
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-left: none;
+  }
+  #search-field-small {
+    border-left: none;
+    padding-left: 0.5rem;
+  }
+  #map-search button {
+    border-radius: 0;
+  }
+  .pac-container {
+    margin-left: 0;
+    border: none;
+  }
+  .pac-item {
+    padding-left: .25rem;
+  }
+  .usa-menu-btn {
+    display: none;
+  }
 }
 
 @media screen and (min-width: 951px) {

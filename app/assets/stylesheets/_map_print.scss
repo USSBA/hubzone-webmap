@@ -1,6 +1,10 @@
 @import 'variables';
 
-/* Printing styles */
+.map-body.printable-map {
+  width: 450px;
+  height: 450px;
+}
+
 @media print {
   .usa-banner {
     display: none;
@@ -44,8 +48,4 @@
   #sidebar-button {
     display: none;
   }
-}
-.map-body.printable-map {
-  width: 450px;
-  height: 450px;
 }

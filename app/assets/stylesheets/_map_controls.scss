@@ -28,7 +28,6 @@ div[dir="ltr"] {
 .gm-iv-address {
   height: auto !important;
 }
-
 /* Geolocation Loading Spinner */
 .geolocation-loading {
   width: 16px;
@@ -64,7 +63,6 @@ div[dir="ltr"] {
     -webkit-transform: scale(1.0);
   }
 }
-
 /* Geolocation Button */
 #geolocation {
   width: 28px;
@@ -84,4 +82,27 @@ div[dir="ltr"] {
 }
 .geolocation-sidebar-on {
   right: 34rem !important;
+}
+@media only screen and (max-width: 950px)  {
+  #geolocation {
+    display: block;
+    top: 50px;
+    width: 40px;
+    height: 40px;
+  }
+  #geolocation .fa-location-arrow {
+    font-size: 3rem;
+    margin-left: 2px;
+    margin-top: -1px;
+  }
+  .geolocation-loading {
+    width: 28px;
+    height: 28px;
+  }
+  .geolocation-sidebar-on {
+    right: 0rem !important;
+  }
+  .gmnoprint {
+    display: none;
+  }
 }
