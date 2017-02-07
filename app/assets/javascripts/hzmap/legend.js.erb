@@ -4,27 +4,33 @@ HZApp.Legend = (function(){
     legend: {
       'qct': {
         title: "Census Tract",
-        svg: []
+        svg: [],
+        canToggle: true
       },
       'qnmc': {
         title: "County",
-        svg: []
+        svg: [],
+        canToggle: true
       },
       'indian_lands': {
         title: "Indian Land",
-        svg: []
+        svg: [],
+        canToggle: true
       },
       'redesignated': {
         title: "Redesignated",
-        svg: []
+        svg: [],
+        canToggle: false
       },
       'brac': {
         title: "Base Closure Area",
-        svg: []
+        svg: [],
+        canToggle: false
       },
       'brac_base': {
         title: "Closed Base",
-        svg: []
+        svg: [],
+        canToggle: false
       }
     },
     buildLegend: function(layers){
@@ -36,6 +42,8 @@ HZApp.Legend = (function(){
       Object.keys(this.legend).map(HZApp.Legend.insertLegendItem);
 
       this.addLegendButtonListeners();
+
+      this.collapseLegendOnMobile();
 
     },
     addLegendButtonListeners: function(){
@@ -104,13 +112,23 @@ HZApp.Legend = (function(){
               '</g>'
       );
     },
-    insertLegendItem: function(legendItem){
+    insertLegendItem: function(legendItem) {
+      HZApp.Legend.legend[legendItem].canToggle ? HZApp.Legend.insertLegendItemToggle(legendItem) : HZApp.Legend.insertLegendItemNoToggle(legendItem);
+    },
+    insertLegendItemToggle: function(legendItem){
       var li = '<li id="legend-' + legendItem + '"' + 'class="legend-item">';
       li += "<input id='truth' type='checkbox' name=" + legendItem + " value='truth' checked>";
       li += '<label for=' + legendItem + '>';
       HZApp.Legend.legend[legendItem].svg.map(function(svg){ li += svg; });
       li += '<span>' + I18n.t('legend.' + legendItem) + '</span>';
       li += '</label>';
+      li += '</li>';
+      $('#legend > ul').append(li);
+    },
+    insertLegendItemNoToggle: function(legendItem){
+      var li = '<li id="legend-' + legendItem + '"' + 'class="legend-item no-toggle">';
+      HZApp.Legend.legend[legendItem].svg.map(function(svg){ li += svg; });
+      li += '<span>' + I18n.t('legend.' + legendItem) + '</span>';
       li += '</li>';
       $('#legend > ul').append(li);
     },
@@ -132,6 +150,13 @@ HZApp.Legend = (function(){
       $('#legend-header-title-expanded').show();
       $('#legend-header-title-hidden').hide();
       $('#show-legend-button').hide();
+    },
+    collapseLegendOnMobile: function() {
+      if (window.matchMedia("(min-width: 950px)").matches) {
+        HZApp.Legend.showLegend();
+      } else {
+        HZApp.Legend.hideLegend();
+      }
     }
   };
 })();
