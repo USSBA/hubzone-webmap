@@ -15,10 +15,10 @@ var HZSpecHelper = (function(){
         //add header and search
         $('body').append('<div id="header" class=" mock-page hidden"></div>');
         $('#header').append('<div id="search-field-small" class="mock-page hidden"></div>')
-        
+
         //add legend
-        $('body').append('<div id="legend" class="mock-page"><ul>' + 
-                          '<li id="legend-header">' + 
+        $('body').append('<div id="legend" class="mock-page"><ul>' +
+                          '<li id="legend-header">' +
                             '<span id="legend-header-title" style="display: none;">Legend</span>' +
                             '<div id="legend-button-div">' +
                               '<i id="hide-legend-button" class="fa fa-chevron-down" aria-hidden="true"></i>' +
@@ -180,12 +180,12 @@ var HZSpecHelper = (function(){
     },
     fakeNavLocation: {
       getCurrentPosition: function(){}
-    },  
+    },
     fakeGeolocation: function(){
       if (navigator.geolocation === null || navigator.geolocation === undefined){
         return null;
       } else {
-        return spyOn(navigator.geolocation, 'getCurrentPosition');      
+        return spyOn(navigator.geolocation, 'getCurrentPosition');
       }
     },
     testLayers: {
