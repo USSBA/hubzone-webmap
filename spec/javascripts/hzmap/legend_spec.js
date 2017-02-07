@@ -120,10 +120,18 @@ describe ('Testing legend operations', function() {
       describe('on ' + legendItem, function(){
         it ('builds out a legend with the correct features for ' + legendItem, function(){
           var legendProps = HZApp.Legend.legend[legendItem];
-          expect($('#legend-' + legendItem + '> label > span').text()).toEqual(legendProps.title);
-          var legendSvg = $('#legend-' + legendItem + '> label > svg');
-          var legendSvgLength = legendSvg['length'] || 0;
-          expect(legendSvgLength).toEqual(legendProps.svg.length);
+
+          if(HZApp.Legend.legend[legendItem].canToggle) {
+            expect($('#legend-' + legendItem + '> label > span').text()).toEqual(legendProps.title);
+            var legendSvgWithLabel = $('#legend-' + legendItem + '> label > svg');
+            var legendSvgWithLabelLength = legendSvgWithLabel['length'] || 0;
+            expect(legendSvgWithLabelLength).toEqual(legendProps.svg.length);
+          } else {
+            expect($('#legend-' + legendItem + '> span').text()).toEqual(legendProps.title);
+            var legendSvg = $('#legend-' + legendItem + '> svg');
+            var legendSvgLength = legendSvg['length'] || 0;
+            expect(legendSvgLength).toEqual(legendProps.svg.length);
+          }
         });
       });
     };
@@ -134,6 +142,18 @@ describe ('Testing legend operations', function() {
   });
 
   describe ('toggle legend visibility', function(){
+
+    it('should be initially collapsed on mobile', function() {
+      spyOn(HZApp.Legend, 'hideLegend');
+      HZApp.Legend.setLegendState(900);
+      expect(HZApp.Legend.hideLegend.calls.count()).toEqual(1);
+    });
+
+    it('should be initially expanded on desktop', function() {
+      spyOn(HZApp.Legend, 'showLegend');
+      HZApp.Legend.setLegendState(1000);
+      expect(HZApp.Legend.showLegend.calls.count()).toEqual(1);
+    });
 
     it('should collapse the legend', function(){
       HZApp.Legend.hideLegend();

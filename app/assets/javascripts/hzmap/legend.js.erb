@@ -43,7 +43,7 @@ HZApp.Legend = (function(){
 
       this.addLegendButtonListeners();
 
-      this.collapseLegendOnMobile();
+      this.setLegendState(window.innerWidth);
 
     },
     addLegendButtonListeners: function(){
@@ -151,8 +151,8 @@ HZApp.Legend = (function(){
       $('#legend-header-title-hidden').hide();
       $('#show-legend-button').hide();
     },
-    collapseLegendOnMobile: function() {
-      if (window.matchMedia("(min-width: 950px)").matches) {
+    setLegendState: function(windowWidth) {
+      if (windowWidth > 950) {
         HZApp.Legend.showLegend();
       } else {
         HZApp.Legend.hideLegend();
