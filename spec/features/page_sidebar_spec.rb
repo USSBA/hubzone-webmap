@@ -51,6 +51,7 @@ describe "the sidebar", type: :feature do
                  body: responses[:non_qualified].to_json)
     end
     it "should have Print icon" do
+      fill_in 'search', with: queries[:non_qualified]
       click_button "hubzone-search-button"
       expect(page).to have_css('#map-report')
     end
@@ -59,6 +60,7 @@ describe "the sidebar", type: :feature do
       expect(page).not_to have_css("#sidebar.hidden")
     end
     it "should move the zoom controls out" do
+      fill_in 'search', with: queries[:non_qualified]
       click_button "hubzone-search-button"
       expect(page).to have_css(".gm-sidebar-on")
     end

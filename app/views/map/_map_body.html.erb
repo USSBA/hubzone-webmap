@@ -12,7 +12,8 @@
           <%= hidden_field_tag "locale", I18n.locale %>
           <%= hidden_field_tag "query_date", Date.today %>
           <%= label_tag "search", 'HUBZone Map Search', class: "usa-sr-only" %>
-          <%= search_field_tag "search", nil, placeholder: t('map.enter_address'), id: "search-field-small"%>
+          <%= search_field_tag "search", nil, placeholder: t('map.enter_address'), id: "search-field-small", required: true %>
+          <%= button_tag "", class: "clear-search fa fa-times-circle", name: "search-clear", type: "reset" %>
           <%= button_tag '<span class="usa-sr-only search-icon">Search</span>'.html_safe, id: "hubzone-search-button" %>
         </div>
         <% end %>
