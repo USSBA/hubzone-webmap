@@ -23,10 +23,16 @@ describe ('Testing legend operations', function() {
     it("should run the getConfigFromLayerStyle method on each layer", function(){
       spyOn(HZApp.Legend, 'getConfigFromLayerStyle').and.callThrough();
       spyOn(HZApp.Legend, 'insertLegendItem');
+      spyOn(HZApp.Legend, 'addLegendToggleLayerListeners');
+      spyOn(HZApp.Legend, 'addLegendButtonListeners');
+      spyOn(HZApp.Legend, 'setLegendState');
 
       HZApp.Legend.buildLegend(testLayers);
       expect(HZApp.Legend.getConfigFromLayerStyle.calls.count()).toEqual(Object.keys(testLayers).length);
       expect(HZApp.Legend.insertLegendItem.calls.count()).toEqual(Object.keys(HZApp.Legend.legend).length);
+      expect(HZApp.Legend.addLegendToggleLayerListeners.calls.count()).toEqual(1);
+      expect(HZApp.Legend.addLegendButtonListeners.calls.count()).toEqual(1);
+      expect(HZApp.Legend.setLegendState.calls.count()).toEqual(1);
     });
 
     it("should parse the layer config into a legendConfig", function(){
@@ -173,6 +179,14 @@ describe ('Testing legend operations', function() {
       expect($('#legend-header-title-hidden').is(':visible')).toBe(false);
       expect($('#legend-header-title-expanded').css('display')).not.toEqual('none');
       expect($('#show-legend-button').is(':visible')).toBe(false);
+    });
+  });
+
+  describe ('toggle legend layer visibility', function() {
+    it('should listen for layer toggle checkbox click', function() {
+      spyOn(HZApp.Legend, 'toggleLayerVisibility');
+      $('input#mock-checkbox').trigger('click');
+      expect(HZApp.Legend.toggleLayerVisibility.toHaveBeenCalled());
     });
   });
 });

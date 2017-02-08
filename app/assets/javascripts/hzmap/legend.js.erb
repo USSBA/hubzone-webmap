@@ -45,6 +45,8 @@ HZApp.Legend = (function(){
 
       this.setLegendState(window.innerWidth);
 
+      this.addLegendToggleLayerListeners();
+
     },
     addLegendButtonListeners: function(){
       $('#hide-legend-button').click(this.hideLegend);
@@ -117,7 +119,7 @@ HZApp.Legend = (function(){
     },
     insertLegendItemToggle: function(legendItem){
       var li = '<li id="legend-' + legendItem + '"' + 'class="legend-item">';
-      li += "<input id='truth' type='checkbox' name=" + legendItem + " value='truth' checked>";
+      li += '<input id="check-' + legendItem + '" type="checkbox" name="' + legendItem + '" value="' + legendItem + '" checked>';
       li += '<label for=' + legendItem + '>';
       HZApp.Legend.legend[legendItem].svg.map(function(svg){ li += svg; });
       li += '<span>' + I18n.t('legend.' + legendItem) + '</span>';
@@ -157,6 +159,16 @@ HZApp.Legend = (function(){
       } else {
         HZApp.Legend.hideLegend();
       }
+    },
+    // create listeners for toggled checkboxes (wrap in anon function)
+    addLegendToggleLayerListeners: function() {
+      $('input[type="checkbox"]').click( HZApp.Legend.toggleLayerVisibility );
+    },
+    // trigger the layer removal
+    toggleLayerVisibility: function(event) {
+      //grab value of thing that was clicked
+      var selectedLayer = event.currentTarget.value;
+      console.log(selectedLayer);
     }
   };
 })();

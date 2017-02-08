@@ -25,6 +25,7 @@ var HZSpecHelper = (function(){
                               '<i id="show-legend-button" class="fa fa-chevron-up" aria-hidden="true" style="display: none;"></i>' +
                             '</div>' +
                           '</li>' +
+                          '<input type="checkbox" id="mock-checkbox" value="mock-qct" checked>' +
                           '</ul></dir>');
 
         //add geolocation button
