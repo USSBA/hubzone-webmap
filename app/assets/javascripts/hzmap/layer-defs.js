@@ -151,7 +151,7 @@ HZApp.Layers.LayerDefs = (function(){
     },
     qct_brac: {
       legendType: 'brac',
-      layerGroup: 'brac',
+      layerGroup: 'qct',
       isVisible: true,
       overlay:[],
       sldXMLStyle: null,

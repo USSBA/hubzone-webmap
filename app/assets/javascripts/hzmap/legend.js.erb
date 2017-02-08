@@ -45,7 +45,7 @@ HZApp.Legend = (function(){
 
       this.setLegendState(window.innerWidth);
 
-      this.addLegendToggleLayerListeners();
+      this.addLayerToggleListeners();
 
     },
     addLegendButtonListeners: function(){
@@ -160,30 +160,28 @@ HZApp.Legend = (function(){
         HZApp.Legend.hideLegend();
       }
     },
-    // create listeners for toggled checkboxes (wrap in anon function)
-    addLegendToggleLayerListeners: function() {
+    addLayerToggleListeners: function() {
       $('input[type="checkbox"]').click( function(event){
-        HZApp.Legend.toggleLayerVisibility(event);
+        HZApp.Legend.setLayerGroups(event.currentTarget.value, HZApp.Layers.LayerDefs.hzWMSOverlays);
       });
     },
-    // trigger the layer removal
-    toggleLayerVisibility: function(event) {
-      //grab value of thing that was clicked
-      var selectedLayer = event.currentTarget.value;
-      Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).map(function(layer) {
-        if(HZApp.Layers.LayerDefs.hzWMSOverlays[layer].layerGroup === selectedLayer){
-          if(HZApp.Layers.LayerDefs.hzWMSOverlays[layer].isVisible) {
-            HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay[0].setMap(null);
-            HZApp.Layers.LayerDefs.hzWMSOverlays[layer].isVisible = false;
-          } else {
-            HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay[0].setMap(HZApp.map);
-            HZApp.Layers.LayerDefs.hzWMSOverlays[layer].isVisible = true;
-          }
+    setLayerGroups: function(selectedLayer, wmsOverlays) {
+      Object.keys(wmsOverlays).map(function(layer) {
+        if(wmsOverlays[layer].layerGroup === selectedLayer){
+          HZApp.Legend.toggleLayerGroup(wmsOverlays[layer]);
         } else {
-          console.log("nothing")
+
         }
       });
-      console.log(selectedLayer);
+    },
+    toggleLayerGroup: function(layer) {
+      if(layer.isVisible){
+        layer.overlay[0].setMap(null);
+        layer.isVisible = false;
+      } else {
+        layer.overlay[0].setMap(HZApp.map);
+        layer.isVisible = true;
+      }
     }
   };
 })();

@@ -192,6 +192,7 @@ var HZSpecHelper = (function(){
     testLayers: {
       qnmc_e: {
         legendType: 'qnmc',
+        layerGroup: 'qnmc',
         styleOptions: [
           {
             type: 'polygon',
@@ -201,6 +202,7 @@ var HZSpecHelper = (function(){
       },
       qct_r: {
         legendType: 'redesignated',
+        layerGroup: 'qct',
         styleOptions: [
           {
             type: 'horline',
@@ -210,6 +212,7 @@ var HZSpecHelper = (function(){
       },
       qnmc_r: {
         legendType: 'redesignated',
+        layerGroup: 'qnmc',
         styleOptions: [
           {
             type: 'horline',
@@ -219,6 +222,7 @@ var HZSpecHelper = (function(){
       },
       qnmc_brac: {
         legendType: 'brac',
+        layerGroup: 'qnmc',
         styleOptions: [
           {
             type: 'circle',
