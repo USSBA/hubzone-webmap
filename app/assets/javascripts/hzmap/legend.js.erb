@@ -163,13 +163,26 @@ HZApp.Legend = (function(){
     // create listeners for toggled checkboxes (wrap in anon function)
     addLegendToggleLayerListeners: function() {
       $('input[type="checkbox"]').click( function(event){
-        HZApp.Legend.toggleLayerVisibility(event); 
+        HZApp.Legend.toggleLayerVisibility(event);
       });
     },
     // trigger the layer removal
     toggleLayerVisibility: function(event) {
       //grab value of thing that was clicked
       var selectedLayer = event.currentTarget.value;
+      Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).map(function(layer) {
+        if(HZApp.Layers.LayerDefs.hzWMSOverlays[layer].layerGroup === selectedLayer){
+          if(HZApp.Layers.LayerDefs.hzWMSOverlays[layer].isVisible) {
+            HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay[0].setMap(null);
+            HZApp.Layers.LayerDefs.hzWMSOverlays[layer].isVisible = false;
+          } else {
+            HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay[0].setMap(HZApp.map);
+            HZApp.Layers.LayerDefs.hzWMSOverlays[layer].isVisible = true;
+          }
+        } else {
+          console.log("nothing")
+        }
+      });
       console.log(selectedLayer);
     }
   };
