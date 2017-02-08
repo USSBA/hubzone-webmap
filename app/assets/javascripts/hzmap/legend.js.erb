@@ -162,7 +162,9 @@ HZApp.Legend = (function(){
     },
     // create listeners for toggled checkboxes (wrap in anon function)
     addLegendToggleLayerListeners: function() {
-      $('input[type="checkbox"]').click( HZApp.Legend.toggleLayerVisibility );
+      $('input[type="checkbox"]').click( function(event){
+        HZApp.Legend.toggleLayerVisibility(event); 
+      });
     },
     // trigger the layer removal
     toggleLayerVisibility: function(event) {

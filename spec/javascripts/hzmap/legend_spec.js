@@ -186,7 +186,7 @@ describe ('Testing legend operations', function() {
     it('should listen for layer toggle checkbox click', function() {
       spyOn(HZApp.Legend, 'toggleLayerVisibility');
       $('input#mock-checkbox').trigger('click');
-      expect(HZApp.Legend.toggleLayerVisibility.toHaveBeenCalled());
+      expect(HZApp.Legend.toggleLayerVisibility.calls.count()).toEqual(1);
     });
   });
 });
