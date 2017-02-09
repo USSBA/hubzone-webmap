@@ -197,11 +197,25 @@ describe ('Testing legend operations', function() {
       expect(HZApp.Legend.toggleLayerGroup.calls.count()).toEqual(3);
     });
 
-    it('should toggle layers', function(){
-
+    it('should toggle layers off', function(){
+      var mockOverlay = new HZSpecHelper.NewOverlay('new');
+      spyOn(mockOverlay, 'setMap');
+      HZSpecHelper.testLayers.qnmc_brac.overlay.push(mockOverlay);
+      HZApp.Legend.toggleLayerGroup(HZSpecHelper.testLayers.qnmc_brac);
+      expect(mockOverlay.setMap.calls.count()).toEqual(1);
+      expect(HZSpecHelper.testLayers.qnmc_brac.isVisible).toEqual(true);
     });
 
+    it('should toggle layers on', function(){
+      var mockOverlay = new HZSpecHelper.NewOverlay('new');
+      spyOn(mockOverlay, 'setMap');
+      HZSpecHelper.testLayers.qnmc_e.overlay.push(mockOverlay);
+      HZApp.Legend.toggleLayerGroup(HZSpecHelper.testLayers.qnmc_e);
+      expect(mockOverlay.setMap.calls.count()).toEqual(1);
+      expect(HZSpecHelper.testLayers.qnmc_e.isVisible).toEqual(false);
+    });
   });
+
 });
 
 

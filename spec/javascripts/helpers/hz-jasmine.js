@@ -193,6 +193,8 @@ var HZSpecHelper = (function(){
       qnmc_e: {
         legendType: 'qnmc',
         layerGroup: 'qnmc',
+        isVisible: true,
+        overlay: [],
         styleOptions: [
           {
             type: 'polygon',
@@ -203,6 +205,8 @@ var HZSpecHelper = (function(){
       qct_r: {
         legendType: 'redesignated',
         layerGroup: 'qct',
+        isVisible: true,
+        overlay: [],
         styleOptions: [
           {
             type: 'horline',
@@ -213,6 +217,8 @@ var HZSpecHelper = (function(){
       qnmc_r: {
         legendType: 'redesignated',
         layerGroup: 'qnmc',
+        isVisible: true,
+        overlay: [],
         styleOptions: [
           {
             type: 'horline',
@@ -223,6 +229,8 @@ var HZSpecHelper = (function(){
       qnmc_brac: {
         legendType: 'brac',
         layerGroup: 'qnmc',
+        isVisible: false,
+        overlay: [],
         styleOptions: [
           {
             type: 'circle',
