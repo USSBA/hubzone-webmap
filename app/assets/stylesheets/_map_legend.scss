@@ -25,6 +25,7 @@
 #legend-header {
   margin-bottom: 0;
   display: block;
+  cursor: pointer;
 }
 .legend-title {
   font-weight: bold;
@@ -32,7 +33,6 @@
 }
 #legend-button-div {
   float: right;
-  cursor: pointer;
 }
 .no-toggle {
   padding-left: 2.7rem;

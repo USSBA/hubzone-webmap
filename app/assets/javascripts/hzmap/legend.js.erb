@@ -49,8 +49,15 @@ HZApp.Legend = (function(){
 
     },
     addLegendButtonListeners: function(){
-      $('#hide-legend-button').click(this.hideLegend);
-      $('#show-legend-button').click(this.showLegend);
+      $('#legend-header').click(function() {
+        if($('#legend-header').hasClass('open')) {
+          HZApp.Legend.hideLegend();
+          $('#legend-header').removeClass('open');
+        } else {
+          HZApp.Legend.showLegend();
+          $('#legend-header').addClass('open');
+        }
+      });
     },
     getConfigFromLayerStyle: function(layer){
       return {
