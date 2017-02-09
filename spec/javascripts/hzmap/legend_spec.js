@@ -149,6 +149,24 @@ describe ('Testing legend operations', function() {
 
   describe ('toggle legend visibility', function(){
 
+    it('should add listener for legend header click', function() {
+      spyOn(HZApp.Legend, 'toggleLegendVisibility');
+      $('#legend-header').trigger('click');
+      expect(HZApp.Legend.toggleLegendVisibility.calls.count()).toEqual(1);
+    });
+
+    it('should collapse on legend-header click', function() {
+       spyOn(HZApp.Legend, 'hideLegend');
+       HZApp.Legend.toggleLegendVisibility('open');
+       expect(HZApp.Legend.hideLegend.calls.count()).toEqual(1);
+    });
+
+    it('should expand legend on legend-header click if collapsed', function() {
+       spyOn(HZApp.Legend, 'showLegend');
+       HZApp.Legend.toggleLegendVisibility('');
+       expect(HZApp.Legend.showLegend.calls.count()).toEqual(1);
+    });
+
     it('should be initially collapsed on mobile', function() {
       spyOn(HZApp.Legend, 'hideLegend');
       HZApp.Legend.setLegendState(900);

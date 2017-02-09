@@ -49,15 +49,18 @@ HZApp.Legend = (function(){
 
     },
     addLegendButtonListeners: function(){
-      $('#legend-header').click(function() {
-        if($('#legend-header').hasClass('open')) {
+      $('#legend-header').click(function(event) {
+        HZApp.Legend.toggleLegendVisibility(event.currentTarget.className);
+      });
+    },
+    toggleLegendVisibility: function(legendState) {
+        if(legendState === 'open') {
           HZApp.Legend.hideLegend();
           $('#legend-header').removeClass('open');
         } else {
           HZApp.Legend.showLegend();
           $('#legend-header').addClass('open');
         }
-      });
     },
     getConfigFromLayerStyle: function(layer){
       return {

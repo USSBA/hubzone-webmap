@@ -18,7 +18,7 @@ var HZSpecHelper = (function(){
 
         //add legend
         $('body').append('<div id="legend" class="mock-page"><ul>' +
-                          '<li id="legend-header">' +
+                          '<li id="legend-header" class="open">' +
                             '<span id="legend-header-title" style="display: none;">Legend</span>' +
                             '<div id="legend-button-div">' +
                               '<i id="hide-legend-button" class="fa fa-chevron-down" aria-hidden="true"></i>' +
