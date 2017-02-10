@@ -20,17 +20,12 @@ HZApp.Legend = (function(){
       'redesignated': {
         title: "Redesignated",
         svg: [],
-        canToggle: false
+        canToggle: true
       },
       'brac': {
         title: "Base Closure Area",
         svg: [],
-        canToggle: false
-      },
-      'brac_base': {
-        title: "Closed Base",
-        svg: [],
-        canToggle: false
+        canToggle: true
       }
     },
     buildLegend: function(layers){
@@ -137,13 +132,13 @@ HZApp.Legend = (function(){
       li += '</li>';
       $('#legend > ul').append(li);
     },
-    insertLegendItemNoToggle: function(legendItem){
-      var li = '<li id="legend-' + legendItem + '"' + 'class="legend-item no-toggle">';
-      HZApp.Legend.legend[legendItem].svg.map(function(svg){ li += svg; });
-      li += '<span>' + I18n.t('legend.' + legendItem) + '</span>';
-      li += '</li>';
-      $('#legend > ul').append(li);
-    },
+    // insertLegendItemNoToggle: function(legendItem){
+    //   var li = '<li id="legend-' + legendItem + '"' + 'class="legend-item no-toggle">';
+    //   HZApp.Legend.legend[legendItem].svg.map(function(svg){ li += svg; });
+    //   li += '<span>' + I18n.t('legend.' + legendItem) + '</span>';
+    //   li += '</li>';
+    //   $('#legend > ul').append(li);
+    // },
     legendTypeToColorType: { //mapping style type to css/svg color parameter
       'polygon': 'fillColor',
       'circle': 'circleFillColor',

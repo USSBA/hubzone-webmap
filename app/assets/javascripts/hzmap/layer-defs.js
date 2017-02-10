@@ -72,7 +72,7 @@ HZApp.Layers.LayerDefs = (function(){
     },
     qnmc_r: {
       legendType: 'redesignated',
-      layerGroup: 'qnmc',
+      layerGroup: 'redesignated',
       isVisible: true,
       overlay:[],
       sldXMLStyle: null,
@@ -92,7 +92,7 @@ HZApp.Layers.LayerDefs = (function(){
     },
     qnmc_brac: {
       legendType: 'brac',
-      layerGroup: 'qnmc',
+      layerGroup: 'brac',
       isVisible: true,
       overlay:[],
       sldXMLStyle: null,
@@ -131,7 +131,7 @@ HZApp.Layers.LayerDefs = (function(){
     },
     qct_r: {
       legendType: 'redesignated',
-      layerGroup: 'qct',
+      layerGroup: 'redesignated',
       isVisible: true,
       overlay:[],
       sldXMLStyle: null,
@@ -151,7 +151,7 @@ HZApp.Layers.LayerDefs = (function(){
     },
     qct_brac: {
       legendType: 'brac',
-      layerGroup: 'qct',
+      layerGroup: 'brac',
       isVisible: true,
       overlay:[],
       sldXMLStyle: null,
@@ -172,8 +172,8 @@ HZApp.Layers.LayerDefs = (function(){
       ]
     },
     brac: {
-      legendType: 'brac_base',
-      layerGroup: 'brac_base',
+      legendType: 'brac',
+      layerGroup: 'brac',
       isVisible: true,
       overlay:[],
       sldXMLStyle: null,
