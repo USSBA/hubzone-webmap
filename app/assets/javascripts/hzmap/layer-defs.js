@@ -25,9 +25,14 @@ HZApp.Layers.LayerDefs = (function(){
     tileSize: 10,
 
     // USWDS Alt 1
-    qctColor: '#0D465C',
-    qnmcColor: '#BA233F',
-    indianLandsColor: '#009DCD'
+    qctColor: '#2E8540',
+    qnmcColor: '#0071BB',
+    indianLandsColor: '#4C2C92'
+
+    // Tyler 1
+    // qctColor: '#0D465C',
+    // qnmcColor: '#BA233F',
+    // indianLandsColor: '#009DCD'
 
     // color brewer 2
     // qctColor: '#1b9e77',
