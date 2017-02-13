@@ -15,7 +15,7 @@ HZApp.Legend.LegendDefs = (function(){
     fillColor: '#CCCCCC',
     fillOpacity: 0.5,
     graphicSpacing: 10,
-    lineStrokeColor: '#000000',
+    lineStrokeColor: '#fff',
     lineStrokeOpacity: 1,
     lineStrokeWidth: 1,
     lineRotation: 0,
@@ -106,9 +106,9 @@ HZApp.Legend.LegendDefs = (function(){
       styleOptions: [
         {
           type: 'circle',
-          circleFillColor: '#000',
+          circleFillColor: '#fff',
           circleFillOpacity: legendDefaults.fillOpacity,
-          circleStrokeColor: '#000000',
+          circleStrokeColor: '#fff',
           circleStrokeOpacity: legendDefaults.strokeOpacity,
           circleStrokeWidth: legendDefaults.strokeWidth,
           strokeColor: '#000000',
