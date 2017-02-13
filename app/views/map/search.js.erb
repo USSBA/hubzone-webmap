@@ -1,12 +1,13 @@
 $('#sidebar-content').html("<%= j render partial: "map_sidebar", locals: {body: JSON.parse(@body)} %>");  // jshint ignore:line
-HZApp.HZQuery = JSON.parse('<%= @body.html_safe %>');
-HZApp.HZQuery.geocodeLocation = null;
-if (HZApp.HZQuery.geometry){
+HZApp.HZQuery.response = JSON.parse('<%= @body.html_safe %>');
+HZApp.HZQuery.response.geocodeLocation = null;
+HZApp.HZQuery.query.q = HZApp.HZQuery.response.formatted_address; 
+if (HZApp.HZQuery.response.geometry){
   HZApp.MapUtils.jumpToLocation({
-    viewport: HZApp.HZQuery.geometry.viewport,
-    location: HZApp.HZQuery.geometry.location
+    viewport: HZApp.HZQuery.response.geometry.viewport,
+    location: HZApp.HZQuery.response.geometry.location
   });
-  HZApp.HZQuery.geocodeLocation = HZApp.HZQuery.geometry.location;
+  HZApp.HZQuery.response.geocodeLocation = HZApp.HZQuery.response.geometry.location;
 }
 sidebar.open();
-HZApp.Markers.hzQueryMarker.updateMarkers(HZApp.HZQuery.geocodeLocation);
+HZApp.Markers.hzQueryMarker.updateMarkers(HZApp.HZQuery.response.geocodeLocation);
