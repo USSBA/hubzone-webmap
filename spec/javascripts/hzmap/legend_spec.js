@@ -38,7 +38,7 @@ describe ('Testing legend operations', function() {
     it("should parse the layer config into a legendConfig", function(){
       var layer = testLayers['qnmc_e'];
       var legendConfig = HZApp.Legend.getConfigFromLayerStyle(layer);
-      expect(legendConfig.legendType).toEqual(layer.legendType);
+      expect(legendConfig.layerGroup).toEqual(layer.layerGroup);
       expect(legendConfig.styleType).toEqual(layer.styleOptions[0].type);
       expect(legendConfig.styleColor).toEqual(layer.styleOptions[0][HZApp.Legend.legendTypeToColorType[legendConfig.styleType]]);
     });
