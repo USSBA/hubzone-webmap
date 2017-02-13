@@ -57,16 +57,16 @@ HZApp.Report = (function(){
     },
     //takes a hzQuery object as input and parses it for a report GET
     getReportRequestParams:function(hzQuery){
-      var params = {};
+      var params = "";
+      params += "?latlng=" + encodeURIComponent(hzQuery.latlng);
       params.zoom = hzQuery.zoom;
-      params.latlng = encodeURIComponent(hzQuery.latlng) || "";
-      params.q = encodeURIComponent(hzQuery.q.replace(/\u00B0/g, ""))  || "";  //strips out degree symbols
-      params.locale = document.documentElement.lang || "en"; //jshint ignore: line
+      if (hzQuery.q){
+        params += "&q=" + encodeURIComponent(hzQuery.q);
+      }
+      params += "&zoom=" + hzQuery.zoom;
+      params += "&locale=" + (document.documentElement.lang || "en");
 
-      return ("?latlng=" + params.latlng +
-              "&q=" + params.q + 
-              "&zoom=" + params.zoom +  
-              "&locale=" + params.locale);
+      return params;
     },
     requestReportError: function requestReportError(){
 
