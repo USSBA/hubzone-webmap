@@ -1,37 +1,11 @@
 // legend utilties
 HZApp.Legend = (function(){
   return {
-    legend: {
-      'qct': {
-        title: "Census Tract",
-        svg: [],
-        canToggle: true
-      },
-      'qnmc': {
-        title: "County",
-        svg: [],
-        canToggle: true
-      },
-      'indian_lands': {
-        title: "Indian Land",
-        svg: [],
-        canToggle: true
-      },
-      'redesignated': {
-        title: "Redesignated",
-        svg: [],
-        canToggle: true
-      },
-      'brac': {
-        title: "Base Closure Area",
-        svg: [],
-        canToggle: true
-      }
-    },
+    legend: HZApp.Legend.LegendDefs.legend,
     buildLegend: function(layers){
       Object.keys(layers).map(function(layer){
         var legendConfig = HZApp.Legend.getConfigFromLayerStyle(layers[layer]);
-        HZApp.Legend.legend[legendConfig.legendType].svg.push(HZApp.Legend.svgFromStyle(legendConfig));
+        HZApp.Legend.legend[legendConfig.layerGroup].svg.push(HZApp.Legend.svgFromStyle(legendConfig));
       });
 
       Object.keys(this.legend).map(HZApp.Legend.insertLegendItem);
@@ -59,7 +33,7 @@ HZApp.Legend = (function(){
     },
     getConfigFromLayerStyle: function(layer){
       return {
-        legendType: layer.legendType,
+        layerGroup: layer.layerGroup,
         styleType: layer.styleOptions[0].type,
         styleColor: layer.styleOptions[0][HZApp.Legend.legendTypeToColorType[layer.styleOptions[0].type]]
       };

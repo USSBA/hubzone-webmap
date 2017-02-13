@@ -31,63 +31,101 @@ HZApp.Legend.LegendDefs = (function(){
   };
 
   var legendKeys = {
-      indian_lands: {
-        styleOptions: [
-          {
-            type: 'polygon',
-            fillColor: legendDefaults.indianLandsColor,
-            fillOpacity: legendDefaults.fillOpacity,
-            strokeColor: legendDefaults.indianLandsColor,
-            strokeOpacity: legendDefaults.strokeOpacity,
-            strokeWidth: legendDefaults.strokeWidth
-          }
-        ]
-      },
-      qnmc: {
-        styleOptions: [
-          {
-            type: 'polygon',
-            fillColor: legendDefaults.qnmcColor,
-            fillOpacity: legendDefaults.fillOpacity,
-            strokeColor: legendDefaults.qnmcColors,
-            strokeOpacity: legendDefaults.strokeOpacity,
-            strokeWidth: legendDefaults.strokeWidth
-          }
-        ]
-      },
-      qct: {
-        styleOptions: [
-          {
-            type: 'polygon',
-            fillColor: legendDefaults.qctColor,
-            fillOpacity: legendDefaults.fillOpacity,
-            strokeColor: legendDefaults.qctColor,
-            strokeOpacity: legendDefaults.strokeOpacity,
-            strokeWidth: legendDefaults.strokeWidth
-          }
-        ]
-      },
-      brac: {
-        styleOptions: [
-          {
-            type: 'circle',
-            circleFillColor: '#000',
-            circleFillOpacity: legendDefaults.fillOpacity,
-            circleStrokeColor: '#000000',
-            circleStrokeOpacity: legendDefaults.strokeOpacity,
-            circleStrokeWidth: legendDefaults.strokeWidth,
-            strokeColor: '#000000',
-            strokeOpacity: legendDefaults.strokeOpacity,
-            strokeWidth: legendDefaults.strokeWidth,
-            tileSize: 15,
-            graphicSpacing: legendDefaults.graphicSpacing
-          }
-        ]
-      },
-    };
+    qct: {
+      title: "Census Tract",
+      svg: [],
+      canToggle: true,
+      layerGroup: 'qct',
+      styleOptions: [
+        {
+          type: 'polygon',
+          fillColor: legendDefaults.qctColor,
+          fillOpacity: legendDefaults.fillOpacity,
+          strokeColor: legendDefaults.qctColor,
+          strokeOpacity: legendDefaults.strokeOpacity,
+          strokeWidth: legendDefaults.strokeWidth
+        }
+      ]
+    },
+    qnmc: {
+      title: "County",
+      svg: [],
+      canToggle: true,
+      layerGroup: 'qnmc',
+      styleOptions: [
+        {
+          type: 'polygon',
+          fillColor: legendDefaults.qnmcColor,
+          fillOpacity: legendDefaults.fillOpacity,
+          strokeColor: legendDefaults.qnmcColors,
+          strokeOpacity: legendDefaults.strokeOpacity,
+          strokeWidth: legendDefaults.strokeWidth
+        }
+      ]
+    },
+    indian_lands: {
+      title: "Indian Land",
+      svg: [],
+      canToggle: true,
+      layerGroup: 'indian_lands',
+      styleOptions: [
+        {
+          type: 'polygon',
+          fillColor: legendDefaults.indianLandsColor,
+          fillOpacity: legendDefaults.fillOpacity,
+          strokeColor: legendDefaults.indianLandsColor,
+          strokeOpacity: legendDefaults.strokeOpacity,
+          strokeWidth: legendDefaults.strokeWidth
+        }
+      ]
+    },
+    redesignated: {
+      title: "Redesignated",
+      svg: [],
+      canToggle: true,
+      layerGroup: 'redesignated',
+      styleOptions: [
+        {
+          type: 'circle',
+          circleFillColor: '#000',
+          circleFillOpacity: legendDefaults.fillOpacity,
+          circleStrokeColor: '#000000',
+          circleStrokeOpacity: legendDefaults.strokeOpacity,
+          circleStrokeWidth: legendDefaults.strokeWidth,
+          strokeColor: '#000000',
+          strokeOpacity: legendDefaults.strokeOpacity,
+          strokeWidth: legendDefaults.strokeWidth,
+          tileSize: 15,
+          graphicSpacing: legendDefaults.graphicSpacing
+        }
+      ]
+    },
+    brac: {
+      title: "Base Closure Area",
+      svg: [],
+      canToggle: true,
+      layerGroup: 'brac',
+      styleOptions: [
+        {
+          type: 'circle',
+          circleFillColor: '#000',
+          circleFillOpacity: legendDefaults.fillOpacity,
+          circleStrokeColor: '#000000',
+          circleStrokeOpacity: legendDefaults.strokeOpacity,
+          circleStrokeWidth: legendDefaults.strokeWidth,
+          strokeColor: '#000000',
+          strokeOpacity: legendDefaults.strokeOpacity,
+          strokeWidth: legendDefaults.strokeWidth,
+          tileSize: 15,
+          graphicSpacing: legendDefaults.graphicSpacing
+        }
+      ]
+    },
+  };
 
   return {
     legendDefaults: legendDefaults,
-    legendKeys: legendKeys
+    legend: legendKeys
   };
+
 })();
