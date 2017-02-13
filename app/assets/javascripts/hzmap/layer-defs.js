@@ -29,6 +29,11 @@ HZApp.Layers.LayerDefs = (function(){
     qnmcColor: '#0071BB',
     indianLandsColor: '#4C2C92'
 
+    // Tyler 1
+    // qctColor: '#0D465C',
+    // qnmcColor: '#BA233F',
+    // indianLandsColor: '#009DCD'
+
     // color brewer 2
     // qctColor: '#1b9e77',
     // qnmcColor: '#d95f02',
@@ -38,6 +43,8 @@ HZApp.Layers.LayerDefs = (function(){
   var hzWMSOverlays = {
     indian_lands: {
       legendType: 'indian_lands',
+      layerGroup: 'indian_lands',
+      isVisible: true,
       overlay: [],
       sldXMLStyle: null,
       styleOptions: [
@@ -53,6 +60,8 @@ HZApp.Layers.LayerDefs = (function(){
     },
     qnmc_e: {
       legendType: 'qnmc',
+      layerGroup: 'qnmc',
+      isVisible: true,
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
@@ -68,6 +77,8 @@ HZApp.Layers.LayerDefs = (function(){
     },
     qnmc_r: {
       legendType: 'redesignated',
+      layerGroup: 'redesignated',
+      isVisible: true,
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
@@ -86,6 +97,8 @@ HZApp.Layers.LayerDefs = (function(){
     },
     qnmc_brac: {
       legendType: 'brac',
+      layerGroup: 'brac',
+      isVisible: true,
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
@@ -106,6 +119,8 @@ HZApp.Layers.LayerDefs = (function(){
     },
     qct_e: {
       legendType: 'qct',
+      layerGroup: 'qct',
+      isVisible: true,
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
@@ -121,6 +136,8 @@ HZApp.Layers.LayerDefs = (function(){
     },
     qct_r: {
       legendType: 'redesignated',
+      layerGroup: 'redesignated',
+      isVisible: true,
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
@@ -139,6 +156,8 @@ HZApp.Layers.LayerDefs = (function(){
     },
     qct_brac: {
       legendType: 'brac',
+      layerGroup: 'brac',
+      isVisible: true,
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [
@@ -159,6 +178,8 @@ HZApp.Layers.LayerDefs = (function(){
     },
     brac: {
       legendType: 'brac',
+      layerGroup: 'brac',
+      isVisible: true,
       overlay:[],
       sldXMLStyle: null,
       styleOptions: [

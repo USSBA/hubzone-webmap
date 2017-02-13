@@ -15,16 +15,17 @@ var HZSpecHelper = (function(){
         //add header and search
         $('body').append('<div id="header" class=" mock-page hidden"></div>');
         $('#header').append('<div id="search-field-small" class="mock-page hidden"></div>')
-        
+
         //add legend
-        $('body').append('<div id="legend" class="mock-page"><ul>' + 
-                          '<li id="legend-header">' + 
+        $('body').append('<div id="legend" class="mock-page"><ul>' +
+                          '<li id="legend-header" class="open">' +
                             '<span id="legend-header-title" style="display: none;">Legend</span>' +
                             '<div id="legend-button-div">' +
                               '<i id="hide-legend-button" class="fa fa-chevron-down" aria-hidden="true"></i>' +
                               '<i id="show-legend-button" class="fa fa-chevron-up" aria-hidden="true" style="display: none;"></i>' +
                             '</div>' +
                           '</li>' +
+                          '<input type="checkbox" id="mock-checkbox" value="mock-qct" checked>' +
                           '</ul></dir>');
 
         //add geolocation button
@@ -180,17 +181,20 @@ var HZSpecHelper = (function(){
     },
     fakeNavLocation: {
       getCurrentPosition: function(){}
-    },  
+    },
     fakeGeolocation: function(){
       if (navigator.geolocation === null || navigator.geolocation === undefined){
         return null;
       } else {
-        return spyOn(navigator.geolocation, 'getCurrentPosition');      
+        return spyOn(navigator.geolocation, 'getCurrentPosition');
       }
     },
     testLayers: {
       qnmc_e: {
         legendType: 'qnmc',
+        layerGroup: 'qnmc',
+        isVisible: true,
+        overlay: [],
         styleOptions: [
           {
             type: 'polygon',
@@ -200,6 +204,9 @@ var HZSpecHelper = (function(){
       },
       qct_r: {
         legendType: 'redesignated',
+        layerGroup: 'qct',
+        isVisible: true,
+        overlay: [],
         styleOptions: [
           {
             type: 'horline',
@@ -209,6 +216,9 @@ var HZSpecHelper = (function(){
       },
       qnmc_r: {
         legendType: 'redesignated',
+        layerGroup: 'qnmc',
+        isVisible: true,
+        overlay: [],
         styleOptions: [
           {
             type: 'horline',
@@ -218,6 +228,9 @@ var HZSpecHelper = (function(){
       },
       qnmc_brac: {
         legendType: 'brac',
+        layerGroup: 'qnmc',
+        isVisible: false,
+        overlay: [],
         styleOptions: [
           {
             type: 'circle',

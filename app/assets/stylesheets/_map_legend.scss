@@ -11,37 +11,43 @@
   margin: 0 0 0 1rem;
   padding: 1rem;
 }
+#legend label {
+  margin-top: 0.3rem;
+}
 #legend ul {
   list-style-type: none;
   padding-left: 0;
   margin: 0;
 }
-#legend li {
-
-}
-#legend li svg {
-  vertical-align: middle;
-}
-#legend li span {
-  vertical-align: middle;
+#legend li svg:not(:root) {
+  margin-bottom: -0.9rem;
 }
 #legend-header {
   margin-bottom: 0;
   display: block;
+  cursor: pointer;
 }
 .legend-title {
+  color: $gray-dark;
   font-weight: bold;
-  vertical-align: middle;
   padding-right: 0;
 }
 #legend-button-div {
   float: right;
-  cursor: pointer;
-  vertical-align: middle;
+}
+.no-toggle {
+  padding-left: 2.7rem;
+}
+[type="checkbox"]:checked + label::before,
+[type="radio"]:checked + label::before {
+  background-color: $gray-dark;
+  box-shadow: 0 0 0 1px $gray-dark;
 }
 
-@media only screen and (max-width: 950px)  {
-  #legend {
-    display: none;
-  }
+[type="radio"]:checked + label::before {
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px $gray-dark;
+}
+
+[type="checkbox"]:focus + label::before {
+  box-shadow: 0 0 0 1px #ffffff, 0 0 0 3px $gray-dark;
 }
