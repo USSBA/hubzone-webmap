@@ -7,7 +7,6 @@ if (HZApp.HZQuery.response.geometry){
     location: HZApp.HZQuery.response.geometry.location
   });
   HZApp.HZQuery.response.geocodeLocation = HZApp.HZQuery.response.geometry.location;
-
   HZApp.HZQuery.query.latlng = [HZApp.HZQuery.response.geocodeLocation.lat, HZApp.HZQuery.response.geocodeLocation.lng ].join(',');
   // check whether it was a google search or a map click
   if (HZApp.HZQuery.response.place_id){
