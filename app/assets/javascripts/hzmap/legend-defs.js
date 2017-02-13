@@ -86,17 +86,15 @@ HZApp.Legend.LegendDefs = (function(){
       layerGroup: 'redesignated',
       styleOptions: [
         {
-          type: 'circle',
-          circleFillColor: '#000',
-          circleFillOpacity: legendDefaults.fillOpacity,
-          circleStrokeColor: '#000000',
-          circleStrokeOpacity: legendDefaults.strokeOpacity,
-          circleStrokeWidth: legendDefaults.strokeWidth,
-          strokeColor: '#000000',
-          strokeOpacity: legendDefaults.strokeOpacity,
+         type: 'horline',
+          lineStrokeColor: legendDefaults.lineStrokeColor,
+          lineStrokeWidth: 5,
+          lineStrokeOpacity: legendDefaults.fillOpacity,
           strokeWidth: legendDefaults.strokeWidth,
-          tileSize: 15,
-          graphicSpacing: legendDefaults.graphicSpacing
+          strokeColor: legendDefaults.lineStrokeColor,
+          strokeOpacity: legendDefaults.strokeOpacity,
+          tileSize: 30,
+          lineRotation: 0
         }
       ]
     },
