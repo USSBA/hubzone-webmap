@@ -44,21 +44,11 @@ describe ('Testing report operations', function() {
       google = HZSpecHelper.google;
       HZApp.map = new google.maps.Map();
       HZApp.HZQuery = {
-        hubzone: [
-          {
-            city: "Baltimore",
-            effective: "2016-01-01",
-            expires: null, 
-            hubzone_st: "Qualified",
-            hz_type: "qct_e",
-            qualified1: "Yes",
-            qualified_: "Yes",
-            redesignated: false
-          }
-        ],
-        formatted_address: "Banana Shire Way, Rocky Top, USA",
-        geocodeLocation: {lat: 45, lng: -108 },
-        zoom: 15,
+        query: {
+          latlng: '45,-108',
+          q: "Banana Shire Way, Rocky Top, USA",
+          zoom: 15
+        }
       };
     });
 
@@ -116,56 +106,19 @@ describe ('Testing report operations', function() {
       google = {};
     });
 
-    it ('should form the correct url param string when a marker is present', function(){
+    it ('should form the correct url param string', function(){
       var mockHZQuery = {
-        hubzone: [
-          {
-            city: "Baltimore",
-            effective: "2016-01-01",
-            expires: null, 
-            hubzone_st: "Qualified",
-            hz_type: "qct_e",
-            qualified1: "Yes",
-            qualified_: "Yes",
-            redesignated: false
-          }
-        ],
-        formatted_address: "Banana Shire Way, Rocky Top, USA",
-        geocodeLocation: {lat: 45, lng: -108 },
-        zoom: 15,
+        query: {
+          latlng: '45,-108',
+          q: "Banana Shire Way, Rocky Top, USA",
+          zoom: 15
+        }
       };
-      var params = HZApp.Report.getReportRequestParams(mockHZQuery);
-      var expected = ("?latlng=" + ([mockHZQuery.geocodeLocation.lat, mockHZQuery.geocodeLocation.lng].join(',')) + 
-                      "&zoom=" + mockHZQuery.zoom + 
-                      "&formatted_address=" + encodeURIComponent(mockHZQuery.formatted_address) + 
-                      "&locale=" + (document.documentElement.lang || 'en') + 
-                      "&hubzone=" + encodeURIComponent(JSON.stringify(mockHZQuery.hubzone)));
-      expect(params).toEqual(expected);
-    });
-
-    it ('should form the correct url param string when no marker is present', function(){
-      var mockHZQuery = {
-        hubzone: [
-          {
-            city: "Baltimore",
-            effective: "2016-01-01",
-            expires: null, 
-            hubzone_st: "Qualified",
-            hz_type: "qct_e",
-            qualified1: "Yes",
-            qualified_: "Yes",
-            redesignated: false
-          }
-        ],
-        formatted_address: "Banana Shire Way, Rocky Top, USA",
-        zoom: 15,
-      };
-      var params = HZApp.Report.getReportRequestParams(mockHZQuery);
-      var expected = ("?latlng=" + ([HZApp.map.getCenter().lat(), HZApp.map.getCenter().lng()].join(',')) + 
-                      "&zoom=" + mockHZQuery.zoom + 
-                      "&formatted_address=" + encodeURIComponent(mockHZQuery.formatted_address) + 
-                      "&locale=" + (document.documentElement.lang || 'en') + 
-                      "&hubzone=" + encodeURIComponent(JSON.stringify(mockHZQuery.hubzone)));
+      var params = HZApp.Report.getReportRequestParams(mockHZQuery.query);
+      var expected = ("?latlng=" + encodeURIComponent(mockHZQuery.query.latlng) + 
+                      "&q=" + encodeURIComponent(mockHZQuery.query.q) + 
+                      "&zoom=" + mockHZQuery.query.zoom + 
+                      "&locale=" + (document.documentElement.lang || 'en'));
       expect(params).toEqual(expected);
     });
   });
@@ -173,21 +126,11 @@ describe ('Testing report operations', function() {
   describe ('report download callback', function(){
     beforeEach(function(){
       HZApp.HZQuery = {
-        hubzone: [
-          {
-            city: "Baltimore",
-            effective: "2016-01-01",
-            expires: null, 
-            hubzone_st: "Qualified",
-            hz_type: "qct_e",
-            qualified1: "Yes",
-            qualified_: "Yes",
-            redesignated: false
-          }
-        ],
-        formatted_address: "Banana Shire Way, Rocky Top, USA",
-        geocodeLocation: {lat: 45, lng: -108 },
-        zoom: 15,
+        query: {
+          latlng: '45,-108',
+          q: "Banana Shire Way, Rocky Top, USA",
+          zoom: 15
+        }
       };
       
       mockResponse = {
@@ -208,7 +151,7 @@ describe ('Testing report operations', function() {
       var downloadLink = HZApp.Report.generateDownloadLink(mockResponse.currentTarget.response);
       var expectedLink = ('<a target="_blank"' + 
                           ' href=""' +
-                          ' download="hz_report_address_' + HZApp.HZQuery.formatted_address.replace(' ', '_') + '.pdf"' + 
+                          ' download="hz_report_address_' + HZApp.HZQuery.query.q.replace(' ', '_') + '.pdf"' + 
                           '></a>');
       fakeLinkDiv.innerHTML = expectedLink;
       

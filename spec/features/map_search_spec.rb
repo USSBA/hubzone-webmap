@@ -17,17 +17,32 @@ describe 'the map search', type: :feature, js: true do
                                           hz_type: "qct"
                                         }
                                       ],
-                                      geometry: {},
+                                      geometry: {
+                                        location: {
+                                          lat: 0,
+                                          lng: 0
+                                        }
+                                      },
                                       query_date: Date.today },
                 non_qualified: { formatted_address: "Nope",
                                  http_status: 200,
                                  hubzone: [],
-                                 geometry: {} },
+                                 geometry: {
+                                   location: {
+                                     lat: 0,
+                                     lng: 0
+                                   }
+                                 } },
                 intersection: { formatted_address:
                                 'St Paul St & E 25th St, Baltimore, MD 21218, USA',
                                 http_status: 200,
                                 hubzone: [],
-                                geometry: {} } }
+                                geometry: {
+                                  location: {
+                                    lat: 0,
+                                    lng: 0
+                                  }
+                                } } }
   statuses = { qualified: "hubzone_assertions.qualified",
                non_qualified: "hubzone_assertions.not_qualified" }
 

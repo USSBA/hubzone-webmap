@@ -17,10 +17,10 @@ HZApp.Report = (function(){
     },
 
     requestReport: function(event, request_type_arg) {  // fetch the app state to send off to the report
-      HZApp.HZQuery.zoom = HZApp.map.getZoom();
+      HZApp.HZQuery.query.zoom = HZApp.map.getZoom();
 
       var url = "<%= MAP_CONFIG[:hubzone_report_host] + MAP_CONFIG[:hubzone_api_report_path] %>"; //jshint ignore:line
-      url += HZApp.Report.getReportRequestParams(HZApp.HZQuery);
+      url += HZApp.Report.getReportRequestParams(HZApp.HZQuery.query);
 
       var request_type = request_type_arg || "<%= MAP_CONFIG[:hubzone_report_request_type] %>" //jshint ignore:line
       if (request_type === "window_open"){
@@ -48,7 +48,7 @@ HZApp.Report = (function(){
       link.target = '_blank';
       link.href = window.URL.createObjectURL(blob);
       link.download = ("hz_report" + "_address_" +
-                       HZApp.HZQuery.formatted_address.replace(' ', '_') + ".pdf");
+                       HZApp.HZQuery.query.q.replace(' ', '_') + ".pdf");
       return link;
     },
     downloadReport: function(link){
@@ -57,24 +57,16 @@ HZApp.Report = (function(){
     },
     //takes a hzQuery object as input and parses it for a report GET
     getReportRequestParams:function(hzQuery){
-      var params = {};
+      var params = "";
+      params += "?latlng=" + encodeURIComponent(hzQuery.latlng);
       params.zoom = hzQuery.zoom;
-      params.hubzone = encodeURIComponent(JSON.stringify(hzQuery.hubzone));
-      params.formatted_address = encodeURIComponent(hzQuery.formatted_address);
-      var queryMarker = hzQuery.geocodeLocation;
-      if (queryMarker){
-        params.latlng = [queryMarker.lat, queryMarker.lng].join(',');
-      } else {
-        params.latlng = [HZApp.map.getCenter().lat(), HZApp.map.getCenter().lng()].join(',');
+      if (hzQuery.q){
+        params += "&q=" + encodeURIComponent(hzQuery.q);
       }
+      params += "&zoom=" + hzQuery.zoom;
+      params += "&locale=" + (document.documentElement.lang || "en");
 
-      params.locale = document.documentElement.lang || 'en'; //jshint ignore: line
-
-      return ("?latlng=" + params.latlng +
-              "&zoom=" + params.zoom +
-              "&formatted_address=" + params.formatted_address +
-              "&locale=" + params.locale +
-              "&hubzone=" + params.hubzone);
+      return params;
     },
     requestReportError: function requestReportError(){
 

@@ -17,16 +17,31 @@ describe "the sidebar", type: :feature do
                                           hz_type: "qct"
                                         }
                                       ],
-                                      geometry: {} },
+                                      geometry: {
+                                        location: {
+                                          lat: 0,
+                                          lng: 0
+                                        }
+                                      } },
                 non_qualified: { formatted_address: "Nope",
                                  http_status: 200,
                                  hubzone: [],
-                                 geometry: {} },
+                                 geometry: {
+                                   location: {
+                                     lat: 0,
+                                     lng: 0
+                                   }
+                                 } },
                 intersection: { formatted_address:
                                 'St Paul St & E 25th St, Baltimore, MD 21218, USA',
                                 http_status: 200,
                                 hubzone: [],
-                                geometry: {} } }
+                                geometry: {
+                                  location: {
+                                    lat: 0,
+                                    lng: 0
+                                  }
+                                } } }
 
   before do
     visit('/map')

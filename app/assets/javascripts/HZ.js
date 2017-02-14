@@ -5,7 +5,14 @@ window.HZApp = {
   Constructors: {},
   GA: {},
   GeoLocation: {},
-  HZQuery: {},
+  HZQuery: {
+    query:{
+      latlng: null,
+      q: null,
+      zoom: null
+    },
+    response: {}
+  },
   Layers: {
     LayerUtils: {},
     LayerDefs: {}
