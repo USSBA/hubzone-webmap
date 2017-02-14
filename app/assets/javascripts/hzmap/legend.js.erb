@@ -39,7 +39,7 @@ HZApp.Legend = (function(){
       };
     },
     svgFromStyle: function(style){
-      var width = 29, height = 29;
+      var width = 34, height = 29;
       var svg = this.svgHeader(width, height);
       svg += '<title>HUBZone Legend - ' + style.styleType + '</title>';
       var svg_fn_name = "svg_" + style.styleType;
@@ -132,9 +132,9 @@ HZApp.Legend = (function(){
     },
     setLegendState: function(windowWidth) {
       if (windowWidth > 950) {
-        HZApp.Legend.showLegend();
+        HZApp.Legend.toggleLegendVisibility('');
       } else {
-        HZApp.Legend.hideLegend();
+        HZApp.Legend.toggleLegendVisibility('open');
       }
     },
     addLayerToggleListeners: function() {
