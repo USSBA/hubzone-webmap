@@ -18,7 +18,7 @@ describe 'the map search', type: :feature, js: true do
                                         }
                                       ],
                                       geometry: {
-                                        location:{
+                                        location: {
                                           lat: 0,
                                           lng: 0
                                         }
@@ -28,23 +28,21 @@ describe 'the map search', type: :feature, js: true do
                                  http_status: 200,
                                  hubzone: [],
                                  geometry: {
-                                  location:{
-                                    lat: 0,
-                                    lng: 0
-                                  }
-                                }
-                              },
+                                   location: {
+                                     lat: 0,
+                                     lng: 0
+                                   }
+                                 } },
                 intersection: { formatted_address:
                                 'St Paul St & E 25th St, Baltimore, MD 21218, USA',
                                 http_status: 200,
                                 hubzone: [],
                                 geometry: {
-                                  location:{
+                                  location: {
                                     lat: 0,
                                     lng: 0
                                   }
-                                } }
-                              }
+                                } } }
   statuses = { qualified: "hubzone_assertions.qualified",
                non_qualified: "hubzone_assertions.not_qualified" }
 
