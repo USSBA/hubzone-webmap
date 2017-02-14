@@ -77,6 +77,7 @@ dev:
     redesignated: "Rediseñado"
     qnmc: "Condado"
     brac: "Antigua base militare"
+    brac_base: "Antigua base militare"
   report:
     error: "Error al generar el informe"
     generating: "Generar informe..."

@@ -86,7 +86,6 @@ button.clear-search:hover {
   background-color: $gray-lightest;
   color: $gray-dark;
 }
-
 @media only screen and (max-width: 950px)  {
   .hubzone-search {
     top: 0;
@@ -110,6 +109,9 @@ button.clear-search:hover {
   }
   .usa-menu-btn {
     display: none;
+  }
+  button.clear-search {
+    right: 5.6rem;
   }
 }
 

@@ -99,7 +99,11 @@ HZApp.WMSUtils = (function(){
         }
         HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].overlay = [];
         HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].overlay.push(tmpLayer);
-        HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].overlay[0].setMap(options.mapScope);
+        if(HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].isVisible) {
+          HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].overlay[0].setMap(options.mapScope);
+        } else {
+          HZApp.Layers.LayerDefs.hzWMSOverlays[options.layer].overlay[0].setMap(null);
+        }
       } else { //
         // console.warn('no WMS found in layer');
         return null;
