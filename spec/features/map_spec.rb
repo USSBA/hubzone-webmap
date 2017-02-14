@@ -1,14 +1,25 @@
 require 'rails_helper'
 
-describe "the map", js: true, type: :feature do
+describe "The HUBZone Map", type: :feature do
   before do
     visit('/map')
   end
-  it "should have google map elements" do
-    expect(page).to have_selector('.gmnoprint')
-    # save_and_open_screenshot('screenshot.png')
+  it "should have header section" do
+    expect(page).to have_selector('header')
   end
-  it "should have geolocation button" do
-    expect(page).to have_selector('#geolocation')
+  it "should have body section" do
+    expect(page).to have_selector('body')
+  end
+  it "should have a search bar" do
+    expect(page).to have_selector('#search-field-small')
+  end
+  it "should have a map div" do
+    expect(page).to have_selector('#map')
+  end
+  it "should have a sidebar" do
+    expect(page).to have_selector('#sidebar')
+  end
+  it "should have a legend" do
+    expect(page).to have_css("#legend")
   end
 end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 # rubocop:disable Metrics/BlockLength
-describe "the sidebar", type: :feature do
+describe "The Sidebar", type: :feature do
   queries = { qualified_multiple: 'navajo',
               qualified_single: 'tiffany peak, co',
               non_qualified: 'banana',
@@ -52,6 +52,9 @@ describe "the sidebar", type: :feature do
   end
 
   context "before any interactions" do
+    it "should have report button" do
+      expect(page).to have_selector('#map-report')
+    end
     it "should exist and be hidden" do
       expect(page).to have_css("#sidebar.hidden")
     end
