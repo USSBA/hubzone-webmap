@@ -11,6 +11,7 @@ $.fn.sidebar = function() {
   this.update = function() {
     if (!$sidebar.hasClass('on')) {
       $sidebar.addClass('on');
+      $('#legend').addClass('legend-mobile');
       $sidebar.removeClass('hidden');
       $('#sidebar-button').html('<i class="fa fa-chevron-right"></i>');
       $('div.gmnoprint[controlheight="55"], div.gmnoprint[controlheight="66"], .gm-svpc').addClass('gm-sidebar-on');
@@ -18,6 +19,7 @@ $.fn.sidebar = function() {
       this.currentClass = 'on';
     } else {
       $sidebar.removeClass('on');
+      $('#legend').removeClass('legend-mobile');
       $('#sidebar-button').html('<i class="fa fa-chevron-left"></i>');
       $('div.gmnoprint[controlheight="55"], div.gmnoprint[controlheight="66"], .gm-svpc').removeClass('gm-sidebar-on');
       $('#geolocation').removeClass('geolocation-sidebar-on');

@@ -22,13 +22,15 @@ describe ('Testing sidebar operations', function() {
   it ("should be hidden initially", function() {
     expect(sidebar.currentClass).toEqual('hidden');
   });
-  it ("should open", function() {
+  it ("should open and move legend on mobile", function() {
     sidebar.open();
     expect(sidebar.currentClass).toEqual('on');
+    expect($('#legend')[0].className).toContain('legend-mobile');
   });
-  it ("should close", function() {
+  it ("should close and move legend on mobile", function() {
     sidebar.close();
     expect(sidebar.currentClass).toEqual('hidden');
+    expect($('#legend')[0].className).not.toContain('legend-mobile');
   });
 
   it ("should catch the button click to trigger the sidebar to close", function() {
