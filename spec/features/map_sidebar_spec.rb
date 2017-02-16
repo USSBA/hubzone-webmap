@@ -68,7 +68,7 @@ describe "The Sidebar", type: :feature do
       Excon.stub({},
                  body: responses[:non_qualified].to_json)
     end
-    it "should have Print icon" do
+    it "should have a report button" do
       fill_in 'search', with: queries[:non_qualified]
       click_button "hubzone-search-button"
       expect(page).to have_css('#map-report')
