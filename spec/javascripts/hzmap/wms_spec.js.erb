@@ -92,12 +92,21 @@ describe ('Testing wms operations', function() {
     expect(google.maps.GroundOverlay.calls.count()).toEqual(1);
   });
 
-  it("should fetchNewWMS for as many layers as are defined", function(){
+  it("should not fetchNewWMS in test env", function(){
+    HZApp.config = {wmsEnabled: false}; //override this config for test env so this actually runs
+    spyOn(HZApp.WMSUtils, 'fetchNewWMS');
+    HZApp.WMSUtils.updateIdleMap(HZApp.map);
+    expect(HZApp.WMSUtils.fetchNewWMS.calls.count()).toEqual(0);
+  });
+
+  it("should fetchNewWMS for as many layers as are defined outside of test env", function(){
+    HZApp.config = {wmsEnabled: true}; //override this config for test env so this actually runs
     spyOn(HZApp.WMSUtils, 'fetchNewWMS');
     HZApp.WMSUtils.updateIdleMap(HZApp.map);
     var layerLength = Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).length;
     expect(HZApp.WMSUtils.fetchNewWMS.calls.count()).toEqual(layerLength);
   });
+
 
   it("should update the map WMS layer, adding a new overlay where there was none before", function(){
     var mockOverlay = new HZSpecHelper.NewOverlay('new');
@@ -131,6 +140,28 @@ describe ('Testing wms operations', function() {
     });
 
     expect(mockOverlayNew.setMap.calls.count()).toEqual(1);
+    expect(mockOverlayNew.addListener.calls.count()).toEqual(2);
+  });
+
+  it("should update the map WMS layer, replacing the old overlay with a new one honoring layer visibility", function(){
+
+    var mockOverlayOld = new HZSpecHelper.NewOverlay('old');
+    var mockOverlayNew = new HZSpecHelper.NewOverlay('new');
+
+    spyOn(mockOverlayOld, 'setMap');
+    spyOn(mockOverlayNew, 'setMap');
+    spyOn(mockOverlayNew, 'addListener');
+    HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay.push(mockOverlayOld);
+    HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay.push(mockOverlayNew);
+    HZApp.Layers.LayerDefs.hzWMSOverlays[layer].isVisible = false;
+
+    HZApp.WMSUtils.updateLayerWMSOverlay({
+      layer: layer,
+      mapScope: HZApp.map
+    });
+
+    expect(mockOverlayNew.setMap.calls.count()).toEqual(1);
+    expect(mockOverlayNew.setMap.calls.allArgs()[0][0]).toEqual(null);
     expect(mockOverlayNew.addListener.calls.count()).toEqual(2);
   });
 

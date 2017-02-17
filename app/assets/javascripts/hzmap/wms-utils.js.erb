@@ -4,12 +4,16 @@ HZApp.WMSUtils = (function(){
       var map = this;
       //for each layer defined in the hzWMSOverlays object call the fetchNewWMS function
       // update the WMS call for that layer
-      Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).map(function(layer){
-        HZApp.WMSUtils.fetchNewWMS({
-          mapScope: map,
-          layer: layer
+      if (HZApp.config.wmsEnabled){
+        Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).map(function(layer){
+          HZApp.WMSUtils.fetchNewWMS({
+            mapScope: map,
+            layer: layer
+          });
         });
-      });
+      } else {
+        //wms is not enabled, do not fetch fetch layers
+      }
     },
     fetchNewWMS: function(options){
       //get the map extents and build URL
