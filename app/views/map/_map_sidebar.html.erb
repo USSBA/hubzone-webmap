@@ -1,0 +1,63 @@
+<%
+  # expecting body to be a hash that has either a message or a formatted_address and hubzones from hzutil search
+  if body
+    address = body['formatted_address'].nil? ? t(body['message']) : body['formatted_address']
+
+    date = if body['query_date'].present?
+             date = Date.parse(body['query_date'])
+             date = I18n.l date, format: :full
+           else
+             body['query_date']
+           end
+    if body['formatted_address'].nil?
+      sidebar_display = 'hidden'
+      hubzone_status_indicator = 'fa fa-times-circle-o'
+      hubzone_status_style = 'qualified-hubzone'
+    elsif body['hubzone'].size > 0
+      sidebar_display = 'sidebar-qualifications'
+      hubzone_status_indicator = 'fa fa-check-circle-o qualified-hubzone'
+      hubzone_status_style = 'qualified-hubzone'
+      hubzone_status = t('hubzone_assertions.qualified')
+      hubzones = body["hubzone"]
+    else
+      sidebar_display = 'sidebar-qualifications'
+      hubzone_status_style = 'non-qualified-hubzone'
+      hubzone_status_indicator ='fa fa-times-circle-o non-qualified-hubzone'
+      hubzone_status = t('hubzone_assertions.not_qualified')
+    end
+  end
+%>
+
+<div class="sidebar-card search-result">
+  <i class="fa fa-map-marker" aria-hidden="true"></i>
+  <h2 class="hubzone-sidebar-address"><%= address %></h2>
+</div>
+
+
+<table id="hubzone-qualifications" class="<%= sidebar_display %>">
+  <thead>
+    <th class="<%= hubzone_status_style %>" scope="row">
+      <div class="hubzone-status-indicator <%= hubzone_status_style %>">
+        <i class="<%= hubzone_status_indicator %>" aria-hidden="true"></i>
+      </div>
+      <div id="hubzone-status"><%= hubzone_status %><div class="hubzone-status-date"><%= t('hubzone_assertions.qualifications_effective') %><%= date %></div></div>
+
+    </th>
+  </thead>
+  <!--  <tfoot>
+    <tr>
+      <td></td>
+    </tr>
+  </tfoot> -->
+  <tbody>
+    <%= render partial: "qualification", collection: hubzones %>
+  </tbody>
+</table>
+
+<div class="sidebar-card map-report">
+  <button id="map-report">
+    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+    <div class="create-report">Create Report</div>
+  </button>
+  <span id="report-waiting"></span>
+</div>

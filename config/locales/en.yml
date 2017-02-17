@@ -20,4 +20,65 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  hubzone_map: "HUBZone Map"
+  usa_banner:
+    title: "An official website of the United States government"
+  date:
+    month_names: [~, January, Febuary, March, April, May, June, July, August, September, October, November, December]
+    abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+    formats:
+      full: " %B %d %Y"
+  menu:
+    hubzone_program: "HUBZone Program"
+    accessible_version: "Accessible Version"
+    help: "Help"
+  header:
+    skip_to_main: "Skip to main content"
+  map:
+    enter_address: "Enter address"
+    filter: "Filter"
+  api:
+    success: "Success"
+    error:
+      zero_results: "Zero Results"
+      invalid_request: "Invalid request"
+      over_query_limit: "Over query limit"
+      request_denied: "Request denied"
+      unknown_error: "Unknown error"
+  hubzone_assertions:
+    qualified_by: "Qualified by: "
+    qualifications_effective: "As of"
+    qualified: "Qualified HUBZone"
+    qualified_short: "Qualified"
+    not_qualified: "Not Qualified"
+    expiring: "Expiring"
+    expires: "Expires"
+    expired: "Expired"
+    qct: "Census Tract"
+    qct_e: "Census Tract"
+    qct_b: "Census Tract | Base Closure Area"
+    qct_r: "Census Tract | Redesignated"
+    qnmc: "County"
+    qnmc_a: "County (unemployment)"
+    qnmc_ab: "County (income & unemployment)"
+    qnmc_b: "County (income)"
+    qnmc_c: "County (DDA)"
+    qnmc_dda: "Count (DDA)"
+    qnmc_e: "County"
+    qnmc_brac: "County | Base Closure Area"
+    qnmc_r: "County | Redesignated"
+    indian_lands: "Indian Land"
+    brac: "Base Closure"
+    disaster_area: "Designated Disaster Area"
+  legend:
+    title: "Legend"
+    qct: "Census Tract"
+    indian_lands: "Indian Land"
+    redesignated: "Redesignated"
+    qnmc: "County"
+    brac: "Base Closure Area"
+    brac_base: "Closed Base"
+  report:
+    error: "Error Generating Report"
+    generating: "Generating Report..."
+    created: "Report Created"

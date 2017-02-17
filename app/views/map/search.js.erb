@@ -1,0 +1,20 @@
+$('#sidebar-content').html("<%= j render partial: "map_sidebar", locals: {body: JSON.parse(@body)} %>");  // jshint ignore:line
+HZApp.HZQuery.response = JSON.parse('<%= @body.html_safe %>');
+HZApp.HZQuery.response.geocodeLocation = null;
+if (HZApp.HZQuery.response.geometry){
+  HZApp.MapUtils.jumpToLocation({
+    viewport: HZApp.HZQuery.response.geometry.viewport,
+    location: HZApp.HZQuery.response.geometry.location
+  });
+  HZApp.HZQuery.response.geocodeLocation = HZApp.HZQuery.response.geometry.location;
+  HZApp.HZQuery.query.latlng = [HZApp.HZQuery.response.geocodeLocation.lat, HZApp.HZQuery.response.geocodeLocation.lng ].join(',');
+  // check whether it was a google search or a map click
+  if (HZApp.HZQuery.response.place_id){
+    HZApp.HZQuery.query.queryType = 'geocode';
+    HZApp.HZQuery.query.q = HZApp.HZQuery.response.formatted_address;
+  } else {
+    HZApp.HZQuery.query.queryType = 'map-click';
+  }
+}
+sidebar.open();
+HZApp.Markers.hzQueryMarker.updateMarkers(HZApp.HZQuery.response.geocodeLocation);

@@ -12,6 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require uswds
-//= require_tree .
+//= require HZ
+//= require i18n/translations
