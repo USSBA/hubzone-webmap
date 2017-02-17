@@ -36,8 +36,22 @@
   border-radius: 3px;
   display: table;
 }
-.sidebar-card h2 {
+
+.hubzone-sidebar-cell {
   display: table-cell;
+}
+
+.hubzone-sidebar-row {
+  display: table-row;
+}
+
+.hubzone-sidebar-cell.text {
+  padding-left: 3rem;
+  vertical-align: middle;
+}
+
+.sidebar-card h2 {
+  display: inline;
   vertical-align: middle;
   top: 1rem;
   max-width: 11rem;
@@ -47,6 +61,19 @@
   font-size: 2rem;
   font-weight: normal;
   color: $gray-dark;
+}
+
+.sidebar-card h4 {
+  display: inline;
+  vertical-align: middle;
+  top: 1rem;
+  max-width: 11rem;
+  margin: 0;
+  padding-right: 1rem;
+  font-family: $font-sans;
+  font-size: 1.3rem;
+  font-weight: normal;
+  color: $gray-light;
 }
 .sidebar-card .fa.fa-map-marker {
   position: relative;
