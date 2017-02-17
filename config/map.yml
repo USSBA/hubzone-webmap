@@ -12,7 +12,7 @@ default: &defaults
     url_root: <%= ENV["HUBZONE_WMS_URL_ROOT"] || "http://localhost:8080/geoserver/hubzone/wms?service=WMS" %>
     workspace: <%= ENV["HUBZONE_WMS_WORKSPACE"] || "hubzone" %>
     srs: 4326
-    
+
 
 production:
   <<: *defaults
@@ -29,6 +29,13 @@ demo:
     wms_enabled: true
 
 development:
+  <<: *defaults
+  geom_wms_settings:
+    <<: *default_wms
+    db: hzgeo_dev
+    wms_enabled: true
+
+dev:
   <<: *defaults
   geom_wms_settings:
     <<: *default_wms

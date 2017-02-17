@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
 
-  scope '/map' do
+  app_scope = Rails.env.production? ? '/hubzone/map' : '/map'
+
+  scope app_scope do
     get 'search', to: 'map#search'
     get 'translate', to: 'map#translate'
     get 'aws-hc', to: 'health_check#status'
