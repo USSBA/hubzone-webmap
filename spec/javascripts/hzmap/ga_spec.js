@@ -1,4 +1,5 @@
 //= require hzmap/ga
+//= require hzmap/sidebar
 /* jshint unused: false */
 /* jshint undef: false */
 
@@ -23,7 +24,7 @@ describe ('Testing Google Analytics integration', function() {
 
   describe ('with the Sidebar', function() {
     beforeEach(function(done) {
-      var sidebar = HZSpecHelper.mockPage.build();
+      HZApp.SidebarUtils.sidebar = HZSpecHelper.mockPage.build();
       setTimeout(function() {
         done();
       }, 1);
@@ -40,12 +41,12 @@ describe ('Testing Google Analytics integration', function() {
       //fails sporadically http://localhost:3000/specs?random=true&seed=51235
 
       // open the sidebar...
-      triggerSidebar();
-      expect(sidebar.currentClass).toEqual('on');
+      HZApp.SidebarUtils.triggerSidebar();
+      expect(HZApp.SidebarUtils.sidebar.currentClass).toEqual('on');
       expect(window.ga.calls.count()).toEqual(1);
       // ... and close the sidebar.
-      triggerSidebar();
-      expect(sidebar.currentClass).toEqual('hidden');
+      HZApp.SidebarUtils.triggerSidebar();
+      expect(HZApp.SidebarUtils.sidebar.currentClass).toEqual('hidden');
       expect(window.ga.calls.count()).toEqual(2);
     });
   });

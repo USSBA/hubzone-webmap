@@ -16,5 +16,5 @@ if (HZApp.HZQuery.response.geometry){
     HZApp.HZQuery.query.queryType = 'map-click';
   }
 }
-sidebar.open();
+HZApp.SidebarUtils.sidebar.open();
 HZApp.Markers.hzQueryMarker.updateMarkers(HZApp.HZQuery.response.geocodeLocation);
