@@ -20,6 +20,8 @@ HZApp.HZQuery = {
     this.updateMap();
   },
   handleBadResponses(responseStatus){
+    this.query.latlng = null; 
+    this.query.q = null;
     if (responseStatus === 'ZERO_RESULTS' || responseStatus === 'INVALID_REQUEST'){
       $('.sidebar-card.map-report').hide();
     } else {
@@ -27,15 +29,22 @@ HZApp.HZQuery = {
     }
   },
   parseResponseGeometry: function(response){
-    HZApp.HZQuery.response.geocodeLocation = null;
+    this.response.geocodeLocation = null;
     if (HZApp.HZQuery.response.geometry){
       HZApp.MapUtils.jumpToLocation({
         viewport: response.geometry.viewport,
         location: response.geometry.location
       });
 
-      HZApp.HZQuery.response.geocodeLocation = response.geometry.location;
-      HZApp.HZQuery.query.latlng = [response.geocodeLocation.lat, response.geocodeLocation.lng ].join(',');
+      this.response.geocodeLocation = response.geometry.location;
+      
+      if (response.place_id){
+        this.query.q = response.formatted_address;
+        this.query.latlng = null;
+      } else {
+        this.query.q = null;
+        this.query.latlng = [response.geocodeLocation.lat, response.geocodeLocation.lng ].join(',');
+      }
     }
   },
   updateMap: function(){
