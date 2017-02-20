@@ -9,6 +9,9 @@ HZApp.HZQuery = {
   parseResponse: function(response) {
     //set the response for later
     this.response = response;
+    this.response.geocodeLocation = null;
+    this.query.latlng = null; 
+    this.query.q = null;
 
     // handle bad responses
     this.handleBadResponses(response.status);
@@ -20,8 +23,6 @@ HZApp.HZQuery = {
     this.updateMap();
   },
   handleBadResponses: function(responseStatus){
-    this.query.latlng = null; 
-    this.query.q = null;
     if (responseStatus === 'ZERO_RESULTS' || responseStatus === 'INVALID_REQUEST'){
       $('.sidebar-card.map-report').hide();
     } else {
@@ -29,7 +30,6 @@ HZApp.HZQuery = {
     }
   },
   parseResponseGeometry: function(response){
-    this.response.geocodeLocation = null;
     if (HZApp.HZQuery.response.geometry){
       HZApp.MapUtils.jumpToLocation({
         viewport: response.geometry.viewport,

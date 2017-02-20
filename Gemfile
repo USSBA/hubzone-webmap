@@ -35,6 +35,7 @@ group :development, :test do
   gem 'chromedriver-helper'
   # gem 'chunky_png' # read png images
   gem 'jasmine-rails' # JavaScript testing
+  gem 'jasmine-jquery-rails' # JavaScript testing helper for loading in fixtures
   gem 'jshint'
   gem 'launchy'
   gem 'poltergeist'
