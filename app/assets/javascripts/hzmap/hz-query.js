@@ -16,10 +16,10 @@ HZApp.HZQuery = {
     // get all the desired geometry and attributes out of the response
     this.parseResponseGeometry(this.response);
     
-    //finally, update the` map with the new response
+    //finally, update the map with the new response
     this.updateMap();
   },
-  handleBadResponses(responseStatus){
+  handleBadResponses: function(responseStatus){
     this.query.latlng = null; 
     this.query.q = null;
     if (responseStatus === 'ZERO_RESULTS' || responseStatus === 'INVALID_REQUEST'){
