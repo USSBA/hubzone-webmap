@@ -7,12 +7,12 @@
   </div>
   <div id="map" class="sidebar-map"></div>
   <div class="hubzone-search">
-        <%= form_tag search_path, tabindex: 1, remote: true, method: :get, class: "usa-search usa-search-small", onsubmit: "HZApp.GA.trackSubmit('search', '#search-field-small')" do %>
+        <%= form_tag search_path, remote: true, method: :get, class: "usa-search usa-search-small", onsubmit: "HZApp.GA.trackSubmit('search', '#search-field-small')" do %>
         <div id="map-search" role="search">
           <%= hidden_field_tag "locale", I18n.locale %>
           <%= hidden_field_tag "query_date", Date.today %>
-          <%= label_tag "search", 'HUBZone Map Search', class: "usa-sr-only" %>
-          <%= search_field_tag "search", nil, placeholder: t('map.enter_address'), id: "search-field-small", required: true %>
+          <%= label_tag "search", 'HUBZone Map Search',id: "hubzone-search", class: "usa-sr-only" %>
+          <%= search_field_tag "search", nil, placeholder: t('map.enter_address'), id: "search-field-small", 'aria-labelledby': "hubzone-search", required: true %>
           <%= button_tag '<span class="usa-sr-only">Clear Search</span>'.html_safe, class: "clear-search fa fa-times-circle", name: "search-clear", type: "reset" %>
           <%= button_tag '<span class="usa-sr-only search-icon">Search</span>'.html_safe, id: "hubzone-search-button" %>
         </div>
