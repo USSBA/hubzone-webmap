@@ -39,6 +39,8 @@ dev:
     filter: "Filtrar"
   search:
     label: "Mapa de HUBZone Search Buscar"
+  sidebar:
+    button: "Botón de la barra lateral"
   api:
     success: "Éxito"
     error:
