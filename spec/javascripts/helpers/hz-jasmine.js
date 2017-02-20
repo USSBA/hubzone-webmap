@@ -1,15 +1,49 @@
-//= require jasmine-jquery
 /* jshint unused: false */
 /* jshint undef: false */
 
 // helper for running hz jasmine tests
 var HZSpecHelper = (function(){
-    // load in the mock page from spec/javascripts/fixtures
-    this.fixtures = fixture.load("hz_mock_page.html", true); 
   return {
     //build a dummy sidebar and mapbody
     mockPage: {
       build: function(){
+
+        //add map
+        var mapBodyDiv = document.createElement('div');
+        $(mapBodyDiv).addClass('map-body mock-page');
+
+        //add header and search
+        $('body').append('<div id="header" class=" mock-page hidden"></div>');
+        $('#header').append('<div id="search-field-small" class="mock-page hidden"></div>')
+
+        //add legend
+        $('body').append('<div id="legend" class="mock-page"><ul>' +
+                          '<li id="legend-header" class="open">' +
+                            '<span id="legend-header-title" style="display: none;">Legend</span>' +
+                            '<div id="legend-button-div">' +
+                              '<i id="hide-legend-button" class="fa fa-chevron-down" aria-hidden="true"></i>' +
+                              '<i id="show-legend-button" class="fa fa-chevron-up" aria-hidden="true" style="display: none;"></i>' +
+                            '</div>' +
+                          '</li>' +
+                          '<input type="checkbox" id="mock-checkbox" value="mock-qct" checked>' +
+                          '</ul></dir>');
+
+        //add geolocation button
+        $('body').append('<div id="geolocation" class=" mock-page hidden"></div>');
+        $('#geolocation').append('<i class="fa fa-location-arrow" style="display: block;"></i>')
+        $('#geolocation').append('<div class="geolocation-loading" style="display: none;"></i>')
+
+        //add sidebar
+        $('body').append('<div id="sidebar" class="mock-page hidden"></div>');
+        var testDiv = document.createElement('div');
+        $('#sidebar').append(testDiv);
+        $('#sidebar').css('display', 'none');
+        $('#sidebar').append('<div class="sidebar-card map-report">' +
+                              '<button id="map-report">' +
+                                '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>' +
+                                '<div class="create-report">Create Report</div>' +
+                              '</button>' +
+                            '</div>');
         sidebar = $('#sidebar').sidebar();
         return sidebar;
       },
