@@ -7,12 +7,11 @@ describe 'The Search', type: :feature, js: true do
               non_qualified: 'banana',
               intersection: '25th & st. paul, baltimore' }
 
-  responses = { qualified_multiple: { address_components: [
-                                        {
-                                          long_name: "United States",
-                                          short_name: "US"
-                                        }
-                                      ],
+  responses = { qualified_multiple: { address_components:
+                                      [{
+                                        long_name: "United States",
+                                        short_name: "US"
+                                      }],
                                       formatted_address: 'Yup',
                                       http_status: 200,
                                       hubzone: [
@@ -30,12 +29,11 @@ describe 'The Search', type: :feature, js: true do
                                         }
                                       },
                                       query_date: Date.today },
-                non_qualified: { address_components: [
-                                   {
-                                     long_name: "United States",
-                                     short_name: "US"
-                                   }
-                                 ],
+                non_qualified: { address_components:
+                                 [{
+                                   long_name: "United States",
+                                   short_name: "US"
+                                 }],
                                  formatted_address: "Nope",
                                  http_status: 200,
                                  hubzone: [],
@@ -45,12 +43,11 @@ describe 'The Search', type: :feature, js: true do
                                      lng: 0
                                    }
                                  } },
-                intersection: { address_components: [
-                                   {
-                                     long_name: "United States",
-                                     short_name: "US"
-                                   }
-                                 ],
+                intersection: { address_components:
+                                [{
+                                  long_name: "United States",
+                                  short_name: "US"
+                                }],
                                 formatted_address:
                                 'St Paul St & E 25th St, Baltimore, MD 21218, USA',
                                 http_status: 200,
@@ -107,7 +104,8 @@ describe 'The Search', type: :feature, js: true do
         it "should show the coordinates" do
           fill_in 'search', with: queries[:qualified_multiple]
           click_button 'hubzone-search-button'
-          coordinates = [format('%.5f', responses[:qualified_multiple][:geometry][:location][:lat]) + "\xC2\xB0", format('%.5f', responses[:qualified_multiple][:geometry][:location][:lng]) + "\xC2\xB0"].join(', ')
+          coordinates = [ format('%.5f', responses[:qualified_multiple][:geometry][:location][:lat]) + "\xC2\xB0",
+                          format('%.5f', responses[:qualified_multiple][:geometry][:location][:lng]) + "\xC2\xB0"].join(', ')
           expect(page).to have_content(coordinates)
         end
       end
