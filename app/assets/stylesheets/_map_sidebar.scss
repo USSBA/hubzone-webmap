@@ -151,6 +151,13 @@ button#map-report {
     top: 100%;
     background-color: transparent;
   }
+
+  #sidebar-content.zero-results {
+    margin-top: 0;
+    position: absolute;
+    bottom: 0px;
+  }
+
   #sidebar-content {
     margin-top: -100px;
   }
