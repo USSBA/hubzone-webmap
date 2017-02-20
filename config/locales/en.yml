@@ -37,6 +37,8 @@ en:
   map:
     enter_address: "Enter address"
     filter: "Filter"
+  search:
+    label: "HUBZone Map Search"
   api:
     success: "Success"
     error:
