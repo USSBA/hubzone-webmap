@@ -29,6 +29,7 @@ gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem "brakeman", require: false # code analysis  (http://brakemanscanner.org)
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'capybara' # allow interaction with DOM in tests
   gem 'chromedriver-helper'
