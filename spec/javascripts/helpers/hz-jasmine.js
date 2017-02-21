@@ -7,10 +7,10 @@ var HZSpecHelper = (function(){
     //build a dummy sidebar and mapbody
     mockPage: {
       build: function(){
+
         //add map
         var mapBodyDiv = document.createElement('div');
         $(mapBodyDiv).addClass('map-body mock-page');
-        $('body').append(mapBodyDiv);
 
         //add header and search
         $('body').append('<div id="header" class=" mock-page hidden"></div>');
@@ -38,6 +38,12 @@ var HZSpecHelper = (function(){
         var testDiv = document.createElement('div');
         $('#sidebar').append(testDiv);
         $('#sidebar').css('display', 'none');
+        $('#sidebar').append('<div class="sidebar-card map-report">' +
+                              '<button id="map-report">' +
+                                '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>' +
+                                '<div class="create-report">Create Report</div>' +
+                              '</button>' +
+                            '</div>');
         sidebar = $('#sidebar').sidebar();
         return sidebar;
       },
@@ -246,6 +252,57 @@ var HZSpecHelper = (function(){
         metaKey: meta,
         keyCode: key,
       }
-    }
+    },
+    searchResponses: [
+      {
+        mockResponseType: 'good response',
+        mockHubZoneResponseType: 'empty',
+        formatted_address: "8 Meerkat Ln, Sanford, NC 27332, USA",
+        http_status: 200,
+        place_id: "EiQ4IE1lZXJrYXQgTG4sIFNhbmZvcmQsIE5DIDI3MzMyLCBVU0E",
+        address_components: [],
+        geometry: {
+          location: {
+            lat: 35.3175882,
+            lng: -79.16491549999999
+          },
+          viewport: {
+            northeast: {
+              lat: 35.3189445802915,
+              lng: -79.16356896970849
+            },
+            southwest: {
+              lat: 35.3162466197085,
+              lng: -79.1662669302915
+            }
+          }
+        },
+        query_date: "2017-02-20",
+        hubzone: []
+      },
+      {
+        mockResponseType: 'good response',
+        mockHubZoneResponseType: 'empty',
+        formatted_address: "35.31886°, -79.16360°",
+        geometry: {
+          location: {
+            lat: 35.3175882,
+            lng: -79.16491549999999
+          }
+        },
+        query_date: "2017-02-20",
+        hubzone: []
+      },
+      {
+        mockResponseType: 'bad response',
+        geocodeLocation: null, 
+        http_status: 200,
+        message: "api.error.zero_results",
+        query_date: "2017-02-20",
+        status: "ZERO_RESULTS"
+      }
+    ]
   };
 })();
+
+
