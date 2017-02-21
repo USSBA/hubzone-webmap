@@ -9,7 +9,7 @@
 
 <tr>
   <th id="<%= qualification['hz_type'] %>">
-    <div class="qualification-label"><%= t(('hubzone_assertions.' + qualification["hz_type"]).to_s)  %></div>
-    <span class="<%= expiration_display %>"><%= t('hubzone_assertions.expires') %> <%= qualification["expires"].to_s %></span>
+    <div class="qualification-label" tabindex="0"><%= t(('hubzone_assertions.' + qualification["hz_type"]).to_s)  %></div>
+    <span tabindex="0" class="<%= expiration_display %>"><%= t('hubzone_assertions.expires') %> <%= qualification["expires"].to_s %></span>
   </th>
 </tr>
