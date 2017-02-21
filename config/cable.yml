@@ -10,3 +10,6 @@ production: &prd
 
 demo:
   <<: *prd
+
+dev:
+  adapter: async
