@@ -3,9 +3,9 @@ HZApp.SidebarUtils = (function(){
   // extend jquery with our sidebar function
   $.fn.sidebar = function() {
     var $sidebar = this;
-    this.currentClass = 'hidden';
+    $sidebar.currentClass = 'hidden';
 
-    this.update = function() {
+    $sidebar.update = function() {
       if (!$sidebar.hasClass('on')) {
         $sidebar.addClass('on');
         $('#legend').addClass('legend-mobile');
@@ -13,24 +13,24 @@ HZApp.SidebarUtils = (function(){
         $('#sidebar-button').html('<i class="fa fa-chevron-right"></i>');
         $('div.gmnoprint[controlheight="55"], div.gmnoprint[controlheight="66"], .gm-svpc').addClass('gm-sidebar-on');
         $('#geolocation').addClass('geolocation-sidebar-on');
-        this.currentClass = 'on';
+        $sidebar.currentClass = 'on';
       } else {
         $sidebar.removeClass('on');
         $('#legend').removeClass('legend-mobile');
         $('#sidebar-button').html('<i class="fa fa-chevron-left"></i>');
         $('div.gmnoprint[controlheight="55"], div.gmnoprint[controlheight="66"], .gm-svpc').removeClass('gm-sidebar-on');
         $('#geolocation').removeClass('geolocation-sidebar-on');
-        this.currentClass = 'hidden';
+        $sidebar.currentClass = 'hidden';
       }
     };
     /*** Open the sidebar ***/
-    this.open = function() {
+    $sidebar.open = function() {
       if (!$sidebar.hasClass('on')) {
         $sidebar.update();
       }
     };
     /*** Close the sidebar ***/
-    this.close = function() {
+    $sidebar.close = function() {
       if ($sidebar.hasClass('on')) {
         $sidebar.update();
       }
