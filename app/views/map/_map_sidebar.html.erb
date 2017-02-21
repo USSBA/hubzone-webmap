@@ -4,7 +4,7 @@
     address = body['formatted_address'].nil? ? t(body['message']) : body['formatted_address']
     if !body['address_components'].nil?
       coordinates = [format('%.5f', body['geometry']['location']['lat']) + "\xC2\xB0", format('%.5f', body['geometry']['location']['lng']) + "\xC2\xB0"].join(', ')
-    else 
+    else
       coordinates = nil
     end
     date = if body['query_date'].present?
@@ -22,12 +22,14 @@
       hubzone_status_indicator = 'fa fa-check-circle-o qualified-hubzone'
       hubzone_status_style = 'qualified-hubzone'
       hubzone_status = t('hubzone_assertions.qualified')
+      aria_hubzone_status = t('hubzone_assertions.qualified_aria')
       hubzones = body['hubzone']
     else
       sidebar_display = 'sidebar-qualifications'
       hubzone_status_style = 'non-qualified-hubzone'
       hubzone_status_indicator ='fa fa-times-circle-o non-qualified-hubzone'
       hubzone_status = t('hubzone_assertions.not_qualified')
+      aria_hubzone_status = t('hubzone_assertions.not_qualified_aria')
     end
   end
 %>
@@ -55,7 +57,7 @@
       <div class="hubzone-status-indicator <%= hubzone_status_style %>">
         <i class="<%= hubzone_status_indicator %>" aria-hidden="true"></i>
       </div>
-      <div id="hubzone-status" tabindex="0"><%= hubzone_status %><div class="hubzone-status-date"><%= t('hubzone_assertions.qualifications_effective') %><%= date %></div></div>
+      <div id="hubzone-status" tabindex="11" aria-label="<%= aria_hubzone_status %>"><%= hubzone_status %><div class="hubzone-status-date" tabindex="12"><%= t('hubzone_assertions.qualifications_effective') %><%= date %></div></div>
 
     </th>
   </thead>
@@ -70,7 +72,7 @@
 </table>
 
 <div class="sidebar-card map-report">
-  <button id="map-report">
+  <button id="map-report" tabindex="15">
     <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
     <div class="create-report">Create Report</div>
   </button>

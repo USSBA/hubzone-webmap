@@ -5,9 +5,9 @@
 %>
 <tr>
   <th id="<%= qualification['hz_type'] %>">
-    <div class="qualification-label" tabindex="13"><%= t(('hubzone_assertions.' + qualification["hz_type"]).to_s) %></div>
+    <div class="qualification-label" tabindex="12"><%= t(('hubzone_assertions.' + qualification["hz_type"]).to_s) %></div>
     <% unless qualification["expires"].nil? %>
-    <span tabindex="14" class="expires-label"><%= t('hubzone_assertions.' + expires_text) %> <%= qualification["expires"].to_s %></span>
+    <span tabindex="13" class="expires-label"><%= t('hubzone_assertions.' + expires_text) %> <%= qualification["expires"].to_s %></span>
     <% end %>
   </th>
 </tr>
