@@ -3,7 +3,6 @@ HZApp.WMTSUtils = (function(){
   return {
     tileSize: 256,
     initializeTiles: function(){
-      console.log('here')
       //for each layer defined in the hzWMSOverlays create the tile overlay
       if (HZApp.config.wmsEnabled){
         Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).map(function(layer){
@@ -66,16 +65,28 @@ HZApp.WMTSUtils = (function(){
       return angle * Math.PI / 180.0
     },
     buildTileUrl: function(coord, zoom, layer){
-      var bbox = this.tile2Bbox(coord.x, coord.y, zoom);
-      var url = "http://localhost:8080/geoserver/gwc/service/wms?";
-      url += "LAYERS=hubzone:" + layer;
-      url += "&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&SRS=EPSG:900913";
-      url += "&STYLE=hubzone:" + layer + "_style";
-      url += "&bbox=" + bbox;  
+      var url = "<%= MAP_CONFIG[:geom_wms_settings][:url_root] %>";
+      url += "&LAYERS=" + "<%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:" + layer;
+      url += "&SERVICE=WMS";
+      url += "&VERSION=1.1.1";
+      url += "&REQUEST=GetMap";
+      url += "&SRS=EPSG:900913";
+      url += "&STYLE=" + "<%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:" + layer + "_style";
+      url += "&bbox=" + this.tile2Bbox(coord.x, coord.y, zoom);  
       url += "&width=" + this.tileSize;
       url += "&height=" + this.tileSize;
       url += "&format=image/png";
       return url      
-      }
+    },
+    addClickListeners: function(overlay) {
+      overlay.addListener('click',  this.handleSingleClick);
+      overlay.addListener('dblclick', this.handleDblClick);
+    },
+    handleSingleClick: function(event) {
+      this.clickEventTimer = setTimeout(function() { HZApp.MapUtils.catchMapClick(event); }, 400);
+    },
+    handleDblClick: function() {
+      clearTimeout(this.clickEventTimer);
     }
+  }
 })();

@@ -9,7 +9,7 @@ default: &defaults
                       "need to set HUBZONE_GOOGLE_API_KEY in your environment!"
                       %>
   geom_wms_settings: &default_wms
-    url_root: <%= ENV["HUBZONE_WMS_URL_ROOT"] || "http://localhost:8080/geoserver/hubzone/wms?service=WMS" %>
+    url_root: <%= ENV["HUBZONE_WMS_URL_ROOT"] || "http://localhost:8080/geoserver/gwc/service/wms?" %>
     workspace: <%= ENV["HUBZONE_WMS_WORKSPACE"] || "hubzone" %>
     srs: 4326
 
