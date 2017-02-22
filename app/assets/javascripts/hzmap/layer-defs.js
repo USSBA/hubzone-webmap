@@ -1,148 +1,43 @@
 // hubzone data layer style definitions
 
-// this object holds the current google overlays in the .overlay array and the per layer styles
-// order in this object defines draw order on the map:
-// first object is drawn first, then next on top of that, etc.
+// this object holds the current google overlays in the .overlay array
+// the layerIndex prop is used for order
+// the object that is stuck into overlay will have a setOpacity which is used for toggling
+
 HZApp.Layers.LayerDefs = (function(){
-  var defaults = {
-    circleFillColor: '#FFFFFF',
-    circleFillOpacity: 0.5,
-    circleStrokeColor: '#CCCCCC',
-    circleStrokeOpacity: 1,
-    circleStrokeWidth: 1,
-    displacementX: 0,
-    displacementY: 0,
-    fillColor: '#CCCCCC',
-    fillOpacity: 0.5,
-    graphicSpacing: 10,
-    lineStrokeColor: '#000000',
-    lineStrokeOpacity: 1,
-    lineStrokeWidth: 1,
-    lineRotation: 0,
-    strokeColor: '#CCCCCC',
-    strokeOpacity: 1,
-    strokeWidth: 1.25,
-    tileSize: 10,
-
-    // USWDS Alt 1
-    qctColor: '#2E8540',
-    qnmcColor: '#0071BB',
-    indianLandsColor: '#4C2C92'
-
-    // Tyler 1
-    // qctColor: '#0D465C',
-    // qnmcColor: '#BA233F',
-    // indianLandsColor: '#009DCD'
-
-    // color brewer 2
-    // qctColor: '#1b9e77',
-    // qnmcColor: '#d95f02',
-    // indianLandsColor: '#7570b3'
-  };
-
-  var hzWMSOverlays = {
-    indian_lands: {
-      layerIndex: 0,
-      legendType: 'indian_lands',
-      layerGroup: 'indian_lands',
-      isVisible: true,
-      overlay: [],
-      sldXMLStyle: null,
-      styleOptions: [
-        {
-          type: 'polygon',
-          fillColor: defaults.indianLandsColor,
-          fillOpacity: defaults.fillOpacity,
-          strokeColor: defaults.indianLandsColor,
-          strokeOpacity: defaults.strokeOpacity,
-          strokeWidth: defaults.strokeWidth
-        }
-      ]
-    },
-    qnmc_e: {
-      layerIndex: 1,
-      legendType: 'qnmc',
-      layerGroup: 'qnmc',
-      isVisible: true,
-      overlay:[],
-      sldXMLStyle: null,
-      styleOptions: [
-        {
-          type: 'polygon',
-          fillColor: defaults.qnmcColor,
-          fillOpacity: defaults.fillOpacity,
-          strokeColor: defaults.qnmcColors,
-          strokeOpacity: defaults.strokeOpacity,
-          strokeWidth: defaults.strokeWidth
-        }
-      ]
-    },
-    redesignated_lg: {
-      layerIndex: 2,
-      legendType: 'redesignated',
-      layerGroup: 'redesignated',
-      isVisible: true,
-      overlay:[],
-      sldXMLStyle: null,
-      styleOptions: [
-        {
-          type: 'horline',
-          lineStrokeColor: defaults.qnmcColor,
-          lineStrokeWidth: 5,
-          lineStrokeOpacity: defaults.fillOpacity,
-          strokeWidth: defaults.strokeWidth,
-          strokeColor: defaults.qnmcColor,
-          strokeOpacity: defaults.strokeOpacity,
-          tileSize: 30,
-          lineRotation: 0
-        }
-      ]
-    },
-    brac_lg: {
-      layerIndex: 3,
-      legendType: 'brac',
-      layerGroup: 'brac',
-      isVisible: true,
-      overlay:[],
-      sldXMLStyle: null,
-      styleOptions: [
-        {
-          type: 'circle',
-          circleFillColor: defaults.qnmcColor,
-          circleFillOpacity: defaults.fillOpacity,
-          circleStrokeColor: defaults.qnmcColor,
-          circleStrokeOpacity: defaults.strokeOpacity,
-          circleStrokeWidth: defaults.strokeWidth,
-          strokeColor: defaults.qnmcColor,
-          strokeOpacity: defaults.strokeOpacity,
-          strokeWidth: defaults.strokeWidth,
-          tileSize: 15,
-          graphicSpacing: defaults.graphicSpacing
-        }
-      ]
-    },
-    qct_e: {
-      layerIndex: 4,
-      legendType: 'qct',
-      layerGroup: 'qct',
-      isVisible: true,
-      overlay:[],
-      sldXMLStyle: null,
-      styleOptions: [
-        {
-          type: 'polygon',
-          fillColor: defaults.qctColor,
-          fillOpacity: defaults.fillOpacity,
-          strokeColor: defaults.qctColor,
-          strokeOpacity: defaults.strokeOpacity,
-          strokeWidth: defaults.strokeWidth
-        }
-      ]
-    }
-  };
 
   return {
-    defaults: defaults,
-    hzWMSOverlays: hzWMSOverlays
-  };
+    hzWMSOverlays: {
+      indian_lands: {
+        layerIndex: 0,
+        layerGroup: 'indian_lands',
+        isVisible: true,
+        overlay: [],
+      },
+      qnmc_e: {
+        layerIndex: 1,
+        layerGroup: 'qnmc',
+        isVisible: true,
+        overlay:[],
+      },
+      redesignated_lg: {
+        layerIndex: 2,
+        layerGroup: 'redesignated',
+        isVisible: true,
+        overlay:[],
+      },
+      brac_lg: {
+        layerIndex: 3,
+        layerGroup: 'brac',
+        isVisible: true,
+        overlay:[],
+      },
+      qct_e: {
+        layerIndex: 4,
+        layerGroup: 'qct',
+        isVisible: true,
+        overlay:[],
+      }
+    }
+  }
 })();
