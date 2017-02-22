@@ -6,13 +6,13 @@ HZApp.WMTSUtils = (function(){
       //for each layer defined in the hzWMSOverlays create the tile overlay
       if (HZApp.config.wmsEnabled){
         Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).map(function(layer){
-          HZApp.WMTSUtils.addLayerTiles(layer);
+          HZApp.WMTSUtils.addLayerTiles(layer, HZApp.Layers.LayerDefs.hzWMSOverlays[layer].layerIndex);
         });
       } else {
         //wms is not enabled, do not fetch fetch layers
       }
     },
-    addLayerTiles: function(layer){
+    addLayerTiles: function(layer, layerIndex){
 
       var layerTiles = {
         getTileUrl: function(coord, zoom){
@@ -24,7 +24,8 @@ HZApp.WMTSUtils = (function(){
        };
 
        var customMapType = new google.maps.ImageMapType(layerTiles);
-       HZApp.map.overlayMapTypes.insertAt(0, customMapType);
+       HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay = customMapType;
+       HZApp.map.overlayMapTypes.insertAt(layerIndex, customMapType);
 
     },
     tile2Bbox: function(x, y, zoom){
@@ -71,7 +72,7 @@ HZApp.WMTSUtils = (function(){
       url += "&VERSION=1.1.1";
       url += "&REQUEST=GetMap";
       url += "&SRS=EPSG:900913";
-      url += "&STYLE=" + "<%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:" + layer + "_style";
+      // url += "&STYLE=" + layer + "_style";
       url += "&bbox=" + this.tile2Bbox(coord.x, coord.y, zoom);  
       url += "&width=" + this.tileSize;
       url += "&height=" + this.tileSize;

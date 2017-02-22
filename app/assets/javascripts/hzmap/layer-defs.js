@@ -42,6 +42,7 @@ HZApp.Layers.LayerDefs = (function(){
 
   var hzWMSOverlays = {
     indian_lands: {
+      layerIndex: 0,
       legendType: 'indian_lands',
       layerGroup: 'indian_lands',
       isVisible: true,
@@ -59,6 +60,7 @@ HZApp.Layers.LayerDefs = (function(){
       ]
     },
     qnmc_e: {
+      layerIndex: 1,
       legendType: 'qnmc',
       layerGroup: 'qnmc',
       isVisible: true,
@@ -75,7 +77,8 @@ HZApp.Layers.LayerDefs = (function(){
         }
       ]
     },
-    qnmc_r: {
+    redesignated_lg: {
+      layerIndex: 2,
       legendType: 'redesignated',
       layerGroup: 'redesignated',
       isVisible: true,
@@ -95,7 +98,8 @@ HZApp.Layers.LayerDefs = (function(){
         }
       ]
     },
-    qnmc_brac: {
+    brac_lg: {
+      layerIndex: 3,
       legendType: 'brac',
       layerGroup: 'brac',
       isVisible: true,
@@ -118,6 +122,7 @@ HZApp.Layers.LayerDefs = (function(){
       ]
     },
     qct_e: {
+      layerIndex: 4,
       legendType: 'qct',
       layerGroup: 'qct',
       isVisible: true,
@@ -133,71 +138,7 @@ HZApp.Layers.LayerDefs = (function(){
           strokeWidth: defaults.strokeWidth
         }
       ]
-    },
-    qct_r: {
-      legendType: 'redesignated',
-      layerGroup: 'redesignated',
-      isVisible: true,
-      overlay:[],
-      sldXMLStyle: null,
-      styleOptions: [
-        {
-          type: 'horline',
-          lineStrokeColor: defaults.qctColor,
-          lineStrokeWidth: 5,
-          lineStrokeOpacity: defaults.fillOpacity,
-          strokeWidth: defaults.strokeWidth,
-          strokeColor: defaults.qctColor,
-          strokeOpacity: defaults.strokeOpacity,
-          tileSize: 30,
-          lineRotation: 0
-        }
-      ]
-    },
-    qct_brac: {
-      legendType: 'brac',
-      layerGroup: 'brac',
-      isVisible: true,
-      overlay:[],
-      sldXMLStyle: null,
-      styleOptions: [
-        {
-          type: 'circle',
-          circleFillColor: defaults.qctColor,
-          circleFillOpacity: defaults.fillOpacity,
-          circleStrokeColor: defaults.qctColor,
-          circleStrokeOpacity: defaults.strokeOpacity,
-          circleStrokeWidth: defaults.strokeWidth,
-          strokeColor: defaults.qctColor,
-          strokeOpacity: defaults.strokeOpacity,
-          strokeWidth: defaults.strokeWidth,
-          tileSize: 15,
-          graphicSpacing: defaults.graphicSpacing
-        }
-      ]
-    },
-    brac: {
-      legendType: 'brac',
-      layerGroup: 'brac',
-      isVisible: true,
-      overlay:[],
-      sldXMLStyle: null,
-      styleOptions: [
-        {
-          type: 'circle',
-          circleFillColor: '#000',
-          circleFillOpacity: defaults.fillOpacity,
-          circleStrokeColor: '#000000',
-          circleStrokeOpacity: defaults.strokeOpacity,
-          circleStrokeWidth: defaults.strokeWidth,
-          strokeColor: '#000000',
-          strokeOpacity: defaults.strokeOpacity,
-          strokeWidth: defaults.strokeWidth,
-          tileSize: 15,
-          graphicSpacing: defaults.graphicSpacing
-        }
-      ]
-    },
+    }
   };
 
   return {
