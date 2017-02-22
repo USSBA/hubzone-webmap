@@ -44,11 +44,11 @@ en:
   api:
     success: "Success"
     error:
-      zero_results: "Zero Results"
-      invalid_request: "Invalid request"
-      over_query_limit: "Over query limit"
-      request_denied: "Request denied"
-      unknown_error: "Unknown error"
+      zero_results: "We're sorry.  Your search could not be completed. Please check spelling or include more address information."
+      invalid_request: "We're sorry. The request failed due to an internal error. Please try again."
+      over_query_limit: "We're sorry. The request failed due to an internal error. Please try again."
+      request_denied: "We're sorry. The request failed due to an internal error. Please try again."
+      unknown_error: "We're sorry. The request failed due to an internal error. Please try again."
   hubzone_assertions:
     qualified_by: "Qualified by: "
     qualifications_effective: "As of"

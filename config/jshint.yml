@@ -36,6 +36,5 @@ options:
     I18n: true
     jumpToLocation: true
     map: true
-    sidebar: true
     updateAccordions: true
     updateMarkers: true

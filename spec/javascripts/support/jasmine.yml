@@ -19,6 +19,7 @@ css_dir: "app/assets/stylesheets"
 src_files:
   - "application.{js.coffee,js,coffee,js.erb}"
   - "hzmap.{js.coffee,js,coffee,js.erb}"
+  - "app/assets/jasmine-jquery.js"
   
 # list of file expressions to include as css files
 # relative path from css_dir
@@ -39,7 +40,7 @@ spec_dir: spec/javascripts
 # relative path from spec_dir
 helpers:
   - "helpers/**/*.{js.coffee,js,coffee,js.erb}"
-
+  
 # list of file expressions to include as specs into spec runner
 # relative path from spec_dir
 spec_files:
