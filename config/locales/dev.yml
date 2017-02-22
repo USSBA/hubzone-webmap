@@ -40,11 +40,11 @@ dev:
   api:
     success: "Éxito"
     error:
-      zero_results: "El término de búsqueda está en blanco"
-      invalid_request: "Solicitud no válida"
-      over_query_limit: "Over query limit"
-      request_denied: "Sobre el límite de la consulta"
-      unknown_error: "Error desconocido"
+      zero_results: "Lo sentimos. No se pudo completar la búsqueda. Compruebe la ortografía o incluya más información de dirección."
+      invalid_request: "Lo sentimos. La solicitud ha fallado debido a un error interno. Vuelve a intentarlo."
+      over_query_limit: "Lo sentimos. La solicitud ha fallado debido a un error interno. Vuelve a intentarlo."
+      request_denied: "Lo sentimos. La solicitud ha fallado debido a un error interno. Vuelve a intentarlo."
+      unknown_error: "Lo sentimos. La solicitud ha fallado debido a un error interno. Vuelve a intentarlo."
   hubzone_assertions:
     qualified_by: "Calificado por: "
     qualifications_effective: "A partir de"
