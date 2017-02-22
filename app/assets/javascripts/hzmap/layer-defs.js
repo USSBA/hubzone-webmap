@@ -39,5 +39,5 @@ HZApp.Layers.LayerDefs = (function(){
         overlay:[],
       }
     }
-  }
+  };
 })();
