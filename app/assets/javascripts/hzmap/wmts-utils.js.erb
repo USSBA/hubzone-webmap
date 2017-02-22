@@ -1,0 +1,81 @@
+// web map tile service utilites
+HZApp.WMTSUtils = (function(){
+  return {
+    tileSize: 256,
+    initializeTiles: function(){
+      console.log('here')
+      //for each layer defined in the hzWMSOverlays create the tile overlay
+      if (HZApp.config.wmsEnabled){
+        Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).map(function(layer){
+          HZApp.WMTSUtils.addLayerTiles(layer);
+        });
+      } else {
+        //wms is not enabled, do not fetch fetch layers
+      }
+    },
+    addLayerTiles: function(layer){
+
+      var layerTiles = {
+        getTileUrl: function(coord, zoom){
+          return HZApp.WMTSUtils.buildTileUrl(coord, zoom, layer);
+        },
+        tileSize: new google.maps.Size(256, 256),
+        isPng: true,
+        opacity: 1.0
+       };
+
+       var customMapType = new google.maps.ImageMapType(layerTiles);
+       HZApp.map.overlayMapTypes.insertAt(0, customMapType);
+
+    },
+    tile2Bbox: function(x, y, zoom){
+      var bb = {};
+      bb.n = this.tile2Lat(y,zoom);
+      bb.s = this.tile2Lat(y+1, zoom);
+      bb.w = this.tile2Lng(x, zoom);
+      bb.e = this.tile2Lng(x+1, zoom);
+
+      webMSW = this.toWebMercator(bb.w, bb.s)
+      webMNE = this.toWebMercator(bb.e, bb.n)
+      return [webMSW[0], webMSW[1], webMNE[0], webMNE[1]].join(',');
+    },
+    toWebMercator: function(x_lon, y_lat){
+      if ((Math.abs(x_lon) > 180) && (Math.abs(y_lat) > 90)){
+        // coordinate out of range
+      }
+      else{ 
+        var semimajor_axis = 6378137.0
+        var east = x_lon * 0.017453292519943295
+        var north = y_lat * 0.017453292519943295
+        var northing = 3189068.5 * Math.log((1.0 + Math.sin(north)) / (1.0 - Math.sin(north)))
+        var easting = semimajor_axis * east
+        return [easting, northing]
+      }
+    },
+    tile2Lng: function(x, z){
+      return (x / Math.pow(2.0, z) * 360.0 - 180);
+    },
+    tile2Lat: function(y,z) {
+      n = Math.PI - (2.0 * Math.PI * y) / Math.pow(2.0, z);
+      return this.toDegrees(Math.atan(Math.sinh(n)));
+    },
+    toDegrees: function(angle){
+      return angle * 180.0 / Math.PI;
+    },
+    toRadians: function(angle){
+      return angle * Math.PI / 180.0
+    },
+    buildTileUrl: function(coord, zoom, layer){
+      var bbox = this.tile2Bbox(coord.x, coord.y, zoom);
+      var url = "http://localhost:8080/geoserver/gwc/service/wms?";
+      url += "LAYERS=hubzone:" + layer;
+      url += "&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&SRS=EPSG:900913";
+      url += "&STYLE=hubzone:" + layer + "_style";
+      url += "&bbox=" + bbox;  
+      url += "&width=" + this.tileSize;
+      url += "&height=" + this.tileSize;
+      url += "&format=image/png";
+      return url      
+      }
+    }
+})();
