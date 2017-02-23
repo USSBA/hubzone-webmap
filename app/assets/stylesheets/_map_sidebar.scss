@@ -1,0 +1,201 @@
+@import 'variables';
+
+#sidebar {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.80);
+  right: -34rem;
+  height: 100%;
+  width: 34rem;
+  transition-duration: 400ms;
+  z-index: 2;
+}
+#sidebar.on {
+  right: 0;
+}
+#sidebar-button {
+  position: absolute;
+  margin-left: -2.9rem;
+  margin-top: 2.3rem;
+  padding: 2rem .3rem 2rem 0.5rem;
+  z-index: 2;
+  border-radius: 3px 0 0 3px;
+  font-size: 3rem;
+  background-color: rgba(255, 255, 255, 0.80);
+}
+#sidebar i.fa-chevron-right, i.fa-chevron-left {
+  color: $gray-dark;
+}
+.sidebar-card {
+  position: relative;
+  width: 90%;
+  min-height: 4em;
+  margin: 1rem auto 1rem auto;
+  padding: 1.5rem 0 1.5rem 0;
+  background-color: $white;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  display: table;
+}
+.sidebar-card h2 {
+  display: table-cell;
+  vertical-align: middle;
+  top: 1rem;
+  max-width: 11rem;
+  margin: 0;
+  padding-right: 1rem;
+  font-family: $font-sans;
+  font-size: 2rem;
+  font-weight: normal;
+  color: $gray-dark;
+}
+.sidebar-card .fa.fa-map-marker {
+  position: relative;
+  left: 2rem;
+  font-size: 4.5rem;
+  color: $gray-dark;
+}
+#hubzone-status {
+  float: left;
+  font-size: 2.4rem;
+  font-weight: normal;
+  padding-left: 0.8rem;
+}
+.qualified-hubzone {
+  background-color: $green-light;
+  color: $white;
+}
+.non-qualified-hubzone {
+  background-color: $gray-dark;
+  color: $white;
+}
+.hubzone-status-indicator .fa.fa-times-circle-o, .fa.fa-check-circle-o {
+  float: left;
+  font-size: 4rem;
+}
+.sidebar-qualifications {
+  width: 90%;
+  min-width: auto;
+  margin: 0 auto;
+  border-radius: 3px;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+  border-collapse: separate;
+  overflow: hidden;
+}
+table.sidebar-qualifications th {
+  border: none;
+}
+.sidebar-qualifications thead th {
+  border: none;
+  padding: 1rem 1.5rem 1rem 1.5rem;
+}
+.sidebar-qualifications tbody th {
+  background-color: $white;
+  border-top: 1px solid $gray-lightest;
+  color: $gray-dark;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+.sidebar-qualifications th > span {
+  float: none;
+  font-weight: bold;
+}
+.sidebar-qualifications tfoot tr td {
+  border-left: 1px solid $gray-lightest;
+  border-right: 1px solid $gray-lightest;
+  border-bottom: 1px solid $gray-lightest;
+  border-top: none;
+  border-radius: 0 0 3px 3px;
+  font-size: 1.5rem;
+}
+.hubzone-status-date {
+  font-weight: normal;
+  font-size: 1.3rem;
+  padding-left: 2px;
+}
+i.fa.fa-print {
+  font-size: 2.5rem;
+  color: $gray-dark;
+  padding: .5rem 2rem 0 2rem;
+}
+#map-report {
+  cursor: pointer;
+  display: inline;
+}
+i.fa-file-pdf-o {
+  font-size: 2.5rem;
+  color: $gray-dark;
+  padding: 0;
+}
+#report-waiting {
+  display: none;
+}
+button#map-report {
+  background: none;
+  margin: 0.5rem 0.5rem .5rem 1.5rem;
+  padding: 0rem;
+}
+.create-report {
+  font-size: 1.5rem;
+  font-weight: normal;
+  padding-top: 0.5rem;
+  color: $gray-dark;
+}
+
+@media only screen and (max-width: 950px)  {
+  #sidebar-button {
+    display: none;
+  }
+  #sidebar {
+    width: 100%;
+    height: auto;
+    top: 100%;
+    background-color: transparent;
+  }
+
+  #sidebar-content.zero-results {
+    margin-top: 0;
+    position: absolute;
+    bottom: 0px;
+  }
+
+  #sidebar-content {
+    margin-top: -100px;
+  }
+  .sidebar-card.search-result {
+    min-height: 5.1rem;
+  }
+  .sidebar-card {
+    width: 100%;
+    border-radius: 0;
+    margin: 0;
+    padding: 0.5rem;
+    min-height: auto;
+  }
+  .sidebar-qualifications {
+    width: 100%;
+    border: none;
+    border-radius: 0;
+  }
+  .sidebar-card > h2 {
+    font-size: 1em;
+    width: 100%;
+    padding-left: 3.3rem;
+  }
+  .sidebar-card .fa.fa-map-marker {
+    font-size: 3.5rem;
+  }
+  .sidebar-qualifications thead th {
+    padding: 0.5rem 1.5rem 0.5rem 2rem;
+  }
+  .hubzone-status-indicator .fa.fa-times-circle-o, .fa.fa-check-circle-o {
+    font-size: 3.5rem;
+  }
+  #hubzone-status {
+    font-size: 1em;
+  }
+  button#map-report {
+    text-align: left;
+    margin: .5rem 0 .5rem 2rem;
+    cursor: pointer;
+  }
+}

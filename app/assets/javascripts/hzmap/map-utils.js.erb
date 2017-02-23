@@ -1,0 +1,39 @@
+HZApp.MapUtils = (function(){
+  return {
+    // turn latlng object into url
+    catchMapClick: function(clickEvent){
+      var clicklng = clickEvent.latLng.lng();
+      var clicklat = clickEvent.latLng.lat();
+      var date = HZApp.MapUtils.parseDate(new Date());
+      var locale = document.documentElement.lang || 'en';
+      // Log the click
+      HZApp.GA.track( 'map', 'click', clicklat + ',' + clicklng );
+      var url = "<%= search_path %>?latlng=" + clicklat + ',' + clicklng + '&query_date=' + date + '&locale=' + locale;
+      $.ajax({
+        url: url
+      });
+      return url;
+    },
+    //helper to parse a javascript date because, why?
+    parseDate: function(date){
+      var mm = date.getMonth() + 1;
+      var dd = date.getDate();
+      return [date.getFullYear(),
+              (mm>9 ? '' : '0') + mm,
+              (dd>9 ? '' : '0') + dd
+             ].join('-');
+    },
+    //jump to location on the map based on the geocode viewport object
+    jumpToLocation: function(geocodeLocation){
+      if (geocodeLocation.viewport){
+        var newBounds = HZApp.WMSUtils.createGoogleLatLngBounds(
+                          geocodeLocation.viewport.southwest.lng,
+                          geocodeLocation.viewport.southwest.lat,
+                          geocodeLocation.viewport.northeast.lng,
+                          geocodeLocation.viewport.northeast.lat
+          );
+        HZApp.map.fitBounds(newBounds);
+      }
+    }
+  };
+})();

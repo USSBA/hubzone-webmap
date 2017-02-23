@@ -1,0 +1,84 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+dev:
+  hubzone_map: "Mapa de HUBZone"
+  usa_banner:
+    title: "Un sitio web oficial del gobierno de los Estados Unidos"
+  date:
+    month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
+    abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic]
+    formats:
+      full: " %B %d %Y"
+  menu:
+    hubzone_program: "Programa HUBZone"
+    accessible_version: "Versión accesible"
+    help: "Ayuda"
+  header:
+    skip_to_main: "Saltar al contenido principal"
+  map:
+    enter_address: "Ingresa la direccion"
+    filter: "Filtrar"
+  api:
+    success: "Éxito"
+    error:
+      zero_results: "Lo sentimos. No se pudo completar la búsqueda. Compruebe la ortografía o incluya más información de dirección."
+      invalid_request: "Lo sentimos. La solicitud ha fallado debido a un error interno. Vuelve a intentarlo."
+      over_query_limit: "Lo sentimos. La solicitud ha fallado debido a un error interno. Vuelve a intentarlo."
+      request_denied: "Lo sentimos. La solicitud ha fallado debido a un error interno. Vuelve a intentarlo."
+      unknown_error: "Lo sentimos. La solicitud ha fallado debido a un error interno. Vuelve a intentarlo."
+  hubzone_assertions:
+    qualified_by: "Calificado por: "
+    qualifications_effective: "A partir de"
+    qualified: "HUBZone Calificado"
+    qualified_short: "Calificado"
+    not_qualified: "HUBZone No Calificado"
+    expired: "Muerto"
+    expiring: "Caducando"
+    expires: "Caduca"
+    qct: "Zona censal"
+    qct_e: "Zona censal"
+    qct_b: "Zona censal | BRAC"
+    qct_r: "Zona censal | rediseñado"
+    qnmc: "Condado"
+    qnmc_a: "Condado (desempleo)"
+    qnmc_ab: "Condado (ingresos y desempleo)"
+    qnmc_b: "Condado (ingresos)"
+    qnmc_c: "Condado (DDA)"
+    qnmc_dda: "Condado (DDA)"
+    qnmc_e: "Condado"
+    qnmc_brac: "Condado | BRAC"
+    qnmc_r: "Condado | rediseñado"
+    indian_lands: "Tierra Indígena"
+    brac: "Antigua base militare (BRAC)"
+    disaster_area: "Área de Desastre Designada"
+  legend:
+    title: "Leyenda"
+    qct: "Zona censal"
+    indian_lands: "Tierra Indígena"
+    redesignated: "Rediseñado"
+    qnmc: "Condado"
+    brac: "Antigua base militare"
+    brac_base: "Antigua base militare"
+  report:
+    error: "Error al generar el informe"
+    generating: "Generar informe..."
+    created: "Informe creado"

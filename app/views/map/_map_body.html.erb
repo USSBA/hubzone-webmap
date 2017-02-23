@@ -1,0 +1,32 @@
+<section class="map-body">
+  <div id="sidebar" class="hidden">
+    <button id="sidebar-button" class="usa-button">Sidebar Button<i class="fa fa-chevron-left"></i></button>
+    <div id="sidebar-content" class="sidebar-content">
+      <%= render partial: "map_sidebar", locals: {body: nil} %>
+    </div>
+  </div>
+  <div id="map" class="sidebar-map"></div>
+  <div class="hubzone-search">
+        <%= form_tag search_path, remote: true, method: :get, class: "usa-search usa-search-small", onsubmit: "HZApp.GA.trackSubmit('search', '#search-field-small')" do %>
+        <div id="map-search" role="search">
+          <%= hidden_field_tag "locale", I18n.locale %>
+          <%= hidden_field_tag "query_date", Date.today %>
+          <%= label_tag "search", 'HUBZone Map Search', class: "usa-sr-only" %>
+          <%= search_field_tag "search", nil, placeholder: t('map.enter_address'), id: "search-field-small", required: true %>
+          <%= button_tag "", class: "clear-search fa fa-times-circle", name: "search-clear", type: "reset" %>
+          <%= button_tag '<span class="usa-sr-only search-icon">Search</span>'.html_safe, id: "hubzone-search-button" %>
+        </div>
+        <% end %>
+  </div>
+  <div id="legend">
+     <%= render partial: "map_legend", locals: {body: nil} %>
+  </div>
+  <div id="geolocation" class="gmnoprint">
+    <i class="fa fa-location-arrow" aria-hidden="true"></i>
+    <div class="geolocation-loading">
+      <div class="circle1"></div>
+      <div class="circle2"></div>
+    </div>
+  </div>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= MAP_CONFIG[:google_api_key] %>&callback=initMap&libraries=places" async=""></script>
+</section>
