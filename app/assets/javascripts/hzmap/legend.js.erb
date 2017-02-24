@@ -96,7 +96,7 @@ HZApp.Legend = (function(){
     },
     insertLegendItemToggle: function(legendItem){
       var li = '<li id="legend-' + legendItem + '"' + 'class="legend-item">';
-      li += '<input id="check-' + legendItem + '" type="checkbox" name="' + legendItem + '" value="' + legendItem + '" checked>';
+      li += '<input id="' + legendItem + '" type="checkbox" name="' + legendItem + '" value="' + legendItem + '" checked>';
       li += '<label for=' + legendItem + '>';
       HZApp.Legend.legend[legendItem].svg.map(function(svg){ li += svg; });
       li += '<span>' + I18n.t('legend.' + legendItem) + '</span>';
