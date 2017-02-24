@@ -21,6 +21,7 @@
 
 en:
   hubzone_map: "HUBZone Map"
+  hubzone_map_aria_label: "hubzone map"
   usa_banner:
     title: "An official website of the United States government"
   date:
@@ -30,15 +31,14 @@ en:
       full: " %B %d %Y"
   menu:
     hubzone_program: "HUBZone Program"
+    hubzone_program_aria_label: "hubzone program"
     accessible_version: "Accessible Version"
     help: "Help"
-  header:
-    skip_to_main: "Skip to main content"
   map:
     enter_address: "Enter address"
     filter: "Filter"
   search:
-    label: "HUBZone Map Search"
+    label: "hubzone map search"
   sidebar:
     button: "Sidebar Button"
   api:
@@ -76,6 +76,7 @@ en:
     disaster_area: "Designated Disaster Area"
   legend:
     title: "Legend"
+    aria_label: "hubzone legend"
     qct: "Census Tract"
     indian_lands: "Indian Land"
     redesignated: "Redesignated"
