@@ -115,7 +115,7 @@ describe ('Testing wms operations', function() {
     HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay.push(mockOverlay);
 
     HZApp.WMSUtils.updateLayerWMSOverlay({
-      layer: layer,
+      layer: HZApp.Layers.LayerDefs.hzWMSOverlays[layer],
       mapScope: HZApp.map
     });
 
@@ -135,7 +135,7 @@ describe ('Testing wms operations', function() {
     HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay.push(mockOverlayNew);
 
     HZApp.WMSUtils.updateLayerWMSOverlay({
-      layer: layer,
+      layer: HZApp.Layers.LayerDefs.hzWMSOverlays[layer],
       mapScope: HZApp.map
     });
 
@@ -156,7 +156,7 @@ describe ('Testing wms operations', function() {
     HZApp.Layers.LayerDefs.hzWMSOverlays[layer].isVisible = false;
 
     HZApp.WMSUtils.updateLayerWMSOverlay({
-      layer: layer,
+      layer: HZApp.Layers.LayerDefs.hzWMSOverlays[layer],
       mapScope: HZApp.map
     });
 
@@ -168,7 +168,7 @@ describe ('Testing wms operations', function() {
   it("should handle an empty WMS update call", function(){
     HZSpecHelper.resetOverlays();
     var updateState = HZApp.WMSUtils.updateLayerWMSOverlay({
-      layer: layer,
+      layer: HZApp.Layers.LayerDefs.hzWMSOverlays[layer],
       mapScope: HZApp.map
     });
     expect(updateState).toBe(null);
