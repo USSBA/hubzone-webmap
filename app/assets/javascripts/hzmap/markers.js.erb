@@ -19,7 +19,11 @@ HZApp.Constructors.HubzoneMapMarker = function(options) {
       var marker = new google.maps.Marker({
         position: geocodeLocation,
         map: HZApp.map,
-        icon: new google.maps.MarkerImage(options.icon)
+        icon: {
+          url: options.icon,
+          scaledSize: new google.maps.Size(options.scaledSize,options.scaledSize)
+        },
+        optimized: false
       });
       google.maps.event.addListener(marker, 'click', HZApp.MapUtils.catchMapClick);
       this.markers.push(marker);
