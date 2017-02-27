@@ -56,6 +56,7 @@ dev:
     qualified_aria: "hubzone Calificado"
     qualified_short: "Calificado"
     not_qualified: "HUBZone No Calificado"
+    not_qualified_aria: "Hubzone No Calificado"
     expired: "Muerto"
     expiring: "Caducando"
     expires: "Caduca"
