@@ -2,6 +2,21 @@ require 'rails_helper'
 
 # rubocop:disable Metrics/BlockLength
 describe 'The Search', type: :feature, js: true do
+  context 'before a search performed' do
+    before do
+      visit map_path
+    end
+    it "should have aria labels" do
+      expect(page.find('#search-field-small')['aria-labelledby']).to have_content('hubzone-search')
+    end
+    it "should have autofocus" do
+      expect(page.find('#search-field-small')['autofocus']).to be_truthy
+    end
+    it "should have a tab index" do
+      expect(page.find('#search-field-small')['tabindex']).to eq('1')
+    end
+  end
+
   test_queries = {
     qualified_single: {
       search: 'navajo',
