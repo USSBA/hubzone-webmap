@@ -38,6 +38,7 @@ var HZSpecHelper = (function(){
         var testDiv = document.createElement('div');
         $('#sidebar').append(testDiv);
         $('#sidebar').css('display', 'none');
+        $('#sidebar').append('<table id="hubzone-qualifications" ></table>');
         $('#sidebar').append('<div class="sidebar-card map-report">' +
                               '<button id="map-report">' +
                                 '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>' +
