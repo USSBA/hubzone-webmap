@@ -14,6 +14,7 @@ HZApp.SidebarUtils = (function(){
         $('div.gmnoprint[controlheight="55"], div.gmnoprint[controlheight="66"], .gm-svpc').addClass('gm-sidebar-on');
         $('#geolocation').addClass('geolocation-sidebar-on');
         $sidebar.currentClass = 'on';
+
       } else {
         $sidebar.removeClass('on');
         $('#legend').removeClass('legend-mobile');
@@ -21,6 +22,7 @@ HZApp.SidebarUtils = (function(){
         $('div.gmnoprint[controlheight="55"], div.gmnoprint[controlheight="66"], .gm-svpc').removeClass('gm-sidebar-on');
         $('#geolocation').removeClass('geolocation-sidebar-on');
         $sidebar.currentClass = 'hidden';
+        $('#hubzone-qualifications').attr("aria-live", "off");
       }
     };
     /*** Open the sidebar ***/
@@ -48,6 +50,12 @@ HZApp.SidebarUtils = (function(){
     buildSidebar: function(){
       HZApp.SidebarUtils.sidebar = $('#sidebar').sidebar();
       $('#sidebar-button').click(HZApp.SidebarUtils.triggerSidebar);
+    },
+    //update settings on qualifications to force the screen reader to the qualifications tab
+    updateA11yFocus: function(elem){
+      elem.attr("aria-live", "rude");
+      elem.attr("tabindex", "-1");
+      elem.focus();
     }
   };
 })();

@@ -45,4 +45,13 @@ describe ('Testing sidebar operations', function() {
     HZApp.SidebarUtils.triggerSidebar();
     expect(HZApp.SidebarUtils.sidebar.currentClass).toEqual('on');
   });
+
+  it ("should update the attributes on the qualifications div for the screen reader", function(){
+    var hz_elem  = $('#hubzone-qualifications');
+    spyOn(hz_elem, 'focus').and.callThrough();
+    HZApp.SidebarUtils.updateA11yFocus(hz_elem);
+    expect(hz_elem.attr('aria-live')).toEqual('rude');
+    expect(hz_elem.attr('tabindex')).toEqual('-1');
+    expect(hz_elem.focus.calls.count()).toEqual(1);
+  });
 });
