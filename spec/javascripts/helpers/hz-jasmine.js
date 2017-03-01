@@ -3,6 +3,22 @@
 
 // helper for running hz jasmine tests
 var HZSpecHelper = (function(){
+  //polyfills
+  if (!String.prototype.includes) {
+    String.prototype.includes = function(search, start) {
+      'use strict';
+      if (typeof start !== 'number') {
+        start = 0;
+      }
+      
+      if (start + search.length > this.length) {
+        return false;
+      } else {
+        return this.indexOf(search, start) !== -1;
+      }
+    };
+  }
+
   return {
     //build a dummy sidebar and mapbody
     mockPage: {
@@ -63,7 +79,7 @@ var HZSpecHelper = (function(){
           LEFT_BOTTOM: [],
           RIGHT_BOTTOM: []
         },
-        GroundOverlay: function(){},
+        ImageMapType: function(){},
         LatLng: function(){},
         LatLngBounds: function(){},
         Map: function () {
@@ -141,6 +157,14 @@ var HZSpecHelper = (function(){
                 getMaxZoomAtLatLng: function () { }
             };
         },
+        Size: function(x,y){
+          return {
+            width: x,
+            height: y, 
+            j: "px",
+            f: "px"
+          }
+        },
         StyledMapType: function(){},
         event: {
           addListener: function () {},
@@ -177,6 +201,7 @@ var HZSpecHelper = (function(){
     NewOverlay: function(name){
       return {
         setMap: function(){},
+        setOpacity: function(){},
         addListener: function(){},
         name: name
       };

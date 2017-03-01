@@ -217,21 +217,25 @@ describe ('Testing legend operations', function() {
     });
 
     it('should toggle layers off', function(){
+      var layer = 'qnmc_brac';
       var mockOverlay = new HZSpecHelper.NewOverlay('new');
-      spyOn(mockOverlay, 'setMap');
-      HZSpecHelper.testLayers.qnmc_brac.overlay.push(mockOverlay);
-      HZApp.Legend.toggleLayerGroup(HZSpecHelper.testLayers.qnmc_brac);
-      expect(mockOverlay.setMap.calls.count()).toEqual(1);
-      expect(HZSpecHelper.testLayers.qnmc_brac.isVisible).toEqual(true);
+      spyOn(mockOverlay, 'setOpacity');
+      HZSpecHelper.testLayers[layer].overlay = mockOverlay;
+      HZSpecHelper.testLayers[layer].isVisible = true;
+      HZApp.Legend.toggleLayerGroup(HZSpecHelper.testLayers[layer]);
+      expect(mockOverlay.setOpacity.calls.count()).toEqual(1);
+      expect(HZSpecHelper.testLayers[layer].isVisible).toEqual(false);
     });
 
     it('should toggle layers on', function(){
+      var layer = 'qnmc_e';
       var mockOverlay = new HZSpecHelper.NewOverlay('new');
-      spyOn(mockOverlay, 'setMap');
-      HZSpecHelper.testLayers.qnmc_e.overlay.push(mockOverlay);
-      HZApp.Legend.toggleLayerGroup(HZSpecHelper.testLayers.qnmc_e);
-      expect(mockOverlay.setMap.calls.count()).toEqual(1);
-      expect(HZSpecHelper.testLayers.qnmc_e.isVisible).toEqual(false);
+      spyOn(mockOverlay, 'setOpacity');
+      HZSpecHelper.testLayers[layer].overlay = mockOverlay;
+      HZSpecHelper.testLayers[layer].isVisible = false;
+      HZApp.Legend.toggleLayerGroup(HZSpecHelper.testLayers[layer]);
+      expect(mockOverlay.setOpacity.calls.count()).toEqual(1);
+      expect(HZSpecHelper.testLayers[layer].isVisible).toEqual(true);
     });
   });
 

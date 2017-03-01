@@ -9,7 +9,6 @@ describe ('Testing marker operations', function() {
     spyOn(google.maps, 'Map').and.returnValue(HZApp.map);
     spyOn(google.maps.event, 'addListener');
     spyOn(HZApp.map, 'addListener');
-    HZSpecHelper.resetOverlays();
     HZApp.Markers.hzUserLocation = new HZApp.Constructors.HubzoneMapMarker({icon: null});  
   });
 
