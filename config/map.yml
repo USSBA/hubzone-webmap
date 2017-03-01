@@ -8,6 +8,7 @@ default: &defaults
   google_api_key: <%= ENV["HUBZONE_GOOGLE_API_KEY"] ||
                       "need to set HUBZONE_GOOGLE_API_KEY in your environment!"
                       %>
+  hotjar_tracking_id: <%= ENV["HUBZONE_HOTJAR_TRACKING_ID"] %>
   geom_wms_settings: &default_wms
     url_root: <%= ENV["HUBZONE_WMS_URL_ROOT"] || "http://localhost:8080/geoserver/gwc/service/wms?" %>
     workspace: <%= ENV["HUBZONE_WMS_WORKSPACE"] || "hubzone" %>
