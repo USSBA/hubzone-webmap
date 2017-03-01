@@ -24,6 +24,8 @@ describe ('Testing map operations', function() {
     spyOn(HZApp.Autocomplete, 'createAutocomplete');
     spyOn(HZApp.Autocomplete, 'createListener');
     spyOn(HZApp.Legend, 'buildLegend');
+    spyOn(HZApp.WMTSUtils, 'initializeTiles');
+    spyOn(HZApp.WMTSUtils, 'addClickListeners');
 
     HZApp.map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
     HZApp.map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
@@ -31,13 +33,15 @@ describe ('Testing map operations', function() {
 
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map.calls.count()).toEqual(1);
-    expect(google.maps.event.addListener.calls.count()).toEqual(1);
     expect(google.maps.StyledMapType.calls.count()).toEqual(1);
     expect(HZApp.map.mapTypes.set.calls.count()).toEqual(1);
     expect(HZApp.GeoLocation.getUserLocation.calls.count()).toEqual(1);
     expect(HZApp.Autocomplete.createAutocomplete.calls.count()).toEqual(1);
     expect(HZApp.Autocomplete.createListener.calls.count()).toEqual(1);
     expect(HZApp.Legend.buildLegend.calls.count()).toEqual(1);
+    expect(HZApp.WMTSUtils.initializeTiles.calls.count()).toEqual(1);
+    expect(HZApp.WMTSUtils.addClickListeners.calls.count()).toEqual(1);
+
 
   });
 

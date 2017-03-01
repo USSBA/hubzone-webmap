@@ -26,7 +26,7 @@ HZApp.MapUtils = (function(){
     //jump to location on the map based on the geocode viewport object
     jumpToLocation: function(geocodeLocation){
       if (geocodeLocation.viewport){
-        var newBounds = HZApp.WMSUtils.createGoogleLatLngBounds(
+        var newBounds = this.createGoogleLatLngBounds(
                           geocodeLocation.viewport.southwest.lng,
                           geocodeLocation.viewport.southwest.lat,
                           geocodeLocation.viewport.northeast.lng,
@@ -34,6 +34,12 @@ HZApp.MapUtils = (function(){
           );
         HZApp.map.fitBounds(newBounds);
       }
-    }
+    },
+    createGoogleLatLngBounds: function(SWLng, SWLat, NELng, NELat){
+      return new google.maps.LatLngBounds(
+        new google.maps.LatLng(SWLat, SWLng),
+        new google.maps.LatLng(NELat, NELng)
+      );
+    },
   };
 })();

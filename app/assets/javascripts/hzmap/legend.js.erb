@@ -152,10 +152,10 @@ HZApp.Legend = (function(){
     },
     toggleLayerGroup: function(layer) {
       if(layer.isVisible){
-        layer.overlay[0].setMap(null);
+        layer.overlay.setOpacity(0);
         layer.isVisible = false;
       } else {
-        layer.overlay[0].setMap(HZApp.map);
+        layer.overlay.setOpacity(1);
         layer.isVisible = true;
       }
     }
