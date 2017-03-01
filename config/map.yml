@@ -10,7 +10,7 @@ default: &defaults
                       %>
   hotjar_tracking_id: <%= ENV["HUBZONE_HOTJAR_TRACKING_ID"] %>
   geom_wms_settings: &default_wms
-    url_root: <%= ENV["HUBZONE_WMS_URL_ROOT"] || "http://localhost:8080/geoserver/hubzone/wms?service=WMS" %>
+    url_root: <%= ENV["HUBZONE_WMS_URL_ROOT"] || "http://localhost:8080/geoserver/gwc/service/wms?" %>
     workspace: <%= ENV["HUBZONE_WMS_WORKSPACE"] || "hubzone" %>
     srs: 4326
 

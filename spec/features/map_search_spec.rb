@@ -2,64 +2,110 @@ require 'rails_helper'
 
 # rubocop:disable Metrics/BlockLength
 describe 'The Search', type: :feature, js: true do
-  queries = { qualified_multiple: 'navajo',
-              qualified_single: 'tiffany peak, co',
-              non_qualified: 'banana',
-              intersection: '25th & st. paul, baltimore' }
+  context 'before a search performed' do
+    before do
+      visit map_path
+    end
+    it "should have aria labels" do
+      expect(page.find('#search-field-small')['aria-labelledby']).to have_content('hubzone-search')
+    end
+    it "should have autofocus" do
+      expect(page.find('#search-field-small')['autofocus']).to be_truthy
+    end
+    it "should have a tab index" do
+      expect(page.find('#search-field-small')['tabindex']).to eq('1')
+    end
+  end
 
-  responses = { qualified_multiple: { address_components:
-                                      [{
-                                        long_name: "United States",
-                                        short_name: "US"
-                                      }],
-                                      formatted_address: 'Yup',
-                                      http_status: 200,
-                                      hubzone: [
-                                        {
-                                          hz_type: "indian_lands"
-                                        },
-                                        {
-                                          hz_type: "qct"
-                                        }
-                                      ],
-                                      geometry: {
-                                        location: {
-                                          lat: 36,
-                                          lng: -76
-                                        }
-                                      },
-                                      query_date: Date.today },
-                non_qualified: { address_components:
-                                 [{
-                                   long_name: "United States",
-                                   short_name: "US"
-                                 }],
-                                 formatted_address: "Nope",
-                                 http_status: 200,
-                                 hubzone: [],
-                                 geometry: {
-                                   location: {
-                                     lat: 0,
-                                     lng: 0
-                                   }
-                                 } },
-                intersection: { address_components:
-                                [{
-                                  long_name: "United States",
-                                  short_name: "US"
-                                }],
-                                formatted_address:
-                                'St Paul St & E 25th St, Baltimore, MD 21218, USA',
-                                http_status: 200,
-                                hubzone: [],
-                                geometry: {
-                                  location: {
-                                    lat: 0,
-                                    lng: 0
-                                  }
-                                } } }
-  statuses = { qualified: "hubzone_assertions.qualified",
-               non_qualified: "hubzone_assertions.not_qualified" }
+  test_queries = {
+    qualified_single: {
+      search: 'navajo',
+      response: {
+        formatted_address: 'Yup',
+        http_status: 200,
+        hubzone: [
+          {
+            hz_type: "indian_lands",
+            expires: nil
+          }
+        ],
+        geometry: {
+          location: {
+            lat: 0,
+            lng: 0
+          }
+        },
+        query_date: Date.today
+      },
+      status: "hubzone_assertions.qualified"
+    },
+    qualified_expired: {
+      search: 'rockcastle, ky',
+      response: {
+        formatted_address: 'Rockcastle County, KY, USA',
+        http_status: 200,
+        hubzone: [
+          {
+            hz_type: "qct_e",
+            expires: Date.tomorrow
+          },
+          {
+            hz_type: "qnmc_r",
+            expires: Date.today.last_week
+          }
+        ],
+        geometry: {
+          location: {
+            lat: 0,
+            lng: 0
+          }
+        },
+        query_date: Date.today
+      },
+      status: "hubzone_assertions.qualified"
+    },
+    not_qualified: {
+      search: "banana",
+      response: {
+        formatted_address: "Banana QLD 4702, Australia",
+        http_status: 200,
+        hubzone: [],
+        geometry: {
+          location: {
+            lat: 0,
+            lng: 0
+          }
+        },
+        query_date: Date.today
+      },
+      status: "hubzone_assertions.not_qualified"
+    },
+    qualified_multiple: {
+      search: "tiffany peak, co",
+      response: {
+        formatted_address: "Tiffany Peak, Colorado 81137, USA",
+        http_status: 200,
+        hubzone: [
+          {
+            hz_type: "indian_lands",
+            expires: nil
+          },
+          {
+            hz_type: "qct",
+            expires: nil
+          }
+        ],
+        geometry: {
+          location: {
+            lat: 0,
+            lng: 0
+          }
+        },
+        query_date: Date.today
+      },
+      status: "hubzone_assertions.qualified"
+    }
+  }
 
   %w(en dev).each do |locale|
     context "in the #{locale} locale" do
@@ -68,69 +114,46 @@ describe 'The Search', type: :feature, js: true do
         visit map_path(locale: locale)
       end
 
-      after(:each) do
-        Excon.stubs.clear
-      end
+      test_queries.map do |hztype, tquery|
+        context "with #{hztype} query" do
+          before do
+            Excon.stub({}, body: tquery[:response].to_json)
+            fill_in 'search', with: tquery[:search]
+            click_button 'hubzone-search-button'
+          end
 
-      context 'with qualified hubzone query that has multiple hubzones' do
-        before do
-          Excon.stub({},
-                     body: responses[:qualified_multiple].to_json)
-        end
-        it "should return qualified hubzone status" do
-          fill_in 'search', with: queries[:qualified_multiple]
-          click_button 'hubzone-search-button'
-          expect(page).to have_content(t(statuses[:qualified]))
-        end
-        it "should display indian lands hubzone designation type" do
-          fill_in 'search', with: queries[:qualified_multiple]
-          click_button 'hubzone-search-button'
-          expect(page).to have_content(t("hubzone_assertions." + responses[:qualified_multiple][:hubzone][0][:hz_type].to_s))
-        end
-        it "should display qct hubzone designation type" do
-          fill_in 'search', with: queries[:qualified_multiple]
-          click_button 'hubzone-search-button'
-          expect(page).to have_content(t("hubzone_assertions." + responses[:qualified_multiple][:hubzone][1][:hz_type].to_s))
-        end
-        it "should display the date of the search" do
-          fill_in 'search', with: queries[:qualified_multiple]
-          click_button 'hubzone-search-button'
-          expect(page).to have_content(I18n.l(Date.today, format: :full))
-        end
-        it "should provide a clear search button" do
-          fill_in 'search', with: queries[:qualified_multiple]
-          expect(page).to have_css(".clear-search")
-        end
-        it "should show the coordinates" do
-          fill_in 'search', with: queries[:qualified_multiple]
-          click_button 'hubzone-search-button'
-          coordinates = [ format('%.5f', responses[:qualified_multiple][:geometry][:location][:lat]) + "\xC2\xB0",
-                          format('%.5f', responses[:qualified_multiple][:geometry][:location][:lng]) + "\xC2\xB0"].join(', ')
-          expect(page).to have_content(coordinates)
-        end
-      end
+          after(:each) do
+            Excon.stubs.clear
+          end
 
-      context 'with non-qualified hubzone query' do
-        before do
-          Excon.stub({},
-                     body: responses[:non_qualified].to_json)
-        end
-        it "should return non qualified hubzone status" do
-          fill_in 'search', with: queries[:non_qualified]
-          click_button 'hubzone-search-button'
-          expect(page).to have_content(t(statuses[:non_qualified]))
-        end
-      end
+          it "should show the correct designation status" do
+            expect(page).to have_content(t(tquery[:status]))
+          end
 
-      context 'when searching for intersection' do
-        before do
-          Excon.stub({},
-                     body: responses[:intersection].to_json)
-        end
-        it "should return the full address of the intersection" do
-          fill_in 'search', with: queries[:intersection]
-          click_button 'hubzone-search-button'
-          expect(page).to have_content(responses[:intersection][:formatted_address])
+          it "should have the correct formatted_address" do
+            expect(page).to have_content(tquery[:formatted_address])
+          end
+
+          it "should provide a clear search button" do
+            expect(page).to have_css(".clear-search")
+          end
+
+          it "should display the date of the search" do
+            expect(page).to have_content(t('hubzone_assertions.qualifications_effective') + I18n.l(Date.today, format: :full))
+          end
+
+          context "for any hubzone designations" do
+            tquery[:response][:hubzone].each do |hubzone|
+              it "should contain the correct hubzone assertions" do
+                expect(page).to have_content(t("hubzone_assertions." + hubzone[:hz_type].to_s))
+              end
+
+              next unless hubzone[:expires]
+              it "should show the correct language for expires or expired if expiration date is present" do
+                expect(page).to have_content(hubzone[:expires] < Date.today ? t('hubzone_assertions.expired') : t('hubzone_assertions.expires'))
+              end
+            end
+          end
         end
       end
     end

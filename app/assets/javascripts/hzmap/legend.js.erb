@@ -41,7 +41,7 @@ HZApp.Legend = (function(){
     svgFromStyle: function(style){
       var width = 34, height = 29;
       var svg = this.svgHeader(width, height);
-      svg += '<title>HUBZone Legend - ' + style.styleType + '</title>';
+      svg += '<title>hubzone legend</title>';
       var svg_fn_name = "svg_" + style.styleType;
       svg += HZApp.Legend[svg_fn_name](style,width, height);
       svg += '</svg>';
@@ -96,7 +96,7 @@ HZApp.Legend = (function(){
     },
     insertLegendItemToggle: function(legendItem){
       var li = '<li id="legend-' + legendItem + '"' + 'class="legend-item">';
-      li += '<input id="check-' + legendItem + '" type="checkbox" name="' + legendItem + '" value="' + legendItem + '" checked>';
+      li += '<input id="' + legendItem + '" type="checkbox" name="' + legendItem + '" value="' + legendItem + '" checked>';
       li += '<label for=' + legendItem + '>';
       HZApp.Legend.legend[legendItem].svg.map(function(svg){ li += svg; });
       li += '<span>' + I18n.t('legend.' + legendItem) + '</span>';
@@ -152,10 +152,10 @@ HZApp.Legend = (function(){
     },
     toggleLayerGroup: function(layer) {
       if(layer.isVisible){
-        layer.overlay[0].setMap(null);
+        layer.overlay.setOpacity(0);
         layer.isVisible = false;
       } else {
-        layer.overlay[0].setMap(HZApp.map);
+        layer.overlay.setOpacity(1);
         layer.isVisible = true;
       }
     }

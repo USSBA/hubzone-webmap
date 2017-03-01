@@ -21,6 +21,7 @@
 
 dev:
   hubzone_map: "Mapa de HUBZone"
+  hubzone_map_aria_label: "Mapa de HUBZone"
   usa_banner:
     title: "Un sitio web oficial del gobierno de los Estados Unidos"
   date:
@@ -30,13 +31,16 @@ dev:
       full: " %B %d %Y"
   menu:
     hubzone_program: "Programa HUBZone"
+    hubzone_program_aria_label: "Programa hubzone"
     accessible_version: "Versión accesible"
     help: "Ayuda"
-  header:
-    skip_to_main: "Saltar al contenido principal"
   map:
     enter_address: "Ingresa la direccion"
     filter: "Filtrar"
+  search:
+    label: "Mapa de HUBZone Search Buscar"
+  sidebar:
+    button: "Botón de la barra lateral"
   api:
     success: "Éxito"
     error:
@@ -49,8 +53,10 @@ dev:
     qualified_by: "Calificado por: "
     qualifications_effective: "A partir de"
     qualified: "HUBZone Calificado"
+    qualified_aria: "hubzone Calificado"
     qualified_short: "Calificado"
     not_qualified: "HUBZone No Calificado"
+    not_qualified_aria: "Hubzone No Calificado"
     expired: "Muerto"
     expiring: "Caducando"
     expires: "Caduca"
@@ -72,6 +78,7 @@ dev:
     disaster_area: "Área de Desastre Designada"
   legend:
     title: "Leyenda"
+    aria_label: "Leyenda de hubzone"
     qct: "Zona censal"
     indian_lands: "Tierra Indígena"
     redesignated: "Rediseñado"

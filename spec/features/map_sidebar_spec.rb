@@ -52,14 +52,17 @@ describe "The Sidebar", type: :feature do
   end
 
   context "before any interactions" do
-    it "should have report button" do
-      expect(page).to have_selector('#map-report')
-    end
     it "should exist and be hidden" do
       expect(page).to have_css("#sidebar.hidden")
     end
-    it "should show qualifications label" do
-      expect(page).to have_css("#hubzone-qualifications")
+    it "should show hubzone qualification with aria label and tab index" do
+      expect(page).to have_css("#hubzone-status")
+      expect(page.find('#hubzone-status')['aria-label']).to be_truthy
+      expect(page.find('#hubzone-status')['tabindex']).to be_truthy
+    end
+    it "should have as-of date with tab index" do
+      expect(page).to have_css(".hubzone-status-date")
+      expect(page.find('.hubzone-status-date')['tabindex']).to be_truthy
     end
   end
 

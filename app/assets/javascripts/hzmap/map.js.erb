@@ -26,9 +26,11 @@ function initMap() {
   HZApp.map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('legend'));
   HZApp.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('geolocation'));
 
-  //adds listener that triggers whenever the map is idle to update with new features.
-  google.maps.event.addListener(HZApp.map, 'idle', HZApp.WMSUtils.updateIdleMap);
-  HZApp.map.addListener('click', HZApp.MapUtils.catchMapClick);
+  //add in the WMS tiles
+  HZApp.WMTSUtils.initializeTiles();
+
+  //add listener on the map for clciks  
+  HZApp.WMTSUtils.addClickListeners(HZApp.map);
 
   //adds autocomplete and click listener
   HZApp.Autocomplete.createAutocomplete();

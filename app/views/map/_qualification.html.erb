@@ -1,15 +1,13 @@
 <%
-  # toggle the expiration label on only if date exists
-  if qualification["expires"].nil?
-    expiration_display = 'hidden'
-  else
-    expiration_display = 'expires-label'
+  unless qualification["expires"].nil?
+    expires_text = qualification["expires"].to_date < Date.today ? "expired" : "expires"
   end
 %>
-
 <tr>
   <th id="<%= qualification['hz_type'] %>">
-    <div class="qualification-label"><%= t(('hubzone_assertions.' + qualification["hz_type"]).to_s)  %></div>
-    <span class="<%= expiration_display %>"><%= t('hubzone_assertions.expires') %> <%= qualification["expires"].to_s %></span>
+    <div class="qualification-label" tabindex="13"><%= t(('hubzone_assertions.' + qualification["hz_type"]).to_s) %></div>
+    <% unless qualification["expires"].nil? %>
+    <span tabindex="14" class="expires-label"><%= t('hubzone_assertions.' + expires_text) %> <%= qualification["expires"].to_s %></span>
+    <% end %>
   </th>
 </tr>
