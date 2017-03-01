@@ -60,9 +60,13 @@ HZApp.Legend = (function(){
       );
     },
     svg_horline: function(style, width, height){
-      return ('<defs><rect id="path-1" x="0" y="0" width="' + width + '" height="' + height +'"></rect></defs>' +
+      return (
+              // '<defs><rect id="path-1" x="0" y="0" width="' + width + '" height="' + height +'"></rect></defs>' +
+              '<g fill="' + '#000' + '">' +
+              '<rect width="' + width + '" height="' + height + '"></rect>' +
+              '</g>' + 
               '<g stroke="'+ style.styleColor + '" stroke-width="1" fill="none" fill-rule="evenodd">' +
-                '<use fill="#212121" xlink:href="#path-1"></use>' +
+                // '<use fill="#212121" xlink:href="#path-1"></use>' +
                 '<path d="M22.5,-5.5 L-5.5,31.5" id="Line" stroke="' + style.styleColor + '" stroke-width="6" stroke-linecap="square"></path>' +
                 '<path d="M45,-7 L9.5,39.5" id="Line-Copy" stroke="' + style.styleColor + '" stroke-width="6" stroke-linecap="square"></path>' +
                 '<path d="M63,0 L27.5,46.5" id="Line-Copy-2" stroke="' + style.styleColor + '" stroke-width="6" stroke-linecap="square"></path>' +
@@ -71,23 +75,27 @@ HZApp.Legend = (function(){
       );
     },
     svg_circle: function(style, width, height){
-      return ('<defs><rect id="path-2" x="0" y="0" width="' + width + '" height="' + height +'"></rect></defs>' +
+      return (
+              // '<defs><rect id="path-2" x="0" y="0" width="' + width + '" height="' + height +'"></rect></defs>' +
+              '<g fill="' + '#000' + '">' +
+              '<rect width="' + width + '" height="' + height + '"></rect>' +
+              '</g>' + 
               '<g stroke="'+ style.styleColor + '" stroke-width="1" fill="none" fill-rule="evenodd">' +
-                '<use fill="#212121" xlink:href="#path-2"></use>' +
-                '<ellipse fill="' + style.styleColor +'"" cx="12" cy="0" rx="5" ry="5"></ellipse>' +
-                '<ellipse fill="' + style.styleColor +'"" cx="12" cy="28" rx="5" ry="5"></ellipse>' +
-                '<circle fill="' + style.styleColor +'"" cx="33" cy="0" r="5"></circle>' +
-                '<circle fill="' + style.styleColor +'"" cx="33" cy="28" r="5"></circle>' +
-                '<circle fill="' + style.styleColor +'"" cx="54" cy="0" r="5"></circle>' +
-                '<circle fill="' + style.styleColor +'"" cx="54" cy="28" r="5"></circle>' +
-                '<ellipse fill="' + style.styleColor +'"" cx="22" cy="15" rx="5" ry="5"></ellipse>' +
-                '<ellipse fill="' + style.styleColor +'"" cx="22" cy="43" rx="5" ry="5"></ellipse>' +
-                '<ellipse fill="' + style.styleColor +'"" cx="1" cy="15" rx="5" ry="5"></ellipse>' +
-                '<ellipse fill="' + style.styleColor +'"" cx="1" cy="43" rx="5" ry="5"></ellipse>' +
-                '<ellipse fill="' + style.styleColor +'"" cx="44" cy="15" rx="5" ry="5"></ellipse>' +
-                '<ellipse fill="' + style.styleColor +'"" cx="44" cy="43" rx="5" ry="5"></ellipse>' +
-                '<circle fill="' + style.styleColor +'"" cx="65" cy="15" r="5"></circle>' +
-                '<circle fill="' + style.styleColor +'"" cx="65" cy="43" r="5"></circle>' +
+                // '<use fill="#212121" xlink:href="#path-2"></use>' +
+                '<ellipse fill="' + style.styleColor +'" cx="12" cy="0" rx="5" ry="5"></ellipse>' +
+                '<ellipse fill="' + style.styleColor +'" cx="12" cy="28" rx="5" ry="5"></ellipse>' +
+                '<circle fill="' + style.styleColor +'" cx="33" cy="0" r="5"></circle>' +
+                '<circle fill="' + style.styleColor +'" cx="33" cy="28" r="5"></circle>' +
+                '<circle fill="' + style.styleColor +'" cx="54" cy="0" r="5"></circle>' +
+                '<circle fill="' + style.styleColor +'" cx="54" cy="28" r="5"></circle>' +
+                '<ellipse fill="' + style.styleColor +'" cx="22" cy="15" rx="5" ry="5"></ellipse>' +
+                '<ellipse fill="' + style.styleColor +'" cx="22" cy="43" rx="5" ry="5"></ellipse>' +
+                '<ellipse fill="' + style.styleColor +'" cx="1" cy="15" rx="5" ry="5"></ellipse>' +
+                '<ellipse fill="' + style.styleColor +'" cx="1" cy="43" rx="5" ry="5"></ellipse>' +
+                '<ellipse fill="' + style.styleColor +'" cx="44" cy="15" rx="5" ry="5"></ellipse>' +
+                '<ellipse fill="' + style.styleColor +'" cx="44" cy="43" rx="5" ry="5"></ellipse>' +
+                '<circle fill="' + style.styleColor +'" cx="65" cy="15" r="5"></circle>' +
+                '<circle fill="' + style.styleColor +'" cx="65" cy="43" r="5"></circle>' +
               '</g>'
       );
     },

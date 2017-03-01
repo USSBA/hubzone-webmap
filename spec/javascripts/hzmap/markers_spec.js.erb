@@ -7,9 +7,11 @@ describe ('Testing marker operations', function() {
     google = HZSpecHelper.google;
     HZApp.map = new google.maps.Map();
     spyOn(google.maps, 'Map').and.returnValue(HZApp.map);
+    spyOn(google.maps, 'Size');
     spyOn(google.maps.event, 'addListener');
     spyOn(HZApp.map, 'addListener');
-    HZApp.Markers.hzUserLocation = new HZApp.Constructors.HubzoneMapMarker({icon: null});  
+    HZSpecHelper.resetOverlays();
+    HZApp.Markers.hzUserLocation = new HZApp.Constructors.HubzoneMapMarker({icon: null, scaledSize: 30});  
   });
 
   afterEach(function(){
@@ -18,7 +20,7 @@ describe ('Testing marker operations', function() {
   });
 
   it("should add a marker object", function(){
-    var stubMapMarker = new HZApp.Constructors.HubzoneMapMarker({icon: null});  
+    var stubMapMarker = new HZApp.Constructors.HubzoneMapMarker({icon: null, scaledSize: 30});  
     var stubGoogleMarker = new HZSpecHelper.MapMarker();
     spyOn(stubGoogleMarker, 'setMap');
     spyOn(google.maps, 'Marker');
@@ -30,7 +32,7 @@ describe ('Testing marker operations', function() {
   });
 
   it("should empty the marker object", function(){
-    var stubMapMarker = new HZApp.Constructors.HubzoneMapMarker({icon: null});  
+    var stubMapMarker = new HZApp.Constructors.HubzoneMapMarker({icon: null, scaledSize: 30});  
     var stubGoogleMarker = new HZSpecHelper.MapMarker();
     spyOn(stubGoogleMarker, 'setMap');
     spyOn(google.maps, 'Marker');
