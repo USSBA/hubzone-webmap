@@ -8,7 +8,7 @@ describe ('Testing hz-query functions', function() {
     HZApp.SidebarUtils.sidebar = HZSpecHelper.mockPage.build();
     HZApp.map = new google.maps.Map();
     $('#sidebar').css('display', 'initial');
-    HZApp.Markers.hzQueryMarker = new HZApp.Constructors.HubzoneMapMarker({icon: null});  
+    HZApp.Markers.hzQueryMarker = new HZApp.Constructors.HubzoneMapMarker({icon: null});
   });
 
   afterEach(function(){
@@ -82,6 +82,15 @@ describe ('Testing hz-query functions', function() {
 
 
     });
-  });  
+  });
+
+  describe('should handle street view', function () {
+    it ("should reset the street view on search", function(){
+      var hz_elem  = $('div[jsaction="closeControl.click"]');
+      spyOn(hz_elem, 'click').and.callThrough();
+      HZApp.HZQuery.resetStreetView(hz_elem);
+      expect(hz_elem.click.calls.count()).toEqual(1);
+    });
+  });
 
 });
