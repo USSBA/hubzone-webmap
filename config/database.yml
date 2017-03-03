@@ -24,6 +24,25 @@ default: &default
   password: <%= ENV['HUBZONE_MAP_DB_PASSWORD'] %>
   host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'localhost' } %>
 
+production:
+  <<: *default
+  database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_prd' } %>
+
+staging:
+  <<: *default
+  database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_stg' } %>
+  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'hz-hzstg.cyy8xym5djtg.us-east-1.rds.amazonaws.com' } %>
+
+demo:
+  <<: *default
+  database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_demo' } %>
+  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'db1.map.dev.sba-one.net' } %>
+
+dev:
+  <<: *default
+  database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_dev' } %>
+  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'db1.map.dev.sba-one.net' } %>
+
 development:
   <<: *default
   database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_dev' } %>
@@ -34,7 +53,3 @@ development:
 test:
   <<: *default
   database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_test' } %>
-
-production:
-  <<: *default
-  database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_prd' } %>

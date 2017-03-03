@@ -1,0 +1,3 @@
+$('#sidebar-content').html("<%= j render partial: "map_sidebar", locals: {body: JSON.parse(@body)} %>");  // jshint ignore:line
+HZApp.HZQuery.parseResponse(JSON.parse('<%= @body.html_safe %>'));
+HZApp.SidebarUtils.updateA11yFocus($('#hubzone-qualifications'));
