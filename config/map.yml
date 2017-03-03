@@ -17,6 +17,7 @@ default: &defaults
 
 production:
   <<: *defaults
+  google_analytics_tracking_id: <%= ENV.fetch('GOOGLE_ANALYTICS_TRACKING_ID') { 'UA-19362636-24' } %>
   geom_wms_settings:
     <<: *default_wms
     db: hzgeo_prd
