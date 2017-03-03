@@ -11,5 +11,8 @@ production: &prd
 demo:
   <<: *prd
 
+staging:
+  <<: *prd
+
 dev:
   adapter: async
