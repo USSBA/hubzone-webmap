@@ -5,13 +5,38 @@
 @import "variables";
 
 #hubzone-map-guide {
-  padding-top: 0;
+  padding-top: 2rem;
   padding-left: 0;
   margin-left: 2rem;
   margin-right: 2rem;
 }
-
+.map-guide-header {
+  max-width: 100%;
+  padding: 2rem 0;
+  border-bottom: 2px solid $gray-lighter;
+}
+.return-to-map {
+  margin-left: 2rem;
+}
+.return-to-map i {
+  margin-right: 1rem;
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
 
 @media only screen and (max-width: 950px)  {
-
+  #hubzone-map-guide {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+  .map-guide-header {
+    border-bottom: none;
+  }
+  .return-to-map {
+    margin-left: 1rem;
+  }
 }

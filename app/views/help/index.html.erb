@@ -1,5 +1,7 @@
-<div class="usa-grid-full map-guide-header">
-  <%= link_to( "Back to map", map_path, id: "back_to_map") %>
+<div class="usa-grid map-guide-header">
+  <div class="return-to-map">
+    <%= link_to( "<i class='fa fa-share' aria-hidden='true'></i>Back to map".html_safe, map_path, id: "back_to_map") %>
+  </div>
 </div>
 
 <main class="usa-grid usa-section usa-content usa-layout-docs" id="hubzone-map-guide">
