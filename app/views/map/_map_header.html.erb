@@ -39,6 +39,11 @@
       <div class="usa-nav-secondary">
         <ul class="usa-unstyled-list usa-nav-secondary-links">
           <li>
+           <%= link_to( t('menu.help'),
+           'map/help',
+           id: "map_guide") %>
+          </li>
+          <li>
             <%= link_to( t('menu.hubzone_program'),
                          "https://www.sba.gov/contracting/government-contracting-programs/hubzone-program",
                          id: "hubzone-program-link",
