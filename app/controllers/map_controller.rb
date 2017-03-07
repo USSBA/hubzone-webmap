@@ -6,9 +6,6 @@ class MapController < ApplicationController
   def index
   end
 
-  def help
-  end
-  
   def search
     query = format_query params
     path = "#{MAP_CONFIG[:hubzone_api_search_path]}?#{query}"
