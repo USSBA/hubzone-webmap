@@ -16,6 +16,10 @@ describe "The Header", type: :feature do
     expect(page).to have_content 'HUBZone Map'
     expect(page.find('.title-link')['aria-label']).to have_content 'hubzone map home'
   end
+  it "should have a Help link and aria label" do
+    expect(page).to have_css('#map-help-guide')
+    expect(page.find('#map-help-guide')['aria-label']).to have_content 'Help'
+  end
   it "should have HUBZone Program link and aria label" do
     expect(page).to have_content 'HUBZone Program'
     expect(page.find('#hubzone-program-link')['aria-label']).to have_content 'hubzone program'
