@@ -9,6 +9,13 @@
   padding-left: 0;
   margin-left: 2rem;
   margin-right: 2rem;
+  color: $gray-dark;
+}
+#hubzone-map-guide h1,h2,h3,h4,h5,h6 {
+  font-family: $font-sans;
+}
+.usa-font-lead {
+  font-family: $font-sans;
 }
 .map-guide-header {
   max-width: 100%;
