@@ -10,15 +10,15 @@ HZApp.HZQuery = {
     //set the response for later
     this.response = response;
     this.response.geocodeLocation = null;
-    this.query.latlng = null; 
+    this.query.latlng = null;
     this.query.q = null;
 
     // handle bad responses
     this.handleBadResponses(response.status);
-    
+
     // get all the desired geometry and attributes out of the response
     this.parseResponseGeometry(this.response);
-    
+
     //finally, update the map with the new response
     this.updateMap();
   },
@@ -41,7 +41,7 @@ HZApp.HZQuery = {
       });
 
       this.response.geocodeLocation = response.geometry.location;
-      
+
       if (response.place_id){
         this.query.q = response.formatted_address;
         this.query.latlng = null;
@@ -54,5 +54,8 @@ HZApp.HZQuery = {
   updateMap: function(){
     HZApp.SidebarUtils.sidebar.open();
     HZApp.Markers.hzQueryMarker.updateMarkers(this.response.geocodeLocation);
+  },
+  resetStreetView: function (elem){
+    elem.click();
   }
 };
