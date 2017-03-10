@@ -44,7 +44,7 @@ describe "The Sidebar", type: :feature do
                                 } } }
 
   before do
-    visit('/map')
+    visit(map_path)
   end
 
   after(:each) do
