@@ -1,33 +1,44 @@
+<% page_open = 'usa-current'
+   page_closed = 'usa-not-current'
+   overview_status = ''
+   faq_status = ''
+   if @page_type == 'overview'
+     overview_status = page_open
+     faq_status = page_closed
+   elsif @page_type == 'faq'
+     overview_status = page_closed
+     faq_status = page_open
+   end %>
 <aside class="usa-width-one-fourth usa-layout-docs-sidenav">
     <ul class="usa-sidenav-list">
         <li>
-            <a class="usa-current" href="javascript:void(0);">HUBZone Map Overview</a>
+            <a class=<%= overview_status %> href="/map/help">HUBZone Map Overview</a>
             <ul class="usa-sidenav-sub_list">
                 <li>
-                    <a href="#section-heading-eligibility">Determining Eligibility</a>
+                    <a href="/map/help#section-heading-eligibility">Determining Eligibility</a>
                 </li>
                 <li>
-                    <a href="#section-heading-reporting">Providing Documentation to SBA</a>
+                    <a href="/map/help#section-heading-reporting">Providing Documentation to SBA</a>
                 </li>
                 <li>
-                    <a href="#section-heading-map-legend">Understanding the Map</a>
+                    <a href="/map/help#section-heading-map-legend">Understanding the Map</a>
                 </li>
                 <li>
-                    <a href="#section-heading-advanced">Advanced features</a>
+                    <a href="/map/help#section-heading-advanced">Advanced features</a>
                 </li>
             </ul>
         </li>
         <li>
-          <a href="javascript:void(0);">Frequently Asked Questions</a>
+          <a class=<%= faq_status %> href="/map/help/faq">Frequently Asked Questions</a>
           <ul class="usa-sidenav-sub_list">
               <li>
-                  <a href="#section-heading-faq-1">Question 1</a>
+                  <a href="/map/help/faq#section-heading-faq-1">Question 1</a>
               </li>
               <li>
-                  <a href="#section-heading-faq-2">Question 2</a>
+                  <a href="/map/help/faq#section-heading-faq-2">Question 2</a>
               </li>
               <li>
-                  <a href="#section-heading-faq-3">Question 3</a>
+                  <a href="/map/help/faq#section-heading-faq-3">Question 3</a>
               </li>
           </ul>
         </li>
