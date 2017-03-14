@@ -1,14 +1,16 @@
 <% page_open = 'usa-current'
    page_closed = 'usa-not-current'
    overview_status = ''
-   faq_status = ''
-   if @page_type == 'overview'
-     overview_status = page_open
-     faq_status = page_closed
-   elsif @page_type == 'faq'
-     overview_status = page_closed
-     faq_status = page_open
+   faq_status = '' %>
+
+<% if @page_selected == 'overview'
+    overview_status = page_open
+    faq_status = page_closed
+   elsif @page_selected == 'faq'
+    overview_status = page_closed
+    faq_status = page_open
    end %>
+
 <aside class="usa-width-one-fourth usa-layout-docs-sidenav">
     <ul class="usa-sidenav-list">
         <li>
@@ -39,6 +41,9 @@
               </li>
               <li>
                   <a href="/map/help/faq#section-heading-faq-3">Question 3</a>
+              </li>
+              <li>
+                  <a href="/map/help/faq#section-heading-faq-4">Question 4</a>
               </li>
           </ul>
         </li>

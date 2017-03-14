@@ -1,5 +1,5 @@
 class HelpController < ApplicationController
   def index
-    @page_type = params[:page]
+    @page_selected = params[:page]
   end
 end

@@ -5,12 +5,12 @@
 </div>
 
 <main class="usa-grid usa-section usa-content usa-layout-docs" id="hubzone-map-guide">
- <% if @page_type == 'overview' %>
- <%= render partial: "navigation" %>
- <%= render partial: "overview" %>
- <% else @page_type == 'faq' %>
- <%= render partial: "navigation" %>
- <%= render partial: "faq" %>
+ <% if @page_selected == 'overview' %>
+   <%= render partial: "navigation" %>
+   <%= render partial: "overview" %>
+ <% else @page_selected == 'faq' %>
+   <%= render partial: "navigation" %>
+   <%= render partial: "faq" %>
  <% end %>
 </main>
 
