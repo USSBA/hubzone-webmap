@@ -25,4 +25,41 @@ dev:
     return_to_top: "Volver a la cima"
     overview:
       title: "Mapa del HUBZone"
-      section: ""
+      section: "La aplicación de mapeo de HUBZone le ayuda a averiguar si una ubicación particular de un negocio o una ubicación residencial de un empleado está dentro de una HUBZone. También puede utilizar HUBZone Mapping para averiguar qué áreas de HUBZone se encuentran dentro de un área de mayor interés."
+    elegibility:
+      title: "Determinación de elegibilidad"
+      section:
+        first: "Si tiene la dirección de una localidad de interés, simplemente escríbala en el formulario en la parte superior de la página."
+        second: "HUBZone Mapping encontrará esa dirección y ampliará el mapa al nivel de la calle para mostrarlo, al mismo tiempo que generará una descripción de si la ubicación está en un área censal calificada, en un condado no metropolitano de HUBZone o en otro área de HUBZone, Una antigua base militar, una zona de tierras indias o una zona de desarrollo difícil definida por HUD (fuera de los Estados Unidos continentales). Esta acción también mostrará una \"tabla de información\", que contendrá una pestaña para el tracto y el condado en el que se encuentra la dirección, y pestañas adicionales de información para cualquier otro área calificada HUBZone que rodee la ubicación."
+        third: "También puede utilizar las herramientas de navegación de mapa en la parte superior izquierda del mapa para desplazar y ampliar un área de interés. A continuación, puede determinar la elegibilidad, ya sea mirando los temas de color del mapa o haciendo clic en un punto del mapa con el botón azul \"I\" (en la esquina superior izquierda del mapa) para generar el resultado. Si ha hecho clic en un punto que está cerca de una calle y los datos de ese bloque están completos (con rangos de direcciones como la mayoría son) HUBZone Mapping \"invertirá geocodificado\", es decir, rellene el formulario de dirección (en la parte superior) con la calle Dirección y código postal."
+    reporting:
+      title: "Tillhandahålla dokumentation till SBA"
+      section:
+        first: "Los detalles de su copia de cuerpo será determinado por el tema de su página. Independientemente del tema, es una buena práctica seguir la estructura de pirámide invertida al escribir una copia: Comience con la información que es más importante para sus usuarios y luego presente información de menor importancia."
+        second: "Mantenga cada sección y subsección enfocada - un buen enfoque es incluir un tema (tema) por sección."
+    legend:
+      title: "Entendiendo el mapa"
+      section:
+        first: "Utilice el menú de navegación lateral para ayudar a sus usuarios a saltar rápidamente a diferentes secciones de su página. El menú es el más adecuado para mostrar una jerarquía con uno a tres niveles y, como mencionamos, para mostrar la sub-navegación de una página dada."
+        second: "Lea la documentación completa en nuestra navegación lateral en la página de componentes."
+    advanced:
+      title: "Características avanzadas"
+      section:
+        first: "Utilice el menú de navegación lateral para ayudar a sus usuarios a saltar rápidamente a diferentes secciones de su página. El menú es el más adecuado para mostrar una jerarquía con uno a tres niveles y, como mencionamos, para mostrar la sub-navegación de una página dada."
+        second: "Lea la documentación completa en nuestra navegación lateral en la página de componentes."
+    faq:
+      title: "Preguntas frecuentes"
+      question_one:
+        title: "¿Qué pasa si el mapa no puede completar mi búsqueda?"
+        section:
+          first: "Si tiene la dirección de una localidad de interés, simplemente escríbala en el formulario en la parte superior de la página."
+      question_two:
+        title: "¿Qué pasa si el mapa coloca el marcador de ubicación en el lugar equivocado?"
+        section:
+          first: "Los detalles de su copia de cuerpo será determinado por el tema de su página. Independientemente del tema, es una buena práctica seguir la estructura de pirámide invertida al escribir una copia: Comience con la información que es más importante para sus usuarios y luego presente información de menor importancia."
+          second: "Mantenga cada sección y subsección enfocada - un buen enfoque es incluir un tema (tema) por sección."
+      question_three:
+        title: "¿Qué pasa si mi ubicación no tiene una dirección?"
+        section:
+          first: "Utilice el menú de navegación lateral para ayudar a sus usuarios a saltar rápidamente a diferentes secciones de su página. El menú es el más adecuado para mostrar una jerarquía con uno a tres niveles y, como mencionamos, para mostrar la sub-navegación de una página dada."
+          second: "Lea la documentación completa en nuestra navegación lateral en la página de componentes."
