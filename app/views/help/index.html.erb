@@ -1,6 +1,8 @@
 <div class="usa-grid map-guide-header">
   <div class="return-to-map">
-    <%= link_to( "<i class='fa fa-share' aria-hidden='true'></i>Back to map".html_safe, map_path, id: "back-to-map") %>
+    <%= link_to map_path do %>
+      <i class='fa fa-share' aria-hidden='true'></i> <%= t('help.back_to_map') %>
+    <% end %>
   </div>
 </div>
 
@@ -15,5 +17,5 @@
 </main>
 
 <div class="usa-grid usa-footer-return-to-top">
-    <a href="#">Return to top</a>
+    <a href="#"><%=t('help.return_to_top') %></a>
 </div>
