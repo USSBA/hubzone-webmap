@@ -37,7 +37,14 @@
   filter: FlipH;
   -ms-filter: "FlipH";
 }
-
+.help-nav {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 2rem;
+}
+.help-nav a:focus{
+  box-shadow: none;
+}
 @media only screen and (max-width: 950px)  {
   #hubzone-map-guide {
     margin-left: 1rem;
