@@ -18,6 +18,12 @@ function initMap() {
     }
   });
 
+
+  //reset mapType names
+  HZApp.map.setOptions({'mapTypeControl':false});
+  //refer to maptype spec: https://developers.google.com/maps/documentation/javascript/3.exp/reference#MapType
+  google.maps.event.addListenerOnce(HZApp.map, 'idle', HZApp.MapUtils.updateMapTypeNames);
+
   //adds in the hz style into the basemap picker
   var hzStyledMap = new google.maps.StyledMapType(HZApp.Styles.hzBaseMapStyle, {name: 'Gray'});
   HZApp.map.mapTypes.set('hz_map', hzStyledMap);
@@ -29,7 +35,7 @@ function initMap() {
   //add in the WMS tiles
   HZApp.WMTSUtils.initializeTiles();
 
-  //add listener on the map for clciks  
+  //add listener on the map for clciks
   HZApp.WMTSUtils.addClickListeners(HZApp.map);
 
   //adds autocomplete and click listener
