@@ -114,10 +114,17 @@ describe ('Testing map operations', function() {
     expect(date).toEqual('2016-10-11');
   });
 
+  it("should do nothing if the maptype is not present", function(){
+    var badMapType = 'banana';
+    var newName = 'bar';
+    HZApp.MapUtils.customMapTypeName({mapType: badMapType, newName: newName});
+    expect(HZApp.map.mapTypes[badMapType]).toBe(undefined);
+  });
+
   it("should set the maptype name property", function(){
     HZApp.map.mapTypes.foo = {};
     var newName = 'bar';
-    HZApp.MapUtils.customMapTypeName({mapType:'foo', newName: newName});
+    var returnVal = HZApp.MapUtils.customMapTypeName({mapType:'foo', newName: newName});
     expect(HZApp.map.mapTypes.foo.name).toEqual(newName);
   });
 
@@ -134,4 +141,5 @@ describe ('Testing map operations', function() {
     expect(HZApp.MapUtils.customMapTypeName.calls.count()).toEqual(HZApp.MapUtils.mapNameUpdates.length);
     expect(HZApp.map.setOptions.calls.count()).toEqual(1);
   });
+
 });

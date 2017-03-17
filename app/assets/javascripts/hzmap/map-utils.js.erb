@@ -50,6 +50,7 @@ HZApp.MapUtils = (function(){
       HZApp.map.setOptions({'mapTypeControl':true});
     },
     customMapTypeName: function(mapNameUpdate){
+      if (!HZApp.map.mapTypes[mapNameUpdate.mapType]) { return; }
       HZApp.map.mapTypes[mapNameUpdate.mapType].name = mapNameUpdate.newName;
     }
   };
