@@ -50,27 +50,36 @@
   </div>
 </div>
 
+<div class="hubzone-status">
+  <table class="<%= sidebar_display %>">
+    <thead>
+      <th class="<%= hubzone_status_style %>" scope="row">
+        <div class="hubzone-status-indicator <%= hubzone_status_style %>">
+          <i class="<%= hubzone_status_indicator %>" aria-hidden="true"></i>
+        </div>
+        <div id="hubzone-status" tabindex="11" aria-label="<%= aria_hubzone_status %>"><%= hubzone_status %></div>
+      </th>
+    </thead>
+  </table>
+</div>
 
-<table id="hubzone-qualifications" class="<%= sidebar_display %>">
-  <thead>
-    <th class="<%= hubzone_status_style %>" scope="row">
-      <div class="hubzone-status-indicator <%= hubzone_status_style %>">
-        <i class="<%= hubzone_status_indicator %>" aria-hidden="true"></i>
-      </div>
-      <div id="hubzone-status" tabindex="11" aria-label="<%= aria_hubzone_status %>"><%= hubzone_status %></div>
-    </th>
-  </thead>
-  <!--  <tfoot>
-    <tr>
-      <td></td>
-    </tr>
-  </tfoot> -->
-  <tbody>
-    <%= render partial: "qualification", collection: hubzones %>
-  </tbody>
-</table>
+<div class="sidebar-accordion additional-details">
+   <table class="<%= sidebar_display %>">
+     <thead>
+       <th class="<%= hubzone_status_style %>" scope="row">
+       Additional Details
+     </th>
+     </thead>
+     <tbody>
+       <%= render partial: "qualification", collection: hubzones %>
+     </tbody>
+   </table>
+ </ul>
 
-<div class="sidebar-card map-report">
+
+</div>
+
+<div class="sidebar-card map-actions">
   <button id="map-report" tabindex="15">
     <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
     <div class="create-report">Create Report</div>
@@ -79,5 +88,5 @@
 </div>
 
 <div class="sidebar-footer">
-  <div class="hubzone-status-date" tabindex="12"><%= t('hubzone_assertions.qualifications_effective') %><%= date %></div>
+  <div class="hubzone-status-date"><%= t('hubzone_assertions.qualifications_effective') %><%= date %></div>
 </div>

@@ -24,11 +24,11 @@ HZApp.HZQuery = {
   },
   handleBadResponses: function(responseStatus){
     if (responseStatus === 'ZERO_RESULTS' || responseStatus === 'INVALID_REQUEST'){
-      $('.sidebar-card.map-report').hide();
+      $('.sidebar-card.map-actions').hide();
       $('#sidebar-content').addClass('zero-results');
       $('#legend').addClass('zero-results');
     } else {
-      $('.sidebar-card.map-report').show();
+      $('.sidebar-card.map-actions').show();
       $('#sidebar-content').removeClass('zero-results');
       $('#legend').removeClass('zero-results');
     }
