@@ -57,7 +57,7 @@
       <div class="hubzone-status-indicator <%= hubzone_status_style %>">
         <i class="<%= hubzone_status_indicator %>" aria-hidden="true"></i>
       </div>
-      <div id="hubzone-status" tabindex="11" aria-label="<%= aria_hubzone_status %>"><%= hubzone_status %><div class="hubzone-status-date" tabindex="12"><%= t('hubzone_assertions.qualifications_effective') %><%= date %></div></div>
+      <div id="hubzone-status" tabindex="11" aria-label="<%= aria_hubzone_status %>"><%= hubzone_status %></div>
     </th>
   </thead>
   <!--  <tfoot>
@@ -76,4 +76,8 @@
     <div class="create-report">Create Report</div>
   </button>
   <span id="report-waiting"></span>
+</div>
+
+<div class="sidebar-footer">
+  <div class="hubzone-status-date" tabindex="12"><%= t('hubzone_assertions.qualifications_effective') %><%= date %></div>
 </div>

@@ -134,11 +134,6 @@ table.sidebar-qualifications th {
   border-radius: 0 0 3px 3px;
   font-size: 1.5rem;
 }
-.hubzone-status-date {
-  font-weight: normal;
-  font-size: 1.3rem;
-  padding-left: 2px;
-}
 i.fa.fa-print {
   font-size: 2.5rem;
   color: $gray-dark;
@@ -167,7 +162,20 @@ button#map-report {
   padding-top: 0.5rem;
   color: $gray-dark;
 }
-
+.sidebar-footer {
+  width: 34rem;
+  position: fixed;
+  bottom: 0;
+  background-color: $white;
+}
+.hubzone-status-date {
+  padding-top: .4rem;
+  padding-bottom: .4rem;
+  text-align: center;
+  font-weight: normal;
+  font-size: 1.3rem;
+  color: $gray;
+}
 @media only screen and (max-width: 950px)  {
   #sidebar-button {
     display: none;
