@@ -28,7 +28,6 @@
 .sidebar-card {
   position: relative;
   width: 90%;
-  min-height: 4em;
   margin: 1rem auto 1rem auto;
   background-color: $white;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
@@ -118,13 +117,17 @@ table th {
   float: none;
   font-weight: bold;
 }
-.sidebar-qualifications tfoot tr td {
+.additional-details tfoot tr td {
   border-left: 1px solid $gray-lightest;
   border-right: 1px solid $gray-lightest;
   border-bottom: 1px solid $gray-lightest;
   border-top: none;
   border-radius: 0 0 3px 3px;
   font-size: 1.5rem;
+}
+th.additional-details-title {
+  background-color: $white;
+  color: $gray-dark;
 }
 i.fa.fa-print {
   font-size: 2.5rem;
@@ -145,7 +148,7 @@ i.fa-file-pdf-o {
 }
 button#map-report {
   background: none;
-  margin: 1.5rem 0.5rem 1.5rem 1.5rem;
+  margin: 1.7rem 0.5rem 1.5rem 1.5rem;
   padding: 0rem;
 }
 .create-report {
@@ -161,12 +164,15 @@ button#map-report {
   background-color: $white;
 }
 .hubzone-status-date {
-  padding-top: .4rem;
-  padding-bottom: .4rem;
+  position: absolute;
+  bottom: 0px;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  margin: 1.5rem 1.5rem 0.5rem 1.5rem;
   text-align: center;
   font-weight: normal;
   font-size: 1.3rem;
-  color: $gray;
+  color: #5b616b;
 }
 @media only screen and (max-width: 950px)  {
   #sidebar-button {
@@ -178,13 +184,11 @@ button#map-report {
     top: 100%;
     background-color: transparent;
   }
-
   #sidebar-content.zero-results {
     margin-top: 0;
     position: absolute;
     bottom: 0px;
   }
-
   #sidebar-content {
     margin-top: -100px;
   }
@@ -224,5 +228,8 @@ button#map-report {
     text-align: left;
     margin: .5rem 0 .5rem 2rem;
     cursor: pointer;
+  }
+  .hubzone-status-date {
+    display: none;
   }
 }

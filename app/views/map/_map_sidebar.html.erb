@@ -14,18 +14,20 @@
              body['query_date']
            end
     if body['formatted_address'].nil?
-      sidebar_display = 'hidden'
+      visibility = 'hidden'
+      details_visibility = 'hidden'
       hubzone_status_indicator = 'fa fa-times-circle-o'
       hubzone_status_style = 'qualified-hubzone'
     elsif body['hubzone'].size > 0
-      sidebar_display = 'sidebar-qualifications'
+      visibility = ''
       hubzone_status_indicator = 'fa fa-check-circle-o qualified-hubzone'
       hubzone_status_style = 'qualified-hubzone'
       hubzone_status = t('hubzone_assertions.qualified')
       aria_hubzone_status = t('hubzone_assertions.qualified_aria')
       hubzones = body['hubzone']
     else
-      sidebar_display = 'sidebar-qualifications'
+      visibility = ''
+      details_visibility = 'hidden'
       hubzone_status_style = 'non-qualified-hubzone'
       hubzone_status_indicator ='fa fa-times-circle-o non-qualified-hubzone'
       hubzone_status = t('hubzone_assertions.not_qualified')
@@ -50,8 +52,8 @@
   </div>
 </div>
 
-<div class="sidebar-card hubzone-status <%= hubzone_status_style %>">
-  <table class="<%= sidebar_display %>">
+<div class="sidebar-card hubzone-status <%= hubzone_status_style %> <%= visibility %>">
+  <table class="sidebar-qualifications">
     <thead>
       <th class="<%= hubzone_status_style %>" scope="row">
         <div class="hubzone-status-indicator ">
@@ -63,10 +65,10 @@
   </table>
 </div>
 
-<div class="sidebar-card additional-details">
-   <table class="<%= sidebar_display %>">
+<div class="sidebar-card additional-details <%= details_visibility %>">
+   <table class="sidebar-qualifications">
      <thead>
-       <th class="<%= hubzone_status_style %>" scope="row">
+       <th class="additional-details-title" scope="row">
        Additional Details
      </th>
      </thead>
@@ -85,6 +87,6 @@
   <span id="report-waiting"></span>
 </div>
 
-<div class="sidebar-footer">
-  <div class="hubzone-status-date" tabindex="12"><%= t('hubzone_assertions.qualifications_effective') %><%= date %></div>
+<div class="sidebar-card hubzone-status-date <%= visibility %>" tabindex="12">
+  <%= t('hubzone_assertions.qualifications_effective') %><%= date %>
 </div>
