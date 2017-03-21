@@ -50,11 +50,11 @@
   </div>
 </div>
 
-<div class="hubzone-status">
+<div class="sidebar-card hubzone-status <%= hubzone_status_style %>">
   <table class="<%= sidebar_display %>">
     <thead>
       <th class="<%= hubzone_status_style %>" scope="row">
-        <div class="hubzone-status-indicator <%= hubzone_status_style %>">
+        <div class="hubzone-status-indicator ">
           <i class="<%= hubzone_status_indicator %>" aria-hidden="true"></i>
         </div>
         <div id="hubzone-status" tabindex="11" aria-label="<%= aria_hubzone_status %>"><%= hubzone_status %></div>
@@ -75,8 +75,6 @@
      </tbody>
    </table>
  </ul>
-
-
 </div>
 
 <div class="sidebar-card map-actions">
@@ -88,5 +86,5 @@
 </div>
 
 <div class="sidebar-footer">
-  <div class="hubzone-status-date"><%= t('hubzone_assertions.qualifications_effective') %><%= date %></div>
+  <div class="hubzone-status-date" tabindex="12"><%= t('hubzone_assertions.qualifications_effective') %><%= date %></div>
 </div>
