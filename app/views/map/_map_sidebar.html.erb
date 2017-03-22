@@ -45,9 +45,9 @@
       <h2 class="hubzone-sidebar-address" tabindex="10"><%= address %></h2>
     </div>
     <% if coordinates %>
-      <div class="hubzone-sidebar-row">
-        <h4 class="hubzone-sidebar-coordinates"><%= coordinates %></h4>
-      </div>
+    <div class="hubzone-sidebar-row">
+      <h4 class="hubzone-sidebar-coordinates"><%= coordinates %></h4>
+    </div>
     <% end %>
   </div>
 </div>
@@ -68,9 +68,7 @@
 <div class="sidebar-card additional-details <%= details_visibility %>">
    <table class="sidebar-additional-details">
      <thead>
-       <th class="additional-details-title" scope="row">
-       Additional Details
-     </th>
+       <th class="additional-details-title" scope="row"><%= t('sidebar.details.title') %></th>
      </thead>
      <tbody>
        <%= render partial: "qualification", collection: hubzones %>

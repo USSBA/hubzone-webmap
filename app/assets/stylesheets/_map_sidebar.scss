@@ -58,7 +58,6 @@
   font-weight: normal;
   color: $gray-dark;
 }
-
 .sidebar-card h4 {
   display: inline;
   vertical-align: middle;
@@ -125,9 +124,6 @@ table th {
 }
 .sidebar-additional-details {
   margin: 0;
-}
-table th {
-  border: none;
 }
 .sidebar-additional-details thead th {
   border: none;
@@ -206,12 +202,6 @@ button#map-report {
   height: 6rem;
   float: left;
 }
-
-$qctColor: #0D465C;
-$qnmcColor: #BA233F;
-$indianLandsColor: #009DCD;
-
-
 .layer-qct {
   background-color: #0D465C;
 }

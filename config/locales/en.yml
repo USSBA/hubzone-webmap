@@ -41,6 +41,8 @@ en:
     label: "hubzone map search"
   sidebar:
     button: "Sidebar Button"
+    details:
+      title: "Additional Details"
   api:
     success: "Success"
     error:

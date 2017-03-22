@@ -64,6 +64,9 @@ describe "The Sidebar", type: :feature do
       expect(page).to have_css(".hubzone-status-date")
       expect(page.find('.hubzone-status-date')['tabindex']).to be_truthy
     end
+    it "should have additional details title" do
+      expect(page).to have_content("Additional Details")
+    end
   end
 
   context "after a search performed", js: true do
