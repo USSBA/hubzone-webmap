@@ -20,4 +20,72 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  hubzone_map: "  HUBZone Map"
+  hubzone_map_aria_label: "hubzone map"
+  usa_banner:
+    title: "An official website of the United States government"
+  date:
+    month_names: [~, January, Febuary, March, April, May, June, July, August, September, October, November, December]
+    abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+    formats:
+      full: " %B %d %Y"
+  menu:
+    hubzone_program: "HUBZone Program"
+    hubzone_program_aria_label: "hubzone program"
+    accessible_version: "Accessible Version"
+    help: "Help"
+  map:
+    enter_address: "Enter address"
+    filter: "Filter"
+  search:
+    label: "hubzone map search"
+  sidebar:
+    button: "Sidebar Button"
+  api:
+    success: "Success"
+    error:
+      zero_results: "We're sorry.  Your search could not be completed. Please check spelling or include more address information."
+      invalid_request: "We're sorry. The request failed due to an internal error. Please try again."
+      over_query_limit: "We're sorry. The request failed due to an internal error. Please try again."
+      request_denied: "We're sorry. The request failed due to an internal error. Please try again."
+      unknown_error: "We're sorry. The request failed due to an internal error. Please try again."
+  hubzone_assertions:
+    qualified_by: "Qualified by: "
+    qualifications_effective: "As of"
+    qualified: "Qualified HUBZone"
+    qualified_aria: "qualified hubzone"
+    qualified_short: "Qualified"
+    not_qualified: "Not Qualified"
+    not_qualified_aria: "Not Qualified"
+    expiring: "Expiring"
+    expires: "Expires"
+    expired: "Expired"
+    qct: "Census Tract"
+    qct_e: "Census Tract"
+    qct_b: "Base Closure Census Tract"
+    qct_r: "Redesignated Census Tract"
+    qnmc: "County"
+    qnmc_a: "County"
+    qnmc_ab: "County"
+    qnmc_b: "County"
+    qnmc_c: "County"
+    qnmc_dda: "County"
+    qnmc_e: "County"
+    qnmc_brac: "Base Closure County"
+    qnmc_r: "Redesignated County"
+    indian_lands: "Indian Land"
+    brac: "Base Closure"
+    disaster_area: "Disaster Area"
+  legend:
+    title: "Legend"
+    aria_label: "hubzone legend"
+    qct: "Census Tract"
+    indian_lands: "Indian Land"
+    redesignated: "Redesignated"
+    qnmc: "County"
+    brac: "Base Closure Area"
+    brac_base: "Closed Base"
+  report:
+    error: "Error Generating Report"
+    generating: "Generating Report..."
+    created: "Report Created"

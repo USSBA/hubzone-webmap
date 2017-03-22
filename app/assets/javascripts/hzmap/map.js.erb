@@ -1,0 +1,62 @@
+//create the map on load, when idle, jump to updateMap to get features
+/* exported initMap */
+function initMap() {
+
+  HZApp.map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 39.8282, lng: -98.5795},
+    zoom: 5,
+    zoomControl: true,
+    zoomControlOptions: {
+      position: google.maps.ControlPosition.RIGHT_BOTTOM
+    },
+    streetViewControlOptions: {
+      position: google.maps.ControlPosition.RIGHT_BOTTOM
+    },
+    mapTypeControlOptions: {
+      mapTypeIds: ['roadmap', 'hz_map', 'hybrid' ],
+      position: google.maps.ControlPosition.BOTTOM_CENTER
+    }
+  });
+
+  //adds in the hz style into the basemap picker
+  var hzStyledMap = new google.maps.StyledMapType(HZApp.Styles.hzBaseMapStyle, {name: 'Gray'});
+  HZApp.map.mapTypes.set('hz_map', hzStyledMap);
+
+  //adds the map legend and geolocation button
+  HZApp.map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('legend'));
+  HZApp.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('geolocation'));
+
+  //add in the WMS tiles
+  HZApp.WMTSUtils.initializeTiles();
+
+  //add listener on the map for clciks  
+  HZApp.WMTSUtils.addClickListeners(HZApp.map);
+
+  //adds autocomplete and click listener
+  HZApp.Autocomplete.createAutocomplete();
+  HZApp.Autocomplete.createListener(HZApp.Autocomplete.autocomplete);
+
+  // build out the markers
+  /* jshint ignore:start */
+  HZApp.Markers.hzQueryMarker = new HZApp.Constructors.HubzoneMapMarker({
+    icon: '<%= image_path 'hubzone-map-marker.svg' %>',
+    scaledSize: 40
+  });
+  HZApp.Markers.hzUserLocation = new HZApp.Constructors.HubzoneMapMarker({
+    icon: '<%= image_path 'geolocation-marker.svg' %>',
+    scaledSize: 17
+  });
+  /* jshint ignore:end */
+
+  //initialize user location
+  HZApp.GeoLocation.getUserLocation(navigator.geolocation);
+
+  //build the legend
+  HZApp.Legend.buildLegend(HZApp.Legend.legend);
+
+  // build the sidebar
+  HZApp.SidebarUtils.buildSidebar();
+
+  //returns the map
+  return HZApp.map;
+}
