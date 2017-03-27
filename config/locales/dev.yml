@@ -41,12 +41,9 @@ dev:
     label: "Mapa de HUBZone Search Buscar"
   sidebar:
     button: "Botón de la barra lateral"
-#<<<<<<< HEAD
     print_version: "Versión imprimible"
-#=======
     details:
       title: "Detalles adicionales"
-#>>>>>>> develop
   api:
     success: "Éxito"
     error:
