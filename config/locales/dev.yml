@@ -41,6 +41,12 @@ dev:
     label: "Mapa de HUBZone Search Buscar"
   sidebar:
     button: "Botón de la barra lateral"
+#<<<<<<< HEAD
+    print_version: "Versión imprimible"
+#=======
+    details:
+      title: "Detalles adicionales"
+#>>>>>>> develop
   api:
     success: "Éxito"
     error:
@@ -51,7 +57,7 @@ dev:
       unknown_error: "Lo sentimos. La solicitud ha fallado debido a un error interno. Vuelve a intentarlo."
   hubzone_assertions:
     qualified_by: "Calificado por: "
-    qualifications_effective: "A partir de"
+    qualifications_effective: "La calificación es válida para hoy: "
     qualified: "HUBZone Calificado"
     qualified_aria: "hubzone Calificado"
     qualified_short: "Calificado"
