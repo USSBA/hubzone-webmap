@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "The Help Page", type: :feature do
   before do
-    visit('/map/help')
+    visit('/hubzone/map/help')
   end
   it "should have a 'Back to map' link " do
     expect(page).to have_css("#back-to-map")
@@ -13,7 +13,7 @@ describe "The Help Page", type: :feature do
 end
 describe "The Help Overview Page", type: :feature do
   before do
-    visit('/map/help')
+    visit('/hubzone/map/help')
   end
   it "should have a title" do
     expect(page).to have_content("HUBZone Map Overview")
@@ -33,7 +33,7 @@ describe "The Help Overview Page", type: :feature do
 end
 describe "The Help FAQ Page", type: :feature do
   before do
-    visit('/map/help/faq')
+    visit('/hubzone/map/help/faq')
   end
   it "should have a title" do
     expect(page).to have_content("Frequently Asked Questions")
