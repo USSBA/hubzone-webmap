@@ -46,8 +46,8 @@
 }
 [type="checkbox"]:checked + label::before,
 [type="radio"]:checked + label::before {
-  background-color: $gray-dark;
-  box-shadow: 0 0 0 1px $gray-dark;
+  background-color: $white;
+  box-shadow: 0 0 0 2px $gray-dark;
 }
 
 [type="radio"]:checked + label::before {
