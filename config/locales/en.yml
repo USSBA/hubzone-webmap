@@ -41,12 +41,9 @@ en:
     label: "hubzone map search"
   sidebar:
     button: "Sidebar Button"
-#<<<<<<< HEAD
     print_version: "Printable Version"
-#=======
     details:
       title: "Additional Details"
-#>>>>>>> develop
   api:
     success: "Success"
     error:
