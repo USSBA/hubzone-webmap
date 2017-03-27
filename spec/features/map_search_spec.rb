@@ -147,7 +147,9 @@ describe 'The Search', type: :feature, js: true do
               it "should contain the correct hubzone assertions" do
                 expect(page).to have_content(t("hubzone_assertions." + hubzone[:hz_type].to_s))
               end
-
+              it "should have the right layer symbology" do
+                expect(page).to have_css(".layer-" + tquery[:response][:hubzone][0][:hz_type])
+              end
               next unless hubzone[:expires]
               it "should show the correct language for expires or expired if expiration date is present" do
                 expect(page).to have_content(hubzone[:expires] < Date.today ? t('hubzone_assertions.expired') : t('hubzone_assertions.expires'))

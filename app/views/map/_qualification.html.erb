@@ -5,9 +5,14 @@
 %>
 <tr>
   <th id="<%= qualification['hz_type'] %>">
-    <div class="qualification-label" tabindex="13"><%= t(('hubzone_assertions.' + qualification["hz_type"]).to_s) %></div>
-    <% unless qualification["expires"].nil? %>
-    <span tabindex="14" class="expires-label"><%= t('hubzone_assertions.' + expires_text) %> <%= qualification["expires"].to_s %></span>
-    <% end %>
+    <div class="sidebar-layer-symbol layer-<%= qualification["hz_type"] %>"></div>
+    <div class="qualification-label-wrapper" tabindex="13">
+      <div class="qualification-label">
+        <%= t(('hubzone_assertions.' + qualification["hz_type"]).to_s) %>
+      </div>
+        <% unless qualification["expires"].nil? %>
+        <span tabindex="14" class="expires-label"><%= t('hubzone_assertions.' + expires_text) %> <%= qualification["expires"].to_s %></span>
+        <% end %>
+    </div>
   </th>
 </tr>
