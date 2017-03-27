@@ -28,28 +28,24 @@
 .sidebar-card {
   position: relative;
   width: 90%;
-  min-height: 4em;
   margin: 1rem auto 1rem auto;
-  padding: 1.5rem 0 1.5rem 0;
   background-color: $white;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
   border-radius: 3px;
   display: table;
 }
-
 .hubzone-sidebar-cell {
   display: table-cell;
+  padding: 1.5rem 0 1.5rem 0;
 }
-
 .hubzone-sidebar-row {
   display: table-row;
 }
-
 .hubzone-sidebar-cell.text {
   padding-left: 3rem;
+  padding-right: 1rem;
   vertical-align: middle;
 }
-
 .sidebar-card h2 {
   display: inline;
   vertical-align: middle;
@@ -62,7 +58,6 @@
   font-weight: normal;
   color: $gray-dark;
 }
-
 .sidebar-card h4 {
   display: inline;
   vertical-align: middle;
@@ -86,6 +81,7 @@
   font-size: 2.4rem;
   font-weight: normal;
   padding-left: 0.8rem;
+  padding-top: 0.3rem;
 }
 .qualified-hubzone {
   background-color: $green-light;
@@ -100,20 +96,20 @@
   font-size: 4rem;
 }
 .sidebar-qualifications {
-  width: 90%;
-  min-width: auto;
-  margin: 0 auto;
-  border-radius: 3px;
-  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
-  border-collapse: separate;
-  overflow: hidden;
+  margin: 0;
 }
-table.sidebar-qualifications th {
+.qualification-label-wrapper {
+  vertical-align: middle;
+  display: table-cell;
+  width: 100%;
+  padding-left: 1rem;
+}
+table th {
   border: none;
 }
 .sidebar-qualifications thead th {
   border: none;
-  padding: 1rem 1.5rem 1rem 1.5rem;
+  border-radius: 3px;
 }
 .sidebar-qualifications tbody th {
   background-color: $white;
@@ -122,11 +118,28 @@ table.sidebar-qualifications th {
   font-size: 1.5rem;
   font-weight: 400;
 }
-.sidebar-qualifications th > span {
+.qualification-label-wrapper > span {
   float: none;
   font-weight: bold;
 }
-.sidebar-qualifications tfoot tr td {
+.sidebar-additional-details {
+  margin: 0;
+}
+.sidebar-additional-details thead th {
+  border: none;
+  border-radius: 3px;
+}
+.sidebar-additional-details tbody th {
+  background-color: $white;
+  border-top: 1px solid $gray-lightest;
+  color: $gray-dark;
+  font-size: 1.5rem;
+  font-weight: 400;
+  padding: 0;
+  display: table;
+  width: 100%;
+}
+.additional-details tfoot tr td {
   border-left: 1px solid $gray-lightest;
   border-right: 1px solid $gray-lightest;
   border-bottom: 1px solid $gray-lightest;
@@ -134,10 +147,9 @@ table.sidebar-qualifications th {
   border-radius: 0 0 3px 3px;
   font-size: 1.5rem;
 }
-.hubzone-status-date {
-  font-weight: normal;
-  font-size: 1.3rem;
-  padding-left: 2px;
+th.additional-details-title {
+  background-color: $white;
+  color: $gray-dark;
 }
 i.fa.fa-print {
   font-size: 2.5rem;
@@ -158,7 +170,7 @@ i.fa-file-pdf-o {
 }
 button#map-report {
   background: none;
-  margin: 0.5rem 0.5rem .5rem 1.5rem;
+  margin: 1.7rem 0.5rem 1.5rem 1.5rem;
   padding: 0rem;
 }
 .create-report {
@@ -167,6 +179,85 @@ button#map-report {
   padding-top: 0.5rem;
   color: $gray-dark;
 }
+.sidebar-footer {
+  width: 34rem;
+  position: fixed;
+  bottom: 0;
+  background-color: $white;
+}
+.hubzone-status-date {
+  position: absolute;
+  bottom: 0px;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  margin: 1.5rem 1.5rem 0.5rem 1.5rem;
+  text-align: center;
+  font-weight: normal;
+  font-size: 1.3rem;
+  color: #5b616b;
+}
+.sidebar-layer-symbol {
+  background-repeat: repeat;
+  width: 4rem;
+  height: 6rem;
+  float: left;
+}
+.layer-qct {
+  background-color: #0D465C;
+}
+.layer-qct_e {
+  background-color: #0D465C;
+}
+.layer-qct_b {
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 20 20'><g fill='none' fill-opacity='0.8' fill-rule='evenodd'><rect width='16' height='16' fill='#ffffff'/><circle cx='8' cy='8' r='5' fill='#0D465C'/></g></svg>");
+}
+.layer-qct_r {
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='#0D465C' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+}
+.layer-qnmc {
+  background-color: #BA233F;
+}
+.layer-qnmc_a {
+  background-color: #BA233F;
+}
+.layer-qnmc_ab {
+  background-color: #BA233F;
+}
+.layer-qnmc_b {
+  background-color: #BA233F;
+}
+.layer-qnmc_c {
+  background-color: #BA233F;
+}
+.layer-qnmc_dda {
+  background-color: #BA233F;
+}
+.layer-qnmc_e {
+  background-color: #BA233F;
+}
+.layer-qnmc_r {
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='#BA233F' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+}
+.layer-qnmc_brac {
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 20 20'><g fill='none' fill-opacity='0.8' fill-rule='evenodd'><rect width='16' height='16' fill='#ffffff'/><circle cx='8' cy='8' r='5' fill='#BA233F'/></g></svg>");
+}
+.layer-indian_lands {
+  background-color: #009DCD;
+}
+.layer-brac {
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 20 20'><g fill='none' fill-opacity='0.8' fill-rule='evenodd'><rect width='16' height='16' fill='#ffffff'/><circle cx='8' cy='8' r='5' fill='#000'/></g></svg>");
+}
+// .layer-dda_county {
+//
+// }
+// .layer-dda_qct {
+//
+// }
 
 @media only screen and (max-width: 950px)  {
   #sidebar-button {
@@ -178,13 +269,11 @@ button#map-report {
     top: 100%;
     background-color: transparent;
   }
-
   #sidebar-content.zero-results {
     margin-top: 0;
     position: absolute;
     bottom: 0px;
   }
-
   #sidebar-content {
     margin-top: -100px;
   }
@@ -224,5 +313,8 @@ button#map-report {
     text-align: left;
     margin: .5rem 0 .5rem 2rem;
     cursor: pointer;
+  }
+  .hubzone-status-date {
+    display: none;
   }
 }
