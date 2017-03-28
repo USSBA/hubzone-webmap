@@ -313,6 +313,12 @@ button#map-report {
   #hubzone-status {
     font-size: 1em;
   }
+  .hubzone-until-date {
+    float: none;
+    position: relative;
+    left: 0.5rem;
+    padding-top: 0.3rem;
+  }
   button#map-report {
     text-align: left;
     margin: .5rem 0 .5rem 2rem;
