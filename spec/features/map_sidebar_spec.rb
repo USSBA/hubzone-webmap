@@ -43,9 +43,10 @@ describe "The Sidebar", type: :feature do
                                   }
                                 } },
                 redesignated: { formatted_address:
-                                'St Paul St & E 25th St, Baltimore, MD 21218, USA',
+                                'Reform, AL',
                                 http_status: 200,
                                 hubzone: [],
+                                until_date: "2020-04-05",
                                 geometry: {
                                   location: {
                                     lat: 0,
@@ -76,6 +77,9 @@ describe "The Sidebar", type: :feature do
     end
     it "should have additional details title" do
       expect(page).to have_content("Additional Details")
+    end
+    it "should have until date container" do
+      expect(page).to have_css(".hubzone-until-date")
     end
   end
 
@@ -126,15 +130,17 @@ describe "The Sidebar", type: :feature do
       expect(page).to have_css("#indian_lands", visible: false)
     end
   end
-  # context "with a redesignated address", js: true do
-  #   before do
-  #     Excon.stub({},
-  #                body: responses[:qualified_multiple].to_json)
-  #   end
-  #   it "should show one qualification" do
-  #     fill_in 'search', with: queries[:qualified_single]
-  #     click_button 'hubzone-search-button'
-  #     expect(page).to have_css("#indian_lands", visible: false)
-  #   end
-  # end
+  context "with a redesignated address", js: true do
+    before do
+      Excon.stub({},
+                 body: responses[:redesignated].to_json)
+    end
+    it "should show a 'until' expiration date" do
+      fill_in 'search', with: queries[:redesignated]
+      click_button 'hubzone-search-button'
+      within('table#hubzone-qualifications') do
+        expect(page).to have_css(".hubzone-until-date")
+      end
+    end
+  end
 end
