@@ -7,6 +7,11 @@
     else
       coordinates = nil
     end
+    if !body['until_date'].nil?
+      until_date = "Until " + body['until_date']
+    else
+      until_date = nil
+    end
     date = if body['query_date'].present?
              date = Date.parse(body['query_date'])
              date = I18n.l date, format: :full
@@ -60,6 +65,7 @@
           <i class="<%= hubzone_status_indicator %>" aria-hidden="true"></i>
         </div>
         <div id="hubzone-status" tabindex="11" aria-label="<%= aria_hubzone_status %>"><%= hubzone_status %></div>
+        <div class="hubzone-until-date"><%= until_date %></div>
       </th>
     </thead>
   </table>

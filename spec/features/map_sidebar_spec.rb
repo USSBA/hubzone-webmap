@@ -41,6 +41,16 @@ describe "The Sidebar", type: :feature do
                                     lat: 0,
                                     lng: 0
                                   }
+                                } },
+                redesignated: { formatted_address:
+                                'St Paul St & E 25th St, Baltimore, MD 21218, USA',
+                                http_status: 200,
+                                hubzone: [],
+                                geometry: {
+                                  location: {
+                                    lat: 0,
+                                    lng: 0
+                                  }
                                 } } }
 
   before do
@@ -116,4 +126,15 @@ describe "The Sidebar", type: :feature do
       expect(page).to have_css("#indian_lands", visible: false)
     end
   end
+  # context "with a redesignated address", js: true do
+  #   before do
+  #     Excon.stub({},
+  #                body: responses[:qualified_multiple].to_json)
+  #   end
+  #   it "should show one qualification" do
+  #     fill_in 'search', with: queries[:qualified_single]
+  #     click_button 'hubzone-search-button'
+  #     expect(page).to have_css("#indian_lands", visible: false)
+  #   end
+  # end
 end
