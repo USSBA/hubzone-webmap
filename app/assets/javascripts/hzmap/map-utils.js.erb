@@ -1,4 +1,5 @@
 HZApp.MapUtils = (function(){
+
   return {
     // turn latlng object into url
     catchMapClick: function(clickEvent){
@@ -41,5 +42,18 @@ HZApp.MapUtils = (function(){
         new google.maps.LatLng(NELat, NELng)
       );
     },
+    mapNameUpdates: [
+      {mapType:'roadmap', newName: 'Default'},
+      {mapType:'hz_map',  newName: 'Light Gray'},
+      {mapType:'hybrid',  newName: 'Satellite'}
+    ],
+    updateMapTypeNames: function(){
+      HZApp.MapUtils.mapNameUpdates.map(HZApp.MapUtils.customMapTypeName);
+      HZApp.map.setOptions({'mapTypeControl':true});
+    },
+    customMapTypeName: function(mapNameUpdate){
+      if (!HZApp.map.mapTypes[mapNameUpdate.mapType]) { return; }
+      HZApp.map.mapTypes[mapNameUpdate.mapType].name = mapNameUpdate.newName;
+    }
   };
 })();
