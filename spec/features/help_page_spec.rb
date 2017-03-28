@@ -10,6 +10,9 @@ describe "The Help Page", type: :feature do
   it "should have a side navigation" do
     expect(page).to have_css(".usa-layout-docs-sidenav")
   end
+  it "should have return to top links" do
+    expect(page).to have_css(".return-to-top")
+  end
 end
 describe "The Help Overview Page", type: :feature do
   before do
@@ -37,5 +40,17 @@ describe "The Help FAQ Page", type: :feature do
   end
   it "should have a title" do
     expect(page).to have_content("Frequently Asked Questions")
+  end
+  it "should have question one" do
+    expect(page).to have_css("#section-faq-1")
+  end
+  it "should have question two" do
+    expect(page).to have_css("#section-faq-2")
+  end
+  it "should have question three" do
+    expect(page).to have_css("#section-faq-3")
+  end
+  it "should have question four" do
+    expect(page).to have_css("#section-faq-4")
   end
 end
