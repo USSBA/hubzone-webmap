@@ -2,21 +2,23 @@
 HZApp.Legend = (function(){
   return {
     legend: HZApp.Legend.LegendDefs.legend,
-    buildLegend: function(layers){
-      Object.keys(layers).map(function(layer){
-        var legendConfig = HZApp.Legend.getConfigFromLayerStyle(layers[layer]);
-        HZApp.Legend.legend[legendConfig.layerGroup].svg.push(HZApp.Legend.svgFromStyle(legendConfig));
-      });
+    // buildLegend: function(layers){
+    //   Object.keys(layers).map(function(layer){
+    //     var legendConfig = HZApp.Legend.getConfigFromLayerStyle(layers[layer]);
+    //     HZApp.Legend.legend[legendConfig.layerGroup].svg.push(HZApp.Legend.svgFromStyle(legendConfig));
+    //   });
+    //
+    //   Object.keys(this.legend).map(HZApp.Legend.insertLegendItem);
+    //
+    //   this.addLegendButtonListeners();
+    //
+    //   this.setLegendState(window.innerWidth);
+    //
+    //   this.addLayerToggleListeners();
+    //
+    // },
 
-      Object.keys(this.legend).map(HZApp.Legend.insertLegendItem);
-
-      this.addLegendButtonListeners();
-
-      this.setLegendState(window.innerWidth);
-
-      this.addLayerToggleListeners();
-
-    },
+    // keep this for collapse feature
     addLegendButtonListeners: function(){
       $('#legend-header').click(function(event) {
         HZApp.Legend.toggleLegendVisibility(event.currentTarget.className);
@@ -31,6 +33,13 @@ HZApp.Legend = (function(){
           $('#legend-header').addClass('open');
         }
     },
+
+
+
+
+
+// START - remove
+
     getConfigFromLayerStyle: function(layer){
       return {
         layerGroup: layer.layerGroup,
@@ -64,7 +73,7 @@ HZApp.Legend = (function(){
               // '<defs><rect id="path-1" x="0" y="0" width="' + width + '" height="' + height +'"></rect></defs>' +
               '<g fill="' + '#000' + '">' +
               '<rect width="' + width + '" height="' + height + '"></rect>' +
-              '</g>' + 
+              '</g>' +
               '<g stroke="'+ style.styleColor + '" stroke-width="1" fill="none" fill-rule="evenodd">' +
                 // '<use fill="#212121" xlink:href="#path-1"></use>' +
                 '<path d="M22.5,-5.5 L-5.5,31.5" id="Line" stroke="' + style.styleColor + '" stroke-width="6" stroke-linecap="square"></path>' +
@@ -79,7 +88,7 @@ HZApp.Legend = (function(){
               // '<defs><rect id="path-2" x="0" y="0" width="' + width + '" height="' + height +'"></rect></defs>' +
               '<g fill="' + '#000' + '">' +
               '<rect width="' + width + '" height="' + height + '"></rect>' +
-              '</g>' + 
+              '</g>' +
               '<g stroke="'+ style.styleColor + '" stroke-width="1" fill="none" fill-rule="evenodd">' +
                 // '<use fill="#212121" xlink:href="#path-2"></use>' +
                 '<ellipse fill="' + style.styleColor +'" cx="12" cy="0" rx="5" ry="5"></ellipse>' +
@@ -124,6 +133,11 @@ HZApp.Legend = (function(){
       'circle': 'circleFillColor',
       'horline': 'lineStrokeColor'
     },
+
+
+    // END - remove
+
+    
     hideLegend: function(){
       $('#legend li.legend-item').hide();
       $('#hide-legend-button').hide();
