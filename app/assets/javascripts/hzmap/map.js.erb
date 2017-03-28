@@ -14,14 +14,15 @@ function initMap() {
     },
     mapTypeControlOptions: {
       mapTypeIds: ['roadmap', 'hz_map', 'hybrid' ],
-      position: google.maps.ControlPosition.BOTTOM_CENTER
+      position: google.maps.ControlPosition.BOTTOM_CENTER,
+      style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
     }
   });
 
 
   //reset mapType names
-  HZApp.map.setOptions({'mapTypeControl':false});
   //refer to maptype spec: https://developers.google.com/maps/documentation/javascript/3.exp/reference#MapType
+  HZApp.map.setOptions({'mapTypeControl':false});
   google.maps.event.addListenerOnce(HZApp.map, 'idle', HZApp.MapUtils.updateMapTypeNames);
 
   //adds in the hz style into the basemap picker
