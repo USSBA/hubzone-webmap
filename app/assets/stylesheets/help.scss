@@ -17,8 +17,19 @@
 #hubzone-map-guide p {
   max-width: inherit;
 }
-.usa-width-three-fourths {
-  margin-right: 0;
+.usa-layout-docs {
+  flex-direction: inherit;
+}
+.usa-layout-docs-sidenav {
+  order: 1;
+  margin-top: 0;
+  margin-bottom: 5rem;
+}
+.usa-layout-docs-faq {
+  order: 2;
+}
+.usa-layout-docs-main_content {
+  order: 2;
 }
 .usa-font-lead {
   font-family: $font-sans;
@@ -56,13 +67,31 @@
   margin-left: 1rem;
   vertical-align: middle;
 }
+.return-to-top {
+  position: relative;
+  top: 3rem;
+}
 @media only screen and (max-width: 950px)  {
   #hubzone-map-guide {
+    padding-top: 0;
     margin-left: 1rem;
     margin-right: 1rem;
   }
+  #hubzone-map-guide h1 {
+    margin-top: 0;
+  }
+  .usa-layout-docs {
+    flex-direction: column;
+  }
+  .usa-layout-docs-sidenav {
+    order: 1;
+  }
+  .help-nav {
+    position: relative;
+  }
   .map-guide-header {
     border-bottom: none;
+    padding-bottom: 0.5rem;
   }
   .return-to-map {
     margin-left: 1rem;
