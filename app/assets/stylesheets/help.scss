@@ -48,6 +48,14 @@
 .help-nav a:focus{
   box-shadow: none;
 }
+.help-layer-symbols {
+  background-repeat: repeat;
+  width: 3rem;
+  height: 3rem;
+  display: inline-block;
+  margin-left: 1rem;
+  vertical-align: middle;
+}
 @media only screen and (max-width: 950px)  {
   #hubzone-map-guide {
     margin-left: 1rem;
