@@ -83,12 +83,16 @@
   padding-left: 0.8rem;
   padding-top: 0.3rem;
 }
+.hubzone-until-date {
+  float: left;
+  padding-left: 1rem;
+}
 .qualified-hubzone {
   background-color: $green-light;
   color: $white;
 }
 .non-qualified-hubzone {
-  background-color: $gray-dark;
+  background-color: $gray;
   color: $white;
 }
 .hubzone-status-indicator .fa.fa-times-circle-o, .fa.fa-check-circle-o {
@@ -308,6 +312,12 @@ button#map-report {
   }
   #hubzone-status {
     font-size: 1em;
+  }
+  .hubzone-until-date {
+    float: none;
+    position: relative;
+    left: 0.5rem;
+    padding-top: 0.3rem;
   }
   button#map-report {
     text-align: left;

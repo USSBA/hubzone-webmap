@@ -41,6 +41,17 @@ describe "The Sidebar", type: :feature do
                                     lat: 0,
                                     lng: 0
                                   }
+                                } },
+                redesignated: { formatted_address:
+                                'Reform, AL',
+                                http_status: 200,
+                                hubzone: [],
+                                until_date: "2020-04-05",
+                                geometry: {
+                                  location: {
+                                    lat: 0,
+                                    lng: 0
+                                  }
                                 } } }
 
   before do
@@ -66,6 +77,9 @@ describe "The Sidebar", type: :feature do
     end
     it "should have additional details title" do
       expect(page).to have_content("Additional Details")
+    end
+    it "should have until date" do
+      expect(page).to have_css(".hubzone-until-date")
     end
   end
 
