@@ -27,6 +27,7 @@ default: &default
 production:
   <<: *default
   database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_prd' } %>
+  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'hz-prod-rds.cyy8xym5djtg.us-east-1.rds.amazonaws.com' } %>
 
 staging:
   <<: *default
