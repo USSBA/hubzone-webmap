@@ -2,23 +2,16 @@
 HZApp.Legend = (function(){
   return {
     legend: HZApp.Legend.LegendDefs.legend,
-    // buildLegend: function(layers){
-    //   Object.keys(layers).map(function(layer){
-    //     var legendConfig = HZApp.Legend.getConfigFromLayerStyle(layers[layer]);
-    //     HZApp.Legend.legend[legendConfig.layerGroup].svg.push(HZApp.Legend.svgFromStyle(legendConfig));
-    //   });
-    //
-    //   Object.keys(this.legend).map(HZApp.Legend.insertLegendItem);
-    //
-    //   this.addLegendButtonListeners();
-    //
-    //   this.setLegendState(window.innerWidth);
-    //
-    //   this.addLayerToggleListeners();
-    //
-    // },
+    buildLegend: function(layers){
 
-    // keep this for collapse feature
+      this.addLegendButtonListeners();
+
+      this.setLegendState(window.innerWidth);
+
+      this.addLayerToggleListeners();
+
+    },
+
     addLegendButtonListeners: function(){
       $('#legend-header').click(function(event) {
         HZApp.Legend.toggleLegendVisibility(event.currentTarget.className);
@@ -33,124 +26,15 @@ HZApp.Legend = (function(){
           $('#legend-header').addClass('open');
         }
     },
-
-
-
-
-
-// START - remove
-
-    getConfigFromLayerStyle: function(layer){
-      return {
-        layerGroup: layer.layerGroup,
-        styleType: layer.styleOptions[0].type,
-        styleColor: layer.styleOptions[0][HZApp.Legend.legendTypeToColorType[layer.styleOptions[0].type]]
-      };
-    },
-    svgFromStyle: function(style){
-      var width = 34, height = 29;
-      var svg = this.svgHeader(width, height);
-      svg += '<title>hubzone legend</title>';
-      var svg_fn_name = "svg_" + style.styleType;
-      svg += HZApp.Legend[svg_fn_name](style,width, height);
-      svg += '</svg>';
-      return svg;
-    },
-    svgHeader: function(width, height){
-      return ('<svg width="' + width + 'px" height="' + height + 'px" viewBox="0 0 ' + (width + 5) + ' ' + height + '" ' +
-              'version="1.1" xmlns="http://www.w3.org/2000/svg" ' +
-              'xmlns:xlink="http://www.w3.org/1999/xlink">'
-      );
-    },
-    svg_polygon: function(style, width, height){
-      return ( '<g fill="' + style.styleColor + '">' +
-               '<rect width="' + width + '" height="' + height + '"></rect>' +
-               '</g>'
-      );
-    },
-    svg_horline: function(style, width, height){
-      return (
-              // '<defs><rect id="path-1" x="0" y="0" width="' + width + '" height="' + height +'"></rect></defs>' +
-              '<g fill="' + '#000' + '">' +
-              '<rect width="' + width + '" height="' + height + '"></rect>' +
-              '</g>' +
-              '<g stroke="'+ style.styleColor + '" stroke-width="1" fill="none" fill-rule="evenodd">' +
-                // '<use fill="#212121" xlink:href="#path-1"></use>' +
-                '<path d="M22.5,-5.5 L-5.5,31.5" id="Line" stroke="' + style.styleColor + '" stroke-width="6" stroke-linecap="square"></path>' +
-                '<path d="M45,-7 L9.5,39.5" id="Line-Copy" stroke="' + style.styleColor + '" stroke-width="6" stroke-linecap="square"></path>' +
-                '<path d="M63,0 L27.5,46.5" id="Line-Copy-2" stroke="' + style.styleColor + '" stroke-width="6" stroke-linecap="square"></path>' +
-                '<path d="M79,9 L43.5,55.5" id="Line-Copy-3" stroke="' + style.styleColor + '" stroke-width="6" stroke-linecap="square"></path>' +
-              '</g>'
-      );
-    },
-    svg_circle: function(style, width, height){
-      return (
-              // '<defs><rect id="path-2" x="0" y="0" width="' + width + '" height="' + height +'"></rect></defs>' +
-              '<g fill="' + '#000' + '">' +
-              '<rect width="' + width + '" height="' + height + '"></rect>' +
-              '</g>' +
-              '<g stroke="'+ style.styleColor + '" stroke-width="1" fill="none" fill-rule="evenodd">' +
-                // '<use fill="#212121" xlink:href="#path-2"></use>' +
-                '<ellipse fill="' + style.styleColor +'" cx="12" cy="0" rx="5" ry="5"></ellipse>' +
-                '<ellipse fill="' + style.styleColor +'" cx="12" cy="28" rx="5" ry="5"></ellipse>' +
-                '<circle fill="' + style.styleColor +'" cx="33" cy="0" r="5"></circle>' +
-                '<circle fill="' + style.styleColor +'" cx="33" cy="28" r="5"></circle>' +
-                '<circle fill="' + style.styleColor +'" cx="54" cy="0" r="5"></circle>' +
-                '<circle fill="' + style.styleColor +'" cx="54" cy="28" r="5"></circle>' +
-                '<ellipse fill="' + style.styleColor +'" cx="22" cy="15" rx="5" ry="5"></ellipse>' +
-                '<ellipse fill="' + style.styleColor +'" cx="22" cy="43" rx="5" ry="5"></ellipse>' +
-                '<ellipse fill="' + style.styleColor +'" cx="1" cy="15" rx="5" ry="5"></ellipse>' +
-                '<ellipse fill="' + style.styleColor +'" cx="1" cy="43" rx="5" ry="5"></ellipse>' +
-                '<ellipse fill="' + style.styleColor +'" cx="44" cy="15" rx="5" ry="5"></ellipse>' +
-                '<ellipse fill="' + style.styleColor +'" cx="44" cy="43" rx="5" ry="5"></ellipse>' +
-                '<circle fill="' + style.styleColor +'" cx="65" cy="15" r="5"></circle>' +
-                '<circle fill="' + style.styleColor +'" cx="65" cy="43" r="5"></circle>' +
-              '</g>'
-      );
-    },
-    insertLegendItem: function(legendItem) {
-      HZApp.Legend.legend[legendItem].canToggle ? HZApp.Legend.insertLegendItemToggle(legendItem) : HZApp.Legend.insertLegendItemNoToggle(legendItem);
-    },
-    insertLegendItemToggle: function(legendItem){
-      var li = '<li id="legend-' + legendItem + '"' + 'class="legend-item">';
-      li += '<input id="' + legendItem + '" type="checkbox" name="' + legendItem + '" value="' + legendItem + '" checked>';
-      li += '<label for=' + legendItem + '>';
-      HZApp.Legend.legend[legendItem].svg.map(function(svg){ li += svg; });
-      li += '<span>' + I18n.t('legend.' + legendItem) + '</span>';
-      li += '</label>';
-      li += '</li>';
-      $('#legend > ul').append(li);
-    },
-    // insertLegendItemNoToggle: function(legendItem){
-    //   var li = '<li id="legend-' + legendItem + '"' + 'class="legend-item no-toggle">';
-    //   HZApp.Legend.legend[legendItem].svg.map(function(svg){ li += svg; });
-    //   li += '<span>' + I18n.t('legend.' + legendItem) + '</span>';
-    //   li += '</li>';
-    //   $('#legend > ul').append(li);
-    // },
-    legendTypeToColorType: { //mapping style type to css/svg color parameter
-      'polygon': 'fillColor',
-      'circle': 'circleFillColor',
-      'horline': 'lineStrokeColor'
-    },
-
-
-    // END - remove
-
-    
     hideLegend: function(){
-      $('#legend li.legend-item').hide();
-      $('#hide-legend-button').hide();
-      $('#legend-header-title-expanded').hide();
-      $('#legend-header-title-hidden').show();
-      $('#show-legend-button').show();
+      $('#legend.qualified-hubzones #legend.expiring-hubzones').hide();
+      $('.legend-header-title-expanded').hide();
+      $('.legend-header-title-hidden').show();
     },
     showLegend: function(){
-      $('#legend li.legend-item').show();
-      $('#hide-legend-button').show();
-      $('#legend-header-title-expanded').show();
-      $('#legend-header-title-hidden').hide();
-      $('#show-legend-button').hide();
+      $('#legend.qualified-hubzones #legend.expiring-hubzones').show();
+      $('.legend-header-title-expanded').show();
+      $('.legend-header-title-hidden').hide();
     },
     setLegendState: function(windowWidth) {
       if (windowWidth > 950) {

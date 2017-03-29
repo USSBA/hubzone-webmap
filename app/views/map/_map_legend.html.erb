@@ -1,12 +1,20 @@
-<ul>
-  <li id="legend-header" class="open">
-    <span id="legend-header-title-expanded" class="legend-title">HUBZones</span>
-    <span id="legend-header-title-hidden" class="legend-title" style="display: none;">
-      <%= t('legend.title') %>
-    </span>
-    <div id="legend-button-div">
-      <i id="hide-legend-button" class="fa fa-chevron-down" aria-hidden="true"></i>
-      <i id="show-legend-button" class="fa fa-chevron-up" aria-hidden="true" style="display: none;"></i>
-    </div>
-  </li>
+<div id="legend-header">
+  <span class="legend-header-title-expanded legend-title">Qualified HUBZones</span>
+  <span class="legend-header-title-hidden legend-title" style="display: none;">
+    <%= t('legend.title') %>
+  </span>
+  <div id="legend-button-div" class="fa fa-chevron-down">
+    <!-- <i id="hide-legend-button" class="fa fa-chevron-down" aria-hidden="true"></i>
+    <i id="show-legend-button" class="fa fa-chevron-up" aria-hidden="true" style="display: none;"></i> -->
+  </div>
+</div>
+<ul class="qualified-hubzones">
+  <li>Census Tract</li>
+  <li>County</li>
+  <li>Indian Lands</li>
+</ul>
+<ul class="expiring-hubzones">
+  <li>Census Tract</li>
+  <li>County</li>
+  <li>Indian Lands</li>
 </ul>
