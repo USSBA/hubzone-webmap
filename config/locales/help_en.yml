@@ -1,0 +1,85 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  help:
+    back_to_map: "Back to map"
+    return_to_top: "Return to top"
+    overview:
+      title_html: "HUBZone Map Overview"
+      body_html: "The HUBZone Mapping Application assists you in finding out whether or not a particular business location or employee residential location is within a HUBZone. You can also use HUBZone Mapping to find out what HUBZone areas are found within a larger area of interest."
+    elegibility:
+      title_html: "Determining eligibility"
+      body_html: "<p>You can use the Map to determine and document your eligibility for the Historically Underutilized Business Zones (HUBZone) Program run by the Small Business Administration (SBA). For a more detailed explanation of the HUBZone Program and the eligibility criteria, see the general <a href=\"https://www.sba.gov/contracting/government-contracting-programs/hubzone-program\">HUBZone Program</a> information section.</p><p>To determine the eligibility of a business or residence, follow these steps:</p><ol><li>Type the address into the search bar and click or tap search</li><li>Check to make sure the search found the right address </li><li>Read the qualification status</li><li>Open a printable copy of the results </li></ol><img style=\"width: 50rem; padding-right: 1rem;\" src=\"/assets/help/search-query.png\" alt=\"hubzone search query\" /><img style=\"width: 23rem; padding-left: 1rem;\" src=\"/assets/help/search-results.png\" alt=\"hubzone search results\"/>"
+    reporting:
+      title_html: "Providing documentation to SBA"
+      body_html: "<img style=\"width: 27rem; float:left; padding-right: 2rem;\" src=\"/assets/help/printable-version.png\" alt=\"printable version icon\" /><p>After you find the address for your business or residence (see <a href=\"#section-eligibility\">Determining Eligibility</a>), select the Printable Version button to create a PDF copy of the map. The PDF will open in a new browser window. Check to make sure that the PDF shows the exact street address for the business or residence (generic searches like \"Greenville, SC\" don't count). This address must match the address on your proof of residency/ownership document. You can then download or print the PDF.</p><p>You can send these PDF copies to the SBA with your HUBZone application through the HUBZone Certification Tracking System (HCTS) <a href=\"https://eweb.sba.gov/\">https://eweb.sba.gov/</a></p>"
+    understanding:
+      title_html: "Understanding the Map"
+      search_bar:
+        title_html: "Search Bar"
+        body_html: "<img style=\"width: 50rem\" src=\"/assets/help/search-bar.png\" alt=\"hubzone search\" /><p>You can search for an address or a GPS coordinate on the Map using the search bar. When you start to type the address into the search bar, suggestions might appear. You can select any of the suggested addresses or continue entering the address. Press \"Enter\" or select the magnifying glass to search. You can clear the search field to enter a new address by selecting the \"x\" symbol.</p><p>If you would like to search for a specific GPS coordinate, use the format: 38.93655, -77.01993.  Always list latitude then longitude. Do not use the degree \"°\" symbol. Make sure to use the \"-\" symbol to indicate negative GPS coordinates.</p>"
+      legend:
+        title_html: "Legend"
+        overview_html: "<p>The Legend is a visual guide that helps you read the information shown on the map. The Map shows areas designated as HUBZones using colors and patterns. Each HUBZone or Expiring HUBZone has a different symbol in the Legend.</p><img style=\"width: 20rem;\"src=\"/assets/help/legend.png\" alt=\"hubzone map legend\"/>"
+        census_tract:
+          title_html: "Census Tract<div class=\"help-layer-symbols layer-qct\"></div>"
+          body_html: "HUBZone Qualified Census Tracts designated by the Department of Housing and Urban Development (HUD) based on poverty and household income criteria."
+        county:
+          title_html: "County<div class=\"help-layer-symbols layer-qnmc\"></div>"
+          body_html: "HUBZone Qualified Counties located in non-metropolitan areas that meet at least two of the socio-economic criteria: household income (Census Bureau), unemployment rate (Bureau of Labor Statistics), and difficult development areas (Department of Housing and Urban Development)."
+        indian_land:
+          title_html: "Indian Land<div class=\"help-layer-symbols layer-indian_lands\"></div>"
+          body_html: "HUBZone Qualified Indian Lands contained within the boundaries of an Indian Reservation, Indian Country, or any other specific definition that applies in the State of Oklahoma."
+        redesignated_area:
+          title_html: "Redesignated Area<div class=\"help-layer-symbols layer-qct_r \"></div><div class=\"help-layer-symbols layer-qnmc_r\"></div>"
+          body_html: "HUBZone Qualified Census Tracts and HUBZone Qualified Counties can lose their HUBZone qualification status. When that happens, the Census Tract or County will remain qualified for three years after the date of Redesignation. Redesignated Areas always show an expiration date next to their qualification status.<ul><li>Redesignated Census Tract<div class=\"help-layer-symbols layer-qct_r \"></li><li>Redesignated County<div class=\"help-layer-symbols layer-qnmc_r\"></li></ul>"
+        base_closure_area:
+          title_html: "Base Closure Area<div class=\"help-layer-symbols layer-brac \"></div><div class=\"help-layer-symbols layer-qnmc_brac \"></div><div class=\"help-layer-symbols layer-qct_b \"></div>"
+          body_html: "<p><img style=\"width: 30rem; float:right;\" src=\"/assets/help/brac-details.png\" alt=\"base closure additional details\" />HUBZone Qualified Base Closure Areas contained within the boundaries of a closed Department of Defense (DoD) military installation. A Base Closure Area will remain qualified for 8 years after it is designated as a HUBZone. Base Closure Areas always show an expiration date next to their qualification status.</p><ul><li><b>Base Closure</b><div class=\"help-layer-symbols layer-brac \"></div></li><p>Boundaries of a closed military installation.</p><li><b>Base Closure Census Tract</b><div class=\"help-layer-symbols layer-qct_b \"></div><p>HUBZone Redesignated or Non-Qualified Census Tract containing a military installation or contiguous to the one containing a military installation.</p></li><li><b>Base Closure County</b><div class=\"help-layer-symbols layer-qnmc_brac \"></div> <p>HUBZone Redesignated or Non-Qualified County containing a military installation or contiguous to the one containing a military installation.</p></li></ul>"
+    advanced:
+      title_html: "Using advanced Features"
+      base_map:
+        title_html: "Base Map Toggle"
+        body_html: "<img style=\"width: 15rem;\" src=\"/assets/help/base-map-toggle.png\" alt=\"hubzone base map switcher\" /><p>Use the base map buttons to change the base map. Each base map shows a different view of the information to help you navigate the map and find landmarks. The <b>Map</b> base is the default map provided by Google including most streets, landmarks, and businesses. The <b>Gray</b> base map shows a less cluttered view of the surrounding landmarks and may help clarify differences in the HUBZone layers. The <b>Hybrid</b> base map shows a satellite view of the terrain and if you zoom in far enough the map will switch to a 3D perspective view of buildings and landmarks.</p>"
+      zoom:
+        title_html: "Zoom"
+        body_html: "<img style=\"width: 4.5rem; float:left; padding-right:1rem;\" src=\"/assets/help/zoom-control.png\" alt=\"map zoom control icon\" /><p>Use + and - buttons to zoom in and out on the map.  Each time you click or tap the + or - button, the screen will magnify the scale of the map. On mobile devices you can also use pinch-to-zoom.</p>"
+      street_view:
+        title_html: "Street View"
+        body_html: "<img style=\"width: 4.5rem; float:left; padding-right:1rem;\" src=\"/assets/help/pegman.png\" alt=\"map street view icon\" /><p>Use the pegman icon(left) to see a street level view of the map. You can click and drag the icon to the location you would like to see at street level. You can then use the arrows on your screen to move around at street level. To exit street view zoom out or click the back arrow in the top left under the search bar.</p>"
+      my_location:
+        title_html: "My Location"
+        body_html: "<img style=\"width: 4.5rem; float:left; padding-right:1rem;\" src=\"/assets/help/geolocation.png\" alt=\"map my location geolocation icon\" /><p>You can allow the Map to use your current location. Allowing your location centers the Map on your current location and shows a black dot on the Map. Then, if you move the Map you can use the arrow icon(left) to reset the Map to your location.</p>"
+    faq:
+      title: "Frequently Asked Questions"
+      question_one:
+        title_html: "What if the map can't complete my search?"
+        body_html: "<p>The HUBZone Map will always try to find and place a marker for the address you input. If the HUBZone Map cannot complete your search it will display the following error message:</p><img style=\"width: 30rem;\"src=\"/assets/help/error-message.png\", id: \"help-error-msg-image\", alt=\"hubzone map error message\" /><p>There are several reasons you might get this error message.</p><ol><li>The address is incorrect, try entering it again</li><li>The search is having trouble finding the exact address, try entering just the street address and let the search bar complete the address for you</li><li>The address does not exist or does not have a geocoded location, see below </li></ol><p>If the Map does not return an address you can click or tap the Map to place a marker in the correct location. Please be aware that using this method will return only GPS coordinates for the location.</p>"
+      question_two:
+        title_html: "What if the map places the marker in the wrong place?"
+        body_html: "Sometimes the Map may place the location marker incorrectly, especially in places where less geocoding data is available, like Puerto Rico. If you believe the map marker is not placed correctly, you can click or tap the Map to place a marker in the correct location. Please be aware that using this method will return only GPS coordinates for the location."
+      question_three:
+        title_html: "What if my location does not have an address?"
+        body_html: "<p>If you know the GPS coordinates for the location, you can type them into the search bar. Use the format: 38.93655, -77.01993.  Always list latitude first, longitude second and do not use the degree \"°\" symbol. Make sure to use the \"-\" symbol to indicate negative GPS coordinates.</p><p>If your location does not have an address and you do not know the GPS coordinates, you can click or tap the Map to place a marker in the correct location. Please be aware that using this method will return GPS coordinates for the location and not a street address.</p>"
+      question_four:
+        title_html: "Why does my address have an expiration date?"
+        body_html: "<img style=\"width: 30rem;\"src=\"/assets/help/qualified-with-expiration.png\", alt=\"hubzone qualified with expiration\" /><p>If your address is located in a Redesignated HUBZone or Base Closure Area, it will show an expiration date under the qualification status. If you see an expiration date, it means that the location is currently qualified for the HUBZone program, but it will no longer be qualified after the expiration date.</p><img style=\"width: 30rem;\" src=\"/assets/help/additional-details-multiple.png\", alt=\"hubzone qualified with expiration\" /><p>If you see multiple expiration dates in the additional details section the address is located in multiple overlapping HUBZones. Each type of HUBZone has its own qualification and expiration rules. You should use the more distant date (the date that is shown right under the qualification status) as the date when the address will no longer be qualified for the HUBZone Program.</p>"

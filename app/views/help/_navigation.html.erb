@@ -1,0 +1,51 @@
+<% page_open = 'usa-current'
+   page_closed = 'usa-not-current'
+   overview_status = ''
+   faq_status = '' %>
+
+<% if @page_selected == 'overview'
+    overview_status = page_open
+    faq_status = page_closed
+   elsif @page_selected == 'faq'
+    overview_status = page_closed
+    faq_status = page_open
+   end %>
+
+<aside class="help-nav usa-width-one-fourth usa-layout-docs-sidenav">
+    <ul class="usa-sidenav-list">
+        <li>
+            <a class=<%= overview_status %> href="/hubzone/map/help"><%= t('help.overview.title_html') %></a>
+            <ul class="usa-sidenav-sub_list">
+                <li>
+                    <a href="/hubzone/map/help#section-eligibility"><%= t('help.elegibility.title_html') %></a>
+                </li>
+                <li>
+                    <a href="/hubzone/map/help#section-reporting"><%= t('help.reporting.title_html') %></a>
+                </li>
+                <li>
+                    <a href="/hubzone/map/help#section-map-legend"><%= t('help.understanding.title_html') %></a>
+                </li>
+                <li>
+                    <a href="/hubzone/map/help#section-advanced"><%= t('help.advanced.title_html') %></a>
+                </li>
+            </ul>
+        </li>
+        <li>
+          <a class=<%= faq_status %> href="/hubzone/map/help/faq"><%= t('help.faq.title') %></a>
+          <ul class="usa-sidenav-sub_list">
+              <li>
+                  <a href="/hubzone/map/help/faq#section-faq-1"><%= t('help.faq.question_one.title_html') %></a>
+              </li>
+              <li>
+                  <a href="/hubzone/map/help/faq#section-faq-2"><%= t('help.faq.question_two.title_html') %></a>
+              </li>
+              <li>
+                  <a href="/hubzone/map/help/faq#section-faq-3"><%= t('help.faq.question_three.title_html') %></a>
+              </li>
+              <li>
+                  <a href="/hubzone/map/help/faq#section-faq-4"><%= t('help.faq.question_four.title_html') %></a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+</aside>
