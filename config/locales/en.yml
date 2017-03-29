@@ -42,6 +42,7 @@ en:
   sidebar:
     button: "Sidebar Button"
     print_version: "Printable Version"
+    until: "until"
     details:
       title: "Additional Details"
   api:

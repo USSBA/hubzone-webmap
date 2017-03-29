@@ -42,6 +42,7 @@ dev:
   sidebar:
     button: "Botón de la barra lateral"
     print_version: "Versión imprimible"
+    until: "hasta"
     details:
       title: "Detalles adicionales"
   api:
