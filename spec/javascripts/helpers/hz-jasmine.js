@@ -126,6 +126,7 @@ var HZSpecHelper = (function(){
                 getZoom: function() {},
                 fitBounds: function() {},
                 setCenter: function() {},
+                setOptions: function () {},
                 setZoom: function() {},
                 addListener: function() {},
                 data: {
@@ -168,6 +169,7 @@ var HZSpecHelper = (function(){
         StyledMapType: function(){},
         event: {
           addListener: function () {},
+          addListenerOnce: function() {},
           trigger: function() {}
         },
         places: {

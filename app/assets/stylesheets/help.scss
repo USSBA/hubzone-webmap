@@ -1,0 +1,99 @@
+// Place all the styles related to the Help controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "variables";
+
+#hubzone-map-guide {
+  padding-top: 2rem;
+  padding-left: 0;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  color: $gray-dark;
+}
+#hubzone-map-guide h1,h2,h3,h4,h5,h6 {
+  font-family: $font-sans;
+}
+#hubzone-map-guide p {
+  max-width: inherit;
+}
+.usa-layout-docs {
+  flex-direction: inherit;
+}
+.usa-layout-docs-sidenav {
+  order: 1;
+  margin-top: 0;
+  margin-bottom: 5rem;
+}
+.usa-layout-docs-faq {
+  order: 2;
+}
+.usa-layout-docs-main_content {
+  order: 2;
+}
+.usa-font-lead {
+  font-family: $font-sans;
+}
+.map-guide-header {
+  max-width: 100%;
+  padding: 2rem 0;
+  border-bottom: 2px solid $gray-lighter;
+}
+.return-to-map {
+  margin-left: 2rem;
+}
+.return-to-map i {
+  margin-right: 1rem;
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+.help-nav {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 2rem;
+}
+.help-nav a:focus{
+  box-shadow: none;
+}
+.help-layer-symbols {
+  background-repeat: repeat;
+  width: 3rem;
+  height: 3rem;
+  display: inline-block;
+  margin-left: 1rem;
+  vertical-align: middle;
+}
+.return-to-top {
+  position: relative;
+  top: 3rem;
+}
+@media only screen and (max-width: 950px)  {
+  #hubzone-map-guide {
+    padding-top: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+  #hubzone-map-guide h1 {
+    margin-top: 0;
+  }
+  .usa-layout-docs {
+    flex-direction: column;
+  }
+  .usa-layout-docs-sidenav {
+    order: 1;
+  }
+  .help-nav {
+    position: relative;
+  }
+  .map-guide-header {
+    border-bottom: none;
+    padding-bottom: 0.5rem;
+  }
+  .return-to-map {
+    margin-left: 1rem;
+  }
+}
