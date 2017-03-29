@@ -40,7 +40,7 @@ describe ('Testing hz-query functions', function() {
 
         expect(HZApp.HZQuery.query.latlng).toEqual(null);
         expect(HZApp.HZQuery.query.q).toEqual(null);
-        expect($('.sidebar-card.map-report').is(':visible')).toBe(sidebarVisibilty);
+        expect($('.sidebar-card.map-actions').is(':visible')).toBe(sidebarVisibilty);
       });
 
       it ('should update the map', function(){

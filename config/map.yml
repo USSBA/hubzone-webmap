@@ -24,13 +24,13 @@ production:
 
 staging:
   <<: *defaults
-  hubzone_map_host: <%= ENV.fetch('HUBZONE_MAP_HOST')       { 'http://maps.staging.certify.sba.gov/' } %>
-  hubzone_api_host: <%= ENV.fetch('HUBZONE_API_HOST')       { 'http://maps.staging.certify.sba.gov' } %>
-  hubzone_report_host: <%= ENV.fetch('HUBZONE_REPORT_HOST') { 'http://maps.staging.certify.sba.gov' } %>
+  hubzone_map_host: <%= ENV.fetch('HUBZONE_MAP_HOST')       { 'https://maps.staging.certify.sba.gov/' } %>
+  hubzone_api_host: <%= ENV.fetch('HUBZONE_API_HOST')       { 'https://maps.staging.certify.sba.gov' } %>
+  hubzone_report_host: <%= ENV.fetch('HUBZONE_REPORT_HOST') { 'https://maps.staging.certify.sba.gov' } %>
   hotjar_tracking_id: <%= ENV.fetch('HUBZONE_HOTJAR_TRACKING_ID') { '435148' } %>
   geom_wms_settings:
     <<: *default_wms
-    url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'http://maps.staging.certify.sba.gov/geoserver/gwc/service/wms?' } %>
+    url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://maps.staging.certify.sba.gov/geoserver/gwc/service/wms?' } %>
     db: hzgeo_stg
 
 demo:

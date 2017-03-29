@@ -19,6 +19,9 @@
   padding-left: 0;
   margin: 0;
 }
+#legend ul li input {
+  cursor: pointer;
+}
 #legend li svg:not(:root) {
   margin-bottom: -0.9rem;
 }
@@ -46,8 +49,8 @@
 }
 [type="checkbox"]:checked + label::before,
 [type="radio"]:checked + label::before {
-  background-color: $gray-dark;
-  box-shadow: 0 0 0 1px $gray-dark;
+  background-color: $white;
+  box-shadow: 0 0 0 2px $gray-dark;
 }
 
 [type="radio"]:checked + label::before {

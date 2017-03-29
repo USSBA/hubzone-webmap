@@ -10,7 +10,7 @@ var HZSpecHelper = (function(){
       if (typeof start !== 'number') {
         start = 0;
       }
-      
+
       if (start + search.length > this.length) {
         return false;
       } else {
@@ -55,7 +55,7 @@ var HZSpecHelper = (function(){
         $('#sidebar').append(testDiv);
         $('#sidebar').css('display', 'none');
         $('#sidebar').append('<table id="hubzone-qualifications" ></table>');
-        $('#sidebar').append('<div class="sidebar-card map-report">' +
+        $('#sidebar').append('<div class="sidebar-card map-actions">' +
                               '<button id="map-report">' +
                                 '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>' +
                                 '<div class="create-report">Create Report</div>' +
@@ -126,6 +126,7 @@ var HZSpecHelper = (function(){
                 getZoom: function() {},
                 fitBounds: function() {},
                 setCenter: function() {},
+                setOptions: function () {},
                 setZoom: function() {},
                 addListener: function() {},
                 data: {
@@ -160,7 +161,7 @@ var HZSpecHelper = (function(){
         Size: function(x,y){
           return {
             width: x,
-            height: y, 
+            height: y,
             j: "px",
             f: "px"
           }
@@ -168,6 +169,7 @@ var HZSpecHelper = (function(){
         StyledMapType: function(){},
         event: {
           addListener: function () {},
+          addListenerOnce: function() {},
           trigger: function() {}
         },
         places: {
@@ -321,7 +323,7 @@ var HZSpecHelper = (function(){
       },
       {
         mockResponseType: 'bad response',
-        geocodeLocation: null, 
+        geocodeLocation: null,
         http_status: 200,
         message: "api.error.zero_results",
         query_date: "2017-02-20",
@@ -330,5 +332,3 @@ var HZSpecHelper = (function(){
     ]
   };
 })();
-
-

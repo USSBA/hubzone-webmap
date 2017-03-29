@@ -41,6 +41,10 @@ en:
     label: "hubzone map search"
   sidebar:
     button: "Sidebar Button"
+    print_version: "Printable Version"
+    until: "until"
+    details:
+      title: "Additional Details"
   api:
     success: "Success"
     error:
@@ -51,7 +55,7 @@ en:
       unknown_error: "We're sorry. The request failed due to an internal error. Please try again."
   hubzone_assertions:
     qualified_by: "Qualified by: "
-    qualifications_effective: "As of"
+    qualifications_effective: "Qualification is valid for today: "
     qualified: "Qualified HUBZone"
     qualified_aria: "qualified hubzone"
     qualified_short: "Qualified"
