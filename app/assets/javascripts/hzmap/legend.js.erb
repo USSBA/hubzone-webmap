@@ -24,14 +24,12 @@ HZApp.Legend = (function(){
     hideLegend: function(){
       $('.legend-item').hide();
       $('.legend-button').addClass("fa-chevron-up").removeClass("fa-chevron-down")
-      $('.legend-header-title').show();
-      $('.legend-title').hide();
+      $('.legend-content').hide();
     },
     showLegend: function(){
       $('.legend-item').show();
       $('.legend-button').addClass("fa-chevron-down").removeClass("fa-chevron-up")
-      $('.legend-header-title').hide();
-      $('.legend-title').show();
+      $('.legend-content').show();
     },
     setMobileState: function(windowWidth) {
       if (windowWidth < 950) {

@@ -2,40 +2,45 @@
 @import 'layers';
 
 #legend {
+  font-family: $font-sans;
+  font-size: 1.5rem;
+  margin: 0 0 0 1rem;
   background-color: $white;
+  border-radius: 3px;
   -webkit-box-shadow: 0px 1px 4px -1px rgba(0,0,0,0.29);
   -moz-box-shadow: 0px 1px 4px -1px rgba(0,0,0,0.29);
   box-shadow: 0px 1px 4px -1px rgba(0,0,0,0.29);
-  border-radius: 3px;
-  font-size: 1.5rem;
-  margin: 0 0 0 1rem;
 }
-.legend-content {
-  list-style-type: none;
-  padding-left: 0;
-  margin: 0;
-}
-
 .legend-header {
-  margin-bottom: 0;
-  display: block;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1rem ;
 }
-.legend-title {
+.legend-header h3 {
+  margin: 0;
+  padding: 0;
   color: $gray-dark;
-  font-size: 1.8rem;
-  font-weight: bold;
-  padding-right: 0;
-}
-.legend-header-title {
-  float: left;
-  font-size: 1.5rem;
 }
 .legend-button {
   float: right;
-  margin-right: 1rem;
-  margin-left: 1rem;
   color: $gray-dark;
+  margin-left: 1rem;
+  margin-top: 0.35rem;
+  font-size: 1.8rem;
+}
+.legend-content {
+  display: block;
+  list-style-type: none;
+  margin: 0;
+  padding: 1.2rem;
+  box-shadow: inset 0px 1px 0 0px $gray-lighter;
+}
+.legend-list-title {
+  color: $gray-dark;
+  font-size: 1.6rem;
+  padding-right: 0;
 }
 .legend-item label {
   margin-top: 0.3rem;
