@@ -18,7 +18,7 @@
   justify-content: space-between;
   padding: 1rem ;
 }
-.legend-header h3 {
+.legend-header h4 {
   margin: 0;
   padding: 0;
   color: $gray-dark;
@@ -26,21 +26,21 @@
 .legend-button {
   float: right;
   color: $gray-dark;
-  margin-left: 1rem;
-  margin-top: 0.35rem;
-  font-size: 1.8rem;
+  margin-left: 0.5rem;
+  margin-top: 0.1rem;
+  font-size: 1.7rem;
 }
 .legend-content {
   display: block;
   list-style-type: none;
   margin: 0;
-  padding: 1.2rem;
+  padding: 1rem;
   box-shadow: inset 0px 1px 0 0px $gray-lighter;
 }
 .legend-list-title {
   color: $gray-dark;
   font-size: 1.6rem;
-  padding-right: 0;
+  margin-bottom: 1rem;
 }
 .legend-item label {
   margin-top: 0.3rem;
@@ -49,9 +49,6 @@
 .legend-layer-symbols {
   width: 3rem;
   height: 3rem;
-}
-.no-toggle {
-  padding-left: 2.7rem;
 }
 [type="checkbox"]:checked + label::before,
 [type="radio"]:checked + label::before {
