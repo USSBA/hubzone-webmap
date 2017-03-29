@@ -43,24 +43,24 @@
   margin-bottom: 1rem;
 }
 .legend-item label {
-  margin-top: 0.3rem;
   display: flex;
+  align-items: center;
+  margin-top: 0.3rem;
+  margin-left: 0.3rem;
 }
 .legend-layer-symbols {
-  width: 3rem;
-  height: 3rem;
+  width: 2.7rem;
+  height: 2.7rem;
+  margin-right: 0.5rem;
 }
-[type="checkbox"]:checked + label::before,
-[type="radio"]:checked + label::before {
+.legend-content input[type="checkbox"] {
+  margin-left: 0;
+}
+.legend-content input[type="checkbox"]:checked + label::before{
   background-color: $white;
   box-shadow: 0 0 0 2px $gray-dark;
 }
-
-[type="radio"]:checked + label::before {
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px $gray-dark;
-}
-
-[type="checkbox"]:focus + label::before {
+.legend-content input[type="checkbox"]:focus + label::before {
   box-shadow: 0 0 0 1px #ffffff, 0 0 0 3px $gray-dark;
 }
 
