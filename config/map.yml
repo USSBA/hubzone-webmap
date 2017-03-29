@@ -17,9 +17,14 @@ default: &defaults
 
 production:
   <<: *defaults
+  hubzone_map_host: <%= ENV.fetch('HUBZONE_MAP_HOST')       { 'https://maps.certify.sba.gov/' } %>
+  hubzone_api_host: <%= ENV.fetch('HUBZONE_API_HOST')       { 'https://maps.certify.sba.gov' } %>
+  hubzone_report_host: <%= ENV.fetch('HUBZONE_REPORT_HOST') { 'https://maps.certify.sba.gov' } %>
+  hotjar_tracking_id: <%= ENV.fetch('HUBZONE_HOTJAR_TRACKING_ID') { '459982' } %>
   google_analytics_tracking_id: <%= ENV.fetch('GOOGLE_ANALYTICS_TRACKING_ID') { 'UA-19362636-24' } %>
   geom_wms_settings:
     <<: *default_wms
+    url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://maps.certify.sba.gov/geoserver/gwc/service/wms?' } %>
     db: hzgeo_prd
 
 staging:
