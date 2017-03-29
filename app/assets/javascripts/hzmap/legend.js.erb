@@ -3,15 +3,10 @@ HZApp.Legend = (function(){
   return {
     legend: HZApp.Legend.LegendDefs.legend,
     buildLegend: function(layers){
-
       this.addLegendButtonListeners();
-
       this.setLegendState(window.innerWidth);
-
       this.addLayerToggleListeners();
-
     },
-
     addLegendButtonListeners: function(){
       $('#legend-header').click(function(event) {
         HZApp.Legend.toggleLegendVisibility(event.currentTarget.className);

@@ -4,7 +4,6 @@
 // order in this object defines draw order on the map:
 // first object is drawn first, then next on top of that, etc.
 HZApp.Legend.LegendDefs = (function(){
-
   var legendKeys = {
     qct: {
       title: "Census Tract",
@@ -37,9 +36,7 @@ HZApp.Legend.LegendDefs = (function(){
       layerGroup: 'brac'
     },
   };
-
   return {
     legend: legendKeys
   };
-
 })();
