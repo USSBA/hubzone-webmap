@@ -8,32 +8,30 @@ HZApp.Legend = (function(){
       this.addLayerToggleListeners();
     },
     addLegendButtonListeners: function(){
-      $('#legend-header').click(function(event) {
+      $('.legend-header').click(function(event) {
         HZApp.Legend.toggleLegendVisibility(event.currentTarget.className);
       });
     },
     toggleLegendVisibility: function(legendState) {
-        if(legendState === 'open') {
+        if(legendState.includes('open')) {
           HZApp.Legend.hideLegend();
-          $('#legend-header').removeClass('open');
+          $('.legend-header').removeClass('open');
         } else {
           HZApp.Legend.showLegend();
-          $('#legend-header').addClass('open');
+          $('.legend-header').addClass('open');
         }
     },
     hideLegend: function(){
-      $('#legend li.legend-item').hide();
-      $('#hide-legend-button').hide();
+      $('#legend .legend-item').hide();
+      $('.legend-button').toggleClass("fa-chevron-down fa-chevron-up")
       $('#legend-header-title-expanded').hide();
-      $('#legend-header-title-hidden').show();
-      $('#show-legend-button').show();
+      $('.legend-header-title').show();
     },
     showLegend: function(){
-      $('#legend li.legend-item').show();
-      $('#hide-legend-button').show();
+      $('#legend .legend-item').show();
+      $('.legend-button').toggleClass("fa-chevron-up fa-chevron-down")
       $('#legend-header-title-expanded').show();
-      $('#legend-header-title-hidden').hide();
-      $('#show-legend-button').hide();
+      $('.legend-header-title').hide();
     },
     setLegendState: function(windowWidth) {
       if (windowWidth > 950) {
