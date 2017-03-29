@@ -4,7 +4,7 @@ HZApp.Legend = (function(){
     legend: HZApp.Legend.LegendDefs.legend,
     buildLegend: function(layers){
       this.addLegendButtonListeners();
-      this.setLegendState(window.innerWidth);
+      this.setMobileState(window.innerWidth);
       this.addLayerToggleListeners();
     },
     addLegendButtonListeners: function(){
@@ -22,22 +22,20 @@ HZApp.Legend = (function(){
         }
     },
     hideLegend: function(){
-      $('#legend .legend-item').hide();
-      $('.legend-button').toggleClass("fa-chevron-down fa-chevron-up")
-      $('#legend-header-title-expanded').hide();
+      $('.legend-item').hide();
+      $('.legend-button').addClass("fa-chevron-up").removeClass("fa-chevron-down")
       $('.legend-header-title').show();
+      $('.legend-title').hide();
     },
     showLegend: function(){
-      $('#legend .legend-item').show();
-      $('.legend-button').toggleClass("fa-chevron-up fa-chevron-down")
-      $('#legend-header-title-expanded').show();
+      $('.legend-item').show();
+      $('.legend-button').addClass("fa-chevron-down").removeClass("fa-chevron-up")
       $('.legend-header-title').hide();
+      $('.legend-title').show();
     },
-    setLegendState: function(windowWidth) {
-      if (windowWidth > 950) {
-        HZApp.Legend.toggleLegendVisibility('');
-      } else {
-        HZApp.Legend.toggleLegendVisibility('open');
+    setMobileState: function(windowWidth) {
+      if (windowWidth < 950) {
+        HZApp.Legend.hideLegend();
       }
     },
     addLayerToggleListeners: function() {
