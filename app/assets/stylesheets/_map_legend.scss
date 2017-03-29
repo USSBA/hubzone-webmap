@@ -14,14 +14,12 @@
 }
 #legend label {
   margin-top: 0.3rem;
+  display: flex;
 }
 #legend ul {
   list-style-type: none;
   padding-left: 0;
   margin: 0;
-}
-#legend li svg:not(:root) {
-  margin-bottom: -0.9rem;
 }
 #legend-header {
   margin-bottom: 0;
@@ -41,6 +39,10 @@
   padding-left: .5rem;
   padding-right: .5rem;
   font-size: 1.7rem;
+}
+.legend-layer-symbols {
+  width: 3rem;
+  height: 3rem;
 }
 .no-toggle {
   padding-left: 2.7rem;

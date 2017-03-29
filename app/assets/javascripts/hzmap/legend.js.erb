@@ -27,14 +27,18 @@ HZApp.Legend = (function(){
         }
     },
     hideLegend: function(){
-      $('#legend.qualified-hubzones #legend.expiring-hubzones').hide();
-      $('.legend-header-title-expanded').hide();
-      $('.legend-header-title-hidden').show();
+      $('#legend li.legend-item').hide();
+      $('#hide-legend-button').hide();
+      $('#legend-header-title-expanded').hide();
+      $('#legend-header-title-hidden').show();
+      $('#show-legend-button').show();
     },
     showLegend: function(){
-      $('#legend.qualified-hubzones #legend.expiring-hubzones').show();
-      $('.legend-header-title-expanded').show();
-      $('.legend-header-title-hidden').hide();
+      $('#legend li.legend-item').show();
+      $('#hide-legend-button').show();
+      $('#legend-header-title-expanded').show();
+      $('#legend-header-title-hidden').hide();
+      $('#show-legend-button').hide();
     },
     setLegendState: function(windowWidth) {
       if (windowWidth > 950) {
