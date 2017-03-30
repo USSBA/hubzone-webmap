@@ -15,21 +15,21 @@ HZApp.Legend = (function(){
     toggleLegendVisibility: function(legendState) {
         if(legendState.includes('open')) {
           HZApp.Legend.hideLegend();
-          $('.legend-header').removeClass('open');
         } else {
           HZApp.Legend.showLegend();
-          $('.legend-header').addClass('open');
         }
     },
     hideLegend: function(){
       $('.legend-item').hide();
       $('.legend-button').addClass("fa-chevron-up").removeClass("fa-chevron-down")
       $('.legend-content').hide();
+      $('.legend-header').removeClass('open');
     },
     showLegend: function(){
       $('.legend-item').show();
       $('.legend-button').addClass("fa-chevron-down").removeClass("fa-chevron-up")
       $('.legend-content').show();
+      $('.legend-header').addClass('open');
     },
     setMobileState: function(windowWidth) {
       if (windowWidth < 950) {
