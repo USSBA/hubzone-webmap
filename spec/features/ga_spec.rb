@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# rubocop:disable Metrics/BlockLength
 describe "Google Analytics", type: :feature do
   before do
     visit map_path
