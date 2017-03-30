@@ -14,7 +14,11 @@
 <aside class="help-nav usa-width-one-fourth usa-layout-docs-sidenav">
     <ul class="usa-sidenav-list">
         <li>
-            <a class=<%= overview_status %> href="/hubzone/map/help" aria-label="<%= t('help.overview.title_html') %>"><%= t('help.overview.title_html') %></a>
+            <%= link_to( "#{t('help.overview.title_html')}",
+                       "/hubzone/map/help",
+                       class: overview_status,
+                       "aria-label" => "#{t('help.overview.title_html')}",
+                       onclick: "HZApp.GA.openLink( '#{help_path}', 'map', 'help_overview_link' );" ) %>
             <ul class="usa-sidenav-sub_list">
                 <li>
                     <a href="/hubzone/map/help#section-eligibility" aria-label="<%= t('help.elegibility.title_html') %>"><%= t('help.elegibility.title_html') %></a>
