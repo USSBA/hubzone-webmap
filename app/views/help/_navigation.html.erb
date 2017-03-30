@@ -15,7 +15,8 @@
     <ul class="usa-sidenav-list">
         <li>
             <%= link_to( "#{t('help.overview.title_html')}",
-                       "/hubzone/map/help",
+                       help_path,
+                       "id" => "help-overview-link",
                        class: overview_status,
                        "aria-label" => "#{t('help.overview.title_html')}",
                        onclick: "HZApp.GA.openLink( '#{help_path}', 'map', 'help_overview_link' );" ) %>
@@ -36,7 +37,8 @@
         </li>
         <li>
           <%= link_to( "#{t('help.faq.title')}",
-                     "/hubzone/map/help/faq",
+                     help_faq_path,
+                     "id" => "help-faq-link",
                      class: faq_status,
                      "aria-label" => "#{t('help.faq.title')}",
                      onclick: "HZApp.GA.openLink( '#{help_path}/faq', 'map', 'help_faq_link' );" ) %>
