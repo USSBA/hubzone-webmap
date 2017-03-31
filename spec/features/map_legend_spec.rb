@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# rubocop:disable Metrics/BlockLength
 describe "The Legend", type: :feature do
   before do
     visit('/map')
