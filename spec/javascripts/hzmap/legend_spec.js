@@ -13,7 +13,7 @@ describe ('Testing legend operations', function() {
     HZSpecHelper.mockPage.destroy();
   });
 
-  describe ('Testing legend style object utilities', function() {
+  describe ('build legend utility', function() {
     beforeEach(function(){
       testLayers = HZSpecHelper.testLayers;
     });
