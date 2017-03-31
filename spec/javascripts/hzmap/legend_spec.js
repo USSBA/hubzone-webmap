@@ -11,35 +11,22 @@ describe ('Testing legend operations', function() {
 
   afterEach(function(){
     HZSpecHelper.mockPage.destroy();
-    Object.keys(HZApp.Legend.legend).map(function(legendItem){
-      HZApp.Legend.legend[legendItem].svg = [];
-    });
   });
 
-  describe ('insertLegendItem', function(){
+  describe ('Testing legend style object utilities', function() {
+    beforeEach(function(){
+      testLayers = HZSpecHelper.testLayers;
+    });
 
-    var testLegend = function(legendItem){
-      describe('on ' + legendItem, function(){
-        it ('builds out a legend with the correct features for ' + legendItem, function(){
-          var legendProps = HZApp.Legend.legend[legendItem];
+    it("should run the build legend methods", function(){
+      spyOn(HZApp.Legend, 'addLayerToggleListeners');
+      spyOn(HZApp.Legend, 'addLegendButtonListeners');
+      spyOn(HZApp.Legend, 'setMobileState');
 
-          if(HZApp.Legend.legend[legendItem].canToggle) {
-            expect($('#legend-' + legendItem + '> label > span').text()).toEqual(legendProps.title);
-            var legendSvgWithLabel = $('#legend-' + legendItem + '> label > svg');
-            var legendSvgWithLabelLength = legendSvgWithLabel['length'] || 0;
-            expect(legendSvgWithLabelLength).toEqual(legendProps.svg.length);
-          } else {
-            expect($('#legend-' + legendItem + '> span').text()).toEqual(legendProps.title);
-            var legendSvg = $('#legend-' + legendItem + '> svg');
-            var legendSvgLength = legendSvg['length'] || 0;
-            expect(legendSvgLength).toEqual(legendProps.svg.length);
-          }
-        });
-      });
-    };
-
-    Object.keys(HZApp.Legend.legend).map(function(legendItem){
-      testLegend(legendItem);
+      HZApp.Legend.buildLegend(testLayers);
+      expect(HZApp.Legend.addLayerToggleListeners.calls.count()).toEqual(1);
+      expect(HZApp.Legend.addLegendButtonListeners.calls.count()).toEqual(1);
+      expect(HZApp.Legend.setMobileState.calls.count()).toEqual(1);
     });
   });
 
@@ -47,7 +34,7 @@ describe ('Testing legend operations', function() {
 
     it('should add listener for legend header click', function() {
       spyOn(HZApp.Legend, 'toggleLegendVisibility');
-      $('#legend-header').trigger('click');
+      $('.legend-header').trigger('click');
       expect(HZApp.Legend.toggleLegendVisibility.calls.count()).toEqual(1);
     });
 
@@ -65,34 +52,28 @@ describe ('Testing legend operations', function() {
 
     it('should be initially collapsed on mobile', function() {
       spyOn(HZApp.Legend, 'hideLegend');
-      HZApp.Legend.setLegendState(900);
+      HZApp.Legend.setMobileState(900);
       expect(HZApp.Legend.hideLegend.calls.count()).toEqual(1);
     });
 
-    it('should be initially expanded on desktop', function() {
-      spyOn(HZApp.Legend, 'showLegend');
-      HZApp.Legend.setLegendState(1000);
-      expect(HZApp.Legend.showLegend.calls.count()).toEqual(1);
-    });
-
-    it('should collapse the legend', function(){
+    it('should collapse the legend', function() {
       HZApp.Legend.hideLegend();
-      expect($('#legend li.legend-item').is(':visible')).toBe(false);
-      expect($('#hide-legend-button').is(':visible')).toBe(false);
-      expect($('#legend-header-title-expanded').is(':visible')).toBe(false);
-      expect($('#legend-header-title-hidden').css('display')).not.toEqual('none');
-      expect($('#show-legend-button').css('display')).not.toEqual('none');
+
+      expect($('.legend-item').is(':visible')).toBe(false);
+      expect($('.legend-button').attr('class')).toContain('fa-chevron-up');
+      expect($('.legend-content').is(':visible')).toBe(false);
+      expect($('.legend-header').attr('class')).not.toContain('open');
+
     });
 
-    it('should show the collapsed legend', function(){
+    it('should show the legend', function(){
       HZApp.Legend.hideLegend();
       HZApp.Legend.showLegend();
 
-      expect($('#legend li.legend-item').is(':visible')).toBe(true);
-      expect($('#hide-legend-button').is(':visible')).toBe(true);
-      expect($('#legend-header-title-hidden').is(':visible')).toBe(false);
-      expect($('#legend-header-title-expanded').css('display')).not.toEqual('none');
-      expect($('#show-legend-button').is(':visible')).toBe(false);
+      expect($('.legend-item').is(':visible')).toBe(true);
+      expect($('.legend-button').attr('class')).toContain('fa-chevron-down');
+      expect($('.legend-content').is(':visible')).toBe(true);
+      expect($('.legend-header').attr('class')).toContain('open');
     });
   });
 
