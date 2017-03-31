@@ -82,13 +82,13 @@ en:
     disaster_area: "Disaster Area"
   legend:
     title: "Legend"
-    aria_label: "hubzone legend"
+    qualified: "Qualified HUBZones"
+    expiring: "Expiring HUBZones"
     qct: "Census Tract"
+    qnmc: "County"
     indian_lands: "Indian Land"
     redesignated: "Redesignated"
-    qnmc: "County"
-    brac: "Base Closure Area"
-    brac_base: "Closed Base"
+    brac: "Closed Base Area"
   report:
     error: "Error Generating Report"
     generating: "Generating Report..."

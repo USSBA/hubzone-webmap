@@ -82,13 +82,13 @@ dev:
     disaster_area: "Área de desastre"
   legend:
     title: "Leyenda"
-    aria_label: "Leyenda de hubzone"
+    qualified: "HUBZone Calificados"
+    expiring: "HUBZone caducando"
     qct: "Zona censal"
+    qnmc: "Condado"
     indian_lands: "Tierra Indígena"
     redesignated: "Rediseñado"
-    qnmc: "Condado"
     brac: "Antigua base militare"
-    brac_base: "Antigua base militare"
   report:
     error: "Error al generar el informe"
     generating: "Generar informe..."
