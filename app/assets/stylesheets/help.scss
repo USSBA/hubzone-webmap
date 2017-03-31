@@ -17,6 +17,9 @@
 #hubzone-map-guide p {
   max-width: inherit;
 }
+#hubzone-map-guide ul {
+  list-style-type: none;
+}
 .usa-layout-docs {
   flex-direction: inherit;
 }
@@ -64,7 +67,7 @@
   width: 3rem;
   height: 3rem;
   display: inline-block;
-  margin-left: 1rem;
+  margin-right: 1rem;
   vertical-align: middle;
 }
 .return-to-top {
