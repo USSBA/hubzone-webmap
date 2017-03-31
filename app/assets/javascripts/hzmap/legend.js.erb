@@ -2,7 +2,7 @@
 HZApp.Legend = (function(){
   return {
     legend: HZApp.Legend.LegendDefs.legend,
-    buildLegend: function(layers){
+    buildLegend: function(){
       this.addLegendButtonListeners();
       this.setMobileState(window.innerWidth);
       this.addLayerToggleListeners();
@@ -21,13 +21,13 @@ HZApp.Legend = (function(){
     },
     hideLegend: function(){
       $('.legend-item').hide();
-      $('.legend-button').addClass("fa-chevron-up").removeClass("fa-chevron-down")
+      $('.legend-button').addClass("fa-chevron-up").removeClass("fa-chevron-down");
       $('.legend-content').hide();
       $('.legend-header').removeClass('open');
     },
     showLegend: function(){
       $('.legend-item').show();
-      $('.legend-button').addClass("fa-chevron-down").removeClass("fa-chevron-up")
+      $('.legend-button').addClass("fa-chevron-down").removeClass("fa-chevron-up");
       $('.legend-content').show();
       $('.legend-header').addClass('open');
     },
