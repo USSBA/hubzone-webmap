@@ -79,7 +79,7 @@ dev:
     qnmc_r: "Rediseñado Condado"
     indian_lands: "Tierra Indígena"
     brac: "rediseñado"
-    disaster_area: "Área de desastre"
+    qnmc_qda: "Área de desastre"
   legend:
     title: "Leyenda"
     qualified: "HUBZone Calificados"
