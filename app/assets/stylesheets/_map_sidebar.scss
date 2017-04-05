@@ -214,27 +214,25 @@ button#map-report {
   }
   #sidebar {
     width: 100%;
-    height: auto;
+    margin: 0;
+    position: fixed;
     top: 100%;
     background-color: transparent;
   }
   #sidebar-content.zero-results {
-    margin-top: 0;
-    position: absolute;
-    bottom: 0px;
+    height: 11rem;
   }
   #sidebar-content {
-    margin-top: -100px;
-  }
-  .sidebar-card.search-result {
-    min-height: 5.1rem;
+    position: fixed;
+    bottom: 0;
+    overflow: scroll;
+    height: 13rem;
+    box-shadow: 0px 0px 3px 2px rgba(0,0,0,0.2);
+    width: 100%;
+    background-color: $white;
   }
   .sidebar-card {
-    width: 100%;
-    border-radius: 0;
-    margin: 0;
-    padding: 0.5rem;
-    min-height: auto;
+    width: 95%;
   }
   .sidebar-qualifications {
     width: 100%;
