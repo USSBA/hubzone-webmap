@@ -34,21 +34,21 @@ HZApp.HZQuery = {
     }
   },
   parseResponseGeometry: function(response){
-    if (HZApp.HZQuery.response.geometry){
+    if (response.geometry){
       HZApp.MapUtils.jumpToLocation({
         viewport: response.geometry.viewport,
         location: response.geometry.location
       });
-
-      this.response.geocodeLocation = response.geometry.location;
 
       if (response.place_id){
         this.query.q = response.formatted_address;
         this.query.latlng = null;
       } else {
         this.query.q = null;
-        this.query.latlng = [response.geocodeLocation.lat, response.geocodeLocation.lng ].join(',');
+        this.query.latlng = [response.geometry.location.lat, response.geometry.location.lng ].join(',');
       }
+
+      this.response.geocodeLocation = response.geometry.location;
     }
   },
   updateMap: function(){
