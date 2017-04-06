@@ -42,4 +42,10 @@ describe "The Legend", type: :feature do
     expect(page).to have_css('.layer-qnmc_brac')
     expect(page).to have_css('.layer-brac')
   end
+  it "should have title, toggle, and symbol(s) for qda" do
+    expect(page).to have_content('Disaster Area')
+    expect(page).to have_selector('input#qda')
+    expect(page).to have_css('.layer-qct_qda')
+    expect(page).to have_css('.layer-qnmc_qda')
+  end
 end
