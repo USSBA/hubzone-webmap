@@ -68,12 +68,6 @@
 }
 
 @media only screen and (max-width: 950px)  {
-  .legend-header {
-    z-index: 9999999 !important;
-  }
-  #legend {
-    z-index: 99999999 !important;
-  }
   #legend.zero-results{
     bottom: 12rem !important;
   }
