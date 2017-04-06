@@ -79,7 +79,8 @@ dev:
     qnmc_r: "Rediseñado Condado"
     indian_lands: "Tierra Indígena"
     brac: "rediseñado"
-    qnmc_qda: "Área de desastre"
+    qct_qda: "Área de Desastre del Área de Censos"
+    qnmc_qda: "Área de desastre del condado"
   legend:
     title: "Leyenda"
     qualified: "HUBZone Calificados"
@@ -89,6 +90,7 @@ dev:
     indian_lands: "Tierra Indígena"
     redesignated: "Rediseñado"
     brac: "Antigua base militare"
+    qda: "Área de desastre"
   report:
     error: "Error al generar el informe"
     generating: "Generar informe..."

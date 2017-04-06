@@ -79,7 +79,8 @@ en:
     qnmc_r: "Redesignated County"
     indian_lands: "Indian Land"
     brac: "Base Closure"
-    qnmc_qda: "Disaster Area"
+    qct_qda: "Census Tract Disaster Area"
+    qnmc_qda: "County Disaster Area"
   legend:
     title: "Legend"
     qualified: "Qualified HUBZones"
@@ -89,6 +90,7 @@ en:
     indian_lands: "Indian Land"
     redesignated: "Redesignated"
     brac: "Closed Base Area"
+    qda: "Disaster Area"
   report:
     error: "Error Generating Report"
     generating: "Generating Report..."
