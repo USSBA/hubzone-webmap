@@ -294,6 +294,15 @@ var HZSpecHelper = (function(){
         keyCode: key,
       }
     },
+    resetHZQuery: function(HZQuery){
+      HZQuery.query = {
+        latlng: null,
+        q: null,
+        zoom: null,
+      };
+      HZQuery.response = {};
+      return HZQuery;
+    },
     searchResponses: [
       {
         mockResponseType: 'good response',
