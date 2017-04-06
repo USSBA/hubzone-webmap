@@ -69,9 +69,36 @@
 
 @media only screen and (max-width: 950px)  {
   #legend.zero-results{
-    bottom: 12rem !important;
+    bottom: 11rem !important;
+  }
+  .legend-content {
+    padding: .5rem 1rem;
   }
   .legend-mobile {
-    bottom: 14rem !important;
+    bottom: 13rem !important;
+    z-index: 99999999999;
+  }
+  .legend-header {
+    padding: 0.6rem 1rem;
+  }
+  .legend-header h4{
+    font-size: 1.5rem;
+  }
+  .legend-button {
+    font-size: 1.5rem;
+  }
+  .legend-list-title {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+  }
+  .legend-item {
+    font-size: 1.3rem;
+  }
+  .legend-item label {
+    margin-top: 0;
+  }
+  .legend-layer-symbols {
+    width: 2rem;
+    height: 2rem;
   }
 }

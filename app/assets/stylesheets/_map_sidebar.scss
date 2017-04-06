@@ -48,7 +48,6 @@
 }
 .sidebar-card h2 {
   display: inline;
-  vertical-align: middle;
   top: 1rem;
   max-width: 11rem;
   margin: 0;
@@ -173,7 +172,7 @@ i.fa-file-pdf-o {
   display: none;
 }
 button#map-report {
-  background: none;
+  background-color: $white;
   margin: 1.7rem 0.5rem 1.5rem 1.5rem;
   padding: 0rem;
 }
@@ -213,29 +212,33 @@ button#map-report {
     display: none;
   }
   #sidebar {
-    width: 100%;
-    margin: 0;
     position: fixed;
-    top: 100%;
-    background-color: transparent;
+    bottom: 0;
+    width: 100%;
+    height: 12.5rem;
+    overflow: scroll;
+    box-shadow: 0px 0px 3px 2px rgba(0,0,0,0.2);
+    background-color: rgba(255,255,255,0.85);
   }
   #sidebar-content.zero-results {
     height: 11rem;
   }
   #sidebar-content {
-    position: fixed;
-    bottom: 0;
-    overflow: scroll;
-    height: 13rem;
-    box-shadow: 0px 0px 3px 2px rgba(0,0,0,0.2);
+    // position: fixed;
+    // bottom: 0;
+    // overflow: scroll;
+    // height: 13rem;
+    // box-shadow: 0px 0px 3px 2px rgba(0,0,0,0.2);
     width: 100%;
-    background-color: rgba(255,255,255,0.7);
+    // background-color: rgba(255,255,255,0.8);
   }
   .sidebar-card {
-    width: 95%;
+    display: block;
+    width: calc(100% - 2rem);
+    margin: 1rem;
   }
-  .sidebar-card .fa.fa-map-marker {
-    font-size: 3.5rem;
+  .hubzone-sidebar-cell{
+    padding: 0.5rem 0 0.5rem 0;
   }
   .hubzone-status-date {
     display: none;
@@ -244,25 +247,15 @@ button#map-report {
     font-size: 1.7rem;
     line-height: 0rem;
   }
-  .hubzone-sidebar-address {
-    font-size: 1.7rem;
-    width: 100%;
-  }
-  .hubzone-sidebar-cell {
-    padding: 1rem 0;
-  }
   .hubzone-until-date {
     clear: left;
-    margin-top: -0.5rem;
+    margin-top: -0.8rem;
     padding-top: 0;
-    padding-left: 3.3rem;
+    padding-left: 3rem;
   }
   .sidebar-qualifications thead th {
     font-size: 1.5rem;
-    padding: 0.5rem 1.5rem;
-  }
-  .sidebar-additional-details tbody tr:last-child {
-    border-bottom: 1px solid $gray-lightest;
+    padding: 0.25rem 1.6rem;
   }
   #hubzone-qualifications:focus {
     outline: none;
@@ -270,28 +263,32 @@ button#map-report {
   #hubzone-status {
     float: left;
     font-size: 1.7rem;
-    padding-left: 0.6rem;
+    padding-left: 0.5rem;
   }
   .hubzone-status-indicator .fa.fa-times-circle-o, .fa.fa-check-circle-o {
-    font-size: 3rem;
+    font-size: 2.8rem;
+  }
+  .sidebar-additional-details thead th {
+    padding: 1rem;
+  }
+  .sidebar-layer-symbol {
+    width: 3rem;
+    height: 5rem;
   }
   .sidebar-card .fa.fa-map-marker {
-    font-size: 3rem;
-  }
-  .sidebar-qualifications {
-    width: 100%;
-    border: none;
-    border-radius: 0;
+    font-size: 2.8rem;
   }
   i.fa-file-pdf-o {
     float: left;
     margin-right: 1rem;
   }
   button#map-report {
-    width: 15rem;
+    background-color: $white;
+    float: none;
+    margin: 0;
+    padding: 1rem 0.5rem 1rem 1.5rem;
+  }
+  .create-report {
     float: left;
-    text-align: left;
-    margin: 1rem 1.5rem;
-    cursor: pointer;
   }
 }
