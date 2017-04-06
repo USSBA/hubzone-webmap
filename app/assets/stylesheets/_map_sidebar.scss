@@ -234,40 +234,64 @@ button#map-report {
   .sidebar-card {
     width: 95%;
   }
+  .sidebar-card .fa.fa-map-marker {
+    font-size: 3.5rem;
+  }
+  .hubzone-status-date {
+    display: none;
+  }
+  .sidebar-card h2 {
+    font-size: 1.7rem;
+    line-height: 0rem;
+  }
+  .hubzone-sidebar-address {
+    font-size: 1.7rem;
+    width: 100%;
+  }
+  .hubzone-sidebar-cell {
+    padding: 1rem 0;
+  }
+  .hubzone-until-date {
+    clear: left;
+    margin-top: -0.5rem;
+    padding-top: 0;
+    padding-left: 3.3rem;
+  }
+  .sidebar-qualifications thead th {
+    font-size: 1.5rem;
+    padding: 0.5rem 1.5rem;
+  }
+  .sidebar-additional-details tbody tr:last-child {
+    border-bottom: 1px solid $gray-lightest;
+  }
+  #hubzone-qualifications:focus {
+    outline: none;
+  }
+  #hubzone-status {
+    float: left;
+    font-size: 1.7rem;
+    padding-left: 0.6rem;
+  }
+  .hubzone-status-indicator .fa.fa-times-circle-o, .fa.fa-check-circle-o {
+    font-size: 3rem;
+  }
+  .sidebar-card .fa.fa-map-marker {
+    font-size: 3rem;
+  }
   .sidebar-qualifications {
     width: 100%;
     border: none;
     border-radius: 0;
   }
-  .sidebar-card > h2 {
-    font-size: 1em;
-    width: 100%;
-    padding-left: 3.3rem;
-  }
-  .sidebar-card .fa.fa-map-marker {
-    font-size: 3.5rem;
-  }
-  .sidebar-qualifications thead th {
-    padding: 0.5rem 1.5rem 0.5rem 2rem;
-  }
-  .hubzone-status-indicator .fa.fa-times-circle-o, .fa.fa-check-circle-o {
-    font-size: 3.5rem;
-  }
-  #hubzone-status {
-    font-size: 1em;
-  }
-  .hubzone-until-date {
-    float: none;
-    position: relative;
-    left: 0.5rem;
-    padding-top: 0.3rem;
+  i.fa-file-pdf-o {
+    float: left;
+    margin-right: 1rem;
   }
   button#map-report {
+    width: 15rem;
+    float: left;
     text-align: left;
-    margin: .5rem 0 .5rem 2rem;
+    margin: 1rem 1.5rem;
     cursor: pointer;
-  }
-  .hubzone-status-date {
-    display: none;
   }
 }

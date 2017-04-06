@@ -68,13 +68,16 @@
 }
 
 @media only screen and (max-width: 950px)  {
+  .legend-header {
+    z-index: 9999999 !important;
+  }
   #legend {
     z-index: 99999999 !important;
   }
   #legend.zero-results{
-    bottom: 13rem !important;
+    bottom: 12rem !important;
   }
   .legend-mobile {
-    bottom: 11rem !important;
+    bottom: 14rem !important;
   }
 }
