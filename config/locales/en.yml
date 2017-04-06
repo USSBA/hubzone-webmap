@@ -79,7 +79,7 @@ en:
     qnmc_r: "Redesignated County"
     indian_lands: "Indian Land"
     brac: "Base Closure"
-    disaster_area: "Disaster Area"
+    qnmc_qda: "Disaster Area"
   legend:
     title: "Legend"
     qualified: "Qualified HUBZones"
