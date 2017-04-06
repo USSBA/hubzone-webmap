@@ -50,9 +50,11 @@
   background-color: #ffffff;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 20 20'><g fill='none' fill-opacity='0.8' fill-rule='evenodd'><rect width='16' height='16' fill='%23ffffff'/><circle cx='8' cy='8' r='5' fill='%23000'/></g></svg>");
 }
-// .layer-dda_county {
-//
-// }
-// .layer-dda_qct {
-//
-// }
+.layer-qct_qda {
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='1' viewBox='0 0 20 1'>  <line x1='20' y1='100' x2='100' y2='20' stroke-width='2' stroke='%23000000'/></svg>");
+}
+.layer-qnmc_qda {
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='1' viewBox='0 0 20 1'><rect width='20' height='1' fill='%2300000'/></svg>");
+}
