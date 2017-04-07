@@ -9,43 +9,43 @@
     <li class="legend-item">
       <input id="qct" type="checkbox" name="qct" value="qct" checked="">
         <label for="qct">
-          <div aria-label="legend icon" class="legend-layer-symbols layer-qct"></div><%= t('legend.qct') %>
+          <div class="legend-layer-symbols layer-qct" aria-label="<%= t('legend.icon_census_tract') %>"></div><%= t('legend.qct') %>
         </label>
       </input>
     </li>
     <li class="legend-item">
       <input id="qnmc" type="checkbox" name="qnmc" value="qnmc" checked="">
       <label for="qnmc">
-        <div class="legend-layer-symbols layer-qnmc"></div><%= t('legend.qnmc') %>
+        <div class="legend-layer-symbols layer-qnmc" aria-label="<%= t('legend.icon_county') %>"></div><%= t('legend.qnmc') %>
       </label>
     </li>
     <li class="legend-item">
       <input id="indian_lands" type="checkbox" name="indian_lands" value="indian_lands" checked="">
       <label for="indian_lands">
-        <div class="legend-layer-symbols layer-indian_lands"></div><%= t('legend.indian_lands') %>
+        <div class="legend-layer-symbols layer-indian_lands"  aria-label="<%= t('legend.icon_indian_land') %>"></div><%= t('legend.indian_lands') %>
       </label>
     </li>
     <div class="legend-list-title"><%= t('legend.expiring') %></div>
     <li class="legend-item">
       <input id="redesignated" type="checkbox" name="redesignated" value="redesignated" checked="">
       <label for="redesignated">
-        <div class="legend-layer-symbols layer-qct_r"></div>
-        <div class="legend-layer-symbols layer-qnmc_r"></div><%= t('legend.redesignated') %>
+        <div class="legend-layer-symbols layer-qct_r" aria-label="<%= t('legend.icon_redesignated_census') %>"></div>
+        <div class="legend-layer-symbols layer-qnmc_r" aria-label="<%= t('legend.icon_redesignated_county') %>"></div><%= t('legend.redesignated') %>
       </label>
     </li>
     <li class="legend-item">
       <input id="qda" type="checkbox" name="qda" value="qda" checked="">
       <label for="qda">
-        <div class="legend-layer-symbols layer-qct_qda"></div>
-        <div class="legend-layer-symbols layer-qnmc_qda"></div><%= t('legend.qda') %>
+        <div class="legend-layer-symbols layer-qct_qda" aria-label="<%= t('legend.icon_disaster_area_census') %>"></div>
+        <div class="legend-layer-symbols layer-qnmc_qda" aria-label="<%= t('legend.icon_disaster_area_county') %>"></div><%= t('legend.qda') %>
       </label>
     </li>
     <li class="legend-item">
       <input id="brac" type="checkbox" name="brac" value="brac" checked="">
       <label for="brac">
-        <div class="legend-layer-symbols layer-qct_b"></div>
-        <div class="legend-layer-symbols layer-qnmc_brac"></div>
-        <div class="legend-layer-symbols layer-brac"></div><%= t('legend.brac') %>
+        <div class="legend-layer-symbols layer-qct_b" aria-label="<%= t('legend.icon_brac_census') %>"></div>
+        <div class="legend-layer-symbols layer-qnmc_brac"  aria-label="<%= t('legend.icon_brac_county') %>"></div>
+        <div class="legend-layer-symbols layer-brac"  aria-label="<%= t('legend.icon_brac') %>"></div><%= t('legend.brac') %>
       </label>
     </li>
   </ul>
