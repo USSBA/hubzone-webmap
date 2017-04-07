@@ -3,13 +3,13 @@
   <i class="legend-button fa fa-chevron-down"></i>
 </div>
 <fieldset class="usa-fieldset-inputs">
-  <legend class="usa-sr-only"><%= t('legend.title') %></legend>
-  <ul class="legend-content">
+  <legend class="usa-sr-only" aria-label="<%= t('legend.title') %>"><%= t('legend.title') %></legend>
+  <ul class="legend-content" aria-label="<%= t('legend.title') %>">
     <div class="legend-list-title"><%= t('legend.qualified') %></div>
     <li class="legend-item">
       <input id="qct" type="checkbox" name="qct" value="qct" checked="">
         <label for="qct">
-          <div class="legend-layer-symbols layer-qct"></div><%= t('legend.qct') %>
+          <div aria-label="legend icon" class="legend-layer-symbols layer-qct"></div><%= t('legend.qct') %>
         </label>
       </input>
     </li>
