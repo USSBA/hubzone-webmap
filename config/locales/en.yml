@@ -35,6 +35,7 @@ en:
     accessible_version: "Accessible Version"
     help: "Help"
   map:
+    aria_label: "page is displaying a fullscreen map"
     enter_address: "Enter address"
     filter: "Filter"
   search:
