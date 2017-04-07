@@ -35,6 +35,7 @@ dev:
     accessible_version: "Versión accesible"
     help: "Ayuda"
   map:
+    aria_label: "Está mostrando un mapa a pantalla completa"
     enter_address: "Ingresa la direccion"
     filter: "Filtrar"
   search:
