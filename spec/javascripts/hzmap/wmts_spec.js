@@ -21,7 +21,7 @@ describe ('Testing wmts operations', function() {
       var angle = Math.PI;
       var degrees = HZApp.WMTSUtils.toDegrees(angle);
       expect(degrees).toEqual(angle * 180.0 / Math.PI);
-    });  
+    });
 
   });
 
@@ -57,7 +57,7 @@ describe ('Testing wmts operations', function() {
       expect(google.maps.ImageMapType.calls.count()).toEqual(1);
       expect(HZApp.map.overlayMapTypes.insertAt.calls.count()).toEqual(1);
       expect(HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay).not.toBe(null);
-      
+
       var url  = google.maps.ImageMapType.calls.allArgs()[0][0].getTileUrl(coords, zoom);
       expect(url.includes(layer));
       expect(url.includes(HZApp.WMTSUtils.tile2Bbox(coords.x, coords.y, zoom))).toBe(true);
@@ -66,17 +66,41 @@ describe ('Testing wmts operations', function() {
   });
 
   describe('getting map coordinates from tile coordinates', function(){
-    
-    it ('should convert a tile x to a longitude', function(){
-      var lng = HZApp.WMTSUtils.tile2Lng(coords.x, zoom);
-      expect(lng).toEqual((coords.x / Math.pow(2.0, zoom) * 360.0 - 180));
-    });
 
-    it ('should convert a tile y to a latitude', function(){
-      var lat = HZApp.WMTSUtils.tile2Lat(coords.y, zoom);
-      var n = Math.PI - (2.0 * Math.PI * coords.y) / Math.pow(2.0, zoom);
-      var latExp = HZApp.WMTSUtils.toDegrees(Math.atan(Math.sinh(n)));
-      expect(lat).toEqual(latExp);
+    describe('converting tile coordiantes', function(){
+      it ('should convert a tile x to a longitude', function(){
+        var lng = HZApp.WMTSUtils.tile2Lng(coords.x, zoom);
+        expect(lng).toEqual((coords.x / Math.pow(2.0, zoom) * 360.0 - 180));
+      });
+
+      it ('should convert a tile y to a latitude', function(){
+        var lat = HZApp.WMTSUtils.tile2Lat(coords.y, zoom);
+        var n = Math.PI - (2.0 * Math.PI * coords.y) / Math.pow(2.0, zoom);
+        var latExp = HZApp.WMTSUtils.toDegrees(Math.atan(Math.sinh(n)));
+        expect(lat).toEqual(latExp);
+      });
+
+      it ('should normalize negative tile coordiantes back to positive', function(){
+        var tileX = -5;
+        var tileY = -2;
+        var normCoord = HZApp.WMTSUtils.getNormalizedCoord( {x: tileX, y: tileY}, 9);
+        expect(normCoord.x).toEqual(507);
+        expect(normCoord.y).toEqual(-2);
+      });
+
+      it ('should not alter positive coords', function(){
+        var tileX = 266;
+        var tileY = 875;
+        var normCoord = HZApp.WMTSUtils.getNormalizedCoord( {x: tileX, y: tileY}, 12);
+        expect(normCoord.x).toEqual(tileX);
+        expect(normCoord.y).toEqual(tileY);
+      });
+
+      it ('should convert tile coordinates to bbox', function(){
+        var bbox = HZApp.WMTSUtils.tile2Bbox(coords.x, coords.y, zoom);
+        var expected = "-8766409.899970293,4383204.949985146,-8140237.76425813,5009377.085697311";
+        expect(bbox).toEqual(expected);
+      });
     });
 
     it ('should convert a lat lng to google web mercator', function(){
@@ -88,17 +112,11 @@ describe ('Testing wmts operations', function() {
     });
 
     it ('should not convert bad lat lng', function(){
-      var lat = 92;
-      var lng = 181;
+      var lat = 52.87631;
+      var lng = 172.89048;
       var webMerc = HZApp.WMTSUtils.toWebMercator(lng, lat);
-      var expected = [];
+      var expected = [19246080.196604647, 6960151.310526775];
       expect(webMerc).toEqual(expected);
-    });
-
-    it ('should convert tile coordinates to bbox', function(){
-      var bbox = HZApp.WMTSUtils.tile2Bbox(coords.x, coords.y, zoom);
-      var expected = "-8766409.899970293,4383204.949985146,-8140237.76425813,5009377.085697311";
-      expect(bbox).toEqual(expected);
     });
 
     it ('should build the correct url', function(){
@@ -124,7 +142,7 @@ describe ('Testing wmts operations', function() {
       expect(clickArgs[1][0]).toEqual('dblclick');
       expect(mockOverlayNew.addListener.calls.count()).toEqual(2);
     });
-    
+
     it("should handle single-click", function() {
       var mapClick = {
         latLng: {
