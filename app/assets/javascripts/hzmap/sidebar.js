@@ -42,7 +42,6 @@ HZApp.SidebarUtils = (function(){
     triggerSidebar: function(){
       $('#sidebar').hasClass('on') ? HZApp.GA.track( 'map', 'sidebar', 'hide' ) :
                                HZApp.GA.track( 'map', 'sidebar', 'show' );
-      // HZApp.SidebarUtils.sidebar.update();
       $('#sidebar').hasClass('on') ? HZApp.SidebarUtils.sidebar.close() : HZApp.SidebarUtils.sidebar.open();
     },
     sidebar: {},
