@@ -1,5 +1,6 @@
 //= require hzmap/report
 //= require hzmap/hz-query
+//= require hzmap
 /* jshint unused: false */
 /* jshint undef: false */
 
