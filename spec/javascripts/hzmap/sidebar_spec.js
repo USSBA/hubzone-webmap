@@ -40,7 +40,7 @@ describe ('Testing sidebar operations', function() {
   it ("should catch the button click to trigger the sidebar to close", function() {
     $sidebar.open();
     HZApp.SidebarUtils.triggerSidebar();
-    expect($sidebar.hasClass('hidden')).toBe(true);
+    expect($sidebar.hasClass('closed')).toBe(true);
   });
 
   it ("should catch the button click to trigger the sidebar to open", function() {

@@ -48,7 +48,7 @@ describe ('Testing Google Analytics integration', function() {
       expect(window.ga.calls.count()).toEqual(1);
       // ... and close the sidebar.
       HZApp.SidebarUtils.triggerSidebar();
-      expect($sidebar.hasClass('hidden')).toEqual(true);
+      expect($sidebar.hasClass('closed')).toEqual(true);
       expect(window.ga.calls.count()).toEqual(2);
     });
   });
