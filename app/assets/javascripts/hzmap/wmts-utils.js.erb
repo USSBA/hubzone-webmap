@@ -1,9 +1,9 @@
 // web map tile service utilites
 HZApp.WMTSUtils = (function(){
-  
-  Math.sinh = Math.sinh || function(angle){ 
+
+  Math.sinh = Math.sinh || function(angle){
       return (Math.exp(angle) - Math.exp(-angle)) / 2;
-  }; 
+  };
 
   return {
     tileSize: 256,
@@ -31,7 +31,28 @@ HZApp.WMTSUtils = (function(){
        HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay = customMapType;
        HZApp.map.overlayMapTypes.insertAt(layerIndex, customMapType);
     },
+    // Normalizes the coords that tiles repeat across the x axis (horizontally)
+    // like the standard Google map tiles.
+    getNormalizedCoord: function(coord, zoom) {
+      var y = coord.y;
+      var x = coord.x;
+      // tile range in one direction range is dependent on zoom level
+      // 0 = 1 tile, 1 = 2 tiles, 2 = 4 tiles, 3 = 8 tiles, etc
+      var tileRange = 1 << zoom;
+
+      if (y < 0 || y >= tileRange) { // don't repeat across y-axis (vertically)
+        y = y;
+      }
+
+      if (x < 0 || x >= tileRange) { // repeat across x-axis
+        x = (x % tileRange + tileRange) % tileRange;
+      }
+      return {x: x, y: y};
+    },
     tile2Bbox: function(x, y, zoom){
+      var normCoord = this.getNormalizedCoord({x: x, y: y}, zoom);
+      x = normCoord.x;
+      y = normCoord.y;
       var bb = {};
       bb.n = this.tile2Lat(y,zoom);
       bb.s = this.tile2Lat(y+1, zoom);
@@ -43,21 +64,17 @@ HZApp.WMTSUtils = (function(){
       return [webMSW[0], webMSW[1], webMNE[0], webMNE[1]].join(',');
     },
     toWebMercator: function(x_lon, y_lat){
-      if ((Math.abs(x_lon) > 180) || (Math.abs(y_lat) > 90)){
-        return [];
-      } else { 
-        var semimajor_axis = 6378137.0;
-        var east = x_lon * 0.017453292519943295;
-        var north = y_lat * 0.017453292519943295;
-        var northing = 3189068.5 * Math.log((1.0 + Math.sin(north)) / (1.0 - Math.sin(north)));
-        var easting = semimajor_axis * east;
-        return [easting, northing];
-      }
+      var semimajor_axis = 6378137.0;
+      var east = x_lon * 0.017453292519943295;
+      var north = y_lat * 0.017453292519943295;
+      var northing = 3189068.5 * Math.log((1.0 + Math.sin(north)) / (1.0 - Math.sin(north)));
+      var easting = semimajor_axis * east;
+      return [easting, northing];
     },
     tile2Lng: function(x, z){
       return (x / Math.pow(2.0, z) * 360.0 - 180);
     },
-    tile2Lat: function(y,z) {     
+    tile2Lat: function(y,z) {
       var n = Math.PI - (2.0 * Math.PI * y) / Math.pow(2.0, z);
       return this.toDegrees(Math.atan(Math.sinh(n)));
     },
@@ -74,11 +91,12 @@ HZApp.WMTSUtils = (function(){
       url += "&VERSION=1.1.1";
       url += "&REQUEST=GetMap";
       url += "&SRS=EPSG:900913";
-      url += "&bbox=" + this.tile2Bbox(coord.x, coord.y, zoom);  
+      // url += "&SRS=EPSG:4326";
+      url += "&bbox=" + this.tile2Bbox(coord.x, coord.y, zoom);
       url += "&width=" + this.tileSize;
       url += "&height=" + this.tileSize;
       url += "&format=image/png";
-      return url;      
+      return url;
     },
     addClickListeners: function(overlay) {
       overlay.addListener('click',  this.handleSingleClick);

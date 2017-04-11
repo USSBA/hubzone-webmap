@@ -1,4 +1,5 @@
 //= require hzmap/geolocation
+//=require hzmap
 /* jshint unused: false */
 /* jshint undef: false */
 
@@ -9,7 +10,7 @@ describe ('Testing geolocation operations', function() {
     spyOn(google.maps, 'Map').and.returnValue(HZApp.map);
     spyOn(google.maps.event, 'addListener');
     spyOn(HZApp.map, 'addListener');
-    HZApp.Markers.hzUserLocation = new HZApp.Constructors.HubzoneMapMarker({icon: null});  
+    HZApp.Markers.hzUserLocation = new HZApp.Constructors.HubzoneMapMarker({icon: null});
     HZSpecHelper.mockPage.build();
   });
 
@@ -38,7 +39,7 @@ describe ('Testing geolocation operations', function() {
     var locationResp = HZApp.GeoLocation.getUserLocation(null);
     expect(locationResp).toEqual(null);
     expect($('#geolocation i').css('display')).toEqual('block');
-    expect($('.geolocation-loading').css('display')).toEqual('none');  
+    expect($('.geolocation-loading').css('display')).toEqual('none');
   });
 
   it("on button click, should trigger getCurrentPosition", function(){

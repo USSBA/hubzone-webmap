@@ -1,5 +1,6 @@
 //= require hzmap/ga
 //= require hzmap/sidebar
+//= require hzmap/map-utils
 /* jshint unused: false */
 /* jshint undef: false */
 
@@ -40,13 +41,14 @@ describe ('Testing Google Analytics integration', function() {
     it('should send an event when a user toggles the sidebar', function() {
       //fails sporadically http://localhost:3000/specs?random=true&seed=51235
 
+      $sidebar = $('#sidebar');
       // open the sidebar...
       HZApp.SidebarUtils.triggerSidebar();
-      expect(HZApp.SidebarUtils.sidebar.currentClass).toEqual('on');
+      expect($sidebar.hasClass('on')).toBe(true);
       expect(window.ga.calls.count()).toEqual(1);
       // ... and close the sidebar.
       HZApp.SidebarUtils.triggerSidebar();
-      expect(HZApp.SidebarUtils.sidebar.currentClass).toEqual('hidden');
+      expect($sidebar.hasClass('hidden')).toEqual(true);
       expect(window.ga.calls.count()).toEqual(2);
     });
   });

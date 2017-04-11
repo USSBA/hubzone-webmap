@@ -35,6 +35,7 @@ en:
     accessible_version: "Accessible Version"
     help: "Help"
   map:
+    aria_label: "page is displaying a fullscreen map"
     enter_address: "Enter address"
     filter: "Filter"
   search:
@@ -79,7 +80,8 @@ en:
     qnmc_r: "Redesignated County"
     indian_lands: "Indian Land"
     brac: "Base Closure"
-    qnmc_qda: "Disaster Area"
+    qct_qda: "Census Tract Disaster Area"
+    qnmc_qda: "County Disaster Area"
   legend:
     title: "Legend"
     qualified: "Qualified HUBZones"
@@ -89,6 +91,17 @@ en:
     indian_lands: "Indian Land"
     redesignated: "Redesignated"
     brac: "Closed Base Area"
+    qda: "Disaster Area"
+    icon_census_tract: "legend icon dark blue square"
+    icon_county: "legend icon red square"
+    icon_indian_land: "legend icon bright blue square"
+    icon_redesignated_census: "legend icon dark blue diagonal stripe pattern"
+    icon_redesignated_county: "legend icon red diagonal stripe pattern"
+    icon_disaster_area_census: "legend icon dark blue horizontal stripe pattern"
+    icon_disaster_area_county: "legend icon red horizontal stripe pattern"
+    icon_brac_census: "legend icon dark blue dotted pattern"
+    icon_brac_county: "legend icon red dotted pattern"
+    icon_brac: "legend icon dark blue dotted pattern"
   report:
     error: "Error Generating Report"
     generating: "Generating Report..."

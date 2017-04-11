@@ -35,6 +35,7 @@ dev:
     accessible_version: "Versión accesible"
     help: "Ayuda"
   map:
+    aria_label: "Está mostrando un mapa a pantalla completa"
     enter_address: "Ingresa la direccion"
     filter: "Filtrar"
   search:
@@ -79,7 +80,8 @@ dev:
     qnmc_r: "Rediseñado Condado"
     indian_lands: "Tierra Indígena"
     brac: "rediseñado"
-    qnmc_qda: "Área de desastre"
+    qct_qda: "Área de Desastre del Área de Censos"
+    qnmc_qda: "Área de desastre del condado"
   legend:
     title: "Leyenda"
     qualified: "HUBZone Calificados"
@@ -89,6 +91,17 @@ dev:
     indian_lands: "Tierra Indígena"
     redesignated: "Rediseñado"
     brac: "Antigua base militare"
+    qda: "Área de desastre"
+    icon_census_tract: "Icono de la leyenda cuadrado azul oscuro"
+    icon_county: "Leyenda icono cuadrado rojo"
+    icon_indian_land: "Leyenda icono cuadrado azul brillante"
+    icon_redesignated_census: "Leyenda icono azul oscuro diagonal raya patrón"
+    icon_redesignated_county: "Icono de la leyenda patrón diagonal rojo de la raya"
+    icon_disaster_area_census: "Leyenda icono azul oscuro horizontal raya patrón"
+    icon_disaster_area_county: "Leyenda icono rojo horizontal raya patrón"
+    icon_brac_census: "Leyenda icono azul oscuro patrón punteado"
+    icon_brac_county: "Leyenda icono rojo punteado patrón"
+    icon_brac: "Leyenda icono azul oscuro patrón punteado"
   report:
     error: "Error al generar el informe"
     generating: "Generar informe..."

@@ -1,16 +1,19 @@
 //= require hzmap/sidebar
+//= require hzmap/ga
 /* jshint unused: false */
 /* jshint undef: false */
 
 describe ('Testing sidebar operations', function() {
   beforeEach(function(done) {
     HZApp.SidebarUtils.sidebar = HZSpecHelper.mockPage.build();
+    $sidebar = HZApp.SidebarUtils.sidebar;
     setTimeout(function() {
       done();
     }, 1);
   });
   afterEach(function(done) {
     HZApp.SidebarUtils.sidebar = {};
+    $sidebar = {};
     HZSpecHelper.mockPage.destroy();
     setTimeout(function() {
       done();
@@ -18,32 +21,32 @@ describe ('Testing sidebar operations', function() {
   });
 
   it ("should create a sidebar", function(){
-    expect(HZApp.SidebarUtils.sidebar).toBeDefined();
+    expect($sidebar).toBeDefined();
   });
   it ("should be hidden initially", function() {
-    expect(HZApp.SidebarUtils.sidebar.currentClass).toEqual('hidden');
+    expect($sidebar.hasClass('hidden')).toBe(true);
   });
   it ("should open and move legend on mobile", function() {
-    HZApp.SidebarUtils.sidebar.open();
-    expect(HZApp.SidebarUtils.sidebar.currentClass).toEqual('on');
+    $sidebar.open();
+    expect($sidebar.hasClass('on')).toBe(true);
     expect($('#legend')[0].className).toContain('legend-mobile');
   });
   it ("should close and move legend on mobile", function() {
-    HZApp.SidebarUtils.sidebar.close();
-    expect(HZApp.SidebarUtils.sidebar.currentClass).toEqual('hidden');
+    $sidebar.close();
+    expect($sidebar.hasClass('hidden')).toBe(true);
     expect($('#legend')[0].className).not.toContain('legend-mobile');
   });
 
   it ("should catch the button click to trigger the sidebar to close", function() {
-    HZApp.SidebarUtils.sidebar.open();
+    $sidebar.open();
     HZApp.SidebarUtils.triggerSidebar();
-    expect(HZApp.SidebarUtils.sidebar.currentClass).toEqual('hidden');
+    expect($sidebar.hasClass('hidden')).toBe(true);
   });
 
   it ("should catch the button click to trigger the sidebar to open", function() {
-    HZApp.SidebarUtils.sidebar.close();
+    $sidebar.close();
     HZApp.SidebarUtils.triggerSidebar();
-    expect(HZApp.SidebarUtils.sidebar.currentClass).toEqual('on');
+    expect($sidebar.hasClass('on')).toBe(true);
   });
 
   it ("should update the attributes on the qualifications div for the screen reader", function(){

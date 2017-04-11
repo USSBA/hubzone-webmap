@@ -4,6 +4,9 @@
   width: 100%;
   height: calc(100% - 80px);
 }
+.map-body:focus {
+  outline: none;
+}
 @media only screen and (max-width: 950px)  {
   .map-body {
     height: calc(100% - 40px);
