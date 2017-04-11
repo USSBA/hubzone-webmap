@@ -1,5 +1,6 @@
 //= require hzmap/ga
 //= require hzmap/sidebar
+//= require hzmap/map-utils
 /* jshint unused: false */
 /* jshint undef: false */
 
