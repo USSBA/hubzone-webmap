@@ -24,22 +24,16 @@ describe ('Testing Google Analytics integration', function() {
   });
 
   describe ('with the Sidebar', function() {
-    beforeEach(function(done) {
+    beforeEach(function() {
       HZSpecHelper.mockPage.build();
       HZApp.SidebarUtils.buildSidebar();
       sidebar = HZApp.SidebarUtils.sidebar;
-      setTimeout(function() {
-        done();
-      }, 1);
     });
 
-    afterEach(function(done) {
+    afterEach(function() {
       HZApp.SidebarUtils.sidebar = {};
       sidebar = {};
       HZSpecHelper.mockPage.destroy();
-      setTimeout(function() {
-        done();
-      }, 1);
     });
 
     it('should send an event when a user toggles the sidebar', function() {
