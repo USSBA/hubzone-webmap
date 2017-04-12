@@ -25,13 +25,17 @@ describe ('Testing Google Analytics integration', function() {
 
   describe ('with the Sidebar', function() {
     beforeEach(function(done) {
-      HZApp.SidebarUtils.sidebar = HZSpecHelper.mockPage.build();
+      HZSpecHelper.mockPage.build();
+      HZApp.SidebarUtils.buildSidebar();
+      sidebar = HZApp.SidebarUtils.sidebar;
       setTimeout(function() {
         done();
       }, 1);
     });
 
     afterEach(function(done) {
+      HZApp.SidebarUtils.sidebar = {};
+      sidebar = {};
       HZSpecHelper.mockPage.destroy();
       setTimeout(function() {
         done();
@@ -40,15 +44,15 @@ describe ('Testing Google Analytics integration', function() {
 
     it('should send an event when a user toggles the sidebar', function() {
       //fails sporadically http://localhost:3000/specs?random=true&seed=51235
-
-      $sidebar = $('#sidebar');
       // open the sidebar...
+      sidebar.close();
       HZApp.SidebarUtils.triggerSidebar();
-      expect($sidebar.hasClass('on')).toBe(true);
+      expect(sidebar.hasClass('on')).toBe(true);
       expect(window.ga.calls.count()).toEqual(1);
       // ... and close the sidebar.
+      sidebar.open();
       HZApp.SidebarUtils.triggerSidebar();
-      expect($sidebar.hasClass('closed')).toEqual(true);
+      expect(sidebar.hasClass('closed')).toEqual(true);
       expect(window.ga.calls.count()).toEqual(2);
     });
   });

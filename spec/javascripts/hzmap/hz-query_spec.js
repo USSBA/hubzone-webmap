@@ -6,7 +6,9 @@
 describe ('Testing hz-query functions', function() {
   beforeEach(function(){
     google = HZSpecHelper.google;
-    HZApp.SidebarUtils.sidebar = HZSpecHelper.mockPage.build();
+    HZSpecHelper.mockPage.build();
+    HZApp.SidebarUtils.buildSidebar();
+    sidebar = HZApp.SidebarUtils.sidebar;
     HZApp.map = new google.maps.Map();
     $('#sidebar').css('display', 'initial');
     HZApp.Markers.hzQueryMarker = new HZApp.Constructors.HubzoneMapMarker({icon: null});
@@ -17,6 +19,7 @@ describe ('Testing hz-query functions', function() {
     HZApp.map = {};
     HZSpecHelper.mockPage.destroy();
     HZApp.SidebarUtils.sidebar = {};
+    sidebar = {};
   });
 
   //pass over the different search responses

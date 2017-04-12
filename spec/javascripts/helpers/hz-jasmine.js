@@ -98,8 +98,6 @@ var HZSpecHelper = (function(){
                                 '<div class="create-report">Create Report</div>' +
                               '</button>' +
                             '</div>');
-        sidebar = $('#sidebar').sidebar();
-        return sidebar;
       },
       destroy: function(){
         var mockElements = document.getElementsByClassName('mock-page');
