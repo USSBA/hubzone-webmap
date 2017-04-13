@@ -8,6 +8,8 @@ require 'hubzone_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
+require 'vcr'
+
 # load up Capybara
 require 'capybara/rspec'
 require 'capybara/rails'
@@ -88,3 +90,12 @@ RSpec.configure do |config|
     # Add your own stubs here or in specific tests...
   end
 end
+
+#VCR.configure do |config|
+#  config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
+#  config.hook_into :webmock # or :fakeweb
+#  config.default_cassette_options = { record: :once }
+#  config.configure_rspec_metadata!
+#  config.filter_sensitive_data('<GOOGLE_API_KEY>') { ENV.fetch('HUBZONE_GOOGLE_API_KEY', 'need to set HUBZONE_GOOGLE_API_KEY in your environment!') }
+  #config.allow_http_connections_when_no_cassette = true
+#end

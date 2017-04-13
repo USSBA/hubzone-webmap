@@ -1,18 +1,18 @@
 require 'rails_helper'
 
 # rubocop:disable Metrics/BlockLength
-describe 'The Search', type: :feature, js: true do
+RSpec.describe 'The Search', type: :feature, js: true do
   context 'before a search performed' do
     before do
       visit map_path
     end
-    it "should have aria labels" do
+    it "should have aria labels"  do
       expect(page.find('#search-field-small')['aria-labelledby']).to have_content('hubzone-search')
     end
-    it "should have autofocus" do
+    it "should have autofocus"  do
       expect(page.find('#search-field-small')['autofocus']).to be_truthy
     end
-    it "should have a tab index" do
+    it "should have a tab index"  do
       expect(page.find('#search-field-small')['tabindex']).to eq('1')
     end
   end
@@ -107,8 +107,8 @@ describe 'The Search', type: :feature, js: true do
     }
   }
 
-  %w(en dev).each do |locale|
-    context "in the #{locale} locale" do
+  %w(en dev).each  do |locale|
+    context "in the #{locale} locale", vcr: true do
       before do
         I18n.locale = locale
         visit map_path(locale: locale)
@@ -117,6 +117,7 @@ describe 'The Search', type: :feature, js: true do
       test_queries.map do |hztype, tquery|
         context "with #{hztype} query" do
           before do
+            #sleep 1
             Excon.stub({}, body: tquery[:response].to_json)
             fill_in 'search', with: tquery[:search]
             click_button 'hubzone-search-button'
@@ -124,6 +125,7 @@ describe 'The Search', type: :feature, js: true do
 
           after(:each) do
             Excon.stubs.clear
+            #sleep 1
           end
 
           it "should show the correct designation status" do
