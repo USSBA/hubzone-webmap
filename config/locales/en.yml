@@ -101,7 +101,7 @@ en:
     icon_disaster_area_county: "legend icon red horizontal stripe pattern"
     icon_brac_census: "legend icon dark blue dotted pattern"
     icon_brac_county: "legend icon red dotted pattern"
-    icon_brac: "legend icon dark blue dotted pattern"
+    icon_brac: "legend icon black dotted pattern"
   report:
     error: "Error Generating Report"
     generating: "Generating Report..."

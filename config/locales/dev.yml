@@ -101,7 +101,7 @@ dev:
     icon_disaster_area_county: "Leyenda icono rojo horizontal raya patrón"
     icon_brac_census: "Leyenda icono azul oscuro patrón punteado"
     icon_brac_county: "Leyenda icono rojo punteado patrón"
-    icon_brac: "Leyenda icono azul oscuro patrón punteado"
+    icon_brac: "Leyenda icono negro punteado patrón"
   report:
     error: "Error al generar el informe"
     generating: "Generar informe..."
