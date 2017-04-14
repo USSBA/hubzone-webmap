@@ -8,7 +8,7 @@ require 'hubzone_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
-#require 'vcr'
+#equire 'vcr'
 
 # load up Capybara
 require 'capybara/rspec'
@@ -26,7 +26,7 @@ Capybara.register_driver(:poltergeist) do |app|
   Capybara::Poltergeist::Driver.new(app, js_errors: true)
 end
 
-Capybara.default_max_wait_time = 5
+Capybara.default_max_wait_time = 10
 #Capybara.javascript_driver = :selenium # with browser interaction
 Capybara.javascript_driver = :poltergeist # headless
 
