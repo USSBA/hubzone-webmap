@@ -117,7 +117,6 @@ RSpec.describe 'The Search', type: :feature, js: true do
       test_queries.map do |hztype, tquery|
         context "with #{hztype} query" do
           before do
-            #sleep 1
             Excon.stub({}, body: tquery[:response].to_json)
             fill_in 'search', with: tquery[:search]
             click_button 'hubzone-search-button'
@@ -125,7 +124,6 @@ RSpec.describe 'The Search', type: :feature, js: true do
 
           after(:each) do
             Excon.stubs.clear
-            #sleep 1
           end
 
           it "should show the correct designation status" do
