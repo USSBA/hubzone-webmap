@@ -72,7 +72,7 @@ var HZSpecHelper = (function(){
                                '<li class="legend-item">' +
                                  '<input id="brac" type="checkbox" name="brac" value="brac" checked="">' +
                                  '<label for="brac">' +
-                                   '<div class="legend-layer-symbols layer-qct_b"></div>' +
+                                   '<div class="legend-layer-symbols layer-qct_brac"></div>' +
                                    '<div class="legend-layer-symbols layer-qnmc_brac"></div>' +
                                    '<div class="legend-layer-symbols layer-brac"></div>Closed Base Area' +
                                  '</label>' +

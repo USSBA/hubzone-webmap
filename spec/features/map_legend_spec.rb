@@ -38,7 +38,7 @@ describe "The Legend", type: :feature do
   it "should have title, toggle, and symbol(s) for brac" do
     expect(page).to have_content('Closed Base Area')
     expect(page).to have_selector('input#brac')
-    expect(page).to have_css('.layer-qct_b')
+    expect(page).to have_css('.layer-qct_brac')
     expect(page).to have_css('.layer-qnmc_brac')
     expect(page).to have_css('.layer-brac')
   end
