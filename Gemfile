@@ -43,8 +43,6 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'simplecov', require: false # determine code coverage of tests
   gem 'teaspoon-jasmine'
-  gem 'vcr'
-  gem 'webmock'
 end
 
 group :development do

@@ -61,7 +61,6 @@ RSpec.describe 'The Search', type: :feature, js: true do
             lng: 0
           }
         },
-        #query_date: Date.today
         query_date: '2017-04-18'
       },
       status: "hubzone_assertions.qualified"
@@ -78,7 +77,6 @@ RSpec.describe 'The Search', type: :feature, js: true do
             lng: 0
           }
         },
-        #query_date: Date.today
         query_date: '2017-04-18'
       },
       status: "hubzone_assertions.not_qualified"
@@ -104,7 +102,6 @@ RSpec.describe 'The Search', type: :feature, js: true do
             lng: 0
           }
         },
-        #query_date: Date.today
         query_date: '2017-04-18'
       },
       status: "hubzone_assertions.qualified"
