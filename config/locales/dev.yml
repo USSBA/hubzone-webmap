@@ -67,7 +67,7 @@ dev:
     expires: "Caduca"
     qct: "Zona censal"
     qct_e: "Zona censal"
-    qct_b: "BRAC Zona censal"
+    qct_brac: "BRAC Zona censal"
     qct_r: "Rediseñado Zona censal"
     qnmc: "Condado"
     qnmc_a: "Condado"
@@ -79,7 +79,7 @@ dev:
     qnmc_brac: "BRAC Condado"
     qnmc_r: "Rediseñado Condado"
     indian_lands: "Tierra Indígena"
-    brac: "rediseñado"
+    brac: "Antigua base militare"
     qct_qda: "Área de Desastre del Área de Censos"
     qnmc_qda: "Área de desastre del condado"
   legend:
@@ -101,7 +101,7 @@ dev:
     icon_disaster_area_county: "Leyenda icono rojo horizontal raya patrón"
     icon_brac_census: "Leyenda icono azul oscuro patrón punteado"
     icon_brac_county: "Leyenda icono rojo punteado patrón"
-    icon_brac: "Leyenda icono azul oscuro patrón punteado"
+    icon_brac: "Leyenda icono negro punteado patrón"
   report:
     error: "Error al generar el informe"
     generating: "Generar informe..."
