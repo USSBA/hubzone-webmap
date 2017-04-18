@@ -72,7 +72,7 @@ var HZSpecHelper = (function(){
                                '<li class="legend-item">' +
                                  '<input id="brac" type="checkbox" name="brac" value="brac" checked="">' +
                                  '<label for="brac">' +
-                                   '<div class="legend-layer-symbols layer-qct_b"></div>' +
+                                   '<div class="legend-layer-symbols layer-qct_brac"></div>' +
                                    '<div class="legend-layer-symbols layer-qnmc_brac"></div>' +
                                    '<div class="legend-layer-symbols layer-brac"></div>Closed Base Area' +
                                  '</label>' +
@@ -98,8 +98,6 @@ var HZSpecHelper = (function(){
                                 '<div class="create-report">Create Report</div>' +
                               '</button>' +
                             '</div>');
-        sidebar = $('#sidebar').sidebar();
-        return sidebar;
       },
       destroy: function(){
         var mockElements = document.getElementsByClassName('mock-page');

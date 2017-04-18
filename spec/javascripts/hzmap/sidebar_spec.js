@@ -4,20 +4,16 @@
 /* jshint undef: false */
 
 describe ('Testing sidebar operations', function() {
-  beforeEach(function(done) {
-    HZApp.SidebarUtils.sidebar = HZSpecHelper.mockPage.build();
+  beforeEach(function() {
+    HZSpecHelper.mockPage.build();
+    HZApp.SidebarUtils.buildSidebar();
     sidebar = HZApp.SidebarUtils.sidebar;
-    setTimeout(function() {
-      done();
-    }, 1);
   });
-  afterEach(function(done) {
+
+  afterEach(function() {
     HZApp.SidebarUtils.sidebar = {};
     sidebar = {};
     HZSpecHelper.mockPage.destroy();
-    setTimeout(function() {
-      done();
-    }, 1);
   });
 
   it ("should create a sidebar", function(){
@@ -26,27 +22,32 @@ describe ('Testing sidebar operations', function() {
   it ("should be hidden initially", function() {
     expect(sidebar.hasClass('hidden')).toBe(true);
   });
-  it ("should open and move legend on mobile", function() {
-    sidebar.open();
-    expect(sidebar.hasClass('on')).toBe(true);
-    expect($('#legend')[0].className).toContain('legend-mobile');
-  });
-  it ("should close and move legend on mobile", function() {
-    sidebar.close();
-    expect(sidebar.hasClass('hidden')).toBe(true);
-    expect($('#legend')[0].className).not.toContain('legend-mobile');
+  describe("sidebar opening behavior", function(){
+    it ("should open and move legend on mobile", function() {
+      sidebar.open();
+      expect(sidebar.hasClass('on')).toBe(true);
+      expect($('#legend')[0].className).toContain('legend-mobile');
+    });
+
+    it ("should catch the button click to trigger the sidebar to close", function() {
+      sidebar.open();
+      HZApp.SidebarUtils.triggerSidebar();
+      expect(sidebar.hasClass('closed')).toBe(true);
+    });
   });
 
-  it ("should catch the button click to trigger the sidebar to close", function() {
-    sidebar.open();
-    HZApp.SidebarUtils.triggerSidebar();
-    expect(sidebar.hasClass('closed')).toBe(true);
-  });
+  describe("sidebar closing behavior", function(){
+    it ("should close and move legend on mobile", function() {
+      sidebar.close();
+      expect(sidebar.hasClass('hidden')).toBe(true);
+      expect($('#legend')[0].className).not.toContain('legend-mobile');
+    });
 
-  it ("should catch the button click to trigger the sidebar to open", function() {
-    sidebar.close();
-    HZApp.SidebarUtils.triggerSidebar();
-    expect(sidebar.hasClass('on')).toBe(true);
+    it ("should catch the button click to trigger the sidebar to open", function() {
+      sidebar.close();
+      HZApp.SidebarUtils.triggerSidebar();
+      expect(sidebar.hasClass('on')).toBe(true);
+    });
   });
 
   it ("should update the attributes on the qualifications div for the screen reader", function(){
