@@ -6,13 +6,13 @@ RSpec.describe 'The Search', type: :feature, js: true do
     before do
       visit map_path
     end
-    it "should have aria labels"  do
+    it "should have aria labels" do
       expect(page.find('#search-field-small')['aria-labelledby']).to have_content('hubzone-search')
     end
-    it "should have autofocus"  do
+    it "should have autofocus" do
       expect(page.find('#search-field-small')['autofocus']).to be_truthy
     end
-    it "should have a tab index"  do
+    it "should have a tab index" do
       expect(page.find('#search-field-small')['tabindex']).to eq('1')
     end
   end
@@ -35,7 +35,8 @@ RSpec.describe 'The Search', type: :feature, js: true do
             lng: 0
           }
         },
-        query_date: Date.today
+        # query_date: Date.today
+        query_date: '2017-04-18'
       },
       status: "hubzone_assertions.qualified"
     },
@@ -60,7 +61,8 @@ RSpec.describe 'The Search', type: :feature, js: true do
             lng: 0
           }
         },
-        query_date: Date.today
+        #query_date: Date.today
+        query_date: '2017-04-18'
       },
       status: "hubzone_assertions.qualified"
     },
@@ -76,7 +78,8 @@ RSpec.describe 'The Search', type: :feature, js: true do
             lng: 0
           }
         },
-        query_date: Date.today
+        #query_date: Date.today
+        query_date: '2017-04-18'
       },
       status: "hubzone_assertions.not_qualified"
     },
@@ -101,13 +104,14 @@ RSpec.describe 'The Search', type: :feature, js: true do
             lng: 0
           }
         },
-        query_date: Date.today
+        #query_date: Date.today
+        query_date: '2017-04-18'
       },
       status: "hubzone_assertions.qualified"
     }
   }
 
-  %w(en dev).each  do |locale|
+  %w(en dev).each do |locale|
     context "in the #{locale} locale", vcr: true do
       before do
         I18n.locale = locale
@@ -117,13 +121,16 @@ RSpec.describe 'The Search', type: :feature, js: true do
       test_queries.map do |hztype, tquery|
         context "with #{hztype} query" do
           before do
+            #sleep 10
             Excon.stub({}, body: tquery[:response].to_json)
             fill_in 'search', with: tquery[:search]
             click_button 'hubzone-search-button'
           end
 
-          after(:each) do
-            Excon.stubs.clear
+          after(:each) do |example|
+            #puts Excon.stubs.to_s
+            #Excon.stubs.clear
+            #example.execution_result.status.to_s
           end
 
           it "should show the correct designation status" do
@@ -139,7 +146,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
           end
 
           it "should display the date of the search" do
-            expect(page).to have_content(t('hubzone_assertions.qualifications_effective') + I18n.l(Date.today, format: :full))
+            expect(page).to have_content(t('hubzone_assertions.qualifications_effective') + I18n.l(Date.new(2017, 4, 18), format: :full))
           end
 
           context "for any hubzone designations" do

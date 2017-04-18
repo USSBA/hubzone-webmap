@@ -26,7 +26,7 @@ Capybara.register_driver(:poltergeist) do |app|
   Capybara::Poltergeist::Driver.new(app, js_errors: true)
 end
 
-Capybara.default_max_wait_time = 5
+Capybara.default_max_wait_time = 10
 #Capybara.javascript_driver = :selenium # with browser interaction
 Capybara.javascript_driver = :poltergeist # headless
 
@@ -90,12 +90,3 @@ RSpec.configure do |config|
     # Add your own stubs here or in specific tests...
   end
 end
-
-#VCR.configure do |config|
-#  config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
-#  config.hook_into :webmock # or :fakeweb
-#  config.default_cassette_options = { record: :new_episodes }
-#  config.configure_rspec_metadata!
-#  config.filter_sensitive_data('<GOOGLE_API_KEY>') { ENV.fetch('HUBZONE_GOOGLE_API_KEY', 'need to set HUBZONE_GOOGLE_API_KEY in your environment!') }
-  #config.allow_http_connections_when_no_cassette = true
-#end

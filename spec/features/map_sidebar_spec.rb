@@ -58,8 +58,8 @@ describe "The Sidebar", vcr: true, type: :feature do
     visit(map_path)
   end
 
-  after(:each) do
-    Excon.stubs.clear
+  after(:each) do |example|
+    #Excon.stubs.clear
   end
 
   context "before any interactions" do
