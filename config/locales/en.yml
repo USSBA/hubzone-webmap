@@ -67,7 +67,7 @@ en:
     expired: "Expired"
     qct: "Census Tract"
     qct_e: "Census Tract"
-    qct_b: "Base Closure Census Tract"
+    qct_brac: "Base Closure Census Tract"
     qct_r: "Redesignated Census Tract"
     qnmc: "County"
     qnmc_a: "County"

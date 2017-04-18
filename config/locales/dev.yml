@@ -67,7 +67,7 @@ dev:
     expires: "Caduca"
     qct: "Zona censal"
     qct_e: "Zona censal"
-    qct_b: "BRAC Zona censal"
+    qct_brac: "BRAC Zona censal"
     qct_r: "Rediseñado Zona censal"
     qnmc: "Condado"
     qnmc_a: "Condado"
@@ -79,7 +79,7 @@ dev:
     qnmc_brac: "BRAC Condado"
     qnmc_r: "Rediseñado Condado"
     indian_lands: "Tierra Indígena"
-    brac: "rediseñado"
+    brac: "Antigua base militare"
     qct_qda: "Área de Desastre del Área de Censos"
     qnmc_qda: "Área de desastre del condado"
   legend:
