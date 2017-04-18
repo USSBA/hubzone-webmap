@@ -35,7 +35,6 @@ RSpec.describe 'The Search', type: :feature, js: true do
             lng: 0
           }
         },
-        # query_date: Date.today
         query_date: '2017-04-18'
       },
       status: "hubzone_assertions.qualified"
@@ -118,16 +117,13 @@ RSpec.describe 'The Search', type: :feature, js: true do
       test_queries.map do |hztype, tquery|
         context "with #{hztype} query" do
           before do
-            #sleep 10
             Excon.stub({}, body: tquery[:response].to_json)
             fill_in 'search', with: tquery[:search]
             click_button 'hubzone-search-button'
           end
 
-          after(:each) do |example|
-            #puts Excon.stubs.to_s
-            #Excon.stubs.clear
-            #example.execution_result.status.to_s
+          after(:all) do
+            Excon.stubs.clear
           end
 
           it "should show the correct designation status" do

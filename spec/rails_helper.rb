@@ -8,8 +8,6 @@ require 'hubzone_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
-#equire 'vcr'
-
 # load up Capybara
 require 'capybara/rspec'
 require 'capybara/rails'

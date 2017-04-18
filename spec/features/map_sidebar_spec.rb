@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 # rubocop:disable Metrics/BlockLength
-describe "The Sidebar", vcr: true, type: :feature do
+describe "The Sidebar", type: :feature do
   queries = { qualified_multiple: 'navajo',
               qualified_single: 'tiffany peak, co',
               non_qualified: 'banana',
@@ -58,8 +58,8 @@ describe "The Sidebar", vcr: true, type: :feature do
     visit(map_path)
   end
 
-  after(:each) do |example|
-    #Excon.stubs.clear
+  after(:all) do
+    Excon.stubs.clear
   end
 
   context "before any interactions" do
