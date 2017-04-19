@@ -32,7 +32,7 @@ production:
 staging:
   <<: *default
   database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_stg' } %>
-  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'hz-hzstg.cyy8xym5djtg.us-east-1.rds.amazonaws.com' } %>
+  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'db.maps.staging.certify.sba.gov' } %>
 
 demo:
   <<: *default
