@@ -23,12 +23,8 @@ var HZSpecHelper = (function(){
     //build a dummy sidebar and mapbody
     mockPage: {
       build: function(){
-
-        //add map
-        var mapBodyDiv = document.createElement('div');
-        $(mapBodyDiv).addClass('map-body mock-page');
-
-        //add header and search
+        //add map and header and search
+        $('body').append('<div id="map" class="map-body mock-page" style="width:1200;height:600"></div>');
         $('body').append('<div id="header" class=" mock-page hidden"></div>');
         $('#header').append('<div id="search-field-small" class="mock-page hidden"></div>');
 
@@ -115,7 +111,12 @@ var HZSpecHelper = (function(){
           RIGHT_BOTTOM: []
         },
         ImageMapType: function(){},
-        LatLng: function(){},
+        LatLng: function(lat, lng){
+          return {
+            lat: lat,
+            lng: lng
+          }
+        },
         LatLngBounds: function(){},
         Map: function () {
             return {
