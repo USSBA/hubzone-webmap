@@ -28,7 +28,7 @@ en:
     month_names: [~, January, Febuary, March, April, May, June, July, August, September, October, November, December]
     abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
     formats:
-      full: " %B %d %Y"
+      full: " %b %d %Y"
   menu:
     hubzone_program: "HUBZone Program"
     hubzone_program_aria_label: "hubzone program"
