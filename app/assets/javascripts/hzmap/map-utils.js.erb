@@ -28,7 +28,7 @@ HZApp.MapUtils = (function(){
     jumpToLocation: function(geocodeLocation){
       if (geocodeLocation.viewport){
         var customFit = this.getBoundsZoomLevel(geocodeLocation.viewport, this.getMapDims($('#map')));
-        if (customFit.fitZoom < 13){
+        if (customFit.fitZoom < 15){
           var newBounds = this.createGoogleLatLngBounds(
                             geocodeLocation.viewport.southwest.lng,
                             geocodeLocation.viewport.southwest.lat,
@@ -37,7 +37,7 @@ HZApp.MapUtils = (function(){
             );
           HZApp.map.fitBounds(newBounds);
         } else {
-          this.panAndZoom(customFit.center, 13);
+          this.panAndZoom(customFit.center, 15);
         }
       }
     },
