@@ -8,7 +8,7 @@
       coordinates = nil
     end
     if !body['until_date'].nil?
-      until_date = t('sidebar.until') + " " + body['until_date']
+      until_date = t('sidebar.until') + " " + (I18n.l Date.parse(body['until_date']), format: :full)
     else
       until_date = nil
     end
