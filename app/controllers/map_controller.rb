@@ -43,6 +43,6 @@ class MapController < ApplicationController
   end
 
   def connection
-    Excon.new(MAP_CONFIG[:hubzone_api_host])
+    @connection ||= Excon.new(MAP_CONFIG[:hubzone_api_host])
   end
 end
