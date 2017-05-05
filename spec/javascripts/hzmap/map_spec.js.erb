@@ -242,7 +242,7 @@ describe ('Testing map operations', function() {
       ];
 
       var staticStyle = HZApp.MapUtils.parseStyleToStaticUrl(mockStyles);
-      var expectedStyle = encodeURI("style=feature:water|element:labels.text.fill|color:0x9e9e9e");
+      var expectedStyle = encodeURI("&style=feature:water|element:labels.text.fill|color:0x9e9e9e");
       expect(staticStyle).toEqual(expectedStyle);
     });
 
