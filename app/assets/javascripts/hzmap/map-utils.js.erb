@@ -101,6 +101,37 @@ HZApp.MapUtils = (function(){
     customMapTypeName: function(mapNameUpdate){
       if (!HZApp.map.mapTypes[mapNameUpdate.mapType]) { return; }
       HZApp.map.mapTypes[mapNameUpdate.mapType].name = mapNameUpdate.newName;
+    },
+
+    /*
+      This is a convenience method for helping to parse the base map style object at HZApp.Styles.hzBaseMapStyle
+      to the format required by the Google Maps Static API (https://developers.google.com/maps/documentation/static-maps/styling, 2017-05-05)
+      so that the report map style can match the web map style.
+      It is intended that this method would only need to be called manually to produce the style string which could then be included in the
+      Report repo directly within the wms_utl.rb class at hz_base_map_style
+    */
+    parseStyleToStaticUrl: function(styles){
+      styles = styles || HZApp.Styles.hzBaseMapStyle;
+      var stylesOut = [];
+
+      styles.map( function(style){
+        var styleStr = '&style=';
+
+        styleStr += 'feature:' + style.featureType + '|';
+        styleStr += 'element:' + style.elementType + '|';
+
+        var styleTags = [];
+        style.stylers.map( function(s) {
+          var s_key = Object.keys(s)[0];
+          styleTags.push(s_key + ':' + s[s_key]);
+        });
+
+        styleStr += styleTags.join('|');
+        styleStr = styleStr.replace(/\#/g, '0x');
+        stylesOut.push(styleStr);
+      });
+
+      return encodeURI(stylesOut.join('&'));
     }
   };
 })();
