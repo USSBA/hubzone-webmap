@@ -227,4 +227,29 @@ describe ('Testing map operations', function() {
     expect(HZApp.map.setOptions.calls.count()).toEqual(1);
   });
 
+  describe("the hzBaseMapStyle style parser should produce the correct results", function(){
+    it("should correctly parse a google map tile style into a static map style", function(){
+      var mockStyles = [
+        {
+          "featureType": "water",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+                "color": "#9e9e9e"
+            }
+          ]
+        }
+      ];
+
+      var staticStyle = HZApp.MapUtils.parseStyleToStaticUrl(mockStyles);
+      var expectedStyle = encodeURI("style=feature:water|element:labels.text.fill|color:0x9e9e9e");
+      expect(staticStyle).toEqual(expectedStyle);
+    });
+
+    it("should use the HZApp.Styles.hzBaseMapStyle", function(){
+      var staticStyle = HZApp.MapUtils.parseStyleToStaticUrl();
+      var expectedStyle = encodeURI("style=feature:all|element:geometry|color:0xf5f5f5");
+      expect(staticStyle.includes(expectedStyle)).toBe(true);
+    });
+  });
 });

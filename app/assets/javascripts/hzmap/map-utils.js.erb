@@ -110,7 +110,8 @@ HZApp.MapUtils = (function(){
       It is intended that this method would only need to be called manually to produce the style string which could then be included in the
       Report repo directly
     */
-    parseStyleToStaticUrl: function(styles = HZApp.Styles.hzBaseMapStyle){
+    parseStyleToStaticUrl: function(styles){
+      styles = styles || HZApp.Styles.hzBaseMapStyle;
       var stylesOut = [];
 
       styles.map( function(style){
@@ -130,7 +131,7 @@ HZApp.MapUtils = (function(){
         stylesOut.push(styleStr);
       });
 
-      return stylesOut.join('&');
+      return encodeURI(stylesOut.join('&'));
     }
   };
 })();
