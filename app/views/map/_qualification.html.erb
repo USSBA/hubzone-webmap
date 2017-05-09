@@ -11,7 +11,7 @@
         <%= t(('hubzone_assertions.' + qualification["hz_type"]).to_s) %>
       </div>
         <% unless qualification["expires"].nil? %>
-        <span tabindex="14" class="expires-label"><%= t('hubzone_assertions.' + expires_text) %> <%= qualification["expires"].to_s %></span>
+        <span tabindex="14" class="expires-label"><%= t('hubzone_assertions.' + expires_text) %> <%= I18n.l Date.parse(qualification["expires"]), format: :full %></span>
         <% end %>
     </div>
   </th>

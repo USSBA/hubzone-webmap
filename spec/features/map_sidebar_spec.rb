@@ -58,7 +58,7 @@ describe "The Sidebar", type: :feature do
     visit(map_path)
   end
 
-  after(:each) do
+  after(:all) do
     Excon.stubs.clear
   end
 
