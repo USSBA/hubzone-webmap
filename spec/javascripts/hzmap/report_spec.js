@@ -1,10 +1,12 @@
 //= require hzmap/report
+//= require hzmap/hz-query
+//= require hzmap
 /* jshint unused: false */
 /* jshint undef: false */
 
 describe ('Testing report operations', function() {
-  
-  describe('catchKeyStrokeToPrint', function(){  
+
+  describe('catchKeyStrokeToPrint', function(){
     it ("should trigger requestReport on ctrl-p", function(){
       var printE = HZSpecHelper.mockKeyEvent(true, false, 80);
 
@@ -18,7 +20,7 @@ describe ('Testing report operations', function() {
 
     it ("should trigger requestReport on cmd-p", function(){
       var printE = HZSpecHelper.mockKeyEvent(false, true, 80);
-      
+
       spyOn(HZApp.Report, 'requestReport');
       spyOn(printE, 'preventDefault');
 
@@ -29,7 +31,7 @@ describe ('Testing report operations', function() {
 
     it ("should do nothing on other key strokes", function(){
       var printE = HZSpecHelper.mockKeyEvent(false, false, 80);
-      
+
       spyOn(HZApp.Report, 'requestReport');
       spyOn(printE, 'preventDefault');
 
@@ -43,12 +45,10 @@ describe ('Testing report operations', function() {
     beforeEach(function(){
       google = HZSpecHelper.google;
       HZApp.map = new google.maps.Map();
-      HZApp.HZQuery = {
-        query: {
-          latlng: '45,-108',
-          q: "Banana Shire Way, Rocky Top, USA",
-          zoom: 15
-        }
+      HZApp.HZQuery.query = {
+        latlng: '45,-108',
+        q: "Banana Shire Way, Rocky Top, USA",
+        zoom: 15
       };
     });
 
@@ -115,9 +115,9 @@ describe ('Testing report operations', function() {
         }
       };
       var params = HZApp.Report.getReportRequestParams(mockHZQuery.query);
-      var expected = ("?latlng=" + encodeURIComponent(mockHZQuery.query.latlng) + 
-                      "&q=" + encodeURIComponent(mockHZQuery.query.q) + 
-                      "&zoom=" + mockHZQuery.query.zoom + 
+      var expected = ("?latlng=" + encodeURIComponent(mockHZQuery.query.latlng) +
+                      "&q=" + encodeURIComponent(mockHZQuery.query.q) +
+                      "&zoom=" + mockHZQuery.query.zoom +
                       "&locale=" + (document.documentElement.lang || 'en'));
       expect(params).toEqual(expected);
     });
@@ -125,14 +125,12 @@ describe ('Testing report operations', function() {
 
   describe ('report download callback', function(){
     beforeEach(function(){
-      HZApp.HZQuery = {
-        query: {
-          latlng: '45,-108',
-          q: "Banana Shire Way, Rocky Top, USA",
-          zoom: 15
-        }
+      HZApp.HZQuery.query = {
+        latlng: '45,-108',
+        q: "Banana Shire Way, Rocky Top, USA",
+        zoom: 15
       };
-      
+
       mockResponse = {
         currentTarget: {
           response: new Blob([""], {type: 'application/pdf'})
@@ -149,12 +147,12 @@ describe ('Testing report operations', function() {
     it ('generateDownloadLink should generate the correct download link from a response object', function(){
       spyOn(window.URL, 'createObjectURL');
       var downloadLink = HZApp.Report.generateDownloadLink(mockResponse.currentTarget.response);
-      var expectedLink = ('<a target="_blank"' + 
+      var expectedLink = ('<a target="_blank"' +
                           ' href=""' +
-                          ' download="hz_report_address_' + HZApp.HZQuery.query.q.replace(' ', '_') + '.pdf"' + 
+                          ' download="hz_report_address_' + HZApp.HZQuery.query.q.replace(' ', '_') + '.pdf"' +
                           '></a>');
       fakeLinkDiv.innerHTML = expectedLink;
-      
+
       expect(downloadLink.download).toEqual(fakeLinkDiv.firstChild.download);
       expect(downloadLink.target).toEqual(fakeLinkDiv.firstChild.target);
       expect(window.URL.createObjectURL.calls.count()).toEqual(1);
@@ -183,15 +181,15 @@ describe ('Testing report operations', function() {
   });
 
   describe ('request response handling', function(){
-    
+
     beforeEach(function(){
       HZSpecHelper.mockPage.build();
       $('#sidebar').append((
-        '<div class="sidebar-card map-print">' + 
+        '<div class="sidebar-card map-print">' +
           '<div id="map-print">' +
             '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>' +
           '</div>' +
-          '<span id="report-waiting"></span>' + 
+          '<span id="report-waiting"></span>' +
         '</div>')
       );
     });

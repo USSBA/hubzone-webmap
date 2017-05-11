@@ -41,13 +41,24 @@ describe "The Sidebar", type: :feature do
                                     lat: 0,
                                     lng: 0
                                   }
+                                } },
+                redesignated: { formatted_address:
+                                'Reform, AL',
+                                http_status: 200,
+                                hubzone: [],
+                                until_date: "2020-04-05",
+                                geometry: {
+                                  location: {
+                                    lat: 0,
+                                    lng: 0
+                                  }
                                 } } }
 
   before do
-    visit('/map')
+    visit(map_path)
   end
 
-  after(:each) do
+  after(:all) do
     Excon.stubs.clear
   end
 
@@ -63,6 +74,12 @@ describe "The Sidebar", type: :feature do
     it "should have as-of date with tab index" do
       expect(page).to have_css(".hubzone-status-date")
       expect(page.find('.hubzone-status-date')['tabindex']).to be_truthy
+    end
+    it "should have additional details title" do
+      expect(page).to have_content("Additional Details")
+    end
+    it "should have until date" do
+      expect(page).to have_css(".hubzone-until-date")
     end
   end
 

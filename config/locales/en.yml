@@ -28,19 +28,24 @@ en:
     month_names: [~, January, Febuary, March, April, May, June, July, August, September, October, November, December]
     abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
     formats:
-      full: " %B %d %Y"
+      full: " %b %d, %Y"
   menu:
     hubzone_program: "HUBZone Program"
     hubzone_program_aria_label: "hubzone program"
     accessible_version: "Accessible Version"
     help: "Help"
   map:
+    aria_label: "page is displaying a fullscreen map"
     enter_address: "Enter address"
     filter: "Filter"
   search:
     label: "hubzone map search"
   sidebar:
     button: "Sidebar Button"
+    print_version: "Printable Version"
+    until: "until"
+    details:
+      title: "Additional Details"
   api:
     success: "Success"
     error:
@@ -51,7 +56,7 @@ en:
       unknown_error: "We're sorry. The request failed due to an internal error. Please try again."
   hubzone_assertions:
     qualified_by: "Qualified by: "
-    qualifications_effective: "As of"
+    qualifications_effective: "Qualification is valid for today: "
     qualified: "Qualified HUBZone"
     qualified_aria: "qualified hubzone"
     qualified_short: "Qualified"
@@ -62,7 +67,7 @@ en:
     expired: "Expired"
     qct: "Census Tract"
     qct_e: "Census Tract"
-    qct_b: "Base Closure Census Tract"
+    qct_brac: "Base Closure Census Tract"
     qct_r: "Redesignated Census Tract"
     qnmc: "County"
     qnmc_a: "County"
@@ -75,16 +80,28 @@ en:
     qnmc_r: "Redesignated County"
     indian_lands: "Indian Land"
     brac: "Base Closure"
-    disaster_area: "Disaster Area"
+    qct_qda: "Census Tract Disaster Area"
+    qnmc_qda: "County Disaster Area"
   legend:
     title: "Legend"
-    aria_label: "hubzone legend"
+    qualified: "Qualified HUBZones"
+    expiring: "Expiring HUBZones"
     qct: "Census Tract"
+    qnmc: "County"
     indian_lands: "Indian Land"
     redesignated: "Redesignated"
-    qnmc: "County"
-    brac: "Base Closure Area"
-    brac_base: "Closed Base"
+    brac: "Closed Base Area"
+    qda: "Disaster Area"
+    icon_census_tract: "legend icon dark blue square"
+    icon_county: "legend icon red square"
+    icon_indian_land: "legend icon bright blue square"
+    icon_redesignated_census: "legend icon dark blue diagonal stripe pattern"
+    icon_redesignated_county: "legend icon red diagonal stripe pattern"
+    icon_disaster_area_census: "legend icon dark blue horizontal stripe pattern"
+    icon_disaster_area_county: "legend icon red horizontal stripe pattern"
+    icon_brac_census: "legend icon dark blue dotted pattern"
+    icon_brac_county: "legend icon red dotted pattern"
+    icon_brac: "legend icon black dotted pattern"
   report:
     error: "Error Generating Report"
     generating: "Generating Report..."
