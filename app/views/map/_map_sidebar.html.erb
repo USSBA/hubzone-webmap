@@ -7,6 +7,11 @@
     else
       coordinates = nil
     end
+    if !body['until_date'].nil?
+      until_date = t('sidebar.until') + " " + (I18n.l Date.parse(body['until_date']), format: :full)
+    else
+      until_date = nil
+    end
     date = if body['query_date'].present?
              date = Date.parse(body['query_date'])
              date = I18n.l date, format: :full
@@ -14,18 +19,20 @@
              body['query_date']
            end
     if body['formatted_address'].nil?
-      sidebar_display = 'hidden'
+      visibility = 'hidden'
+      details_visibility = 'hidden'
       hubzone_status_indicator = 'fa fa-times-circle-o'
       hubzone_status_style = 'qualified-hubzone'
     elsif body['hubzone'].size > 0
-      sidebar_display = 'sidebar-qualifications'
+      visibility = ''
       hubzone_status_indicator = 'fa fa-check-circle-o qualified-hubzone'
       hubzone_status_style = 'qualified-hubzone'
       hubzone_status = t('hubzone_assertions.qualified')
       aria_hubzone_status = t('hubzone_assertions.qualified_aria')
       hubzones = body['hubzone']
     else
-      sidebar_display = 'sidebar-qualifications'
+      visibility = ''
+      details_visibility = 'hidden'
       hubzone_status_style = 'non-qualified-hubzone'
       hubzone_status_indicator ='fa fa-times-circle-o non-qualified-hubzone'
       hubzone_status = t('hubzone_assertions.not_qualified')
@@ -43,37 +50,47 @@
       <h2 class="hubzone-sidebar-address" tabindex="10"><%= address %></h2>
     </div>
     <% if coordinates %>
-      <div class="hubzone-sidebar-row">
-        <h4 class="hubzone-sidebar-coordinates"><%= coordinates %></h4>
-      </div>
+    <div class="hubzone-sidebar-row">
+      <h4 class="hubzone-sidebar-coordinates"><%= coordinates %></h4>
+    </div>
     <% end %>
   </div>
 </div>
 
+<div class="sidebar-card hubzone-status <%= hubzone_status_style %> <%= visibility %>">
+  <table id="hubzone-qualifications" class="sidebar-qualifications">
+    <thead>
+      <th class="<%= hubzone_status_style %>" scope="row">
+        <div class="hubzone-status-indicator ">
+          <i class="<%= hubzone_status_indicator %>" aria-hidden="true"></i>
+        </div>
+        <div id="hubzone-status" tabindex="11" aria-label="<%= aria_hubzone_status %>"><%= hubzone_status %></div>
+        <div class="hubzone-until-date"><%= until_date %></div>
+      </th>
+    </thead>
+  </table>
+</div>
 
-<table id="hubzone-qualifications" class="<%= sidebar_display %>">
-  <thead>
-    <th class="<%= hubzone_status_style %>" scope="row">
-      <div class="hubzone-status-indicator <%= hubzone_status_style %>">
-        <i class="<%= hubzone_status_indicator %>" aria-hidden="true"></i>
-      </div>
-      <div id="hubzone-status" tabindex="11" aria-label="<%= aria_hubzone_status %>"><%= hubzone_status %><div class="hubzone-status-date" tabindex="12"><%= t('hubzone_assertions.qualifications_effective') %><%= date %></div></div>
-    </th>
-  </thead>
-  <!--  <tfoot>
-    <tr>
-      <td></td>
-    </tr>
-  </tfoot> -->
-  <tbody>
-    <%= render partial: "qualification", collection: hubzones %>
-  </tbody>
-</table>
+<div class="sidebar-card additional-details <%= details_visibility %>">
+   <table class="sidebar-additional-details">
+     <thead>
+       <th class="additional-details-title" scope="row"><%= t('sidebar.details.title') %></th>
+     </thead>
+     <tbody>
+       <%= render partial: "qualification", collection: hubzones %>
+     </tbody>
+   </table>
+ </ul>
+</div>
 
-<div class="sidebar-card map-report">
+<div class="sidebar-card map-actions">
   <button id="map-report" tabindex="15">
     <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-    <div class="create-report">Create Report</div>
+    <div class="create-report"><%= t('sidebar.print_version') %></div>
   </button>
   <span id="report-waiting"></span>
+</div>
+
+<div class="sidebar-card hubzone-status-date <%= visibility %>" tabindex="12">
+  <%= t('hubzone_assertions.qualifications_effective') %><%= date %>
 </div>

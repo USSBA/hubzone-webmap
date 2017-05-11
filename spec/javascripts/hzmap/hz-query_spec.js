@@ -1,20 +1,25 @@
 //= require hzmap/hz-query
+//= require hzmap
 /* jshint unused: false */
 /* jshint undef: false */
 
 describe ('Testing hz-query functions', function() {
   beforeEach(function(){
     google = HZSpecHelper.google;
-    HZApp.SidebarUtils.sidebar = HZSpecHelper.mockPage.build();
+    HZSpecHelper.mockPage.build();
+    HZApp.SidebarUtils.buildSidebar();
+    sidebar = HZApp.SidebarUtils.sidebar;
     HZApp.map = new google.maps.Map();
     $('#sidebar').css('display', 'initial');
     HZApp.Markers.hzQueryMarker = new HZApp.Constructors.HubzoneMapMarker({icon: null});
+    HZApp.HZQuery = HZSpecHelper.resetHZQuery(HZApp.HZQuery);
   });
 
   afterEach(function(){
     HZApp.map = {};
     HZSpecHelper.mockPage.destroy();
     HZApp.SidebarUtils.sidebar = {};
+    sidebar = {};
   });
 
   //pass over the different search responses
@@ -40,7 +45,7 @@ describe ('Testing hz-query functions', function() {
 
         expect(HZApp.HZQuery.query.latlng).toEqual(null);
         expect(HZApp.HZQuery.query.q).toEqual(null);
-        expect($('.sidebar-card.map-report').is(':visible')).toBe(sidebarVisibilty);
+        expect($('.sidebar-card.map-actions').is(':visible')).toBe(sidebarVisibilty);
       });
 
       it ('should update the map', function(){
@@ -54,7 +59,7 @@ describe ('Testing hz-query functions', function() {
       });
 
       if (response.mockResponseType === 'good response'){
-        if (response.place_id){
+        if (response.place_id !== null && response.place_id !== undefined){
           it ('should correctly parse the response geometry from an address search', function(){
             spyOn(HZApp.MapUtils, 'jumpToLocation');
             HZApp.HZQuery.parseResponseGeometry(response);
@@ -69,13 +74,16 @@ describe ('Testing hz-query functions', function() {
             HZApp.HZQuery.parseResponseGeometry(response);
             expect(HZApp.HZQuery.response.geocodeLocation).toEqual(response.geometry.location);
             expect(HZApp.HZQuery.query.q).toBe(null);
-            expect(HZApp.HZQuery.query.latlng).toEqual([response.geocodeLocation.lat, response.geocodeLocation.lng ].join(','));
+            expect(HZApp.HZQuery.query.latlng).toEqual([response.geometry.location.lat, response.geometry.location.lng ].join(','));
             expect(HZApp.MapUtils.jumpToLocation.calls.count()).toEqual(1);
           });
         }
       } else {
         it ('should correctly parse the response geometry when a ' + response.mockResponseType, function(){
-          HZApp.HZQuery.parseResponseGeometry(response);
+          spyOn(HZApp.HZQuery, 'handleBadResponses');
+          spyOn(HZApp.HZQuery, 'parseResponseGeometry').and.callThrough();
+          spyOn(HZApp.HZQuery, 'updateMap');
+          HZApp.HZQuery.parseResponse(response);
           expect(HZApp.HZQuery.response.geocodeLocation).toBe(null);
         });
       }

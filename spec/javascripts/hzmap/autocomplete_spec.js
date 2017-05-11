@@ -1,4 +1,5 @@
 //= require hzmap/autocomplete
+//= require hzmap
 /* jshint unused: false */
 /* jshint undef: false */
 
@@ -31,7 +32,7 @@ describe ('Testing autocomplete operations', function() {
     spyOn(autocompleteMock, 'addListener');
 
     HZApp.Autocomplete.createListener(autocompleteMock);
-    
+
     expect(HZApp.Autocomplete.triggerSearch.calls.count()).toEqual(1);
     expect(autocompleteMock.addListener.calls.count()).toEqual(1);
 

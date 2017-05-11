@@ -4,13 +4,13 @@
   position: absolute;
   top: 10px;
   z-index: 3;
-  left: 1.6rem;
+  left: 1.2rem;
 }
 #search-field-small {
   background-color: $white;
   border: .5px solid $gray;
   border-right: none;
-  height: 4rem;
+  height: 3.8rem;
   font-size: 2rem;
   color: $gray-dark;
   padding: 1rem 2em 1rem 0.7rem;
@@ -27,8 +27,8 @@
 }
 #hubzone-search-button {
   background-color: $gray-dark;
-  background-size: 4rem;
-  height: 4rem;
+  background-size: 3.8rem;
+  height: 3.8rem;
   float: left;
 }
 #search-field-small:not(:valid) ~ .clear-search {
@@ -41,7 +41,7 @@ button.clear-search {
   position: absolute;
   text-align: right;
   right: 7rem;
-  top: .8rem;
+  top: .7rem;
   color: $gray-dark;
   font-size: 2.4rem;
 }
@@ -106,9 +106,6 @@ button.clear-search:hover {
   }
   .pac-item {
     padding-left: .25rem;
-  }
-  .usa-menu-btn {
-    display: none;
   }
   button.clear-search {
     right: 5.6rem;

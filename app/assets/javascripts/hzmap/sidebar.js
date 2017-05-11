@@ -1,27 +1,26 @@
 //Sidebar utils
-HZApp.SidebarUtils = (function(){  
+HZApp.SidebarUtils = (function(){
   // extend jquery with our sidebar function
   $.fn.sidebar = function() {
     var $sidebar = this;
-    $sidebar.currentClass = 'hidden';
 
     $sidebar.update = function() {
       if (!$sidebar.hasClass('on')) {
         $sidebar.addClass('on');
         $('#legend').addClass('legend-mobile');
         $sidebar.removeClass('hidden');
+        $sidebar.removeClass('closed');
         $('#sidebar-button').html('<i class="fa fa-chevron-right"></i>');
         $('div.gmnoprint[controlheight="55"], div.gmnoprint[controlheight="66"], .gm-svpc').addClass('gm-sidebar-on');
         $('#geolocation').addClass('geolocation-sidebar-on');
-        $sidebar.currentClass = 'on';
 
       } else {
         $sidebar.removeClass('on');
         $('#legend').removeClass('legend-mobile');
+        $sidebar.addClass('closed');
         $('#sidebar-button').html('<i class="fa fa-chevron-left"></i>');
         $('div.gmnoprint[controlheight="55"], div.gmnoprint[controlheight="66"], .gm-svpc').removeClass('gm-sidebar-on');
         $('#geolocation').removeClass('geolocation-sidebar-on');
-        $sidebar.currentClass = 'hidden';
         $('#hubzone-qualifications').attr("aria-live", "off");
       }
     };
@@ -44,7 +43,7 @@ HZApp.SidebarUtils = (function(){
     triggerSidebar: function(){
       $('#sidebar').hasClass('on') ? HZApp.GA.track( 'map', 'sidebar', 'hide' ) :
                                HZApp.GA.track( 'map', 'sidebar', 'show' );
-      $('#sidebar').hasClass('on') ? HZApp.SidebarUtils.sidebar.close() : HZApp.SidebarUtils.sidebar.open();     
+      $('#sidebar').hasClass('on') ? HZApp.SidebarUtils.sidebar.close() : HZApp.SidebarUtils.sidebar.open();
     },
     sidebar: {},
     buildSidebar: function(){
@@ -59,4 +58,3 @@ HZApp.SidebarUtils = (function(){
     }
   };
 })();
-
