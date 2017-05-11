@@ -10,7 +10,7 @@
 }
 .usa-logo-text a > h1 {
   font-family: $font-sans;
-  font-size: 3.6rem;
+  font-size: 3.5rem;
   font-weight: 700;
   color: $gray-dark;
   float: left;
@@ -20,7 +20,7 @@
 }
 .usa-nav-secondary {
   position: fixed;
-  top: -4.5rem;
+  top: -4.3rem;
   right: 2rem;
 }
 .usa-nav-secondary-links li:not(:last-child)::after {
@@ -31,18 +31,18 @@
 }
 .usa-banner-inner {
   max-width: 100%;
-  padding: 0 2rem 0 2rem;
+  padding-left: 1.5rem;
 }
 .usa-header-extended .usa-logo {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: .7rem;
+  margin-bottom: .7rem;
 }
 .usa-header-extended .usa-nav {
   border-top: none;
 }
 .usa-header-extended .usa-navbar {
   max-width: 100%;
-  padding: 0 2rem 0 2rem;
+  padding-left: 1.5rem;
   border-bottom: 2px solid $gray-lighter;
 }
 @media only screen and (max-width: 950px)  {
@@ -56,8 +56,16 @@
   .usa-navbar {
     border-bottom: none;
   }
+  .usa-nav-secondary {
+    position: fixed;
+    top: inherit;
+    right: inherit;
+  }
   .usa-banner {
     display: none;
+  }
+  .usa-menu-btn {
+    display: block;
   }
   .usa-logo {
     margin-left: .5rem;
@@ -76,6 +84,9 @@
   }
 }
 @media only screen and (max-width: 480px) {
+  .usa-unstyled-list > li {
+    margin: 1em 0;
+  }
   .usa-banner {
     display: none;
   }

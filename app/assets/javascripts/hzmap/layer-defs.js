@@ -37,6 +37,12 @@ HZApp.Layers.LayerDefs = (function(){
         layerGroup: 'qct',
         isVisible: true,
         overlay:[],
+      },
+      qda_lg: {
+        layerIndex: 5,
+        layerGroup: 'qda',
+        isVisible: true,
+        overlay:[],
       }
     }
   };

@@ -9,8 +9,7 @@ class MapController < ApplicationController
   def search
     query = format_query params
     path = "#{MAP_CONFIG[:hubzone_api_search_path]}?#{query}"
-    response = connection.request(method: :get,
-                                  path: path)
+    response = api_get path
     @body = response.data[:body]
     respond_to do |format|
       format.js {}
@@ -36,7 +35,14 @@ class MapController < ApplicationController
 
   private
 
+  def api_get(path)
+    version = MAP_CONFIG[:hubzone_api_version]
+    connection.request(method: :get,
+                       path: path,
+                       headers: { 'Accept' => "application/sba.hubzone-api.v#{version}" })
+  end
+
   def connection
-    Excon.new(MAP_CONFIG[:hubzone_api_host])
+    @connection ||= Excon.new(MAP_CONFIG[:hubzone_api_host])
   end
 end

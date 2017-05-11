@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 # rubocop:disable Metrics/BlockLength
-describe 'The Search', type: :feature, js: true do
+RSpec.describe 'The Search', type: :feature, js: true do
   context 'before a search performed' do
     before do
       visit map_path
@@ -35,7 +35,7 @@ describe 'The Search', type: :feature, js: true do
             lng: 0
           }
         },
-        query_date: Date.today
+        query_date: '2017-04-18'
       },
       status: "hubzone_assertions.qualified"
     },
@@ -60,7 +60,7 @@ describe 'The Search', type: :feature, js: true do
             lng: 0
           }
         },
-        query_date: Date.today
+        query_date: '2017-04-18'
       },
       status: "hubzone_assertions.qualified"
     },
@@ -76,7 +76,7 @@ describe 'The Search', type: :feature, js: true do
             lng: 0
           }
         },
-        query_date: Date.today
+        query_date: '2017-04-18'
       },
       status: "hubzone_assertions.not_qualified"
     },
@@ -101,14 +101,14 @@ describe 'The Search', type: :feature, js: true do
             lng: 0
           }
         },
-        query_date: Date.today
+        query_date: '2017-04-18'
       },
       status: "hubzone_assertions.qualified"
     }
   }
 
   %w(en dev).each do |locale|
-    context "in the #{locale} locale" do
+    context "in the #{locale} locale", vcr: true do
       before do
         I18n.locale = locale
         visit map_path(locale: locale)
@@ -122,7 +122,7 @@ describe 'The Search', type: :feature, js: true do
             click_button 'hubzone-search-button'
           end
 
-          after(:each) do
+          after(:all) do
             Excon.stubs.clear
           end
 
@@ -139,7 +139,7 @@ describe 'The Search', type: :feature, js: true do
           end
 
           it "should display the date of the search" do
-            expect(page).to have_content(t('hubzone_assertions.qualifications_effective') + I18n.l(Date.today, format: :full))
+            expect(page).to have_content(t('hubzone_assertions.qualifications_effective') + I18n.l(Date.new(2017, 4, 18), format: :full))
           end
 
           context "for any hubzone designations" do
@@ -147,7 +147,9 @@ describe 'The Search', type: :feature, js: true do
               it "should contain the correct hubzone assertions" do
                 expect(page).to have_content(t("hubzone_assertions." + hubzone[:hz_type].to_s))
               end
-
+              it "should have the right layer symbology" do
+                expect(page).to have_css(".layer-" + tquery[:response][:hubzone][0][:hz_type])
+              end
               next unless hubzone[:expires]
               it "should show the correct language for expires or expired if expiration date is present" do
                 expect(page).to have_content(hubzone[:expires] < Date.today ? t('hubzone_assertions.expired') : t('hubzone_assertions.expires'))

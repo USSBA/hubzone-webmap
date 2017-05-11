@@ -1,4 +1,5 @@
 HZApp.MapUtils = (function(){
+
   return {
     // turn latlng object into url
     catchMapClick: function(clickEvent){
@@ -26,14 +27,61 @@ HZApp.MapUtils = (function(){
     //jump to location on the map based on the geocode viewport object
     jumpToLocation: function(geocodeLocation){
       if (geocodeLocation.viewport){
-        var newBounds = this.createGoogleLatLngBounds(
-                          geocodeLocation.viewport.southwest.lng,
-                          geocodeLocation.viewport.southwest.lat,
-                          geocodeLocation.viewport.northeast.lng,
-                          geocodeLocation.viewport.northeast.lat
-          );
-        HZApp.map.fitBounds(newBounds);
+        var customFit = this.getBoundsZoomLevel(geocodeLocation.viewport, this.getMapDims($('#map')));
+        if (customFit.fitZoom < 15){
+          var newBounds = this.createGoogleLatLngBounds(
+                            geocodeLocation.viewport.southwest.lng,
+                            geocodeLocation.viewport.southwest.lat,
+                            geocodeLocation.viewport.northeast.lng,
+                            geocodeLocation.viewport.northeast.lat
+            );
+          HZApp.map.fitBounds(newBounds);
+        } else {
+          this.panAndZoom(customFit.center, 15);
+        }
       }
+    },
+    getMapDims: function($el){
+      return {
+        height: $el.height(),
+        width: $el.width()
+      };
+    },
+    panAndZoom: function(center, zoom){
+      HZApp.map.setZoom(zoom);
+      HZApp.map.setCenter(center);
+    },
+    getBoundsZoomLevel: function(viewport, mapDims) {
+      var WORLD_DIM = { height: 256, width: 256 };
+      var ZOOM_MAX = 21;
+
+      function latRad(lat) {
+          var sin = Math.sin(lat * Math.PI / 180);
+          var radX2 = Math.log((1 + sin) / (1 - sin)) / 2;
+          return Math.max(Math.min(radX2, Math.PI), -Math.PI) / 2;
+      }
+
+      function zoom(mapPx, worldPx, fraction) {
+          return Math.floor(Math.log(mapPx / worldPx / fraction) / Math.LN2);
+      }
+      var ne = viewport.northeast;
+      var sw = viewport.southwest;
+
+      var latFraction = (latRad(ne.lat) - latRad(sw.lat)) / Math.PI;
+
+      var lngDiff = ne.lng - sw.lng;
+      var lngFraction = ((lngDiff < 0) ? (lngDiff + 360) : lngDiff) / 360;
+
+      var latZoom = zoom(mapDims.height, WORLD_DIM.height, latFraction);
+      var lngZoom = zoom(mapDims.width, WORLD_DIM.width, lngFraction);
+
+      var latAvg = (ne.lat + sw.lat) / 2.0;
+      var lngAvg = (ne.lng + sw.lng) / 2.0;
+
+      return {
+        fitZoom: Math.min(latZoom, lngZoom, ZOOM_MAX),
+        center:  new google.maps.LatLng(latAvg, lngAvg)
+      };
     },
     createGoogleLatLngBounds: function(SWLng, SWLat, NELng, NELat){
       return new google.maps.LatLngBounds(
@@ -41,5 +89,49 @@ HZApp.MapUtils = (function(){
         new google.maps.LatLng(NELat, NELng)
       );
     },
+    mapNameUpdates: [
+      {mapType:'roadmap', newName: 'Standard'},
+      {mapType:'hz_map',  newName: 'Light Gray'},
+      {mapType:'hybrid',  newName: 'Satellite'}
+    ],
+    updateMapTypeNames: function(){
+      HZApp.MapUtils.mapNameUpdates.map(HZApp.MapUtils.customMapTypeName);
+      HZApp.map.setOptions({'mapTypeControl':true});
+    },
+    customMapTypeName: function(mapNameUpdate){
+      if (!HZApp.map.mapTypes[mapNameUpdate.mapType]) { return; }
+      HZApp.map.mapTypes[mapNameUpdate.mapType].name = mapNameUpdate.newName;
+    },
+
+    /*
+      This is a convenience method for helping to parse the base map style object at HZApp.Styles.hzBaseMapStyle
+      to the format required by the Google Maps Static API (https://developers.google.com/maps/documentation/static-maps/styling, 2017-05-05)
+      so that the report map style can match the web map style.
+      It is intended that this method would only need to be called manually to produce the style string which could then be included in the
+      Report repo directly within the wms_utl.rb class at hz_base_map_style
+    */
+    parseStyleToStaticUrl: function(styles){
+      styles = styles || HZApp.Styles.hzBaseMapStyle;
+      var stylesOut = [];
+
+      styles.map( function(style){
+        var styleStr = '&style=';
+
+        styleStr += 'feature:' + style.featureType + '|';
+        styleStr += 'element:' + style.elementType + '|';
+
+        var styleTags = [];
+        style.stylers.map( function(s) {
+          var s_key = Object.keys(s)[0];
+          styleTags.push(s_key + ':' + s[s_key]);
+        });
+
+        styleStr += styleTags.join('|');
+        styleStr = styleStr.replace(/\#/g, '0x');
+        stylesOut.push(styleStr);
+      });
+
+      return encodeURI(stylesOut.join('&'));
+    }
   };
 })();

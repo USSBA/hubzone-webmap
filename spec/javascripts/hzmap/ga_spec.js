@@ -1,5 +1,6 @@
 //= require hzmap/ga
 //= require hzmap/sidebar
+//= require hzmap/map-utils
 /* jshint unused: false */
 /* jshint undef: false */
 
@@ -23,30 +24,29 @@ describe ('Testing Google Analytics integration', function() {
   });
 
   describe ('with the Sidebar', function() {
-    beforeEach(function(done) {
-      HZApp.SidebarUtils.sidebar = HZSpecHelper.mockPage.build();
-      setTimeout(function() {
-        done();
-      }, 1);
+    beforeEach(function() {
+      HZSpecHelper.mockPage.build();
+      HZApp.SidebarUtils.buildSidebar();
+      sidebar = HZApp.SidebarUtils.sidebar;
     });
 
-    afterEach(function(done) {
+    afterEach(function() {
+      HZApp.SidebarUtils.sidebar = {};
+      sidebar = {};
       HZSpecHelper.mockPage.destroy();
-      setTimeout(function() {
-        done();
-      }, 1);
     });
 
     it('should send an event when a user toggles the sidebar', function() {
       //fails sporadically http://localhost:3000/specs?random=true&seed=51235
-
       // open the sidebar...
+      sidebar.close();
       HZApp.SidebarUtils.triggerSidebar();
-      expect(HZApp.SidebarUtils.sidebar.currentClass).toEqual('on');
+      expect(sidebar.hasClass('on')).toBe(true);
       expect(window.ga.calls.count()).toEqual(1);
       // ... and close the sidebar.
+      sidebar.open();
       HZApp.SidebarUtils.triggerSidebar();
-      expect(HZApp.SidebarUtils.sidebar.currentClass).toEqual('hidden');
+      expect(sidebar.hasClass('closed')).toEqual(true);
       expect(window.ga.calls.count()).toEqual(2);
     });
   });

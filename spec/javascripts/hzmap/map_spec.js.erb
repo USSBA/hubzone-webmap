@@ -1,5 +1,6 @@
 //= require hzmap/map
 //= require hzmap/map-utils
+//= require hzmap
 /* jshint unused: false */
 /* jshint undef: false */
 
@@ -7,18 +8,21 @@ describe ('Testing map operations', function() {
   beforeEach(function(){
     google = HZSpecHelper.google;
     HZApp.map = new google.maps.Map();
+    HZSpecHelper.mockPage.build();
   });
 
   afterEach(function(){
     HZApp.map = {};
+    HZSpecHelper.mockPage.destroy();
   });
 
   it("should create a new Google map", function() {
     spyOn(google.maps, 'Map').and.returnValue(HZApp.map);
-    spyOn(google.maps.event, 'addListener');
+    spyOn(google.maps.event, 'addListenerOnce');
     spyOn(google.maps.places, 'Autocomplete');
     spyOn(google.maps, 'StyledMapType');
     spyOn(HZApp.map.mapTypes, 'set');
+    spyOn(HZApp.map, 'setOptions');
 
     spyOn(HZApp.GeoLocation, 'getUserLocation');
     spyOn(HZApp.Autocomplete, 'createAutocomplete');
@@ -33,41 +37,125 @@ describe ('Testing map operations', function() {
 
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map.calls.count()).toEqual(1);
+    expect(google.maps.event.addListenerOnce.calls.count()).toEqual(1);
     expect(google.maps.StyledMapType.calls.count()).toEqual(1);
     expect(HZApp.map.mapTypes.set.calls.count()).toEqual(1);
+    expect(HZApp.map.setOptions.calls.count()).toEqual(1);
     expect(HZApp.GeoLocation.getUserLocation.calls.count()).toEqual(1);
     expect(HZApp.Autocomplete.createAutocomplete.calls.count()).toEqual(1);
     expect(HZApp.Autocomplete.createListener.calls.count()).toEqual(1);
     expect(HZApp.Legend.buildLegend.calls.count()).toEqual(1);
     expect(HZApp.WMTSUtils.initializeTiles.calls.count()).toEqual(1);
     expect(HZApp.WMTSUtils.addClickListeners.calls.count()).toEqual(1);
-
-
   });
 
-  it("should parse a viewport to LatLngBounds and send it to fitBounds", function(){
-    spyOn(google.maps, 'LatLngBounds');
-    spyOn(google.maps, 'LatLng');
-    spyOn(HZApp.map, 'fitBounds');
+  describe("should parse a viewport to LatLngBounds", function(){
+    it(" and send it to fitBounds if zoom is < 15", function(){
+      spyOn(HZApp.MapUtils, 'getBoundsZoomLevel').and.callThrough();
+      spyOn(google.maps, 'LatLngBounds');
+      spyOn(google.maps, 'LatLng');
+      spyOn(HZApp.map, 'fitBounds');
+      spyOn(HZApp.MapUtils, 'getMapDims').and.returnValue({height: 600, width: 1200});
 
-    var geocodeLocation = {
-      location: HZSpecHelper.markerLocation,
-      viewport: {
-        northeast: {
-          lat: 39.29024048029149,
-          lng: -76.60564721970849
-        },
-        southwest: {
-          lat: 39.2875425197085,
-          lng: -76.6083451802915
+      var geocodeLocation = {
+        location: HZSpecHelper.markerLocation,
+        viewport: {
+          northeast: {
+            lat: 49.38,
+            lng: -66.94
+          },
+          southwest: {
+            lat: 25.82,
+            lng: -124.39
+          }
         }
-      }
-    };
+      };
 
-    HZApp.MapUtils.jumpToLocation(geocodeLocation);
-    expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
-    expect(google.maps.LatLng.calls.count()).toEqual(2);
-    expect(HZApp.map.fitBounds.calls.count()).toEqual(1);
+      HZApp.MapUtils.jumpToLocation(geocodeLocation);
+      expect(google.maps.LatLngBounds.calls.count()).toEqual(1);
+      expect(google.maps.LatLng.calls.count()).toEqual(3);
+      expect(HZApp.map.fitBounds.calls.count()).toEqual(1);
+    });
+
+    it(" and send it to panAndZoom if zoom is > 15", function(){
+      spyOn(HZApp.MapUtils, 'getBoundsZoomLevel').and.callThrough();
+      spyOn(google.maps, 'LatLngBounds');
+      spyOn(google.maps, 'LatLng');
+      spyOn(HZApp.map, 'fitBounds');
+      spyOn(HZApp.MapUtils, 'panAndZoom');
+      spyOn(HZApp.MapUtils, 'getMapDims').and.returnValue({height: 600, width: 1200});
+
+      var geocodeLocation = {
+        location: HZSpecHelper.markerLocation,
+        viewport: {
+          northeast: {
+            lat: 39.29024048029149,
+            lng: -76.60564721970849
+          },
+          southwest: {
+            lat: 39.2875425197085,
+            lng: -76.6083451802915
+          }
+        }
+      };
+
+      HZApp.MapUtils.jumpToLocation(geocodeLocation);
+      expect(google.maps.LatLngBounds.calls.count()).toEqual(0);
+      expect(google.maps.LatLng.calls.count()).toEqual(1);
+      expect(HZApp.map.fitBounds.calls.count()).toEqual(0);
+      expect(HZApp.MapUtils.panAndZoom.calls.count()).toEqual(1);
+    });
+
+    it(" handles request to other side of date line correctly", function(){
+      spyOn(HZApp.MapUtils, 'getBoundsZoomLevel').and.callThrough();
+      spyOn(google.maps, 'LatLngBounds');
+      spyOn(google.maps, 'LatLng');
+      spyOn(HZApp.map, 'fitBounds');
+      spyOn(HZApp.MapUtils, 'panAndZoom');
+      spyOn(HZApp.MapUtils, 'getMapDims').and.returnValue({height: 600, width: 1200});
+
+      var geocodeLocation = {
+        location: HZSpecHelper.markerLocation,
+        viewport: {
+          northeast: {
+            lat: 54.00378357900692,
+            lng: -179.9876618385315
+          },
+          southwest: {
+            lat: 53.996216077069924,
+            lng: 179.98766183
+          }
+        }
+      };
+
+      HZApp.MapUtils.jumpToLocation(geocodeLocation);
+      expect(google.maps.LatLngBounds.calls.count()).toEqual(0);
+      expect(google.maps.LatLng.calls.count()).toEqual(1);
+      expect(HZApp.map.fitBounds.calls.count()).toEqual(0);
+      expect(HZApp.MapUtils.panAndZoom.calls.count()).toEqual(1);
+    });
+
+    it("should get the correct dims of an element", function(){
+      var height = 100;
+      var width = 200;
+      $('body').append('<div id="mockEl"></div>');
+      var mockEl = $('#mockEl');
+      mockEl.height(height);
+      mockEl.width(width);
+      var dims = HZApp.MapUtils.getMapDims(mockEl);
+      expect(dims.height).toEqual(height);
+      expect(dims.width).toEqual(width);
+    });
+
+    it("should pan and center the map", function(){
+      spyOn(HZApp.map, 'setCenter');
+      spyOn(HZApp.map, 'setZoom');
+
+      HZApp.MapUtils.panAndZoom({lat: 0, lng: 0}, 10);
+      expect(HZApp.map.setCenter.calls.count()).toEqual(1);
+      expect(HZApp.map.setZoom.calls.count()).toEqual(1);
+    });
+
   });
 
   it("should pass over a geocodeLocation that does not contain a viewport, doing nothing", function(){
@@ -111,4 +199,57 @@ describe ('Testing map operations', function() {
     expect(date).toEqual('2016-10-11');
   });
 
+  it("should do nothing if the maptype is not present", function(){
+    var badMapType = 'banana';
+    var newName = 'bar';
+    HZApp.MapUtils.customMapTypeName({mapType: badMapType, newName: newName});
+    expect(HZApp.map.mapTypes[badMapType]).toBe(undefined);
+  });
+
+  it("should set the maptype name property", function(){
+    HZApp.map.mapTypes.foo = {};
+    var newName = 'bar';
+    var returnVal = HZApp.MapUtils.customMapTypeName({mapType:'foo', newName: newName});
+    expect(HZApp.map.mapTypes.foo.name).toEqual(newName);
+  });
+
+  it("should call the mapType name updater and activate the mapType option", function(){
+    spyOn(HZApp.MapUtils, 'customMapTypeName');
+    spyOn(HZApp.map, 'setOptions');
+
+    HZApp.MapUtils.mapNameUpdates = [
+      {mapType:'foo', newName: 'foo-foo'},
+      {mapType:'bar', newName: 'bar-bar'}
+    ];
+
+    HZApp.MapUtils.updateMapTypeNames(HZApp.map);
+    expect(HZApp.MapUtils.customMapTypeName.calls.count()).toEqual(HZApp.MapUtils.mapNameUpdates.length);
+    expect(HZApp.map.setOptions.calls.count()).toEqual(1);
+  });
+
+  describe("the hzBaseMapStyle style parser should produce the correct results", function(){
+    it("should correctly parse a google map tile style into a static map style", function(){
+      var mockStyles = [
+        {
+          "featureType": "water",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+                "color": "#9e9e9e"
+            }
+          ]
+        }
+      ];
+
+      var staticStyle = HZApp.MapUtils.parseStyleToStaticUrl(mockStyles);
+      var expectedStyle = encodeURI("&style=feature:water|element:labels.text.fill|color:0x9e9e9e");
+      expect(staticStyle).toEqual(expectedStyle);
+    });
+
+    it("should use the HZApp.Styles.hzBaseMapStyle", function(){
+      var staticStyle = HZApp.MapUtils.parseStyleToStaticUrl();
+      var expectedStyle = encodeURI("style=feature:all|element:geometry|color:0xf5f5f5");
+      expect(staticStyle.includes(expectedStyle)).toBe(true);
+    });
+  });
 });

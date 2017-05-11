@@ -11,6 +11,7 @@
 }
 #sidebar.on {
   right: 0;
+  transition-duration: 0ms;
 }
 #sidebar-button {
   position: absolute;
@@ -28,31 +29,26 @@
 .sidebar-card {
   position: relative;
   width: 90%;
-  min-height: 4em;
   margin: 1rem auto 1rem auto;
-  padding: 1.5rem 0 1.5rem 0;
   background-color: $white;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
   border-radius: 3px;
   display: table;
 }
-
 .hubzone-sidebar-cell {
   display: table-cell;
+  padding: 1.5rem 0 1.5rem 0;
 }
-
 .hubzone-sidebar-row {
   display: table-row;
 }
-
 .hubzone-sidebar-cell.text {
   padding-left: 3rem;
+  padding-right: 1rem;
   vertical-align: middle;
 }
-
 .sidebar-card h2 {
   display: inline;
-  vertical-align: middle;
   top: 1rem;
   max-width: 11rem;
   margin: 0;
@@ -62,7 +58,6 @@
   font-weight: normal;
   color: $gray-dark;
 }
-
 .sidebar-card h4 {
   display: inline;
   vertical-align: middle;
@@ -86,13 +81,18 @@
   font-size: 2.4rem;
   font-weight: normal;
   padding-left: 0.8rem;
+  padding-top: 0.3rem;
+}
+.hubzone-until-date {
+  float: left;
+  padding-left: 1rem;
 }
 .qualified-hubzone {
   background-color: $green-light;
   color: $white;
 }
 .non-qualified-hubzone {
-  background-color: $gray-dark;
+  background-color: $gray;
   color: $white;
 }
 .hubzone-status-indicator .fa.fa-times-circle-o, .fa.fa-check-circle-o {
@@ -100,20 +100,20 @@
   font-size: 4rem;
 }
 .sidebar-qualifications {
-  width: 90%;
-  min-width: auto;
-  margin: 0 auto;
-  border-radius: 3px;
-  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
-  border-collapse: separate;
-  overflow: hidden;
+  margin: 0;
 }
-table.sidebar-qualifications th {
+.qualification-label-wrapper {
+  vertical-align: middle;
+  display: table-cell;
+  width: 100%;
+  padding-left: 1rem;
+}
+table th {
   border: none;
 }
 .sidebar-qualifications thead th {
   border: none;
-  padding: 1rem 1.5rem 1rem 1.5rem;
+  border-radius: 3px;
 }
 .sidebar-qualifications tbody th {
   background-color: $white;
@@ -122,11 +122,28 @@ table.sidebar-qualifications th {
   font-size: 1.5rem;
   font-weight: 400;
 }
-.sidebar-qualifications th > span {
+.qualification-label-wrapper > span {
   float: none;
   font-weight: bold;
 }
-.sidebar-qualifications tfoot tr td {
+.sidebar-additional-details {
+  margin: 0;
+}
+.sidebar-additional-details thead th {
+  border: none;
+  border-radius: 3px;
+}
+.sidebar-additional-details tbody th {
+  background-color: $white;
+  border-top: 1px solid $gray-lightest;
+  color: $gray-dark;
+  font-size: 1.5rem;
+  font-weight: 400;
+  padding: 0;
+  display: table;
+  width: 100%;
+}
+.additional-details tfoot tr td {
   border-left: 1px solid $gray-lightest;
   border-right: 1px solid $gray-lightest;
   border-bottom: 1px solid $gray-lightest;
@@ -134,10 +151,9 @@ table.sidebar-qualifications th {
   border-radius: 0 0 3px 3px;
   font-size: 1.5rem;
 }
-.hubzone-status-date {
-  font-weight: normal;
-  font-size: 1.3rem;
-  padding-left: 2px;
+th.additional-details-title {
+  background-color: $white;
+  color: $gray-dark;
 }
 i.fa.fa-print {
   font-size: 2.5rem;
@@ -157,8 +173,8 @@ i.fa-file-pdf-o {
   display: none;
 }
 button#map-report {
-  background: none;
-  margin: 0.5rem 0.5rem .5rem 1.5rem;
+  background-color: $white;
+  margin: 1.7rem 0.5rem 1.5rem 1.5rem;
   padding: 0rem;
 }
 .create-report {
@@ -167,62 +183,102 @@ button#map-report {
   padding-top: 0.5rem;
   color: $gray-dark;
 }
+.sidebar-footer {
+  width: 34rem;
+  position: fixed;
+  bottom: 0;
+  background-color: $white;
+}
+.hubzone-status-date {
+  position: absolute;
+  bottom: 0px;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  margin: 1.5rem 1.5rem 0.5rem 1.5rem;
+  text-align: center;
+  font-weight: normal;
+  font-size: 1.3rem;
+  color: #5b616b;
+}
+.sidebar-layer-symbol {
+  background-repeat: repeat;
+  background-size: 1.75rem;
+  width: 4rem;
+  height: 6rem;
+  float: left;
+}
 
 @media only screen and (max-width: 950px)  {
   #sidebar-button {
     display: none;
   }
   #sidebar {
+    position: fixed;
+    bottom: 0;
     width: 100%;
-    height: auto;
-    top: 100%;
-    background-color: transparent;
-  }
-
-  #sidebar-content.zero-results {
-    margin-top: 0;
-    position: absolute;
-    bottom: 0px;
-  }
-
-  #sidebar-content {
-    margin-top: -100px;
-  }
-  .sidebar-card.search-result {
-    min-height: 5.1rem;
+    height: 12rem;
+    overflow: scroll;
+    box-shadow: 0px 0px 3px 2px rgba(0,0,0,0.2);
+    background-color: rgba(255,255,255,0.85);
   }
   .sidebar-card {
-    width: 100%;
-    border-radius: 0;
-    margin: 0;
-    padding: 0.5rem;
-    min-height: auto;
+    display: block;
+    width: calc(100% - 2rem);
+    margin: 0.75rem 1rem;
   }
-  .sidebar-qualifications {
-    width: 100%;
-    border: none;
-    border-radius: 0;
+  .hubzone-sidebar-cell{
+    padding: 0.5rem 0 0.5rem 0;
   }
-  .sidebar-card > h2 {
-    font-size: 1em;
-    width: 100%;
-    padding-left: 3.3rem;
+  .hubzone-status-date {
+    display: none;
   }
-  .sidebar-card .fa.fa-map-marker {
-    font-size: 3.5rem;
+  .sidebar-card h2 {
+    font-size: 1.7rem;
+    line-height: 0rem;
+  }
+  .hubzone-until-date {
+    clear: left;
+    margin-top: -0.8rem;
+    padding-top: 0;
+    padding-left: 3rem;
   }
   .sidebar-qualifications thead th {
-    padding: 0.5rem 1.5rem 0.5rem 2rem;
+    font-size: 1.5rem;
+    padding: 0.25rem 1.6rem;
   }
-  .hubzone-status-indicator .fa.fa-times-circle-o, .fa.fa-check-circle-o {
-    font-size: 3.5rem;
+  #hubzone-qualifications:focus {
+    outline: none;
   }
   #hubzone-status {
-    font-size: 1em;
+    float: left;
+    font-size: 1.7rem;
+    padding-left: 0.5rem;
+  }
+  .hubzone-status-indicator .fa.fa-times-circle-o, .fa.fa-check-circle-o {
+    font-size: 2.8rem;
+  }
+  .sidebar-additional-details thead th {
+    padding: 1rem;
+    font-size: 1.5rem;
+  }
+  .sidebar-layer-symbol {
+    width: 3rem;
+    height: 5rem;
+  }
+  .sidebar-card .fa.fa-map-marker {
+    font-size: 2.8rem;
+  }
+  i.fa-file-pdf-o {
+    float: left;
+    margin-right: 1rem;
   }
   button#map-report {
-    text-align: left;
-    margin: .5rem 0 .5rem 2rem;
-    cursor: pointer;
+    background-color: $white;
+    float: none;
+    margin: 0;
+    padding: 1rem 0.5rem 1rem 1.5rem;
+  }
+  .create-report {
+    float: left;
   }
 }

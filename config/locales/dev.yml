@@ -28,19 +28,24 @@ dev:
     month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
     abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic]
     formats:
-      full: " %B %d %Y"
+      full: " %b %d, %Y"
   menu:
     hubzone_program: "Programa HUBZone"
     hubzone_program_aria_label: "Programa hubzone"
     accessible_version: "Versión accesible"
     help: "Ayuda"
   map:
+    aria_label: "Está mostrando un mapa a pantalla completa"
     enter_address: "Ingresa la direccion"
     filter: "Filtrar"
   search:
     label: "Mapa de HUBZone Search Buscar"
   sidebar:
     button: "Botón de la barra lateral"
+    print_version: "Versión imprimible"
+    until: "hasta"
+    details:
+      title: "Detalles adicionales"
   api:
     success: "Éxito"
     error:
@@ -51,7 +56,7 @@ dev:
       unknown_error: "Lo sentimos. La solicitud ha fallado debido a un error interno. Vuelve a intentarlo."
   hubzone_assertions:
     qualified_by: "Calificado por: "
-    qualifications_effective: "A partir de"
+    qualifications_effective: "La calificación es válida para hoy: "
     qualified: "HUBZone Calificado"
     qualified_aria: "hubzone Calificado"
     qualified_short: "Calificado"
@@ -62,7 +67,7 @@ dev:
     expires: "Caduca"
     qct: "Zona censal"
     qct_e: "Zona censal"
-    qct_b: "BRAC Zona censal"
+    qct_brac: "BRAC Zona censal"
     qct_r: "Rediseñado Zona censal"
     qnmc: "Condado"
     qnmc_a: "Condado"
@@ -74,17 +79,29 @@ dev:
     qnmc_brac: "BRAC Condado"
     qnmc_r: "Rediseñado Condado"
     indian_lands: "Tierra Indígena"
-    brac: "rediseñado"
-    disaster_area: "Área de desastre"
+    brac: "Antigua base militare"
+    qct_qda: "Área de Desastre del Área de Censos"
+    qnmc_qda: "Área de desastre del condado"
   legend:
     title: "Leyenda"
-    aria_label: "Leyenda de hubzone"
+    qualified: "HUBZone Calificados"
+    expiring: "HUBZone caducando"
     qct: "Zona censal"
+    qnmc: "Condado"
     indian_lands: "Tierra Indígena"
     redesignated: "Rediseñado"
-    qnmc: "Condado"
     brac: "Antigua base militare"
-    brac_base: "Antigua base militare"
+    qda: "Área de desastre"
+    icon_census_tract: "Icono de la leyenda cuadrado azul oscuro"
+    icon_county: "Leyenda icono cuadrado rojo"
+    icon_indian_land: "Leyenda icono cuadrado azul brillante"
+    icon_redesignated_census: "Leyenda icono azul oscuro diagonal raya patrón"
+    icon_redesignated_county: "Icono de la leyenda patrón diagonal rojo de la raya"
+    icon_disaster_area_census: "Leyenda icono azul oscuro horizontal raya patrón"
+    icon_disaster_area_county: "Leyenda icono rojo horizontal raya patrón"
+    icon_brac_census: "Leyenda icono azul oscuro patrón punteado"
+    icon_brac_county: "Leyenda icono rojo punteado patrón"
+    icon_brac: "Leyenda icono negro punteado patrón"
   report:
     error: "Error al generar el informe"
     generating: "Generar informe..."

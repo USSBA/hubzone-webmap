@@ -10,7 +10,7 @@
   </div>
   <!-- Gov banner END -->
   <div class="usa-navbar">
-    <button class="usa-menu-btn">Menu</button>
+    <button class="usa-menu-btn" role="button" aria-label="Menu button">Menu</button>
     <div class="usa-logo" id="logo">
       <em class="usa-logo-text">
         <%= link_to( image_tag("sba-logo.png", id: "sba-logo", tabindex: 0, alt: "U.S. Small Business Administration logo"),
@@ -38,6 +38,13 @@
       </button>
       <div class="usa-nav-secondary">
         <ul class="usa-unstyled-list usa-nav-secondary-links">
+          <li>
+           <%= link_to( t('menu.help'),
+           help_path,
+           'aria-label': t('menu.help'),
+           id: "map-help-guide",
+           onclick: "HZApp.GA.openLink( '#{help_path}', 'map', 'help-link' );" ) %>
+          </li>
           <li>
             <%= link_to( t('menu.hubzone_program'),
                          "https://www.sba.gov/contracting/government-contracting-programs/hubzone-program",
