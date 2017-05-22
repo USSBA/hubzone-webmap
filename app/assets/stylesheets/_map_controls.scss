@@ -88,12 +88,12 @@ div[dir="ltr"] {
 .notification-popup.geolocation {
   margin-top: -7px;
   margin-left: -170px;
-  margin-right: 20px;
+  margin-right: 40px;
   padding: 5px;
   height: 50px;
   background: $white;
   display: none;
-  z-index: 1;
+  position: absolute;
 }
 
 .geolocation-error-button {
