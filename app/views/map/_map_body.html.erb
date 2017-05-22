@@ -23,7 +23,8 @@
      <%= render partial: "map_legend", locals: {body: nil} %>
   </div>
   <div id="geolocation" class="gmnoprint">
-    <i class="fa fa-location-arrow" aria-hidden="true"></i>
+    <%= render partial: 'geolocation_error' %>
+    <i class="geolocation-arrow fa fa-location-arrow" aria-hidden="true"></i>
     <div class="geolocation-loading">
       <div class="circle1"></div>
       <div class="circle2"></div>

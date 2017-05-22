@@ -106,3 +106,5 @@ en:
     error: "Error Generating Report"
     generating: "Generating Report..."
     created: "Report Created"
+  notification-popup:
+    geolocation: 'Cannot determine your location. For more info, refer to '

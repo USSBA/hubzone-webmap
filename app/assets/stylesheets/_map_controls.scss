@@ -75,6 +75,7 @@ div[dir="ltr"] {
   cursor: pointer;
   margin-right: 10px;
   padding: 6px 6px 5px 6px;
+  display: inline-flex;
 }
 #geolocation .fa-location-arrow {
   font-size: 1.8rem;
@@ -82,6 +83,25 @@ div[dir="ltr"] {
 }
 .geolocation-sidebar-on {
   right: 34rem !important;
+}
+.notification-popup.geolocation {
+  margin-top: -0.6rem;
+  margin-left: -26rem;
+  margin-right: 3.8rem;
+  padding: 1rem;
+  height: auto;
+  background: $white;
+  display: none;
+  position: absolute;
+  font-size: 1.4rem;
+  color: $gray;
+  cursor: default;
+}
+.geolocation-error-button {
+  float: right;
+  color: $gray;
+  font-size: 1.8rem;
+  cursor: pointer;
 }
 @media only screen and (max-width: 950px)  {
   #geolocation {
@@ -103,6 +123,9 @@ div[dir="ltr"] {
     right: 0rem !important;
   }
   .gmnoprint {
+    display: none;
+  }
+  .notification-popup.geolocation {
     display: none;
   }
 }
