@@ -2,7 +2,8 @@
 HZApp.GeoLocation = (function() {
   // GeoLocation button listener
   $(function() {
-    $('#geolocation').click(HZApp.GeoLocation.catchGeoLocationButtonClick);
+    $('.geolocation-arrow ').click(HZApp.GeoLocation.catchGeoLocationButtonClick);
+    $('.geolocation-error-button').click(HZApp.GeoLocation.hideGeolocationError);
   });
 
   return {
@@ -27,7 +28,13 @@ HZApp.GeoLocation = (function() {
     geolocationError: function() {
       $('#geolocation i').css("display", "block");
       $('.geolocation-loading').css("display", "none");
-      // window.console.log("unable to retrieve user location");
+      HZApp.GeoLocation.showGeolocationError();
+    },
+    showGeolocationError: function(){
+      $('.notification-popup.geolocation').show();
+    },
+    hideGeolocationError: function(){
+      $('.notification-popup.geolocation').hide();
     },
     moveMapToUserLocation: function(position){
       var pos = {
