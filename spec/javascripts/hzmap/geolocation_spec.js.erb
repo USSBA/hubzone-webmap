@@ -65,21 +65,21 @@ describe ('Testing geolocation operations', function() {
   });
 
   it("should show the geolocation popup on error", function(){
-    $('.notification-popup.geolocation').hide();
+    $('.error-popup.geolocation').hide();
     HZApp.GeoLocation.geolocationError();
-    expect($('.notification-popup.geolocation').is(':visible')).toBe(true);
+    expect($('.error-popup.geolocation').is(':visible')).toBe(true);
   });
 
   it("should SHOW the geolocation error popup", function(){
-    $('.notification-popup.geolocation').hide();
+    $('.error-popup.geolocation').hide();
     HZApp.GeoLocation.showGeolocationError();
-    expect($('.notification-popup.geolocation').is(':visible')).toBe(true);
+    expect($('.error-popup.geolocation').is(':visible')).toBe(true);
   });
 
   it("should HIDE the geolocation error popup", function(){
-    $('.notification-popup.geolocation').show();
+    $('.error-popup.geolocation').show();
     HZApp.GeoLocation.hideGeolocationError();
-    expect($('.notification-popup.geolocation').is(':visible')).toBe(false);
+    expect($('.error-popup.geolocation').is(':visible')).toBe(false);
   });
 
   it("should HIDE the geolocation error popup when popup is clicked", function(){
@@ -87,7 +87,7 @@ describe ('Testing geolocation operations', function() {
       HZApp.GeoLocation.hideGeolocationError();
     });
     spyOn(HZApp.GeoLocation, 'hideGeolocationError');
-    $('.notification-popup.geolocation').show();
+    $('.error-popup.geolocation').show();
     $('.geolocation-error-button').trigger('click');
     expect(HZApp.GeoLocation.hideGeolocationError.calls.count()).toEqual(1);
   });

@@ -79,7 +79,7 @@ var HZSpecHelper = (function(){
 
         //add geolocation button
         $('body').append('<div id="geolocation" class=" mock-page hidden"></div>');
-        $('#geolocation').append('<div class="notification-popup geolocation mock-page hidden"><i class="geolocation-error-button"></i> Error finding geolocation</div>');
+        $('#geolocation').append('<div class="error-popup geolocation mock-page hidden"><i class="geolocation-error-button"></i> Error finding geolocation</div>');
         $('#geolocation').append('<i class="fa fa-location-arrow" style="display: block;"></i>');
         $('#geolocation').append('<div class="geolocation-loading" style="display: none;"></i>');
 
