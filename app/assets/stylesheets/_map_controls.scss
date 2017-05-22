@@ -127,6 +127,9 @@ div[dir="ltr"] {
     display: none;
   }
   .notification-popup.geolocation {
+    margin-left: -200px;
+    margin-right: 50px;
+    position: absolute;
     display: none;
   }
 }
