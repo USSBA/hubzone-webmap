@@ -84,26 +84,25 @@ div[dir="ltr"] {
 .geolocation-sidebar-on {
   right: 34rem !important;
 }
-
 .notification-popup.geolocation {
-  margin-top: -7px;
-  margin-left: -170px;
-  margin-right: 40px;
-  padding: 5px;
-  height: 50px;
+  margin-top: -0.6rem;
+  margin-left: -26rem;
+  margin-right: 3.8rem;
+  padding: 1rem;
+  height: auto;
   background: $white;
   display: none;
   position: absolute;
+  font-size: 1.4rem;
+  color: $gray;
+  cursor: default;
 }
-
 .geolocation-error-button {
   float: right;
-  color: $gray-dark;
-  margin-left: 0.5rem;
-  margin-top: 0.1rem;
-  font-size: 1.3rem;
+  color: $gray;
+  font-size: 1.8rem;
+  cursor: pointer;
 }
-
 @media only screen and (max-width: 950px)  {
   #geolocation {
     display: block;
