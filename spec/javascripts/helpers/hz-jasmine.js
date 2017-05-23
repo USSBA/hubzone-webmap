@@ -90,6 +90,7 @@ var HZSpecHelper = (function(){
         $('#sidebar').css('display', 'none');
 
         // add additional details accordion
+        $('#sidebar').append('<table id="hubzone-qualifications" class="sidebar-qualifications" aria-live="rude" tabindex="-1"></table>');
         $('#sidebar').append('<button id="additional-details-button" class="usa-accordion-button additional-details" aria-expanded="false" aria-controls="additional-details-accordion">Additional Details</button>');
         $('#additional-details-button').append('<div id="additional-details-accordion" class="usa-accordion-content sidebar-additional-details" aria-hidden="true"><p>Qualifications</p></div');
 
