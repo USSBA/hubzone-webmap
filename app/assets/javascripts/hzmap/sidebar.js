@@ -55,6 +55,25 @@ HZApp.SidebarUtils = (function(){
       elem.attr("aria-live", "rude");
       elem.attr("tabindex", "-1");
       elem.focus();
-    }
+    },
+    bindAccordion: function (elem) {
+      elem.on('click', HZApp.SidebarUtils.triggerAccordion);
+    },
+    triggerAccordion: function(elem){
+      var accordionID = elem.currentTarget.getAttribute('aria-controls');
+      var content = $('#' + accordionID);
+      HZApp.SidebarUtils.accordionIsOpen = elem.currentTarget.getAttribute('aria-expanded');
+
+      if( HZApp.SidebarUtils.accordionIsOpen === 'false' ) {
+        HZApp.GA.track( 'map', 'sidebar', accordionID + '-open' );
+        $( 'button[aria-controls=' + accordionID + ']' ).attr('aria-expanded', 'true' );
+        content.attr('aria-hidden', 'false');
+      } else if ( HZApp.SidebarUtils.accordionIsOpen === 'true' ) {
+        HZApp.GA.track( 'map', 'sidebar', accordionID + '-close' );
+        $( 'button[aria-controls=' + accordionID + ']' ).attr('aria-expanded', 'false' );
+        content.attr('aria-hidden', 'true');
+      }
+    },
+    accordionIsOpen: 'false'
   };
 })();

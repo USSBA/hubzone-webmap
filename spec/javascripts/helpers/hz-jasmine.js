@@ -88,7 +88,12 @@ var HZSpecHelper = (function(){
         var testDiv = document.createElement('div');
         $('#sidebar').append(testDiv);
         $('#sidebar').css('display', 'none');
-        $('#sidebar').append('<table id="hubzone-qualifications" ></table>');
+
+        // add additional details accordion
+        $('#sidebar').append('<button id="additional-details-button" class="usa-accordion-button additional-details" aria-expanded="false" aria-controls="additional-details-accordion">Additional Details</button>');
+        $('#additional-details-button').append('<div id="additional-details-accordion" class="usa-accordion-content sidebar-additional-details" aria-hidden="true"><p>Qualifications</p></div');
+
+        // add sidebar utils
         $('#sidebar').append('<div class="sidebar-card map-actions">' +
                               '<button id="map-report">' +
                                 '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>' +

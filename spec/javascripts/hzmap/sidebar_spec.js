@@ -50,6 +50,44 @@ describe ('Testing sidebar operations', function() {
     });
   });
 
+  describe("additional details open/close behavior", function(){
+    // before each, set the accordion to the 'closed' state
+    beforeEach(function(){
+      $('#additional-details-button').attr('aria-expanded', 'false');
+      $('#additional-details-accordion').attr('aria-hidden', 'true');
+    });
+
+    it ("should be closed by default on sidebar open", function(){
+      sidebar.open();
+      expect(HZApp.SidebarUtils.accordionIsOpen).toBe('false');
+      expect($('#additional-details-button').attr('aria-expanded')).toEqual('false');
+      expect($('#additional-details-accordion').attr('aria-hidden')).toEqual('true');
+    });
+
+    it ("should open the additonal details panel", function(){
+      sidebar.open();
+      var accordion = $('.usa-accordion-button');
+      HZApp.SidebarUtils.bindAccordion(accordion);
+      HZApp.SidebarUtils.accordionIsOpen = 'false';
+      accordion.trigger('click');
+      expect($('#additional-details-button').attr('aria-expanded')).toEqual('true');
+      expect($('#additional-details-accordion').attr('aria-hidden')).toEqual('false');
+    });
+
+    it ("should close the additonal details panel", function(){
+      sidebar.open();
+      var accordion = $('.usa-accordion-button');
+      HZApp.SidebarUtils.bindAccordion(accordion);
+      // open the accordion before closing it
+      $('#additional-details-button').attr('aria-expanded', 'true');
+      $('#additional-details-accordion').attr('aria-hidden', 'false');
+
+      accordion.trigger('click');
+      expect($('#additional-details-button').attr('aria-expanded')).toEqual('false');
+      expect($('#additional-details-accordion').attr('aria-hidden')).toEqual('true');
+    });
+  });
+
   it ("should update the attributes on the qualifications div for the screen reader", function(){
     var hz_elem  = $('#hubzone-qualifications');
     spyOn(hz_elem, 'focus').and.callThrough();

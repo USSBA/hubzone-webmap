@@ -129,11 +129,12 @@ table th {
 .sidebar-additional-details {
   margin: 0;
 }
-.sidebar-additional-details thead th {
+.sidebar-additional-details {
   border: none;
   border-radius: 3px;
+  padding: 0;
 }
-.sidebar-additional-details tbody th {
+.additional-details-row {
   background-color: $white;
   border-top: 1px solid $gray-lightest;
   color: $gray-dark;
@@ -143,7 +144,16 @@ table th {
   display: table;
   width: 100%;
 }
-.additional-details tfoot tr td {
+
+.additional-details li {
+  margin-bottom: 0px;
+}
+
+.additional-details .usa-accordion-button {
+  background-color: $white;
+  padding: 15px;
+}
+.additional-details{
   border-left: 1px solid $gray-lightest;
   border-right: 1px solid $gray-lightest;
   border-bottom: 1px solid $gray-lightest;
@@ -151,7 +161,7 @@ table th {
   border-radius: 0 0 3px 3px;
   font-size: 1.5rem;
 }
-th.additional-details-title {
+.additional-details-title {
   background-color: $white;
   color: $gray-dark;
 }
