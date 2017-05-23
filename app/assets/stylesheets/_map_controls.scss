@@ -84,7 +84,7 @@ div[dir="ltr"] {
 .geolocation-sidebar-on {
   right: 34rem !important;
 }
-.notification-popup.geolocation {
+.error-popup.geolocation {
   margin-top: -0.6rem;
   margin-left: -26rem;
   margin-right: 3.8rem;
@@ -125,7 +125,7 @@ div[dir="ltr"] {
   .gmnoprint {
     display: none;
   }
-  .notification-popup.geolocation {
+  .error-popup.geolocation {
     margin-left: -200px;
     margin-right: 50px;
     position: absolute;

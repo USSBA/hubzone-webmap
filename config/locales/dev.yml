@@ -106,5 +106,5 @@ dev:
     error: "Error al generar el informe"
     generating: "Generar informe..."
     created: "Informe creado"
-  notification-popup:
+  error-popup:
     geolocation: 'No se puede determinar su ubicación. Para más información, consulte '

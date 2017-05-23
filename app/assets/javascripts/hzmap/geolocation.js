@@ -31,10 +31,10 @@ HZApp.GeoLocation = (function() {
       HZApp.GeoLocation.showGeolocationError();
     },
     showGeolocationError: function(){
-      $('.notification-popup.geolocation').show();
+      $('.error-popup.geolocation').show();
     },
     hideGeolocationError: function(){
-      $('.notification-popup.geolocation').hide();
+      $('.error-popup.geolocation').hide();
     },
     moveMapToUserLocation: function(position){
       var pos = {

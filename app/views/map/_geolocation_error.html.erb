@@ -1,9 +1,8 @@
-<div class="notification-popup geolocation">
+<div class="error-popup geolocation">
   <i class="geolocation-error-button fa fa-times"></i>
-  <%= t('notification-popup.geolocation') %>
+  <%= t('error-popup.geolocation') %>
   <%= link_to( t('menu.help'),
       help_path,
       'aria-label': t('menu.help'),
-      id: "map-help-guide-geolcation-error",
       onclick: "HZApp.GA.openLink( '#{help_path}', 'map', 'help-link-geolocation-error' );" ) %>.
 </div>
