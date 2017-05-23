@@ -58,8 +58,16 @@ HZApp.SidebarUtils = (function(){
     },
     bindAccordion: function (elem) {
       elem.on('click', HZApp.SidebarUtils.triggerAccordion);
+
+      var sidebarAccordionCookie = HZApp.Cookies.readCookie('hz-sbq-open');
+      if (sidebarAccordionCookie === null){
+        HZApp.Cookies.createCookie('hz-sbq-open', 'false', 2);
+      } else {
+        // console.log(sidebarAccordionCookie);
+      }
     },
     triggerAccordion: function(elem){
+
       var accordionID = elem.currentTarget.getAttribute('aria-controls');
       var content = $('#' + accordionID);
       HZApp.SidebarUtils.accordionIsOpen = elem.currentTarget.getAttribute('aria-expanded');
@@ -68,10 +76,12 @@ HZApp.SidebarUtils = (function(){
         HZApp.GA.track( 'map', 'sidebar', accordionID + '-open' );
         $( 'button[aria-controls=' + accordionID + ']' ).attr('aria-expanded', 'true' );
         content.attr('aria-hidden', 'false');
+        document.cookie = 'hz-sbq-open=true';
       } else if ( HZApp.SidebarUtils.accordionIsOpen === 'true' ) {
         HZApp.GA.track( 'map', 'sidebar', accordionID + '-close' );
         $( 'button[aria-controls=' + accordionID + ']' ).attr('aria-expanded', 'false' );
         content.attr('aria-hidden', 'true');
+        document.cookie = 'hz-sbq-open=false';
       }
     },
     accordionIsOpen: 'false'

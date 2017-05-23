@@ -62,6 +62,7 @@ describe ('Testing sidebar operations', function() {
       expect(HZApp.SidebarUtils.accordionIsOpen).toBe('false');
       expect($('#additional-details-button').attr('aria-expanded')).toEqual('false');
       expect($('#additional-details-accordion').attr('aria-hidden')).toEqual('true');
+      expect(document.cookie.match(/hz-sbq-open\=false/g)).not.toBeNull();
     });
 
     it ("should open the additonal details panel", function(){
@@ -72,6 +73,7 @@ describe ('Testing sidebar operations', function() {
       accordion.trigger('click');
       expect($('#additional-details-button').attr('aria-expanded')).toEqual('true');
       expect($('#additional-details-accordion').attr('aria-hidden')).toEqual('false');
+      expect(document.cookie.match(/hz-sbq-open\=true/g)).not.toBeNull();
     });
 
     it ("should close the additonal details panel", function(){
@@ -85,6 +87,7 @@ describe ('Testing sidebar operations', function() {
       accordion.trigger('click');
       expect($('#additional-details-button').attr('aria-expanded')).toEqual('false');
       expect($('#additional-details-accordion').attr('aria-hidden')).toEqual('true');
+      expect(document.cookie.match(/hz-sbq-open\=false/g)).not.toBeNull();
     });
   });
 
