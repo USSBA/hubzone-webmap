@@ -143,6 +143,9 @@ RSpec.describe 'The Search', type: :feature, js: true do
           end
 
           context "for any hubzone designations" do
+            before do
+              click_button 'additional-details-button'
+            end
             tquery[:response][:hubzone].each do |hubzone|
               it "should contain the correct hubzone assertions" do
                 expect(page).to have_content(t("hubzone_assertions." + hubzone[:hz_type].to_s))

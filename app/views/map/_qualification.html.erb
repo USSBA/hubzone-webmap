@@ -3,16 +3,14 @@
     expires_text = qualification["expires"].to_date < Date.today ? "expired" : "expires"
   end
 %>
-<tr>
-  <th id="<%= qualification['hz_type'] %>">
-    <div class="sidebar-layer-symbol layer-<%= qualification["hz_type"] %>"></div>
-    <div class="qualification-label-wrapper" tabindex="13">
-      <div class="qualification-label">
-        <%= t(('hubzone_assertions.' + qualification["hz_type"]).to_s) %>
-      </div>
-        <% unless qualification["expires"].nil? %>
-        <span tabindex="14" class="expires-label"><%= t('hubzone_assertions.' + expires_text) %> <%= I18n.l Date.parse(qualification["expires"]), format: :full %></span>
-        <% end %>
+<div id="<%= qualification['hz_type'] %>" class="additional-details-row">
+  <div class="sidebar-layer-symbol layer-<%= qualification["hz_type"] %>"></div>
+  <div class="qualification-label-wrapper" tabindex="13">
+    <div class="qualification-label">
+      <%= t(('hubzone_assertions.' + qualification["hz_type"]).to_s) %>
     </div>
-  </th>
-</tr>
+      <% unless qualification["expires"].nil? %>
+      <span tabindex="14" class="expires-label"><%= t('hubzone_assertions.' + expires_text) %> <%= I18n.l Date.parse(qualification["expires"]), format: :full %></span>
+      <% end %>
+  </div>
+</div>
