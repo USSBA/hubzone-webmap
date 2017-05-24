@@ -104,8 +104,6 @@ var HZSpecHelper = (function(){
           '</tr></thead>' +
           '</table>');
 
-        // add additional details accordion
-        // $('#sidebar').append('<table id="hubzone-qualifications" class="sidebar-qualifications clearable" aria-live="rude" tabindex="-1"></table>');
         $('#sidebar').append('<button id="additional-details-button" class="usa-accordion-button additional-details" aria-expanded="false" aria-controls="additional-details-accordion">Additional Details</button>');
         $('#additional-details-button').append('<div id="additional-details-accordion" class="usa-accordion-content sidebar-additional-details clearable" aria-hidden="true"><p>Qualifications</p></div');
         $('#sidebar').append('<div class="sidebar-card hubzone-status-date  clearable" tabindex="12">' +
