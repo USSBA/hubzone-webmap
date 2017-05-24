@@ -241,11 +241,11 @@ describe ('Testing map operations', function() {
   describe("it should reset the map", function() {
     beforeEach(function(){
       HZApp.Markers.hzQueryMarker = new HZApp.Constructors.HubzoneMapMarker({
-        icon: '<%= image_path 'hubzone-map-marker.svg' %>',
+        icon: '',
         scaledSize: 40
       });
       HZApp.Markers.hzUserLocation = new HZApp.Constructors.HubzoneMapMarker({
-        icon: '<%= image_path 'geolocation-marker.svg' %>',
+        icon: '',
         scaledSize: 17
       });
       HZApp.SidebarUtils.buildSidebar();

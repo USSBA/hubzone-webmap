@@ -56,7 +56,7 @@ describe ('Testing sidebar operations', function() {
       sidebar.clear();
       expect(sidebar.hasClass('hidden')).toBe(true);
       $('.clearable').each(function(i, elem) {
-        expect(elem.innerHTML).toEqual('')
+        expect(elem.innerHTML).toEqual('');
       });
     });
   });
