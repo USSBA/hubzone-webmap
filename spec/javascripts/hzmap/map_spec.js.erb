@@ -232,16 +232,16 @@ describe ('Testing map operations', function() {
   it("should bind a listener to handle clearing search + reset map", function(){
     spyOn(HZApp.MapUtils, 'resetMap');
 
-    HZApp.MapUtils.catchClearSearch('button.clear-search')
+    HZApp.MapUtils.catchClearSearch('button.clear-search');
     $('button.clear-search').click();
 
     expect(HZApp.MapUtils.resetMap.calls.count()).toEqual(1);
   });
 
   it("should handle resetting the map", function(){
-    spyOn(HZApp.Markers.hzQueryMarker, 'updateMarkers')
-    spyOn(HZApp.SidebarUtils.sidebar, 'close')
-    spyOn(HZApp.SidebarUtils.sidebar, 'clear')
+    spyOn(HZApp.Markers.hzQueryMarker, 'updateMarkers');
+    spyOn(HZApp.SidebarUtils.sidebar, 'close');
+    spyOn(HZApp.SidebarUtils.sidebar, 'clear');
 
     HZApp.MapUtils.resetMap();
 
