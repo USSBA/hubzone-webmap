@@ -30,6 +30,7 @@ describe ('Testing map operations', function() {
     spyOn(HZApp.Legend, 'buildLegend');
     spyOn(HZApp.WMTSUtils, 'initializeTiles');
     spyOn(HZApp.WMTSUtils, 'addClickListeners');
+    spyOn(HZApp.MapUtils, 'catchClearSearch');
 
     HZApp.map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
     HZApp.map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
@@ -47,6 +48,7 @@ describe ('Testing map operations', function() {
     expect(HZApp.Legend.buildLegend.calls.count()).toEqual(1);
     expect(HZApp.WMTSUtils.initializeTiles.calls.count()).toEqual(1);
     expect(HZApp.WMTSUtils.addClickListeners.calls.count()).toEqual(1);
+    expect(HZApp.MapUtils.catchClearSearch.calls.count()).toEqual(1);
   });
 
   describe("should parse a viewport to LatLngBounds", function(){
@@ -225,6 +227,15 @@ describe ('Testing map operations', function() {
     HZApp.MapUtils.updateMapTypeNames(HZApp.map);
     expect(HZApp.MapUtils.customMapTypeName.calls.count()).toEqual(HZApp.MapUtils.mapNameUpdates.length);
     expect(HZApp.map.setOptions.calls.count()).toEqual(1);
+  });
+
+  it("should handle clearing/reseting the map", function(){
+    spyOn(HZApp.MapUtils, 'resetMap');
+
+    HZApp.MapUtils.catchClearSearch('button.clear-search')
+    $('button.clear-search').click();
+
+    expect(HZApp.MapUtils.resetMap.calls.count()).toEqual(1);
   });
 
   describe("the hzBaseMapStyle style parser should produce the correct results", function(){
