@@ -50,6 +50,14 @@ describe ('Testing sidebar operations', function() {
     });
   });
 
+  describe("sidebar clearing behavior", function(){
+    it ("should empty out divs", function() {
+      sidebar.clear();
+      // expect(sidebar.hasClass('hidden')).toBe(true);
+      // expect($('#legend')[0].className).not.toContain('legend-mobile');
+    });
+  });
+
   it ("should update the attributes on the qualifications div for the screen reader", function(){
     var hz_elem  = $('#hubzone-qualifications');
     spyOn(hz_elem, 'focus').and.callThrough();
