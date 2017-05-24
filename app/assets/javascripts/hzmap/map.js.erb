@@ -37,8 +37,11 @@ function initMap() {
   //add in the WMS tiles
   HZApp.WMTSUtils.initializeTiles();
 
-  //add listener on the map for clciks
+  //add listener on the map for clicks
   HZApp.WMTSUtils.addClickListeners(HZApp.map);
+
+  //add listener to the clear search
+  HZApp.MapUtils.catchClearSearch('button[name="search-clear"]');
 
   //adds autocomplete and click listener
   HZApp.Autocomplete.createAutocomplete();

@@ -36,6 +36,17 @@ HZApp.SidebarUtils = (function(){
         $sidebar.update();
       }
     };
+    /*** Clear/reset the sidebar ***/
+    $sidebar.clear = function() {
+        $('.hubzone-sidebar-address').empty();
+        $('.hubzone-status-indicator').empty();
+        $('.sidebar-qualifications').empty();
+        $('.hubzone-sidebar-coordinates').empty();
+        $('.hubzone-until-date').empty();
+        $('.sidebar-additional-details tbody').empty();
+        $('.hubzone-status-date').empty();
+        $sidebar.addClass('hidden');
+    };
     return $sidebar;
   };
 
