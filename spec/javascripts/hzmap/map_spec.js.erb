@@ -248,6 +248,8 @@ describe ('Testing map operations', function() {
         icon: '<%= image_path 'geolocation-marker.svg' %>',
         scaledSize: 17
       });
+      HZApp.SidebarUtils.buildSidebar();
+      sidebar = HZApp.SidebarUtils.sidebar;
     });
 
     it("should handle resetting the map", function(){
