@@ -47,18 +47,18 @@
   </div>
   <div class="hubzone-sidebar-cell text">
     <div class="hubzone-sidebar-row">
-      <h2 class="hubzone-sidebar-address" tabindex="10"><%= address %></h2>
+      <h2 class="hubzone-sidebar-address clearable" tabindex="10"><%= address %></h2>
     </div>
     <% if coordinates %>
     <div class="hubzone-sidebar-row">
-      <h4 class="hubzone-sidebar-coordinates"><%= coordinates %></h4>
+      <h4 class="hubzone-sidebar-coordinates clearable"><%= coordinates %></h4>
     </div>
     <% end %>
   </div>
 </div>
 
 <div class="sidebar-card hubzone-status <%= hubzone_status_style %> <%= visibility %>">
-  <table id="hubzone-qualifications" class="sidebar-qualifications">
+  <table id="hubzone-qualifications" class="sidebar-qualifications clearable">
     <thead>
       <th class="<%= hubzone_status_style %>" scope="row">
         <div class="hubzone-status-indicator ">
@@ -77,7 +77,7 @@
       <button id="additional-details-button" class="usa-accordion-button additional-details" aria-expanded="false" aria-controls="additional-details-accordion">
         <%= t('sidebar.details.title') %>
       </button>
-      <div id="additional-details-accordion" class="usa-accordion-content sidebar-additional-details" aria-hidden="true">
+      <div id="additional-details-accordion" class="usa-accordion-content sidebar-additional-details clearable" aria-hidden="true">
         <%= render partial: "qualification", collection: hubzones %>
       </div>
     </li>
@@ -92,6 +92,6 @@
   <span id="report-waiting"></span>
 </div>
 
-<div class="sidebar-card hubzone-status-date <%= visibility %>" tabindex="12">
+<div class="sidebar-card hubzone-status-date <%= visibility %> clearable" tabindex="12">
   <%= t('hubzone_assertions.qualifications_effective') %><%= date %>
 </div>

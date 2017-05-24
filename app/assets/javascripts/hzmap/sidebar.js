@@ -36,6 +36,11 @@ HZApp.SidebarUtils = (function(){
         $sidebar.update();
       }
     };
+    /*** Clear/reset the sidebar ***/
+    $sidebar.clear = function() {
+      $('.clearable').empty();
+      $sidebar.addClass('hidden');
+    };
     return $sidebar;
   };
 

@@ -50,6 +50,17 @@ describe ('Testing sidebar operations', function() {
     });
   });
 
+
+  describe("sidebar clearing behavior", function(){
+    it ("should empty out divs", function() {
+      sidebar.clear();
+      expect(sidebar.hasClass('hidden')).toBe(true);
+      $('.clearable').each(function(i, elem) {
+        expect(elem.innerHTML).toEqual('');
+      });
+    });
+  });
+
   describe("additional details open/close behavior", function(){
     // before each, set the accordion to the 'closed' state
     beforeEach(function(){
@@ -110,7 +121,6 @@ describe ('Testing sidebar operations', function() {
       expect($('#additional-details-accordion').attr('aria-hidden')).toEqual('true');
       expect(HZApp.Cookies.getItem('hz-sbq-open')).toEqual('false');
     });
-
   });
 
   it ("should update the attributes on the qualifications div for the screen reader", function(){
