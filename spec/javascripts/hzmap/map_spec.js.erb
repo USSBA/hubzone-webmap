@@ -238,16 +238,29 @@ describe ('Testing map operations', function() {
     expect(HZApp.MapUtils.resetMap.calls.count()).toEqual(1);
   });
 
-  it("should handle resetting the map", function(){
-    spyOn(HZApp.Markers.hzQueryMarker, 'updateMarkers');
-    spyOn(HZApp.SidebarUtils.sidebar, 'close');
-    spyOn(HZApp.SidebarUtils.sidebar, 'clear');
+  describe("it should reset the map", function() {
+    beforeEach(function(){
+      HZApp.Markers.hzQueryMarker = new HZApp.Constructors.HubzoneMapMarker({
+        icon: '<%= image_path 'hubzone-map-marker.svg' %>',
+        scaledSize: 40
+      });
+      HZApp.Markers.hzUserLocation = new HZApp.Constructors.HubzoneMapMarker({
+        icon: '<%= image_path 'geolocation-marker.svg' %>',
+        scaledSize: 17
+      });
+    });
 
-    HZApp.MapUtils.resetMap();
+    it("should handle resetting the map", function(){
+      spyOn(HZApp.Markers.hzQueryMarker, 'updateMarkers');
+      spyOn(HZApp.SidebarUtils.sidebar, 'close');
+      spyOn(HZApp.SidebarUtils.sidebar, 'clear');
 
-    expect(HZApp.Markers.hzQueryMarker.updateMarkers.calls.count()).toEqual(1);
-    expect(HZApp.SidebarUtils.sidebar.close.calls.count()).toEqual(1);
-    expect(HZApp.SidebarUtils.sidebar.clear.calls.count()).toEqual(1);
+      HZApp.MapUtils.resetMap();
+
+      expect(HZApp.Markers.hzQueryMarker.updateMarkers.calls.count()).toEqual(1);
+      expect(HZApp.SidebarUtils.sidebar.close.calls.count()).toEqual(1);
+      expect(HZApp.SidebarUtils.sidebar.clear.calls.count()).toEqual(1);
+    });
   });
 
   describe("the hzBaseMapStyle style parser should produce the correct results", function(){
