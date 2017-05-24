@@ -88,13 +88,65 @@ var HZSpecHelper = (function(){
         var testDiv = document.createElement('div');
         $('#sidebar').append(testDiv);
         $('#sidebar').css('display', 'none');
-        $('#sidebar').append('<table id="hubzone-qualifications" ></table>');
-        $('#sidebar').append('<div class="sidebar-card map-actions">' +
-                              '<button id="map-report">' +
-                                '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>' +
-                                '<div class="create-report">Create Report</div>' +
-                              '</button>' +
-                            '</div>');
+        $('#sidebar').append('<button id="sidebar-button" class="usa-button"><i class="fa fa-chevron-right"></i></button>' +
+          '<label class="usa-sr-only" for="sidebar-button">Sidebar Button</label>' +
+          '<div id="sidebar-content" class="sidebar-content">' +
+          '<div class="sidebar-card search-result">' +
+          '<div class="hubzone-sidebar-cell marker">' +
+          '<i class="fa fa-map-marker" aria-hidden="true"></i>' +
+          '</div>' +
+          '<div class="hubzone-sidebar-cell text">' +
+          '<div class="hubzone-sidebar-row">' +
+          '<h2 class="hubzone-sidebar-address" tabindex="10">8 Market Pl, Baltimore, MD 21202, USA</h2>' +
+          '</div>' +
+          '<div class="hubzone-sidebar-row">' +
+          '<h4 class="hubzone-sidebar-coordinates">39.28889°, -76.60700°</h4>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '<div class="sidebar-card hubzone-status qualified-hubzone ">' +
+          '<table id="hubzone-qualifications" class="sidebar-qualifications" aria-live="rude" tabindex="-1">' +
+          '<thead>' +
+          '<tr><th class="qualified-hubzone" scope="row">' +
+          '<div class="hubzone-status-indicator ">' +
+          '<i class="fa fa-check-circle-o qualified-hubzone" aria-hidden="true"></i>' +
+          '</div>' +
+          '<div id="hubzone-status" tabindex="11" aria-label="qualified hubzone">Qualified HUBZone</div>' +
+          '<div class="hubzone-until-date"></div>' +
+          '</th>' +
+          '</tr></thead>' +
+          '</table>' +
+          '</div>' +
+          '<div class="sidebar-card additional-details ">' +
+          '<table class="sidebar-additional-details">' +
+          '<thead>' +
+          '<tr><th class="additional-details-title" scope="row">Additional Details</th>'+
+          '</tr></thead>' +
+          '<tbody>' +
+          '<tr>' +
+          '<th id="qct_e">' +
+          '<div class="sidebar-layer-symbol layer-qct_e"></div>' +
+          '<div class="qualification-label-wrapper" tabindex="13">' +
+          '<div class="qualification-label">' +
+          'Census Tract' +
+          '</div>' +
+          '</div>' +
+          '</th>' +
+          '</tr>' +
+          '</tbody>' +
+          '</table>' +
+          '</div>' +
+          '<div class="sidebar-card map-actions">' +
+          '<button id="map-report" tabindex="15">' +
+          '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>' +
+          '<div class="create-report">Printable Version</div>' +
+          '</button>' +
+          '<span id="report-waiting"></span>' +
+          '</div>' +
+          '<div class="sidebar-card hubzone-status-date " tabindex="12">' +
+          'Qualification is valid for today:  May 24, 2017' +
+          '</div>' +
+          '</div>');
       },
       destroy: function(){
         var mockElements = document.getElementsByClassName('mock-page');

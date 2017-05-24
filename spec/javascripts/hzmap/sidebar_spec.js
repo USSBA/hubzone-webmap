@@ -53,8 +53,8 @@ describe ('Testing sidebar operations', function() {
   describe("sidebar clearing behavior", function(){
     it ("should empty out divs", function() {
       sidebar.clear();
-      // expect(sidebar.hasClass('hidden')).toBe(true);
-      // expect($('#legend')[0].className).not.toContain('legend-mobile');
+      expect(sidebar.hasClass('hidden')).toBe(true);
+      expect($('.hubzone-sidebar-address')).toContain(null);
     });
   });
 
