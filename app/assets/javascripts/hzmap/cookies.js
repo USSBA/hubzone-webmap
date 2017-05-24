@@ -41,8 +41,8 @@ HZApp.Cookies = (function(){
         return (vEnd === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + vEnd);
       } else if (vEndType === 'string'){
         return "; expires=" + vEnd;
-      } else if (vEndType === 'date'){
-        return "; expires=" + vEnd.toUTCString();
+      } else {
+        return "";
       }
     },
   };
