@@ -54,7 +54,11 @@ describe ('Testing sidebar operations', function() {
     it ("should empty out divs", function() {
       sidebar.clear();
       expect(sidebar.hasClass('hidden')).toBe(true);
-      expect($('.hubzone-sidebar-address')).toContain(null);
+      expect($('.hubzone-sidebar-address')).not.toContain('8 Market Pl, Baltimore, MD 21202, USA');
+      expect($('.hubzone-sidebar-coordinates')).not.toContain('39.28889°, -76.60700°');
+      expect($('.sidebar-qualifications')).not.toContain('Qualified HUBZone');
+      expect($('.sidebar-additional-details tbody')).not.toContain('Census Tract');
+      expect($('.hubzone-status-date')).not.toContain('Qualification is valid for today:  May 24, 2017');
     });
   });
 

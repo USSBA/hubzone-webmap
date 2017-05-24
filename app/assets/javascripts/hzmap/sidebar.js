@@ -39,9 +39,8 @@ HZApp.SidebarUtils = (function(){
     /*** Clear/reset the sidebar ***/
     $sidebar.clear = function() {
         $('.hubzone-sidebar-address').empty();
-        $('.hubzone-status-indicator').empty();
+        $('.hubzone-sidebar-coordinates').empty();
         $('.sidebar-qualifications').empty();
-        $('.hubzone-until-date').empty();
         $('.sidebar-additional-details tbody').empty();
         $('.hubzone-status-date').empty();
         $sidebar.addClass('hidden');
