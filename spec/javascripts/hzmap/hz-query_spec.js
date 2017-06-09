@@ -76,6 +76,8 @@ describe ('Testing hz-query functions', function() {
             expect(HZApp.HZQuery.query.q).toBe(null);
             expect(HZApp.HZQuery.query.latlng).toEqual([response.geometry.location.lat, response.geometry.location.lng ].join(','));
             expect(HZApp.MapUtils.jumpToLocation.calls.count()).toEqual(1);
+            var display_coords = [response.geometry.location.lat.toFixed(5), response.geometry.location.lng.toFixed(5)].join(',');
+            expect(document.getElementById('search-field-small').value).toEqual(display_coords);
           });
         }
       } else {
