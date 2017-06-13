@@ -122,8 +122,23 @@ div[dir="ltr"] {
   .geolocation-sidebar-on {
     right: 0rem !important;
   }
-  .gmnoprint {
+  .gmnoprint [title~='Zoom']{
     display: none;
+  }
+  .gmnoprint .gmnoprint {
+    display: none;
+  }
+  .gmnoprint .gm-style-mtc{
+    display: none;
+  }
+  .gmnoprint .gm-svpc {
+    display: block !important;
+    position: fixed !important;
+    float: right !important;
+    top: 140px !important;
+    right: 13px !important;
+    left: auto !important;
+    transform: scale(1.25);
   }
   .error-popup.geolocation {
     margin-left: -200px;
