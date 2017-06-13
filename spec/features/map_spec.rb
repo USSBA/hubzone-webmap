@@ -20,6 +20,12 @@ describe "The HUBZone Map", type: :feature do
     expect(page).to have_selector('#sidebar')
   end
   it "should have a legend" do
-    expect(page).to have_css("#legend")
+    expect(page).to have_css('#legend')
+  end
+end
+
+describe "Google Maps elements", type: :feature, js: true do
+  it "should have a pegman", js: true do
+    expect(page).to have_css('.gm-svpc')
   end
 end
