@@ -107,7 +107,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
     }
   }
 
-  %w(en dev).each do |locale|
+  %w[en dev].each do |locale|
     context "in the #{locale} locale", vcr: true do
       before do
         I18n.locale = locale
