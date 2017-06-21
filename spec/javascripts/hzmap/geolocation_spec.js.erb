@@ -64,6 +64,34 @@ describe ('Testing geolocation operations', function() {
     expect($('.geolocation-loading').css('display')).toEqual('none');
   });
 
+  it("should show the geolocation popup on error", function(){
+    $('.error-popup.geolocation').hide();
+    HZApp.GeoLocation.geolocationError();
+    expect($('.error-popup.geolocation').is(':visible')).toBe(true);
+  });
+
+  it("should SHOW the geolocation error popup", function(){
+    $('.error-popup.geolocation').hide();
+    HZApp.GeoLocation.showGeolocationError();
+    expect($('.error-popup.geolocation').is(':visible')).toBe(true);
+  });
+
+  it("should HIDE the geolocation error popup", function(){
+    $('.error-popup.geolocation').show();
+    HZApp.GeoLocation.hideGeolocationError();
+    expect($('.error-popup.geolocation').is(':visible')).toBe(false);
+  });
+
+  it("should HIDE the geolocation error popup when popup is clicked", function(){
+    $('.geolocation-error-button').click(function(){
+      HZApp.GeoLocation.hideGeolocationError();
+    });
+    spyOn(HZApp.GeoLocation, 'hideGeolocationError');
+    $('.error-popup.geolocation').show();
+    $('.geolocation-error-button').trigger('click');
+    expect(HZApp.GeoLocation.hideGeolocationError.calls.count()).toEqual(1);
+  });
+
   it("should move to a users location", function(){
     spyOn(HZApp.map, 'setCenter');
     spyOn(HZApp.map, 'setZoom');
