@@ -82,6 +82,10 @@ en:
     brac: "Base Closure"
     qct_qda: "Census Tract Disaster Area"
     qnmc_qda: "County Disaster Area"
+    additional_details:
+      county_fips: "one"
+      tract_fips: "two"
+
   legend:
     title: "Legend"
     qualified: "Qualified HUBZones"
