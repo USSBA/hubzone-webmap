@@ -6,18 +6,13 @@
 
 describe ('Testing legend operations', function() {
   beforeEach(function(){
-    HZSpecHelper.mockPage.build();
+    fixture.cleanup();
+    this.fixtures = fixture.load("legend_fixture.html", true);
     HZApp.Legend.buildLegend(HZSpecHelper.testLayers);
-  });
-
-  afterEach(function(){
-    HZSpecHelper.mockPage.destroy();
+    testLayers = HZSpecHelper.testLayers;
   });
 
   describe ('build legend utility', function() {
-    beforeEach(function(){
-      testLayers = HZSpecHelper.testLayers;
-    });
 
     it("should run the build legend methods", function(){
       spyOn(HZApp.Legend, 'addLayerToggleListeners');
@@ -32,6 +27,9 @@ describe ('Testing legend operations', function() {
   });
 
   describe ('toggle legend visibility', function(){
+    it("legend should exist", function(){
+      expect(document.getElementById('legend')).not.toBeNull();
+    });
 
     it('should add listener for legend header click', function() {
       spyOn(HZApp.Legend, 'toggleLegendVisibility');
@@ -79,7 +77,6 @@ describe ('Testing legend operations', function() {
   });
 
   describe ('toggle layer visibility', function() {
-
     it('should listen for layer toggle checkbox click', function() {
       spyOn(HZApp.Legend, 'setLayerGroups');
       $('input#mock-checkbox').trigger('click');

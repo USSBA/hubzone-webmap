@@ -107,6 +107,11 @@ To view interactive report of test coverage, open:
 coverage/default/index.html
 ```
 
+To view live version of Teaspoon tests
+```
+localhost:3000/teaspoon
+```
+
 ### JSHint Lint Tests ###
 Tring to use this JSHint gem [JSHint](https://github.com/damian/jshint), per its docs:
 
