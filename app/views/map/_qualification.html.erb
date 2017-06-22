@@ -15,5 +15,5 @@
   </div>
 </div>
 <div class="designation-details-row">
-  <%= render partial: 'map/additional_details/' + qualification['hz_type'] %>
+  <%= render partial: 'map/additional_details/' + qualification['hz_type'], locals: {qualification: qualification } %>
 </div>
