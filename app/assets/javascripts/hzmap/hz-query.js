@@ -46,10 +46,15 @@ HZApp.HZQuery = {
       } else {
         this.query.q = null;
         this.query.latlng = [response.geometry.location.lat, response.geometry.location.lng ].join(',');
+        this.addCoordsToSearchBar(response.geometry.location);
       }
 
       this.response.geocodeLocation = response.geometry.location;
     }
+  },
+  addCoordsToSearchBar: function(coords){
+    coords = [coords.lat.toFixed(5), coords.lng.toFixed(5)].join(',');
+    document.getElementById('search-field-small').value = coords;
   },
   updateMap: function(){
     HZApp.SidebarUtils.sidebar.open();

@@ -22,6 +22,7 @@ production:
   hubzone_api_host: <%= ENV.fetch('HUBZONE_API_HOST')       { 'https://maps.certify.sba.gov' } %>
   hubzone_report_host: <%= ENV.fetch('HUBZONE_REPORT_HOST') { 'https://maps.certify.sba.gov' } %>
   hotjar_tracking_id: <%= ENV.fetch('HUBZONE_HOTJAR_TRACKING_ID') { '475424' } %>
+  google_api_key: <%= ENV.fetch('HUBZONE_GOOGLE_API_KEY') { 'AIzaSyDZ4Pva7Z3dR-lPVLbgGqX8SXWgu3wvTEg' } %>
   google_analytics_tracking_id: <%= ENV.fetch('GOOGLE_ANALYTICS_TRACKING_ID') { 'UA-19362636-24' } %>
   geom_wms_settings:
     <<: *default_wms
