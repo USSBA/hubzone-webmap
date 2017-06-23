@@ -1,10 +1,21 @@
-<b>Name</b>
-<%= t(('hubzone_assertions.' + qualification["name"])) %>
-<b>Census</b>
-<%= t(('hubzone_assertions.' + qualification["census"])) %>
-<b>Type</b>
-<%= t(('hubzone_assertions.' + qualification["type"])) %>
-<b>Class</b>
-<%= t(('hubzone_assertions.' + qualification["class"])) %>
-<b>Geographic Name Code</b>
-<%= t(('hubzone_assertions.' + qualification["gnis"].to_s)) %>
+
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.indian_land_name') %></h6>
+  <h5><%= t(('hubzone_assertions.' + qualification["name"])) %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.indian_land_census_code') %></h6>
+  <h5><%= t(('hubzone_assertions.' + qualification["census"])) %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.indian_land_type') %></h6>
+  <h5><%= t(('hubzone_assertions.' + qualification["type"])) %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.indian_land_class') %></h6>
+  <h5><%= t(('hubzone_assertions.' + qualification["class"])) %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.geographic_name_code') %></h6>
+  <h5><%= t(('hubzone_assertions.' + qualification["gnis"].to_s)) %></h5>
+</div>

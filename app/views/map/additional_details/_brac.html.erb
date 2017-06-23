@@ -1,6 +1,12 @@
-<b>Base Name</b>
-<%= t(('hubzone_assertions.' + qualification["brac_sba_name"])) %>
-<b>Base Type</b>
-<%= t(('hubzone_assertions.' + qualification["fac_type"])) %>
-<b>Base Designation</b>
-<%= t(('hubzone_assertions.' + qualification["effective"])) %>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.base_name') %></h6>
+  <h5><%= t(('hubzone_assertions.' + qualification["brac_sba_name"])) %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.base_type') %></h6>
+  <h5><%= t(('hubzone_assertions.' + qualification["fac_type"])) %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.base_designation') %></h6>
+  <h5><%= t(('hubzone_assertions.' + qualification["effective"])) %></h5>
+</div>

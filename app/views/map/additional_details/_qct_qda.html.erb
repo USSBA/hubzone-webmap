@@ -1,14 +1,28 @@
-<b>Disaster Name</b>
-<%= t(('hubzone_assertions.' + qualification["incident_description"])) %>
-<b>Disaster Declaration</b>
-<%= t(('hubzone_assertions.' + qualification["qda_declaration"])) %>
-<b>Disaster Designation</b>
-<%= t(('hubzone_assertions.' + qualification["qda_designation"])) %>
-<b>Disaster Publish
-<%= t(('hubzone_assertions.' + qualification["qda_publish"])) %>
-<b>Tract ID</b>
-<%= t(('hubzone_assertions.' + qualification["tract_fips"])) %>
-<b>County</b>
-<%= t(('hubzone_assertions.' + qualification["county"])) %>
-<b>State</b>
-<%= t(('hubzone_assertions.' + qualification["state"])) %>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.disaster_name') %></h6>
+  <h5><%= t(('hubzone_assertions.' + qualification["incident_description"])) %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.disaster_declaration') %></h6>
+  <h5><%= t(('hubzone_assertions.' + qualification["qda_declaration"])) %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.disaster_designation') %></h6>
+  <h5><%= t(('hubzone_assertions.' + qualification["qda_designation"])) %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.disaster_publish') %></h6>
+  <h5><%= t(('hubzone_assertions.' + qualification["qda_publish"])) %></h5>
+</b>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.tract_id') %></h6>
+  <h5><%= t(('hubzone_assertions.' + qualification["tract_fips"])) %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.county') %></h6>
+  <h5><%= t(('hubzone_assertions.' + qualification["county"])) %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.state') %></h6>
+  <h5><%= t(('hubzone_assertions.' + qualification["state"])) %></h5>
+</div>

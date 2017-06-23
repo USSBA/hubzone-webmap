@@ -146,30 +146,43 @@ table th {
   width: 100%;
 }
 .designation-details-row {
+  border-top: 1px solid $gray-lightest;
+}
+.designation-details-item {
   display: flex;
   flex-direction: column;
+  border-top: 1px solid $gray-lightest;
+  padding-top: .8rem;
+  padding-bottom: .8rem;
   margin-left: 5rem;
 }
-
+.designation-details-item:first-child {
+  border-top: none;
+}
+.designation-details-item h5 {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+.designation-details-item h6 {
+  margin: 0;
+  padding: 0;
+  color: $gray-light;
+  text-transform: none;
+  line-height: 1em;
+}
 .additional-details li {
   margin-bottom: 0px;
+  background-color: transparent
 }
-
+.additional-details-button {
+  background-color: transparent;
+  border-radius: 3px;
+}
 .additional-details .usa-accordion-button {
-  background-color: $white;
-  padding: 15px;
-}
-.additional-details, .additional-details:hover{
-  border-left: 1px solid $gray-lightest;
-  border-right: 1px solid $gray-lightest;
-  border-bottom: 1px solid $gray-lightest;
-  border-top: none;
-  border-radius: 0 0 3px 3px;
-  font-size: 1.5rem;
-}
-.additional-details-title {
-  background-color: $white;
   color: $gray-dark;
+  background-color: transparent;
+  padding-left: 1.5rem;
 }
 i.fa.fa-print {
   font-size: 2.5rem;

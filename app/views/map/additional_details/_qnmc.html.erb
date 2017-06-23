@@ -1,6 +1,12 @@
-<b>County ID</b>
-<%= t(('hubzone_assertions.' + qualification["county_fips"])) %>
-<b>County</b>
-<%= t(('hubzone_assertions.' + qualification["county"]).to_s) %>
-<b>State</b>
-<%= t(('hubzone_assertions.' + qualification["state"]).to_s) %>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.county_id') %></h6>
+  <h5><%= t(('hubzone_assertions.' + qualification["county_fips"])) %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.county') %></h6>
+  <h5><%= t(('hubzone_assertions.' + qualification["county"]).to_s) %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.state') %></h6>
+  <h5><%= t(('hubzone_assertions.' + qualification["state"]).to_s) %></h5>
+</div>
