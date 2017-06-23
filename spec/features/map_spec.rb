@@ -20,6 +20,6 @@ describe "The HUBZone Map", type: :feature do
     expect(page).to have_selector('#sidebar')
   end
   it "should have a legend" do
-    expect(page).to have_css("#legend")
+    expect(page).to have_selector('#legend')
   end
 end

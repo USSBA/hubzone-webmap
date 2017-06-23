@@ -26,7 +26,7 @@ var HZSpecHelper = (function(){
         //add map and header and search
         $('body').append('<div id="map" class="map-body mock-page" style="width:1200;height:600"></div>');
         $('body').append('<div id="header" class=" mock-page hidden"></div>');
-        $('#header').append('<div id="search-field-small" class="mock-page hidden"></div>');
+        $('#header').append('<div id="search-field-small" class="mock-page hidden"></div><button name="search-clear" type="reset" class="clear-search fa fa-times-circle" tabindex="0"><span class="usa-sr-only">Clear Search</span></button>');
 
         //add legend
         $('body').append('<div id="legend" class="mock-page hidden">' +
@@ -79,15 +79,39 @@ var HZSpecHelper = (function(){
 
         //add geolocation button
         $('body').append('<div id="geolocation" class=" mock-page hidden"></div>');
-        $('#geolocation').append('<i class="fa fa-location-arrow" style="display: block;"></i>')
-        $('#geolocation').append('<div class="geolocation-loading" style="display: none;"></i>')
+        $('#geolocation').append('<div class="error-popup geolocation mock-page hidden"><i class="geolocation-error-button"></i> Error finding geolocation</div>');
+        $('#geolocation').append('<i class="fa fa-location-arrow" style="display: block;"></i>');
+        $('#geolocation').append('<div class="geolocation-loading" style="display: none;"></i>');
 
         //add sidebar
         $('body').append('<div id="sidebar" class="mock-page hidden"></div>');
         var testDiv = document.createElement('div');
         $('#sidebar').append(testDiv);
         $('#sidebar').css('display', 'none');
-        $('#sidebar').append('<table id="hubzone-qualifications" ></table>');
+
+        $('#sidebar').append('<h2 class="hubzone-sidebar-address clearable" tabindex="10">8 Market Place</h2>');
+        $('#sidebar').append('<h4 class="hubzone-sidebar-coordinates clearable">-34.99999, 28.00000</h4>');
+        $('#sidebar').append('<table id="hubzone-qualifications" class="sidebar-qualifications clearable" aria-live="rude" tabindex="-1">' +
+          '<thead>' +
+          '<tr><th class="qualified-hubzone" scope="row">' +
+          '<div class="hubzone-status-indicator ">' +
+          '<i class="fa fa-check-circle-o qualified-hubzone" aria-hidden="true"></i>' +
+          '</div>' +
+          '<div id="hubzone-status" tabindex="11" aria-label="qualified hubzone">Qualified ' +
+          'HUBZone</div>' +
+          '<div class="hubzone-until-date"></div>' +
+          '</th>' +
+          '</tr></thead>' +
+          '</table>');
+
+        $('#sidebar').append('<button id="additional-details-button" class="usa-accordion-button additional-details" aria-expanded="false" aria-controls="additional-details-accordion">Additional Details</button>');
+        $('#additional-details-button').append('<div id="additional-details-accordion" class="usa-accordion-content sidebar-additional-details clearable" aria-hidden="true"><p>Qualifications</p></div');
+        $('#sidebar').append('<div class="sidebar-card hubzone-status-date  clearable" tabindex="12">' +
+          'Qualification is valid for today:  May 24, 2017' +
+          '</div>');
+
+
+        // add sidebar utils
         $('#sidebar').append('<div class="sidebar-card map-actions">' +
                               '<button id="map-report">' +
                                 '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>' +

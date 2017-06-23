@@ -102,7 +102,16 @@ HZApp.MapUtils = (function(){
       if (!HZApp.map.mapTypes[mapNameUpdate.mapType]) { return; }
       HZApp.map.mapTypes[mapNameUpdate.mapType].name = mapNameUpdate.newName;
     },
-
+    catchClearSearch: function(element) {
+      $(element).click(function() {
+        HZApp.MapUtils.resetMap();
+      });
+    },
+    resetMap: function(){
+      HZApp.Markers.hzQueryMarker.updateMarkers(null);
+      HZApp.SidebarUtils.sidebar.close();
+      HZApp.SidebarUtils.sidebar.clear();
+    },
     /*
       This is a convenience method for helping to parse the base map style object at HZApp.Styles.hzBaseMapStyle
       to the format required by the Google Maps Static API (https://developers.google.com/maps/documentation/static-maps/styling, 2017-05-05)
