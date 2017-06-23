@@ -1,1 +1,12 @@
-<%= render partial: 'map/additional_details/qnmc', locals: {qualification: qualification} %>
+<b>Base Name</b>
+<%= t(('hubzone_assertions.' + qualification["brac_sba_name"])) %>
+<b>Base Type</b>
+<%= t(('hubzone_assertions.' + qualification["fac_type"])) %>
+<b>Base Designation</b>
+<%= t(('hubzone_assertions.' + qualification["effective"])) %>
+<b>County ID</b>
+<%= t(('hubzone_assertions.' + qualification["county_fips"])) %>
+<b>County</b>
+<%= t(('hubzone_assertions.' + qualification["county_name"])) %>
+<b>State</b>
+<%= t(('hubzone_assertions.' + qualification["state"])) %>
