@@ -49,5 +49,24 @@ describe ('Testing Router operations', function() {
       });
     });
 
+    describe("setting the hash", function(){
+      var center, centerValue;
+      beforeEach(function(){
+        center = HZApp.map.getCenter();
+        centerValue = center.lat() + "," + center.lng();
+      });
+
+      it("should set the hash", function(){
+        HZApp.Router.setHash(centerValue, 'center');
+        expect(location.hash).toEqual("#center=" + centerValue);
+      });
+
+      it("should handle updates to the hash as well", function(){
+        location.hash = "zoom=15&center=0,0";
+        HZApp.Router.setHash(centerValue, 'center');
+        expect(location.hash).toEqual("#zoom=15&center=" + centerValue);
+      });
+
+    });
   });
 });

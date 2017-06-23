@@ -2,7 +2,11 @@
 HZApp.Router = (function(){
   return {
 
-    // returns a new hash string that
+    setHash: function(hashValue, hashParam){
+      location.hash = this.updateHashValue(hashValue, hashParam);
+    },
+
+    // returns a new hash string that that can be passed to location.hash
     updateHashValue: function(hashValue, hashParam){
       var newHash = hashParam + "=" + hashValue;
       var updatedHash = "";
