@@ -24,9 +24,9 @@ var HZSpecHelper = (function(){
     mockPage: {
       build: function(){
         //add map and header and search
-        $('body').append('<div id="map" class="map-body mock-page" style="width:1200;height:600"></div>');
-        $('body').append('<div id="header" class=" mock-page hidden"></div>');
-        $('#header').append('<div id="search-field-small" class="mock-page hidden"></div><button name="search-clear" type="reset" class="clear-search fa fa-times-circle" tabindex="0"><span class="usa-sr-only">Clear Search</span></button>');
+        // $('body').append('<div id="map" class="map-body mock-page" style="width:1200;height:600"></div>');
+        // $('body').append('<div id="header" class=" mock-page hidden"></div>');
+        // $('#header').append('<div id="search-field-small" class="mock-page hidden"></div><button name="search-clear" type="reset" class="clear-search fa fa-times-circle" tabindex="0"><span class="usa-sr-only">Clear Search</span></button>');
 
         //add geolocation button
         $('body').append('<div id="geolocation" class=" mock-page hidden"></div>');
@@ -134,7 +134,9 @@ var HZSpecHelper = (function(){
                     }
                   }
                 },
-                getZoom: function() {},
+                getZoom: function() {
+                  return 15;
+                },
                 fitBounds: function() {},
                 setCenter: function() {},
                 setOptions: function () {},
