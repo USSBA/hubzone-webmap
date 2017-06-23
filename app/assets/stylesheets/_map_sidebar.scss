@@ -8,6 +8,7 @@
   width: 34rem;
   transition-duration: 400ms;
   z-index: 2;
+  overflow: auto;
 }
 #sidebar.on {
   right: 0;
@@ -144,7 +145,11 @@ table th {
   display: table;
   width: 100%;
 }
-
+.designation-details-row {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5rem;
+}
 
 .additional-details li {
   margin-bottom: 0px;
@@ -201,15 +206,12 @@ button#map-report {
   background-color: $white;
 }
 .hubzone-status-date {
-  position: absolute;
-  bottom: 0px;
-  padding-top: 0.4rem;
-  padding-bottom: 0.4rem;
-  margin: 1.5rem 1.5rem 0.5rem 1.5rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
   text-align: center;
   font-weight: normal;
   font-size: 1.3rem;
-  color: #5b616b;
+  color: $gray-dark;
 }
 .sidebar-layer-symbol {
   background-repeat: repeat;
