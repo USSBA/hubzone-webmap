@@ -2,12 +2,22 @@
 HZApp.Router = (function(){
   return {
 
-    setHash: function(hashValue, hashParam){
-      location.hash = this.updateHashValue(hashValue, hashParam);
+    // allows for ignoring hashchange event callback
+    silentHashChange: false,
+
+    // main task that updates the hash,
+    setHash: function(hashParam, hashValue){
+      location.hash = this.updateHashValue(hashParam, hashValue);
+    },
+
+    // helper to get just the google map center and zoom and update the hash from that
+    setCenterAndZoomHash: function(mapCenter, zoom){
+      this.setHash('center', mapCenter.lat() + ',' + mapCenter.lng());
+      this.setHash('zoom', zoom);
     },
 
     // returns a new hash string that that can be passed to location.hash
-    updateHashValue: function(hashValue, hashParam){
+    updateHashValue: function(hashParam, hashValue){
       var newHash = hashParam + "=" + hashValue;
       var updatedHash = "";
       var hashParamRegex = new RegExp(hashParam + "=", "ig");

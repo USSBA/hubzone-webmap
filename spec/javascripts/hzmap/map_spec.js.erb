@@ -19,6 +19,7 @@ describe ('Testing map operations', function() {
   it("should create a new Google map", function() {
     spyOn(google.maps, 'Map').and.returnValue(HZApp.map);
     spyOn(google.maps.event, 'addListenerOnce');
+    spyOn(google.maps.event, 'addListener');
     spyOn(google.maps.places, 'Autocomplete');
     spyOn(google.maps, 'StyledMapType');
     spyOn(HZApp.map.mapTypes, 'set');
@@ -39,6 +40,7 @@ describe ('Testing map operations', function() {
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map.calls.count()).toEqual(1);
     expect(google.maps.event.addListenerOnce.calls.count()).toEqual(1);
+    expect(google.maps.event.addListener.calls.count()).toEqual(1);
     expect(google.maps.StyledMapType.calls.count()).toEqual(1);
     expect(HZApp.map.mapTypes.set.calls.count()).toEqual(1);
     expect(HZApp.map.setOptions.calls.count()).toEqual(1);
@@ -189,6 +191,34 @@ describe ('Testing map operations', function() {
                     '&locale=en';
     var clickUrl = HZApp.MapUtils.catchMapClick(mapClick);
     expect(clickUrl).toEqual(latlngUrl);
+  });
+
+  it("should update the url hash on map click", function(){
+    spyOn(HZApp.Router, 'setHash');
+    spyOn(HZApp.Router, 'setCenterAndZoomHash').and.callThrough();
+
+    var mapClick = {
+      latLng: {
+        lat: function(){
+          return HZSpecHelper.markerLocation.lat;
+        },
+        lng: function(){
+          return HZSpecHelper.markerLocation.lng;
+        }
+      }
+    };
+
+    HZApp.MapUtils.catchMapClick(mapClick);
+    expect(HZApp.Router.setHash.calls.count()).toEqual(3); //once each for latlng, center, zoom
+    expect(HZApp.Router.setCenterAndZoomHash.calls.count()).toEqual(1);
+  });
+
+  it("should call to the update map location hash when called", function(){
+    spyOn(HZApp.Router, 'setHash');
+    spyOn(HZApp.Router, 'setCenterAndZoomHash').and.callThrough();
+    HZApp.MapUtils.updateMapLocation();
+    expect(HZApp.Router.setHash.calls.count()).toEqual(2); //once each for center, zoom
+    expect(HZApp.Router.setCenterAndZoomHash.calls.count()).toEqual(1);
   });
 
   it("should parse single digit dates correctly", function(){
