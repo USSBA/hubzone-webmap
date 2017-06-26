@@ -1,28 +1,28 @@
 <div class="designation-details-item">
   <h6><%= t('hubzone_assertions.additional_details.disaster_name') %></h6>
-  <h5><%= t(('hubzone_assertions.' + qualification["incident_description"])) %></h5>
+  <h5><%= qualification["incident_description"].blank? ? '--' : qualification["incident_description"] %></h5>
 </div>
 <div class="designation-details-item">
   <h6><%= t('hubzone_assertions.additional_details.disaster_declaration') %></h6>
-  <h5><%= t(('hubzone_assertions.' + qualification["qda_declaration"])) %></h5>
+  <h5><%= qualification["qda_declaration"].blank? ? '--' : qualification["qda_declaration"] %></h5>
 </div>
 <div class="designation-details-item">
   <h6><%= t('hubzone_assertions.additional_details.disaster_designation') %></h6>
-  <h5><%= t(('hubzone_assertions.' + qualification["qda_designation"])) %></h5>
+  <h5><%= qualification["qda_designation"].blank? ? '--' : qualification["qda_designation"] %></h5>
 </div>
 <div class="designation-details-item">
   <h6><%= t('hubzone_assertions.additional_details.disaster_publish') %></h6>
-  <h5><%= t(('hubzone_assertions.' + qualification["qda_publish"])) %></h5>
+  <h5><%= qualification["qda_publish"].blank? ? '--' : qualification["qda_publish"] %></h5>
 </b>
 <div class="designation-details-item">
   <h6><%= t('hubzone_assertions.additional_details.tract_id') %></h6>
-  <h5><%= t(('hubzone_assertions.' + qualification["tract_fips"])) %></h5>
+  <h5><%= qualification["tract_fips"].blank? ? '--' : qualification["tract_fips"] %></h5>
 </div>
 <div class="designation-details-item">
   <h6><%= t('hubzone_assertions.additional_details.county') %></h6>
-  <h5><%= t(('hubzone_assertions.' + qualification["county"])) %></h5>
+  <h5><%= qualification["county"].blank? ? '--' : qualification["county"] %></h5>
 </div>
 <div class="designation-details-item">
   <h6><%= t('hubzone_assertions.additional_details.state') %></h6>
-  <h5><%= t(('hubzone_assertions.' + qualification["state"])) %></h5>
+  <h5><%= qualification["state"].blank? ? '--' : qualification["state"] %></h5>
 </div>
