@@ -96,7 +96,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
         hubzone: [
           {
             hz_type: "indian_lands",
-            expires: nil,
+            expires: nil
 
           },
           {
@@ -166,7 +166,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
               it "should show the correct language for expires or expired if expiration date is present" do
                 expect(page).to have_content(hubzone[:expires] < Date.today ? t('hubzone_assertions.expired') : t('hubzone_assertions.expires'))
               end
-              next unless hubzone[:name] == nil
+              next unless hubzone[:name].nil?
               it "should show additional data fields" do
                 expect(page).to have_content(hubzone[:name])
                 expect(page).to have_content(hubzone[:census])
@@ -176,7 +176,6 @@ RSpec.describe 'The Search', type: :feature, js: true do
               end
             end
           end
-
         end
       end
     end
