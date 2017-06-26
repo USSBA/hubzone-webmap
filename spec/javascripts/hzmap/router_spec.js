@@ -23,7 +23,7 @@ describe ('Testing Router operations', function() {
 
   describe("adding app data to the URL hash", function(){
 
-    describe("updating map center", function(){
+    describe("should update hash based on different data states: updating map center", function(){
 
       it("should add map center to the hash when hash is empty", function(){
         var updatedHash = HZApp.Router.updateHashValue("center", centerValue);
@@ -73,6 +73,34 @@ describe ('Testing Router operations', function() {
         location.hash = "center=62.46070,-114.35251&zoom=9";
         HZApp.Router.setCenterAndZoomHash(center, zoom);
         expect(location.hash).toEqual('#center=' + centerValue + "&zoom=" + zoom);
+      });
+    });
+
+    describe("should supporting clearing the hash", function(){
+      it("should entirely empty the hash", function(){
+        HZApp.Router.setHash("center", centerValue);
+        HZApp.Router.clearHash();
+        expect(location.hash).toEqual("");
+      });
+      it("should clear a single parameter at the front of the hash", function(){
+        HZApp.Router.setHash("center", centerValue);
+        HZApp.Router.setHash("foo", "bar");
+        HZApp.Router.clearHash("center");
+        expect(location.hash).toEqual("#foo=bar");
+      });
+      it("should clear a single parameter at the middle of the hash", function(){
+        HZApp.Router.setHash("foo", "bar");
+        HZApp.Router.setHash("center", centerValue);
+        HZApp.Router.setHash("bee", "boop");
+        HZApp.Router.clearHash("center");
+        expect(location.hash).toEqual("#foo=bar&bee=boop");
+      });
+      it("should clear a single parameter at the end of the hash", function(){
+        HZApp.Router.setHash("foo", "bar");
+        HZApp.Router.setHash("bee", "boop");
+        HZApp.Router.setHash("center", centerValue);
+        HZApp.Router.clearHash("center");
+        expect(location.hash).toEqual("#foo=bar&bee=boop");
       });
     });
   });

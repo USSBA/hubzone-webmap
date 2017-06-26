@@ -35,19 +35,22 @@ HZApp.HZQuery = {
   },
   parseResponseGeometry: function(response){
     if (response.geometry){
-      HZApp.MapUtils.jumpToLocation({
-        viewport: response.geometry.viewport,
-        location: response.geometry.location
-      });
 
       if (response.place_id){
         this.query.q = response.formatted_address;
         this.query.latlng = null;
+        HZApp.Router.clearHash('latlng');
+        HZApp.Router.setHash('q', response.search_q);
       } else {
         this.query.q = null;
         this.query.latlng = [response.geometry.location.lat, response.geometry.location.lng ].join(',');
         this.addCoordsToSearchBar(response.geometry.location);
       }
+
+      HZApp.MapUtils.jumpToLocation({
+        viewport: response.geometry.viewport,
+        location: response.geometry.location
+      });
 
       this.response.geocodeLocation = response.geometry.location;
     }

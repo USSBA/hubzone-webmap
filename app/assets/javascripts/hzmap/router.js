@@ -16,25 +16,51 @@ HZApp.Router = (function(){
       this.setHash('zoom', zoom);
     },
 
+    // clear the hash completly, or clear a parameter
+    clearHash: function(hashParam){
+      hashParam = hashParam || null;
+      if (hashParam){
+        var hashRegexInside = this.getHashRegexInside(hashParam);
+        var hashRegexOutside = this.getHashRegexOutside("&" + hashParam);
+
+        if (location.hash.match(hashRegexInside) !== null) {
+          location.hash = location.hash.replace(hashRegexInside, "");
+        } else if (location.hash.match(hashRegexOutside) !== null) {
+          location.hash = location.hash.replace(hashRegexOutside, "");
+        }
+      } else {
+        location.hash = "";
+      }
+    },
+
     // returns a new hash string that that can be passed to location.hash
     updateHashValue: function(hashParam, hashValue){
-      var newHash = hashParam + "=" + hashValue;
+      var newHash = encodeURI(hashParam + "=" + hashValue);
       var updatedHash = "";
       var hashParamRegex = new RegExp(hashParam + "=", "ig");
-      var hashRegexInside = new RegExp(hashParam + "=" + '.+?(?=\&)', "ig"); //if the hash is between # and &
-      var hashRegexOutside = new RegExp(hashParam + "=" + '.+?(?=$)', "ig"); // if the hash is between (# and end of line) or (& and end of line)
+      var hashRegexInside = this.getHashRegexInside(hashParam);
+      var hashRegexOutside = this.getHashRegexOutside(hashParam);
 
       if (location.hash === "") {
         updatedHash = newHash;
       } else if (location.hash.match(hashParamRegex) === null) {
         updatedHash = location.hash + "&" + newHash;
       } else if (location.hash.match(hashRegexInside) !== null) {
-        updatedHash = location.hash.replace(hashRegexInside, newHash);
+        updatedHash = location.hash.replace(hashRegexInside, newHash + "&");
       } else if (location.hash.match(hashRegexOutside) !== null) {
         updatedHash = location.hash.replace(hashRegexOutside, newHash);
       }
       return updatedHash;
     },
 
+    //if the hash is between # and &
+    getHashRegexInside: function(hashParam){
+      return new RegExp(hashParam + "=" + '.+?\&', "ig");
+    },
+
+    // if the hash is between (# and end of line) or (& and end of line)
+    getHashRegexOutside: function(hashParam){
+      return new RegExp(hashParam + "=" + '.*$', "ig");
+    },
   };
 })();
