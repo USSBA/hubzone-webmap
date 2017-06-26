@@ -11,7 +11,9 @@ describe ('Testing Router operations', function() {
     google = HZSpecHelper.google;
     HZApp.map = new google.maps.Map();
     center = HZApp.map.getCenter();
-    centerValue = center.lat().toFixed(6) + "," + center.lng().toFixed(6);
+    lat = center.lat().toFixed(6);
+    lng = center.lng().toFixed(6);
+    centerValue = lat + "," + lng;
     zoom = 7;
   });
 
@@ -101,6 +103,93 @@ describe ('Testing Router operations', function() {
         HZApp.Router.setHash("center", centerValue);
         HZApp.Router.clearHash("center");
         expect(location.hash).toEqual("#foo=bar&bee=boop");
+      });
+    });
+
+    describe("updating app state from the hash", function(){
+      describe("should parse the hash string into an object", function(){
+        var inputHash, newHashState;
+        var hashState = {
+          foo: 'bar',
+          bar: 'baz',
+          this: 'that'
+        };
+        it("should correctly parse a normal hash", function(){
+          inputHash = "#foo=bar&bar=baz&this=that";
+          newHashState = HZApp.Router.unpackHash(inputHash);
+          Object.keys(hashState).forEach(function(key){
+            expect(newHashState[key]).toBeDefined();
+            expect(newHashState[key]).toEqual(hashState[key]);
+          });
+        });
+        it("should be okay with a weird hash", function(){
+          inputHash = "foo=bar&bar=baz&this=that";
+          newHashState = HZApp.Router.unpackHash(inputHash);
+          Object.keys(hashState).forEach(function(key){
+            expect(newHashState[key]).toBeDefined();
+            expect(newHashState[key]).toEqual(hashState[key]);
+          });
+        });
+        ["foo", "", null, undefined].map(function(state){
+          it("should be okay with an empty hash: " + state, function(){
+            inputHash = state;
+            newHashState = HZApp.Router.unpackHash(inputHash);
+            expect(newHashState).not.toBe();
+          });
+        });
+      });
+
+      describe("should unpack the hash to the get the initial map state", function(){
+        var mockHash, newLocation;
+        var initialMapLocation = {
+          center: {
+            lat: 39.8282,
+            lng: -98.5795
+          },
+          zoom: 5
+        };
+        it("should use the defaults with no hash", function(){
+          mockHash = "";
+          newLocation = HZApp.Router.unpackInitialMapLocation(initialMapLocation, mockHash);
+          expect(newLocation.center.lat).toEqual(initialMapLocation.center.lat);
+          expect(newLocation.center.lng).toEqual(initialMapLocation.center.lng);
+          expect(newLocation.zoom).toEqual(initialMapLocation.zoom);
+        });
+        it("should use center and zoom when present", function(){
+          mockHash = "#center=" + centerValue + "&zoom=" + zoom;
+          newLocation = HZApp.Router.unpackInitialMapLocation(initialMapLocation, mockHash);
+          expect(newLocation.center.lat).toEqual(parseFloat(lat));
+          expect(newLocation.center.lng).toEqual(parseFloat(lng));
+          expect(newLocation.zoom).toEqual(zoom);
+        });
+        it("should use zoom when present", function(){
+          mockHash = "#zoom=" + zoom;
+          newLocation = HZApp.Router.unpackInitialMapLocation(initialMapLocation, mockHash);
+          expect(newLocation.center.lat).toEqual(initialMapLocation.center.lat);
+          expect(newLocation.center.lng).toEqual(initialMapLocation.center.lng);
+          expect(newLocation.zoom).toEqual(zoom);
+        });
+        it("should use center when present", function(){
+          mockHash = "#center=" + centerValue;
+          newLocation = HZApp.Router.unpackInitialMapLocation(initialMapLocation, mockHash);
+          expect(newLocation.center.lat).toEqual(parseFloat(lat));
+          expect(newLocation.center.lng).toEqual(parseFloat(lng));
+          expect(newLocation.zoom).toEqual(initialMapLocation.zoom);
+        });
+        it("should ignore garbage", function(){
+          mockHash = "#center=foo&zoom=bar";
+          newLocation = HZApp.Router.unpackInitialMapLocation(initialMapLocation, mockHash);
+          expect(newLocation.center.lat).toEqual(initialMapLocation.center.lat);
+          expect(newLocation.center.lng).toEqual(initialMapLocation.center.lng);
+          expect(newLocation.zoom).toEqual(initialMapLocation.zoom);
+        });
+        it("should out of range numbers", function(){
+          mockHash = "#center=-100,-200&zoom=22";
+          newLocation = HZApp.Router.unpackInitialMapLocation(initialMapLocation, mockHash);
+          expect(newLocation.center.lat).toEqual(initialMapLocation.center.lat);
+          expect(newLocation.center.lng).toEqual(initialMapLocation.center.lng);
+          expect(newLocation.zoom).toEqual(initialMapLocation.zoom);
+        });
       });
     });
   });
