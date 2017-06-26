@@ -124,6 +124,8 @@ HZApp.MapUtils = (function(){
       HZApp.Markers.hzQueryMarker.updateMarkers(null);
       HZApp.SidebarUtils.sidebar.close();
       HZApp.SidebarUtils.sidebar.clear();
+      HZApp.Router.clearHash('latlng');
+      HZApp.Router.clearHash('q');
     },
     /*
       This is a convenience method for helping to parse the base map style object at HZApp.Styles.hzBaseMapStyle

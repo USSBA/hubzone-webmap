@@ -286,12 +286,14 @@ describe ('Testing map operations', function() {
       spyOn(HZApp.Markers.hzQueryMarker, 'updateMarkers');
       spyOn(HZApp.SidebarUtils.sidebar, 'close');
       spyOn(HZApp.SidebarUtils.sidebar, 'clear');
+      spyOn(HZApp.Router, 'clearHash');
 
       HZApp.MapUtils.resetMap();
 
       expect(HZApp.Markers.hzQueryMarker.updateMarkers.calls.count()).toEqual(1);
       expect(HZApp.SidebarUtils.sidebar.close.calls.count()).toEqual(1);
       expect(HZApp.SidebarUtils.sidebar.clear.calls.count()).toEqual(1);
+      expect(HZApp.Router.clearHash.calls.count()).toEqual(2);
     });
   });
 
