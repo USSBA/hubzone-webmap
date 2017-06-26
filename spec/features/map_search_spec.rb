@@ -27,9 +27,11 @@ RSpec.describe 'The Search', type: :feature, js: true do
           {
             hz_type: "indian_lands",
             expires: nil,
-            county: "Apache County",
-            tract_fips: "04001944000",
-            state: "AZ"
+            name: "Navajo Nation AZ",
+            census: "042430R",
+            type: "Reservation",
+            class: "American Indian Area",
+            gnis: "42851"
           }
         ],
         geometry: {
@@ -50,7 +52,10 @@ RSpec.describe 'The Search', type: :feature, js: true do
         hubzone: [
           {
             hz_type: "qct_e",
-            expires: Date.tomorrow
+            expires: Date.tomorrow,
+            tract_fips: "21203950400",
+            county: "Rockcastle County",
+            state: "KY"
           },
           {
             hz_type: "qnmc_r",
@@ -91,7 +96,8 @@ RSpec.describe 'The Search', type: :feature, js: true do
         hubzone: [
           {
             hz_type: "indian_lands",
-            expires: nil
+            expires: nil,
+
           },
           {
             hz_type: "qct",
@@ -156,17 +162,21 @@ RSpec.describe 'The Search', type: :feature, js: true do
               it "should have the right layer symbology" do
                 expect(page).to have_css(".layer-" + tquery[:response][:hubzone][0][:hz_type])
               end
-              it "should have additional details" do
-                expect(page).to have_content(tquery[:response][:hubzone][0][:county])
-                expect(page).to have_content(tquery[:response][:hubzone][0][:tract_fips])
-                expect(page).to have_content(tquery[:response][:hubzone][0][:state])
-              end
               next unless hubzone[:expires]
               it "should show the correct language for expires or expired if expiration date is present" do
                 expect(page).to have_content(hubzone[:expires] < Date.today ? t('hubzone_assertions.expired') : t('hubzone_assertions.expires'))
               end
+              next unless hubzone[:name] == nil
+              it "should show additional data fields" do
+                expect(page).to have_content(hubzone[:name])
+                expect(page).to have_content(hubzone[:census])
+                expect(page).to have_content(hubzone[:type])
+                expect(page).to have_content(hubzone[:class])
+                expect(page).to have_content(hubzone[:gnis])
+              end
             end
           end
+
         end
       end
     end

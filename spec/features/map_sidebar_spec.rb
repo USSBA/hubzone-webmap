@@ -105,6 +105,9 @@ describe "The Sidebar", type: :feature do
     it "...and back in" do
       expect(page).not_to have_css(".gm-sidebar-on")
     end
+    it "should have an additional details panel" do
+      expect(page).to have_css(".additional-details")
+    end
   end
 
   context "with a non-qualified address", js: true do
