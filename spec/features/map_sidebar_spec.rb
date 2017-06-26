@@ -129,8 +129,5 @@ describe "The Sidebar", type: :feature do
       click_button 'hubzone-search-button'
       expect(page).to have_css("#indian_lands", visible: false)
     end
-    it "should have additional details available" do
-      expect(page).to have_css(".designation-details-row")
-    end
   end
 end

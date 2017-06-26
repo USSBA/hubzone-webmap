@@ -26,7 +26,10 @@ RSpec.describe 'The Search', type: :feature, js: true do
         hubzone: [
           {
             hz_type: "indian_lands",
-            expires: nil
+            expires: nil,
+            county: "Apache County",
+            tract_fips: "04001944000",
+            state: "AZ"
           }
         ],
         geometry: {
@@ -152,6 +155,11 @@ RSpec.describe 'The Search', type: :feature, js: true do
               end
               it "should have the right layer symbology" do
                 expect(page).to have_css(".layer-" + tquery[:response][:hubzone][0][:hz_type])
+              end
+              it "should have additional details" do
+                expect(page).to have_content(tquery[:response][:hubzone][0][:county])
+                expect(page).to have_content(tquery[:response][:hubzone][0][:tract_fips])
+                expect(page).to have_content(tquery[:response][:hubzone][0][:state])
               end
               next unless hubzone[:expires]
               it "should show the correct language for expires or expired if expiration date is present" do
