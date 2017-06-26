@@ -3,7 +3,7 @@
   if body
     address = body['formatted_address'].nil? ? t(body['message']) : body['formatted_address']
     if !body['address_components'].nil?
-      coordinates = [format('%.5f', body['geometry']['location']['lat']) + "\xC2\xB0", format('%.5f', body['geometry']['location']['lng']) + "\xC2\xB0"].join(', ')
+      coordinates = [format('%.6f', body['geometry']['location']['lat']) + "\xC2\xB0", format('%.6f', body['geometry']['location']['lng']) + "\xC2\xB0"].join(', ')
     else
       coordinates = nil
     end

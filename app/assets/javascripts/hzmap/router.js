@@ -12,7 +12,7 @@ HZApp.Router = (function(){
 
     // helper to get just the google map center and zoom and update the hash from that
     setCenterAndZoomHash: function(mapCenter, zoom){
-      this.setHash('center', mapCenter.lat() + ',' + mapCenter.lng());
+      this.setHash('center', mapCenter.lat().toFixed(6) + ',' + mapCenter.lng().toFixed(6));
       this.setHash('zoom', zoom);
     },
 

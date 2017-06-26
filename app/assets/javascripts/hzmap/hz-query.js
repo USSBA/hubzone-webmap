@@ -53,7 +53,7 @@ HZApp.HZQuery = {
     }
   },
   addCoordsToSearchBar: function(coords){
-    coords = [coords.lat.toFixed(5), coords.lng.toFixed(5)].join(',');
+    coords = [coords.lat.toFixed(6), coords.lng.toFixed(6)].join(',');
     document.getElementById('search-field-small').value = coords;
   },
   updateMap: function(){
