@@ -3,12 +3,16 @@
 /* jshint undef: false */
 
 describe ('Testing Router operations', function() {
+  var center, centerValue, zoom;
   beforeEach(function(){
     location.hash = "";
     fixture.cleanup();
     this.fixtures = fixture.load("main_fixture.html", true);
     google = HZSpecHelper.google;
     HZApp.map = new google.maps.Map();
+    center = HZApp.map.getCenter();
+    centerValue = center.lat().toFixed(6) + "," + center.lng().toFixed(6);
+    zoom = 7;
   });
 
   afterEach(function(){
@@ -20,11 +24,6 @@ describe ('Testing Router operations', function() {
   describe("adding app data to the URL hash", function(){
 
     describe("updating map center", function(){
-      var center, centerValue;
-      beforeEach(function(){
-        center = HZApp.map.getCenter();
-        centerValue = center.lat() + "," + center.lng();
-      });
 
       it("should add map center to the hash when hash is empty", function(){
         var updatedHash = HZApp.Router.updateHashValue("center", centerValue);
@@ -38,24 +37,19 @@ describe ('Testing Router operations', function() {
       });
 
       it("should update map center when center is present in middle of hash", function(){
-        location.hash = "foo=bar&center=39,-76&zoom=15";
+        location.hash = "foo=bar&center=39,-76&zoom=" + zoom;
         var updatedHash = HZApp.Router.updateHashValue("center", centerValue);
-        expect(updatedHash).toEqual("#foo=bar&center=" + centerValue + "&zoom=15");
+        expect(updatedHash).toEqual("#foo=bar&center=" + centerValue + "&zoom=" + zoom);
       });
 
       it("should update map center when center is present at end of hash", function(){
-        location.hash = "foo=bar&zoom=15&center=39,-76";
+        location.hash = "foo=bar&zoom=" + zoom + "&center=39,-76";
         var updatedHash = HZApp.Router.updateHashValue("center", centerValue);
-        expect(updatedHash).toEqual("#foo=bar&zoom=15&center=" + centerValue);
+        expect(updatedHash).toEqual("#foo=bar&zoom=" + zoom + "&center=" + centerValue);
       });
     });
 
     describe("setting the hash", function(){
-      var center, centerValue;
-      beforeEach(function(){
-        center = HZApp.map.getCenter();
-        centerValue = center.lat() + "," + center.lng();
-      });
 
       it("should set the hash", function(){
         HZApp.Router.setHash("center", centerValue);
@@ -63,20 +57,13 @@ describe ('Testing Router operations', function() {
       });
 
       it("should handle updates to the hash as well", function(){
-        location.hash = "zoom=15&center=0,0";
+        location.hash = "zoom=" + zoom + "&center=0,0";
         HZApp.Router.setHash("center", centerValue);
-        expect(location.hash).toEqual("#zoom=15&center=" + centerValue);
+        expect(location.hash).toEqual("#zoom=" + zoom + "&center=" + centerValue);
       });
     });
 
     describe("updating the map center and zoom", function(){
-      var center, centerValue, zoom;
-      beforeEach(function(){
-        center = HZApp.map.getCenter();
-        centerValue = center.lat() + "," + center.lng();
-        zoom = 7;
-      });
-
       it("should set map center and zoom when empty", function(){
         HZApp.Router.setCenterAndZoomHash(center, zoom);
         expect(location.hash).toEqual('#center=' + centerValue + "&zoom=" + zoom);
