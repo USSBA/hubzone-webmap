@@ -45,7 +45,12 @@ HZApp.Router = (function(){
 
     // returns a new hash string that that can be passed to location.hash
     updateHashValue: function(hashParam, hashValue){
-      var newHash = encodeURI(hashParam + "=" + hashValue);
+      var newHash;
+      if (hashParam === 'q'){
+        newHash = hashParam + "=" + encodeURIComponent(hashValue);
+      } else {
+        newHash = hashParam + "=" + encodeURI(hashValue);
+      }
       var hashParamRegex = new RegExp(hashParam + "=", "ig");
       var hashRegexInside = this.getHashRegexInside(hashParam);
       var hashRegexOutside = this.getHashRegexOutside(hashParam);
@@ -80,7 +85,9 @@ HZApp.Router = (function(){
         if (latlng){ HZApp.MapUtils.sendMapClick(latlng); }
       },
       q: function(q){
-        console.log('q:', q);
+        HZApp.GA.trackSubmit('search', '#search-field-small');
+        document.getElementById('search-field-small').value = decodeURIComponent(q);
+        HZApp.MapUtils.sendMapSearch(decodeURIComponent(q));
       },
     },
 

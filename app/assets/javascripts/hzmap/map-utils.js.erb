@@ -10,12 +10,10 @@ HZApp.MapUtils = (function(){
 
     // send a map click to the hubzone assertion server
     sendMapClick: function(latlng){
-      var date = HZApp.MapUtils.parseDate(new Date());
-      var locale = document.documentElement.lang || 'en';
       // Log the click
       var latlng_s = latlng.lat.toFixed(6) + ',' + latlng.lng.toFixed(6);
       HZApp.GA.track( 'map', 'click', latlng_s );
-      var url = "<%= search_path %>?latlng=" + latlng_s + '&query_date=' + date + '&locale=' + locale;
+      var url = "<%= search_path %>?latlng=" + latlng_s + this.includeDateAndLocale();;
       $.ajax({
         url: url
       });
@@ -23,6 +21,20 @@ HZApp.MapUtils = (function(){
       HZApp.Router.setHash('latlng', latlng_s);
       HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom());
       return url;
+    },
+
+    sendMapSearch: function(q){
+      var url = "<%= search_path %>?search=" + q + this.includeDateAndLocale();;
+      $.ajax({
+        url: url
+      });
+      return url;
+    },
+
+    includeDateAndLocale: function(){
+      var date = HZApp.MapUtils.parseDate(new Date());
+      var locale = document.documentElement.lang || 'en';
+      return ('&query_date=' + date + '&locale=' + locale);
     },
 
     //helper to parse a javascript date because, why?
