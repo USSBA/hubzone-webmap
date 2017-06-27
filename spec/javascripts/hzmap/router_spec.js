@@ -160,6 +160,17 @@ describe ('Testing Router operations', function() {
           HZApp.Router.updateStateFromHash(mockHash);
           expect(HZApp.MapUtils.sendMapClick.calls.count()).toEqual(0);
         });
+        it("should trigger an address search with a valid string if address only", function(){
+          spyOn(HZApp.MapUtils, 'sendMapSearch');
+          spyOn(HZApp.GA, 'trackSubmit');
+          spyOn(HZApp.Router, 'setCenterAndZoomHash');
+          mockHash = "#q=8%20market%20place";
+          HZApp.Router.updateStateFromHash(mockHash);
+          expect(HZApp.MapUtils.sendMapSearch.calls.count()).toEqual(1);
+          expect(HZApp.GA.trackSubmit.calls.count()).toEqual(1);
+          expect(HZApp.Router.setCenterAndZoomHash.calls.count()).toEqual(0);
+        });
+        // it("should")
       });
 
       describe("should unpack the hash to the get the initial map state", function(){
@@ -183,6 +194,14 @@ describe ('Testing Router operations', function() {
             zoom: 5,
             useGeoLocation: true
           };
+        });
+        it("should not geolocate if hash contains a q address", function(){
+          mockHash = "#q=8+market-place";
+          newLocation = HZApp.Router.unpackInitialMapLocation(initialMapLocation, mockHash);
+          expect(newLocation.center.lat).toEqual(initialMapLocation.center.lat);
+          expect(newLocation.center.lng).toEqual(initialMapLocation.center.lng);
+          expect(newLocation.zoom).toEqual(initialMapLocation.zoom);
+          expect(newLocation.useGeoLocation).toBe(false);
         });
         it("should use the defaults with no hash", function(){
           mockHash = "";

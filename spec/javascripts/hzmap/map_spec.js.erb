@@ -9,6 +9,7 @@ describe ('Testing map operations', function() {
     google = HZSpecHelper.google;
     HZApp.map = new google.maps.Map();
     HZSpecHelper.mockPage.build();
+    location.hash = "";
   });
 
   afterEach(function(){

@@ -13,7 +13,7 @@ HZApp.MapUtils = (function(){
       // Log the click
       var latlng_s = latlng.lat.toFixed(6) + ',' + latlng.lng.toFixed(6);
       HZApp.GA.track( 'map', 'click', latlng_s );
-      var url = "<%= search_path %>?latlng=" + latlng_s + this.includeDateAndLocale();;
+      var url = "<%= search_path %>?latlng=" + latlng_s + this.includeDateAndLocale();
       $.ajax({
         url: url
       });
@@ -24,7 +24,7 @@ HZApp.MapUtils = (function(){
     },
 
     sendMapSearch: function(q){
-      var url = "<%= search_path %>?search=" + q + this.includeDateAndLocale();;
+      var url = "<%= search_path %>?search=" + q + this.includeDateAndLocale();
       $.ajax({
         url: url
       });

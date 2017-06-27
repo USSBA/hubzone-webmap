@@ -80,14 +80,17 @@ HZApp.Router = (function(){
 
     // define the actions for different hash params
     hashControllers: {
-      latlng: function(latlng_s){
+      latlng: function(latlng_s, hashState){
         var latlng = HZApp.Router.unpackValidLatLng(latlng_s) || null;
         if (latlng){ HZApp.MapUtils.sendMapClick(latlng); }
       },
-      q: function(q){
-        HZApp.GA.trackSubmit('search', '#search-field-small');
-        document.getElementById('search-field-small').value = decodeURIComponent(q);
-        HZApp.MapUtils.sendMapSearch(decodeURIComponent(q));
+      q: function(q, hashState){
+        var search = HZApp.Router.unpackValidSearch(q) || null;
+        if (search){
+          HZApp.GA.trackSubmit('search', '#search-field-small');
+          document.getElementById('search-field-small').value = search;
+          HZApp.MapUtils.sendMapSearch(search);
+        }
       },
     },
 
@@ -97,7 +100,7 @@ HZApp.Router = (function(){
         var hashState = this.unpackHash(hash);
         Object.keys(this.hashControllers).forEach(function(controller){
           if (hashState[controller]){
-            HZApp.Router.hashControllers[controller](hashState[controller]);
+            HZApp.Router.hashControllers[controller](hashState[controller], hashState);
           }
         });
       }
@@ -136,17 +139,28 @@ HZApp.Router = (function(){
       }
     },
 
-    //parse new map center, guarding for illegal values
-    //parse new map zoom, guarding for illegal values
+    // check if the hash has valid parameters
     // update useGeoLocation based on whether valid hash params were found
     checkValidHashParams: function(mapLocation, hashState){
-      var validCenter, validZoom;
-      validCenter = this.unpackValidLatLng(hashState.center);
-      validZoom = this.unpackValidZoom(hashState.zoom);
-      if (validCenter) { mapLocation.center = validCenter; }
-      if (validZoom) { mapLocation.zoom = validZoom; }
-      if (validZoom || validCenter) { mapLocation.useGeoLocation = false; }
+      var validParams = this.unpackValidParams(hashState);
+      mapLocation.center = validParams.center || mapLocation.center;
+      mapLocation.zoom = validParams.zoom || mapLocation.zoom;
+      mapLocation.useGeoLocation = this.dontGeolocate(validParams);
       return mapLocation;
+    },
+
+    // if any are present, return false to not geolocate
+    dontGeolocate: function(validParams){
+      return !(validParams.zoom || validParams.center || validParams.q);
+    },
+
+    unpackValidParams: function(hashState){
+      var validParams = {};
+      validParams['center'] = this.unpackValidLatLng(hashState.center);
+      validParams['zoom'] = this.unpackValidZoom(hashState.zoom);
+      validParams['q'] = this.unpackValidSearch(hashState.q);
+      validParams['latlng'] = this.unpackValidLatLng(hashState.latlng);
+      return validParams;
     },
 
     // lat lng pairs should be within within the valid range
@@ -166,6 +180,13 @@ HZApp.Router = (function(){
       zoom = parseInt(zoom);
       if (zoom >= 0 && zoom <= 20){
         return zoom;
+      }
+    },
+
+    // check for a valid search string
+    unpackValidSearch: function(search){
+      if (typeof(search) === 'string'){
+        return decodeURIComponent(search);
       }
     },
 
