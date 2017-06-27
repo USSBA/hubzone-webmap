@@ -34,35 +34,33 @@ HZApp.Router = (function(){
       var hashRegexInside = this.getHashRegexInside(hashParam);
       var hashRegexOutside = this.getHashRegexOutside("&" + hashParam);
 
-      var updatedHash;
       if (location.hash.match(hashRegexInside) !== null) {
-        updatedHash = location.hash.replace(hashRegexInside, "");
+        return location.hash.replace(hashRegexInside, "");
       } else if (location.hash.match(hashRegexOutside) !== null) {
-        updatedHash = location.hash.replace(hashRegexOutside, "");
+        return location.hash.replace(hashRegexOutside, "");
       } else {
-        updatedHash = location.hash;
+        return location.hash;
       }
-      return updatedHash;
     },
 
     // returns a new hash string that that can be passed to location.hash
     updateHashValue: function(hashParam, hashValue){
       var newHash = encodeURI(hashParam + "=" + hashValue);
-      var updatedHash = "";
       var hashParamRegex = new RegExp(hashParam + "=", "ig");
       var hashRegexInside = this.getHashRegexInside(hashParam);
       var hashRegexOutside = this.getHashRegexOutside(hashParam);
 
       if (this.emptyHash(location.hash)) {
-        updatedHash = newHash;
+        return newHash;
       } else if (location.hash.match(hashParamRegex) === null) {
-        updatedHash = location.hash + "&" + newHash;
+        return location.hash + "&" + newHash;
       } else if (location.hash.match(hashRegexInside) !== null) {
-        updatedHash = location.hash.replace(hashRegexInside, newHash + "&");
+        return location.hash.replace(hashRegexInside, newHash + "&");
       } else if (location.hash.match(hashRegexOutside) !== null) {
-        updatedHash = location.hash.replace(hashRegexOutside, newHash);
+        return location.hash.replace(hashRegexOutside, newHash);
+      } else {
+        return "";
       }
-      return updatedHash;
     },
 
     //if the hash is between # and &
