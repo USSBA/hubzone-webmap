@@ -1,17 +1,14 @@
 // Basic hash router module
 HZApp.Router = (function(){
 
-  // Listen on page load:
+  // still need to listen on page load to check for latlng values
   window.addEventListener('load', function(){
-    HZApp.Router.updateStateFromHash(location.hash);
+    if (!HZApp.Router.emptyHash(location.hash)){
+      HZApp.Router.updateStateFromHash(location.hash);
+    }
   });
 
   return {
-
-    // allows for ignoring hashchange event callback
-    silentHashChange: false,
-
-
     // main task that updates the hash,
     setHash: function(hashParam, hashValue){
       location.hash = this.updateHashValue(hashParam, hashValue);
@@ -48,7 +45,7 @@ HZApp.Router = (function(){
       var hashRegexInside = this.getHashRegexInside(hashParam);
       var hashRegexOutside = this.getHashRegexOutside(hashParam);
 
-      if (location.hash === "") {
+      if (this.emptyHash(location.hash)) {
         updatedHash = newHash;
       } else if (location.hash.match(hashParamRegex) === null) {
         updatedHash = location.hash + "&" + newHash;
@@ -76,6 +73,7 @@ HZApp.Router = (function(){
         var lat_lng = HZApp.Router.unpackValidLatLng(latlng) || null;
         if (lat_lng){
           HZApp.MapUtils.catchMapClick({
+            // mock a google map click event to pass to the map click function
             latLng: {
               lat: function(){
                 return lat_lng.lat;
@@ -94,7 +92,7 @@ HZApp.Router = (function(){
 
     // update the app state from the hash
     updateStateFromHash: function(hash){
-      if (hash !== ""){
+      if (!this.emptyHash(hash)){
         var hashState = this.unpackHash(hash);
         Object.keys(this.hashControllers).forEach(function(controller){
           if (hashState[controller]){
@@ -123,17 +121,29 @@ HZApp.Router = (function(){
       }
     },
 
+    // update the mapLocation object based on checking the contents of the hash
     unpackInitialMapLocation: function(mapLocation, hash){
-      if (hash !== ""){
-        var hashState = HZApp.Router.unpackHash(hash);
-        //parse new map center, guarding for illegal values
-        mapLocation.center = this.unpackValidLatLng(hashState.center) || mapLocation.center;
-        //parse new map zoom, guarding for illegal values
-        mapLocation.zoom = this.unpackValidZoom(hashState.zoom) || mapLocation.zoom;
+      if (!this.emptyHash(hash)){
+        return this.checkValidHashParams(mapLocation, HZApp.Router.unpackHash(hash));
+      } else {
+        return mapLocation;
       }
+    },
+
+    //parse new map center, guarding for illegal values
+    //parse new map zoom, guarding for illegal values
+    // update useGeoLocation based on whether valid hash params were found
+    checkValidHashParams: function(mapLocation, hashState){
+      var validCenter, validZoom;
+      validCenter = this.unpackValidLatLng(hashState.center);
+      validZoom = this.unpackValidZoom(hashState.zoom);
+      if (validCenter) { mapLocation.center = validCenter; }
+      if (validZoom) { mapLocation.zoom = validZoom; }
+      if (validZoom || validCenter) { mapLocation.useGeoLocation = false; }
       return mapLocation;
     },
 
+    // lat lng pairs should be within within the valid range
     unpackValidLatLng: function(latlng){
       if (typeof(latlng) === 'string'){
         var latLngArr = latlng.split(',');
@@ -145,11 +155,16 @@ HZApp.Router = (function(){
       }
     },
 
+    // zoom should be within valid range
     unpackValidZoom: function(zoom){
       zoom = parseInt(zoom);
       if (zoom >= 0 && zoom <= 20){
         return zoom;
       }
+    },
+
+    emptyHash: function(hash){
+      return (hash === null || hash === undefined || hash === "");
     },
 
   };

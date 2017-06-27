@@ -163,20 +163,34 @@ describe ('Testing Router operations', function() {
       });
 
       describe("should unpack the hash to the get the initial map state", function(){
-        var mockHash, newLocation;
-        var initialMapLocation = {
-          center: {
-            lat: 39.8282,
-            lng: -98.5795
-          },
-          zoom: 5
-        };
+        var mockHash, newLocation, initialMapLocation;
+        beforeEach(function(){
+          initialMapLocation = {
+            center: {
+              lat: 39.8282,
+              lng: -98.5795
+            },
+            zoom: 5,
+            useGeoLocation: true
+          };
+        });
+        afterEach(function(){
+          initialMapLocation = {
+            center: {
+              lat: 39.8282,
+              lng: -98.5795
+            },
+            zoom: 5,
+            useGeoLocation: true
+          };
+        });
         it("should use the defaults with no hash", function(){
           mockHash = "";
           newLocation = HZApp.Router.unpackInitialMapLocation(initialMapLocation, mockHash);
           expect(newLocation.center.lat).toEqual(initialMapLocation.center.lat);
           expect(newLocation.center.lng).toEqual(initialMapLocation.center.lng);
           expect(newLocation.zoom).toEqual(initialMapLocation.zoom);
+          expect(newLocation.useGeoLocation).toBe(true);
         });
         it("should use center and zoom when present", function(){
           mockHash = "#center=" + centerValue + "&zoom=" + zoom;
@@ -184,6 +198,7 @@ describe ('Testing Router operations', function() {
           expect(newLocation.center.lat).toEqual(parseFloat(lat));
           expect(newLocation.center.lng).toEqual(parseFloat(lng));
           expect(newLocation.zoom).toEqual(zoom);
+          expect(newLocation.useGeoLocation).toBe(false);
         });
         it("should use zoom when present", function(){
           mockHash = "#zoom=" + zoom;
@@ -191,6 +206,7 @@ describe ('Testing Router operations', function() {
           expect(newLocation.center.lat).toEqual(initialMapLocation.center.lat);
           expect(newLocation.center.lng).toEqual(initialMapLocation.center.lng);
           expect(newLocation.zoom).toEqual(zoom);
+          expect(newLocation.useGeoLocation).toBe(false);
         });
         it("should use center when present", function(){
           mockHash = "#center=" + centerValue;
@@ -198,6 +214,7 @@ describe ('Testing Router operations', function() {
           expect(newLocation.center.lat).toEqual(parseFloat(lat));
           expect(newLocation.center.lng).toEqual(parseFloat(lng));
           expect(newLocation.zoom).toEqual(initialMapLocation.zoom);
+          expect(newLocation.useGeoLocation).toBe(false);
         });
         it("should ignore garbage", function(){
           mockHash = "#center=foo&zoom=bar";
@@ -205,13 +222,15 @@ describe ('Testing Router operations', function() {
           expect(newLocation.center.lat).toEqual(initialMapLocation.center.lat);
           expect(newLocation.center.lng).toEqual(initialMapLocation.center.lng);
           expect(newLocation.zoom).toEqual(initialMapLocation.zoom);
+          expect(newLocation.useGeoLocation).toBe(true);
         });
-        it("should out of range numbers", function(){
+        it("should ignore out of range numbers", function(){
           mockHash = "#center=-100,-200&zoom=22";
           newLocation = HZApp.Router.unpackInitialMapLocation(initialMapLocation, mockHash);
           expect(newLocation.center.lat).toEqual(initialMapLocation.center.lat);
           expect(newLocation.center.lng).toEqual(initialMapLocation.center.lng);
           expect(newLocation.zoom).toEqual(initialMapLocation.zoom);
+          expect(newLocation.useGeoLocation).toBe(true);
         });
       });
     });
