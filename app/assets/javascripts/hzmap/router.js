@@ -11,6 +11,7 @@ HZApp.Router = (function(){
   return {
     // main task that updates the hash,
     setHash: function(hashParam, hashValue){
+
       location.hash = this.updateHashValue(hashParam, hashValue);
     },
 
@@ -45,12 +46,7 @@ HZApp.Router = (function(){
 
     // returns a new hash string that that can be passed to location.hash
     updateHashValue: function(hashParam, hashValue){
-      var newHash;
-      if (hashParam === 'q'){
-        newHash = hashParam + "=" + encodeURIComponent(hashValue);
-      } else {
-        newHash = hashParam + "=" + encodeURI(hashValue);
-      }
+      var newHash = this.encodeHash(hashParam, hashValue);
       var hashParamRegex = new RegExp(hashParam + "=", "ig");
       var hashRegexInside = this.getHashRegexInside(hashParam);
       var hashRegexOutside = this.getHashRegexOutside(hashParam);
@@ -65,6 +61,14 @@ HZApp.Router = (function(){
         return location.hash.replace(hashRegexOutside, newHash);
       } else {
         return "";
+      }
+    },
+
+    encodeHash: function(hashParam, hashValue){
+      if (hashParam === 'q'){
+        return hashParam + "=" + encodeURIComponent(hashValue);
+      } else {
+        return hashParam + "=" + encodeURI(hashValue);
       }
     },
 
@@ -96,7 +100,6 @@ HZApp.Router = (function(){
       },
     },
 
-    //
     updateMapCenterAndZoom: function(hashState){
       var zoom = HZApp.Router.unpackValidZoom(hashState.zoom) || null;
       if (zoom){
