@@ -1,24 +1,30 @@
 HZApp.MapUtils = (function(){
 
   return {
-    // turn latlng object into url
+    // catch a map latlng event into a latlng hash
     catchMapClick: function(clickEvent){
       var clicklng = clickEvent.latLng.lng();
       var clicklat = clickEvent.latLng.lat();
+      return this.sendMapClick({lat: clicklat, lng: clicklng});
+    },
+
+    // send a map click to the hubzone assertion server
+    sendMapClick: function(latlng){
       var date = HZApp.MapUtils.parseDate(new Date());
       var locale = document.documentElement.lang || 'en';
       // Log the click
-      var latlng = clicklat.toFixed(6) + ',' + clicklng.toFixed(6);
-      HZApp.GA.track( 'map', 'click', latlng );
-      var url = "<%= search_path %>?latlng=" + latlng + '&query_date=' + date + '&locale=' + locale;
+      var latlng_s = latlng.lat.toFixed(6) + ',' + latlng.lng.toFixed(6);
+      HZApp.GA.track( 'map', 'click', latlng_s );
+      var url = "<%= search_path %>?latlng=" + latlng_s + '&query_date=' + date + '&locale=' + locale;
       $.ajax({
         url: url
       });
       HZApp.Router.clearHash('q');
-      HZApp.Router.setHash('latlng', latlng);
+      HZApp.Router.setHash('latlng', latlng_s);
       HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom());
       return url;
     },
+
     //helper to parse a javascript date because, why?
     parseDate: function(date){
       var mm = date.getMonth() + 1;

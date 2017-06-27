@@ -142,23 +142,23 @@ describe ('Testing Router operations', function() {
       describe("should trigger the correct trigger depending on hash data", function(){
         var mockHash;
         it("should trigger a map click event with a good latlng hash", function(){
-          spyOn(HZApp.MapUtils, 'catchMapClick');
+          spyOn(HZApp.MapUtils, 'sendMapClick');
           mockHash = "#center=62.46070,-114.35251&zoom=9&latlng=40.188316,-98.046112";
           HZApp.Router.updateStateFromHash(mockHash);
-          expect(HZApp.MapUtils.catchMapClick.calls.count()).toEqual(1);
+          expect(HZApp.MapUtils.sendMapClick.calls.count()).toEqual(1);
         });
 
         it("should NOT trigger a map click event with a bad latlng hash", function(){
-          spyOn(HZApp.MapUtils, 'catchMapClick');
+          spyOn(HZApp.MapUtils, 'sendMapClick');
           mockHash = "#center=62.46070,-114.35251&zoom=9&latlng=blah,blah";
           HZApp.Router.updateStateFromHash(mockHash);
-          expect(HZApp.MapUtils.catchMapClick.calls.count()).toEqual(0);
+          expect(HZApp.MapUtils.sendMapClick.calls.count()).toEqual(0);
         });
         it("should NOT trigger a map click event with no latlng hash", function(){
-          spyOn(HZApp.MapUtils, 'catchMapClick');
+          spyOn(HZApp.MapUtils, 'sendMapClick');
           mockHash = "#center=62.46070,-114.35251&zoom=9";
           HZApp.Router.updateStateFromHash(mockHash);
-          expect(HZApp.MapUtils.catchMapClick.calls.count()).toEqual(0);
+          expect(HZApp.MapUtils.sendMapClick.calls.count()).toEqual(0);
         });
       });
 

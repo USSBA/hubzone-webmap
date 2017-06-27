@@ -24,17 +24,25 @@ HZApp.Router = (function(){
     clearHash: function(hashParam){
       hashParam = hashParam || null;
       if (hashParam){
-        var hashRegexInside = this.getHashRegexInside(hashParam);
-        var hashRegexOutside = this.getHashRegexOutside("&" + hashParam);
-
-        if (location.hash.match(hashRegexInside) !== null) {
-          location.hash = location.hash.replace(hashRegexInside, "");
-        } else if (location.hash.match(hashRegexOutside) !== null) {
-          location.hash = location.hash.replace(hashRegexOutside, "");
-        }
+        location.hash = this.findAndRemoveHashParam(hashParam);
       } else {
         location.hash = "";
       }
+    },
+
+    findAndRemoveHashParam: function(hashParam){
+      var hashRegexInside = this.getHashRegexInside(hashParam);
+      var hashRegexOutside = this.getHashRegexOutside("&" + hashParam);
+
+      var updatedHash;
+      if (location.hash.match(hashRegexInside) !== null) {
+        updatedHash = location.hash.replace(hashRegexInside, "");
+      } else if (location.hash.match(hashRegexOutside) !== null) {
+        updatedHash = location.hash.replace(hashRegexOutside, "");
+      } else {
+        updatedHash = location.hash;
+      }
+      return updatedHash;
     },
 
     // returns a new hash string that that can be passed to location.hash
@@ -69,21 +77,9 @@ HZApp.Router = (function(){
 
     // define the actions for different hash params
     hashControllers: {
-      latlng: function(latlng){
-        var lat_lng = HZApp.Router.unpackValidLatLng(latlng) || null;
-        if (lat_lng){
-          HZApp.MapUtils.catchMapClick({
-            // mock a google map click event to pass to the map click function
-            latLng: {
-              lat: function(){
-                return lat_lng.lat;
-              },
-              lng: function(){
-                return lat_lng.lng;
-              }
-            }
-          });
-        }
+      latlng: function(latlng_s){
+        var latlng = HZApp.Router.unpackValidLatLng(latlng_s) || null;
+        if (latlng){ HZApp.MapUtils.sendMapClick(latlng); }
       },
       q: function(q){
         console.log('q:', q);
@@ -104,20 +100,25 @@ HZApp.Router = (function(){
 
     // unpack the hash parameters and values
     unpackHash: function(hash){
-      var hashState = {};
-      if (hash === null || hash === undefined){
+      if (this.emptyHash(hash)){
         return null;
       } else {
-        var hashSplit = hash[0] === '#' ? hash.slice(1).split("&") : hash.split("&");
-        if (hashSplit.length > 0 && hashSplit !== hash){
-          hashSplit.map(function(hash){
-            var h_split = hash.split('=');
-            hashState[h_split[0]] = h_split[1];
-          });
-          return hashState;
-        } else {
-          return null;
-        }
+        return this.parseLocationHash(hash);
+      }
+    },
+
+    // parse the location hash string into an object with key, value pairs
+    parseLocationHash: function(hash){
+      var hashState = {};
+      var hashSplit = hash[0] === '#' ? hash.slice(1).split("&") : hash.split("&");
+      if (hashSplit.length > 0 && hashSplit !== hash){
+        hashSplit.map(function(hash){
+          var h_split = hash.split('=');
+          hashState[h_split[0]] = h_split[1];
+        });
+        return hashState;
+      } else {
+        return null;
       }
     },
 
