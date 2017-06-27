@@ -80,7 +80,7 @@ HZApp.Router = (function(){
 
     // define the actions for different hash params
     hashControllers: {
-      latlng: function(latlng_s, hashState){
+      latlng: function(latlng_s){
         var latlng = HZApp.Router.unpackValidLatLng(latlng_s) || null;
         if (latlng){ HZApp.MapUtils.sendMapClick(latlng); }
       },
@@ -89,9 +89,23 @@ HZApp.Router = (function(){
         if (search){
           HZApp.GA.trackSubmit('search', '#search-field-small');
           document.getElementById('search-field-small').value = search;
-          HZApp.MapUtils.sendMapSearch(search);
+          HZApp.MapUtils.sendMapSearch(search, function(){
+            HZApp.Router.updateMapCenterAndZoom(hashState);
+          });
         }
       },
+    },
+
+    //
+    updateMapCenterAndZoom: function(hashState){
+      var zoom = HZApp.Router.unpackValidZoom(hashState.zoom) || null;
+      if (zoom){
+        HZApp.map.setZoom(zoom);
+      }
+      var center = HZApp.Router.unpackValidLatLng(hashState.center) || null;
+      if (center){
+        HZApp.map.setCenter(new google.maps.LatLng(center.lat, center.lng));
+      }
     },
 
     // update the app state from the hash

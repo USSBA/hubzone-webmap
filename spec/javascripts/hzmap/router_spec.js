@@ -160,17 +160,41 @@ describe ('Testing Router operations', function() {
           HZApp.Router.updateStateFromHash(mockHash);
           expect(HZApp.MapUtils.sendMapClick.calls.count()).toEqual(0);
         });
-        it("should trigger an address search with a valid string if address only", function(){
-          spyOn(HZApp.MapUtils, 'sendMapSearch');
+        it("should trigger an address search with a valid string", function(){
+          spyOn(HZApp.MapUtils, 'sendMapSearch').and.callThrough();
           spyOn(HZApp.GA, 'trackSubmit');
-          spyOn(HZApp.Router, 'setCenterAndZoomHash');
           mockHash = "#q=8%20market%20place";
           HZApp.Router.updateStateFromHash(mockHash);
           expect(HZApp.MapUtils.sendMapSearch.calls.count()).toEqual(1);
           expect(HZApp.GA.trackSubmit.calls.count()).toEqual(1);
-          expect(HZApp.Router.setCenterAndZoomHash.calls.count()).toEqual(0);
         });
-        // it("should")
+        it("should update the map zoom if zoom hash is present", function(){
+          spyOn(HZApp.map, 'setZoom');
+          spyOn(HZApp.map, 'setCenter');
+          mockHash = "#q=8%20market%20place&zoom=15";
+          var hashState = HZApp.Router.unpackHash(mockHash);
+          HZApp.Router.updateMapCenterAndZoom(hashState);
+          expect(HZApp.map.setZoom.calls.count()).toEqual(1);
+          expect(HZApp.map.setCenter.calls.count()).toEqual(0);
+        });
+        it("should update the map center if center hash is present", function(){
+          spyOn(HZApp.map, 'setZoom');
+          spyOn(HZApp.map, 'setCenter');
+          mockHash = "#q=8%20market%20place&center=15,-15";
+          var hashState = HZApp.Router.unpackHash(mockHash);
+          HZApp.Router.updateMapCenterAndZoom(hashState);
+          expect(HZApp.map.setZoom.calls.count()).toEqual(0);
+          expect(HZApp.map.setCenter.calls.count()).toEqual(1);
+        });
+        it("should update the map center and zoom if both  present", function(){
+          spyOn(HZApp.map, 'setZoom');
+          spyOn(HZApp.map, 'setCenter');
+          mockHash = "#q=8%20market%20place&center=15,-15&zoom=8";
+          var hashState = HZApp.Router.unpackHash(mockHash);
+          HZApp.Router.updateMapCenterAndZoom(hashState);
+          expect(HZApp.map.setZoom.calls.count()).toEqual(1);
+          expect(HZApp.map.setCenter.calls.count()).toEqual(1);
+        });
       });
 
       describe("should unpack the hash to the get the initial map state", function(){

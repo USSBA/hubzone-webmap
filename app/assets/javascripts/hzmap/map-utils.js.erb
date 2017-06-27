@@ -23,10 +23,12 @@ HZApp.MapUtils = (function(){
       return url;
     },
 
-    sendMapSearch: function(q){
+    sendMapSearch: function(q, callback){
+      callback = callback || null;
       var url = "<%= search_path %>?search=" + q + this.includeDateAndLocale();
       $.ajax({
-        url: url
+        url: url,
+        success: callback
       });
       return url;
     },
