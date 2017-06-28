@@ -26,7 +26,12 @@ RSpec.describe 'The Search', type: :feature, js: true do
         hubzone: [
           {
             hz_type: "indian_lands",
-            expires: nil
+            expires: nil,
+            name: "Navajo Nation AZ",
+            census: "042430R",
+            type: "Reservation",
+            class: "American Indian Area",
+            gnis: "42851"
           }
         ],
         geometry: {
@@ -47,7 +52,10 @@ RSpec.describe 'The Search', type: :feature, js: true do
         hubzone: [
           {
             hz_type: "qct_e",
-            expires: Date.tomorrow
+            expires: Date.tomorrow,
+            tract_fips: "21203950400",
+            county: "Rockcastle County",
+            state: "KY"
           },
           {
             hz_type: "qnmc_r",
@@ -89,6 +97,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
           {
             hz_type: "indian_lands",
             expires: nil
+
           },
           {
             hz_type: "qct",
@@ -156,6 +165,14 @@ RSpec.describe 'The Search', type: :feature, js: true do
               next unless hubzone[:expires]
               it "should show the correct language for expires or expired if expiration date is present" do
                 expect(page).to have_content(hubzone[:expires] < Date.today ? t('hubzone_assertions.expired') : t('hubzone_assertions.expires'))
+              end
+              next unless hubzone[:name].nil?
+              it "should show additional data fields" do
+                expect(page).to have_content(hubzone[:name])
+                expect(page).to have_content(hubzone[:census])
+                expect(page).to have_content(hubzone[:type])
+                expect(page).to have_content(hubzone[:class])
+                expect(page).to have_content(hubzone[:gnis])
               end
             end
           end
