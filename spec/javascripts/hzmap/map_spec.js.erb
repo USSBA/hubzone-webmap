@@ -195,7 +195,7 @@ describe ('Testing map operations', function() {
   });
 
   it("should update the url hash on map click", function(){
-    spyOn(HZApp.Router, 'setSingleHash');
+    spyOn(HZApp.Router, 'setHash');
     spyOn(HZApp.Router, 'setCenterAndZoomHash').and.callThrough();
 
     var mapClick = {
@@ -210,15 +210,15 @@ describe ('Testing map operations', function() {
     };
 
     HZApp.MapUtils.catchMapClick(mapClick);
-    expect(HZApp.Router.setSingleHash.calls.count()).toEqual(3); //once each for latlng, center, zoom
+    expect(HZApp.Router.setHash.calls.count()).toEqual(3); //once each for latlng, center & zoom, and once for clearing q
     expect(HZApp.Router.setCenterAndZoomHash.calls.count()).toEqual(1);
   });
 
-  it("should call to the update map location hash when called", function(){
-    spyOn(HZApp.Router, 'setSingleHash');
+  it("should call to update map location hash when called", function(){
+    spyOn(HZApp.Router, 'setHash');
     spyOn(HZApp.Router, 'setCenterAndZoomHash').and.callThrough();
     HZApp.MapUtils.updateMapLocation();
-    expect(HZApp.Router.setSingleHash.calls.count()).toEqual(2); //once each for center, zoom
+    expect(HZApp.Router.setHash.calls.count()).toEqual(1); //once combined for center, zoom
     expect(HZApp.Router.setCenterAndZoomHash.calls.count()).toEqual(1);
   });
 

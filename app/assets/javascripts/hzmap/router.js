@@ -2,47 +2,53 @@
 HZApp.Router = (function(){
 
   // still need to listen on page load to check for latlng values
-  window.addEventListener('load', function(){
-    if (!HZApp.Router.emptyHash(location.hash)){
-      HZApp.Router.updateStateFromHash(location.hash);
-    }
-  });
+  window.addEventListener('load', HZApp.Router.catchPageLoad);
+
+  // listen on hashchanges
+  window.addEventListener('hashchange', HZApp.Router.catchHashChange);
 
   return {
 
     // ################## set hash block #############################
+    silentHashChange: false,
 
     // this is the main and only point which is allowed to set the hash
-    setHash: function(hash){
-      location.hash = hash;
+    setHash: function(hash, silent){
+      HZApp.Router.silentHashChange = silent || true;
+      if (hash !== location.hash){
+        location.hash = hash;
+      }
     },
 
     // update a single hash in the hash
-    setSingleHash: function(hashParam, hashValue){
-      this.setHash(this.updateHashValue(hashParam, hashValue));
+    setSingleHash: function(hashParam, hashValue, currentHash, silent){
+      currentHash = currentHash || location.hash;
+      this.setHash(this.updateHashValue(hashParam, hashValue, currentHash), silent);
     },
 
     // helper to get just the google map center and zoom and update the hash from that
-    setCenterAndZoomHash: function(mapCenter, zoom){
-      this.setSingleHash('center', mapCenter.lat().toFixed(6) + ',' + mapCenter.lng().toFixed(6));
-      this.setSingleHash('zoom', zoom);
+    // but set them together to only trigger one event
+    setCenterAndZoomHash: function(mapCenter, zoom, silent){
+      var c_hash = this.updateHashValue('center', mapCenter.lat().toFixed(6) + ',' + mapCenter.lng().toFixed(6), location.hash);
+      var c_z_hash = this.updateHashValue('zoom', zoom, c_hash);
+      this.setHash(c_z_hash, silent);
     },
 
     // returns a new hash string that that can be passed to location.hash
-    updateHashValue: function(hashParam, hashValue){
+    updateHashValue: function(hashParam, hashValue, currentHash){
       var newHash = this.encodeHash(hashParam, hashValue);
       var hashParamRegex = new RegExp(hashParam + "=", "ig");
       var hashRegexInside = this.getHashRegexInside(hashParam);
       var hashRegexOutside = this.getHashRegexOutside(hashParam);
 
-      if (this.emptyHash(location.hash)) {
+      if (this.emptyHash(currentHash)) {
         return newHash;
-      } else if (location.hash.match(hashParamRegex) === null) {
-        return location.hash + "&" + newHash;
-      } else if (location.hash.match(hashRegexInside) !== null) {
-        return location.hash.replace(hashRegexInside, newHash + "&");
-      } else if (location.hash.match(hashRegexOutside) !== null) {
-        return location.hash.replace(hashRegexOutside, newHash);
+      } else if (currentHash.match(hashParamRegex) === null) {
+        return currentHash + "&" + newHash;
+      } else if (currentHash.match(hashRegexInside) !== null) {
+        return currentHash.replace(hashRegexInside, newHash + "&");
+      } else if (currentHash.match(hashRegexOutside) !== null) {
+        return currentHash.replace(hashRegexOutside, newHash);
       } else {
         return "";
       }
@@ -92,6 +98,27 @@ HZApp.Router = (function(){
         return location.hash;
       }
     },
+    // #######################################################
+
+    // ################## window event listeners #############################
+
+    catchPageLoad: function(){
+      if (!HZApp.Router.emptyHash(location.hash)){
+        HZApp.Router.silentHashChange = true;
+        HZApp.Router.updateStateFromHash(location.hash);
+      }
+    },
+
+    // catch and flow control hash changes
+    catchHashChange: function(){
+
+      if (HZApp.Router.silentHashChange) {
+        HZApp.Router.silentHashChange = false;
+      } else {
+        HZApp.Router.updateStateFromHash(location.hash);
+      }
+    },
+
     // #######################################################
 
     // ################## update state from hash block #############################

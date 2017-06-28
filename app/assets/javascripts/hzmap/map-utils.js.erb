@@ -128,7 +128,7 @@ HZApp.MapUtils = (function(){
 
     // map idle listener callback for updatig the map url route when the page is done moving
     updateMapLocation: function(){
-      HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom());
+      HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), true);
     },
 
     customMapTypeName: function(mapNameUpdate){

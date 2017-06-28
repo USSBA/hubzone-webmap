@@ -25,28 +25,66 @@ describe ('Testing Router operations', function() {
 
   describe("adding app data to the URL hash", function(){
 
+    describe("should handle window events", function(){
+      describe("should handle page loads", function(){
+        it("should not update the state of the app if the hash is empty on page load", function(){
+          spyOn(HZApp.Router, 'updateStateFromHash');
+          location.hash = "";
+          HZApp.Router.catchPageLoad();
+          expect(HZApp.Router.updateStateFromHash.calls.count()).toEqual(0);
+        });
+        it("should try to update the state of the app if the hash is empty on page load", function(){
+          spyOn(HZApp.Router, 'updateStateFromHash');
+          location.hash = "#foo=bar";
+          HZApp.Router.catchPageLoad();
+          expect(HZApp.Router.updateStateFromHash.calls.count()).toEqual(1);
+        });
+      });
+
+      describe("should handle hash changes", function(){
+        it("should not propagate updates if silent is true", function(){
+          spyOn(HZApp.Router, 'updateStateFromHash');
+          HZApp.Router.silentHashChange = true;
+          HZApp.Router.catchHashChange();
+          expect(HZApp.Router.updateStateFromHash.calls.count()).toEqual(0);
+        });
+        it("should reset silent state if silent is true", function(){
+          HZApp.Router.silentHashChange = true;
+          HZApp.Router.catchHashChange();
+          expect(HZApp.Router.silentHashChange).toBe(false);
+        });
+        it("should propagate updates if silent is false", function(){
+          spyOn(HZApp.Router, 'updateStateFromHash');
+          HZApp.Router.silentHashChange = false;
+          HZApp.Router.catchHashChange();
+          expect(HZApp.Router.updateStateFromHash.calls.count()).toEqual(1);
+        });
+      });
+
+    });
+
     describe("should update hash based on different data states: updating map center", function(){
 
       it("should add map center to the hash when hash is empty", function(){
-        var updatedHash = HZApp.Router.updateHashValue("center", centerValue);
+        var updatedHash = HZApp.Router.updateHashValue("center", centerValue, location.hash);
         expect(updatedHash).toEqual("center=" + centerValue);
       });
 
       it("should add map center when hash is not empty but doesnt have center", function(){
         location.hash = "foo=bar";
-        var updatedHash = HZApp.Router.updateHashValue("center", centerValue);
+        var updatedHash = HZApp.Router.updateHashValue("center", centerValue, location.hash);
         expect(updatedHash).toEqual(location.hash + "&center=" + centerValue);
       });
 
       it("should update map center when center is present in middle of hash", function(){
         location.hash = "foo=bar&center=39,-76&zoom=" + zoom;
-        var updatedHash = HZApp.Router.updateHashValue("center", centerValue);
+        var updatedHash = HZApp.Router.updateHashValue("center", centerValue, location.hash);
         expect(updatedHash).toEqual("#foo=bar&center=" + centerValue + "&zoom=" + zoom);
       });
 
       it("should update map center when center is present at end of hash", function(){
         location.hash = "foo=bar&zoom=" + zoom + "&center=39,-76";
-        var updatedHash = HZApp.Router.updateHashValue("center", centerValue);
+        var updatedHash = HZApp.Router.updateHashValue("center", centerValue, location.hash);
         expect(updatedHash).toEqual("#foo=bar&zoom=" + zoom + "&center=" + centerValue);
       });
     });
