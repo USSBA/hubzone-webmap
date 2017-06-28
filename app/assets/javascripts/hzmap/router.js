@@ -118,7 +118,8 @@ HZApp.Router = (function(){
       if (HZApp.Router.silentHashChange) {
         HZApp.Router.silentHashChange = false;
       } else {
-        HZApp.Router.updateStateFromHash(location.hash);
+        console.log('update app on back behavior');
+        // HZApp.Router.updateStateFromHash(location.hash);
       }
     },
 
