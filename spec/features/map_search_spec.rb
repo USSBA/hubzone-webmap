@@ -31,7 +31,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
             census: "042430R",
             type: "Reservation",
             class: "American Indian Area",
-            gnis: "42851"
+            gnis: "42999"
           }
         ],
         geometry: {
@@ -53,7 +53,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
           {
             hz_type: "qct_e",
             expires: Date.tomorrow,
-            tract_fips: "21203950400",
+            tract_fips: "21203950111",
             county: "Rockcastle County",
             state: "KY"
           },
@@ -97,31 +97,31 @@ RSpec.describe 'The Search', type: :feature, js: true do
           {
             hz_type: "qct",
             expires: nil,
-            tract_fips: "21203950400",
-            county: "Rockcastle County",
+            tract_fips: "21203950999",
+            county: "Rocklobster County",
             state: "KY"
           },
           {
             hz_type: "qnmc",
             expires: nil,
-            county_fips: "21203950409",
+            county_fips: "21203950500",
             county: "Harford County",
             state: "MD"
           },
           {
             hz_type: "brac",
             brac_sba_name: "Central Base",
-            fac_type: "Base",
+            fac_type: "Chimney",
             effective: Date.today
           },
           {
             hz_type: "qct_brac",
-            brac_sba_name: "Central Base",
-            fac_type: "Base",
+            brac_sba_name: "Eastern Base",
+            fac_type: "Lab",
             effective: Date.today,
-            tract_fips: "21203950400",
-            county_name: "Rockcastle County",
-            state: "KY"
+            tract_fips: "21203950222",
+            county_name: "Druid County",
+            state: "CO"
           },
           {
             hz_type: "qnmc_brac",
@@ -129,8 +129,8 @@ RSpec.describe 'The Search', type: :feature, js: true do
             fac_type: "Closed Base",
             effective: Date.today,
             county_fips: "21203950400",
-            county_name: "Montgomery County",
-            state: "MD"
+            county_name: "Village County",
+            state: "MA"
           },
           {
             hz_type: "qct_qda",
@@ -138,9 +138,9 @@ RSpec.describe 'The Search', type: :feature, js: true do
             qda_declaration: Date.today,
             qda_designation: Date.today,
             qda_publish: Date.today,
-            tract_fips: "21203950400",
-            county_name: "Rockcastle County",
-            state: "KY"
+            tract_fips: "21203950333",
+            county_name: "Castle County",
+            state: "TN"
           },
           {
             hz_type: "qnmc_qda",
@@ -150,7 +150,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
             qda_publish: Date.today,
             county_fips: "21203950410",
             county_name: "Murky County",
-            state: "KY"
+            state: "NV"
           },
           {
             hz_type: "indian_lands",
@@ -219,6 +219,22 @@ RSpec.describe 'The Search', type: :feature, js: true do
               end
               it "should have the right layer symbology" do
                 expect(page).to have_css(".layer-" + tquery[:response][:hubzone][0][:hz_type])
+              end
+              next unless hubzone[:hz_type] == 'qct'
+              it "should have qct additional details" do
+                expect(page).to have_content(hubzone[:tract_fips])
+                expect(page).to have_content(hubzone[:county])
+                expect(page).to have_content(hubzone[:state])
+              end
+              next unless hubzone[:hz_type] == 'qnmc'
+              it "should have qnmc additional details" do
+                expect(page).to have_content(hubzone[:county_fips])
+                expect(page).to have_content(hubzone[:county])
+                expect(page).to have_content(hubzone[:state])
+              end
+              next unless hubzone[:hz_type] == 'indian_lands'
+              it "should have indian lands additional details" do
+                expect(page).to have_content(hubzone[:gnis])
               end
               next unless hubzone[:expires]
               it "should show the correct language for expires or expired if expiration date is present" do
