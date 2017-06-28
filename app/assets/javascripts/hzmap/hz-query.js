@@ -40,7 +40,7 @@ HZApp.HZQuery = {
         this.query.q = response.formatted_address;
         this.query.latlng = null;
         HZApp.Router.clearHash('latlng');
-        HZApp.Router.setHash('q', response.search_q);
+        HZApp.Router.setSingleHash('q', response.search_q);
       } else {
         this.query.q = null;
         this.query.latlng = [response.geometry.location.lat, response.geometry.location.lng ].join(',');

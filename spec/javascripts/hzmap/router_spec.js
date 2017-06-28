@@ -54,13 +54,13 @@ describe ('Testing Router operations', function() {
     describe("setting the hash", function(){
 
       it("should set the hash", function(){
-        HZApp.Router.setHash("center", centerValue);
+        HZApp.Router.setSingleHash("center", centerValue);
         expect(location.hash).toEqual("#center=" + centerValue);
       });
 
       it("should handle updates to the hash as well", function(){
         location.hash = "zoom=" + zoom + "&center=0,0";
-        HZApp.Router.setHash("center", centerValue);
+        HZApp.Router.setSingleHash("center", centerValue);
         expect(location.hash).toEqual("#zoom=" + zoom + "&center=" + centerValue);
       });
     });
@@ -80,27 +80,27 @@ describe ('Testing Router operations', function() {
 
     describe("should supporting clearing the hash", function(){
       it("should entirely empty the hash", function(){
-        HZApp.Router.setHash("center", centerValue);
+        HZApp.Router.setSingleHash("center", centerValue);
         HZApp.Router.clearHash();
         expect(location.hash).toEqual("");
       });
       it("should clear a single parameter at the front of the hash", function(){
-        HZApp.Router.setHash("center", centerValue);
-        HZApp.Router.setHash("foo", "bar");
+        HZApp.Router.setSingleHash("center", centerValue);
+        HZApp.Router.setSingleHash("foo", "bar");
         HZApp.Router.clearHash("center");
         expect(location.hash).toEqual("#foo=bar");
       });
       it("should clear a single parameter at the middle of the hash", function(){
-        HZApp.Router.setHash("foo", "bar");
-        HZApp.Router.setHash("center", centerValue);
-        HZApp.Router.setHash("bee", "boop");
+        HZApp.Router.setSingleHash("foo", "bar");
+        HZApp.Router.setSingleHash("center", centerValue);
+        HZApp.Router.setSingleHash("bee", "boop");
         HZApp.Router.clearHash("center");
         expect(location.hash).toEqual("#foo=bar&bee=boop");
       });
       it("should clear a single parameter at the end of the hash", function(){
-        HZApp.Router.setHash("foo", "bar");
-        HZApp.Router.setHash("bee", "boop");
-        HZApp.Router.setHash("center", centerValue);
+        HZApp.Router.setSingleHash("foo", "bar");
+        HZApp.Router.setSingleHash("bee", "boop");
+        HZApp.Router.setSingleHash("center", centerValue);
         HZApp.Router.clearHash("center");
         expect(location.hash).toEqual("#foo=bar&bee=boop");
       });

@@ -18,7 +18,7 @@ HZApp.MapUtils = (function(){
         url: url
       });
       HZApp.Router.clearHash('q');
-      HZApp.Router.setHash('latlng', latlng_s);
+      HZApp.Router.setSingleHash('latlng', latlng_s);
       HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom());
       return url;
     },

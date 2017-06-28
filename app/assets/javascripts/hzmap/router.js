@@ -9,39 +9,23 @@ HZApp.Router = (function(){
   });
 
   return {
-    // main task that updates the hash,
-    setHash: function(hashParam, hashValue){
 
-      location.hash = this.updateHashValue(hashParam, hashValue);
+    // ################## set hash block #############################
+
+    // this is the main and only point which is allowed to set the hash
+    setHash: function(hash){
+      location.hash = hash;
+    },
+
+    // update a single hash in the hash
+    setSingleHash: function(hashParam, hashValue){
+      this.setHash(this.updateHashValue(hashParam, hashValue));
     },
 
     // helper to get just the google map center and zoom and update the hash from that
     setCenterAndZoomHash: function(mapCenter, zoom){
-      this.setHash('center', mapCenter.lat().toFixed(6) + ',' + mapCenter.lng().toFixed(6));
-      this.setHash('zoom', zoom);
-    },
-
-    // clear the hash completly, or clear a parameter
-    clearHash: function(hashParam){
-      hashParam = hashParam || null;
-      if (hashParam){
-        location.hash = this.findAndRemoveHashParam(hashParam);
-      } else {
-        location.hash = "";
-      }
-    },
-
-    findAndRemoveHashParam: function(hashParam){
-      var hashRegexInside = this.getHashRegexInside(hashParam);
-      var hashRegexOutside = this.getHashRegexOutside("&" + hashParam);
-
-      if (location.hash.match(hashRegexInside) !== null) {
-        return location.hash.replace(hashRegexInside, "");
-      } else if (location.hash.match(hashRegexOutside) !== null) {
-        return location.hash.replace(hashRegexOutside, "");
-      } else {
-        return location.hash;
-      }
+      this.setSingleHash('center', mapCenter.lat().toFixed(6) + ',' + mapCenter.lng().toFixed(6));
+      this.setSingleHash('zoom', zoom);
     },
 
     // returns a new hash string that that can be passed to location.hash
@@ -82,6 +66,55 @@ HZApp.Router = (function(){
       return new RegExp(hashParam + "=" + '.*$', "ig");
     },
 
+    // #######################################################
+
+    // ################## clear hash block #############################
+
+    // clear the hash completly, or clear a parameter
+    clearHash: function(hashParam){
+      hashParam = hashParam || null;
+      if (hashParam){
+        this.setHash(this.findAndRemoveHashParam(hashParam));
+      } else {
+        this.setHash("");
+      }
+    },
+
+    findAndRemoveHashParam: function(hashParam){
+      var hashRegexInside = this.getHashRegexInside(hashParam);
+      var hashRegexOutside = this.getHashRegexOutside("&" + hashParam);
+
+      if (location.hash.match(hashRegexInside) !== null) {
+        return location.hash.replace(hashRegexInside, "");
+      } else if (location.hash.match(hashRegexOutside) !== null) {
+        return location.hash.replace(hashRegexOutside, "");
+      } else {
+        return location.hash;
+      }
+    },
+    // #######################################################
+
+    // ################## update state from hash block #############################
+
+    // update the app state from the hash
+    updateStateFromHash: function(hash){
+      var hashState = this.unpackHash(hash);
+      Object.keys(this.hashControllers).forEach(function(controller){
+        if (hashState[controller]){
+          HZApp.Router.hashControllers[controller](hashState[controller], hashState);
+        }
+      });
+    },
+
+    // unpack the hash parameters and values
+    unpackHash: function(hash){
+      if (this.emptyHash(hash)){
+        return null;
+      } else {
+        return this.parseLocationHash(hash);
+      }
+    },
+
     // define the actions for different hash params
     hashControllers: {
       latlng: function(latlng_s){
@@ -110,27 +143,7 @@ HZApp.Router = (function(){
         HZApp.map.setCenter(new google.maps.LatLng(center.lat, center.lng));
       }
     },
-
-    // update the app state from the hash
-    updateStateFromHash: function(hash){
-      if (!this.emptyHash(hash)){
-        var hashState = this.unpackHash(hash);
-        Object.keys(this.hashControllers).forEach(function(controller){
-          if (hashState[controller]){
-            HZApp.Router.hashControllers[controller](hashState[controller], hashState);
-          }
-        });
-      }
-    },
-
-    // unpack the hash parameters and values
-    unpackHash: function(hash){
-      if (this.emptyHash(hash)){
-        return null;
-      } else {
-        return this.parseLocationHash(hash);
-      }
-    },
+    // #######################################################
 
     // parse the location hash string into an object with key, value pairs
     parseLocationHash: function(hash){
@@ -164,11 +177,6 @@ HZApp.Router = (function(){
       mapLocation.zoom = validParams.zoom || mapLocation.zoom;
       mapLocation.useGeoLocation = this.dontGeolocate(validParams);
       return mapLocation;
-    },
-
-    // if any are present, return false to not geolocate
-    dontGeolocate: function(validParams){
-      return !(validParams.zoom || validParams.center || validParams.q);
     },
 
     unpackValidParams: function(hashState){
@@ -209,6 +217,11 @@ HZApp.Router = (function(){
 
     emptyHash: function(hash){
       return (hash === null || hash === undefined || hash === "");
+    },
+
+    // if any are present, return false to not geolocate
+    dontGeolocate: function(validParams){
+      return !(validParams.zoom || validParams.center || validParams.q);
     },
 
   };
