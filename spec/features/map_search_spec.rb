@@ -97,7 +97,6 @@ RSpec.describe 'The Search', type: :feature, js: true do
           {
             hz_type: "qct",
             expires: nil,
-            expires: Date.tomorrow,
             tract_fips: "21203950400",
             county: "Rockcastle County",
             state: "KY"
@@ -216,6 +215,40 @@ RSpec.describe 'The Search', type: :feature, js: true do
             before do
               click_button 'additional-details-button'
             end
+            # next unless tquery[:search] == 'tiffany peak, co'
+            # hubzone = tquery[:response][:hubzone][0]
+            # it "should have additional details" do
+            #   puts 'hi'
+            #   expect(page).to have_content(hubzone[:tract_fips])
+            #   expect(page).to have_content(hubzone[:county])
+            #   expect(page).to have_content(hubzone[:state])
+            #   expect(page).to have_content(hubzone[:gnis])
+            # end
+              # next unless hubzone[:hz_type] == 'indian_lands'
+              # it "should show indian_lands additional details" do
+              #   puts 'in hz_type indian_lands'
+              #   puts hubzone
+              #   puts page.body
+              #   expect(page).to have_content(hubzone[:name])
+              #   expect(page).to have_content(hubzone[:type])
+              #   expect(page).to have_content(hubzone[:census])
+              #   expect(page).to have_content(hubzone[:class])
+              #   expect(page).to have_content(hubzone[:gnis])
+              # end
+              # it "should have qct additional details" do
+              #   puts page.body
+              #   puts hubzone
+              #   expect(page).to have_content(hubzone[:tract_fips])
+              #   expect(page).to have_content(hubzone[:county])
+              #   expect(page).to have_content(hubzone[:state])
+              #   expect(page).to have_content(hubzone[:name])
+              #   expect(page).to have_content(hubzone[:type])
+              #   expect(page).to have_content(hubzone[:census])
+              #   expect(page).to have_content(hubzone[:class])
+              #   expect(page).to have_content(hubzone[:gnis])
+              # end
+            # end
+
             tquery[:response][:hubzone].each do |hubzone|
               it "should contain the correct hubzone assertions" do
                 expect(page).to have_content(t("hubzone_assertions." + hubzone[:hz_type].to_s))
@@ -224,34 +257,78 @@ RSpec.describe 'The Search', type: :feature, js: true do
                 expect(page).to have_css(".layer-" + tquery[:response][:hubzone][0][:hz_type])
               end
               # todo: change this to be 1 it per hubzone designation
-              next unless tquery[:search] == 'tiffany peak, co'
-              puts 'Hi just tiffanty peak'
-              next unless tquery[:response][:hubzone][0][:hz_type] == 'indian_lands'
-              it "should show additional data fields" do
-                # byebug
-                puts 'hi, only searching fiffany peak, co brac'
-                expect(page).to have_content(hubzone[:brac_sba_name])
-                expect(page).to have_content(hubzone[:fac_type])
-                expect(page).to have_content(hubzone[:effective])
-                expect(page).to have_content(hubzone[:name])
-                expect(page).to have_content(hubzone[:census])
-                expect(page).to have_content(hubzone[:type])
-                expect(page).to have_content(hubzone[:class])
-                expect(page).to have_content(hubzone[:gnis])
-                expect(page).to have_content(hubzone[:tract_fips])
-                expect(page).to have_content(hubzone[:county])
-                expect(page).to have_content(hubzone[:county_name])
-                expect(page).to have_content(hubzone[:state])
-                expect(page).to have_content(hubzone[:county_fips])
-                expect(page).to have_content(hubzone[:incident_description])
-                expect(page).to have_content(hubzone[:qda_declaration])
-                expect(page).to have_content(hubzone[:qda_designation])
-                expect(page).to have_content(hubzone[:qda_publish])
-              end
+              # next unless hubzone[:hz_type] == 'qnmc'
+              # it "should have qnmc additional details" do
+              #   expect(page).to have_content(hubzone[:county_fips])
+              #   expect(page).to have_content(hubzone[:county])
+              #   expect(page).to have_content(hubzone[:state])
+              # end
+              # next unless hubzone[:hz_type] == 'brac'
+              # it "should have brac additional details" do
+              #   expect(page).to have_content(hubzone[:brac_sba_name])
+              #   expect(page).to have_content(hubzone[:fac_type])
+              #   expect(page).to have_content(hubzone[:effective])
+              # end
+              # next unless hubzone[:hz_type] == 'qct_brac'
+              # it "should have qct_brac additional details" do
+              #   expect(page).to have_content(hubzone[:brac_sba_name])
+              #   expect(page).to have_content(hubzone[:fac_type])
+              #   expect(page).to have_content(hubzone[:effective])
+              #   expect(page).to have_content(hubzone[:tract_fips])
+              #   expect(page).to have_content(hubzone[:county_name])
+              #   expect(page).to have_content(hubzone[:state])
+              # end
+              # next unless hubzone[:hz_type] == 'qnmc_brac'
+              # it "should have qnmc_brac additional details" do
+              #   expect(page).to have_content(hubzone[:brac_sba_name])
+              #   expect(page).to have_content(hubzone[:fac_type])
+              #   expect(page).to have_content(hubzone[:effective])
+              #   expect(page).to have_content(hubzone[:county_fips])
+              #   expect(page).to have_content(hubzone[:county_name])
+              #   expect(page).to have_content(hubzone[:state])
+              # end
+              # next unless hubzone[:hz_type] == 'qct_qda'
+              # it "should have qct_qda additional details" do
+              #   expect(page).to have_content(hubzone[:incident_description])
+              #   expect(page).to have_content(hubzone[:qda_declaration])
+              #   expect(page).to have_content(hubzone[:qda_designation])
+              #   expect(page).to have_content(hubzone[:qda_publish])
+              #   expect(page).to have_content(hubzone[:expires])
+              # end
+              # next unless hubzone[:hz_type] == 'qnmc_qda'
+              # it "should have qnmc_qda additional details" do
+              #   expect(page).to have_content(hubzone[:incident_description])
+              #   expect(page).to have_content(hubzone[:qda_declaration])
+              #   expect(page).to have_content(hubzone[:qda_designation])
+              #   expect(page).to have_content(hubzone[:qda_publish])
+              #   expect(page).to have_content(hubzone[:expires])
+              # end
+              # next unless hubzone[:hz_type] == 'indian_lands'
+              # it "should show indian_lands additional details" do
+              #   # byebug
+              #   expect(page).to have_content(hubzone[:name])
+              #   expect(page).to have_content(hubzone[:type])
+              #   expect(page).to have_content(hubzone[:census])
+              #   expect(page).to have_content(hubzone[:class])
+              #   expect(page).to have_content(hubzone[:gnis])
+              # end
               next unless hubzone[:expires]
               it "should show the correct language for expires or expired if expiration date is present" do
                 expect(page).to have_content(hubzone[:expires] < Date.today ? t('hubzone_assertions.expired') : t('hubzone_assertions.expires'))
               end
+            end
+          end
+
+          context "for designation additional details" do
+            next unless tquery[:search] == 'tiffany peak, co'
+            it "should have additional details" do
+              expect(page).to have_content(tquery[:response][:hubzone][0][:tract_fips])
+              expect(page).to have_content(tquery[:response][:hubzone][0][:county])
+              expect(page).to have_content(tquery[:response][:hubzone][0][:state])
+              expect(page).to have_content(tquery[:response][:hubzone][1][:county_fips])
+              expect(page).to have_content(tquery[:response][:hubzone][1][:county])
+              expect(page).to have_content(tquery[:response][:hubzone][1][:state])
+
             end
           end
         end
