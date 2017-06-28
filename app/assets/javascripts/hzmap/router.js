@@ -2,10 +2,14 @@
 HZApp.Router = (function(){
 
   // still need to listen on page load to check for latlng values
-  window.addEventListener('load', HZApp.Router.catchPageLoad);
+  window.addEventListener('load', function(){
+    HZApp.Router.catchPageLoad();
+  });
 
   // listen on hashchanges
-  window.addEventListener('hashchange', HZApp.Router.catchHashChange);
+  window.addEventListener('hashchange', function(){
+    HZApp.Router.catchHashChange();
+  });
 
   return {
 
@@ -111,7 +115,6 @@ HZApp.Router = (function(){
 
     // catch and flow control hash changes
     catchHashChange: function(){
-
       if (HZApp.Router.silentHashChange) {
         HZApp.Router.silentHashChange = false;
       } else {
@@ -127,7 +130,8 @@ HZApp.Router = (function(){
     updateStateFromHash: function(hash){
       var hashState = this.unpackHash(hash);
       Object.keys(this.hashControllers).forEach(function(controller){
-        if (hashState[controller]){
+        if (hashState && hashState[controller]){
+          HZApp.Router.silentHashChange = true;
           HZApp.Router.hashControllers[controller](hashState[controller], hashState);
         }
       });
@@ -157,6 +161,12 @@ HZApp.Router = (function(){
             HZApp.Router.updateMapCenterAndZoom(hashState);
           });
         }
+      },
+      center: function(center, hashState){
+        HZApp.Router.updateMapCenterAndZoom(hashState);
+      },
+      zoom: function(zoom, hashState){
+        HZApp.Router.updateMapCenterAndZoom(hashState);
       },
     },
 

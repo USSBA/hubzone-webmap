@@ -1,4 +1,6 @@
 //= require hzmap/router
+//= require hzmap/map-utils
+//= require hzmap/ga
 /* jshint unused: false */
 /* jshint undef: false */
 
@@ -15,12 +17,14 @@ describe ('Testing Router operations', function() {
     lng = center.lng().toFixed(6);
     centerValue = lat + "," + lng;
     zoom = 7;
+    HZApp.Router.silentHashChange = true;
   });
 
   afterEach(function(){
     google = {};
     HZApp.map = {};
     location.hash = "";
+    HZApp.Router.silentHashChange = false;
   });
 
   describe("adding app data to the URL hash", function(){
