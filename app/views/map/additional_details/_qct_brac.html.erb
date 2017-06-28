@@ -8,7 +8,7 @@
 </div>
 <div class="designation-details-item">
   <h6><%= t('hubzone_assertions.additional_details.base_designation') %></h6>
-  <h5><%= qualification["effective"].blank? ? '--' : qualification["effective"] %></h5>
+  <h5><%= qualification["effective"].blank? ? '--' : I18n.l(Date.parse(qualification["effective"]), format: :full) %></h5>
 </div>
 <div class="designation-details-item">
   <h6><%= t('hubzone_assertions.additional_details.tract_id') %></h6>
@@ -16,7 +16,7 @@
 </div>
 <div class="designation-details-item">
   <h6><%= t('hubzone_assertions.additional_details.county') %></h6>
-  <h5><%= qualification["county_name"].blank? ? '--' : qualification["county_name"] %></h5>
+  <h5><%= qualification["county"].blank? ? '--' : qualification["county"] %></h5>
 </div>
 <div class="designation-details-item">
   <h6><%= t('hubzone_assertions.additional_details.state') %></h6>

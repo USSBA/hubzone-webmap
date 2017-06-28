@@ -29,10 +29,10 @@ RSpec.describe 'The Search', type: :feature, js: true do
     qnmc_r: %w[county_fips county state],
     indian_lands: %w[name census type class gnis],
     brac: %w[brac_sba_name fac_type effective],
-    qct_brac: %w[brac_sba_name fac_type effective tract_fips county_name state],
-    qnmc_brac: %w[brac_sba_name fac_type effective county_fips county_name state],
-    qct_qda: %w[incident_description qda_declaration qda_designation qda_publish tract_fips county_name state],
-    qnmc_qda: %w[incident_description qda_declaration qda_designation qda_publish county_fips county_name state]
+    qct_brac: %w[brac_sba_name fac_type effective tract_fips county state],
+    qnmc_brac: %w[brac_sba_name fac_type effective county_fips county state],
+    qct_qda: %w[incident_description qda_declaration qda_designation qda_publish tract_fips county state],
+    qnmc_qda: %w[incident_description qda_declaration qda_designation qda_publish county_fips county state]
   }
 
   test_queries = {
@@ -138,7 +138,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
             fac_type: "Lab",
             effective: Date.today,
             tract_fips: "21203950222",
-            county_name: "Druid County",
+            county: "Druid County",
             state: "CO"
           },
           {
@@ -147,7 +147,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
             fac_type: "Closed Base",
             effective: Date.today,
             county_fips: "21203950400",
-            county_name: "Village County",
+            county: "Village County",
             state: "MA"
           },
           {
@@ -157,7 +157,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
             qda_designation: Date.today,
             qda_publish: Date.today,
             tract_fips: "21203950333",
-            county_name: "Castle County",
+            county: "Castle County",
             state: "TN"
           },
           {
@@ -167,7 +167,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
             qda_designation: Date.today,
             qda_publish: Date.today,
             county_fips: "21203950410",
-            county_name: "Murky County",
+            county: "Murky County",
             state: "NV"
           },
           {
