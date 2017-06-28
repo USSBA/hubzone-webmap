@@ -15,6 +15,7 @@ HZApp.Router = (function(){
 
     // ################## set hash block #############################
     silentHashChange: false,
+    mapLoadedWithoutLocation: false,
 
     // this is the main and only point which is allowed to set the hash
     setHash: function(hash, silent){
@@ -118,7 +119,7 @@ HZApp.Router = (function(){
       if (HZApp.Router.silentHashChange) {
         HZApp.Router.silentHashChange = false;
       } else {
-        console.log('update app on back behavior');
+        // console.log('update app on back behavior');
         // HZApp.Router.updateStateFromHash(location.hash);
       }
     },
@@ -151,7 +152,17 @@ HZApp.Router = (function(){
     hashControllers: {
       latlng: function(latlng_s){
         var latlng = HZApp.Router.unpackValidLatLng(latlng_s) || null;
-        if (latlng){ HZApp.MapUtils.sendMapClick(latlng); }
+        if (latlng){
+          HZApp.MapUtils.sendMapClick(latlng, function(){
+            HZApp.Router.clearHash('q');
+            HZApp.Router.setSingleHash('latlng', latlng_s);
+            if (HZApp.Router.mapLoadedWithoutLocation){
+              HZApp.map.setCenter(new google.maps.LatLng(latlng.lat, latlng.lng));
+              HZApp.map.setZoom(10);
+            }
+            HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom());
+          });
+        }
       },
       q: function(q, hashState){
         var search = HZApp.Router.unpackValidSearch(q) || null;
@@ -180,7 +191,16 @@ HZApp.Router = (function(){
       if (center){
         HZApp.map.setCenter(new google.maps.LatLng(center.lat, center.lng));
       }
+
+      this.updateMapLocationIfNeeded();
     },
+
+    updateMapLocationIfNeeded: function(){
+      if (HZApp.Router.mapLoadedWithoutLocation){
+        HZApp.HZQuery.parseResponseGeometry(HZApp.HZQuery.response);
+      }
+    },
+
     // #######################################################
 
     // parse the location hash string into an object with key, value pairs
@@ -211,6 +231,7 @@ HZApp.Router = (function(){
     // update useGeoLocation based on whether valid hash params were found
     checkValidHashParams: function(mapLocation, hashState){
       var validParams = this.unpackValidParams(hashState);
+      HZApp.Router.mapLoadedWithoutLocation = this.missingCenterAndZoom(validParams);
       mapLocation.center = validParams.center || mapLocation.center;
       mapLocation.zoom = validParams.zoom || mapLocation.zoom;
       mapLocation.useGeoLocation = this.dontGeolocate(validParams);
@@ -259,7 +280,12 @@ HZApp.Router = (function(){
 
     // if any are present, return false to not geolocate
     dontGeolocate: function(validParams){
-      return !(validParams.zoom || validParams.center || validParams.q);
+      return !(validParams.zoom || validParams.center || validParams.q || validParams.latlng);
+    },
+
+    // check if the map was loaded without center and zoom
+    missingCenterAndZoom: function(validParams){
+      return (!validParams.zoom || !validParams.center);
     },
 
   };

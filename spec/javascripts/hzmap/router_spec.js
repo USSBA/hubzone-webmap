@@ -17,14 +17,12 @@ describe ('Testing Router operations', function() {
     lng = center.lng().toFixed(6);
     centerValue = lat + "," + lng;
     zoom = 7;
-    HZApp.Router.silentHashChange = true;
   });
 
   afterEach(function(){
     google = {};
     HZApp.map = {};
     location.hash = "";
-    HZApp.Router.silentHashChange = false;
   });
 
   describe("adding app data to the URL hash", function(){
@@ -44,27 +42,6 @@ describe ('Testing Router operations', function() {
           expect(HZApp.Router.updateStateFromHash.calls.count()).toEqual(1);
         });
       });
-
-      describe("should handle hash changes", function(){
-        it("should not propagate updates if silent is true", function(){
-          spyOn(HZApp.Router, 'updateStateFromHash');
-          HZApp.Router.silentHashChange = true;
-          HZApp.Router.catchHashChange();
-          expect(HZApp.Router.updateStateFromHash.calls.count()).toEqual(0);
-        });
-        it("should reset silent state if silent is true", function(){
-          HZApp.Router.silentHashChange = true;
-          HZApp.Router.catchHashChange();
-          expect(HZApp.Router.silentHashChange).toBe(false);
-        });
-        it("should propagate updates if silent is false", function(){
-          spyOn(HZApp.Router, 'updateStateFromHash');
-          HZApp.Router.silentHashChange = false;
-          HZApp.Router.catchHashChange();
-          expect(HZApp.Router.updateStateFromHash.calls.count()).toEqual(1);
-        });
-      });
-
     });
 
     describe("should update hash based on different data states: updating map center", function(){

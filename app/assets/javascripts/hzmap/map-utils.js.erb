@@ -9,14 +9,12 @@ HZApp.MapUtils = (function(){
     },
 
     // send a map click to the hubzone assertion server
-    sendMapClick: function(latlng){
+    sendMapClick: function(latlng, callback){
       // Log the click
       var latlng_s = latlng.lat.toFixed(6) + ',' + latlng.lng.toFixed(6);
       HZApp.GA.track( 'map', 'click', latlng_s );
       var url = "<%= search_path %>?latlng=" + latlng_s + this.includeDateAndLocale();
-      $.ajax({
-        url: url
-      });
+      this.sendAjax(url, callback);
       HZApp.Router.clearHash('q');
       HZApp.Router.setSingleHash('latlng', latlng_s);
       HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom());
@@ -24,13 +22,17 @@ HZApp.MapUtils = (function(){
     },
 
     sendMapSearch: function(q, callback){
-      callback = callback || null;
       var url = "<%= search_path %>?search=" + q + this.includeDateAndLocale();
+      this.sendAjax(url, callback);
+      return url;
+    },
+
+    sendAjax: function(url, callback){
+      callback = callback || null;
       $.ajax({
         url: url,
         success: callback
       });
-      return url;
     },
 
     includeDateAndLocale: function(){
