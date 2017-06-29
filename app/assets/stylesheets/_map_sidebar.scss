@@ -183,16 +183,21 @@ table th {
   color: $gray-dark;
   background-color: transparent;
   padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 .additional-details-expand {
   float: right;
-  font-size: 1.25rem;
+  padding-top: 0.2rem;
+  font-size: 1.3rem;
+  font-weight: normal;
   cursor: pointer;
-  color: blue;
-  text-decoration: underline;
+  color: $primary;
 }
 .additional-details-expand:hover {
-  text-decoration:none;
+  color: $primary-darker;
+}
+button#additional-details-button {
+  background-image: none;
 }
 i.fa.fa-print {
   font-size: 2.5rem;
