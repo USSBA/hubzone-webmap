@@ -8,7 +8,6 @@ describe ('Testing sidebar operations', function() {
   beforeEach(function() {
       fixture.cleanup();
       this.fixtures = fixture.load("hz_mock_sidebar.html", "hz_mock_legend.html", true);
-    // HZSpecHelper.mockPage.build();
     HZApp.SidebarUtils.buildSidebar();
     sidebar = HZApp.SidebarUtils.sidebar;
   });
@@ -16,7 +15,6 @@ describe ('Testing sidebar operations', function() {
   afterEach(function() {
     HZApp.SidebarUtils.sidebar = {};
     sidebar = {};
-    // HZSpecHelper.mockPage.destroy();
   });
 
   it ("should create a sidebar", function(){
