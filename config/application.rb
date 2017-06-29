@@ -11,5 +11,8 @@ module HubzoneMap
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    # Adding the X-UA-Compatible header.
+    config.action_dispatch.default_headers.merge!('X-UA-Compatible' => 'IE=edge,chrome=1')
   end
 end
