@@ -6,8 +6,8 @@
 
 describe ('Testing sidebar operations', function() {
   beforeEach(function() {
-      fixture.cleanup();
-      this.fixtures = fixture.load("hz_mock_sidebar.html", "hz_mock_legend.html", true);
+    fixture.cleanup();
+    this.fixtures = fixture.load("hz_mock_sidebar.html", "hz_mock_legend.html", true);
     HZApp.SidebarUtils.buildSidebar();
     sidebar = HZApp.SidebarUtils.sidebar;
   });
@@ -82,6 +82,7 @@ describe ('Testing sidebar operations', function() {
 
     it ("should open the additonal details panel", function(){
       sidebar.open();
+      accordion = $('.additional-details-expand.show');
       HZApp.SidebarUtils.bindAccordion(accordion);
       accordion.trigger('click');
       expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(true);
@@ -91,9 +92,9 @@ describe ('Testing sidebar operations', function() {
 
     it ("should close the additonal details panel", function(){
       sidebar.open();
+      accordion = $('.additional-details-expand.hide');
       HZApp.SidebarUtils.bindAccordion(accordion);
       HZApp.SidebarUtils.setAccordionOpenState(accordion, true);
-
       accordion.trigger('click');
       expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
       expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(true);
@@ -102,6 +103,7 @@ describe ('Testing sidebar operations', function() {
 
     it ("should load a closed accordion if the cookie is closed on load", function(){
       HZApp.Cookies.setItem('hz-sbq-open', false);
+      accordion = $('.additional-details-expand.show');
       HZApp.SidebarUtils.setAccordionStateFromCookie(accordion);
       expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
       expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(true);
@@ -110,18 +112,20 @@ describe ('Testing sidebar operations', function() {
 
     it ("should load a open accordion if the cookie is open on load", function(){
       HZApp.Cookies.setItem('hz-sbq-open', true);
+      accordion = $('.additional-details-expand.show');
       HZApp.SidebarUtils.setAccordionStateFromCookie(accordion);
-      expect($('#additional-details-button').attr('aria-expanded')).toEqual('true');
-      expect($('#additional-details-accordion').attr('aria-hidden')).toEqual('false');
+      expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(true);
+      expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(false);
       expect(HZApp.Cookies.getItem('hz-sbq-open')).toEqual('true');
     });
 
     it ("should set the cookie accordion state, and bind clicks to accordion", function(){
       HZApp.Cookies.setItem('hz-sbq-open', true);
+      accordion = $('.additional-details-expand.hide');
       HZApp.SidebarUtils.updateAccordion(accordion);
       accordion.trigger('click');
-      expect($('#additional-details-button').attr('aria-expanded')).toEqual('false');
-      expect($('#additional-details-accordion').attr('aria-hidden')).toEqual('true');
+      expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
+      expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(true);
       expect(HZApp.Cookies.getItem('hz-sbq-open')).toEqual('false');
     });
   });

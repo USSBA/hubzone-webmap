@@ -3,22 +3,6 @@
 
 // helper for running hz jasmine tests
 var HZSpecHelper = (function(){
-  //polyfills
-  if (!String.prototype.includes) {
-    String.prototype.includes = function(search, start) {
-      'use strict';
-      if (typeof start !== 'number') {
-        start = 0;
-      }
-
-      if (start + search.length > this.length) {
-        return false;
-      } else {
-        return this.indexOf(search, start) !== -1;
-      }
-    };
-  }
-
   return {
     //build a dummy sidebar and mapbody
     mockPage: {
