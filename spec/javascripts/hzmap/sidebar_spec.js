@@ -63,18 +63,20 @@ describe ('Testing sidebar operations', function() {
   });
 
   describe("additional details open/close behavior", function(){
+    var accordion, rows;
     // before each, set the accordion to the 'closed' state
     beforeEach(function(){
-      accordion = $('.usa-accordion-button');
+      accordion = $('.additional-details-expand');
+      rows = document.querySelectorAll('.designation-details-row');
       HZApp.Cookies.setItem('hz-sbq-open', false);
-      $('#additional-details-button').attr('aria-expanded', 'false');
-      $('#additional-details-accordion').attr('aria-hidden', 'true');
+      document.querySelector('span.additional-details-expand.show').hidden = false;
+      document.querySelector('span.additional-details-expand.hide').hidden = true;
     });
 
     it ("should be closed by default on sidebar open", function(){
       sidebar.open();
-      expect($('#additional-details-button').attr('aria-expanded')).toEqual('false');
-      expect($('#additional-details-accordion').attr('aria-hidden')).toEqual('true');
+      expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
+      expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(true);
       expect(HZApp.Cookies.getItem('hz-sbq-open')).toEqual('false');
     });
 
@@ -82,8 +84,8 @@ describe ('Testing sidebar operations', function() {
       sidebar.open();
       HZApp.SidebarUtils.bindAccordion(accordion);
       accordion.trigger('click');
-      expect($('#additional-details-button').attr('aria-expanded')).toEqual('true');
-      expect($('#additional-details-accordion').attr('aria-hidden')).toEqual('false');
+      expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(true);
+      expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(false);
       expect(HZApp.Cookies.getItem('hz-sbq-open')).toEqual('true');
     });
 
@@ -93,16 +95,16 @@ describe ('Testing sidebar operations', function() {
       HZApp.SidebarUtils.setAccordionOpenState(accordion, true);
 
       accordion.trigger('click');
-      expect($('#additional-details-button').attr('aria-expanded')).toEqual('false');
-      expect($('#additional-details-accordion').attr('aria-hidden')).toEqual('true');
+      expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
+      expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(true);
       expect(HZApp.Cookies.getItem('hz-sbq-open')).toEqual('false');
     });
 
     it ("should load a closed accordion if the cookie is closed on load", function(){
       HZApp.Cookies.setItem('hz-sbq-open', false);
       HZApp.SidebarUtils.setAccordionStateFromCookie(accordion);
-      expect($('#additional-details-button').attr('aria-expanded')).toEqual('false');
-      expect($('#additional-details-accordion').attr('aria-hidden')).toEqual('true');
+      expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
+      expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(true);
       expect(HZApp.Cookies.getItem('hz-sbq-open')).toEqual('false');
     });
 
