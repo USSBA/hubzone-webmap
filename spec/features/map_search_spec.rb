@@ -130,7 +130,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
             hz_type: "brac",
             brac_sba_name: "Central Base",
             fac_type: "Chimney",
-            effective: Date.today
+            effective: "7/11/2010"
           },
           {
             hz_type: "qct_brac",
