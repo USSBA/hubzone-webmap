@@ -120,6 +120,9 @@ describe "The Sidebar", type: :feature do
     it "should not have additional details" do
       expect(page).not_to have_content('Additional Details')
     end
+    it "should not have show details" do
+      expect(page).not_to have_content('Show Details')
+    end
   end
 
   context "with a qualified address", js: true do
@@ -132,8 +135,11 @@ describe "The Sidebar", type: :feature do
     it "should show one qualification" do
       expect(page).to have_css("#indian_lands", visible: false)
     end
-    it "should show one qualification" do
+    it "should have additional details" do
       expect(page).to have_content('Additional Details')
+    end
+    it "should have show details" do
+      expect(page).to have_content('Show Details')
     end
   end
 end

@@ -77,14 +77,14 @@
       <span class="additional-details-title">
         <%= t('sidebar.details.title') %>
       </span>
-      <span class="additional-details-show">
+      <span class="additional-details-expand show" data-action="show">
         <%= t('sidebar.details.show') %>
       </span>
-      <span class="additional-details-hide" hidden>
+      <span class="additional-details-expand hide" data-action="hide" hidden>
         <%= t('sidebar.details.hide') %>
       </span>
     </button>
-    <div id="additional-details-accordion" class="usa-accordion-content sidebar-additional-details clearable" aria-hidden="true">
+    <div class="sidebar-additional-details">
       <%= render partial: "qualification", collection: hubzones %>
     </div>
   </div>
