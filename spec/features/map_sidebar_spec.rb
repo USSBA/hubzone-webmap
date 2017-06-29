@@ -76,7 +76,7 @@ describe "The Sidebar", type: :feature do
       expect(page.find('.hubzone-status-date')['tabindex']).to be_truthy
     end
     it "should have additional details title" do
-      expect(page).to have_content("Additional Details")
+      expect(page).to have_content("Designations")
     end
     it "should have until date" do
       expect(page).to have_css(".hubzone-until-date")
@@ -118,7 +118,7 @@ describe "The Sidebar", type: :feature do
       expect(page).not_to have_css("#qct_e", visible: false)
     end
     it "should not have additional details" do
-      expect(page).not_to have_content('Additional Details')
+      expect(page).not_to have_content('Designations')
     end
     it "should not have show details" do
       expect(page).not_to have_content('Show Details')
@@ -136,7 +136,7 @@ describe "The Sidebar", type: :feature do
       expect(page).to have_css("#indian_lands", visible: false)
     end
     it "should have additional details" do
-      expect(page).to have_content('Additional Details')
+      expect(page).to have_content('Designations')
     end
     it "should have show details" do
       expect(page).to have_content('Show Details')
