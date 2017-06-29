@@ -1,11 +1,14 @@
 //= require hzmap/sidebar
 //= require hzmap/ga
+//= require hzmap/cookies
 /* jshint unused: false */
 /* jshint undef: false */
 
 describe ('Testing sidebar operations', function() {
   beforeEach(function() {
-    HZSpecHelper.mockPage.build();
+      fixture.cleanup();
+      this.fixtures = fixture.load("hz_mock_sidebar.html", "hz_mock_legend.html", true);
+    // HZSpecHelper.mockPage.build();
     HZApp.SidebarUtils.buildSidebar();
     sidebar = HZApp.SidebarUtils.sidebar;
   });
@@ -13,7 +16,7 @@ describe ('Testing sidebar operations', function() {
   afterEach(function() {
     HZApp.SidebarUtils.sidebar = {};
     sidebar = {};
-    HZSpecHelper.mockPage.destroy();
+    // HZSpecHelper.mockPage.destroy();
   });
 
   it ("should create a sidebar", function(){
