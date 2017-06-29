@@ -111,11 +111,14 @@ describe "The Sidebar", type: :feature do
     before do
       Excon.stub({},
                  body: responses[:non_qualified].to_json)
-    end
-    it "should show no qualifications" do
       fill_in 'search', with: queries[:non_qualified]
       click_button 'hubzone-search-button'
+    end
+    it "should show no qualifications" do
       expect(page).not_to have_css("#qct_e", visible: false)
+    end
+    it "should not have additional details" do
+      expect(page).not_to have_content('Additional Details')
     end
   end
 
@@ -123,11 +126,14 @@ describe "The Sidebar", type: :feature do
     before do
       Excon.stub({},
                  body: responses[:qualified_multiple].to_json)
-    end
-    it "should show one qualification" do
       fill_in 'search', with: queries[:qualified_single]
       click_button 'hubzone-search-button'
+    end
+    it "should show one qualification" do
       expect(page).to have_css("#indian_lands", visible: false)
+    end
+    it "should show one qualification" do
+      expect(page).to have_content('Additional Details')
     end
   end
 end

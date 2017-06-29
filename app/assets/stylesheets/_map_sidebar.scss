@@ -184,6 +184,26 @@ table th {
   background-color: transparent;
   padding-left: 1.5rem;
 }
+.additional-details-show {
+  float: right;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+.additional-details-show:hover {
+  text-decoration:none;
+}
+.additional-details-hide {
+  float: right;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+.additional-details-hide:hover {
+  text-decoration:none;
+}
 i.fa.fa-print {
   font-size: 2.5rem;
   color: $gray-dark;

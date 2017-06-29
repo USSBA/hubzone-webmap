@@ -46,6 +46,8 @@ dev:
     until: "hasta"
     details:
       title: "Detalles adicionales"
+      show: "Mostrar Detalles"
+      hide: "Ocultar Detalles"
   api:
     success: "Éxito"
     error:

@@ -46,6 +46,8 @@ en:
     until: "until"
     details:
       title: "Additional Details"
+      show: "Show Details"
+      hide: "Hide Details"
   api:
     success: "Success"
     error:
