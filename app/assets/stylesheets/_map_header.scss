@@ -19,9 +19,9 @@
   padding: 0;
 }
 .usa-nav-secondary {
-  position: fixed;
-  top: -4.3rem;
+  position: absolute;
   right: 2rem;
+  top: -4.5rem;
 }
 .usa-nav-secondary-links li:not(:last-child)::after {
   content: none;
@@ -32,6 +32,7 @@
 .usa-banner-inner {
   max-width: 100%;
   padding-left: 1.5rem;
+  paddin-right: 0rem;
 }
 .usa-header-extended .usa-logo {
   margin-top: .7rem;
@@ -45,6 +46,11 @@
   padding-left: 1.5rem;
   border-bottom: 2px solid $gray-lighter;
 }
+@media only screen and (min-width: 951px) {
+  .usa-header-extended .usa-nav-inner {
+    max-width: 100%;
+  }
+}
 @media only screen and (max-width: 950px)  {
   #sba-logo {
     max-width: 6rem;
@@ -57,9 +63,7 @@
     border-bottom: none;
   }
   .usa-nav-secondary {
-    position: fixed;
-    top: inherit;
-    right: inherit;
+
   }
   .usa-banner {
     display: none;
