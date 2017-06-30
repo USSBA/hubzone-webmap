@@ -34,6 +34,9 @@
 
 
 //HZ Spec Config
-//= require application
+//= require jquery
+//= require jquery_ujs
+//= require HZ
+// require application
 //= require helpers/hz-jasmine
 //= require helpers/sinon-1.17.6
