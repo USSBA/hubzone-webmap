@@ -73,7 +73,7 @@
 
 <div class="sidebar-card additional-details <%= details_visibility %>">
   <div class="qualifications">
-    <button id="additional-details-button" class="usa-accordion-button additional-details" aria-label="Expand HUBZone Designation details">
+    <div id="additional-details-button" class="usa-accordion-button additional-details" aria-label="Expand HUBZone Designation details">
       <span class="additional-details-title">
         <%= t('sidebar.details.title') %>
       </span>
@@ -83,7 +83,7 @@
       <span class="additional-details-expand hide" data-action="hide" hidden>
         <%= t('sidebar.details.hide') %>
       </span>
-    </button>
+    </div>
     <div class="sidebar-additional-details">
       <%= render partial: "qualification", collection: hubzones %>
     </div>
