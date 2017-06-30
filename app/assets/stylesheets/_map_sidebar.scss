@@ -26,6 +26,10 @@
 #sidebar i.fa-chevron-right, i.fa-chevron-left {
   color: $gray-dark;
 }
+#sidebar-content {
+  max-height: 100%;
+  overflow: auto;
+}
 .sidebar-card {
   position: relative;
   width: 90%;
