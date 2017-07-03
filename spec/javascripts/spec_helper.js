@@ -31,12 +31,12 @@
 //
 // For more information: http://github.com/modeset/teaspoon
 
-
-
 //HZ Spec Config
+// require application
 //= require jquery
 //= require jquery_ujs
+//= require uswds
 //= require HZ
-// require application
+//= require i18n/translations
+//= require helpers/polyfills
 //= require helpers/hz-jasmine
-//= require helpers/sinon-1.17.6

@@ -191,8 +191,8 @@ RSpec.describe 'The Search', type: :feature, js: true do
     }
   }
 
-  %w[en dev].each do |locale|
-    context "in the #{locale} locale", vcr: true do
+  %w[en].each do |locale|
+    context "in the #{locale} locale", vcr: false do
       before do
         I18n.locale = locale
         visit map_path(locale: locale)
@@ -228,7 +228,8 @@ RSpec.describe 'The Search', type: :feature, js: true do
 
           context "for any hubzone designations" do
             before do
-              click_button 'additional-details-button'
+              # click_button 'additional-details-button'
+              find('.additional-details-expand').click
             end
 
             tquery[:response][:hubzone].each do |hubzone|

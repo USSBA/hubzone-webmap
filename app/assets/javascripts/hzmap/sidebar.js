@@ -1,5 +1,16 @@
 //Sidebar utils
 HZApp.SidebarUtils = (function(){
+
+  // forEach polyfill for IE
+  if (window.NodeList && !NodeList.prototype.forEach) {
+    NodeList.prototype.forEach = function (callback, argument) {
+      argument = argument || window;
+      for (var i = 0; i < this.length; i++) {
+          callback.call(argument, this[i], i, this);
+      }
+    };
+  }
+
   // extend jquery with our sidebar function
   $.fn.sidebar = function() {
     var $sidebar = this;
@@ -61,6 +72,7 @@ HZApp.SidebarUtils = (function(){
       elem.attr("tabindex", "-1");
       elem.focus();
     },
+
     updateAccordion: function(elem){
       this.bindAccordion(elem);
       this.setAccordionStateFromCookie(elem);
@@ -72,32 +84,38 @@ HZApp.SidebarUtils = (function(){
       var sidebarAccordionCookie = HZApp.Cookies.getItem('hz-sbq-open');
 
       if (sidebarAccordionCookie === null || sidebarAccordionCookie === 'false'){
-        HZApp.SidebarUtils.setAccordionOpenState(elem, false);
+        HZApp.SidebarUtils.setAccordionOpenState(elem, false, 'hide');
       } else {
-        HZApp.SidebarUtils.setAccordionOpenState(elem, true);
+        HZApp.SidebarUtils.setAccordionOpenState(elem, true, 'show');
       }
     },
     triggerAccordion: function(triggerElem){
       var elem = $(triggerElem.currentTarget);
-      var accordionIsOpen = elem.attr('aria-expanded');
+      var action = elem.data('action');
 
-      if( accordionIsOpen === 'false' ) {
-        HZApp.SidebarUtils.setAccordionOpenState(elem, true);
-      } else if ( accordionIsOpen === 'true' ) {
-        HZApp.SidebarUtils.setAccordionOpenState(elem, false);
+      if( action === 'show' ) {
+        HZApp.SidebarUtils.setAccordionOpenState(elem, true, action);
+      } else if ( action === 'hide' ) {
+        HZApp.SidebarUtils.setAccordionOpenState(elem, false, action);
       }
     },
-    setAccordionOpenState: function(elem, state){
+    setAccordionOpenState: function(elem, visibleState, action){
       // set the cookie
       HZApp.Cookies.removeItem('hz-sbq-open');
-      HZApp.Cookies.setItem('hz-sbq-open', state);
+      HZApp.Cookies.setItem('hz-sbq-open', visibleState);
 
-      // update the accordion status
-      var accordionID = elem.attr('aria-controls');
-      var content = $('#' + accordionID);
-      HZApp.GA.track( 'map', 'sidebar', accordionID + '-close' );
-      $( 'button[aria-controls=' + accordionID + ']' ).attr('aria-expanded', state.toString() );
-      content.attr('aria-hidden', (!state).toString() );
+      // update the accordion statuse
+      var detailsRows = document.querySelectorAll('.designation-details-row');
+
+      detailsRows.forEach(function(detail){
+        detail.hidden = !visibleState;
+      });
+
+      // update the button link
+      document.querySelector('span.additional-details-expand.show').hidden = (action === 'show' ? true : false);
+      document.querySelector('span.additional-details-expand.hide').hidden = (action === 'hide' ? true : false);
+
+      HZApp.GA.track( 'map', 'sidebar', 'details-' + action );
     }
   };
 })();

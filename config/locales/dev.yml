@@ -45,7 +45,9 @@ dev:
     print_version: "Versión imprimible"
     until: "hasta"
     details:
-      title: "Detalles adicionales"
+      title: "Denominaciones"
+      show: "Mostrar Detalles"
+      hide: "Ocultar Detalles"
   api:
     success: "Éxito"
     error:

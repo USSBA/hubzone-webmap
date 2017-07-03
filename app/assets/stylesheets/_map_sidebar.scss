@@ -187,6 +187,22 @@ table th {
   color: $gray-dark;
   background-color: transparent;
   padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.additional-details-expand {
+  float: right;
+  padding-top: 0.2rem;
+  font-size: 1.3rem;
+  font-weight: normal;
+  cursor: pointer;
+  color: $primary;
+}
+.additional-details-expand:hover {
+  color: $primary-darker;
+}
+#additional-details-button {
+  background-image: none;
+  cursor: initial;
 }
 i.fa.fa-print {
   font-size: 2.5rem;

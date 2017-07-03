@@ -45,7 +45,9 @@ en:
     print_version: "Printable Version"
     until: "until"
     details:
-      title: "Additional Details"
+      title: "Designations"
+      show: "Show Details"
+      hide: "Hide Details"
   api:
     success: "Success"
     error:

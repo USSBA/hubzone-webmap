@@ -71,16 +71,24 @@
   </table>
 </div>
 
-<ul class="sidebar-card usa-accordion additional-details <%= details_visibility %>">
-  <li class="qualifications">
-    <button id="additional-details-button" class="usa-accordion-button additional-details" aria-expanded="false" aria-controls="additional-details-accordion">
-      <%= t('sidebar.details.title') %>
-    </button>
-    <div id="additional-details-accordion" class="usa-accordion-content sidebar-additional-details clearable" aria-hidden="true">
+<div class="sidebar-card additional-details <%= details_visibility %>">
+  <div class="qualifications">
+    <div id="additional-details-button" class="usa-accordion-button additional-details" aria-label="Expand HUBZone Designation details">
+      <span class="additional-details-title">
+        <%= t('sidebar.details.title') %>
+      </span>
+      <span class="additional-details-expand show" data-action="show">
+        <%= t('sidebar.details.show') %>
+      </span>
+      <span class="additional-details-expand hide" data-action="hide" hidden>
+        <%= t('sidebar.details.hide') %>
+      </span>
+    </div>
+    <div class="sidebar-additional-details">
       <%= render partial: "qualification", collection: hubzones %>
     </div>
-  </li>
-</ul>
+  </div>
+</div>
 
 <div class="sidebar-card map-actions">
   <button id="map-report" tabindex="15">
