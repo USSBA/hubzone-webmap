@@ -39,5 +39,3 @@
 //= require HZ
 //= require i18n/translations
 //= require helpers/polyfills
-//= require helpers/hz-jasmine
-//= require helpers/sinon-1.17.6
