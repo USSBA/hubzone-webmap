@@ -73,7 +73,7 @@ div[dir="ltr"] {
   -moz-box-shadow: 0px 1px 4px -1px rgba(0,0,0,0.29);
   box-shadow: 0px 1px 4px -1px rgba(0,0,0,0.29);
   cursor: pointer;
-  margin-right: 10px;
+  margin-right: 5px;
   padding: 6px 6px 5px 6px;
   display: inline-flex;
 }
@@ -136,12 +136,12 @@ div[dir="ltr"] {
     position: fixed !important;
     float: right !important;
     top: 135px !important;
-    right: 13px !important;
+    right: 9px !important;
     left: auto !important;
     transform: scale(1.25);
   }
   .error-popup.geolocation {
-    margin-left: -190px;
+    margin-left: -200px;
     margin-right: 45px;
     position: absolute;
     display: none;
