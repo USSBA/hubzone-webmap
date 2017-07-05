@@ -73,7 +73,7 @@ div[dir="ltr"] {
   -moz-box-shadow: 0px 1px 4px -1px rgba(0,0,0,0.29);
   box-shadow: 0px 1px 4px -1px rgba(0,0,0,0.29);
   cursor: pointer;
-  margin-right: 5px;
+  margin-right: 10px;
   padding: 6px 6px 5px 6px;
   display: inline-flex;
 }
@@ -109,6 +109,7 @@ div[dir="ltr"] {
     top: 47px;
     width: 35px;
     height: 35px;
+    margin-right: 5px;
   }
   #geolocation .fa-location-arrow {
     font-size: 2.4rem;
