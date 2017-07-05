@@ -86,7 +86,17 @@
     font-size: 2.2rem;
     font-weight: 400;
   }
+  .usa-menu-btn {
+    display: block;
+    margin: 6px;
+    background-color: white;
+    color: gray;
+    border: 1px solid gray;
+    border-radius: 3px;
+    height: 27px;
+  }
 }
+
 @media only screen and (max-width: 480px) {
   .usa-unstyled-list > li {
     margin: 1em 0;
