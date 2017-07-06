@@ -224,8 +224,7 @@ describe ('Testing Router operations', function() {
               lat: 39.8282,
               lng: -98.5795
             },
-            zoom: 5,
-            useGeoLocation: true
+            zoom: 5
           };
         });
         afterEach(function(){
@@ -234,8 +233,7 @@ describe ('Testing Router operations', function() {
               lat: 39.8282,
               lng: -98.5795
             },
-            zoom: 5,
-            useGeoLocation: true
+            zoom: 5
           };
         });
         it("should not geolocate if hash contains a q address", function(){
@@ -244,7 +242,6 @@ describe ('Testing Router operations', function() {
           expect(newLocation.center.lat).toEqual(initialMapLocation.center.lat);
           expect(newLocation.center.lng).toEqual(initialMapLocation.center.lng);
           expect(newLocation.zoom).toEqual(initialMapLocation.zoom);
-          expect(newLocation.useGeoLocation).toBe(false);
         });
         it("should use the defaults with no hash", function(){
           mockHash = "";
@@ -252,7 +249,6 @@ describe ('Testing Router operations', function() {
           expect(newLocation.center.lat).toEqual(initialMapLocation.center.lat);
           expect(newLocation.center.lng).toEqual(initialMapLocation.center.lng);
           expect(newLocation.zoom).toEqual(initialMapLocation.zoom);
-          expect(newLocation.useGeoLocation).toBe(true);
         });
         it("should use center and zoom when present", function(){
           mockHash = "#center=" + centerValue + "&zoom=" + zoom;
@@ -260,7 +256,6 @@ describe ('Testing Router operations', function() {
           expect(newLocation.center.lat).toEqual(parseFloat(lat));
           expect(newLocation.center.lng).toEqual(parseFloat(lng));
           expect(newLocation.zoom).toEqual(zoom);
-          expect(newLocation.useGeoLocation).toBe(false);
         });
         it("should use zoom when present", function(){
           mockHash = "#zoom=" + zoom;
@@ -268,7 +263,6 @@ describe ('Testing Router operations', function() {
           expect(newLocation.center.lat).toEqual(initialMapLocation.center.lat);
           expect(newLocation.center.lng).toEqual(initialMapLocation.center.lng);
           expect(newLocation.zoom).toEqual(zoom);
-          expect(newLocation.useGeoLocation).toBe(false);
         });
         it("should use center when present", function(){
           mockHash = "#center=" + centerValue;
@@ -276,7 +270,6 @@ describe ('Testing Router operations', function() {
           expect(newLocation.center.lat).toEqual(parseFloat(lat));
           expect(newLocation.center.lng).toEqual(parseFloat(lng));
           expect(newLocation.zoom).toEqual(initialMapLocation.zoom);
-          expect(newLocation.useGeoLocation).toBe(false);
         });
         it("should ignore garbage", function(){
           mockHash = "#center=foo&zoom=bar";
@@ -284,7 +277,6 @@ describe ('Testing Router operations', function() {
           expect(newLocation.center.lat).toEqual(initialMapLocation.center.lat);
           expect(newLocation.center.lng).toEqual(initialMapLocation.center.lng);
           expect(newLocation.zoom).toEqual(initialMapLocation.zoom);
-          expect(newLocation.useGeoLocation).toBe(true);
         });
         it("should ignore out of range numbers", function(){
           mockHash = "#center=-100,-200&zoom=22";
@@ -292,7 +284,6 @@ describe ('Testing Router operations', function() {
           expect(newLocation.center.lat).toEqual(initialMapLocation.center.lat);
           expect(newLocation.center.lng).toEqual(initialMapLocation.center.lng);
           expect(newLocation.zoom).toEqual(initialMapLocation.zoom);
-          expect(newLocation.useGeoLocation).toBe(true);
         });
       });
     });
