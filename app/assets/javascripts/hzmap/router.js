@@ -161,7 +161,7 @@ HZApp.Router = (function(){
           });
         }
       },
-      q: function(q, hashState){
+      q: function(q){
         var search = HZApp.Router.unpackValidSearch(q) || null;
         if (search){
           HZApp.GA.trackSubmit('search', '#search-field-small');
