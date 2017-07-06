@@ -225,7 +225,6 @@ HZApp.Router = (function(){
       HZApp.Router.mapLoadedWithoutLocation = this.missingCenterAndZoom(validParams);
       mapLocation.center = validParams.center || mapLocation.center;
       mapLocation.zoom = validParams.zoom || mapLocation.zoom;
-      mapLocation.useGeoLocation = this.dontGeolocate(validParams);
       return mapLocation;
     },
 
@@ -267,11 +266,6 @@ HZApp.Router = (function(){
 
     emptyHash: function(hash){
       return (hash === null || hash === undefined || hash === "");
-    },
-
-    // if any are present, return false to not geolocate
-    dontGeolocate: function(validParams){
-      return !(validParams.zoom || validParams.center || validParams.q || validParams.latlng);
     },
 
     // check if the map was loaded without center and zoom

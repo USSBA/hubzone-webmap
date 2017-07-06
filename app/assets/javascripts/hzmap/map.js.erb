@@ -7,8 +7,7 @@ function initMap() {
       lat: 39.8282,
       lng: -98.5795
     },
-    zoom: 5,
-    useGeoLocation: true
+    zoom: 5
   };
 
   // unpack the current hash and update the map location as needed
@@ -72,11 +71,6 @@ function initMap() {
     scaledSize: 17
   });
   /* jshint ignore:end */
-
-  //initialize user location
-  if (initialMapLocation.useGeoLocation) {
-    HZApp.GeoLocation.getUserLocation(navigator.geolocation);
-  }
 
   //build the legend
   HZApp.Legend.buildLegend(HZApp.Legend.legend);
