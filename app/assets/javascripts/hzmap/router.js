@@ -16,6 +16,7 @@ HZApp.Router = (function(){
     // ################## set hash block #############################
     silentHashChange: false,
     mapLoadedWithoutLocation: false,
+    hashOnPageLoad: {},
 
     // this is the main and only point which is allowed to set the hash
     setHash: function(hash, silent){
@@ -148,6 +149,9 @@ HZApp.Router = (function(){
       }
     },
 
+    //
+    startingHashState: null,
+
     // define the actions for different hash params
     hashControllers: {
       latlng: function(latlng_s){
@@ -158,7 +162,6 @@ HZApp.Router = (function(){
             HZApp.Router.setSingleHash('latlng', latlng_s);
             if (HZApp.Router.mapLoadedWithoutLocation){
               HZApp.map.setCenter(new google.maps.LatLng(latlng.lat, latlng.lng));
-              HZApp.map.setZoom(10);
             }
             HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom());
           });
@@ -169,8 +172,9 @@ HZApp.Router = (function(){
         if (search){
           HZApp.GA.trackSubmit('search', '#search-field-small');
           document.getElementById('search-field-small').value = search;
+          HZApp.Router.startingHashState = hashState;
           HZApp.MapUtils.sendMapSearch(search, function(){
-            HZApp.Router.updateMapCenterAndZoom(hashState);
+            HZApp.Router.updateMapCenterAndZoom(HZApp.Router.hashOnPageLoad);
           });
         }
       },
@@ -190,14 +194,6 @@ HZApp.Router = (function(){
       var center = HZApp.Router.unpackValidLatLng(hashState.center) || null;
       if (center){
         HZApp.map.setCenter(new google.maps.LatLng(center.lat, center.lng));
-      }
-
-      this.updateMapLocationIfNeeded();
-    },
-
-    updateMapLocationIfNeeded: function(){
-      if (HZApp.Router.mapLoadedWithoutLocation){
-        HZApp.HZQuery.parseResponseGeometry(HZApp.HZQuery.response);
       }
     },
 
@@ -221,7 +217,9 @@ HZApp.Router = (function(){
     // update the mapLocation object based on checking the contents of the hash
     unpackInitialMapLocation: function(mapLocation, hash){
       if (!this.emptyHash(hash)){
-        return this.checkValidHashParams(mapLocation, HZApp.Router.unpackHash(hash));
+        var unpackedHash = this.unpackHash(hash);
+        this.hashOnPageLoad = unpackedHash;
+        return this.checkValidHashParams(mapLocation, unpackedHash);
       } else {
         return mapLocation;
       }
