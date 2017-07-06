@@ -26,7 +26,6 @@ describe ('Testing map operations', function() {
     spyOn(HZApp.map.mapTypes, 'set');
     spyOn(HZApp.map, 'setOptions');
 
-    spyOn(HZApp.GeoLocation, 'getUserLocation');
     spyOn(HZApp.Autocomplete, 'createAutocomplete');
     spyOn(HZApp.Autocomplete, 'createListener');
     spyOn(HZApp.Legend, 'buildLegend');
@@ -45,7 +44,6 @@ describe ('Testing map operations', function() {
     expect(google.maps.StyledMapType.calls.count()).toEqual(1);
     expect(HZApp.map.mapTypes.set.calls.count()).toEqual(1);
     expect(HZApp.map.setOptions.calls.count()).toEqual(1);
-    expect(HZApp.GeoLocation.getUserLocation.calls.count()).toEqual(1);
     expect(HZApp.Autocomplete.createAutocomplete.calls.count()).toEqual(1);
     expect(HZApp.Autocomplete.createListener.calls.count()).toEqual(1);
     expect(HZApp.Legend.buildLegend.calls.count()).toEqual(1);
