@@ -160,9 +160,6 @@ HZApp.Router = (function(){
           HZApp.MapUtils.sendMapClick(latlng, function(){
             HZApp.Router.clearHash('q');
             HZApp.Router.setSingleHash('latlng', latlng_s);
-            if (HZApp.Router.mapLoadedWithoutLocation){
-              HZApp.map.setCenter(new google.maps.LatLng(latlng.lat, latlng.lng));
-            }
             HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom());
           });
         }
