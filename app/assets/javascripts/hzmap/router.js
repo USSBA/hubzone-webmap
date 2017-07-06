@@ -149,9 +149,6 @@ HZApp.Router = (function(){
       }
     },
 
-    //
-    startingHashState: null,
-
     // define the actions for different hash params
     hashControllers: {
       latlng: function(latlng_s){
@@ -169,7 +166,6 @@ HZApp.Router = (function(){
         if (search){
           HZApp.GA.trackSubmit('search', '#search-field-small');
           document.getElementById('search-field-small').value = search;
-          HZApp.Router.startingHashState = hashState;
           HZApp.MapUtils.sendMapSearch(search, function(){
             HZApp.Router.updateMapCenterAndZoom(HZApp.Router.hashOnPageLoad);
           });
