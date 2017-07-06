@@ -88,3 +88,5 @@ en:
         title_html: "Why does my address have an expiration date?"
         body_first_html: "<p>If your address is located in a Redesignated HUBZone or Base Closure Area, it will show an expiration date under the qualification status. If you see an expiration date, it means that the location is currently qualified for the HUBZone program, but it will no longer be qualified after the expiration date.</p>"
         body_second_html: "<p>If you see multiple expiration dates in the additional details section the address is located in multiple overlapping HUBZones. Each type of HUBZone has its own qualification and expiration rules. You should use the more distant date (the date that is shown right under the qualification status) as the date when the address will no longer be qualified for the HUBZone Program.</p>"
+    version:
+      title_html: "HUBZone Map Software Version"

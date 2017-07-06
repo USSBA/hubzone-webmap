@@ -33,6 +33,12 @@ describe "The Help Overview Page", type: :feature do
   it "should have a Advanced Features section" do
     expect(page).to have_css("#section-advanced")
   end
+  it "should have a Software Version section" do
+    expect(page).to have_css("#section-version")
+  end
+  it "should show the current version of the map software" do
+    expect(page.body).to match(/v1.2.\d+(-[a-zA-Z0-9.]+)? \([a-f0-9]{7}\)/)
+  end
 end
 describe "The Help FAQ Page", type: :feature do
   before do

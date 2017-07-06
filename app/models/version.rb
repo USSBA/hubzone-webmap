@@ -2,7 +2,11 @@
 class Version
   attr_reader :release
 
-  def initialize(git_description = git_describe)
+  def self.get_default(git_description = self.git_describe)
+    Version.new git_description
+  end
+
+  def initialize(git_description = Version.git_describe)
     @git_description = git_description
     @release ||= description
   end
@@ -39,6 +43,13 @@ class Version
     delta.zero?
   end
 
+  def to_s
+    result = "v#{major}.#{minor}.#{patch}"
+    result += "-#{pre_release}" if pre_release.present?
+    result += " (#{commit})" if commit.present?
+    result
+  end
+
   private
 
   def description
@@ -52,7 +63,7 @@ class Version
       commit_sha:  commit_sha }.merge tag_components(tag)
   end
 
-  def git_describe
+  def self.git_describe
     `git describe --long`
   end
 

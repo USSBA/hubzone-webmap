@@ -88,3 +88,5 @@ dev:
         title_html: "¿Por qué mi dirección tiene una fecha de caducidad?"
         body_first_html: "<p>Si su dirección se encuentra en un HUBZone rediseñado o área de cierre de base, mostrará una fecha de vencimiento bajo el estado de calificación. Si ve una fecha de vencimiento, significa que la ubicación está actualmente calificada para el programa HUBZone, pero ya no se calificará después de la fecha de caducidad.</p>"
         body_second_html: "<p>Si ve varias fechas de vencimiento en la sección de detalles adicionales, la dirección se encuentra en múltiples HUBZones superpuestas. Cada tipo de HUBZone tiene sus propias reglas de calificación y caducidad. Debe utilizar la fecha más lejana (la fecha que se muestra justo debajo del estado de calificación) como la fecha en que la dirección ya no estará calificada para el Programa HUBZone.</p>"
+    version:
+      title_html: "HUBZone Mapa Versión del Software"
