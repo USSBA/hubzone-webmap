@@ -115,5 +115,9 @@ describe ('Testing Router operations', function() {
         expect(HZApp.map.setCenter.calls.count()).toEqual(1);
       });
     });
+
+    describe("catchHashChange", function(){
+
+    });
   });
 });
