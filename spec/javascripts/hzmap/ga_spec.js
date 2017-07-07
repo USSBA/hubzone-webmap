@@ -7,6 +7,8 @@
 describe ('Testing Google Analytics integration', function() {
 
   beforeEach(function(done) {
+    google = HZSpecHelper.google;
+    HZApp.map = new google.maps.Map();
   /* global window:true */
   window = window || {}; //what was this for?  JS Hint doesn't like it
     window.ga = window.ga || function(a,b,c,d){};
@@ -16,6 +18,8 @@ describe ('Testing Google Analytics integration', function() {
 
   describe ('with clicking locations on the map', function() {
     it('should send an event when a user clicks on the map', function() {
+      spyOn(HZApp.Router, 'setHash');
+      spyOn(HZApp.Router, 'setCenterAndZoomHash');
       clickEvent = { 'latLng': { 'lat': function() { return 39.28885; },
                             'lng': function() { return -76.6070; } } };
       HZApp.MapUtils.catchMapClick(clickEvent);

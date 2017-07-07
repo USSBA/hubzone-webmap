@@ -17,10 +17,10 @@ Style/Encoding:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Style/LeadingCommentSpace:
+Layout/LeadingCommentSpace:
   Enabled: false
 
-Style/SpaceInsideBrackets:
+Layout/SpaceInsideBrackets:
   Enabled: false
 
 Style/StringLiterals:

@@ -1,20 +1,46 @@
 HZApp.MapUtils = (function(){
 
   return {
-    // turn latlng object into url
+    // catch a map latlng event into a latlng hash
     catchMapClick: function(clickEvent){
       var clicklng = clickEvent.latLng.lng();
       var clicklat = clickEvent.latLng.lat();
-      var date = HZApp.MapUtils.parseDate(new Date());
-      var locale = document.documentElement.lang || 'en';
+      return this.sendMapClick({lat: clicklat, lng: clicklng});
+    },
+
+    // send a map click to the hubzone assertion server
+    sendMapClick: function(latlng, callback){
       // Log the click
-      HZApp.GA.track( 'map', 'click', clicklat + ',' + clicklng );
-      var url = "<%= search_path %>?latlng=" + clicklat + ',' + clicklng + '&query_date=' + date + '&locale=' + locale;
-      $.ajax({
-        url: url
-      });
+      var latlng_s = latlng.lat.toFixed(6) + ',' + latlng.lng.toFixed(6);
+      HZApp.GA.track( 'map', 'click', latlng_s );
+      var url = "<%= search_path %>?latlng=" + latlng_s + this.includeDateAndLocale();
+      this.sendAjax(url, callback);
+      HZApp.Router.clearHash('q');
+      HZApp.Router.setSingleHash('latlng', latlng_s);
+      HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom());
       return url;
     },
+
+    sendMapSearch: function(q, callback){
+      var url = "<%= search_path %>?search=" + q + this.includeDateAndLocale();
+      this.sendAjax(url, callback);
+      return url;
+    },
+
+    sendAjax: function(url, callback){
+      callback = callback || null;
+      $.ajax({
+        url: url,
+        success: callback
+      });
+    },
+
+    includeDateAndLocale: function(){
+      var date = HZApp.MapUtils.parseDate(new Date());
+      var locale = document.documentElement.lang || 'en';
+      return ('&query_date=' + date + '&locale=' + locale);
+    },
+
     //helper to parse a javascript date because, why?
     parseDate: function(date){
       var mm = date.getMonth() + 1;
@@ -24,6 +50,7 @@ HZApp.MapUtils = (function(){
               (dd>9 ? '' : '0') + dd
              ].join('-');
     },
+
     //jump to location on the map based on the geocode viewport object
     jumpToLocation: function(geocodeLocation){
       if (geocodeLocation.viewport){
@@ -41,6 +68,7 @@ HZApp.MapUtils = (function(){
         }
       }
     },
+
     getMapDims: function($el){
       return {
         height: $el.height(),
@@ -94,15 +122,33 @@ HZApp.MapUtils = (function(){
       {mapType:'hz_map',  newName: 'Light Gray'},
       {mapType:'hybrid',  newName: 'Satellite'}
     ],
+
     updateMapTypeNames: function(){
       HZApp.MapUtils.mapNameUpdates.map(HZApp.MapUtils.customMapTypeName);
       HZApp.map.setOptions({'mapTypeControl':true});
     },
+
+    // map idle listener callback for updatig the map url route when the page is done moving
+    updateMapLocation: function(){
+      HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), true);
+    },
+
     customMapTypeName: function(mapNameUpdate){
       if (!HZApp.map.mapTypes[mapNameUpdate.mapType]) { return; }
       HZApp.map.mapTypes[mapNameUpdate.mapType].name = mapNameUpdate.newName;
     },
-
+    catchClearSearch: function(element) {
+      $(element).click(function() {
+        HZApp.MapUtils.resetMap();
+      });
+    },
+    resetMap: function(){
+      HZApp.Markers.hzQueryMarker.updateMarkers(null);
+      HZApp.SidebarUtils.sidebar.close();
+      HZApp.SidebarUtils.sidebar.clear();
+      HZApp.Router.clearHash('latlng');
+      HZApp.Router.clearHash('q');
+    },
     /*
       This is a convenience method for helping to parse the base map style object at HZApp.Styles.hzBaseMapStyle
       to the format required by the Google Maps Static API (https://developers.google.com/maps/documentation/static-maps/styling, 2017-05-05)

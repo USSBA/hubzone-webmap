@@ -3,7 +3,7 @@
   if body
     address = body['formatted_address'].nil? ? t(body['message']) : body['formatted_address']
     if !body['address_components'].nil?
-      coordinates = [format('%.5f', body['geometry']['location']['lat']) + "\xC2\xB0", format('%.5f', body['geometry']['location']['lng']) + "\xC2\xB0"].join(', ')
+      coordinates = [format('%.6f', body['geometry']['location']['lat']) + "\xC2\xB0", format('%.6f', body['geometry']['location']['lng']) + "\xC2\xB0"].join(', ')
     else
       coordinates = nil
     end
@@ -47,18 +47,18 @@
   </div>
   <div class="hubzone-sidebar-cell text">
     <div class="hubzone-sidebar-row">
-      <h2 class="hubzone-sidebar-address" tabindex="10"><%= address %></h2>
+      <h2 class="hubzone-sidebar-address clearable" tabindex="10"><%= address %></h2>
     </div>
     <% if coordinates %>
     <div class="hubzone-sidebar-row">
-      <h4 class="hubzone-sidebar-coordinates"><%= coordinates %></h4>
+      <h4 class="hubzone-sidebar-coordinates clearable"><%= coordinates %></h4>
     </div>
     <% end %>
   </div>
 </div>
 
 <div class="sidebar-card hubzone-status <%= hubzone_status_style %> <%= visibility %>">
-  <table id="hubzone-qualifications" class="sidebar-qualifications">
+  <table id="hubzone-qualifications" class="sidebar-qualifications clearable">
     <thead>
       <th class="<%= hubzone_status_style %>" scope="row">
         <div class="hubzone-status-indicator ">
@@ -72,15 +72,22 @@
 </div>
 
 <div class="sidebar-card additional-details <%= details_visibility %>">
-   <table class="sidebar-additional-details">
-     <thead>
-       <th class="additional-details-title" scope="row"><%= t('sidebar.details.title') %></th>
-     </thead>
-     <tbody>
-       <%= render partial: "qualification", collection: hubzones %>
-     </tbody>
-   </table>
- </ul>
+  <div class="qualifications">
+    <div id="additional-details-button" class="usa-accordion-button additional-details" aria-label="Expand HUBZone Designation details">
+      <span class="additional-details-title">
+        <%= t('sidebar.details.title') %>
+      </span>
+      <span class="additional-details-expand show" data-action="show">
+        <%= t('sidebar.details.show') %>
+      </span>
+      <span class="additional-details-expand hide" data-action="hide" hidden>
+        <%= t('sidebar.details.hide') %>
+      </span>
+    </div>
+    <div class="sidebar-additional-details">
+      <%= render partial: "qualification", collection: hubzones %>
+    </div>
+  </div>
 </div>
 
 <div class="sidebar-card map-actions">
@@ -91,6 +98,6 @@
   <span id="report-waiting"></span>
 </div>
 
-<div class="sidebar-card hubzone-status-date <%= visibility %>" tabindex="12">
+<div class="sidebar-card hubzone-status-date <%= visibility %> clearable" tabindex="12">
   <%= t('hubzone_assertions.qualifications_effective') %><%= date %>
 </div>

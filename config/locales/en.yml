@@ -45,7 +45,9 @@ en:
     print_version: "Printable Version"
     until: "until"
     details:
-      title: "Additional Details"
+      title: "Designations"
+      show: "Show Details"
+      hide: "Hide Details"
   api:
     success: "Success"
     error:
@@ -74,7 +76,6 @@ en:
     qnmc_ab: "County"
     qnmc_b: "County"
     qnmc_c: "County"
-    qnmc_dda: "County"
     qnmc_e: "County"
     qnmc_brac: "Base Closure County"
     qnmc_r: "Redesignated County"
@@ -82,6 +83,23 @@ en:
     brac: "Base Closure"
     qct_qda: "Census Tract Disaster Area"
     qnmc_qda: "County Disaster Area"
+    additional_details:
+      tract_id: "Tract ID"
+      county: "County"
+      state: "State"
+      county_id: "County ID"
+      indian_land_name: "Name"
+      indian_land_census_code: "Census Code"
+      indian_land_type: "Type"
+      indian_land_class: "Class"
+      geographic_name_code: "Geographic Name Code"
+      base_name: "Base Name"
+      base_type: "Base Type"
+      base_designation: "Base Designation"
+      disaster_name: "Disaster Name"
+      disaster_declaration: "Disaster Declaration"
+      disaster_designation: "Disaster Designation"
+      disaster_publish: "Disaster Publish"
   legend:
     title: "Legend"
     qualified: "Qualified HUBZones"
@@ -106,3 +124,5 @@ en:
     error: "Error Generating Report"
     generating: "Generating Report..."
     created: "Report Created"
+  error-popup:
+    geolocation: 'Cannot determine your location. For more info, refer to '

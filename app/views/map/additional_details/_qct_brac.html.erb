@@ -1,0 +1,24 @@
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.base_name') %></h6>
+  <h5><%= qualification["brac_sba_name"].blank? ? '--' : qualification["brac_sba_name"] %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.base_type') %></h6>
+  <h5><%= qualification["fac_type"].blank? ? '--' : qualification["fac_type"] %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.base_designation') %></h6>
+  <h5><%= qualification["effective"].blank? ? '--' : I18n.l(Date.parse(qualification["effective"]), format: :full) %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.tract_id') %></h6>
+  <h5><%= qualification["tract_fips"].blank? ? '--' : qualification["tract_fips"] %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.county') %></h6>
+  <h5><%= qualification["county"].blank? ? '--' : qualification["county"] %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.state') %></h6>
+  <h5><%= qualification["state"].blank? ? '--' : qualification["state"] %></h5>
+</div>

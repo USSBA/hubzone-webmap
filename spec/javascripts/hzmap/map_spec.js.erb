@@ -9,6 +9,7 @@ describe ('Testing map operations', function() {
     google = HZSpecHelper.google;
     HZApp.map = new google.maps.Map();
     HZSpecHelper.mockPage.build();
+    location.hash = "";
   });
 
   afterEach(function(){
@@ -19,17 +20,18 @@ describe ('Testing map operations', function() {
   it("should create a new Google map", function() {
     spyOn(google.maps, 'Map').and.returnValue(HZApp.map);
     spyOn(google.maps.event, 'addListenerOnce');
+    spyOn(google.maps.event, 'addListener');
     spyOn(google.maps.places, 'Autocomplete');
     spyOn(google.maps, 'StyledMapType');
     spyOn(HZApp.map.mapTypes, 'set');
     spyOn(HZApp.map, 'setOptions');
 
-    spyOn(HZApp.GeoLocation, 'getUserLocation');
     spyOn(HZApp.Autocomplete, 'createAutocomplete');
     spyOn(HZApp.Autocomplete, 'createListener');
     spyOn(HZApp.Legend, 'buildLegend');
     spyOn(HZApp.WMTSUtils, 'initializeTiles');
     spyOn(HZApp.WMTSUtils, 'addClickListeners');
+    spyOn(HZApp.MapUtils, 'catchClearSearch');
 
     HZApp.map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
     HZApp.map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
@@ -38,15 +40,16 @@ describe ('Testing map operations', function() {
     expect(initMap()).not.toBe(null);
     expect(google.maps.Map.calls.count()).toEqual(1);
     expect(google.maps.event.addListenerOnce.calls.count()).toEqual(1);
+    expect(google.maps.event.addListener.calls.count()).toEqual(1);
     expect(google.maps.StyledMapType.calls.count()).toEqual(1);
     expect(HZApp.map.mapTypes.set.calls.count()).toEqual(1);
     expect(HZApp.map.setOptions.calls.count()).toEqual(1);
-    expect(HZApp.GeoLocation.getUserLocation.calls.count()).toEqual(1);
     expect(HZApp.Autocomplete.createAutocomplete.calls.count()).toEqual(1);
     expect(HZApp.Autocomplete.createListener.calls.count()).toEqual(1);
     expect(HZApp.Legend.buildLegend.calls.count()).toEqual(1);
     expect(HZApp.WMTSUtils.initializeTiles.calls.count()).toEqual(1);
     expect(HZApp.WMTSUtils.addClickListeners.calls.count()).toEqual(1);
+    expect(HZApp.MapUtils.catchClearSearch.calls.count()).toEqual(1);
   });
 
   describe("should parse a viewport to LatLngBounds", function(){
@@ -182,11 +185,39 @@ describe ('Testing map operations', function() {
     };
 
     var date = HZApp.MapUtils.parseDate(new Date());
-    var latlngUrl = '<%= search_path %>?latlng=' + mapClick.latLng.lat() + ',' + mapClick.latLng.lng() +
+    var latlngUrl = '<%= search_path %>?latlng=' + mapClick.latLng.lat().toFixed(6) + ',' + mapClick.latLng.lng().toFixed(6) +
                     '&query_date=' + date +
                     '&locale=en';
     var clickUrl = HZApp.MapUtils.catchMapClick(mapClick);
     expect(clickUrl).toEqual(latlngUrl);
+  });
+
+  it("should update the url hash on map click", function(){
+    spyOn(HZApp.Router, 'setHash');
+    spyOn(HZApp.Router, 'setCenterAndZoomHash').and.callThrough();
+
+    var mapClick = {
+      latLng: {
+        lat: function(){
+          return HZSpecHelper.markerLocation.lat;
+        },
+        lng: function(){
+          return HZSpecHelper.markerLocation.lng;
+        }
+      }
+    };
+
+    HZApp.MapUtils.catchMapClick(mapClick);
+    expect(HZApp.Router.setHash.calls.count()).toEqual(3); //once each for latlng, center & zoom, and once for clearing q
+    expect(HZApp.Router.setCenterAndZoomHash.calls.count()).toEqual(1);
+  });
+
+  it("should call to update map location hash when called", function(){
+    spyOn(HZApp.Router, 'setHash');
+    spyOn(HZApp.Router, 'setCenterAndZoomHash').and.callThrough();
+    HZApp.MapUtils.updateMapLocation();
+    expect(HZApp.Router.setHash.calls.count()).toEqual(1); //once combined for center, zoom
+    expect(HZApp.Router.setCenterAndZoomHash.calls.count()).toEqual(1);
   });
 
   it("should parse single digit dates correctly", function(){
@@ -225,6 +256,44 @@ describe ('Testing map operations', function() {
     HZApp.MapUtils.updateMapTypeNames(HZApp.map);
     expect(HZApp.MapUtils.customMapTypeName.calls.count()).toEqual(HZApp.MapUtils.mapNameUpdates.length);
     expect(HZApp.map.setOptions.calls.count()).toEqual(1);
+  });
+
+  it("should bind a listener to handle clearing search + reset map", function(){
+    spyOn(HZApp.MapUtils, 'resetMap');
+
+    HZApp.MapUtils.catchClearSearch('button.clear-search');
+    $('button.clear-search').click();
+
+    expect(HZApp.MapUtils.resetMap.calls.count()).toEqual(1);
+  });
+
+  describe("it should reset the map", function() {
+    beforeEach(function(){
+      HZApp.Markers.hzQueryMarker = new HZApp.Constructors.HubzoneMapMarker({
+        icon: '',
+        scaledSize: 40
+      });
+      HZApp.Markers.hzUserLocation = new HZApp.Constructors.HubzoneMapMarker({
+        icon: '',
+        scaledSize: 17
+      });
+      HZApp.SidebarUtils.buildSidebar();
+      sidebar = HZApp.SidebarUtils.sidebar;
+    });
+
+    it("should handle resetting the map", function(){
+      spyOn(HZApp.Markers.hzQueryMarker, 'updateMarkers');
+      spyOn(HZApp.SidebarUtils.sidebar, 'close');
+      spyOn(HZApp.SidebarUtils.sidebar, 'clear');
+      spyOn(HZApp.Router, 'clearHash');
+
+      HZApp.MapUtils.resetMap();
+
+      expect(HZApp.Markers.hzQueryMarker.updateMarkers.calls.count()).toEqual(1);
+      expect(HZApp.SidebarUtils.sidebar.close.calls.count()).toEqual(1);
+      expect(HZApp.SidebarUtils.sidebar.clear.calls.count()).toEqual(1);
+      expect(HZApp.Router.clearHash.calls.count()).toEqual(2);
+    });
   });
 
   describe("the hzBaseMapStyle style parser should produce the correct results", function(){

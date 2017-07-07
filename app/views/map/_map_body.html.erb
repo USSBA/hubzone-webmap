@@ -8,7 +8,7 @@
   </div>
   <div id="map" class="sidebar-map"></div>
   <div class="hubzone-search">
-        <%= form_tag search_path, remote: true, method: :get, class: "usa-search usa-search-small", onsubmit: "HZApp.GA.trackSubmit('search', '#search-field-small')" do %>
+        <%= form_tag search_path, remote: true, method: :get, class: "usa-search usa-search-small", id: 'hubzone-search-form', onsubmit: "HZApp.GA.trackSubmit('search', '#search-field-small')" do %>
         <div id="map-search" role="search">
           <%= hidden_field_tag "locale", I18n.locale %>
           <%= hidden_field_tag "query_date", Date.today %>
@@ -23,7 +23,8 @@
      <%= render partial: "map_legend", locals: {body: nil} %>
   </div>
   <div id="geolocation" class="gmnoprint">
-    <i class="fa fa-location-arrow" aria-hidden="true"></i>
+    <%= render partial: 'geolocation_error' %>
+    <i class="geolocation-arrow fa fa-location-arrow" aria-hidden="true"></i>
     <div class="geolocation-loading">
       <div class="circle1"></div>
       <div class="circle2"></div>

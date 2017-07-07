@@ -75,6 +75,7 @@ div[dir="ltr"] {
   cursor: pointer;
   margin-right: 10px;
   padding: 6px 6px 5px 6px;
+  display: inline-flex;
 }
 #geolocation .fa-location-arrow {
   font-size: 1.8rem;
@@ -83,15 +84,35 @@ div[dir="ltr"] {
 .geolocation-sidebar-on {
   right: 34rem !important;
 }
+.error-popup.geolocation {
+  margin-top: -0.6rem;
+  margin-left: -26rem;
+  margin-right: 3.8rem;
+  padding: 1rem;
+  height: auto;
+  background: $white;
+  display: none;
+  position: absolute;
+  font-size: 1.4rem;
+  color: $gray;
+  cursor: default;
+}
+.geolocation-error-button {
+  float: right;
+  color: $gray;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
 @media only screen and (max-width: 950px)  {
   #geolocation {
     display: block;
-    top: 50px;
-    width: 40px;
-    height: 40px;
+    top: 47px;
+    width: 35px;
+    height: 35px;
+    margin-right: 5px;
   }
   #geolocation .fa-location-arrow {
-    font-size: 3rem;
+    font-size: 2.4rem;
     margin-left: 2px;
     margin-top: -1px;
   }
@@ -102,7 +123,28 @@ div[dir="ltr"] {
   .geolocation-sidebar-on {
     right: 0rem !important;
   }
-  .gmnoprint {
+  .gmnoprint [title~='Zoom']{
+    display: none;
+  }
+  .gmnoprint .gmnoprint {
+    display: none;
+  }
+  .gmnoprint .gm-style-mtc{
+    display: none;
+  }
+  .gmnoprint .gm-svpc {
+    display: block !important;
+    position: fixed !important;
+    float: right !important;
+    top: 135px !important;
+    right: 9px !important;
+    left: auto !important;
+    transform: scale(1.25);
+  }
+  .error-popup.geolocation {
+    margin-left: -200px;
+    margin-right: 45px;
+    position: absolute;
     display: none;
   }
 }

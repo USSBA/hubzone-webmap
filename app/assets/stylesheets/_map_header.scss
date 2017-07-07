@@ -18,11 +18,6 @@
   margin: 0 0 0 2rem;
   padding: 0;
 }
-.usa-nav-secondary {
-  position: fixed;
-  top: -4.3rem;
-  right: 2rem;
-}
 .usa-nav-secondary-links li:not(:last-child)::after {
   content: none;
 }
@@ -32,6 +27,7 @@
 .usa-banner-inner {
   max-width: 100%;
   padding-left: 1.5rem;
+  paddin-right: 0rem;
 }
 .usa-header-extended .usa-logo {
   margin-top: .7rem;
@@ -45,6 +41,16 @@
   padding-left: 1.5rem;
   border-bottom: 2px solid $gray-lighter;
 }
+@media only screen and (min-width: 950px) {
+  .usa-nav-secondary {
+    position: absolute;
+    right: 2rem;
+    top: -4.5rem;
+  }
+  .usa-header-extended .usa-nav-inner {
+    max-width: 100%;
+  }
+}
 @media only screen and (max-width: 950px)  {
   #sba-logo {
     max-width: 6rem;
@@ -57,9 +63,7 @@
     border-bottom: none;
   }
   .usa-nav-secondary {
-    position: fixed;
-    top: inherit;
-    right: inherit;
+
   }
   .usa-banner {
     display: none;
@@ -82,7 +86,20 @@
     font-size: 2.2rem;
     font-weight: 400;
   }
+  .usa-menu-btn {
+    display: block;
+    margin: 0.5rem;
+    border-radius: 3px;
+    height: 3rem;
+    line-height: 2rem;
+    text-transform: none;
+    font-weight: bold;
+  }
+  .usa-menu-btn.usa-button-outline:hover {
+    color: $white;
+  }
 }
+
 @media only screen and (max-width: 480px) {
   .usa-unstyled-list > li {
     margin: 1em 0;

@@ -3,22 +3,6 @@
 
 // helper for running hz jasmine tests
 var HZSpecHelper = (function(){
-  //polyfills
-  if (!String.prototype.includes) {
-    String.prototype.includes = function(search, start) {
-      'use strict';
-      if (typeof start !== 'number') {
-        start = 0;
-      }
-
-      if (start + search.length > this.length) {
-        return false;
-      } else {
-        return this.indexOf(search, start) !== -1;
-      }
-    };
-  }
-
   return {
     //build a dummy sidebar and mapbody
     mockPage: {
@@ -26,68 +10,43 @@ var HZSpecHelper = (function(){
         //add map and header and search
         $('body').append('<div id="map" class="map-body mock-page" style="width:1200;height:600"></div>');
         $('body').append('<div id="header" class=" mock-page hidden"></div>');
-        $('#header').append('<div id="search-field-small" class="mock-page hidden"></div>');
-
-        //add legend
-        $('body').append('<div id="legend" class="mock-page hidden">' +
-                           '<div class="legend-header open">' +
-                           '<h4>Legend</h4>' +
-                           '<i class="legend-button fa fa-chevron-down"></i>' +
-                           '</div>' +
-                           '<fieldset class="usa-fieldset-inputs">' +
-                             '<legend class="usa-sr-only">HUBZone Map Legend</legend>' +
-                             '<ul class="legend-content">' +
-                               '<div class="legend-list-title">Qualified HUBZones</div>' +
-                               '<li class="legend-item">' +
-                                 '<input id="mock-checkbox" type="checkbox" name="qct" value="qct" checked="">' +
-                                   '<label for="qct">' +
-                                     '<div class="legend-layer-symbols layer-qct"></div>Census Tract' +
-                                   '</label>' +
-                                 '</input>' +
-                               '</li>' +
-                               '<li class="legend-item">' +
-                                 '<input id="qnmc" type="checkbox" name="qnmc" value="qnmc" checked="">' +
-                                 '<label for="qnmc">' +
-                                   '<div class="legend-layer-symbols layer-qnmc"></div>County' +
-                                 '</label>' +
-                               '</li>' +
-                               '<li class="legend-item">' +
-                                 '<input id="indian_lands" type="checkbox" name="indian_lands" value="indian_lands" checked="">' +
-                                 '<label for="indian_lands">' +
-                                   '<div class="legend-layer-symbols layer-indian_lands"></div>Indian Lands' +
-                                 '</label>' +
-                               '</li>' +
-                               '<div class="legend-list-title">Expiring HUBZones</div>' +
-                               '<li class="legend-item">' +
-                                 '<input id="redesignated" type="checkbox" name="redesignated" value="redesignated" checked="">' +
-                                 '<label for="redesignated">' +
-                                   '<div class="legend-layer-symbols layer-qct_r"></div>' +
-                                   '<div class="legend-layer-symbols layer-qnmc_r"></div>Redesignated' +
-                                 '</label>' +
-                               '</li>' +
-                               '<li class="legend-item">' +
-                                 '<input id="brac" type="checkbox" name="brac" value="brac" checked="">' +
-                                 '<label for="brac">' +
-                                   '<div class="legend-layer-symbols layer-qct_brac"></div>' +
-                                   '<div class="legend-layer-symbols layer-qnmc_brac"></div>' +
-                                   '<div class="legend-layer-symbols layer-brac"></div>Closed Base Area' +
-                                 '</label>' +
-                               '</li>' +
-                             '</ul>' +
-                           '</fieldset>' +
-                         '</div>');
+        $('#header').append('<div id="search-field-small" class="mock-page hidden"></div><button name="search-clear" type="reset" class="clear-search fa fa-times-circle" tabindex="0"><span class="usa-sr-only">Clear Search</span></button>');
 
         //add geolocation button
         $('body').append('<div id="geolocation" class=" mock-page hidden"></div>');
-        $('#geolocation').append('<i class="fa fa-location-arrow" style="display: block;"></i>')
-        $('#geolocation').append('<div class="geolocation-loading" style="display: none;"></i>')
+        $('#geolocation').append('<div class="error-popup geolocation mock-page hidden"><i class="geolocation-error-button"></i> Error finding geolocation</div>');
+        $('#geolocation').append('<i class="fa fa-location-arrow" style="display: block;"></i>');
+        $('#geolocation').append('<div class="geolocation-loading" style="display: none;"></i>');
 
         //add sidebar
         $('body').append('<div id="sidebar" class="mock-page hidden"></div>');
         var testDiv = document.createElement('div');
         $('#sidebar').append(testDiv);
         $('#sidebar').css('display', 'none');
-        $('#sidebar').append('<table id="hubzone-qualifications" ></table>');
+
+        $('#sidebar').append('<h2 class="hubzone-sidebar-address clearable" tabindex="10">8 Market Place</h2>');
+        $('#sidebar').append('<h4 class="hubzone-sidebar-coordinates clearable">-34.99999, 28.00000</h4>');
+        $('#sidebar').append('<table id="hubzone-qualifications" class="sidebar-qualifications clearable" aria-live="rude" tabindex="-1">' +
+          '<thead>' +
+          '<tr><th class="qualified-hubzone" scope="row">' +
+          '<div class="hubzone-status-indicator ">' +
+          '<i class="fa fa-check-circle-o qualified-hubzone" aria-hidden="true"></i>' +
+          '</div>' +
+          '<div id="hubzone-status" tabindex="11" aria-label="qualified hubzone">Qualified ' +
+          'HUBZone</div>' +
+          '<div class="hubzone-until-date"></div>' +
+          '</th>' +
+          '</tr></thead>' +
+          '</table>');
+
+        $('#sidebar').append('<button id="additional-details-button" class="usa-accordion-button additional-details" aria-expanded="false" aria-controls="additional-details-accordion">Additional Details</button>');
+        $('#additional-details-button').append('<div id="additional-details-accordion" class="usa-accordion-content sidebar-additional-details clearable" aria-hidden="true"><p>Qualifications</p></div');
+        $('#sidebar').append('<div class="sidebar-card hubzone-status-date  clearable" tabindex="12">' +
+          'Qualification is valid for today:  May 24, 2017' +
+          '</div>');
+
+
+        // add sidebar utils
         $('#sidebar').append('<div class="sidebar-card map-actions">' +
                               '<button id="map-report">' +
                                 '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>' +
@@ -159,7 +118,9 @@ var HZSpecHelper = (function(){
                     }
                   }
                 },
-                getZoom: function() {},
+                getZoom: function() {
+                  return 15;
+                },
                 fitBounds: function() {},
                 setCenter: function() {},
                 setOptions: function () {},
