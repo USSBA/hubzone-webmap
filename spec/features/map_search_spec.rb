@@ -191,8 +191,8 @@ RSpec.describe 'The Search', type: :feature, js: true do
     }
   }
 
-  %w[en].each do |locale|
-    context "in the #{locale} locale", vcr: false do
+  %w[en dev].each do |locale|
+    context "in the #{locale} locale", vcr: true do
       before do
         I18n.locale = locale
         visit map_path(locale: locale)
