@@ -257,9 +257,6 @@ button#map-report {
   #sidebar i.fa-chevron-right, i.fa-chevron-left {
     transform: rotate(-90deg);
   }
-  #sidebar.on {
-    height: 12rem;
-  }
   #sidebar.closed {
     height: calc(100% - 12rem);
     right: 0;
