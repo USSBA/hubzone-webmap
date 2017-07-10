@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root to: 'main#index'
   get '/map', to: 'main#index', as: :old_map
 
-  mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
+  # mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
 
   app_scope = '/hubzone/map'
 
