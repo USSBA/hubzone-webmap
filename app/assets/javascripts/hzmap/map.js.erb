@@ -50,9 +50,6 @@ function initMap() {
   //add listener on the map for clicks
   HZApp.WMTSUtils.addClickListeners(HZApp.map);
 
-  //add listener for map idle to update router hash center and zoom
-  google.maps.event.addListener(HZApp.map, 'idle', HZApp.MapUtils.updateMapLocation);
-
   //add listener to the clear search
   HZApp.MapUtils.catchClearSearch('button.clear-search');
 

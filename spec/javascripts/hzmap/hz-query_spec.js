@@ -1,12 +1,16 @@
 //= require hzmap/hz-query
-//= require hzmap
+//= require hzmap/router
+//= require hzmap/markers
+//= require hzmap/map-utils
+//= require hzmap/sidebar
 /* jshint unused: false */
 /* jshint undef: false */
 
 describe ('Testing hz-query functions', function() {
   beforeEach(function(){
+    fixture.cleanup();
+    this.fixtures = fixture.load("hz_mock_sidebar.html", "hz_mock_page.html", true);
     google = HZSpecHelper.google;
-    HZSpecHelper.mockPage.build();
     HZApp.SidebarUtils.buildSidebar();
     sidebar = HZApp.SidebarUtils.sidebar;
     HZApp.map = new google.maps.Map();
@@ -90,7 +94,6 @@ describe ('Testing hz-query functions', function() {
           expect(HZApp.HZQuery.response.geocodeLocation).toBe(null);
         });
       }
-
 
     });
   });

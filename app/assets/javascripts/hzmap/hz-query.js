@@ -21,6 +21,7 @@ HZApp.HZQuery = {
 
     //finally, update the map with the new response
     this.updateMap();
+    // HZApp.Router.catchHashChange(); //trigger a hash change check to eval the status of the silent flag
   },
   handleBadResponses: function(responseStatus){
     if (responseStatus === 'ZERO_RESULTS' || responseStatus === 'INVALID_REQUEST'){
@@ -46,7 +47,6 @@ HZApp.HZQuery = {
         this.query.latlng = [response.geometry.location.lat, response.geometry.location.lng ].join(',');
         this.addCoordsToSearchBar(response.geometry.location);
       }
-
       HZApp.MapUtils.jumpToLocation({
         viewport: response.geometry.viewport,
         location: response.geometry.location

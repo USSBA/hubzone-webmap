@@ -1,6 +1,7 @@
 //= require hzmap/ga
 //= require hzmap/sidebar
 //= require hzmap/map-utils
+//= require hzmap/router
 /* jshint unused: false */
 /* jshint undef: false */
 
@@ -24,6 +25,8 @@ describe ('Testing Google Analytics integration', function() {
                             'lng': function() { return -76.6070; } } };
       HZApp.MapUtils.catchMapClick(clickEvent);
       expect(window.ga.calls.count()).toEqual(1);
+      expect(HZApp.Router.setCenterAndZoomHash.calls.count()).toEqual(1);
+      expect(HZApp.Router.setHash.calls.count()).toEqual(2);
     });
   });
 
