@@ -17,11 +17,12 @@ HZApp.HZQuery = {
     this.handleBadResponses(response.status);
 
     // get all the desired geometry and attributes out of the response
+    HZApp.Router.silentHashChange.setSilent(true, 'parseResponseGeometry');
     this.parseResponseGeometry(this.response);
 
-    //finally, update the map with the new response
+    //finally, update the map with the new response and reset hash listener
     this.updateMap();
-    // HZApp.Router.catchHashChange(); //trigger a hash change check to eval the status of the silent flag
+    HZApp.Router.silentHashChange.setSilent(false, 'parseResponse');
   },
   handleBadResponses: function(responseStatus){
     if (responseStatus === 'ZERO_RESULTS' || responseStatus === 'INVALID_REQUEST'){

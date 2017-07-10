@@ -27,7 +27,6 @@ HZApp.Router = (function(){
 
     // this is the main and only point which is allowed to set the hash
     setHash: function(hash){
-      console.log(HZApp.Router.silentHashChange.silent);
       if (hash !== location.hash){
         location.hash = hash;
       }
@@ -35,8 +34,8 @@ HZApp.Router = (function(){
 
     // update a single hash in the hash
     setSingleHash: function(hashParam, hashValue, currentHash, silent){
-      silent = silent || false;
-      HZApp.Router.silentHashChange.setSilent(silent, 'setSingleHash');
+      // silent = silent || false;
+      // HZApp.Router.silentHashChange.setSilent(silent, 'setSingleHash');
 
       currentHash = currentHash || location.hash;
       this.setHash(this.updateHashValue(hashParam, hashValue, currentHash));
@@ -45,12 +44,12 @@ HZApp.Router = (function(){
     // helper to get just the google map center and zoom and update the hash from that
     // but set them together to only trigger one event
     setCenterAndZoomHash: function(mapCenter, zoom, silent){
-      console.log('here', silent);
       var c_hash = this.updateHashValue('center', mapCenter.lat().toFixed(6) + ',' + mapCenter.lng().toFixed(6), location.hash);
       var c_z_hash = this.updateHashValue('zoom', zoom, c_hash);
-      silent = silent || false;
-      HZApp.Router.silentHashChange.setSilent(silent, 'setCenterAndZoomHash');
+      // silent = silent || false;
+      HZApp.Router.silentHashChange.setSilent(true, 'setCenterAndZoomHash');
       this.setHash(c_z_hash);
+      HZApp.Router.silentHashChange.setSilent(false, 'setCenterAndZoomHash');
     },
 
     // returns a new hash string that that can be passed to location.hash
@@ -98,8 +97,8 @@ HZApp.Router = (function(){
     // clear the hash completly, or clear a parameter
     clearHash: function(hashParam, silent){
       hashParam = hashParam || null;
-      silent = silent || false;
-      HZApp.Router.silentHashChange.setSilent(silent, 'clearHash');
+      // silent = silent || false;
+      // HZApp.Router.silentHashChange.setSilent(silent, 'clearHash');
       if (hashParam){
         this.setHash(this.findAndRemoveHashParam(hashParam));
       } else {
@@ -124,11 +123,13 @@ HZApp.Router = (function(){
     // ################## window event listeners #############################
 
     catchPageLoad: function(){
+      HZApp.Router.silentHashChange.setSilent(true, 'mapLoad');
       if (!HZApp.Router.emptyHash(location.hash)){
-        HZApp.Router.updateStateFromHash(location.hash, false);
+        HZApp.Router.updateStateFromHash(location.hash, true);
       }
       //add listener for map idle to update router hash center and zoom
       google.maps.event.addListener(HZApp.map, 'idle', HZApp.MapUtils.updateMapLocation);
+      HZApp.Router.silentHashChange.setSilent(false, 'mapLoad');
     },
 
     // catch and flow control hash changes
@@ -136,7 +137,6 @@ HZApp.Router = (function(){
       console.log(HZApp.Router.silentHashChange.silent);
       if (HZApp.Router.silentHashChange.silent) {
         console.log('was a silent change');
-        HZApp.Router.silentHashChange.setSilent(false, 'catchHashChange');
       } else {
         console.log('hash changed');
         console.trace();
@@ -153,6 +153,7 @@ HZApp.Router = (function(){
       var hashState = this.unpackHash(hash);
       Object.keys(this.hashControllers).forEach(function(controller){
         if (hashState && hashState[controller]){
+          console.log(controller);
           HZApp.Router.hashControllers[controller](hashState[controller], silent, hashState);
         }
       });
@@ -197,9 +198,10 @@ HZApp.Router = (function(){
     },
 
     updateMapCenterAndZoom: function(hashState, silent){
-      HZApp.Router.silentHashChange.setSilent(silent || false, 'updateMapCenterAndZoom');
+      HZApp.Router.silentHashChange.setSilent(true, 'updateMapCenterAndZoom');
       HZApp.Router.updateZoom(hashState.zoom);
       HZApp.Router.updateCenter(hashState.center);
+      HZApp.Router.silentHashChange.setSilent(false, 'updateMapCenterAndZoom');
     },
 
     updateZoom: function(hash_zoom){
