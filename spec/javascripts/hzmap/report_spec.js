@@ -1,6 +1,7 @@
 //= require hzmap/report
 //= require hzmap/hz-query
 //= require hzmap
+//= require i18n/translations
 /* jshint unused: false */
 /* jshint undef: false */
 

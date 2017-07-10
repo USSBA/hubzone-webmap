@@ -1,0 +1,28 @@
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.disaster_name') %></h6>
+  <h5><%= qualification["incident_description"].blank? ? '--' : qualification["incident_description"] %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.disaster_declaration') %></h6>
+  <h5><%= qualification["qda_declaration"].blank? ? '--' : I18n.l(Date.parse(qualification["qda_declaration"]), format: :full) %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.disaster_designation') %></h6>
+  <h5><%= qualification["qda_designation"].blank? ? '--' : I18n.l(Date.parse(qualification["qda_designation"]), format: :full) %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.disaster_publish') %></h6>
+  <h5><%= qualification["qda_publish"].blank? ? '--' : I18n.l(Date.parse(qualification["qda_publish"]), format: :full) %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.tract_id') %></h6>
+  <h5><%= qualification["tract_fips"].blank? ? '--' : qualification["tract_fips"] %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.county') %></h6>
+  <h5><%= qualification["county"].blank? ? '--' : qualification["county"] %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.state') %></h6>
+  <h5><%= qualification["state"].blank? ? '--' : qualification["state"] %></h5>
+</div>
