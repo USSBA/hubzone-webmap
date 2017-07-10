@@ -39,7 +39,7 @@ HZApp.HZQuery = {
       if (response.place_id){
         this.query.q = response.formatted_address;
         this.query.latlng = null;
-        HZApp.Router.clearHash('latlng');
+        HZApp.Router.clearHash('latlng', true);
         HZApp.Router.setSingleHash('q', response.search_q, location.hash, true);
       } else {
         this.query.q = null;
