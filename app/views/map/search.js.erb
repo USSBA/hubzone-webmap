@@ -1,5 +1,5 @@
 $('#sidebar-content').html("<%= j render partial: "map_sidebar", locals: {body: JSON.parse(@body)} %>");  // jshint ignore:line
 HZApp.HZQuery.parseResponse(JSON.parse('<%= @body.html_safe %>'));
 HZApp.SidebarUtils.updateA11yFocus($('#hubzone-qualifications'));
-HZApp.SidebarUtils.updateAccordion($('.usa-accordion-button'));
+HZApp.SidebarUtils.updateAccordion($('.additional-details-expand'));
 HZApp.HZQuery.resetStreetView($('div[jsaction="closeControl.click"]'));

@@ -44,4 +44,4 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # end
 
 # Allow puma to be restarted by `rails restart` command.
-plugin :tmp_restart unless Rails.env.test?
+plugin :tmp_restart

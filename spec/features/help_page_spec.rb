@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 describe "The Help Page", type: :feature do
+  MAP_CONFIG[:hubzone_map_version] = {
+    major: 100,
+    minor: 50,
+    patch: 1000,
+    pre_release: 'zeta'
+  }
+
   before do
     visit('/hubzone/map/help')
   end
@@ -32,6 +39,12 @@ describe "The Help Overview Page", type: :feature do
   end
   it "should have a Advanced Features section" do
     expect(page).to have_css("#section-advanced")
+  end
+  it "should have a Software Version section" do
+    expect(page).to have_css("#section-version")
+  end
+  it "should show the current version of the map software" do
+    expect(page.body).to match(/v100.50.\d+(-[a-zA-Z0-9.]+)? \([a-f0-9]{7}\)/)
   end
 end
 describe "The Help FAQ Page", type: :feature do

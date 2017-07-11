@@ -13,7 +13,7 @@ HZApp.Legend = (function(){
       });
     },
     toggleLegendVisibility: function(legendState) {
-        if(legendState.includes('open')) {
+        if(legendState.indexOf('open', 0) !== -1) {
           HZApp.Legend.hideLegend();
         } else {
           HZApp.Legend.showLegend();

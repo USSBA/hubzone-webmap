@@ -3,22 +3,6 @@
 
 // helper for running hz jasmine tests
 var HZSpecHelper = (function(){
-  //polyfills
-  if (!String.prototype.includes) {
-    String.prototype.includes = function(search, start) {
-      'use strict';
-      if (typeof start !== 'number') {
-        start = 0;
-      }
-
-      if (start + search.length > this.length) {
-        return false;
-      } else {
-        return this.indexOf(search, start) !== -1;
-      }
-    };
-  }
-
   return {
     //build a dummy sidebar and mapbody
     mockPage: {
@@ -27,55 +11,6 @@ var HZSpecHelper = (function(){
         $('body').append('<div id="map" class="map-body mock-page" style="width:1200;height:600"></div>');
         $('body').append('<div id="header" class=" mock-page hidden"></div>');
         $('#header').append('<div id="search-field-small" class="mock-page hidden"></div><button name="search-clear" type="reset" class="clear-search fa fa-times-circle" tabindex="0"><span class="usa-sr-only">Clear Search</span></button>');
-
-        //add legend
-        $('body').append('<div id="legend" class="mock-page hidden">' +
-                           '<div class="legend-header open">' +
-                           '<h4>Legend</h4>' +
-                           '<i class="legend-button fa fa-chevron-down"></i>' +
-                           '</div>' +
-                           '<fieldset class="usa-fieldset-inputs">' +
-                             '<legend class="usa-sr-only">HUBZone Map Legend</legend>' +
-                             '<ul class="legend-content">' +
-                               '<div class="legend-list-title">Qualified HUBZones</div>' +
-                               '<li class="legend-item">' +
-                                 '<input id="mock-checkbox" type="checkbox" name="qct" value="qct" checked="">' +
-                                   '<label for="qct">' +
-                                     '<div class="legend-layer-symbols layer-qct"></div>Census Tract' +
-                                   '</label>' +
-                                 '</input>' +
-                               '</li>' +
-                               '<li class="legend-item">' +
-                                 '<input id="qnmc" type="checkbox" name="qnmc" value="qnmc" checked="">' +
-                                 '<label for="qnmc">' +
-                                   '<div class="legend-layer-symbols layer-qnmc"></div>County' +
-                                 '</label>' +
-                               '</li>' +
-                               '<li class="legend-item">' +
-                                 '<input id="indian_lands" type="checkbox" name="indian_lands" value="indian_lands" checked="">' +
-                                 '<label for="indian_lands">' +
-                                   '<div class="legend-layer-symbols layer-indian_lands"></div>Indian Lands' +
-                                 '</label>' +
-                               '</li>' +
-                               '<div class="legend-list-title">Expiring HUBZones</div>' +
-                               '<li class="legend-item">' +
-                                 '<input id="redesignated" type="checkbox" name="redesignated" value="redesignated" checked="">' +
-                                 '<label for="redesignated">' +
-                                   '<div class="legend-layer-symbols layer-qct_r"></div>' +
-                                   '<div class="legend-layer-symbols layer-qnmc_r"></div>Redesignated' +
-                                 '</label>' +
-                               '</li>' +
-                               '<li class="legend-item">' +
-                                 '<input id="brac" type="checkbox" name="brac" value="brac" checked="">' +
-                                 '<label for="brac">' +
-                                   '<div class="legend-layer-symbols layer-qct_brac"></div>' +
-                                   '<div class="legend-layer-symbols layer-qnmc_brac"></div>' +
-                                   '<div class="legend-layer-symbols layer-brac"></div>Closed Base Area' +
-                                 '</label>' +
-                               '</li>' +
-                             '</ul>' +
-                           '</fieldset>' +
-                         '</div>');
 
         //add geolocation button
         $('body').append('<div id="geolocation" class=" mock-page hidden"></div>');
@@ -183,7 +118,9 @@ var HZSpecHelper = (function(){
                     }
                   }
                 },
-                getZoom: function() {},
+                getZoom: function() {
+                  return 15;
+                },
                 fitBounds: function() {},
                 setCenter: function() {},
                 setOptions: function () {},
