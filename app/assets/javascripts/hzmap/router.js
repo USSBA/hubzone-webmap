@@ -16,7 +16,7 @@ HZApp.Router = (function(){
     // ################## set hash block #############################
     silentHashChange: {
       setSilent: function(x,caller){
-        this.history.push([Date.now(), x, caller]);
+        this.history.push([Date.now(), x, caller].join(', '));
         this.silent = x;
       },
       silent: false,
@@ -137,6 +137,7 @@ HZApp.Router = (function(){
       console.log(HZApp.Router.silentHashChange.silent);
       if (HZApp.Router.silentHashChange.silent) {
         console.log('was a silent change');
+        HZApp.Router.silentHashChange.setSilent(false, 'catchHashChange');
       } else {
         console.log('hash changed');
         console.trace();
@@ -303,3 +304,40 @@ HZApp.Router = (function(){
 
   };
 })();
+
+
+
+/*
+
+
+(good is that the app never reaches the update block and when it is done the silent var is set to false)
+
+
+UpdateStateFromHash on page load
+load map empty - good
+load center + zoom - good
+load center - good
+load zoom - good
+load latlng - good
+load center + latlng - good
+load zoom + latlng - good
+load center + zoom + latlng - good
+load center + zoom, then search - good
+load search + center - good
+load search + zoom - good
+load search only - good
+
+
+Catch page changes
+map click - good
+map click + zoom - good
+map click + pan - good
+map click + pan + map click - good
+map click + clear - good
+search + clear - good
+
+***** click then search - bad (triggers hash change, but still sets silent to false)
+***** load search + center + zoom - bad (doesnt trigger change, but leaves silent = true)
+***** search then map click - bad (triggers hash change, but still sets silent to false))
+
+*/
