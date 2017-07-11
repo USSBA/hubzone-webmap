@@ -268,13 +268,6 @@ button.copy-to-clipboard{
   cursor: pointer;
   display: inline;
 }
-.copy-title{
-  float: right;
-  font-size: 1.5rem;
-  font-weight: normal;
-  padding-top: 0.5rem;
-  color: $gray-dark;
-}
 
 .sidebar-footer {
   width: 34rem;
@@ -385,5 +378,27 @@ button.copy-to-clipboard{
   }
   .create-report {
     float: left;
+  }
+
+  button#map-share {
+  background-color: $white;
+  margin: 0;
+  padding: 1rem 0.5rem 1rem 1.5rem;
+  float: none;
+
+  }
+  i.fa-share {
+    float: left;
+    margin-right: 1rem;
+  }
+  .share-map {
+    float: left;
+  }
+  i.fa-clipboard {
+
+  }
+  button.copy-to-clipboard{
+    float: right;
+    width: 1rem;
   }
 }
