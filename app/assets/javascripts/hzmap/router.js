@@ -5,7 +5,6 @@ HZApp.Router = (function(){
   $(function() {
     $(document).on('click','#map-share', HZApp.Router.showShareUrl);
     $(document).on('click','button.copy-to-clipboard', HZApp.Router.copyUrl);
-
   });
 
   // still need to listen on page load to check for latlng values
