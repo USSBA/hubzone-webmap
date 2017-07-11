@@ -1,6 +1,11 @@
 // Basic hash router module
 HZApp.Router = (function(){
 
+  //bind listener for map share button
+  $(function() {
+    $(document).on('click','#map-share', HZApp.Router.shareUrl);
+  });
+
   // still need to listen on page load to check for latlng values
   window.addEventListener('load', function(){
     HZApp.Router.catchPageLoad();
@@ -123,6 +128,12 @@ HZApp.Router = (function(){
         // console.log('update app on back behavior');
         // HZApp.Router.updateStateFromHash(location.hash);
       }
+    },
+
+    // catch the share button click event and display modal
+    shareUrl: function(){
+      $('.share-map-card').toggleClass('hidden');
+      $('input.share-map-url').val(location.href);
     },
 
     // #######################################################
