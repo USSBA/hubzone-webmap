@@ -289,4 +289,18 @@ describe ('Testing Router operations', function() {
       });
     });
   });
+
+  describe("copying URL to clipboard", function(){
+    beforeEach(function(){
+      location.hash = "center=62.46070,-114.35251&zoom=9";
+    });
+
+    it("should copy the URL to the clipboard", function(){
+      spyOn(window.document, 'execCommand');
+      HZApp.Router.showShareUrl();
+      HZApp.Router.copyUrl();
+      expect(window.document.execCommand.calls.count()).toEqual(1);
+      expect(window.document.execCommand.calls.allArgs()[0][0]).toEqual('copy');
+    });
+  });
 });
