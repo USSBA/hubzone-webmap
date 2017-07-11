@@ -16,7 +16,7 @@ HZApp.Router = (function(){
     // ################## set hash block #############################
     silentHashChange: {
       setSilent: function(x,caller){
-        this.history.push([Date.now(), x, caller].join(', '));
+        this.history.push([Date.now(), x, caller]);
         this.silent = x;
       },
       silent: false,
@@ -49,7 +49,7 @@ HZApp.Router = (function(){
       // silent = silent || false;
       HZApp.Router.silentHashChange.setSilent(true, 'setCenterAndZoomHash');
       this.setHash(c_z_hash);
-      HZApp.Router.silentHashChange.setSilent(false, 'setCenterAndZoomHash');
+      // HZApp.Router.silentHashChange.setSilent(false, 'setCenterAndZoomHash');
     },
 
     // returns a new hash string that that can be passed to location.hash
@@ -129,7 +129,7 @@ HZApp.Router = (function(){
       }
       //add listener for map idle to update router hash center and zoom
       google.maps.event.addListener(HZApp.map, 'idle', HZApp.MapUtils.updateMapLocation);
-      HZApp.Router.silentHashChange.setSilent(false, 'mapLoad');
+      // HZApp.Router.silentHashChange.setSilent(false, 'mapLoad');
     },
 
     // catch and flow control hash changes
@@ -183,7 +183,7 @@ HZApp.Router = (function(){
             HZApp.Router.clearHash('q', silent);
             HZApp.Router.setSingleHash('latlng', latlng_s, null, silent);
             HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), silent);
-            HZApp.Router.silentHashChange.setSilent(false, 'latlng controller');
+            // HZApp.Router.silentHashChange.setSilent(false, 'latlng controller');
           });
         }
       },
@@ -201,7 +201,7 @@ HZApp.Router = (function(){
       HZApp.Router.silentHashChange.setSilent(true, 'updateMapCenterAndZoom');
       HZApp.Router.updateZoom(hashState.zoom);
       HZApp.Router.updateCenter(hashState.center);
-      HZApp.Router.silentHashChange.setSilent(false, 'updateMapCenterAndZoom');
+      // HZApp.Router.silentHashChange.setSilent(false, 'updateMapCenterAndZoom');
     },
 
     updateZoom: function(hash_zoom){

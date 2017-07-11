@@ -21,7 +21,7 @@ HZApp.MapUtils = (function(){
         HZApp.Router.setSingleHash('latlng', latlng_s, null, true);
         HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), true);
       }
-      HZApp.Router.silentHashChange.setSilent(false, 'sendMapClick');
+      // HZApp.Router.silentHashChange.setSilent(false, 'sendMapClick');
       return url;
     },
 

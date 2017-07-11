@@ -22,7 +22,7 @@ HZApp.HZQuery = {
 
     //finally, update the map with the new response and reset hash listener
     this.updateMap();
-    HZApp.Router.silentHashChange.setSilent(false, 'parseResponse');
+    // HZApp.Router.silentHashChange.setSilent(false, 'parseResponse');
   },
   handleBadResponses: function(responseStatus){
     if (responseStatus === 'ZERO_RESULTS' || responseStatus === 'INVALID_REQUEST'){
