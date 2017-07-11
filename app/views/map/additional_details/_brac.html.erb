@@ -8,5 +8,5 @@
 </div>
 <div class="designation-details-item">
   <h6><%= t('hubzone_assertions.additional_details.base_designation') %></h6>
-  <h5><%= qualification["effective"].blank? ? '--' : I18n.l(Date.strptime(qualification["effective"], '%m/%d/%Y'), format: :full) %></h5>
+  <h5><%= qualification["effective"].blank? ? '--' : date_to_string(qualification["effective"]) %></h5>
 </div>
