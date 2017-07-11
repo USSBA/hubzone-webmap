@@ -246,8 +246,8 @@ i.fa-share {
 }
 
 .share-map-content{
+  padding: 0.5rem 1rem 1rem;
   display: flex;
-  padding: 1rem;
   vertical-align: middle;
 }
 input.share-map-url {
@@ -267,6 +267,13 @@ button.copy-to-clipboard{
   padding: 0rem;
   cursor: pointer;
   display: inline;
+}
+.copy-title{
+  float: right;
+  font-size: 1.5rem;
+  font-weight: normal;
+  padding-top: 0.5rem;
+  color: $gray-dark;
 }
 
 .sidebar-footer {

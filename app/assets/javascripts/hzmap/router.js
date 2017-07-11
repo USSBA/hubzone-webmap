@@ -3,7 +3,9 @@ HZApp.Router = (function(){
 
   //bind listener for map share button
   $(function() {
-    $(document).on('click','#map-share', HZApp.Router.shareUrl);
+    $(document).on('click','#map-share', HZApp.Router.showShareUrl);
+    $(document).on('click','button.copy-to-clipboard', HZApp.Router.copyUrl);
+
   });
 
   // still need to listen on page load to check for latlng values
@@ -122,6 +124,7 @@ HZApp.Router = (function(){
 
     // catch and flow control hash changes
     catchHashChange: function(){
+      HZApp.Router.updateShareUrl(location.href);
       if (HZApp.Router.silentHashChange) {
         HZApp.Router.silentHashChange = false;
       } else {
@@ -131,9 +134,19 @@ HZApp.Router = (function(){
     },
 
     // catch the share button click event and display modal
-    shareUrl: function(){
+    showShareUrl: function(){
       $('.share-map-card').toggleClass('hidden');
-      $('input.share-map-url').val(location.href);
+      HZApp.Router.updateShareUrl(location.href);
+    },
+
+    // copy the url to the clipboard
+    copyUrl: function(){
+      $('input.share-map-url').select();
+      document.execCommand('copy');
+    },
+
+    updateShareUrl: function(url){
+      $('input.share-map-url').val(url);
     },
 
     // #######################################################
