@@ -3,7 +3,7 @@
 window.HZApp = {
   Autocomplete: {},
   config: {
-    wmsEnabled: ("<%= MAP_CONFIG[:geom_wms_settings][:wms_enabled] %>" === "true")
+    wmsEnabled: null,
   },
   Cookies: {},
   Constructors: {},
@@ -23,5 +23,5 @@ window.HZApp = {
   Router: {},
   SidebarUtils: {},
   Styles: {},
-  WMSUtils: {}
+  WMTSUtils: {}
 };

@@ -33,3 +33,5 @@ db/schema.rb
 
 # Ignore captured revision
 REVISION
+/public/packs
+/node_modules
