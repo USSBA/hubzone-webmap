@@ -7,11 +7,55 @@ HZApp.Router = (function(){
   });
 
   // listen on hashchanges
-  window.addEventListener('hashchange', function(){
-    HZApp.Router.catchHashChange();
+  window.addEventListener('hashchange', function(event){
+    HZApp.Router.catchHashChange(event);
   });
 
   return {
+
+    // ################## window event listeners #############################
+
+    catchPageLoad: function(){
+      console.log("~~~~~ catchPageLoad - silent: " + HZApp.Router.silentHashChange.silent);
+      // return;
+      // console.log("    I said return, dammit!");
+      // HZApp.Router.silentHashChange.setSilent(true, 'mapLoad');
+      if (!HZApp.Router.emptyHash(location.hash)){
+        HZApp.Router.updateStateFromHash(location.hash, true);
+      }
+      //add listener for map idle to update router hash center and zoom
+      google.maps.event.addListener(HZApp.map, 'idle', HZApp.Router.updateMapLocation);
+      // HZApp.Router.silentHashChange.setSilent(false, 'mapLoad');
+    },
+
+    // catch and flow control hash changes
+    catchHashChange: function(event){
+      console.log("~~~~~ catchHashChange - silent: " + HZApp.Router.silentHashChange.silent);
+      console.log(event);
+      // return;
+      if (HZApp.Router.silentHashChange.silent) {
+        console.log('was a silent change');
+        HZApp.Router.silentHashChange.setSilent(false, 'catchHashChange');
+      } else {
+        console.log('hash changed');
+        console.trace();
+        HZApp.Router.updateStateFromHash(location.hash, true);
+      }
+    },
+
+    // #######################################################
+
+    // ################## callbacks #############################
+
+    // map idle listener callback for updatig the map url route when the page is done moving
+    updateMapLocation: function(){
+      console.log("~~~~~ updateMapLocation - silent: " + HZApp.Router.silentHashChange.silent);
+      // console.log('im idle');
+      HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom());
+      // dont set anything else here
+    },
+
+    // #######################################################
 
     // ################## set hash block #############################
     silentHashChange: {
@@ -27,13 +71,17 @@ HZApp.Router = (function(){
 
     // this is the main and only point which is allowed to set the hash
     setHash: function(hash){
+      console.log('~~~~~ setHash: ' + hash);
+      // console.trace();
       if (hash !== location.hash){
+        HZApp.Router.silentHashChange.setSilent(true, 'setHash');
         location.hash = hash;
       }
     },
 
     // update a single hash in the hash
     setSingleHash: function(hashParam, hashValue, currentHash, silent){
+      console.log("~~~~~ setSingleHash - silent: " + HZApp.Router.silentHashChange.silent + " -/-> " + silent);
       // silent = silent || false;
       // HZApp.Router.silentHashChange.setSilent(silent, 'setSingleHash');
 
@@ -44,16 +92,18 @@ HZApp.Router = (function(){
     // helper to get just the google map center and zoom and update the hash from that
     // but set them together to only trigger one event
     setCenterAndZoomHash: function(mapCenter, zoom, silent){
+      console.log("~~~~~ setCenterAndZoomHash - silent: " + HZApp.Router.silentHashChange.silent + " -> " + silent);
       var c_hash = this.updateHashValue('center', mapCenter.lat().toFixed(6) + ',' + mapCenter.lng().toFixed(6), location.hash);
       var c_z_hash = this.updateHashValue('zoom', zoom, c_hash);
       // silent = silent || false;
-      HZApp.Router.silentHashChange.setSilent(true, 'setCenterAndZoomHash');
+      // HZApp.Router.silentHashChange.setSilent(true, 'setCenterAndZoomHash');
       this.setHash(c_z_hash);
       // HZApp.Router.silentHashChange.setSilent(false, 'setCenterAndZoomHash');
     },
 
     // returns a new hash string that that can be passed to location.hash
     updateHashValue: function(hashParam, hashValue, currentHash){
+      console.log("~~~~~ updateHashValue - silent: " + HZApp.Router.silentHashChange.silent);
       var newHash = this.encodeHash(hashParam, hashValue);
       var hashParamRegex = new RegExp(hashParam + "=", "ig");
       var hashRegexInside = this.getHashRegexInside(hashParam);
@@ -80,9 +130,11 @@ HZApp.Router = (function(){
       }
     },
 
-    //if the hash is between # and &
+    //if the hash param is between # and &
     getHashRegexInside: function(hashParam){
       return new RegExp(hashParam + "=" + '.+?\&', "ig");
+      //                                     ^
+      //                                     non-greedy match
     },
 
     // if the hash is between (# and end of line) or (& and end of line)
@@ -120,39 +172,17 @@ HZApp.Router = (function(){
     },
     // #######################################################
 
-    // ################## window event listeners #############################
-
-    catchPageLoad: function(){
-      HZApp.Router.silentHashChange.setSilent(true, 'mapLoad');
-      if (!HZApp.Router.emptyHash(location.hash)){
-        HZApp.Router.updateStateFromHash(location.hash, true);
-      }
-      //add listener for map idle to update router hash center and zoom
-      google.maps.event.addListener(HZApp.map, 'idle', HZApp.MapUtils.updateMapLocation);
-      // HZApp.Router.silentHashChange.setSilent(false, 'mapLoad');
-    },
-
-    // catch and flow control hash changes
-    catchHashChange: function(){
-      console.log(HZApp.Router.silentHashChange.silent);
-      if (HZApp.Router.silentHashChange.silent) {
-        console.log('was a silent change');
-        HZApp.Router.silentHashChange.setSilent(false, 'catchHashChange');
-      } else {
-        console.log('hash changed');
-        console.trace();
-        // HZApp.Router.updateStateFromHash(location.hash);
-      }
-    },
-
-    // #######################################################
-
     // ################## update state from hash block #############################
 
     // update the app state from the hash
     updateStateFromHash: function(hash, silent){
+      console.log("~~~~~ updateStateFromHash - silent: " + HZApp.Router.silentHashChange.silent);
       var hashState = this.unpackHash(hash);
+      console.log("hashState: " + hashState);
+
+      // DCP: Are the keys guaranteed to come back in the order defined?  Does it matter? (seems like it should)
       Object.keys(this.hashControllers).forEach(function(controller){
+        console.log("       checking for " + controller + "...");
         if (hashState && hashState[controller]){
           console.log(controller);
           HZApp.Router.hashControllers[controller](hashState[controller], silent, hashState);
@@ -162,6 +192,7 @@ HZApp.Router = (function(){
 
     // unpack the hash parameters and values
     unpackHash: function(hash){
+      console.log("~~~~~ unpackHash - silent: " + HZApp.Router.silentHashChange.silent);
       if (this.emptyHash(hash)){
         return null;
       } else {
@@ -172,12 +203,15 @@ HZApp.Router = (function(){
     // define the actions for different hash params
     hashControllers: {
       center: function(center, silent, hashState){
+        console.log("~~~~~ hashControllers.center - silent: " + HZApp.Router.silentHashChange.silent);
         HZApp.Router.updateMapCenterAndZoom(hashState, silent);
       },
       zoom: function(zoom, silent, hashState){
+        console.log("~~~~~ hashControllers.zoom - silent: " + HZApp.Router.silentHashChange.silent);
         HZApp.Router.updateMapCenterAndZoom(hashState, silent);
       },
       latlng: function(latlng_s, silent, hashState){ //jshint ignore:line
+        console.log("~~~~~ hashControllers.latlng - silent: " + HZApp.Router.silentHashChange.silent);
         var latlng = HZApp.Router.unpackValidLatLng(latlng_s) || null;
         if (latlng){
           HZApp.MapUtils.sendMapClick(latlng, function(){
@@ -189,6 +223,7 @@ HZApp.Router = (function(){
         }
       },
       q: function(q, silent, hashState){ //jshint ignore:line
+        console.log("~~~~~ hashControllers.q - silent: " + HZApp.Router.silentHashChange.silent);
         var search = HZApp.Router.unpackValidSearch(q) || null;
         if (search){
           HZApp.GA.trackSubmit('search', '#search-field-small');
@@ -199,10 +234,10 @@ HZApp.Router = (function(){
     },
 
     updateMapCenterAndZoom: function(hashState, silent){
-      HZApp.Router.silentHashChange.setSilent(true, 'updateMapCenterAndZoom');
+      // HZApp.Router.silentHashChange.setSilent(true, 'updateMapCenterAndZoom');
       HZApp.Router.updateZoom(hashState.zoom);
       HZApp.Router.updateCenter(hashState.center);
-      // HZApp.Router.silentHashChange.setSilent(false, 'updateMapCenterAndZoom');
+      //HZApp.Router.silentHashChange.setSilent(false, 'updateMapCenterAndZoom');
     },
 
     updateZoom: function(hash_zoom){
@@ -223,6 +258,7 @@ HZApp.Router = (function(){
 
     // parse the location hash string into an object with key, value pairs
     parseLocationHash: function(hash){
+      console.log("~~~~~ parseLocationHash - silent: " + HZApp.Router.silentHashChange.silent);
       var hashState = {};
       var hashSplit = hash[0] === '#' ? hash.slice(1).split("&") : hash.split("&");
       if (hashSplit.length > 0 && hashSplit !== hash){
@@ -238,6 +274,7 @@ HZApp.Router = (function(){
 
     // update the mapLocation object based on checking the contents of the hash
     unpackInitialMapLocation: function(mapLocation, hash){
+      console.log("~~~~~ unpackInitialMapLocation - silent: " + HZApp.Router.silentHashChange.silent);
       if (!this.emptyHash(hash)){
         var unpackedHash = this.unpackHash(hash);
         this.hashOnPageLoad = unpackedHash;
@@ -250,6 +287,7 @@ HZApp.Router = (function(){
     // check if the hash has valid parameters
     // update useGeoLocation based on whether valid hash params were found
     checkValidHashParams: function(mapLocation, hashState){
+      console.log("~~~~~ checkValidHashParams - silent: " + HZApp.Router.silentHashChange.silent);
       var validParams = this.unpackValidParams(hashState);
       HZApp.Router.mapLoadedWithoutLocation = this.missingCenterAndZoom(validParams);
       mapLocation.center = validParams.center || mapLocation.center;

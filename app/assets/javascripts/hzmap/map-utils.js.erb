@@ -15,7 +15,7 @@ HZApp.MapUtils = (function(){
       HZApp.GA.track( 'map', 'click', latlng_s );
       var url = "<%= search_path %>?latlng=" + latlng_s + this.includeDateAndLocale();
       this.sendAjax(url, callback);
-      HZApp.Router.silentHashChange.setSilent(true, 'sendMapClick');
+      // HZApp.Router.silentHashChange.setSilent(true, 'sendMapClick');
       if (!callback){
         HZApp.Router.clearHash('q', true);
         HZApp.Router.setSingleHash('latlng', latlng_s, null, true);
@@ -121,28 +121,21 @@ HZApp.MapUtils = (function(){
         new google.maps.LatLng(NELat, NELng)
       );
     },
+
     mapNameUpdates: [
       {mapType:'roadmap', newName: 'Standard'},
       {mapType:'hz_map',  newName: 'Light Gray'},
       {mapType:'hybrid',  newName: 'Satellite'}
     ],
-
     updateMapTypeNames: function(){
       HZApp.MapUtils.mapNameUpdates.map(HZApp.MapUtils.customMapTypeName);
       HZApp.map.setOptions({'mapTypeControl':true});
     },
-
-    // map idle listener callback for updatig the map url route when the page is done moving
-    updateMapLocation: function(){
-      console.log('im idle');
-      HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), true);
-      // dont set anything else here
-    },
-
     customMapTypeName: function(mapNameUpdate){
       if (!HZApp.map.mapTypes[mapNameUpdate.mapType]) { return; }
       HZApp.map.mapTypes[mapNameUpdate.mapType].name = mapNameUpdate.newName;
     },
+
     catchClearSearch: function(element) {
       $(element).click(function() {
         HZApp.MapUtils.resetMap();

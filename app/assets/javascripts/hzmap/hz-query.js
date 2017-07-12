@@ -17,7 +17,7 @@ HZApp.HZQuery = {
     this.handleBadResponses(response.status);
 
     // get all the desired geometry and attributes out of the response
-    HZApp.Router.silentHashChange.setSilent(true, 'parseResponseGeometry');
+    // HZApp.Router.silentHashChange.setSilent(true, 'parseResponseGeometry');
     this.parseResponseGeometry(this.response);
 
     //finally, update the map with the new response and reset hash listener
@@ -36,6 +36,7 @@ HZApp.HZQuery = {
     }
   },
   parseResponseGeometry: function(response){
+    console.log("~~~~~ parseResponseGeometry - silent: " + HZApp.Router.silentHashChange.silent);
     if (response.geometry){
 
       if (response.place_id){
