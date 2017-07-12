@@ -73,6 +73,7 @@ describe ('Testing geolocation operations', function() {
   it("should NOT SHOW the geolocation popup on error if already visible", function(){
     spyOn(HZApp.GeoLocation, 'showGeolocationError');
     $('.error-popup.geolocation').show();
+    console.log($('.error-pop.geolocation').is(":visible"))
     HZApp.GeoLocation.geolocationError();
     expect(HZApp.GeoLocation.showGeolocationError.calls.count()).toEqual(0);
   });

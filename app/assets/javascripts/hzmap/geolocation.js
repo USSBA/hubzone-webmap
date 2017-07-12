@@ -39,8 +39,8 @@ HZApp.GeoLocation = (function() {
     hideGeolocationError: function(){
       $('.error-popup.geolocation').hide();
     },
-    fadeOutGeolocationError: function(element) {
-      element.delay(7000).fadeOut("slow");
+    fadeOutGeolocationError: function(elem) {
+      elem.delay(7000).fadeOut("slow");
     },
     moveMapToUserLocation: function(position){
       var pos = {
