@@ -28,7 +28,7 @@ HZApp.GeoLocation = (function() {
     geolocationError: function() {
       $('#geolocation i').css("display", "block");
       $('.geolocation-loading').css("display", "none");
-      if ( !$('.error-pop.geolocation').is(":visible") ) {
+      if ( !$('.error-popup.geolocation').is(":visible") ) {
         HZApp.GeoLocation.showGeolocationError();
       }
     },
