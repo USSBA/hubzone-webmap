@@ -61,7 +61,6 @@ HZApp.MapUtils.initMap = function() {
   HZApp.Autocomplete.createListener(HZApp.Autocomplete.autocomplete);
 
   // build out the markers
-  /* jshint ignore:start */
   HZApp.Markers.hzQueryMarker = new HZApp.Constructors.HubzoneMapMarker({
     icon: this.mapMarkerPath,
     scaledSize: 40
@@ -70,7 +69,6 @@ HZApp.MapUtils.initMap = function() {
     icon: this.locationMarkerPath,
     scaledSize: 17
   });
-  /* jshint ignore:end */
 
   //build the legend
   HZApp.Legend.buildLegend(HZApp.Legend.legend);
@@ -80,4 +78,4 @@ HZApp.MapUtils.initMap = function() {
 
   //returns the map
   return HZApp.map;
-}
+};
