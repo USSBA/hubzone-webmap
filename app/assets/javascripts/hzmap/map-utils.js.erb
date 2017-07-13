@@ -15,13 +15,9 @@ HZApp.MapUtils = (function(){
       HZApp.GA.track( 'map', 'click', latlng_s );
       var url = "<%= search_path %>?latlng=" + latlng_s + this.includeDateAndLocale();
       this.sendAjax(url, callback);
-      // HZApp.Router.silentHashChange.setSilent(true, 'sendMapClick');
       if (!callback){
-        HZApp.Router.clearHash('q', true);
-        HZApp.Router.setSingleHash('latlng', latlng_s, null, true);
-        HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), true);
+        HZApp.Router.setLatLngHash(latlng_s);
       }
-      // HZApp.Router.silentHashChange.setSilent(false, 'sendMapClick');
       return url;
     },
 

@@ -36,7 +36,7 @@ HZApp.HZQuery = {
     }
   },
   parseResponseGeometry: function(response){
-    console.log("~~~~~ parseResponseGeometry - silent: " + HZApp.Router.silentHashChange.silent);
+    // console.log("~~~~~ parseResponseGeometry - silent: " + HZApp.Router.silentHashChange.silent);
     if (response.geometry){
 
       if (response.place_id){

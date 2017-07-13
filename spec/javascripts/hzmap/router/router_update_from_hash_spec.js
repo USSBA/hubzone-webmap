@@ -1,5 +1,6 @@
 //= require hzmap/router
 //= require hzmap/map-utils
+//= require hzmap/hash-utils
 //= require hzmap/ga
 /* jshint unused: false */
 /* jshint undef: false */
@@ -35,7 +36,7 @@ describe ('Testing Router operations', function() {
       };
       it("should correctly parse a normal hash", function(){
         inputHash = "#foo=bar&bar=baz&this=that";
-        newHashState = HZApp.Router.unpackHash(inputHash);
+        newHashState = HZApp.HashUtils.parseLocationHash(inputHash);
         Object.keys(hashState).forEach(function(key){
           expect(newHashState[key]).toBeDefined();
           expect(newHashState[key]).toEqual(hashState[key]);
@@ -43,7 +44,7 @@ describe ('Testing Router operations', function() {
       });
       it("should be okay with a weird hash", function(){
         inputHash = "foo=bar&bar=baz&this=that";
-        newHashState = HZApp.Router.unpackHash(inputHash);
+        newHashState = HZApp.HashUtils.parseLocationHash(inputHash);
         Object.keys(hashState).forEach(function(key){
           expect(newHashState[key]).toBeDefined();
           expect(newHashState[key]).toEqual(hashState[key]);
@@ -52,7 +53,7 @@ describe ('Testing Router operations', function() {
       ["foo", "", null, undefined].map(function(state){
         it("should be okay with an empty hash: " + state, function(){
           inputHash = state;
-          newHashState = HZApp.Router.unpackHash(inputHash);
+          newHashState = HZApp.HashUtils.parseLocationHash(inputHash);
           expect(newHashState).not.toBe();
         });
       });
@@ -91,7 +92,7 @@ describe ('Testing Router operations', function() {
         spyOn(HZApp.map, 'setZoom');
         spyOn(HZApp.map, 'setCenter');
         mockHash = "#q=8%20market%20place&zoom=15";
-        var hashState = HZApp.Router.unpackHash(mockHash);
+        var hashState = HZApp.HashUtils.parseLocationHash(mockHash);
         HZApp.Router.updateMapCenterAndZoom(hashState);
         expect(HZApp.map.setZoom.calls.count()).toEqual(1);
         expect(HZApp.map.setCenter.calls.count()).toEqual(0);
@@ -100,7 +101,7 @@ describe ('Testing Router operations', function() {
         spyOn(HZApp.map, 'setZoom');
         spyOn(HZApp.map, 'setCenter');
         mockHash = "#q=8%20market%20place&center=15,-15";
-        var hashState = HZApp.Router.unpackHash(mockHash);
+        var hashState = HZApp.HashUtils.parseLocationHash(mockHash);
         HZApp.Router.updateMapCenterAndZoom(hashState);
         expect(HZApp.map.setZoom.calls.count()).toEqual(0);
         expect(HZApp.map.setCenter.calls.count()).toEqual(1);
@@ -109,7 +110,7 @@ describe ('Testing Router operations', function() {
         spyOn(HZApp.map, 'setZoom');
         spyOn(HZApp.map, 'setCenter');
         mockHash = "#q=8%20market%20place&center=15,-15&zoom=8";
-        var hashState = HZApp.Router.unpackHash(mockHash);
+        var hashState = HZApp.HashUtils.parseLocationHash(mockHash);
         HZApp.Router.updateMapCenterAndZoom(hashState);
         expect(HZApp.map.setZoom.calls.count()).toEqual(1);
         expect(HZApp.map.setCenter.calls.count()).toEqual(1);

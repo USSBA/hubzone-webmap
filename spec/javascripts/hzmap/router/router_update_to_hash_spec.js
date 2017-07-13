@@ -1,5 +1,6 @@
 //= require hzmap/router
 //= require hzmap/map-utils
+//= require hzmap/hash-utils
 //= require hzmap/ga
 /* jshint unused: false */
 /* jshint undef: false */
@@ -46,25 +47,25 @@ describe ('Testing Router operations', function() {
     describe("should update hash based on different data states: updating map center", function(){
 
       it("should add map center to the hash when hash is empty", function(){
-        var updatedHash = HZApp.Router.updateHashValue("center", centerValue, location.hash);
+        var updatedHash = HZApp.HashUtils.updateHashValue("center", centerValue, location.hash);
         expect(updatedHash).toEqual("center=" + centerValue);
       });
 
       it("should add map center when hash is not empty but doesnt have center", function(){
         location.hash = "foo=bar";
-        var updatedHash = HZApp.Router.updateHashValue("center", centerValue, location.hash);
+        var updatedHash = HZApp.HashUtils.updateHashValue("center", centerValue, location.hash);
         expect(updatedHash).toEqual(location.hash + "&center=" + centerValue);
       });
 
       it("should update map center when center is present in middle of hash", function(){
         location.hash = "foo=bar&center=39,-76&zoom=" + zoom;
-        var updatedHash = HZApp.Router.updateHashValue("center", centerValue, location.hash);
+        var updatedHash = HZApp.HashUtils.updateHashValue("center", centerValue, location.hash);
         expect(updatedHash).toEqual("#foo=bar&center=" + centerValue + "&zoom=" + zoom);
       });
 
       it("should update map center when center is present at end of hash", function(){
         location.hash = "foo=bar&zoom=" + zoom + "&center=39,-76";
-        var updatedHash = HZApp.Router.updateHashValue("center", centerValue, location.hash);
+        var updatedHash = HZApp.HashUtils.updateHashValue("center", centerValue, location.hash);
         expect(updatedHash).toEqual("#foo=bar&zoom=" + zoom + "&center=" + centerValue);
       });
     });
@@ -96,7 +97,7 @@ describe ('Testing Router operations', function() {
       });
     });
 
-    describe("should supporting clearing the hash", function(){
+    describe("should support clearing the hash", function(){
       it("should entirely empty the hash", function(){
         HZApp.Router.setSingleHash("center", centerValue);
         HZApp.Router.clearHash();

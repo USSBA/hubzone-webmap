@@ -18,15 +18,17 @@ describe ('Testing Google Analytics integration', function() {
   });
 
   describe ('with clicking locations on the map', function() {
-    it('should send an event when a user clicks on the map', function() {
-      spyOn(HZApp.Router, 'setHash');
-      spyOn(HZApp.Router, 'setCenterAndZoomHash');
-      clickEvent = { 'latLng': { 'lat': function() { return 39.28885; },
-                            'lng': function() { return -76.6070; } } };
-      HZApp.MapUtils.catchMapClick(clickEvent);
-      expect(window.ga.calls.count()).toEqual(1);
-      expect(HZApp.Router.setCenterAndZoomHash.calls.count()).toEqual(1);
-      expect(HZApp.Router.setHash.calls.count()).toEqual(2);
+    describe('should send an event when a user clicks on the map', function() {
+      beforeEach(function() {
+        spyOn(HZApp.Router, 'setHash');
+        spyOn(HZApp.Router, 'setCenterAndZoomHash');
+        clickEvent = { 'latLng': { 'lat': function() { return 39.28885; },
+                                   'lng': function() { return -76.6070; } } };
+        HZApp.MapUtils.catchMapClick(clickEvent);
+      });
+      it('should call google analytics', function() {
+        expect(window.ga.calls.count()).toEqual(1);
+      });
     });
   });
 
