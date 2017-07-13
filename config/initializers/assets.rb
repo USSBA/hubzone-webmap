@@ -14,8 +14,6 @@ Rails.application.config.assets.paths <<
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w[google-maps-api.js]
-Rails.application.config.assets.precompile += %w[hzmap.js]
 Rails.application.config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif *.svg]
 
 # Allow path helpers in JavaScript assets.

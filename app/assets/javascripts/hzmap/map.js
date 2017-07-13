@@ -1,5 +1,5 @@
-import mapMarker from 'assets/images/hubzone-map-marker.svg';
-import locationMarker from 'assets/images/geolocation-marker.svg';
+// import mapMarker from 'images/hubzone-map-marker.svg';
+// import locationMarker from 'images/geolocation-marker.svg';
 
 //create the map on load, when idle, jump to updateMap to get features
 /* exported initMap */
