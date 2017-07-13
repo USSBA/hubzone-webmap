@@ -190,7 +190,7 @@ HZApp.Router = (function(){
           HZApp.GA.trackSubmit('search', '#search-field-small');
           document.getElementById('search-field-small').value = search;
           HZApp.MapUtils.sendMapSearch(search, function(){
-            HZApp.Router.updateMapCenterAndZoom(HZApp.Router.hashOnPageLoad);
+            // HZApp.Router.updateMapCenterAndZoom(HZApp.Router.hashOnPageLoad);
           });
         }
       },

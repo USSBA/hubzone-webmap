@@ -28,12 +28,3 @@ HZApp.WMTSUtils.wmsURLWorkspace = "<%= MAP_CONFIG[:geom_wms_settings][:workspace
 <% helpers = ActionController::Base.helpers %>
 HZApp.MapUtils.mapMarkerPath = "<%= helpers.image_path('hubzone-map-marker.svg') %>"
 HZApp.MapUtils.locationMarkerPath = "<%= helpers.image_path('geolocation-marker.svg') %>"
-
-// window.addEventListener('load', function(){
-//   // get google maps
-//   let google_maps_script_tag = document.createElement('script');
-//   const google_maps_url = "https://maps.googleapis.com/maps/api/js?key=<%= MAP_CONFIG[:google_api_key] %>&callback=HZApp.MapUtils.initMap&libraries=places";
-//   google_maps_script_tag.setAttribute('src',google_maps_url);
-
-//   document.head.appendChild(google_maps_script_tag);
-// });

@@ -21,9 +21,11 @@ HZApp.MapUtils = (function(){
       HZApp.GA.track( 'map', 'click', latlng_s );
       var url = this.search_path + latlng_s + this.includeDateAndLocale();
       this.sendAjax(url, callback);
-      HZApp.Router.clearHash('q');
-      HZApp.Router.setSingleHash('latlng', latlng_s);
-      HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom());
+      if (!callback){
+        HZApp.Router.clearHash('q');
+        HZApp.Router.setSingleHash('latlng', latlng_s);
+        HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom());
+      }
       return url;
     },
 

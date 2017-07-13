@@ -8,9 +8,7 @@ HZApp.Legend = (function(){
       this.addLayerToggleListeners();
     },
     addLegendButtonListeners: function(){
-      $('.legend-header').click(function(event) {
-        HZApp.Legend.toggleLegendVisibility(event.currentTarget.className);
-      });
+      $('.legend-header').click( event => HZApp.Legend.toggleLegendVisibility(event.currentTarget.className));
     },
     toggleLegendVisibility: function(legendState) {
         if(legendState.indexOf('open', 0) !== -1) {
@@ -37,12 +35,10 @@ HZApp.Legend = (function(){
       }
     },
     addLayerToggleListeners: function() {
-      $('input[type="checkbox"]').click( function(event){
-        HZApp.Legend.setLayerGroups(event.currentTarget.value, HZApp.Layers.LayerDefs.hzWMSOverlays);
-      });
+      $('input[type="checkbox"]').click( event => HZApp.Legend.setLayerGroups(event.currentTarget.value, HZApp.Layers.LayerDefs.hzWMSOverlays));
     },
     setLayerGroups: function(selectedLayer, wmsOverlays) {
-      Object.keys(wmsOverlays).map(function(layer) {
+      Object.keys(wmsOverlays).map( layer => {
         if(wmsOverlays[layer].layerGroup === selectedLayer){
           HZApp.Legend.toggleLayerGroup(wmsOverlays[layer]);
         } else {
