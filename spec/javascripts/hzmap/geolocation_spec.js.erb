@@ -70,6 +70,13 @@ describe ('Testing geolocation operations', function() {
     expect($('.error-popup.geolocation').is(':visible')).toBe(true);
   });
 
+  it("should NOT SHOW the geolocation popup on error if already visible", function(){
+    spyOn(HZApp.GeoLocation, 'showGeolocationError');
+    $('.error-popup.geolocation').show();
+    HZApp.GeoLocation.geolocationError();
+    expect(HZApp.GeoLocation.showGeolocationError.calls.count()).toEqual(0);
+  });
+
   it("should SHOW the geolocation error popup", function(){
     $('.error-popup.geolocation').hide();
     HZApp.GeoLocation.showGeolocationError();
@@ -80,6 +87,12 @@ describe ('Testing geolocation operations', function() {
     $('.error-popup.geolocation').show();
     HZApp.GeoLocation.hideGeolocationError();
     expect($('.error-popup.geolocation').is(':visible')).toBe(false);
+  });
+
+  it("should FADE out the geolocation error popup", function(){
+    spyOn(HZApp.GeoLocation, 'fadeOutGeolocationError');
+    HZApp.GeoLocation.showGeolocationError();
+    expect(HZApp.GeoLocation.fadeOutGeolocationError.calls.count()).toEqual(1);
   });
 
   it("should HIDE the geolocation error popup when popup is clicked", function(){
