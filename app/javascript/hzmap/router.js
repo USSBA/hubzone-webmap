@@ -2,15 +2,16 @@
 HZApp.Router = (function(){
 
   //bind listener for map share button
+
   $(function() {
     $(document).on('click','#map-share', HZApp.Router.showShareUrl);
     $(document).on('click','button.copy-to-clipboard', HZApp.Router.copyUrl);
   });
 
   // still need to listen on page load to check for latlng values
-  window.addEventListener('load', function(){
-    HZApp.Router.catchPageLoad();
-  });
+  // window.addEventListener('load', function(){
+  //   HZApp.Router.catchPageLoad();
+  // });
 
   // listen on hashchanges
   window.addEventListener('hashchange', function(){
