@@ -51,19 +51,18 @@ bundle exec rake db:create db:migrate
 
 If the `bundle install` fails due to the pg gem, make sure you have the ENV vars above set in your shell.
 
-To launch the map:
+## To launch the map:
+In one console launch
+```bash
+bin/webpack-dev-server
+```
+Wait a bit for the assets to compile, then in another console launch
 ``` bash
 rails server
 ```
 Then point your browser to http://localhost:3000/
 
 Note: for the map to "work", you will need to have the API and GeoServer running as well.  See the README in the hubzone-api repository for details.
-
-## With Webpack
-Need to bundle install as normal
-In one console launch `bin/webpack-dev-server` and wait for it to compile
-In another console launch the server as normal
-It currently breaks
 
 
 # Running Tests #
