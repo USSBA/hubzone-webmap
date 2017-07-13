@@ -8,13 +8,28 @@
   background: #fff;
   opacity: 1;
   z-index: 99000;
+}
+.unsupported-browser-header {
+  border-bottom: 2px solid #d6d7d9;
+}
+.unsupported-browser-header h2 {
+  margin-top: -20px;
+  display: inline;
+  font-size: 32px;
+  margin-left: 10px;
+}
+.unsupported-browser-header img {
+  height: 35px;
+  padding-top: 10px;
+}
+.unsupported-browser-body {
   text-align: center;
   padding-top: 80px;
 }
-.unsupported-browser h2, h4 {
-  color: #323A45;
-}
-.unsupported-browser h4 {
+.unsupported-browser-body h4 {
   max-width: 450px;
   margin: 0 auto;
+}
+.unsupported-browser-body h2, h4 {
+  color: #323A45;
 }
