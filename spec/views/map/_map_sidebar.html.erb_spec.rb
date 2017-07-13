@@ -1,8 +1,7 @@
 require "rails_helper"
 
-#rubocop:disable Metrics/BlockLength
+#rubocop:disable Metrics/BlockLength, Style/NumericLiterals
 RSpec.describe "map/_map_sidebar.html.erb" do
-
   required_fields = {
     qct: %w[tract_fips county state],
     qct_e: %w[tract_fips county state],
@@ -20,7 +19,6 @@ RSpec.describe "map/_map_sidebar.html.erb" do
     qct_qda: %w[incident_description qda_declaration qda_designation qda_publish tract_fips county state],
     qnmc_qda: %w[incident_description qda_declaration qda_designation qda_publish county_fips county state]
   }
-
   responses = {
     qct: {
       "gid" => 33232,
@@ -53,7 +51,7 @@ RSpec.describe "map/_map_sidebar.html.erb" do
     qnmc: {
       "gid" => 1821,
       "county_fips" => "35047",
-      "county" => "Tanagra County",
+      "county" => "Tanagra",
       "state" => "NM",
       "march_2017_status_current" => "Qualified by Income and Unemployment",
       "median_household_income_ratio_2016" => 0.732224698840442,
@@ -107,6 +105,30 @@ RSpec.describe "map/_map_sidebar.html.erb" do
       "expires" => "2020-12-31",
       "hz_type" => "qct_brac"
     },
+    qct_qda: {
+      "county" => "Tanagra",
+      "county_fips" => "23783",
+      "expires" => "2020-12-30",
+      "hz_type" => "qct_qda",
+      "incident_description" => "The walls fell",
+      "qda_declaration" => "2016-10-10",
+      "qda_designation" => "2016-10-10",
+      "qda_id" => "200",
+      "qda_publish" => "2017-03-02",
+      "state" => "AA"
+    },
+    qnmc_qda: {
+      "county" => "Madison County",
+      "county_fips" => "23783",
+      "expires" => "2020-12-30",
+      "hz_type" => "qnmc_qda",
+      "incident_description" => "The bridges",
+      "qda_declaration" => "2016-10-10",
+      "qda_designation" => "2016-10-10",
+      "qda_id" => "200",
+      "qda_publish" => "2017-03-02",
+      "state" => "AA"
+    },
     indian_lands: {
       "gid" => 388,
       "objectid" => 388,
@@ -128,7 +150,6 @@ RSpec.describe "map/_map_sidebar.html.erb" do
       "hz_type" => "indian_lands"
     }
   }
-
   body = {
     "address_components" => [
       {
@@ -161,54 +182,76 @@ RSpec.describe "map/_map_sidebar.html.erb" do
     },
     "hubzone" => []
   }
+  %w[en dev].each do |locale|
+    context "testing for the #{locale} locale" do
+      responses.each_key do |type|
+        context "displays the sidebar for #{type}" do
+          before do
+            body["hubzone"] = [responses[type]]
+            render partial: "map/map_sidebar", locals: {body: body, locale: locale}
+          end
 
-  responses.each_key do |type|
-    context "displays the sidebar for #{type}" do
-      before do
-        body["hubzone"] = [responses[type]]
-        render partial: "map/map_sidebar", locals: {body: body}
-      end
-
-      if responses[type].empty?
-        it "should show no qualification" do
-          expect(rendered).to have_css("th.non-qualified-hubzone")
+          if responses[type].empty?
+            it "should show no qualification" do
+              expect(rendered).to have_css("th.non-qualified-hubzone")
+            end
+          else
+            it "should show qualified" do
+              expect(rendered).to have_css("th.qualified-hubzone")
+            end
+          end
+          context "should have the correct data for #{type}" do
+            it "should have the right layer symbology for #{type}" do
+              expect(rendered).to have_css(".layer-" + responses[type]["hz_type"])
+            end
+            req_details = required_fields[type]
+            req_details.each do |detail|
+              if detail.in? %w[effective qda_designation qda_publish qda_declaration]
+                it "should display the correct effective date format for #{detail}" do
+                  date = Date.parse responses[type][detail.to_s]
+                  expect(rendered).to have_content(I18n.l(date, format: :full))
+                end
+              else
+                it "should contain the correct data for #{detail}" do
+                  expect(rendered).to have_content(responses[type][detail.to_s]) unless detail.eql? "effective"
+                end
+              end
+            end
+          end
+          next unless responses[type]["expires"]
+          it "should show the correct language for expires or expired if expiration date is present" do
+            expect(rendered).to have_content("Expires")
+          end
         end
-      else
+      end
+      context "multiple disignations" do
+        before do
+          body["hubzone"] = [responses[:qct], responses[:qnmc_r], responses[:brac], responses[:indian_lands], responses[:qnmc_qda]]
+          render partial: "map/map_sidebar", locals: {body: body, locale: locale}
+        end
         it "should show qualified" do
           expect(rendered).to have_css("th.qualified-hubzone")
         end
-      end
-
-      context "should have the correct data for #{type}" do
-
-        it "should have the right layer symbology" do
-          expect(rendered).to have_css(".layer-" + responses[type]["hz_type"])
-        end
-
-        req_details = required_fields[type]
-        req_details.each do |detail|
-          it "should contain the correct data for #{detail}" do
-            expect(rendered).to have_content(responses[type][detail.to_s]) unless detail.eql? "effective"
+        types = %i[qct qnmc_r brac indian_lands qnmc_qda]
+        types.each do |type|
+          it "should have the right layer symbology for #{type}" do
+            expect(rendered).to have_css(".layer-" + responses[type]["hz_type"])
           end
-          if detail.eql? "effective"
-            it "should display the correct effective date format" do
-              date = Date.parse responses[type][detail.to_s]
-              expect(rendered).to have_content(I18n.l date, format: :full)
+          req_details = required_fields[type]
+          req_details.each do |detail|
+            if detail.in? %w[effective qda_designation qda_publish qda_declaration]
+              it "should display the correct effective date format for #{detail}" do
+                date = Date.parse responses[type][detail.to_s]
+                expect(rendered).to have_content(I18n.l(date, format: :full))
+              end
+            else
+              it "should contain the correct data for #{detail}" do
+                expect(rendered).to have_content(responses[type][detail.to_s]) unless detail.eql? "effective"
+              end
             end
           end
         end
       end
-      next unless responses[type]["expires"]
-      it "should show the correct language for expires or expired if expiration date is present" do
-        expect(rendered).to have_content("Expires")
-      end
     end
   end
-  # context "multiple sidebar" do
-  #   before do
-  #     body["hubzone"] = [responses[:qct], responses[:qnmc_r], responses[:brac], responses[:indian_lands]]
-  #     render partial: "map/map_sidebar", locals: {body: body}
-  #   end
-  #
-  # end
 end

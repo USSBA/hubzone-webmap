@@ -106,89 +106,89 @@ RSpec.describe 'The Search', type: :feature, js: true do
       },
       status: "hubzone_assertions.not_qualified"
     },
-    qualified_multiple: {
-      search: "tiffany peak, co",
-      response: {
-        formatted_address: "Tiffany Peak, Colorado 81137, USA",
-        http_status: 200,
-        hubzone: [
-          {
-            hz_type: "qct",
-            expires: nil,
-            tract_fips: "21203950999",
-            county: "Rocklobster County",
-            state: "KY"
-          },
-          {
-            hz_type: "qnmc",
-            expires: nil,
-            county_fips: "21203950500",
-            county: "Harford County",
-            state: "MD"
-          },
-          {
-            hz_type: "brac",
-            brac_sba_name: "Central Base",
-            fac_type: "Chimney",
-            effective: "7/11/2010"
-          },
-          {
-            hz_type: "qct_brac",
-            brac_sba_name: "Eastern Base",
-            fac_type: "Lab",
-            effective: Date.today,
-            tract_fips: "21203950222",
-            county: "Druid County",
-            state: "CO"
-          },
-          {
-            hz_type: "qnmc_brac",
-            brac_sba_name: "North Base",
-            fac_type: "Closed Base",
-            effective: Date.today,
-            county_fips: "21203950400",
-            county: "Village County",
-            state: "MA"
-          },
-          {
-            hz_type: "qct_qda",
-            incident_description: "Tornado",
-            qda_declaration: Date.today,
-            qda_designation: Date.today,
-            qda_publish: Date.today,
-            tract_fips: "21203950333",
-            county: "Castle County",
-            state: "TN"
-          },
-          {
-            hz_type: "qnmc_qda",
-            incident_description: "Tornado and Earthquake",
-            qda_declaration: Date.today,
-            qda_designation: Date.today,
-            qda_publish: Date.today,
-            county_fips: "21203950410",
-            county: "Murky County",
-            state: "NV"
-          },
-          {
-            hz_type: "indian_lands",
-            name: "Navajo Nation AZ",
-            census: "042430R",
-            type: "Reservation",
-            class: "American Indian Area",
-            gnis: "42851"
-          }
-        ],
-        geometry: {
-          location: {
-            lat: 0,
-            lng: 0
-          }
-        },
-        query_date: '2017-04-18'
-      },
-      status: "hubzone_assertions.qualified"
-    }
+    # qualified_multiple: {
+    #   search: "tiffany peak, co",
+    #   response: {
+    #     formatted_address: "Tiffany Peak, Colorado 81137, USA",
+    #     http_status: 200,
+    #     hubzone: [
+    #       {
+    #         hz_type: "qct",
+    #         expires: nil,
+    #         tract_fips: "21203950999",
+    #         county: "Rocklobster County",
+    #         state: "KY"
+    #       },
+    #       {
+    #         hz_type: "qnmc",
+    #         expires: nil,
+    #         county_fips: "21203950500",
+    #         county: "Harford County",
+    #         state: "MD"
+    #       },
+    #       {
+    #         hz_type: "brac",
+    #         brac_sba_name: "Central Base",
+    #         fac_type: "Chimney",
+    #         effective: "7/11/2010"
+    #       },
+    #       {
+    #         hz_type: "qct_brac",
+    #         brac_sba_name: "Eastern Base",
+    #         fac_type: "Lab",
+    #         effective: Date.today,
+    #         tract_fips: "21203950222",
+    #         county: "Druid County",
+    #         state: "CO"
+    #       },
+    #       {
+    #         hz_type: "qnmc_brac",
+    #         brac_sba_name: "North Base",
+    #         fac_type: "Closed Base",
+    #         effective: Date.today,
+    #         county_fips: "21203950400",
+    #         county: "Village County",
+    #         state: "MA"
+    #       },
+    #       {
+    #         hz_type: "qct_qda",
+    #         incident_description: "Tornado",
+    #         qda_declaration: Date.today,
+    #         qda_designation: Date.today,
+    #         qda_publish: Date.today,
+    #         tract_fips: "21203950333",
+    #         county: "Castle County",
+    #         state: "TN"
+    #       },
+    #       {
+    #         hz_type: "qnmc_qda",
+    #         incident_description: "Tornado and Earthquake",
+    #         qda_declaration: Date.today,
+    #         qda_designation: Date.today,
+    #         qda_publish: Date.today,
+    #         county_fips: "21203950410",
+    #         county: "Murky County",
+    #         state: "NV"
+    #       },
+    #       {
+    #         hz_type: "indian_lands",
+    #         name: "Navajo Nation AZ",
+    #         census: "042430R",
+    #         type: "Reservation",
+    #         class: "American Indian Area",
+    #         gnis: "42851"
+    #       }
+    #     ],
+    #     geometry: {
+    #       location: {
+    #         lat: 0,
+    #         lng: 0
+    #       }
+    #     },
+    #     query_date: '2017-04-18'
+    #   },
+    #   status: "hubzone_assertions.qualified"
+    # }
   }
 
   %w[en dev].each do |locale|
