@@ -1,0 +1,35 @@
+// import assets
+import 'hzmap/HZ'
+// import 'autocomplete'
+// import 'cookies'
+// import 'ga'
+// import 'geolocation'
+// import 'hz-query'
+// import 'layer-defs'
+// import 'legend-defs'
+// import 'legend'
+// import 'map-utils'
+// import 'markers'
+// import 'report'
+// import 'router'
+// import 'sidebar'
+// import 'styles'
+// import 'wmts-utils'
+// import 'map'
+
+// configure ERB parameters
+HZApp.config.wmsEnabled = "<%= MAP_CONFIG[:geom_wms_settings][:wms_enabled] %>" === "true";
+HZApp.MapUtils.search_path = "<%= MAP_CONFIG[:hubzone_map_search_path] %>" + "?search=";
+HZApp.Report.reportURL = "<%= MAP_CONFIG[:hubzone_report_host] + MAP_CONFIG[:hubzone_api_report_path] %>";
+HZApp.Report.defaultRequestType = "<%= MAP_CONFIG[:hubzone_report_request_type] %>";
+HZApp.WMTSUtils.wmsURLRoot = "<%= MAP_CONFIG[:geom_wms_settings][:url_root] %>";
+HZApp.WMTSUtils.wmsURLWorkspace = "<%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:";
+
+// window.addEventListener('load', function(){
+//   // get google maps
+//   let google_maps_script_tag = document.createElement('script');
+//   const google_maps_url = "https://maps.googleapis.com/maps/api/js?key=<%= MAP_CONFIG[:google_api_key] %>&callback=HZApp.MapUtils.initMap&libraries=places";
+//   google_maps_script_tag.setAttribute('src',google_maps_url);
+
+//   document.head.appendChild(google_maps_script_tag);
+// });

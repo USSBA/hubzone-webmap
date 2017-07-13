@@ -3,7 +3,7 @@
 window.HZApp = {
   Autocomplete: {},
   config: {
-    wmsEnabled: null,
+    wmsEnabled: true
   },
   Cookies: {},
   Constructors: {},

@@ -85,8 +85,8 @@ HZApp.WMTSUtils = (function(){
       return angle * Math.PI / 180.0;
     },
     buildTileUrl: function(coord, zoom, layer){
-      var url = "<%= MAP_CONFIG[:geom_wms_settings][:url_root] %>";
-      url += "&LAYERS=" + "<%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:" + layer;
+      var url = this.wmsURLRoot;
+      url += "&LAYERS=" + this.wmsURLWorkspace + layer;
       url += "&SERVICE=WMS";
       url += "&VERSION=1.1.1";
       url += "&REQUEST=GetMap";

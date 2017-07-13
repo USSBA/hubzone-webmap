@@ -2,7 +2,7 @@ HZApp.MapUtils = (function(){
 
   return {
 
-    search_path: "<%= MAP_CONFIG[:hubzone_map_search_path] %>" + "?search=",
+    search_path: "",
 
     // catch a map latlng event into a latlng hash
     catchMapClick: function(clickEvent){
