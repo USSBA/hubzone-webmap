@@ -93,6 +93,13 @@ describe "The Sidebar", type: :feature do
       click_button "hubzone-search-button"
       expect(page).to have_css('#map-report')
     end
+
+    it "should have a share button" do
+      fill_in 'search', with: queries[:non_qualified]
+      click_button "hubzone-search-button"
+      expect(page).to have_css('#map-share')
+    end
+
     it "should be visible" do
       click_button "hubzone-search-button"
       expect(page).not_to have_css("#sidebar.hidden")
@@ -104,6 +111,35 @@ describe "The Sidebar", type: :feature do
     end
     it "...and back in" do
       expect(page).not_to have_css(".gm-sidebar-on")
+    end
+  end
+
+  context "share button actions", js: true do
+    before do
+      Excon.stub({},
+                 body: responses[:non_qualified].to_json)
+      fill_in 'search', with: queries[:non_qualified]
+      click_button "hubzone-search-button"
+    end
+
+    context "on load / closed" do
+      it "should not be visible by default" do
+        expect(page).to have_css('.share-map-card', visible: false)
+      end
+    end
+    context "when opened" do
+      before do
+        click_button "map-share"
+      end
+      it "should be visible after button click" do
+        expect(page).to have_css('.share-map-card', visible: true)
+      end
+      it "should show the clipboard button" do
+        expect(page).to have_css('button.copy-to-clipboard', visible: true)
+      end
+      it "should have the location url in the input field" do
+        expect(page.find("input.share-map-url").value).to eq(current_url)
+      end
     end
   end
 

@@ -43,6 +43,7 @@ dev:
   sidebar:
     button: "Botón de la barra lateral"
     print_version: "Versión imprimible"
+    share_map: "Compartir Mapa"
     until: "hasta"
     details:
       title: "Denominaciones"
