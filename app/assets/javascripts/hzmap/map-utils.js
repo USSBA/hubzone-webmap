@@ -2,7 +2,10 @@ HZApp.MapUtils = (function(){
 
   return {
 
+    // placeholders for erb variables
     search_path: "",
+    mapMarkerPath: "",
+    locationMarkerPath: "",
 
     // catch a map latlng event into a latlng hash
     catchMapClick: function(clickEvent){

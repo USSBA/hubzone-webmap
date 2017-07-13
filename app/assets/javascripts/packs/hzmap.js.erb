@@ -25,6 +25,10 @@ HZApp.Report.defaultRequestType = "<%= MAP_CONFIG[:hubzone_report_request_type] 
 HZApp.WMTSUtils.wmsURLRoot = "<%= MAP_CONFIG[:geom_wms_settings][:url_root] %>";
 HZApp.WMTSUtils.wmsURLWorkspace = "<%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:";
 
+<% helpers = ActionController::Base.helpers %>
+HZApp.MapUtils.mapMarkerPath = "<%= helpers.image_path('hubzone-map-marker.svg') %>"
+HZApp.MapUtils.locationMarkerPath = "<%= helpers.image_path('geolocation-marker.svg') %>"
+
 // window.addEventListener('load', function(){
 //   // get google maps
 //   let google_maps_script_tag = document.createElement('script');

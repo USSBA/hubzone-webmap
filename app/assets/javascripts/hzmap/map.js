@@ -1,6 +1,3 @@
-// import mapMarker from 'images/hubzone-map-marker.svg';
-// import locationMarker from 'images/geolocation-marker.svg';
-
 //create the map on load, when idle, jump to updateMap to get features
 /* exported initMap */
 HZApp.MapUtils.initMap = function() {
@@ -66,11 +63,11 @@ HZApp.MapUtils.initMap = function() {
   // build out the markers
   /* jshint ignore:start */
   HZApp.Markers.hzQueryMarker = new HZApp.Constructors.HubzoneMapMarker({
-    icon: mapMarker,
+    icon: this.mapMarkerPath,
     scaledSize: 40
   });
   HZApp.Markers.hzUserLocation = new HZApp.Constructors.HubzoneMapMarker({
-    icon: locationMarker,
+    icon: this.locationMarkerPath,
     scaledSize: 17
   });
   /* jshint ignore:end */

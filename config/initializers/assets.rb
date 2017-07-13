@@ -15,8 +15,8 @@ Rails.application.config.assets.paths <<
 Rails.application.config.assets.paths << Rails.root.join("public", "hzmap")
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w[hzmap.js]
 Rails.application.config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif *.svg]
+Rails.application.config.assets.precompile += %w[hzmap.js]
 
 # Allow path helpers in JavaScript assets.
 # http://stackoverflow.com/questions/7451517/using-a-rails-helper-method-within-a-javascript-asset
