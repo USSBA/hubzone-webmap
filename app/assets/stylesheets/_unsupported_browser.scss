@@ -9,8 +9,13 @@
   opacity: 1;
   z-index: 99000;
 }
+.unsupported-browser h2, h4 {
+  color: #323A45;
+}
 .unsupported-browser-header {
   border-bottom: 2px solid #d6d7d9;
+  height: 50px;
+  padding-bottom: 10px;
 }
 .unsupported-browser-header h2 {
   margin-top: -20px;
@@ -24,12 +29,9 @@
 }
 .unsupported-browser-body {
   text-align: center;
-  padding-top: 80px;
+  padding-top: 50px;
 }
 .unsupported-browser-body h4 {
   max-width: 450px;
   margin: 0 auto;
-}
-.unsupported-browser-body h2, h4 {
-  color: #323A45;
 }
