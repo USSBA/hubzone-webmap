@@ -35,4 +35,5 @@ db/schema.rb
 REVISION
 /public/packs
 /public/hzmap
+/public/hzmap-test
 /node_modules
