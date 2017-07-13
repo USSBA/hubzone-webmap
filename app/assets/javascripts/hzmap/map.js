@@ -3,7 +3,7 @@
 
 //create the map on load, when idle, jump to updateMap to get features
 /* exported initMap */
-function initMap() {
+HZApp.MapUtils.initMap = function() {
 
   var initialMapLocation = {
     center: {
