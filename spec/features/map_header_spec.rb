@@ -24,7 +24,4 @@ describe "The Header", type: :feature do
     expect(page).to have_content 'HUBZone Program'
     expect(page.find('#hubzone-program-link')['aria-label']).to have_content 'hubzone program'
   end
-  it "should have overlay for unsupported browsers" do
-    expect(page).to have_css(".unsupported-browser")
-  end
 end
