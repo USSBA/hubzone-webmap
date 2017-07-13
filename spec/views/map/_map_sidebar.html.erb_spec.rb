@@ -188,6 +188,7 @@ RSpec.describe "map/_map_sidebar.html.erb" do
         context "displays the sidebar for #{type}" do
           before do
             body["hubzone"] = [responses[type]]
+            I18n.locale = locale
             render partial: "map/map_sidebar", locals: {body: body, locale: locale}
           end
 
@@ -218,15 +219,12 @@ RSpec.describe "map/_map_sidebar.html.erb" do
               end
             end
           end
-          next unless responses[type]["expires"]
-          it "should show the correct language for expires or expired if expiration date is present" do
-            expect(rendered).to have_content("Expires")
-          end
         end
       end
       context "multiple disignations" do
         before do
           body["hubzone"] = [responses[:qct], responses[:qnmc_r], responses[:brac], responses[:indian_lands], responses[:qnmc_qda]]
+          I18n.locale = locale
           render partial: "map/map_sidebar", locals: {body: body, locale: locale}
         end
         it "should show qualified" do
