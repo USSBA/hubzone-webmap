@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!--[if IE]>
+<style>
+.unsupported-browser{display:block!important;} .usa-header{display:none;} #main-content{display:none;}
+</style>
+<![endif]-->
 <html lang='<%= I18n.locale %>'>
   <head>
     <title><%= t('hubzone_map') %></title>
@@ -30,6 +35,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   </head>
   <body class="hubzone-map">
+    <%= render partial: "unsupported_browser", locals: {body: nil} %>
     <%= render partial: "header", locals: {body: nil} %>
     <div class="usa-overlay"></div>
     <main id="main-content">
