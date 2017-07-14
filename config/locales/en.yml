@@ -47,7 +47,9 @@ en:
     button: "Sidebar Button"
     print_version: "Printable Version"
     share_map: "Share Map"
-    until: "until"
+    date_status:
+      until: "until"
+      expired: "expired"
     details:
       title: "Designations"
       show: "Show Details"
