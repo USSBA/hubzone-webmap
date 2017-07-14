@@ -143,7 +143,6 @@ RSpec.describe 'The Search', type: :feature, js: true do
 
         context "for any hubzone designations" do
           before do
-            # click_button 'additional-details-button'
             find('.additional-details-expand').click
           end
 
