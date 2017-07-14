@@ -10,7 +10,9 @@ class MapController < ApplicationController
     query = format_query params
     path = "#{MAP_CONFIG[:hubzone_api_search_path]}?#{query}"
     response = api_get path
-    @body = response.data[:body]
+    body_json = JSON.parse response.data[:body]
+    body_json["jump"] = params[:jump].nil? ? true : params[:jump]
+    @body = JSON.generate body_json
     respond_to do |format|
       format.js {}
     end
@@ -44,5 +46,9 @@ class MapController < ApplicationController
 
   def connection
     @connection ||= Excon.new(MAP_CONFIG[:hubzone_api_host])
+  end
+
+  def search_params
+    params.permit(:jump, :utf8, :locale, :query_date, :search, :button)
   end
 end

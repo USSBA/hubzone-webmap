@@ -7,6 +7,7 @@ HZApp.HZQuery = {
   },
   response: {},
   parseResponse: function(response) {
+    // console.log("~~~~~ parseResponse");
     //set the response for later
     this.response = response;
     this.response.geocodeLocation = null;
@@ -36,7 +37,7 @@ HZApp.HZQuery = {
     }
   },
   parseResponseGeometry: function(response){
-    // console.log("~~~~~ parseResponseGeometry - silent: " + HZApp.Router.silentHashChange.silent);
+    // console.log("~~~~~ parseResponseGeometry");
     if (response.geometry){
 
       if (response.place_id){
@@ -49,10 +50,16 @@ HZApp.HZQuery = {
         this.query.latlng = [response.geometry.location.lat, response.geometry.location.lng ].join(',');
         this.addCoordsToSearchBar(response.geometry.location);
       }
-      HZApp.MapUtils.jumpToLocation({
-        viewport: response.geometry.viewport,
-        location: response.geometry.location
-      });
+      
+      // console.log("to jump, or not to jump: " + response.jump);
+
+      if (response.jump == true) {
+        // console.log("     jumpToLocation!");
+        HZApp.MapUtils.jumpToLocation({
+          viewport: response.geometry.viewport,
+          location: response.geometry.location
+        });
+      }
 
       this.response.geocodeLocation = response.geometry.location;
     }

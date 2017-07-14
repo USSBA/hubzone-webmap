@@ -22,7 +22,9 @@ HZApp.MapUtils = (function(){
     },
 
     sendMapSearch: function(q, callback){
-      var url = "<%= search_path %>?search=" + q + this.includeDateAndLocale();
+      // console.log("~~~~~ MapUtils.sendMapSearch: " + q);
+      var url = "<%= search_path %>?search=" + q + "&jump=" + false + this.includeDateAndLocale();
+      // console.log("     search url: " + url + ", callback: " + callback);
       this.sendAjax(url, callback);
       return url;
     },
