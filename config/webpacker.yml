@@ -34,5 +34,8 @@ test:
 
   public_output_path: hzmap-test
 
+staging:
+  <<: *default
+
 production:
   <<: *default
