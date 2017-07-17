@@ -81,6 +81,8 @@ Then point your browser to http://localhost:3000/
 
 Note: for the map to "work", you will need to have the API and GeoServer running as well.  See the README in the hubzone-api repository for details.
 
+If you prefer to only run one server for develop, simply run `foreman start` which will launch both from a single terminal.
+
 ### Staging and Production:
 
 The task `webpack:compile` is included with `assets:precompile` https://github.com/rails/webpacker#deployment, so just launching `RAILS_ENV=production rake assets:precompile` will compile styles, images, etc. and then run webpack to bundle the hzmap.js part of the app.
