@@ -34,6 +34,9 @@ dev:
     hubzone_program_aria_label: "Programa hubzone"
     accessible_version: "Versión accesible"
     help: "Ayuda"
+  unsupported:
+    title: "Tu navegador no es compatible"
+    subtitle: "Recomendamos actualizar a la última versión de Edge, Firefox, Safari o Chrome."
   map:
     aria_label: "Está mostrando un mapa a pantalla completa"
     enter_address: "Ingresa la direccion"
