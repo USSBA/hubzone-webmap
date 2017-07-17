@@ -5,7 +5,8 @@ describe "The Sidebar", type: :feature do
   queries = { qualified_multiple: 'navajo',
               qualified_single: 'tiffany peak, co',
               non_qualified: 'banana',
-              intersection: '25th & st. paul, baltimore' }
+              intersection: '25th & st. paul, baltimore',
+              redesignated: 'reform, al' }
 
   responses = { qualified_multiple: { formatted_address: 'Yup',
                                       http_status: 200,
@@ -46,7 +47,7 @@ describe "The Sidebar", type: :feature do
                                 'Reform, AL',
                                 http_status: 200,
                                 hubzone: [],
-                                until_date: "2020-04-05",
+                                until_date: Date.today.last_week,
                                 geometry: {
                                   location: {
                                     lat: 0,
@@ -176,6 +177,27 @@ describe "The Sidebar", type: :feature do
     end
     it "should have show details" do
       expect(page).to have_content('Show Details')
+    end
+  end
+
+  context "with a recently expired date that has not been updated on the map", js: true do
+    before do
+      Excon.stub({},
+                 body: responses[:redesignated].to_json)
+      fill_in 'search', with: queries[:redesignated]
+      click_button 'hubzone-search-button'
+    end
+    it "should show Not Qualified" do
+      expect(page).to have_content('Not Qualified')
+    end
+    it "should show correct expired/until language" do
+      expect(page).to have_content('expired')
+    end
+    it "should show correct icon" do
+      expect(page).to have_css('.fa-times-circle-o')
+    end
+    it "should have Designations still shown" do
+      expect(page).to have_content('Designations')
     end
   end
 end
