@@ -1,4 +1,4 @@
-//= require hzmap/cookies
+//= require cookies
 /* jshint unused: false */
 /* jshint undef: false */
 

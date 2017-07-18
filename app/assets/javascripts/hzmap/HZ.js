@@ -23,5 +23,5 @@ window.HZApp = {
   Router: {},
   SidebarUtils: {},
   Styles: {},
-  WMTSUtils: {}
+  WMTSUtils: {},
 };

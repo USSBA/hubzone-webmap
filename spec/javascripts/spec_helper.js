@@ -37,5 +37,7 @@
 //= require jquery_ujs
 //= require uswds
 //= require i18n/translations
+//= require HZ
 //= require helpers/polyfills
 //= require helpers/hz-jasmine
+

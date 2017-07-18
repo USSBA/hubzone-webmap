@@ -1,6 +1,6 @@
-//= require hzmap/ga
-//= require hzmap/sidebar
-//= require hzmap/map-utils
+//= require ga
+//= require sidebar
+//= require map-utils
 /* jshint unused: false */
 /* jshint undef: false */
 

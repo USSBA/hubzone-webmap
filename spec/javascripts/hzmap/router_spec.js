@@ -1,6 +1,6 @@
-//= require hzmap/router
-//= require hzmap/map-utils
-//= require hzmap/ga
+//= require router
+//= require map-utils
+//= require ga
 /* jshint unused: false */
 /* jshint undef: false */
 

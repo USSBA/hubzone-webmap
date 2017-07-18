@@ -1,6 +1,5 @@
-//= require hzmap/legend-defs
-//= require hzmap/legend
-//= require hzmap
+//= require legend-defs
+//= require legend
 /* jshint unused: false */
 /* jshint undef: false */
 
@@ -8,8 +7,8 @@ describe ('Testing legend operations', function() {
   beforeEach(function(){
     fixture.cleanup();
     this.fixtures = fixture.load("legend_fixture.html", true);
-    HZApp.Legend.buildLegend(HZSpecHelper.testLayers);
     testLayers = HZSpecHelper.testLayers;
+    HZApp.Legend.buildLegend(testLayers);
   });
 
   describe ('build legend utility', function() {
