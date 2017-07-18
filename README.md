@@ -87,6 +87,8 @@ If you prefer to only run one server for develop, simply run `foreman start` whi
 
 The task `webpack:compile` is included with `assets:precompile` https://github.com/rails/webpacker#deployment, so just launching `RAILS_ENV=production rake assets:precompile` will compile styles, images, etc. and then run webpack to bundle the hzmap.js part of the app.
 
+### Test
+See below, but, webpacker needs to compile JS assets prior to running teaspoon tests
 
 ## Testing
 
@@ -121,7 +123,12 @@ First install Istanbul:
 npm install -g istanbul
 ```
 
-To run Teaspoon for unit tests, run:
+To run Teaspoon for unit tests, you first need to compile the webpack assest:
+```
+RAILS_ENV=test rake webpacker:compile
+```
+
+Then run,
 ```
 bundle exec teaspoon
 ```
