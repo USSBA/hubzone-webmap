@@ -1,0 +1,39 @@
+// share map utility
+HZApp.ShareMap = (function(){
+  // listen on hashchanges
+  window.addEventListener('hashchange', function(){
+    HZApp.ShareMap.catchHashChange();
+  });
+  //bind listener for map share button
+  $(function() {
+    $(document).on('click','#map-share', HZApp.ShareMap.showShareUrl);
+    $(document).on('click','button.copy-to-clipboard', HZApp.ShareMap.copyUrl);
+  });
+
+  return {
+    // catch and flow control hash changes
+    catchHashChange: function(){
+      HZApp.ShareMap.updateShareUrl(location.href);
+    },
+
+    // catch the share button click event and display modal
+    showShareUrl: function(){
+      var hidden = $('.share-map-card').hasClass('hidden');
+      var action = hidden ? "show" : "hide";
+      HZApp.GA.track( 'map', 'sidebar', 'share-map-' + action );
+      $('.share-map-card').toggleClass('hidden');
+      HZApp.ShareMap.updateShareUrl(location.href);
+    },
+
+    // copy the url to the clipboard
+    copyUrl: function(){
+      HZApp.GA.track( 'map', 'sidebar', 'share-map-copy' );
+      $('input.share-map-url').select();
+      document.execCommand('copy');
+    },
+
+    updateShareUrl: function(url){
+      $('input.share-map-url').val(url);
+    }
+  };
+})();
