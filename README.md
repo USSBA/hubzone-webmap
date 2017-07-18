@@ -65,6 +65,12 @@ bundle exec rake db:create db:migrate
 
 If the `bundle install` fails due to the pg gem, make sure you have the ENV vars above set in your shell.
 
+Then run,
+```
+yarn install
+```
+to install yarn and webpacker dependencies.
+
 
 ## Deployment
 
