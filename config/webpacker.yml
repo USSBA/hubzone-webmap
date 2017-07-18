@@ -31,9 +31,12 @@ development:
 
 test:
   <<: *default
+
+test_js:
+  <<: *default
   source_path: app/assets/javascripts
   source_entry_path: hzmap
-  public_output_path: hzmap-test
+  public_output_path: hzmap-test-js
 
 staging:
   <<: *default

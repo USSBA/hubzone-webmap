@@ -36,4 +36,5 @@ REVISION
 /public/packs
 /public/hzmap
 /public/hzmap-test
+/public/hzmap-test-js
 /node_modules
