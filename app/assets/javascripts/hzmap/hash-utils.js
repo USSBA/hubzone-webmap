@@ -9,8 +9,8 @@ HZApp.HashUtils = (function(){
     // returns a new hash string that that can be passed to location.hash
     removeHashValue: function(hashParam, currentHash){
       // console.log("~~~ removeHashValue(" + hashParam + ", " + currentHash + ")");
-      var hashRegexInside = this.getHashRegexInside(hashParam);
-      var hashRegexOutside = this.getHashRegexOutside("&" + hashParam);
+      var hashRegexInside = HZApp.HashUtils.getHashRegexInside(hashParam);
+      var hashRegexOutside = HZApp.HashUtils.getHashRegexOutside("&" + hashParam);
 
       if (currentHash.match(hashRegexInside) !== null) {
         return currentHash.replace(hashRegexInside, "");
@@ -24,12 +24,12 @@ HZApp.HashUtils = (function(){
     // returns a new hash string that that can be passed to location.hash
     updateHashValue: function(hashParam, hashValue, currentHash){
       // console.log("~~~~~ updateHashValue - silent: " + HZApp.Router.silentHashChange.silent);
-      var newHash = this.encodeHash(hashParam, hashValue);
+      var newHash = HZApp.HashUtils.encodeHash(hashParam, hashValue);
       var hashParamRegex = new RegExp(hashParam + "=", "ig");
-      var hashRegexInside = this.getHashRegexInside(hashParam);
-      var hashRegexOutside = this.getHashRegexOutside(hashParam);
+      var hashRegexInside = HZApp.HashUtils.getHashRegexInside(hashParam);
+      var hashRegexOutside = HZApp.HashUtils.getHashRegexOutside(hashParam);
 
-      if (this.hashIsEmpty(currentHash)) {
+      if (HZApp.HashUtils.hashIsEmpty(currentHash)) {
         return newHash;
       } else if (currentHash.match(hashParamRegex) === null) {
         return currentHash + "&" + newHash;
@@ -45,9 +45,23 @@ HZApp.HashUtils = (function(){
     // helper to get just the google map center and zoom and update the hash text
     // returns a new hash string ready to be set in location.hash
     updateCenterAndZoomHash: function(mapCenter, zoom, currentHash){
-      var c_hash = this.updateHashValue('center', mapCenter.lat().toFixed(6) + ',' + mapCenter.lng().toFixed(6), currentHash);
-      var c_z_hash = this.updateHashValue('zoom', zoom, c_hash);
+      var c_hash = HZApp.HashUtils.updateCenterHash(mapCenter.lat(), mapCenter.lng(), currentHash);
+      var c_z_hash = HZApp.HashUtils.updateZoomHash(zoom, c_hash);
       return c_z_hash;
+    },
+
+    // helper to get just the google map center and zoom and update the hash text
+    // returns a new hash string ready to be set in location.hash
+    updateCenterHash: function(lat, lng, currentHash){
+      var c_hash = HZApp.HashUtils.updateHashValue('center', lat.toFixed(6) + ',' + lng.toFixed(6), currentHash);
+      return c_hash;
+    },
+
+    // helper to get just the google map center and zoom and update the hash text
+    // returns a new hash string ready to be set in location.hash
+    updateZoomHash: function(zoom, currentHash){
+      var z_hash = HZApp.HashUtils.updateHashValue('zoom', zoom, currentHash);
+      return z_hash;
     },
 
     // builds the updated hash string with lat/lng params.
@@ -56,11 +70,11 @@ HZApp.HashUtils = (function(){
     updateLatLngHash: function(latlng_s, currentHash) {
       // console.log("~~~~~ setLatLngInHash - silent: " + HZApp.Router.silentHashChange.silent);
       // Clear any 'q' param
-      var hashText = this.removeHashValue('q', currentHash);
+      var hashText = HZApp.HashUtils.removeHashValue('q', currentHash);
       // Add in the 'latlng' param
-      hashText = this.updateHashValue('latlng', latlng_s, hashText);
+      hashText = HZApp.HashUtils.updateHashValue('latlng', latlng_s, hashText);
       // Finally, add in the center and zoom
-      hashText = this.updateCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), hashText);
+      hashText = HZApp.HashUtils.updateCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), hashText);
       return hashText;
     },
 
@@ -70,11 +84,11 @@ HZApp.HashUtils = (function(){
     updateQueryHash: function(query_s, currentHash) {
       // console.log("~~~~~ setQueryInHash - silent: " + HZApp.Router.silentHashChange.silent);
       // Clear any 'latlng' param
-      var hashText = this.removeHashValue('latlng', currentHash);
+      var hashText = HZApp.HashUtils.removeHashValue('latlng', currentHash);
       // Add in the 'q' param
-      hashText = this.updateHashValue('q', query_s, hashText);
+      hashText = HZApp.HashUtils.updateHashValue('q', query_s, hashText);
       // Finally, add in the center and zoom
-      hashText = this.updateCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), hashText);
+      hashText = HZApp.HashUtils.updateCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), hashText);
       return hashText;
     },
 
@@ -89,7 +103,7 @@ HZApp.HashUtils = (function(){
     // parse the location hash string into an object with key, value pairs
     parseLocationHash: function(hash){
       // console.log("~~~~~ parseLocationHash - silent: " + HZApp.Router.silentHashChange.silent);
-      if (this.hashIsEmpty(hash)){
+      if (HZApp.HashUtils.hashIsEmpty(hash)){
         return null;
       }
 
@@ -115,7 +129,6 @@ HZApp.HashUtils = (function(){
     // if the hash is between (# and end of line) or (& and end of line)
     getHashRegexOutside: function(hashParam){
       return new RegExp(hashParam + "=" + '.*$', "ig");
-    },
-
+    }
   };
 })();

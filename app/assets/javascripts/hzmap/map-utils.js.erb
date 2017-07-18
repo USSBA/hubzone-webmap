@@ -55,6 +55,7 @@ HZApp.MapUtils = (function(){
 
     //jump to location on the map based on the geocode viewport object
     jumpToLocation: function(geocodeLocation){
+      // console.log("~~~~~~~~~~~~~~~~ jumpToLocation: " + geocodeLocation);
       if (geocodeLocation.viewport){
         var customFit = this.getBoundsZoomLevel(geocodeLocation.viewport, this.getMapDims($('#map')));
         if (customFit.fitZoom < 15){
