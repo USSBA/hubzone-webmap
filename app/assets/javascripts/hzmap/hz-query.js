@@ -7,8 +7,7 @@ HZApp.HZQuery = {
   },
   response: {},
   parseResponse: function(response) {
-    console.log("~~~~~ parseResponse");
-    console.log(response);
+    // console.log("~~~~~ parseResponse", response);
     //set the response for later
     this.response = response;
     this.response.geocodeLocation = null;
@@ -38,20 +37,18 @@ HZApp.HZQuery = {
     }
   },
   parseResponseGeometry: function(response){
-    console.log("~~~~~ parseResponseGeometry");
-    console.trace();
-    console.log("    starting hash: " + location.hash);
+    // console.log("~~~~~ parseResponseGeometry");
+    // console.trace();
+    // console.log("    starting hash: " + location.hash);
     if (response.geometry){
       var hash = location.hash;
       if (response.place_id){
         this.query.q = response.formatted_address;
         this.query.latlng = null;
-        // HZApp.Router.clearHash('latlng', true);
-        // HZApp.Router.setSingleHash('q', response.search_q, location.hash);
         hash = HZApp.HashUtils.removeHashValue('latlng', location.hash);
-        console.log("      update the hash removing latlng: " + hash);
+        // console.log("      update the hash removing latlng: " + hash);
         hash = HZApp.HashUtils.updateQueryHash(response.search_q, hash);
-        console.log("      update the hash adding query: " + hash);
+        // console.log("      update the hash adding query: " + hash);
 
         // Ugh... Need to set the hash before jumping to location,
         // but first need to change the hash, and set it, if we're jumping.
@@ -59,9 +56,9 @@ HZApp.HZQuery = {
           hash = HZApp.HashUtils.updateCenterHash(response.geometry.location.lat,
                                                   response.geometry.location.lng,
                                                   hash);
-          console.log("      update the hash with the center: " + hash);
+          // console.log("      updated the hash with the center: " + hash);
         }
-        console.log("    set the hash: " + hash);
+        // console.log("    set the hash: " + hash);
         HZApp.Router.setHash(hash);
       } else {
         this.query.q = null;
@@ -69,10 +66,10 @@ HZApp.HZQuery = {
         this.addCoordsToSearchBar(response.geometry.location);
       }
       
-      console.log("  to jump, or not to jump: " + response.jump);
+      // console.log("  to jump, or not to jump: " + response.jump);
 
       if (response.jump === true) {
-        console.log("    JUMP! ", response.geometry);
+        // console.log("    JUMP! ", response.geometry);
         HZApp.MapUtils.jumpToLocation({
           viewport: response.geometry.viewport,
           location: response.geometry.location
@@ -82,39 +79,41 @@ HZApp.HZQuery = {
       this.response.geocodeLocation = response.geometry.location;
     }
   },
-  parsePlaceGeometry: function(reponse){
-    console.log("~~~~~ parsePlaceGeometry");
-    console.log("    starting hash: " + location.hash);
-    var hash = location.hash;
-    this.query.q = response.formatted_address;
-    this.query.latlng = null;
-    hash = HZApp.HashUtils.removeHashValue('latlng', location.hash);
-    console.log("      update the hash removing latlng: " + hash);
-    hash = HZApp.HashUtils.updateQueryHash(response.search_q, hash);
-    console.log("      update the hash adding query: " + hash);
+  // Was thinking we could split apart the parseGeometry method, but didn't get far...
+  //
+  // parsePlaceGeometry: function(reponse){
+  //   console.log("~~~~~ parsePlaceGeometry");
+  //   console.log("    starting hash: " + location.hash);
+  //   var hash = location.hash;
+  //   this.query.q = response.formatted_address;
+  //   this.query.latlng = null;
+  //   hash = HZApp.HashUtils.removeHashValue('latlng', location.hash);
+  //   console.log("      update the hash removing latlng: " + hash);
+  //   hash = HZApp.HashUtils.updateQueryHash(response.search_q, hash);
+  //   console.log("      update the hash adding query: " + hash);
 
-    // Ugh... Need to set the hash before jumping to location,
-    // but first need to change the hash, and set it, if we're jumping.
-    if (response.jump === true) {
-      hash = HZApp.HashUtils.updateCenterHash(response.geometry.location.lat,
-        response.geometry.location.lng,
-        hash);
-      console.log("      update the hash with the center: " + hash);
-    }
-    console.log("    set the hash: " + hash);
-    HZApp.Router.setHash(hash);
+  //   // Ugh... Need to set the hash before jumping to location,
+  //   // but first need to change the hash, and set it, if we're jumping.
+  //   if (response.jump === true) {
+  //     hash = HZApp.HashUtils.updateCenterHash(response.geometry.location.lat,
+  //       response.geometry.location.lng,
+  //       hash);
+  //     console.log("      update the hash with the center: " + hash);
+  //   }
+  //   console.log("    set the hash: " + hash);
+  //   HZApp.Router.setHash(hash);
 
-    console.log("  to jump, or not to jump: " + response.jump);
-    if (response.jump === true) {
-      console.log("    JUMP! ", response.geometry);
-      HZApp.MapUtils.jumpToLocation({
-        viewport: response.geometry.viewport,
-        location: response.geometry.location
-      });
-    }
+  //   console.log("  to jump, or not to jump: " + response.jump);
+  //   if (response.jump === true) {
+  //     console.log("    JUMP! ", response.geometry);
+  //     HZApp.MapUtils.jumpToLocation({
+  //       viewport: response.geometry.viewport,
+  //       location: response.geometry.location
+  //     });
+  //   }
 
-    this.response.geocodeLocation = response.geometry.location;
-  },
+  //   this.response.geocodeLocation = response.geometry.location;
+  // },
   addCoordsToSearchBar: function(coords){
     coords = [coords.lat.toFixed(6), coords.lng.toFixed(6)].join(',');
     document.getElementById('search-field-small').value = coords;

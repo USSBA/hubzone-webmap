@@ -29,12 +29,11 @@ HZApp.Router = (function(){
 
     // catch and flow control hash changes
     catchHashChange: function(){
-      console.log("!!! catchHashChange");
+      // console.log("!!! catchHashChange");
       if (HZApp.Router.silentHashChange.silent) {
-        console.log('was a silent change');
+        // console.log('was a silent change');
         HZApp.Router.silentHashChange.setSilent(false, 'catchHashChange');
       } else {
-        console.log("~~~~~ catchHashChange");
         // console.log('hash changed');
         // console.trace();
         HZApp.Router.updateStateFromHash(location.hash);
@@ -46,20 +45,18 @@ HZApp.Router = (function(){
     // ################## callbacks #############################
 
     updateMapCenter: function(event){
-      console.log("!!! updateMapCenter", event);
+      // console.log("!!! updateMapCenter", event);
       HZApp.Router.updateMapLocation();
     },
     updateMapZoom: function(event){
-      console.log("!!! updateMapZoom", event);
+      // console.log("!!! updateMapZoom", event);
       HZApp.Router.updateMapLocation();
     },
     // map idle listener callback for updatig the map url route when the page is done moving
     updateMapLocation: function(){
-      console.log("      updateMapLocation - center: " + HZApp.map.getCenter() + ", zoom: " + HZApp.map.getZoom());
+      // console.log("      updateMapLocation - center: " + HZApp.map.getCenter() + ", zoom: " + HZApp.map.getZoom());
       // console.trace();
-      // HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom());
       HZApp.Router.currentMapLocationToHash();
-      // dont set anything else here
     },
 
     // #######################################################
@@ -103,18 +100,13 @@ HZApp.Router = (function(){
     },
 
     // get the updated hash text, then set it in the location.hash
-    setQueryHash: function(query_s, location) {
-      var hash = HZApp.HashUtils.removeHashValue('latlng', location.hash);
-      hash = HZApp.HashUtils.updateQueryHash(query_s, hash);
-      if (location) {
-        hash = HZApp.HashUtils.updateCenterHash(location.lat(), location.lng(), hash);
-      }
-
-      HZApp.Router.setHash(hash);
+    setQueryHash: function(query_s) {
+      // console.log("~~~~ setQueryHash: " + query_s);
+      HZApp.Router.setHash(HZApp.HashUtils.updateQueryHash(query_s, location.hash));
     },
 
     replaceHash: function(hash) {
-      console.log('~~~~~ replaceHash: ' + hash);
+      // console.log('~~~~~ replaceHash: ' + hash);
       if (hash !== location.hash){
         HZApp.Router.silentHashChange.setSilent(true, 'replaceHash');
         history.replaceState(HZApp.HashUtils.parseLocationHash(hash), "replaceHash", "map#" + hash);
@@ -122,9 +114,8 @@ HZApp.Router = (function(){
     },
 
     currentMapLocationToHash: function() {
-      console.log("~~~~~ currentMapLocationToHash");
+      // console.log("~~~~~ currentMapLocationToHash");
       var hashText = HZApp.HashUtils.updateCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), location.hash);
-      console.log("      updatedHash: " + hashText);
       history.replaceState(HZApp.HashUtils.parseLocationHash(hashText), "location update only", "map" + hashText);
     },
 
@@ -177,10 +168,7 @@ HZApp.Router = (function(){
         var latlng = HZApp.Router.unpackValidLatLng(latlng_s) || null;
         if (latlng){
           HZApp.MapUtils.sendMapClick(latlng, function(){
-            HZApp.Router.clearHash('q');
-            HZApp.Router.setSingleHash('latlng', latlng_s, null);
-            HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom());
-            // HZApp.Router.silentHashChange.setSilent(false, 'latlng controller');
+            HZApp.Router.setLatLngHash(latlng_s);
           });
         }
       },
@@ -190,7 +178,10 @@ HZApp.Router = (function(){
         if (search){
           HZApp.GA.trackSubmit('search', '#search-field-small');
           document.getElementById('search-field-small').value = search;
-          HZApp.MapUtils.sendMapSearch(search, null);
+          HZApp.MapUtils.sendMapSearch(search, function(){
+            // console.log("      !!! map search complete!");
+            // HZApp.Router.setQueryHash(search);
+          });
         }
       },
       center: function(center, hashState){
