@@ -252,14 +252,6 @@ describe ('Testing map operations', function() {
     });
   });
 
-  it("should call to update map location hash when called", function(){
-    spyOn(HZApp.Router, 'setHash');
-    spyOn(HZApp.Router, 'setCenterAndZoomHash').and.callThrough();
-    HZApp.Router.updateMapLocation();
-    expect(HZApp.Router.setHash.calls.count()).toEqual(1); //once combined for center, zoom
-    expect(HZApp.Router.setCenterAndZoomHash.calls.count()).toEqual(1);
-  });
-
   it("should parse single digit dates correctly", function(){
     var date = HZApp.MapUtils.parseDate(new Date('1/1/2016'));
     expect(date).toEqual('2016-01-01');

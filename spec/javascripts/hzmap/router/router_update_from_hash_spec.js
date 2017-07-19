@@ -38,7 +38,6 @@ describe ('Testing Router operations', function() {
         inputHash = "#foo=bar&bar=baz&this=that";
         newHashState = HZApp.HashUtils.parseLocationHash(inputHash);
         Object.keys(hashState).forEach(function(key){
-          expect(newHashState[key]).toBeDefined();
           expect(newHashState[key]).toEqual(hashState[key]);
         });
       });
@@ -46,7 +45,6 @@ describe ('Testing Router operations', function() {
         inputHash = "foo=bar&bar=baz&this=that";
         newHashState = HZApp.HashUtils.parseLocationHash(inputHash);
         Object.keys(hashState).forEach(function(key){
-          expect(newHashState[key]).toBeDefined();
           expect(newHashState[key]).toEqual(hashState[key]);
         });
       });
@@ -56,6 +54,20 @@ describe ('Testing Router operations', function() {
           newHashState = HZApp.HashUtils.parseLocationHash(inputHash);
           expect(newHashState).not.toBe();
         });
+      });
+    });
+
+    describe("basic map event callbacks", function(){
+      beforeEach(function(){
+        spyOn(HZApp.Router, 'currentMapLocationToHash');
+      });
+      it("updateMapCenter should call currentMapLocationToHash", function(){
+        HZApp.Router.updateMapCenter();
+        expect(HZApp.Router.currentMapLocationToHash.calls.count()).toEqual(1);
+      });
+      it("updateMapZoom should call currentMapLocationToHash", function(){
+        HZApp.Router.updateMapZoom();
+        expect(HZApp.Router.currentMapLocationToHash.calls.count()).toEqual(1);
       });
     });
 
@@ -80,40 +92,65 @@ describe ('Testing Router operations', function() {
         HZApp.Router.updateStateFromHash(mockHash);
         expect(HZApp.MapUtils.sendMapClick.calls.count()).toEqual(0);
       });
-      it("should trigger an address search with a valid string", function(){
-        spyOn(HZApp.MapUtils, 'sendMapSearch').and.callThrough();
-        spyOn(HZApp.GA, 'trackSubmit');
-        mockHash = "#q=8%20market%20place";
-        HZApp.Router.updateStateFromHash(mockHash);
-        expect(HZApp.MapUtils.sendMapSearch.calls.count()).toEqual(1);
-        expect(HZApp.GA.trackSubmit.calls.count()).toEqual(1);
+
+      describe("should trigger an address search with a valid string", function(){
+        beforeEach(function(){
+          spyOn(HZApp.MapUtils, 'sendMapSearch').and.callThrough();
+          spyOn(HZApp.GA, 'trackSubmit');
+          mockHash = "#q=8%20market%20place";
+          HZApp.Router.updateStateFromHash(mockHash);
+        });
+        it("should call sendMapSearch", function(){
+          expect(HZApp.MapUtils.sendMapSearch.calls.count()).toEqual(1);
+        });
+        it("should call GA trackSubmit", function(){
+          expect(HZApp.GA.trackSubmit.calls.count()).toEqual(1);
+        });
       });
-      it("should update the map zoom if zoom hash is present", function(){
-        spyOn(HZApp.map, 'setZoom');
-        spyOn(HZApp.map, 'setCenter');
-        mockHash = "#q=8%20market%20place&zoom=15";
-        var hashState = HZApp.HashUtils.parseLocationHash(mockHash);
-        HZApp.Router.updateMapCenterAndZoom(hashState);
-        expect(HZApp.map.setZoom.calls.count()).toEqual(1);
-        expect(HZApp.map.setCenter.calls.count()).toEqual(0);
+      describe("should update the map zoom if zoom hash is present", function(){
+        beforeEach(function(){
+          spyOn(HZApp.map, 'setZoom');
+          spyOn(HZApp.map, 'setCenter');
+          mockHash = "#q=8%20market%20place&zoom=15";
+          var hashState = HZApp.HashUtils.parseLocationHash(mockHash);
+          HZApp.Router.updateMapCenterAndZoom(hashState);
+        });
+        it("should call setZoom", function(){
+          expect(HZApp.map.setZoom.calls.count()).toEqual(1);
+        });
+        it("should not call setCenter", function(){
+          expect(HZApp.map.setCenter.calls.count()).toEqual(0);
+        });
       });
-      it("should update the map center if center hash is present", function(){
-        spyOn(HZApp.map, 'setZoom');
-        spyOn(HZApp.map, 'setCenter');
-        mockHash = "#q=8%20market%20place&center=15,-15";
-        var hashState = HZApp.HashUtils.parseLocationHash(mockHash);
-        HZApp.Router.updateMapCenterAndZoom(hashState);
-        expect(HZApp.map.setZoom.calls.count()).toEqual(0);
-        expect(HZApp.map.setCenter.calls.count()).toEqual(1);
+      describe("should update the map center if center hash is present", function(){
+        beforeEach(function(){
+          spyOn(HZApp.map, 'setZoom');
+          spyOn(HZApp.map, 'setCenter');
+          mockHash = "#q=8%20market%20place&center=15,-15";
+          var hashState = HZApp.HashUtils.parseLocationHash(mockHash);
+          HZApp.Router.updateMapCenterAndZoom(hashState);
+        });
+        it("should not call setZoom", function(){
+          expect(HZApp.map.setZoom.calls.count()).toEqual(0);
+        });
+        it("should call setCenter", function(){
+          expect(HZApp.map.setCenter.calls.count()).toEqual(1);
+        });
       });
-      it("should update the map center and zoom if both  present", function(){
-        spyOn(HZApp.map, 'setZoom');
-        spyOn(HZApp.map, 'setCenter');
-        mockHash = "#q=8%20market%20place&center=15,-15&zoom=8";
-        var hashState = HZApp.HashUtils.parseLocationHash(mockHash);
-        HZApp.Router.updateMapCenterAndZoom(hashState);
-        expect(HZApp.map.setZoom.calls.count()).toEqual(1);
-        expect(HZApp.map.setCenter.calls.count()).toEqual(1);
+      describe("should update the map center and zoom if both  present", function(){
+        beforeEach(function(){
+          spyOn(HZApp.map, 'setZoom');
+          spyOn(HZApp.map, 'setCenter');
+          mockHash = "#q=8%20market%20place&center=15,-15&zoom=8";
+          var hashState = HZApp.HashUtils.parseLocationHash(mockHash);
+          HZApp.Router.updateMapCenterAndZoom(hashState);
+        });
+        it("should call setZoom", function(){
+          expect(HZApp.map.setZoom.calls.count()).toEqual(1);
+        });
+        it("should call setCenter", function(){
+          expect(HZApp.map.setCenter.calls.count()).toEqual(1);
+        });
       });
     });
 

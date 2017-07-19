@@ -46,16 +46,10 @@ HZApp.Router = (function(){
 
     updateMapCenter: function(event){ // jshint unused: false
       // console.log("!!! updateMapCenter", event);
-      HZApp.Router.updateMapLocation();
+      HZApp.Router.currentMapLocationToHash();
     },
     updateMapZoom: function(event){ // jshint unused: false
       // console.log("!!! updateMapZoom", event);
-      HZApp.Router.updateMapLocation();
-    },
-    // map idle listener callback for updatig the map url route when the page is done moving
-    updateMapLocation: function(){
-      // console.log("      updateMapLocation - center: " + HZApp.map.getCenter() + ", zoom: " + HZApp.map.getZoom());
-      // console.trace();
       HZApp.Router.currentMapLocationToHash();
     },
 
