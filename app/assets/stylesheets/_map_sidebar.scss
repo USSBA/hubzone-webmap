@@ -203,12 +203,11 @@ table th {
   background-image: none;
   cursor: initial;
 }
-i.fa.fa-print {
-  font-size: 2.5rem;
-  color: $gray-dark;
-  padding: .5rem 2rem 0 2rem;
-}
-#map-report {
+
+button#map-report {
+  background-color: $white;
+  margin: 1.7rem 0.5rem 1.5rem 1.5rem;
+  padding: 0rem;
   cursor: pointer;
   display: inline;
 }
@@ -220,17 +219,56 @@ i.fa-file-pdf-o {
 #report-waiting {
   display: none;
 }
-button#map-report {
-  background-color: $white;
-  margin: 1.7rem 0.5rem 1.5rem 1.5rem;
-  padding: 0rem;
-}
 .create-report {
   font-size: 1.5rem;
   font-weight: normal;
   padding-top: 0.5rem;
   color: $gray-dark;
 }
+
+button#map-share {
+  background-color: $white;
+  margin: 1.7rem 0.5rem 1.5rem 1.5rem;
+  padding: 0rem;
+  cursor: pointer;
+  display: inline;
+}
+i.fa-share {
+  font-size: 2.5rem;
+  color: $gray-dark;
+  padding: 0;
+}
+.share-map {
+  font-size: 1.5rem;
+  font-weight: normal;
+  padding-top: 0.5rem;
+  color: $gray-dark;
+}
+
+.share-map-content{
+  padding: 0.5rem 1rem 1rem;
+  display: flex;
+  vertical-align: middle;
+}
+input.share-map-url {
+  font-size: 1.5rem;
+  padding: 0.2rem;
+  height: 2.5rem;
+}
+i.fa-clipboard {
+  font-size: 1.5rem;
+  color: $gray-dark;
+  padding: 0;
+}
+button.copy-to-clipboard{
+  float: right;
+  background-color: $white;
+  margin: 0.5rem;
+  padding: 0rem;
+  cursor: pointer;
+  display: inline;
+}
+
 .sidebar-footer {
   width: 34rem;
   position: fixed;
@@ -254,16 +292,31 @@ button#map-report {
 }
 
 @media only screen and (max-width: 950px)  {
+  #sidebar i.fa-chevron-right, i.fa-chevron-left {
+    transform: rotate(-90deg);
+  }
+  #sidebar.closed {
+    height: calc(100% - 12rem);
+    right: 0;
+  }
   #sidebar-button {
-    display: none;
+    position: absolute;
+    top: -3rem;
+    height: 3rem;
+    margin: 0;
+    width: 8rem;
+    right: 1rem;
+    padding: 0;
+    border-radius: 3px 3px 0 0;
+    background-color: $white;
   }
   #sidebar {
     position: fixed;
     bottom: 0;
     width: 100%;
     height: 12rem;
-    overflow: scroll;
-    box-shadow: 0px 0px 3px 2px rgba(0,0,0,0.2);
+    overflow: visible;
+    box-shadow: none;
     background-color: rgba(255,255,255,0.85);
   }
   .sidebar-card {
@@ -325,5 +378,27 @@ button#map-report {
   }
   .create-report {
     float: left;
+  }
+
+  button#map-share {
+  background-color: $white;
+  margin: 0;
+  padding: 1rem 0.5rem 1rem 1.5rem;
+  float: none;
+
+  }
+  i.fa-share {
+    float: left;
+    margin-right: 1rem;
+  }
+  .share-map {
+    float: left;
+  }
+  i.fa-clipboard {
+
+  }
+  button.copy-to-clipboard{
+    float: right;
+    width: 1rem;
   }
 }

@@ -34,6 +34,9 @@ en:
     hubzone_program_aria_label: "hubzone program"
     accessible_version: "Accessible Version"
     help: "Help"
+  unsupported:
+    title: "Your browser is not supported"
+    subtitle: "We recommend updating to the latest version of Edge, Firefox, Safari, or Chrome."
   map:
     aria_label: "page is displaying a fullscreen map"
     enter_address: "Enter address"
@@ -43,7 +46,10 @@ en:
   sidebar:
     button: "Sidebar Button"
     print_version: "Printable Version"
-    until: "until"
+    share_map: "Share Map"
+    date_status:
+      until: "until"
+      expired: "expired"
     details:
       title: "Designations"
       show: "Show Details"

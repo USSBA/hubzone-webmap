@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     get 'help/faq', to: 'help#index', page: 'faq'
     get 'aws-hc', to: 'health_check#status'
     get 'report', to: 'report#report'
+    get 'version', to: 'version#show', as: 'version'
     get '/', to: 'map#index', as: :map
   end
 end
