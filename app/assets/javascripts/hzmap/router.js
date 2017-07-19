@@ -44,11 +44,11 @@ HZApp.Router = (function(){
 
     // ################## callbacks #############################
 
-    updateMapCenter: function(event){
+    updateMapCenter: function(event){ // jshint unused: false
       // console.log("!!! updateMapCenter", event);
       HZApp.Router.updateMapLocation();
     },
-    updateMapZoom: function(event){
+    updateMapZoom: function(event){ // jshint unused: false
       // console.log("!!! updateMapZoom", event);
       HZApp.Router.updateMapLocation();
     },
