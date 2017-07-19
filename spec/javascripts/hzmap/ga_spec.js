@@ -1,7 +1,6 @@
 //= require hzmap/ga
 //= require hzmap/sidebar
 //= require hzmap/map-utils
-//= require hzmap/router
 /* jshint unused: false */
 /* jshint undef: false */
 
@@ -20,8 +19,6 @@ describe ('Testing Google Analytics integration', function() {
   describe ('with clicking locations on the map', function() {
     describe('should send an event when a user clicks on the map', function() {
       beforeEach(function() {
-        spyOn(HZApp.Router, 'setHash');
-        spyOn(HZApp.Router, 'setCenterAndZoomHash');
         clickEvent = { 'latLng': { 'lat': function() { return 39.28885; },
                                    'lng': function() { return -76.6070; } } };
         HZApp.MapUtils.catchMapClick(clickEvent);

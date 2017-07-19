@@ -2,14 +2,16 @@
 HZApp.Router = (function(){
 
   // still need to listen on page load to check for latlng values
-  window.addEventListener('load', function(){
-    HZApp.Router.catchPageLoad();
-  });
+  if (HZApp.config.bindWindowEvents){
+    window.addEventListener('load', function(){
+      HZApp.Router.catchPageLoad();
+    });
 
-  // listen on hashchanges
-  window.addEventListener('hashchange', function(){
-    HZApp.Router.catchHashChange();
-  });
+    // listen on hashchanges
+    window.addEventListener('hashchange', function(){
+      HZApp.Router.catchHashChange();
+    });
+  }
 
   return {
 

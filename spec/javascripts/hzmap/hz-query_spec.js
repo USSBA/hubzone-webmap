@@ -1,5 +1,4 @@
 //= require hzmap/hz-query
-//= require hzmap/router
 //= require hzmap/markers
 //= require hzmap/map-utils
 //= require hzmap/sidebar
