@@ -1,6 +1,6 @@
-//= require hzmap/wmts-utils
-//= require hzmap/layer-defs
-//= require hzmap/map-utils
+//= require wmts-utils
+//= require layer-defs
+//= require map-utils
 /* jshint unused: false */
 /* jshint undef: false */
 

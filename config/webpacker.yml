@@ -1,0 +1,45 @@
+# Note: You must restart bin/webpack-dev-server for changes to take effect
+
+default: &default
+  source_path: app/assets/javascripts
+  source_entry_path: packs
+  public_output_path: hzmap
+
+  extensions:
+    - .coffee
+    - .erb
+    - .js
+    - .jsx
+    - .ts
+    - .vue
+    - .sass
+    - .scss
+    - .css
+    - .png
+    - .svg
+    - .gif
+    - .jpeg
+    - .jpg
+
+development:
+  <<: *default
+
+  dev_server:
+    host: 0.0.0.0
+    port: 8000
+    https: false
+
+test:
+  <<: *default
+
+test_js:
+  <<: *default
+  source_path: app/assets/javascripts
+  source_entry_path: hzmap
+  public_output_path: hzmap-test-js
+
+staging:
+  <<: *default
+
+production:
+  <<: *default

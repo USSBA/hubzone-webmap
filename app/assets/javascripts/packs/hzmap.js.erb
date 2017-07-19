@@ -1,0 +1,32 @@
+// import assets
+import 'hzmap/HZ';
+import 'hzmap/autocomplete';
+import 'hzmap/cookies';
+import 'hzmap/ga';
+import 'hzmap/geolocation';
+import 'hzmap/hz-query';
+import 'hzmap/layer-defs';
+import 'hzmap/legend-defs';
+import 'hzmap/legend';
+import 'hzmap/map-utils';
+import 'hzmap/markers';
+import 'hzmap/report';
+import 'hzmap/router';
+import 'hzmap/sidebar';
+import 'hzmap/styles';
+import 'hzmap/wmts-utils';
+import 'hzmap/map';
+
+// configure ERB parameters
+/* jshint ignore:start */
+HZApp.config.wmsEnabled = "<%= MAP_CONFIG[:geom_wms_settings][:wms_enabled] %>" === "true";
+HZApp.MapUtils.search_path = "<%= MAP_CONFIG[:hubzone_map_search_path] %>";
+HZApp.Report.reportURL = "<%= MAP_CONFIG[:hubzone_report_host] + MAP_CONFIG[:hubzone_api_report_path] %>";
+HZApp.Report.defaultRequestType = "<%= MAP_CONFIG[:hubzone_report_request_type] %>";
+HZApp.WMTSUtils.wmsURLRoot = "<%= MAP_CONFIG[:geom_wms_settings][:url_root] %>";
+HZApp.WMTSUtils.wmsURLWorkspace = "<%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:";
+
+<% helpers = ActionController::Base.helpers %>
+HZApp.MapUtils.mapMarkerPath = "<%= helpers.image_path('hubzone-map-marker.svg') %>"
+HZApp.MapUtils.locationMarkerPath = "<%= helpers.image_path('geolocation-marker.svg') %>"
+/* jshint ignore:end */

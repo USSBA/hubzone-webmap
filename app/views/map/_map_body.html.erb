@@ -30,5 +30,5 @@
       <div class="circle2"></div>
     </div>
   </div>
-  <script src="https://maps.googleapis.com/maps/api/js?key=<%= MAP_CONFIG[:google_api_key] %>&callback=initMap&libraries=places" async=""></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= MAP_CONFIG[:google_api_key] %>&callback=HZApp.MapUtils.initMap&libraries=places" async defer></script>
 </section>

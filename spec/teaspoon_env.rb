@@ -10,7 +10,8 @@ Teaspoon.configure do |config|
 
   # Paths that will be appended to the Rails assets paths
   # Note: Relative to `config.root`.
-  config.asset_paths = ["spec/javascripts", "spec/stylesheets", "app/assets/javascripts", "app/assets/stylesheets"]
+  config.asset_paths = ["public/hzmap-test-js", "spec/javascripts", "spec/stylesheets", "app/assets/stylesheets"]
+  # config.asset_paths = ["spec/javascripts", "spec/stylesheets", "app/assets/javascripts", "app/assets/stylesheets"]
 
   # Fixtures are rendered through a controller, which allows using HAML, RABL/JBuilder, etc. Files in these paths will
   # be rendered as fixtures.
@@ -39,7 +40,7 @@ Teaspoon.configure do |config|
     # Specify a file matcher as a regular expression and all matching files will be loaded when the suite is run. These
     # files need to be within an asset path. You can add asset paths using the `config.asset_paths`.
     #suite.matcher = "spec/javascripts/**/*.{js,js.coffee,coffee}"
-    suite.matcher = "{spec/javascripts,app/assets/javascripts}/**/*_[Ss]pec.{js,js.erb,js.coffee,coffee}"
+    suite.matcher = "{spec/javascripts}/**/*_[Ss]pec.{js,js.erb,js.coffee,coffee}"
 
     # Load additional JS files, but requiring them in your spec helper is the preferred way to do this.
     # suite.javascripts = []
@@ -178,7 +179,7 @@ Teaspoon.configure do |config|
     # Assets to be ignored when generating coverage reports. Accepts an array of filenames or regular expressions. The
     # default excludes assets from vendor, gems and support libraries.
     #coverage.ignore = [%r{/lib/ruby/gems/}, %r{/vendor/assets/}, %r{/support/}, %r{/(.+)_helper.}]
-    coverage.ignore = [%r{.rvm/gems/}, %r{/lib/ruby/gems/}, %r{/vendor/assets/}, %r{/support/}, %r{/(.+)_helper.}, %r{/spec/javascripts/helpers/}]
+    coverage.ignore = [%r{.rvm/gems/}, %r{/lib/ruby/gems/}, %r{/vendor/assets/}, %r{/support/}, %r{/(.+)_helper.}, %r{/spec/javascripts/helpers/}, %r{/public/hzmap/}]
 
     # Various thresholds requirements can be defined, and those thresholds will be checked at the end of a run. If any
     # aren't met the run will fail with a message. Thresholds can be defined as a percentage (0-100), or nil.

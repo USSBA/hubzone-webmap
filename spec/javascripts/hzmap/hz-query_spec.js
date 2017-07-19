@@ -1,5 +1,4 @@
-//= require hzmap/hz-query
-//= require hzmap
+//= require hz-query
 /* jshint unused: false */
 /* jshint undef: false */
 

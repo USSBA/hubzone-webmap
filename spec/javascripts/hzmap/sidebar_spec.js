@@ -1,6 +1,6 @@
-//= require hzmap/sidebar
-//= require hzmap/ga
-//= require hzmap/cookies
+//= require sidebar
+//= require ga
+//= require cookies
 /* jshint unused: false */
 /* jshint undef: false */
 

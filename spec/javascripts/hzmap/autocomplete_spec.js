@@ -1,5 +1,4 @@
-//= require hzmap/autocomplete
-//= require hzmap
+//= require autocomplete
 /* jshint unused: false */
 /* jshint undef: false */
 

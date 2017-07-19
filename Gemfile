@@ -13,6 +13,7 @@ gem 'rails', '~> 5.1' # Bundle edge Rails instead: gem 'rails', github: 'rails/r
 gem 'rb-readline' # Why is this suddenly such a problem?
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
+gem 'webpacker', '~> 2.0' # Install webpacker for babel / webpack compiling of JS
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 # gem 'turbolinks', '~> 5'
@@ -33,6 +34,7 @@ group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'capybara' # allow interaction with DOM in tests
   gem 'chromedriver-helper'
+  gem 'foreman'
   # gem 'chunky_png' # read png images
   gem 'jasmine-rails' # JavaScript testing
   gem 'jshint'

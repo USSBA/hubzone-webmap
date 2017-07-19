@@ -2,7 +2,20 @@
 
 This application houses the new and improved HUBZone Map for the Small Business Administration.  All development is currently being done off of the `develop` branch.
 
-Requirements:
+##### Table of Contents
+- [Installation](#installation)
+  - [Requirements](#requirements)
+  - [Configure Environment](#configure-environment)
+- [Deployment](#deployment)
+  - [Develop](#development)
+  - [Staging and Production](#staging-and-production)
+- [Testing](#testing)
+  - [Rspec](#rspec)
+  - [Rubocop](#rubocop)
+  - [Javascript Testing](#javascript-testing)
+
+## Installation:
+### Requirements:
 * rvm
   - http://rvm.io/
 * ruby 2.3.3
@@ -36,6 +49,7 @@ Requirements:
       * `echo 'export PGSQL_HOME=/usr/pgsql-9.5' >> ~/.bashrc`
       * `echo 'export PATH=${PATH}:${PGSQL_HOME}/bin' >> ~/.bashrc`
 
+### Configure Environment
 After cloning the repo, checkout out the `develop` branch and set up your environment:
 ```
 git checkout develop
@@ -51,7 +65,21 @@ bundle exec rake db:create db:migrate
 
 If the `bundle install` fails due to the pg gem, make sure you have the ENV vars above set in your shell.
 
-To launch the map:
+Then run,
+```
+yarn install
+```
+to install yarn and webpacker dependencies.
+
+
+## Deployment
+
+### Development:
+In one console launch
+```bash
+bin/webpack-dev-server
+```
+Wait a bit for the assets to compile, then in another console launch
 ``` bash
 rails server
 ```
@@ -59,9 +87,18 @@ Then point your browser to http://localhost:3000/
 
 Note: for the map to "work", you will need to have the API and GeoServer running as well.  See the README in the hubzone-api repository for details.
 
-# Running Tests #
+If you prefer to only run one server for develop, simply run `foreman start` which will launch both from a single terminal.
 
-## Rspec Tests
+### Staging and Production:
+
+The task `webpack:compile` is included with `assets:precompile` https://github.com/rails/webpacker#deployment, so just launching `RAILS_ENV=production rake assets:precompile` will compile styles, images, etc. and then run webpack to bundle the hzmap.js part of the app.
+
+### Test
+See below, but, webpacker needs to compile JS assets prior to running teaspoon tests
+
+## Testing
+
+### Rspec
 
 To run the test suite, simply run:
 ```
@@ -78,13 +115,13 @@ To view the coverage report, open
 coverage/index.html
 ```
 
-## Rubocop ##
+### Rubocop
 ```
 rubocop -D
 ```
 
-## Javascript Tests ##
-### Teaspoon / Jasmine / Istanbul Unit and Coverage tests ###
+### Javascript Testing
+#### Teaspoon / Jasmine / Istanbul Unit and Coverage
 Teaspoon is used for Javascript testing and coverage.  It runs Jasmine for unit and integration tests and Istanbul for test coverage.
 
 First install Istanbul:
@@ -92,7 +129,12 @@ First install Istanbul:
 npm install -g istanbul
 ```
 
-To run Teaspoon for unit tests, run:
+To run Teaspoon for unit tests, you first need to compile the webpack assest:
+```
+RAILS_ENV=test rake webpacker:compile
+```
+
+Then run,
 ```
 bundle exec teaspoon
 ```
@@ -112,9 +154,9 @@ To view live version of Teaspoon tests
 localhost:3000/teaspoon
 ```
 
-### JSHint Lint Tests ###
+#### JSHint Lint Tests
 Tring to use this JSHint gem [JSHint](https://github.com/damian/jshint), per its docs:
 
 Add `gem 'jshint'` to the Gemfile under `group :development, :test`
 
-Run `bundle` to install, then run `bundle exec rake jshint` to run test.  Currently this is running the linter then causing a rake error, which appears to be an ongoing issue with this gem.
+Run `bundle` to install, then run `bundle exec rake jshint` to run test.  Currently this is running the linter then causing a rake error if there are any lint errors, which appears to be an ongoing issue with this gem.
