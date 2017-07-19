@@ -141,7 +141,9 @@ HZApp.Router = (function(){
     updateStateFromHash: function(hash){
       // console.log("    ~~~~~ updateStateFromHash: " + hash);
       var hashState = HZApp.HashUtils.parseLocationHash(hash); // HZApp.Router.unpackHash(hash);
-      // console.log("hashState: " + hashState);
+      if (HZApp.HashUtils.hashNoSearch(hashState)){
+        HZApp.MapUtils.resetMap();
+      }
 
       // DCP: Are the keys guaranteed to come back in the order defined?  Does it matter? (seems like it should)
       Object.keys(HZApp.Router.hashControllers).forEach(function(controller){

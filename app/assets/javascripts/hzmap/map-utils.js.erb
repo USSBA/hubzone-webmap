@@ -146,6 +146,7 @@ HZApp.MapUtils = (function(){
       HZApp.SidebarUtils.sidebar.clear();
       HZApp.Router.clearHash('latlng', true);
       HZApp.Router.clearHash('q', true);
+      document.getElementById('search-field-small').value = "";
     },
     /*
       This is a convenience method for helping to parse the base map style object at HZApp.Styles.hzBaseMapStyle

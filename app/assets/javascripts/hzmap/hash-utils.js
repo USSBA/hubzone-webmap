@@ -6,6 +6,11 @@ HZApp.HashUtils = (function(){
       return (currentHash === null || currentHash === undefined || currentHash === "");
     },
 
+    // returns true if the hash ONLY contains center and zoom
+    hashNoSearch: function(currentHash){
+      return (currentHash.center && currentHash.zoom && (currentHash.latlng === undefined && currentHash.q === undefined));
+    },
+
     // returns a new hash string that that can be passed to location.hash
     removeHashValue: function(hashParam, currentHash){
       // console.log("~~~ removeHashValue(" + hashParam + ", " + currentHash + ")");
