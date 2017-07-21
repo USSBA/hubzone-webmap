@@ -11,6 +11,11 @@ HZApp.HashUtils = (function(){
       return (currentHash.center && currentHash.zoom && (currentHash.latlng === undefined && currentHash.q === undefined));
     },
 
+    // return true if the hash only contains a q value
+    hashSearchOnly: function(currentHash){
+      return (currentHash.center === undefined && currentHash.zoom === undefined && currentHash.latlng === undefined && currentHash.q);
+    },
+
     // returns a new hash string that that can be passed to location.hash
     removeHashValue: function(hashParam, currentHash){
       // console.log("~~~ removeHashValue(" + hashParam + ", " + currentHash + ")");
