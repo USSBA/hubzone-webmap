@@ -28,13 +28,19 @@ HZApp.GeoLocation = (function() {
     geolocationError: function() {
       $('#geolocation i').css("display", "block");
       $('.geolocation-loading').css("display", "none");
-      HZApp.GeoLocation.showGeolocationError();
+      if ( !$('.error-popup.geolocation').is(":visible") ) {
+        HZApp.GeoLocation.showGeolocationError();
+      }
     },
     showGeolocationError: function(){
       $('.error-popup.geolocation').show();
+      HZApp.GeoLocation.fadeOutGeolocationError($('.error-popup.geolocation'));
     },
     hideGeolocationError: function(){
       $('.error-popup.geolocation').hide();
+    },
+    fadeOutGeolocationError: function(elem) {
+      elem.delay(7000).fadeOut("slow");
     },
     moveMapToUserLocation: function(position){
       var pos = {

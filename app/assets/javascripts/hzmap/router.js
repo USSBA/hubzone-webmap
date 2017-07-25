@@ -2,80 +2,131 @@
 HZApp.Router = (function(){
 
   // still need to listen on page load to check for latlng values
-  window.addEventListener('load', function(){
-    HZApp.Router.catchPageLoad();
-  });
+  if (HZApp.config.bindWindowEvents){
+    window.addEventListener('load', function(){
+      HZApp.Router.catchPageLoad();
+    });
 
-  // listen on hashchanges
-  window.addEventListener('hashchange', function(){
-    HZApp.Router.catchHashChange();
-  });
+    // listen on hashchanges
+    window.addEventListener('hashchange', function(){
+      HZApp.Router.catchHashChange();
+    });
+  }
 
   return {
 
-    // ################## set hash block #############################
-    silentHashChange: false,
-    mapLoadedWithoutLocation: false,
+    // ################## window event listeners #############################
 
-    // this is the main and only point which is allowed to set the hash
-    setHash: function(hash, silent){
-      HZApp.Router.silentHashChange = silent || true;
-      if (hash !== location.hash){
-        location.hash = hash;
+    catchPageLoad: function(){
+      // console.log("~~~~~ catchPageLoad - silent: " + HZApp.Router.silentHashChange.silent);
+      if (!HZApp.HashUtils.hashIsEmpty(location.hash)){
+        HZApp.Router.updateStateFromHash(location.hash, true);
+      }
+      //add listener for map idle to update router hash center and zoom
+      // google.maps.event.addListener(HZApp.map, 'idle', HZApp.Router.updateMapLocation);
+      google.maps.event.addListener(HZApp.map, 'center_changed', HZApp.Router.updateMapCenter);
+      google.maps.event.addListener(HZApp.map, 'zoom_changed', HZApp.Router.updateMapZoom);
+      // HZApp.Router.silentHashChange.setSilent(false, 'mapLoad');
+    },
+
+    // catch and flow control hash changes
+    catchHashChange: function(){
+      // console.log("!!! catchHashChange");
+      if (HZApp.Router.silentHashChange.silent) {
+        // console.log('  was a silent change');
+        HZApp.Router.silentHashChange.setSilent(false, 'catchHashChange');
+      } else {
+        // console.log('  hash changed');
+        // console.trace();
+        HZApp.Router.updateStateFromHash(location.hash);
+      }
+    },
+
+    // #######################################################
+
+    // ################## callbacks #############################
+
+    updateMapCenter: function(event){ // jshint unused: false
+      // console.log("!!! updateMapCenter", event);
+      HZApp.Router.currentMapLocationToHash();
+    },
+    updateMapZoom: function(event){ // jshint unused: false
+      // console.log("!!! updateMapZoom", event);
+      HZApp.Router.currentMapLocationToHash();
+    },
+
+    // #######################################################
+
+    // ################## set hash block #############################
+    silentHashChange: {
+      setSilent: function(x,caller){
+        this.history.push([Date.now(), x, caller].join(', '));
+        this.silent = x;
+      },
+      silent: false,
+      history: []
+    },
+    mapLoadedWithoutLocation: false,
+    hashOnPageLoad: {},
+
+    // This is the main and only point which is allowed to set the hash
+    setHash: function(hash){
+      var startingHash = HZApp.HashUtils.parseLocationHash(location.hash);
+      if (HZApp.HashUtils.hashSearchOnly(startingHash)){
+        // console.log("~~~~~ setHash -- query only, so replaceHash instead!");
+        HZApp.Router.replaceHash(hash);
+      } else {
+        // console.log('~~~~~ setHash: ' + hash);
+        if (hash !== location.hash){
+          HZApp.Router.silentHashChange.setSilent(true, 'setHash');
+          location.hash = hash;
+        }
       }
     },
 
     // update a single hash in the hash
-    setSingleHash: function(hashParam, hashValue, currentHash, silent){
+    setSingleHash: function(hashParam, hashValue, currentHash){
       currentHash = currentHash || location.hash;
-      this.setHash(this.updateHashValue(hashParam, hashValue, currentHash), silent);
+      HZApp.Router.setHash(HZApp.HashUtils.updateHashValue(hashParam, hashValue, currentHash));
     },
 
     // helper to get just the google map center and zoom and update the hash from that
     // but set them together to only trigger one event
-    setCenterAndZoomHash: function(mapCenter, zoom, silent){
-      var c_hash = this.updateHashValue('center', mapCenter.lat().toFixed(6) + ',' + mapCenter.lng().toFixed(6), location.hash);
-      var c_z_hash = this.updateHashValue('zoom', zoom, c_hash);
-      this.setHash(c_z_hash, silent);
+    setCenterAndZoomHash: function(mapCenter, zoom){
+      HZApp.Router.setHash(HZApp.HashUtils.updateCenterAndZoomHash(mapCenter, zoom, location.hash));
     },
 
-    // returns a new hash string that that can be passed to location.hash
-    updateHashValue: function(hashParam, hashValue, currentHash){
-      var newHash = this.encodeHash(hashParam, hashValue);
-      var hashParamRegex = new RegExp(hashParam + "=", "ig");
-      var hashRegexInside = this.getHashRegexInside(hashParam);
-      var hashRegexOutside = this.getHashRegexOutside(hashParam);
+    // get the updated hash text, then set it in the location.hash
+    setLatLngHash: function(latlng_s) {
+      // console.log("~~~~ setLatLngHash: " + latlng_s);
+      HZApp.Router.setHash(HZApp.HashUtils.updateLatLngHash(latlng_s, location.hash));
+    },
 
-      if (this.emptyHash(currentHash)) {
-        return newHash;
-      } else if (currentHash.match(hashParamRegex) === null) {
-        return currentHash + "&" + newHash;
-      } else if (currentHash.match(hashRegexInside) !== null) {
-        return currentHash.replace(hashRegexInside, newHash + "&");
-      } else if (currentHash.match(hashRegexOutside) !== null) {
-        return currentHash.replace(hashRegexOutside, newHash);
-      } else {
-        return "";
+    // get the updated hash text, then set it in the location.hash
+    setQueryHash: function(query_s) {
+      // console.log("~~~~ setQueryHash: " + query_s);
+      HZApp.Router.setHash(HZApp.HashUtils.updateQueryHash(query_s, location.hash));
+    },
+
+    replaceHash: function(hash) {
+      // console.log('~~~~~ replaceHash: ' + hash);
+      // console.trace();
+      if (hash === location.hash){ return null; }
+      hash = HZApp.HashUtils.stripHashmark(hash);
+
+      var startingHash = HZApp.HashUtils.parseLocationHash(location.hash); if (!HZApp.HashUtils.hashSearchOnly(startingHash)){
+        HZApp.Router.silentHashChange.setSilent(true, 'replaceHash');
       }
+
+      history.replaceState(HZApp.HashUtils.parseLocationHash(hash), "replaceHash", "map#" + hash);
     },
 
-    encodeHash: function(hashParam, hashValue){
-      if (hashParam === 'q'){
-        return hashParam + "=" + encodeURIComponent(hashValue);
-      } else {
-        return hashParam + "=" + encodeURI(hashValue);
-      }
+    currentMapLocationToHash: function() {
+      // console.log("~~~~~ currentMapLocationToHash");
+      var hashText = HZApp.HashUtils.updateCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), location.hash);
+      history.replaceState(HZApp.HashUtils.parseLocationHash(hashText), "location update only", "map" + hashText);
     },
 
-    //if the hash is between # and &
-    getHashRegexInside: function(hashParam){
-      return new RegExp(hashParam + "=" + '.+?\&', "ig");
-    },
-
-    // if the hash is between (# and end of line) or (& and end of line)
-    getHashRegexOutside: function(hashParam){
-      return new RegExp(hashParam + "=" + '.*$', "ig");
-    },
 
     // #######################################################
 
@@ -85,144 +136,111 @@ HZApp.Router = (function(){
     clearHash: function(hashParam){
       hashParam = hashParam || null;
       if (hashParam){
-        this.setHash(this.findAndRemoveHashParam(hashParam));
+        HZApp.Router.findAndRemoveHashParam(hashParam);
       } else {
-        this.setHash("");
+        HZApp.Router.setHash("");
       }
     },
 
     findAndRemoveHashParam: function(hashParam){
-      var hashRegexInside = this.getHashRegexInside(hashParam);
-      var hashRegexOutside = this.getHashRegexOutside("&" + hashParam);
-
-      if (location.hash.match(hashRegexInside) !== null) {
-        return location.hash.replace(hashRegexInside, "");
-      } else if (location.hash.match(hashRegexOutside) !== null) {
-        return location.hash.replace(hashRegexOutside, "");
-      } else {
-        return location.hash;
-      }
+      HZApp.Router.setHash(HZApp.HashUtils.removeHashValue(hashParam, location.hash));
     },
-    // #######################################################
-
-    // ################## window event listeners #############################
-
-    catchPageLoad: function(){
-      if (!HZApp.Router.emptyHash(location.hash)){
-        HZApp.Router.silentHashChange = true;
-        HZApp.Router.updateStateFromHash(location.hash);
-      }
-    },
-
-    // catch and flow control hash changes
-    catchHashChange: function(){
-      if (HZApp.Router.silentHashChange) {
-        HZApp.Router.silentHashChange = false;
-      } else {
-        // console.log('update app on back behavior');
-        // HZApp.Router.updateStateFromHash(location.hash);
-      }
-    },
-
     // #######################################################
 
     // ################## update state from hash block #############################
 
     // update the app state from the hash
     updateStateFromHash: function(hash){
-      var hashState = this.unpackHash(hash);
-      Object.keys(this.hashControllers).forEach(function(controller){
+      // console.log("    ~~~~~ updateStateFromHash: " + hash);
+      var hashState = HZApp.HashUtils.parseLocationHash(hash); // HZApp.Router.unpackHash(hash);
+      if (HZApp.HashUtils.hashNoSearch(hashState)){
+        HZApp.MapUtils.resetMap();
+      }
+
+      // DCP: Are the keys guaranteed to come back in the order defined?  Does it matter? (seems like it should)
+      Object.keys(HZApp.Router.hashControllers).forEach(function(controller){
+        // console.log("       checking for " + controller + "...");
         if (hashState && hashState[controller]){
-          HZApp.Router.silentHashChange = true;
+          // console.log(controller);
           HZApp.Router.hashControllers[controller](hashState[controller], hashState);
         }
       });
     },
 
-    // unpack the hash parameters and values
-    unpackHash: function(hash){
-      if (this.emptyHash(hash)){
-        return null;
-      } else {
-        return this.parseLocationHash(hash);
-      }
-    },
+    // sleep: function(ms) {
+    //   return new Promise(resolve => setTimeout(resolve, ms));
+    // },
 
     // define the actions for different hash params
     hashControllers: {
-      latlng: function(latlng_s){
+      latlng: function(latlng_s, hashState){ //jshint ignore:line
+        // console.log("        ~~~~~ hashControllers.latlng: " + latlng_s);
         var latlng = HZApp.Router.unpackValidLatLng(latlng_s) || null;
         if (latlng){
           HZApp.MapUtils.sendMapClick(latlng, function(){
-            HZApp.Router.clearHash('q');
-            HZApp.Router.setSingleHash('latlng', latlng_s);
-            if (HZApp.Router.mapLoadedWithoutLocation){
-              HZApp.map.setCenter(new google.maps.LatLng(latlng.lat, latlng.lng));
-              HZApp.map.setZoom(10);
-            }
-            HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom());
+            HZApp.Router.setLatLngHash(latlng_s);
           });
         }
       },
-      q: function(q, hashState){
-        var search = HZApp.Router.unpackValidSearch(q) || null;
+      q: function(query, hashState){ //jshint ignore:line
+        // console.log("        ~~~~~ hashControllers.q: " + query);
+        var search = HZApp.Router.unpackValidSearch(query) || null;
         if (search){
           HZApp.GA.trackSubmit('search', '#search-field-small');
           document.getElementById('search-field-small').value = search;
           HZApp.MapUtils.sendMapSearch(search, function(){
-            HZApp.Router.updateMapCenterAndZoom(hashState);
+            // console.log("      !!! map search complete!");
+            // HZApp.Router.setQueryHash(search);
           });
         }
       },
       center: function(center, hashState){
+        // await HZapp.Router.sleep(5000);
+        // console.log("        ~~~~~ hashControllers.center: " + center);
         HZApp.Router.updateMapCenterAndZoom(hashState);
       },
       zoom: function(zoom, hashState){
+        // console.log("        ~~~~~ hashControllers.zoom: " + zoom);
         HZApp.Router.updateMapCenterAndZoom(hashState);
       },
     },
 
     updateMapCenterAndZoom: function(hashState){
-      var zoom = HZApp.Router.unpackValidZoom(hashState.zoom) || null;
+      // HZApp.Router.silentHashChange.setSilent(true, 'updateMapCenterAndZoom');
+      HZApp.Router.updateZoom(hashState.zoom);
+      HZApp.Router.updateCenter(hashState.center);
+      //HZApp.Router.silentHashChange.setSilent(false, 'updateMapCenterAndZoom');
+    },
+
+    updateZoom: function(hash_zoom){
+      var zoom = HZApp.Router.unpackValidZoom(hash_zoom) || null;
       if (zoom){
         HZApp.map.setZoom(zoom);
       }
-      var center = HZApp.Router.unpackValidLatLng(hashState.center) || null;
-      if (center){
-        HZApp.map.setCenter(new google.maps.LatLng(center.lat, center.lng));
-      }
-
-      this.updateMapLocationIfNeeded();
     },
 
-    updateMapLocationIfNeeded: function(){
-      if (HZApp.Router.mapLoadedWithoutLocation){
-        HZApp.HZQuery.parseResponseGeometry(HZApp.HZQuery.response);
+    updateCenter: function(hash_center){
+      var center = HZApp.Router.unpackValidLatLng(hash_center) || null;
+      if (center){
+        HZApp.map.setCenter(new google.maps.LatLng(center.lat, center.lng));
       }
     },
 
     // #######################################################
 
-    // parse the location hash string into an object with key, value pairs
-    parseLocationHash: function(hash){
-      var hashState = {};
-      var hashSplit = hash[0] === '#' ? hash.slice(1).split("&") : hash.split("&");
-      if (hashSplit.length > 0 && hashSplit !== hash){
-        hashSplit.map(function(hash){
-          var h_split = hash.split('=');
-          hashState[h_split[0]] = h_split[1];
-        });
-        return hashState;
-      } else {
-        return null;
-      }
-    },
-
     // update the mapLocation object based on checking the contents of the hash
     unpackInitialMapLocation: function(mapLocation, hash){
-      if (!this.emptyHash(hash)){
-        return this.checkValidHashParams(mapLocation, HZApp.Router.unpackHash(hash));
+      // console.log("~~~~~ unpackInitialMapLocation - silent: " + HZApp.Router.silentHashChange.silent);
+      if (!HZApp.HashUtils.hashIsEmpty(hash)){
+        var unpackedHash = HZApp.HashUtils.parseLocationHash(hash);
+        HZApp.Router.hashOnPageLoad = unpackedHash;
+        return HZApp.Router.checkValidHashParams(mapLocation, unpackedHash);
       } else {
+        var center = {
+          lat: function() { return mapLocation.center.lat; },
+          lng: function() { return mapLocation.center.lng; }
+        };
+        HZApp.Router.replaceHash(HZApp.HashUtils.updateCenterAndZoomHash(center, mapLocation.zoom, ""));
         return mapLocation;
       }
     },
@@ -230,20 +248,20 @@ HZApp.Router = (function(){
     // check if the hash has valid parameters
     // update useGeoLocation based on whether valid hash params were found
     checkValidHashParams: function(mapLocation, hashState){
-      var validParams = this.unpackValidParams(hashState);
-      HZApp.Router.mapLoadedWithoutLocation = this.missingCenterAndZoom(validParams);
+      // console.log("~~~~~ checkValidHashParams - silent: " + HZApp.Router.silentHashChange.silent);
+      var validParams = HZApp.Router.unpackValidParams(hashState);
+      HZApp.Router.mapLoadedWithoutLocation = HZApp.Router.missingCenterAndZoom(validParams);
       mapLocation.center = validParams.center || mapLocation.center;
       mapLocation.zoom = validParams.zoom || mapLocation.zoom;
-      mapLocation.useGeoLocation = this.dontGeolocate(validParams);
       return mapLocation;
     },
 
     unpackValidParams: function(hashState){
       var validParams = {};
-      validParams['center'] = this.unpackValidLatLng(hashState.center);
-      validParams['zoom'] = this.unpackValidZoom(hashState.zoom);
-      validParams['q'] = this.unpackValidSearch(hashState.q);
-      validParams['latlng'] = this.unpackValidLatLng(hashState.latlng);
+      validParams['center'] = HZApp.Router.unpackValidLatLng(hashState.center);
+      validParams['zoom'] = HZApp.Router.unpackValidZoom(hashState.zoom);
+      validParams['q'] = HZApp.Router.unpackValidSearch(hashState.q);
+      validParams['latlng'] = HZApp.Router.unpackValidLatLng(hashState.latlng);
       return validParams;
     },
 
@@ -274,15 +292,6 @@ HZApp.Router = (function(){
       }
     },
 
-    emptyHash: function(hash){
-      return (hash === null || hash === undefined || hash === "");
-    },
-
-    // if any are present, return false to not geolocate
-    dontGeolocate: function(validParams){
-      return !(validParams.zoom || validParams.center || validParams.q || validParams.latlng);
-    },
-
     // check if the map was loaded without center and zoom
     missingCenterAndZoom: function(validParams){
       return (!validParams.zoom || !validParams.center);
@@ -290,3 +299,40 @@ HZApp.Router = (function(){
 
   };
 })();
+
+
+
+/*
+
+
+(good is that the app never reaches the update block and when it is done the silent var is set to false)
+
+
+UpdateStateFromHash on page load
+load map empty - good
+load center + zoom - good
+load center - good
+load zoom - good
+load latlng - good
+load center + latlng - good
+load zoom + latlng - good
+load center + zoom + latlng - good
+load center + zoom, then search - good
+load search + center - good
+load search + zoom - good
+load search only - good
+
+
+Catch page changes
+map click - good
+map click + zoom - good
+map click + pan - good
+map click + pan + map click - good
+map click + clear - good
+search + clear - good
+
+***** click then search - bad (triggers hash change, but still sets silent to false)
+***** load search + center + zoom - bad (doesnt trigger change, but leaves silent = true)
+***** search then map click - bad (triggers hash change, but still sets silent to false))
+
+*/

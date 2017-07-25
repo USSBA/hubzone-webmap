@@ -1,12 +1,15 @@
 //= require hzmap/hz-query
-//= require hzmap
+//= require hzmap/markers
+//= require hzmap/map-utils
+//= require hzmap/sidebar
 /* jshint unused: false */
 /* jshint undef: false */
 
 describe ('Testing hz-query functions', function() {
   beforeEach(function(){
+    fixture.cleanup();
+    this.fixtures = fixture.load("hz_mock_sidebar.html", "hz_mock_page.html", true);
     google = HZSpecHelper.google;
-    HZSpecHelper.mockPage.build();
     HZApp.SidebarUtils.buildSidebar();
     sidebar = HZApp.SidebarUtils.sidebar;
     HZApp.map = new google.maps.Map();
@@ -60,25 +63,47 @@ describe ('Testing hz-query functions', function() {
 
       if (response.mockResponseType === 'good response'){
         if (response.place_id !== null && response.place_id !== undefined){
-          it ('should correctly parse the response geometry from an address search', function(){
-            spyOn(HZApp.MapUtils, 'jumpToLocation');
-            HZApp.HZQuery.parseResponseGeometry(response);
-            expect(HZApp.HZQuery.response.geocodeLocation).toEqual(response.geometry.location);
-            expect(HZApp.HZQuery.query.q).toEqual(response.formatted_address);
-            expect(HZApp.HZQuery.query.latlng).toBe(null);
-            expect(HZApp.MapUtils.jumpToLocation.calls.count()).toEqual(1);
+          describe ('should correctly parse the response geometry from an address search', function(){
+            beforeEach(function() {
+              spyOn(HZApp.MapUtils, 'jumpToLocation');
+              HZApp.HZQuery.parseResponseGeometry(response);
+            });
+            it ('should parse the geocodeLocation', function(){
+              expect(HZApp.HZQuery.response.geocodeLocation).toEqual(response.geometry.location);
+            });
+            it ('should parse the formatted address', function(){
+              expect(HZApp.HZQuery.query.q).toEqual(response.formatted_address);
+            });
+            it ('should have a null latlng', function(){
+              expect(HZApp.HZQuery.query.latlng).toBe(null);
+            });
+            it ('should call jumpToLocation once', function(){
+              expect(HZApp.MapUtils.jumpToLocation.calls.count()).toEqual(1);
+            });
           });
         } else {
-          it ('should correctly parse the response geometry from a map click', function(){
-            spyOn(HZApp.MapUtils, 'jumpToLocation');
-            HZApp.HZQuery.parseResponseGeometry(response);
-            expect(HZApp.HZQuery.response.geocodeLocation).toEqual(response.geometry.location);
-            expect(HZApp.HZQuery.query.q).toBe(null);
-            var latlng = [response.geometry.location.lat, response.geometry.location.lng ].join(',');
-            expect(HZApp.HZQuery.query.latlng).toEqual(latlng);
-            expect(HZApp.MapUtils.jumpToLocation.calls.count()).toEqual(1);
-            var display_coords = [response.geometry.location.lat.toFixed(6), response.geometry.location.lng.toFixed(6)].join(',');
-            expect(document.getElementById('search-field-small').value).toEqual(display_coords);
+          describe ('should correctly parse the response geometry from a map click', function(){
+            beforeEach(function() {
+              spyOn(HZApp.MapUtils, 'jumpToLocation');
+              HZApp.HZQuery.parseResponseGeometry(response);
+            });
+            it ('should parse the geocodeLocation', function(){
+              expect(HZApp.HZQuery.response.geocodeLocation).toEqual(response.geometry.location);
+            });
+            it ('should have a null query', function(){
+              expect(HZApp.HZQuery.query.q).toBe(null);
+            });
+            it ('should parse the latlng', function(){
+              var latlng = [response.geometry.location.lat, response.geometry.location.lng ].join(',');
+              expect(HZApp.HZQuery.query.latlng).toEqual(latlng);
+            });
+            it ('should call jumpToLocation once', function(){
+              expect(HZApp.MapUtils.jumpToLocation.calls.count()).toEqual(1);
+            });
+            it ('should display the coordinates on the sidebar', function(){
+              var display_coords = [response.geometry.location.lat.toFixed(6), response.geometry.location.lng.toFixed(6)].join(',');
+              expect(document.getElementById('search-field-small').value).toEqual(display_coords);
+            });
           });
         }
       } else {
@@ -90,7 +115,6 @@ describe ('Testing hz-query functions', function() {
           expect(HZApp.HZQuery.response.geocodeLocation).toBe(null);
         });
       }
-
 
     });
   });

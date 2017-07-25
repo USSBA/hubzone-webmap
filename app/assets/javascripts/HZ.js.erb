@@ -3,7 +3,8 @@
 window.HZApp = {
   Autocomplete: {},
   config: {
-    wmsEnabled: ("<%= MAP_CONFIG[:geom_wms_settings][:wms_enabled] %>" === "true")
+    wmsEnabled: ("<%= MAP_CONFIG[:geom_wms_settings][:wms_enabled] %>" === "true"),
+    bindWindowEvents: ("<%= MAP_CONFIG[:bind_window_events] %>" === "true")
   },
   Cookies: {},
   Constructors: {},

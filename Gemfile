@@ -9,7 +9,7 @@ gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.
 gem 'jquery-rails' # Use jquery as the JavaScript library
 gem 'pg' # Use PostgreSQL as the database for Active Record
 gem 'puma', '~> 3.0' # Use Puma as the app server
-gem 'rails', '~> 5.0.1' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 5.1' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rb-readline' # Why is this suddenly such a problem?
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets

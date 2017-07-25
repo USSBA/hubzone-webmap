@@ -2,27 +2,22 @@
   # expecting body to be a hash that has either a message or a formatted_address and hubzones from hzutil search
   if body
     address = body['formatted_address'].nil? ? t(body['message']) : body['formatted_address']
-    if !body['address_components'].nil?
-      coordinates = [format('%.6f', body['geometry']['location']['lat']) + "\xC2\xB0", format('%.6f', body['geometry']['location']['lng']) + "\xC2\xB0"].join(', ')
-    else
-      coordinates = nil
-    end
-    if !body['until_date'].nil?
-      until_date = t('sidebar.until') + " " + (I18n.l Date.parse(body['until_date']), format: :full)
-    else
-      until_date = nil
-    end
-    date = if body['query_date'].present?
-             date = Date.parse(body['query_date'])
-             date = I18n.l date, format: :full
-           else
-             body['query_date']
-           end
+    coordinates = !body['address_components'].nil? ? [format('%.6f', body['geometry']['location']['lat']) + "\xC2\xB0", format('%.6f', body['geometry']['location']['lng']) + "\xC2\xB0"].join(', ') : nil
+    date = body['query_date'].present? ? (I18n.l Date.parse(body['query_date']), format: :full) : body['query_date']
+    until_date = body['until_date'].present? ? (I18n.l Date.parse(body['until_date']), format: :full) : nil
+    date_status = until_date && Date.parse(body['until_date']) < Date.today ? "expired" : "until"
+
     if body['formatted_address'].nil?
       visibility = 'hidden'
       details_visibility = 'hidden'
-      hubzone_status_indicator = 'fa fa-times-circle-o'
-      hubzone_status_style = 'qualified-hubzone'
+    elsif body['until_date'].present? && Date.parse(body['until_date']) < Date.today
+      visibility = ''
+      details_visibility = ''
+      hubzone_status_style = 'non-qualified-hubzone'
+      hubzone_status_indicator ='fa fa-times-circle-o non-qualified-hubzone'
+      hubzone_status = t('hubzone_assertions.not_qualified')
+      aria_hubzone_status = t('hubzone_assertions.not_qualified_aria')
+      hubzones = body['hubzone']
     elsif body['hubzone'].size > 0
       visibility = ''
       hubzone_status_indicator = 'fa fa-check-circle-o qualified-hubzone'
@@ -65,7 +60,11 @@
           <i class="<%= hubzone_status_indicator %>" aria-hidden="true"></i>
         </div>
         <div id="hubzone-status" tabindex="11" aria-label="<%= aria_hubzone_status %>"><%= hubzone_status %></div>
-        <div class="hubzone-until-date"><%= until_date %></div>
+        <div class="hubzone-until-date">
+        <% if until_date %>
+          <%= t('sidebar.date_status.' + date_status) %><%= until_date %>
+        <% end %>
+        </div>
       </th>
     </thead>
   </table>
@@ -95,7 +94,14 @@
     <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
     <div class="create-report"><%= t('sidebar.print_version') %></div>
   </button>
+  <button id="map-share" tabindex="16">
+    <i class="fa fa-share" aria-hidden="true"></i>
+    <div class="share-map"><%= t('sidebar.share_map') %></div>
+  </button>
   <span id="report-waiting"></span>
+  <div class="share-map-card hidden">
+    <%= render partial: "share_map" %>
+  </div>
 </div>
 
 <div class="sidebar-card hubzone-status-date <%= visibility %> clearable" tabindex="12">

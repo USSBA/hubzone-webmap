@@ -7,8 +7,7 @@ function initMap() {
       lat: 39.8282,
       lng: -98.5795
     },
-    zoom: 5,
-    useGeoLocation: true
+    zoom: 5
   };
 
   // unpack the current hash and update the map location as needed
@@ -30,6 +29,7 @@ function initMap() {
       position: google.maps.ControlPosition.BOTTOM_CENTER,
       style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
     },
+    clickableIcons: false
   });
 
   //reset mapType names
@@ -51,9 +51,6 @@ function initMap() {
   //add listener on the map for clicks
   HZApp.WMTSUtils.addClickListeners(HZApp.map);
 
-  //add listener for map idle to update router hash center and zoom
-  google.maps.event.addListener(HZApp.map, 'idle', HZApp.MapUtils.updateMapLocation);
-
   //add listener to the clear search
   HZApp.MapUtils.catchClearSearch('button.clear-search');
 
@@ -72,11 +69,6 @@ function initMap() {
     scaledSize: 17
   });
   /* jshint ignore:end */
-
-  //initialize user location
-  if (initialMapLocation.useGeoLocation) {
-    HZApp.GeoLocation.getUserLocation(navigator.geolocation);
-  }
 
   //build the legend
   HZApp.Legend.buildLegend(HZApp.Legend.legend);
