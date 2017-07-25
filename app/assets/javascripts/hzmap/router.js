@@ -33,10 +33,10 @@ HZApp.Router = (function(){
     catchHashChange: function(){
       // console.log("!!! catchHashChange");
       if (HZApp.Router.silentHashChange.silent) {
-        // console.log('was a silent change');
+        // console.log('  was a silent change');
         HZApp.Router.silentHashChange.setSilent(false, 'catchHashChange');
       } else {
-        // console.log('hash changed');
+        // console.log('  hash changed');
         // console.trace();
         HZApp.Router.updateStateFromHash(location.hash);
       }
@@ -71,10 +71,16 @@ HZApp.Router = (function(){
 
     // This is the main and only point which is allowed to set the hash
     setHash: function(hash){
-      // console.log('~~~~~ setHash: ' + hash);
-      if (hash !== location.hash){
-        HZApp.Router.silentHashChange.setSilent(true, 'setHash');
-        location.hash = hash;
+      var startingHash = HZApp.HashUtils.parseLocationHash(location.hash);
+      if (HZApp.HashUtils.hashSearchOnly(startingHash)){
+        // console.log("~~~~~ setHash -- query only, so replaceHash instead!");
+        HZApp.Router.replaceHash(hash);
+      } else {
+        // console.log('~~~~~ setHash: ' + hash);
+        if (hash !== location.hash){
+          HZApp.Router.silentHashChange.setSilent(true, 'setHash');
+          location.hash = hash;
+        }
       }
     },
 
@@ -92,6 +98,7 @@ HZApp.Router = (function(){
 
     // get the updated hash text, then set it in the location.hash
     setLatLngHash: function(latlng_s) {
+      // console.log("~~~~ setLatLngHash: " + latlng_s);
       HZApp.Router.setHash(HZApp.HashUtils.updateLatLngHash(latlng_s, location.hash));
     },
 
@@ -103,10 +110,15 @@ HZApp.Router = (function(){
 
     replaceHash: function(hash) {
       // console.log('~~~~~ replaceHash: ' + hash);
-      if (hash !== location.hash){
+      // console.trace();
+      if (hash === location.hash){ return null; }
+      hash = HZApp.HashUtils.stripHashmark(hash);
+
+      var startingHash = HZApp.HashUtils.parseLocationHash(location.hash); if (!HZApp.HashUtils.hashSearchOnly(startingHash)){
         HZApp.Router.silentHashChange.setSilent(true, 'replaceHash');
-        history.replaceState(HZApp.HashUtils.parseLocationHash(hash), "replaceHash", "map#" + hash);
       }
+
+      history.replaceState(HZApp.HashUtils.parseLocationHash(hash), "replaceHash", "map#" + hash);
     },
 
     currentMapLocationToHash: function() {
@@ -171,7 +183,7 @@ HZApp.Router = (function(){
         }
       },
       q: function(query, hashState){ //jshint ignore:line
-        // console.log("        ~~~~~ hashControllers.q: " + q);
+        // console.log("        ~~~~~ hashControllers.q: " + query);
         var search = HZApp.Router.unpackValidSearch(query) || null;
         if (search){
           HZApp.GA.trackSubmit('search', '#search-field-small');

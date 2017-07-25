@@ -13,7 +13,7 @@ HZApp.HashUtils = (function(){
 
     // return true if the hash only contains a q value
     hashSearchOnly: function(currentHash){
-      return (currentHash.center === undefined && currentHash.zoom === undefined && currentHash.latlng === undefined && currentHash.q);
+      return (currentHash === null || (currentHash.center === undefined && currentHash.zoom === undefined && currentHash.latlng === undefined && currentHash.q));
     },
 
     // returns a new hash string that that can be passed to location.hash
@@ -117,6 +117,8 @@ HZApp.HashUtils = (function(){
         return null;
       }
 
+      hash = HZApp.HashUtils.stripHashmark(hash);
+
       var hashState = {};
       var hashSplit = hash[0] === '#' ? hash.slice(1).split("&") : hash.split("&");
       if (hashSplit.length > 0 && hashSplit !== hash){
@@ -139,6 +141,16 @@ HZApp.HashUtils = (function(){
     // if the hash is between (# and end of line) or (& and end of line)
     getHashRegexOutside: function(hashParam){
       return new RegExp(hashParam + "=" + '.*$', "ig");
+    },
+
+    // match leading hash marks
+    getHashmarkRegex: function(){
+      return new RegExp("^#+");
+    },
+
+    stripHashmark: function(hash){
+      var regex = HZApp.HashUtils.getHashmarkRegex();
+      return hash.replace(regex, "");
     }
   };
 })();
