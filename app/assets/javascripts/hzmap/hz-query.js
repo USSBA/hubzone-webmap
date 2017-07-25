@@ -39,7 +39,7 @@ HZApp.HZQuery = {
   parseResponseGeometry: function(response){
     // console.log("~~~~~ parseResponseGeometry");
     // console.trace();
-    // console.log("    starting hash: " + location.hash);
+    var starting_hash = HZApp.HashUtils.parseLocationHash(location.hash);
     if (response.geometry){
       if (response.place_id){
         HZApp.HZQuery.parseGeometryFromAddressSearch(response);
@@ -48,7 +48,7 @@ HZApp.HZQuery = {
       }
 
       // console.log("  to jump, or not to jump: " + response.jump);
-      if (response.jump === true) {
+      if (response.jump === true || HZApp.HashUtils.hashSearchOnly(starting_hash)) {
         // console.log("    JUMP! ", response.geometry);
         HZApp.MapUtils.jumpToLocation({
           viewport: response.geometry.viewport,
