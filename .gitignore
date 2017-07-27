@@ -30,3 +30,6 @@ public/assets/
 
 # Ignore schema
 db/schema.rb
+
+# Ignore captured revision
+REVISION

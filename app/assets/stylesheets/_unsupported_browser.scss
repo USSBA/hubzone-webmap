@@ -1,0 +1,37 @@
+.unsupported-browser {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  opacity: 1;
+  z-index: 99000;
+}
+.unsupported-browser h2, h4 {
+  color: #323A45;
+}
+.unsupported-browser-header {
+  border-bottom: 2px solid #d6d7d9;
+  height: 50px;
+  padding-bottom: 10px;
+}
+.unsupported-browser-header h2 {
+  margin-top: -20px;
+  display: inline;
+  font-size: 32px;
+  margin-left: 10px;
+}
+.unsupported-browser-header img {
+  height: 35px;
+  padding-top: 10px;
+}
+.unsupported-browser-body {
+  text-align: center;
+  padding-top: 50px;
+}
+.unsupported-browser-body h4 {
+  max-width: 450px;
+  margin: 0 auto;
+}

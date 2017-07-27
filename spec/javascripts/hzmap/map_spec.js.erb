@@ -17,41 +17,65 @@ describe ('Testing map operations', function() {
     HZSpecHelper.mockPage.destroy();
   });
 
-  it("should create a new Google map", function() {
-    spyOn(google.maps, 'Map').and.returnValue(HZApp.map);
-    spyOn(google.maps.event, 'addListenerOnce');
-    spyOn(google.maps.event, 'addListener');
-    spyOn(google.maps.places, 'Autocomplete');
-    spyOn(google.maps, 'StyledMapType');
-    spyOn(HZApp.map.mapTypes, 'set');
-    spyOn(HZApp.map, 'setOptions');
+  describe("should create a new Google map", function() {
+    beforeEach( function(){
+      spyOn(google.maps, 'Map').and.returnValue(HZApp.map);
+      spyOn(google.maps.event, 'addListenerOnce');
+      spyOn(google.maps.event, 'addListener');
+      spyOn(google.maps.places, 'Autocomplete');
+      spyOn(google.maps, 'StyledMapType');
+      spyOn(HZApp.map.mapTypes, 'set');
+      spyOn(HZApp.map, 'setOptions');
 
-    spyOn(HZApp.GeoLocation, 'getUserLocation');
-    spyOn(HZApp.Autocomplete, 'createAutocomplete');
-    spyOn(HZApp.Autocomplete, 'createListener');
-    spyOn(HZApp.Legend, 'buildLegend');
-    spyOn(HZApp.WMTSUtils, 'initializeTiles');
-    spyOn(HZApp.WMTSUtils, 'addClickListeners');
-    spyOn(HZApp.MapUtils, 'catchClearSearch');
+      spyOn(HZApp.Autocomplete, 'createAutocomplete');
+      spyOn(HZApp.Autocomplete, 'createListener');
+      spyOn(HZApp.Legend, 'buildLegend');
+      spyOn(HZApp.WMTSUtils, 'initializeTiles');
+      spyOn(HZApp.WMTSUtils, 'addClickListeners');
+      spyOn(HZApp.MapUtils, 'catchClearSearch');
 
-    HZApp.map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
-    HZApp.map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
-    HZApp.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM] = [];
+      HZApp.map.controls[google.maps.ControlPosition.LEFT_BOTTOM] = [];
+      HZApp.map.controls[google.maps.ControlPosition.TOP_RIGHT] = [];
+      HZApp.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM] = [];
+      initMap();
+    });
 
-    expect(initMap()).not.toBe(null);
-    expect(google.maps.Map.calls.count()).toEqual(1);
-    expect(google.maps.event.addListenerOnce.calls.count()).toEqual(1);
-    expect(google.maps.event.addListener.calls.count()).toEqual(1);
-    expect(google.maps.StyledMapType.calls.count()).toEqual(1);
-    expect(HZApp.map.mapTypes.set.calls.count()).toEqual(1);
-    expect(HZApp.map.setOptions.calls.count()).toEqual(1);
-    expect(HZApp.GeoLocation.getUserLocation.calls.count()).toEqual(1);
-    expect(HZApp.Autocomplete.createAutocomplete.calls.count()).toEqual(1);
-    expect(HZApp.Autocomplete.createListener.calls.count()).toEqual(1);
-    expect(HZApp.Legend.buildLegend.calls.count()).toEqual(1);
-    expect(HZApp.WMTSUtils.initializeTiles.calls.count()).toEqual(1);
-    expect(HZApp.WMTSUtils.addClickListeners.calls.count()).toEqual(1);
-    expect(HZApp.MapUtils.catchClearSearch.calls.count()).toEqual(1);
+    it("should call Map once", function(){
+      expect(google.maps.Map.calls.count()).toEqual(1);
+    });
+    it("should call addListenerOnce once", function(){
+      expect(google.maps.event.addListenerOnce.calls.count()).toEqual(1);
+    });
+    it("should not call addListener", function(){
+      expect(google.maps.event.addListener.calls.count()).toEqual(0);
+    });
+    it("should call StyledMapType once", function(){
+      expect(google.maps.StyledMapType.calls.count()).toEqual(1);
+    });
+    it("should call mapTypes.set once", function(){
+      expect(HZApp.map.mapTypes.set.calls.count()).toEqual(1);
+    });
+    it("should call setOptions once", function(){
+      expect(HZApp.map.setOptions.calls.count()).toEqual(1);
+    });
+    it("should call createAutocomplete once", function(){
+      expect(HZApp.Autocomplete.createAutocomplete.calls.count()).toEqual(1);
+    });
+    it("should call createListener once", function(){
+      expect(HZApp.Autocomplete.createListener.calls.count()).toEqual(1);
+    });
+    it("should call buildLegend once", function(){
+      expect(HZApp.Legend.buildLegend.calls.count()).toEqual(1);
+    });
+    it("should call initializeTiles once", function(){
+      expect(HZApp.WMTSUtils.initializeTiles.calls.count()).toEqual(1);
+    });
+    it("should call addClickListeners once", function(){
+      expect(HZApp.WMTSUtils.addClickListeners.calls.count()).toEqual(1);
+    });
+    it("should call catchClearSearch once", function(){
+      expect(HZApp.MapUtils.catchClearSearch.calls.count()).toEqual(1);
+    });
   });
 
   describe("should parse a viewport to LatLngBounds", function(){
@@ -194,32 +218,38 @@ describe ('Testing map operations', function() {
     expect(clickUrl).toEqual(latlngUrl);
   });
 
-  it("should update the url hash on map click", function(){
-    spyOn(HZApp.Router, 'setHash');
-    spyOn(HZApp.Router, 'setCenterAndZoomHash').and.callThrough();
+  describe("should update the url hash on map click", function(){
+    beforeEach(function(){
+      spyOn(HZApp.Router, 'setHash');
+      spyOn(HZApp.HashUtils, 'removeHashValue').and.callThrough();
+      spyOn(HZApp.HashUtils, 'updateHashValue').and.callThrough();
+      spyOn(HZApp.HashUtils, 'updateCenterAndZoomHash').and.callThrough();
 
-    var mapClick = {
-      latLng: {
-        lat: function(){
-          return HZSpecHelper.markerLocation.lat;
-        },
-        lng: function(){
-          return HZSpecHelper.markerLocation.lng;
+      var mapClick = {
+        latLng: {
+          lat: function(){
+            return HZSpecHelper.markerLocation.lat;
+          },
+          lng: function(){
+            return HZSpecHelper.markerLocation.lng;
+          }
         }
-      }
-    };
+      };
 
-    HZApp.MapUtils.catchMapClick(mapClick);
-    expect(HZApp.Router.setHash.calls.count()).toEqual(3); //once each for latlng, center & zoom, and once for clearing q
-    expect(HZApp.Router.setCenterAndZoomHash.calls.count()).toEqual(1);
-  });
-
-  it("should call to update map location hash when called", function(){
-    spyOn(HZApp.Router, 'setHash');
-    spyOn(HZApp.Router, 'setCenterAndZoomHash').and.callThrough();
-    HZApp.MapUtils.updateMapLocation();
-    expect(HZApp.Router.setHash.calls.count()).toEqual(1); //once combined for center, zoom
-    expect(HZApp.Router.setCenterAndZoomHash.calls.count()).toEqual(1);
+      HZApp.MapUtils.catchMapClick(mapClick);
+    });
+    it("should call setHash once", function() {
+      expect(HZApp.Router.setHash.calls.count()).toEqual(1);
+    });
+    it("should call removeHashValue once", function() {
+      expect(HZApp.HashUtils.removeHashValue.calls.count()).toEqual(1);
+    });
+    it("should call updateHashValue a few times", function() {
+      expect(HZApp.HashUtils.updateHashValue.calls.count()).toEqual(3);
+    });
+    it("should call updateCenterAndZoomHash once", function() {
+      expect(HZApp.HashUtils.updateCenterAndZoomHash.calls.count()).toEqual(1);
+    });
   });
 
   it("should parse single digit dates correctly", function(){

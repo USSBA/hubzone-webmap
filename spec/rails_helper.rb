@@ -88,3 +88,7 @@ RSpec.configure do |config|
     # Add your own stubs here or in specific tests...
   end
 end
+
+def json
+  JSON.parse(response.body).symbolize_keys
+end

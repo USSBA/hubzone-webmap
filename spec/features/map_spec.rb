@@ -7,6 +7,9 @@ describe "The HUBZone Map", type: :feature do
   it "should have header section" do
     expect(page).to have_selector('header')
   end
+  it "should have overlay for unsupported browsers" do
+    expect(page).to have_css(".unsupported-browser")
+  end
   it "should have body section" do
     expect(page).to have_selector('body')
   end
