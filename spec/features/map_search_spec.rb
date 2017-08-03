@@ -36,6 +36,37 @@ RSpec.describe 'The Search', type: :feature, js: true do
   }
 
   test_queries = {
+    not_qualified_single_quotes_in_response: {
+      search: 'Goddard Space Flight Center',
+      response: {
+        address_components: [ {"long_name" => "272", "short_name" => "272", "types" => %w[street_number]},
+                              {"long_name" => "Goddard Space Flight Ctr", "short_name" => "Goddard Space Flight Ctr", "types" => %w[route]},
+                              {"long_name" => "Greenbelt", "short_name" => "Greenbelt", "types" => %w[locality political]},
+                              {"long_name" => "Berwyn", "short_name" => "21, Berwyn", "types" => %w[administrative_area_level_3 political]},
+                              {"long_name" => "Prince George's County", "short_name" => "Prince George's County", "types" => %w[administrative_area_level_2 political]},
+                              {"long_name" => "Maryland", "short_name" => "MD", "types" => %w[administrative_area_level_1 political]},
+                              {"long_name" => "United States", "short_name" => "US", "types" => %w[country political]},
+                              {"long_name" => "20771", "short_name" => "20771", "types" => %w[postal_code]},
+                              {"long_name" => "20771", "short_name" => "20771", "types" => %w[postal_code]},
+                              {"long_name" => "The Banana's Last Stand", "short_name" => "The Banana's Last Stand", "types" => %w[test]},
+                              {"long_name" => "0001", "short_name" => "0001", "types" => %w[postal_code_suffix]} ],
+        formatted_address: "272 Goddard Space Flight Ctr, Greenbelt, MD 20771, USA",
+        geometry: { "location" => {"lat" => 38.9950396, "lng" => -76.8567467},
+                    "location_type" => "ROOFTOP",
+                    "viewport" => {"northeast" => {"lat" => 38.9963885802915, "lng" => -76.8553977197085}, "southwest" => {"lat" => 38.9936906197085, "lng" => -76.85809568029151}}},
+        place_id: "ChIJ2e79VCjCt4kRsVq9cN6yrto",
+        types: %w[establishment library point_of_interest],
+        http_status: 200,
+        hubzone: [],
+        until_date: nil,
+        query_date: "2017-08-03",
+        search_q: "Goddard Space Flight Center Library, Greenbelt, MD, United States",
+        search_latlng: nil,
+        api_version: 1,
+        jump: true
+      },
+      status: "hubzone_assertions.not_qualified"
+    },
     qualified_single: {
       search: 'navajo',
       response: {
@@ -138,7 +169,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
         end
 
         it "should display the date of the search" do
-          expect(page).to have_content(t('hubzone_assertions.qualifications_effective') + I18n.l(Date.new(2017, 4, 18), format: :full))
+          expect(page).to have_content(t('hubzone_assertions.qualifications_effective') + I18n.l(Date.parse(tquery[:response][:query_date]), format: :full))
         end
 
         context "for any hubzone designations" do

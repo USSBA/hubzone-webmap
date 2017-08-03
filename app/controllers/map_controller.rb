@@ -12,6 +12,7 @@ class MapController < ApplicationController
     body_json = JSON.parse response.data[:body]
     body_json["jump"] = check_jump_param params
     @body = JSON.generate body_json
+    @body = @body.gsub("'", "\\\\'")
     respond_to do |format|
       format.js {}
     end
