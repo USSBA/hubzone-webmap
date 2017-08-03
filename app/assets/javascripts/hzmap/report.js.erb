@@ -10,13 +10,15 @@ HZApp.Report = (function(){
     catchKeyStrokeToPrint: function(e){
       if((e.ctrlKey || e.metaKey) && e.keyCode === 80){
         e.preventDefault();
-        HZApp.Report.requestReport(); 
+        HZApp.Report.requestReport();
       } else {
         return;
       }
     },
 
     requestReport: function(event, request_type_arg) {  // fetch the app state to send off to the report
+      HZApp.GA.track( 'map', 'sidebar', 'request-report' );
+
       HZApp.HZQuery.query.zoom = HZApp.map.getZoom();
 
       var url = "<%= MAP_CONFIG[:hubzone_report_host] + MAP_CONFIG[:hubzone_api_report_path] %>"; //jshint ignore:line

@@ -15,14 +15,16 @@ HZApp.MapUtils = (function(){
       HZApp.GA.track( 'map', 'click', latlng_s );
       var url = "<%= search_path %>?latlng=" + latlng_s + this.includeDateAndLocale();
       this.sendAjax(url, callback);
-      HZApp.Router.clearHash('q');
-      HZApp.Router.setSingleHash('latlng', latlng_s);
-      HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom());
+      if (!callback){
+        HZApp.Router.setLatLngHash(latlng_s);
+      }
       return url;
     },
 
     sendMapSearch: function(q, callback){
-      var url = "<%= search_path %>?search=" + q + this.includeDateAndLocale();
+      // console.log("~~~~~ MapUtils.sendMapSearch: " + q);
+      var url = "<%= search_path %>?search=" + q + "&jump=" + false + this.includeDateAndLocale();
+      // console.log("     search url: " + url + ", callback: " + callback);
       this.sendAjax(url, callback);
       return url;
     },
@@ -53,6 +55,7 @@ HZApp.MapUtils = (function(){
 
     //jump to location on the map based on the geocode viewport object
     jumpToLocation: function(geocodeLocation){
+      // console.log("~~~~~~~~~~~~~~~~ jumpToLocation: " + geocodeLocation);
       if (geocodeLocation.viewport){
         var customFit = this.getBoundsZoomLevel(geocodeLocation.viewport, this.getMapDims($('#map')));
         if (customFit.fitZoom < 15){
@@ -117,26 +120,21 @@ HZApp.MapUtils = (function(){
         new google.maps.LatLng(NELat, NELng)
       );
     },
+
     mapNameUpdates: [
       {mapType:'roadmap', newName: 'Standard'},
       {mapType:'hz_map',  newName: 'Light Gray'},
       {mapType:'hybrid',  newName: 'Satellite'}
     ],
-
     updateMapTypeNames: function(){
       HZApp.MapUtils.mapNameUpdates.map(HZApp.MapUtils.customMapTypeName);
       HZApp.map.setOptions({'mapTypeControl':true});
     },
-
-    // map idle listener callback for updatig the map url route when the page is done moving
-    updateMapLocation: function(){
-      HZApp.Router.setCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), true);
-    },
-
     customMapTypeName: function(mapNameUpdate){
       if (!HZApp.map.mapTypes[mapNameUpdate.mapType]) { return; }
       HZApp.map.mapTypes[mapNameUpdate.mapType].name = mapNameUpdate.newName;
     },
+
     catchClearSearch: function(element) {
       $(element).click(function() {
         HZApp.MapUtils.resetMap();
@@ -146,8 +144,9 @@ HZApp.MapUtils = (function(){
       HZApp.Markers.hzQueryMarker.updateMarkers(null);
       HZApp.SidebarUtils.sidebar.close();
       HZApp.SidebarUtils.sidebar.clear();
-      HZApp.Router.clearHash('latlng');
-      HZApp.Router.clearHash('q');
+      HZApp.Router.clearHash('latlng', true);
+      HZApp.Router.clearHash('q', true);
+      document.getElementById('search-field-small').value = "";
     },
     /*
       This is a convenience method for helping to parse the base map style object at HZApp.Styles.hzBaseMapStyle

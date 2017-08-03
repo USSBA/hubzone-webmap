@@ -3,7 +3,7 @@ default: &defaults
     major: 1
     minor: 3
     patch: 0
-    pre_release: "alpha"
+    pre_release: ""
   hubzone_map_host: <%= ENV.fetch('HUBZONE_MAP_HOST') { 'http://localhost:3001' } %>
   hubzone_api_host: <%= ENV.fetch('HUBZONE_API_HOST') { 'http://localhost:3001' } %>
   hubzone_api_version: 1
@@ -14,6 +14,7 @@ default: &defaults
   google_api_key: <%= ENV.fetch('HUBZONE_GOOGLE_API_KEY') { 'AIzaSyBsR78bM2H5vMlO60MAtaL9FVtPGWGyQ7c' } %>
   google_analytics_tracking_id: <%= ENV.fetch('GOOGLE_ANALYTICS_TRACKING_ID') { 'UA-89111383-1' } %>
   hotjar_tracking_id: <%= ENV.fetch('HUBZONE_HOTJAR_TRACKING_ID') { '475456' } %>
+  bind_window_events: true
   geom_wms_settings: &default_wms
     url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'http://localhost:8080/geoserver/gwc/service/wms?' } %>
     workspace: <%= ENV.fetch('HUBZONE_WMS_WORKSPACE') { 'hubzone' } %>
@@ -74,6 +75,7 @@ development:
 
 test:
   <<: *defaults
+  bind_window_events: false
   geom_wms_settings:
     <<: *default_wms
     db: why_are_you_hitting_the_WMS_server_in_test

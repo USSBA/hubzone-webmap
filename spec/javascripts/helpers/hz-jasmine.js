@@ -288,7 +288,8 @@ var HZSpecHelper = (function(){
           }
         },
         query_date: "2017-02-20",
-        hubzone: []
+        hubzone: [],
+        jump: true
       },
       {
         mockResponseType: 'good response',
@@ -301,7 +302,8 @@ var HZSpecHelper = (function(){
           }
         },
         query_date: "2017-02-20",
-        hubzone: []
+        hubzone: [],
+        jump: true
       },
       {
         mockResponseType: 'bad response',

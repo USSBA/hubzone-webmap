@@ -83,10 +83,16 @@ HZApp.SidebarUtils = (function(){
     setAccordionStateFromCookie: function(elem){
       var sidebarAccordionCookie = HZApp.Cookies.getItem('hz-sbq-open');
 
+      var currentlyHidden = document.querySelector('span.additional-details-expand.hide').hidden;
+
       if (sidebarAccordionCookie === null || sidebarAccordionCookie === 'false'){
-        HZApp.SidebarUtils.setAccordionOpenState(elem, false, 'hide');
+        if (!currentlyHidden) {
+          HZApp.SidebarUtils.setAccordionOpenState(elem, false, 'hide');
+        }
       } else {
-        HZApp.SidebarUtils.setAccordionOpenState(elem, true, 'show');
+        if (currentlyHidden) {
+          HZApp.SidebarUtils.setAccordionOpenState(elem, true, 'show');
+        }
       }
     },
     triggerAccordion: function(triggerElem){
@@ -98,6 +104,7 @@ HZApp.SidebarUtils = (function(){
       } else if ( action === 'hide' ) {
         HZApp.SidebarUtils.setAccordionOpenState(elem, false, action);
       }
+      HZApp.GA.track( 'map', 'sidebar', 'details-' + action );
     },
     setAccordionOpenState: function(elem, visibleState, action){
       // set the cookie
@@ -114,8 +121,6 @@ HZApp.SidebarUtils = (function(){
       // update the button link
       document.querySelector('span.additional-details-expand.show').hidden = (action === 'show' ? true : false);
       document.querySelector('span.additional-details-expand.hide').hidden = (action === 'hide' ? true : false);
-
-      HZApp.GA.track( 'map', 'sidebar', 'details-' + action );
     }
   };
 })();
