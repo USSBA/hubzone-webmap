@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+#rubocop:disable Metrics/BlockLength
 describe "The Header", type: :feature do
   before do
     visit('/map')
