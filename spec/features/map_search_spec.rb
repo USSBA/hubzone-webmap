@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-# rubocop:disable Metrics/BlockLength
+# rubocop:disable Metrics/BlockLength, RSpec/NestedGroups
 RSpec.describe 'The Search', type: :feature, js: true do
   context 'before a search performed' do
     before do
       visit map_path
     end
-    it "should have aria labels" do
+    it "will have aria labels" do
       expect(page.find('#search-field-small')['aria-labelledby']).to have_content('hubzone-search')
     end
-    it "should have autofocus" do
+    it "will have autofocus" do
       expect(page.find('#search-field-small')['autofocus']).to be_truthy
     end
-    it "should have a tab index" do
+    it "will have a tab index" do
       expect(page.find('#search-field-small')['tabindex']).to eq('1')
     end
   end
@@ -155,23 +155,23 @@ RSpec.describe 'The Search', type: :feature, js: true do
           click_button 'hubzone-search-button'
         end
 
-        after(:all) do
+        after do
           Excon.stubs.clear
         end
 
-        it "should show the correct designation status" do
+        it "will show the correct designation status" do
           expect(page).to have_content(t(tquery[:status]))
         end
 
-        it "should have the correct formatted_address" do
+        it "will have the correct formatted_address" do
           expect(page).to have_content(tquery[:formatted_address])
         end
 
-        it "should provide a clear search button" do
+        it "will provide a clear search button" do
           expect(page).to have_css(".clear-search")
         end
 
-        it "should display the date of the search" do
+        it "will display the date of the search" do
           expect(page).to have_content(t('hubzone_assertions.qualifications_effective') + I18n.l(Date.parse(tquery[:response][:query_date]), format: :full))
         end
 
@@ -181,24 +181,24 @@ RSpec.describe 'The Search', type: :feature, js: true do
           end
 
           tquery[:response][:hubzone].each do |hubzone|
-            it "should contain the correct hubzone assertions" do
+            it "will contain the correct hubzone assertions" do
               expect(page).to have_content(t("hubzone_assertions." + hubzone[:hz_type].to_s))
             end
-            it "should have the right layer symbology" do
+            it "will have the right layer symbology" do
               expect(page).to have_css(".layer-" + tquery[:response][:hubzone][0][:hz_type])
             end
 
-            context "should contain the correct columns for #{hubzone[:hz_type]}" do
+            context "will contain the correct columns for #{hubzone[:hz_type]}" do
               req_details = required_fields[hubzone[:hz_type].to_sym]
               req_details.each do |detail|
-                it "should contain the correct data for #{detail}" do
+                it "will contain the correct data for #{detail}" do
                   expect(page).to have_content(hubzone[detail])
                 end
               end
             end
 
             next unless hubzone[:expires]
-            it "should show the correct language for expires or expired if expiration date is present" do
+            it "will show the correct language for expires or expired if expiration date is present" do
               expect(page).to have_content(hubzone[:expires] < Date.today ? t('hubzone_assertions.expired') : t('hubzone_assertions.expires'))
             end
           end
