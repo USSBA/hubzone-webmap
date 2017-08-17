@@ -142,7 +142,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
     }
   }
 
-  context "doing a search", vcr: true do
+  context "doing a search" do
     before do
       visit map_path
     end
