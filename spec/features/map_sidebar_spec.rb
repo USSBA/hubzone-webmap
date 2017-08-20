@@ -67,13 +67,19 @@ describe "The Sidebar", type: :feature do
     it "should exist and be hidden" do
       expect(page).to have_css("#sidebar.hidden")
     end
-    it "should show hubzone qualification with aria label and tab index" do
+    it "should show hubzone qualification" do
       expect(page).to have_css("#hubzone-status")
+    end
+    it "should show hubzone qualification with aria label" do
       expect(page.find('#hubzone-status')['aria-label']).to be_truthy
+    end
+    it "should show hubzone qualification with tab index" do
       expect(page.find('#hubzone-status')['tabindex']).to be_truthy
     end
-    it "should have as-of date with tab index" do
+    it "should have as-of date" do
       expect(page).to have_css(".hubzone-status-date")
+    end
+    it "should have as-of date with tab index" do
       expect(page.find('.hubzone-status-date')['tabindex']).to be_truthy
     end
     it "should have additional details title" do

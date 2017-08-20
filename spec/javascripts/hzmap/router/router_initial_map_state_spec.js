@@ -47,8 +47,8 @@ describe ('Testing Router operations', function() {
       };
     });
     it("should not geolocate if hash contains a q address", function(){
-      mockHash = "#q=8+market-place";
-      newLocation = HZApp.Router.unpackInitialMapLocation(initialMapLocation, mockHash);
+        mockHash = "#q=8+market-place";
+        newLocation = HZApp.Router.unpackInitialMapLocation(initialMapLocation, mockHash);
       expect(newLocation.center.lat).toEqual(initialMapLocation.center.lat);
       expect(newLocation.center.lng).toEqual(initialMapLocation.center.lng);
       expect(newLocation.zoom).toEqual(initialMapLocation.zoom);
