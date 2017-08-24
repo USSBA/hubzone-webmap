@@ -12,11 +12,12 @@
       details_visibility = 'hidden'
     elsif body['until_date'].present? && Date.parse(body['until_date']) < Date.today
       visibility = ''
-      details_visibility = 'hidden'
+      details_visibility = ''
       hubzone_status_style = 'non-qualified-hubzone'
       hubzone_status_indicator ='fa fa-times-circle-o non-qualified-hubzone'
       hubzone_status = t('hubzone_assertions.not_qualified')
       aria_hubzone_status = t('hubzone_assertions.not_qualified_aria')
+      hubzones = body['hubzone']
     elsif body['hubzone'].size > 0
       visibility = ''
       hubzone_status_indicator = 'fa fa-check-circle-o qualified-hubzone'
