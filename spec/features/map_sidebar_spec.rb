@@ -59,33 +59,33 @@ describe "The Sidebar", type: :feature do
     visit(map_path)
   end
 
-  after(:all) do
+  after do
     Excon.stubs.clear
   end
 
   context "before any interactions" do
-    it "should exist and be hidden" do
+    it "will exist and be hidden" do
       expect(page).to have_css("#sidebar.hidden")
     end
-    it "should show hubzone qualification" do
+    it "will show hubzone qualification" do
       expect(page).to have_css("#hubzone-status")
     end
-    it "should show hubzone qualification with aria label" do
+    it "will show hubzone qualification with aria label" do
       expect(page.find('#hubzone-status')['aria-label']).to be_truthy
     end
-    it "should show hubzone qualification with tab index" do
+    it "will show hubzone qualification with tab index" do
       expect(page.find('#hubzone-status')['tabindex']).to be_truthy
     end
-    it "should have as-of date" do
+    it "will have as-of date" do
       expect(page).to have_css(".hubzone-status-date")
     end
-    it "should have as-of date with tab index" do
+    it "will have as-of date with tab index" do
       expect(page.find('.hubzone-status-date')['tabindex']).to be_truthy
     end
-    it "should have additional details title" do
+    it "will have additional details title" do
       expect(page).to have_content("Designations")
     end
-    it "should have until date" do
+    it "will have until date" do
       expect(page).to have_css(".hubzone-until-date")
     end
   end
@@ -95,23 +95,23 @@ describe "The Sidebar", type: :feature do
       Excon.stub({},
                  body: responses[:non_qualified].to_json)
     end
-    it "should have a report button" do
+    it "will have a report button" do
       fill_in 'search', with: queries[:non_qualified]
       click_button "hubzone-search-button"
       expect(page).to have_css('#map-report')
     end
 
-    it "should have a share button" do
+    it "will have a share button" do
       fill_in 'search', with: queries[:non_qualified]
       click_button "hubzone-search-button"
       expect(page).to have_css('#map-share')
     end
 
-    it "should be visible" do
+    it "will be visible" do
       click_button "hubzone-search-button"
       expect(page).not_to have_css("#sidebar.hidden")
     end
-    it "should move the zoom controls out" do
+    it "will move the zoom controls out" do
       fill_in 'search', with: queries[:non_qualified]
       click_button "hubzone-search-button"
       expect(page).to have_css(".gm-sidebar-on")
@@ -130,7 +130,7 @@ describe "The Sidebar", type: :feature do
     end
 
     context "on load / closed" do
-      it "should not be visible by default" do
+      it "will not be visible by default" do
         expect(page).to have_css('.share-map-card', visible: false)
       end
     end
@@ -138,13 +138,13 @@ describe "The Sidebar", type: :feature do
       before do
         click_button "map-share"
       end
-      it "should be visible after button click" do
+      it "will be visible after button click" do
         expect(page).to have_css('.share-map-card', visible: true)
       end
-      it "should show the clipboard button" do
+      it "will show the clipboard button" do
         expect(page).to have_css('button.copy-to-clipboard', visible: true)
       end
-      it "should have the location url in the input field" do
+      it "will have the location url in the input field" do
         expect(page.find("input.share-map-url").value).to eq(current_url)
       end
     end
@@ -157,13 +157,13 @@ describe "The Sidebar", type: :feature do
       fill_in 'search', with: queries[:non_qualified]
       click_button 'hubzone-search-button'
     end
-    it "should show no qualifications" do
+    it "will show no qualifications" do
       expect(page).not_to have_css("#qct_e", visible: false)
     end
-    it "should not have additional details" do
+    it "will not have additional details" do
       expect(page).not_to have_content('Designations')
     end
-    it "should not have show details" do
+    it "will not have show details" do
       expect(page).not_to have_content('Show Details')
     end
   end
@@ -175,13 +175,13 @@ describe "The Sidebar", type: :feature do
       fill_in 'search', with: queries[:qualified_single]
       click_button 'hubzone-search-button'
     end
-    it "should show one qualification" do
+    it "will show one qualification" do
       expect(page).to have_css("#indian_lands", visible: false)
     end
-    it "should have additional details" do
+    it "will have additional details" do
       expect(page).to have_content('Designations')
     end
-    it "should have show details" do
+    it "will have show details" do
       expect(page).to have_content('Show Details')
     end
   end
@@ -193,16 +193,16 @@ describe "The Sidebar", type: :feature do
       fill_in 'search', with: queries[:redesignated]
       click_button 'hubzone-search-button'
     end
-    it "should show Not Qualified" do
+    it "will show Not Qualified" do
       expect(page).to have_content('Not Qualified')
     end
-    it "should show correct expired/until language" do
+    it "will show correct expired/until language" do
       expect(page).to have_content('expired')
     end
-    it "should show correct icon" do
+    it "will show correct icon" do
       expect(page).to have_css('.fa-times-circle-o')
     end
-    it "should have Designations still shown" do
+    it "will have Designations still shown" do
       expect(page).to have_content('Designations')
     end
   end

@@ -1,7 +1,7 @@
 require "rails_helper"
 
-#rubocop:disable Metrics/BlockLength, Style/NumericLiterals
-RSpec.describe "map/_map_sidebar.html.erb" do
+#rubocop:disable Metrics/BlockLength, Style/NumericLiterals, RSpec/DescribeClass
+RSpec.describe "map/map_sidebar" do
   required_fields = {
     qct: %w[tract_fips county state],
     qct_e: %w[tract_fips county state],
@@ -324,69 +324,67 @@ RSpec.describe "map/_map_sidebar.html.erb" do
     "hubzone" => []
   }
   %w[en dev].each do |locale|
-    context "testing for the #{locale} locale" do
-      responses.each_key do |type|
-        context "displays the sidebar for #{type}" do
-          before do
-            body["hubzone"] = [responses[type]]
-            I18n.locale = locale
-            render partial: "map/map_sidebar", locals: {body: body, locale: locale}
-          end
-
-          if responses[type].empty?
-            it "should show no qualification" do
-              expect(rendered).to have_css("th.non-qualified-hubzone")
-            end
-          else
-            it "should show qualified" do
-              expect(rendered).to have_css("th.qualified-hubzone")
-            end
-          end
-          context "should have the correct data for #{type}" do
-            it "should have the right layer symbology for #{type}" do
-              expect(rendered).to have_css(".layer-" + responses[type]["hz_type"])
-            end
-            req_details = required_fields[type]
-            req_details.each do |detail|
-              if detail.in? %w[effective qda_designation qda_publish qda_declaration]
-                it "should display the correct effective date format for #{detail}" do
-                  date = Date.parse responses[type][detail.to_s]
-                  expect(rendered).to have_content(I18n.l(date, format: :full))
-                end
-              else
-                it "should contain the correct data for #{detail}" do
-                  expect(rendered).to have_content(responses[type][detail.to_s]) unless detail.eql? "effective"
-                end
-              end
-            end
-          end
-        end
-      end
-      context "multiple disignations" do
+    responses.each_key do |type|
+      context "displays the sidebar for #{type}" do
         before do
-          body["hubzone"] = [responses[:qct], responses[:qnmc_r], responses[:brac], responses[:indian_lands], responses[:qnmc_qda]]
+          body["hubzone"] = [responses[type]]
           I18n.locale = locale
           render partial: "map/map_sidebar", locals: {body: body, locale: locale}
         end
-        it "should show qualified" do
-          expect(rendered).to have_css("th.qualified-hubzone")
+
+        if responses[type].empty?
+          it "will show no qualification" do
+            expect(rendered).to have_css("th.non-qualified-hubzone")
+          end
+        else
+          it "will show qualified" do
+            expect(rendered).to have_css("th.qualified-hubzone")
+          end
         end
-        types = %i[qct qnmc_r brac indian_lands qnmc_qda]
-        types.each do |type|
-          it "should have the right layer symbology for #{type}" do
+        context "will have the correct data for #{type}" do
+          it "will have the right layer symbology for #{type}" do
             expect(rendered).to have_css(".layer-" + responses[type]["hz_type"])
           end
           req_details = required_fields[type]
           req_details.each do |detail|
             if detail.in? %w[effective qda_designation qda_publish qda_declaration]
-              it "should display the correct effective date format for #{detail}" do
+              it "will display the correct effective date format for #{detail}" do
                 date = Date.parse responses[type][detail.to_s]
                 expect(rendered).to have_content(I18n.l(date, format: :full))
               end
             else
-              it "should contain the correct data for #{detail}" do
+              it "will contain the correct data for #{detail}" do
                 expect(rendered).to have_content(responses[type][detail.to_s]) unless detail.eql? "effective"
               end
+            end
+          end
+        end
+      end
+    end
+    context "multiple disignations" do
+      before do
+        body["hubzone"] = [responses[:qct], responses[:qnmc_r], responses[:brac], responses[:indian_lands], responses[:qnmc_qda]]
+        I18n.locale = locale
+        render partial: "map/map_sidebar", locals: {body: body, locale: locale}
+      end
+      it "will show qualified" do
+        expect(rendered).to have_css("th.qualified-hubzone")
+      end
+      types = %i[qct qnmc_r brac indian_lands qnmc_qda]
+      types.each do |type|
+        it "will have the right layer symbology for #{type}" do
+          expect(rendered).to have_css(".layer-" + responses[type]["hz_type"])
+        end
+        req_details = required_fields[type]
+        req_details.each do |detail|
+          if detail.in? %w[effective qda_designation qda_publish qda_declaration]
+            it "will display the correct effective date format for #{detail}" do
+              date = Date.parse responses[type][detail.to_s]
+              expect(rendered).to have_content(I18n.l(date, format: :full))
+            end
+          else
+            it "will contain the correct data for #{detail}" do
+              expect(rendered).to have_content(responses[type][detail.to_s]) unless detail.eql? "effective"
             end
           end
         end
