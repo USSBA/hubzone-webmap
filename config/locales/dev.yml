@@ -133,4 +133,5 @@ dev:
     generating: "Generar informe..."
     created: "Informe creado"
   error-popup:
-    geolocation: 'No se puede determinar su ubicación. Para más información, consulte '
+    text: 'No se puede determinar su ubicación. '
+    link: 'Aprende más.'
