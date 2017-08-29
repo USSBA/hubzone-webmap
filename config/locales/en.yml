@@ -134,4 +134,5 @@ en:
     generating: "Generating Report..."
     created: "Report Created"
   error-popup:
-    geolocation: 'Cannot determine your location. For more info, refer to '
+    text: 'Cannot determine your location. '
+    link: 'Learn more'

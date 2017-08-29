@@ -71,7 +71,10 @@ dev:
         body_html: "<p>Utilice el icono pegman (izquierda) para ver una vista de nivel de calle del mapa. Puede hacer clic y arrastrar el icono a la ubicación que desea ver a nivel de la calle. A continuación, puede utilizar las flechas de la pantalla para moverse a nivel de la calle. Para salir del zoom de la vista de la calle o haga clic en la flecha hacia atrás en la parte superior izquierda debajo de la barra de búsqueda.</p>"
       my_location:
         title_html: "Mi ubicacion"
-        body_html: "<p>Puede permitir que el Mapa utilice su ubicación actual. Al permitir que su ubicación centre el Mapa en su ubicación actual y muestre un punto negro en el Mapa. Luego, si mueve el Mapa, puede usar el ícono de flecha (izquierda) para restablecer el Mapa a su ubicación.</p>"
+        sub_head_one_html: "Dar permiso para usar su ubicación"
+        body_one_html: "<p>Si permite que su navegador utilice su ubicación actual, podrá determinar si se encuentra dentro de un HUBZone calificado.</p><p>Al seleccionar \"Permitir\" o \"Permitir acceso a la ubicación\" se habilitará la función de ubicación de su navegador.</p><p>El mapa no podrá obtener su ubicación actual si seleccionó \"No permitir\" o \"Bloquear\" al utilizar el mapa anteriormente. En ese caso, tendrá que cambiar la configuración del navegador para el Mapa HUBZone.</p>"
+        sub_head_two_html: "Errores al encontrar su ubicación"
+        body_two_html: "<p>Si el Mapa HUBZone no puede determinar su ubicación incluso cuando conceda permiso, intente volver a cargar la página. Si el problema persiste, intente borrar la configuración del navegador o ingresar su dirección y buscar en el mapa.</p>"
     faq:
       title: "preguntas frecuentes"
       question_one:
