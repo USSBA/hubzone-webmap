@@ -20,7 +20,6 @@ describe ('Testing map operations', function() {
   describe("should create a new Google map", function() {
     beforeEach( function(){
       spyOn(google.maps, 'Map').and.returnValue(HZApp.map);
-      spyOn(google.maps, 'fullScreenControl');
       spyOn(google.maps.event, 'addListenerOnce');
       spyOn(google.maps.event, 'addListener');
       spyOn(google.maps.places, 'Autocomplete');
@@ -76,9 +75,6 @@ describe ('Testing map operations', function() {
     });
     it("should call catchClearSearch once", function(){
       expect(HZApp.MapUtils.catchClearSearch.calls.count()).toEqual(1);
-    });
-    it("should not have fullScreenButton", function(){
-      expect(page.should_not_have_css('class#gm-fullscreen-control')
     });
   });
 
