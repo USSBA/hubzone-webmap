@@ -151,10 +151,19 @@ HZApp.Router = (function(){
 
     // update the app state from the hash
     updateStateFromHash: function(hash){
-      // console.log("    ~~~~~ updateStateFromHash: " + hash);
+
+      console.log("    ~~~~~ updateStateFromHash: " + hash);
+
+      // tyler todo - add new flag to catch IF-ONLY-LATLNG provided in hash to
+      if (hash.match("latlng") && !hash.match("center") && !hash.match("zoom")) {
+      }
+
       var hashState = HZApp.HashUtils.parseLocationHash(hash); // HZApp.Router.unpackHash(hash);
       if (HZApp.HashUtils.hashNoSearch(hashState)){
         HZApp.MapUtils.resetMap();
+      } else if (HZApp.HashUtils.hashLatLngOnly(hashState)) {
+        console.log("only latlng provided...hopefully :)");
+        HZApp.Router.updateStateWithOnlyHash(hash);
       }
 
       // DCP: Are the keys guaranteed to come back in the order defined?  Does it matter? (seems like it should)
@@ -165,6 +174,10 @@ HZApp.Router = (function(){
           HZApp.Router.hashControllers[controller](hashState[controller], hashState);
         }
       });
+    },
+
+    updateStateWithOnlyHash: function(hash) {
+      console.log(hash);
     },
 
     // sleep: function(ms) {
