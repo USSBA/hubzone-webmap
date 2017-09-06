@@ -4,6 +4,7 @@ AllCops:
 
 Metrics/LineLength:
   Max: 199
+  Enabled: false 
 
 Style/BlockComments:
   Enabled: false
