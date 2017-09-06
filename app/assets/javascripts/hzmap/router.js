@@ -152,16 +152,12 @@ HZApp.Router = (function(){
     // update the app state from the hash
     updateStateFromHash: function(hash){
 
-      console.log("    ~~~~~ updateStateFromHash: " + hash);
-
-      // tyler todo - add new flag to catch IF-ONLY-LATLNG provided in hash to
-      if (hash.match("latlng") && !hash.match("center") && !hash.match("zoom")) {
-      }
-
+      //console.log("    ~~~~~ updateStateFromHash: " + hash);
       var hashState = HZApp.HashUtils.parseLocationHash(hash); // HZApp.Router.unpackHash(hash);
       if (HZApp.HashUtils.hashNoSearch(hashState)){
         HZApp.MapUtils.resetMap();
       } else if (HZApp.HashUtils.hashLatLngOnly(hashState)) {
+        // handle updating the map state when only LatLng Provided
         console.log("only latlng provided...hopefully :)");
         HZApp.Router.updateStateWithOnlyHash(hash);
       }
@@ -177,6 +173,7 @@ HZApp.Router = (function(){
     },
 
     updateStateWithOnlyHash: function(hash) {
+      // update map state to be zoom = 15 and centered on provided latlng
       console.log(hash);
     },
 
