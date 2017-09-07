@@ -18,7 +18,7 @@ HZApp.HashUtils = (function(){
 
     // return true if the hash only contains a latlng value
     hashLatLngOnly: function(currentHash) {
-      return (currentHash === null || (currentHash.center === undefined && currentHash.zoom === undefined && currentHash.q === undefined && currentHash.latlng))
+      return (currentHash === null || (currentHash.center === undefined && currentHash.zoom === undefined && currentHash.q === undefined && currentHash.latlng));
     },
 
     // returns a new hash string that that can be passed to location.hash

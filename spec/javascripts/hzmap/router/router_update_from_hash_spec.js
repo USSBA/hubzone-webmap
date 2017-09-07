@@ -107,6 +107,18 @@ describe ('Testing Router operations', function() {
           expect(HZApp.GA.trackSubmit.calls.count()).toEqual(1);
         });
       });
+
+      describe("should update the map zoom and center if only latlng hash is present", function(){
+        beforeEach(function(){
+          spyOn(HZApp.Router, 'updateMapCenterAndZoom');
+          mockHash = "#latlng=40.188316,-98.046112";
+          HZApp.Router.updateStateFromHash(mockHash);
+        });
+        it("should update center and zoom", function(){
+          expect(HZApp.Router.updateMapCenterAndZoom.calls.count()).toEqual(2);
+        });
+      });
+
       describe("should update the map zoom if zoom hash is present", function(){
         beforeEach(function(){
           spyOn(HZApp.map, 'setZoom');
