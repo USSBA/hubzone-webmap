@@ -7,10 +7,10 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.paths << Emoji.images_path
 %w[js css img fonts].each do |p|
   Rails.application.config.assets.paths <<
-    Rails.root.join("vendor", "assets", "uswds-0.13.1", p)
+    Rails.root.join("vendor", "assets", "uswds-1.3.1", p)
 end
 Rails.application.config.assets.paths <<
-  Rails.root.join("vendor", "assets", "uswds-0.13.1", "img", "favicons")
+  Rails.root.join("vendor", "assets", "uswds-1.3.1", "img", "favicons")
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
