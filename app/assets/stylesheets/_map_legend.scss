@@ -66,6 +66,12 @@
 .legend-content input[type="checkbox"]:focus + label::before {
   box-shadow: 0 0 0 1px #ffffff, 0 0 0 3px $gray-dark;
 }
+// override uswds checkbox check color
+.legend-content [type=checkbox]:checked + label::before,
+.legent-content [type=checkbox]:checked:disabled + label::before {
+  background-image: url(asset-path('correct8.png'));
+  background-image: url(asset-path('correct8.svg'));
+}
 
 @media only screen and (max-width: 950px)  {
   .zero-results{

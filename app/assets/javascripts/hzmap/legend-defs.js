@@ -11,17 +11,17 @@ HZApp.Legend.LegendDefs = (function(){
       canToggle: true,
       layerGroup: 'qct'
     },
-    qnmc: {
-      title: "County",
-      svg: [],
-      canToggle: true,
-      layerGroup: 'qnmc'
-    },
     indian_lands: {
       title: "Indian Land",
       svg: [],
       canToggle: true,
       layerGroup: 'indian_lands'
+    },
+    qnmc: {
+      title: "County",
+      svg: [],
+      canToggle: true,
+      layerGroup: 'qnmc'
     },
     redesignated: {
       title: "Redesignated",
