@@ -18,7 +18,7 @@ describe "The Legend", type: :feature do
     expect(page).to have_content('Census Tract')
   end
   it "will have toggle for qct" do
-    expect(page).to have_selector('input#qct')
+    expect(page).to have_selector('input#qct_legend')
   end
   it "will have symbol(s) for qct" do
     expect(page).to have_css('.layer-qct')
@@ -27,7 +27,7 @@ describe "The Legend", type: :feature do
     expect(page).to have_content('County')
   end
   it "will have toggle for qnmc" do
-    expect(page).to have_selector('input#qnmc')
+    expect(page).to have_selector('input#qnmc_legend')
   end
   it "will have symbol(s) for qnmc" do
     expect(page).to have_css('.layer-qnmc')
@@ -36,7 +36,7 @@ describe "The Legend", type: :feature do
     expect(page).to have_content('Indian Land')
   end
   it "will have toggle for indian_lands" do
-    expect(page).to have_selector('input#indian_lands')
+    expect(page).to have_selector('input#indian_lands_legend')
   end
   it "will have symbol(s) for indian_lands" do
     expect(page).to have_css('.layer-indian_lands')
@@ -45,7 +45,7 @@ describe "The Legend", type: :feature do
     expect(page).to have_content('Redesignated')
   end
   it "will have toggle for redesignated" do
-    expect(page).to have_selector('input#redesignated')
+    expect(page).to have_selector('input#redesignated_legend')
   end
   it "will have symbol(s) for qct redesignted" do
     expect(page).to have_css('.layer-qct_r')
@@ -57,7 +57,7 @@ describe "The Legend", type: :feature do
     expect(page).to have_content('Closed Base Area')
   end
   it "will have toggle for brac" do
-    expect(page).to have_selector('input#brac')
+    expect(page).to have_selector('input#brac_legend')
   end
   it "will have symbol(s) for qct brac" do
     expect(page).to have_css('.layer-qct_brac')
@@ -72,7 +72,7 @@ describe "The Legend", type: :feature do
     expect(page).to have_content('Disaster Area')
   end
   it "will have toggle for qda" do
-    expect(page).to have_selector('input#qda')
+    expect(page).to have_selector('input#qda_legend')
   end
   it "will have symbol(s) for qct qda" do
     expect(page).to have_css('.layer-qct_qda')
