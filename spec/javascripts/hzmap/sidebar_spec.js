@@ -138,4 +138,15 @@ describe ('Testing sidebar operations', function() {
     expect(hz_elem.attr('tabindex')).toEqual('-1');
     expect(hz_elem.focus.calls.count()).toEqual(1);
   });
+  it ("should recenter the map when the address marker is clicked", function(){
+    var hz_clickable_marker  = $('#hubzone-clickable-marker');
+
+    //spy on updating the center
+    spyOn(HZApp.Router, 'updateCenter');
+
+    //trigger the button click and expect the update center to be called
+    hz_clickable_marker.trigger('click');
+
+    expect(HZApp.Router.updateCenter.calls.count()).toEqual(1);
+  });
 });

@@ -10,6 +10,11 @@ HZApp.SidebarUtils = (function(){
       }
     };
   }
+  //bind listener for clickable map marker
+  $(function() {
+    $(document).on('click','#hubzone-clickable-marker', HZApp.SidebarUtils.clickableMapMarker);
+  });
+
 
   // extend jquery with our sidebar function
   $.fn.sidebar = function() {
@@ -121,6 +126,10 @@ HZApp.SidebarUtils = (function(){
       // update the button link
       document.querySelector('span.additional-details-expand.show').hidden = (action === 'show' ? true : false);
       document.querySelector('span.additional-details-expand.hide').hidden = (action === 'hide' ? true : false);
+    },
+    clickableMapMarker: function() {
+      var hash = HZApp.HashUtils.parseLocationHash(location.hash);
+      HZApp.Router.updateCenter(hash.latlng);
     }
   };
 })();
