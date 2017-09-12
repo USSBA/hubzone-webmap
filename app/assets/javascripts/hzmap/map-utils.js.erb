@@ -5,7 +5,7 @@ HZApp.MapUtils = (function(){
     catchMapClick: function(clickEvent){
       var clicklng = clickEvent.latLng.lng();
       var clicklat = clickEvent.latLng.lat();
-      return this.sendMapClick({lat: clicklat, lng: clicklng});
+      return HZApp.MapUtils.sendMapClick({lat: clicklat, lng: clicklng});
     },
 
     // send a map click to the hubzone assertion server
