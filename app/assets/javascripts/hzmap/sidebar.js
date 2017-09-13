@@ -130,12 +130,12 @@ HZApp.SidebarUtils = (function(){
     clickableMapMarker: function() {
       var hash = HZApp.HashUtils.parseLocationHash(location.hash);
       if( hash.q ) {
-        console.log("hash has a query");
+        // if a query is present, get the response geocode, parse it, and update the center
         var geocodeLatLng = HZApp.HZQuery.response.geocodeLocation;
         var parsedLatLng = JSON.stringify(geocodeLatLng.lat) + "," + JSON.stringify(geocodeLatLng.lng);
         HZApp.Router.updateCenter(parsedLatLng);
-      } else if (hash.latlng) {
-        console.log("hash doesnt have a query, used latlng")
+      } else if ( hash.latlng ) {
+        // use latlng if present
         HZApp.Router.updateCenter(hash.latlng);
       }
     }
