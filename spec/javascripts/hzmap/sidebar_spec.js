@@ -142,11 +142,11 @@ describe ('Testing sidebar operations', function() {
     var hz_clickable_marker  = $('#hubzone-clickable-marker');
 
     //spy on updating the center
-    spyOn(HZApp.Router, 'updateCenter');
+    spyOn(HZApp.SidebarUtils, 'clickableMapMarker').and.callThrough();
 
     //trigger the button click and expect the update center to be called
     hz_clickable_marker.trigger('click');
 
-    expect(HZApp.Router.updateCenter.calls.count()).toEqual(1);
+    expect(HZApp.SidebarUtils.clickableMapMarker.calls.count()).toEqual(1);
   });
 });

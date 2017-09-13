@@ -129,7 +129,15 @@ HZApp.SidebarUtils = (function(){
     },
     clickableMapMarker: function() {
       var hash = HZApp.HashUtils.parseLocationHash(location.hash);
-      HZApp.Router.updateCenter(hash.latlng);
+      if( hash.q ) {
+        console.log("hash has a query");
+        var geocodeLatLng = HZApp.HZQuery.response.geocodeLocation;
+        var parsedLatLng = JSON.stringify(geocodeLatLng.lat) + "," + JSON.stringify(geocodeLatLng.lng);
+        HZApp.Router.updateCenter(parsedLatLng);
+      } else if (hash.latlng) {
+        console.log("hash doesnt have a query, used latlng")
+        HZApp.Router.updateCenter(hash.latlng);
+      }
     }
   };
 })();
