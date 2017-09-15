@@ -140,14 +140,14 @@ describe ('Testing sidebar operations', function() {
   });
 
   it ("should recenter the map on address-marker click to the latlng when provided", function(){
-    location.hash = "#center=45.493490,-98.249910&zoom=5&latlng=40.813809,-102.172852"
+    location.hash = "#center=45.493490,-98.249910&zoom=5&latlng=40.813809,-102.172852";
     spyOn(HZApp.Router, "updateCenter");
     HZApp.SidebarUtils.centerMapMarker();
     expect(HZApp.Router.updateCenter.calls.count()).toEqual(1);
   });
 
   it ("should recenter the map on address-marker click to the query geocode when provided", function(){
-    location.hash = "#center=45.493490,-98.249910&zoom=5&q=40.813809,-102.172852"
+    location.hash = "#center=45.493490,-98.249910&zoom=5&q=40.813809,-102.172852";
     // mock response of geocode location
     spyOn(HZApp.HZQuery.response, 'geocodeLocation').and.returnValue({lat: 12.00, lng: 39.00});
     spyOn(HZApp.Router, "updateCenter");
