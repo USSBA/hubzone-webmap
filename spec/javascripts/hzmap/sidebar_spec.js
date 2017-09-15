@@ -1,3 +1,6 @@
+//= require hzmap/router
+//= require hzmap/map-utils
+//= require hzmap/hash-utils
 //= require hzmap/sidebar
 //= require hzmap/ga
 //= require hzmap/cookies
@@ -138,15 +141,27 @@ describe ('Testing sidebar operations', function() {
     expect(hz_elem.attr('tabindex')).toEqual('-1');
     expect(hz_elem.focus.calls.count()).toEqual(1);
   });
-  it ("should recenter the map when the address marker is clicked", function(){
-    var hz_clickable_marker  = $('#hubzone-clickable-marker');
+  it ("should recenter the map on marker click to the latlng when provided", function(){
+    location.hash = "#center=45.493490,-98.249910&zoom=5&latlng=40.813809,-102.172852"
+    // var hz_clickable_marker  = $('#hubzone-clickable-marker');
+    // spyOn(HZApp.SidebarUtils, 'centerMapMarker');
+    // hz_clickable_marker.trigger('click');
+    spyOn(HZApp.Router, "updateCenter");
+    // spyOn(HZApp.SidebarUtils, "centerMapMarker");
+    HZApp.SidebarUtils.centerMapMarker();
+    expect(HZApp.Router.updateCenter.calls.count()).toEqual(1);
+  });
 
-    //spy on updating the center
-    spyOn(HZApp.SidebarUtils, 'clickableMapMarker').and.callThrough();
-
-    //trigger the button click and expect the update center to be called
-    hz_clickable_marker.trigger('click');
-
-    expect(HZApp.SidebarUtils.clickableMapMarker.calls.count()).toEqual(1);
+  it ("should recenter the map on marker click to the latlng when provided", function(){
+    location.hash = "#center=45.493490,-98.249910&zoom=5&q=40.813809,-102.172852"
+    spyOn(HZApp.SidebarUtils, 'getGeocodeLocation').and.returnValue({lat: 12.00, lng: 39.00});
+    // var hz_clickable_marker  = $('#hubzone-clickable-marker');
+    // spyOn(HZApp.SidebarUtils, 'centerMapMarker');
+    // hz_clickable_marker.trigger('click');
+    spyOn(HZApp.Router, "updateCenter");
+    // spyOn(HZApp.SidebarUtils, "centerMapMarker");
+    HZApp.SidebarUtils.centerMapMarker();
+    expect(HZApp.Router.updateCenter.calls.count()).toEqual(1);
+    expect(location.hash).toContain("12.00,39.00")
   });
 });

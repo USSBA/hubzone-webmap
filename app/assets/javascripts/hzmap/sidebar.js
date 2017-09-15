@@ -10,11 +10,11 @@ HZApp.SidebarUtils = (function(){
       }
     };
   }
+
   //bind listener for clickable map marker
   $(function() {
-    $(document).on('click','#hubzone-clickable-marker', HZApp.SidebarUtils.clickableMapMarker);
+    $(document).on('click','#hubzone-clickable-marker', HZApp.SidebarUtils.centerMapMarker);
   });
-
 
   // extend jquery with our sidebar function
   $.fn.sidebar = function() {
@@ -127,17 +127,21 @@ HZApp.SidebarUtils = (function(){
       document.querySelector('span.additional-details-expand.show').hidden = (action === 'show' ? true : false);
       document.querySelector('span.additional-details-expand.hide').hidden = (action === 'hide' ? true : false);
     },
-    clickableMapMarker: function() {
+    centerMapMarker: function() {
       var hash = HZApp.HashUtils.parseLocationHash(location.hash);
-      if( hash.q ) {
-        // if a query is present, get the response geocode, parse it, and update the center
-        var geocodeLatLng = HZApp.HZQuery.response.geocodeLocation;
+      // if a query is present, get the response geocode, parse it, and update the center
+      if ( hash.q ) {
+        var geocodeLatLng = HZApp.SidebarUtils.getGeocodeLocation();
         var parsedLatLng = JSON.stringify(geocodeLatLng.lat) + "," + JSON.stringify(geocodeLatLng.lng);
         HZApp.Router.updateCenter(parsedLatLng);
+      // use latlng if present
       } else if ( hash.latlng ) {
-        // use latlng if present
         HZApp.Router.updateCenter(hash.latlng);
       }
+    },
+    getGeocodeLocation: function() {
+      console.log(HZApp.HZQuery.response.geocodeLocation);
+      return HZApp.HZQuery.response.geocodeLocation;
     }
   };
 })();
