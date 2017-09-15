@@ -28,3 +28,5 @@ Layout/SpaceInsideHashLiteralBraces:
 
 Style/StringLiterals:
   Enabled: false
+
+require: rubocop-rspec

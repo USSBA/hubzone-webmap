@@ -112,12 +112,13 @@ describe ('Testing report operations', function() {
         query: {
           latlng: '45,-108',
           q: "Banana Shire Way, Rocky Top, USA",
-          zoom: 15
+          zoom: 15,
+          search: 'banana shire'
         }
       };
       var params = HZApp.Report.getReportRequestParams(mockHZQuery.query);
       var expected = ("?latlng=" + encodeURIComponent(mockHZQuery.query.latlng) +
-                      "&q=" + encodeURIComponent(mockHZQuery.query.q) +
+                      "&q=" + encodeURIComponent(mockHZQuery.query.search) +
                       "&zoom=" + mockHZQuery.query.zoom +
                       "&locale=" + (document.documentElement.lang || 'en'));
       expect(params).toEqual(expected);
