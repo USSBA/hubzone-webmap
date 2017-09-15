@@ -1,6 +1,3 @@
-//= require hzmap/router
-//= require hzmap/map-utils
-//= require hzmap/hash-utils
 //= require hzmap/sidebar
 //= require hzmap/ga
 //= require hzmap/cookies
@@ -141,27 +138,20 @@ describe ('Testing sidebar operations', function() {
     expect(hz_elem.attr('tabindex')).toEqual('-1');
     expect(hz_elem.focus.calls.count()).toEqual(1);
   });
-  it ("should recenter the map on marker click to the latlng when provided", function(){
+
+  it ("should recenter the map on address-marker click to the latlng when provided", function(){
     location.hash = "#center=45.493490,-98.249910&zoom=5&latlng=40.813809,-102.172852"
-    // var hz_clickable_marker  = $('#hubzone-clickable-marker');
-    // spyOn(HZApp.SidebarUtils, 'centerMapMarker');
-    // hz_clickable_marker.trigger('click');
     spyOn(HZApp.Router, "updateCenter");
-    // spyOn(HZApp.SidebarUtils, "centerMapMarker");
     HZApp.SidebarUtils.centerMapMarker();
     expect(HZApp.Router.updateCenter.calls.count()).toEqual(1);
   });
 
-  it ("should recenter the map on marker click to the latlng when provided", function(){
+  it ("should recenter the map on address-marker click to the query geocode when provided", function(){
     location.hash = "#center=45.493490,-98.249910&zoom=5&q=40.813809,-102.172852"
-    spyOn(HZApp.SidebarUtils, 'getGeocodeLocation').and.returnValue({lat: 12.00, lng: 39.00});
-    // var hz_clickable_marker  = $('#hubzone-clickable-marker');
-    // spyOn(HZApp.SidebarUtils, 'centerMapMarker');
-    // hz_clickable_marker.trigger('click');
+    // mock response of geocode location
+    spyOn(HZApp.HZQuery.response, 'geocodeLocation').and.returnValue({lat: 12.00, lng: 39.00});
     spyOn(HZApp.Router, "updateCenter");
-    // spyOn(HZApp.SidebarUtils, "centerMapMarker");
     HZApp.SidebarUtils.centerMapMarker();
     expect(HZApp.Router.updateCenter.calls.count()).toEqual(1);
-    expect(location.hash).toContain("12.00,39.00")
   });
 });
