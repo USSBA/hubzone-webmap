@@ -151,17 +151,21 @@ HZApp.Router = (function(){
 
     // update the app state from the hash
     updateStateFromHash: function(hash){
-      // console.log("    ~~~~~ updateStateFromHash: " + hash);
+
+      //console.log("    ~~~~~ updateStateFromHash: " + hash);
       var hashState = HZApp.HashUtils.parseLocationHash(hash); // HZApp.Router.unpackHash(hash);
       if (HZApp.HashUtils.hashNoSearch(hashState)){
         HZApp.MapUtils.resetMap();
+      } else if (HZApp.HashUtils.hashLatLngOnly(hashState)) {
+        // handle updating the map state when only LatLng Provided
+        hashState["zoom"] = 15;
+        hashState["center"] = hashState.latlng;
       }
 
       // DCP: Are the keys guaranteed to come back in the order defined?  Does it matter? (seems like it should)
       Object.keys(HZApp.Router.hashControllers).forEach(function(controller){
         // console.log("       checking for " + controller + "...");
         if (hashState && hashState[controller]){
-          // console.log(controller);
           HZApp.Router.hashControllers[controller](hashState[controller], hashState);
         }
       });

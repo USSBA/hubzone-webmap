@@ -71,7 +71,10 @@ en:
         body_html: "<p>Use the pegman icon(left) to see a street level view of the map. You can click and drag the icon to the location you would like to see at street level. You can then use the arrows on your screen to move around at street level. To exit street view zoom out or click the back arrow in the top left under the search bar.</p>"
       my_location:
         title_html: "My Location"
-        body_html: "<p>You can allow the Map to use your current location. Allowing your location centers the Map on your current location and shows a black dot on the Map. Then, if you move the Map you can use the arrow icon(left) to reset the Map to your location.</p>"
+        sub_head_one_html: "Giving permission to use your location"
+        body_one_html: "<p>If you allow your web browser to use your current location, you will be able to determine if you are inside a Qualified HUBZone.<p><p>Selecting \"Allow\" or \"Allow Location Access\" will enable the location feature of your browser.</p><p>The map will not be able to get your current location if you selected \"Don't Allow\" or \"Block\" when using the map previously. In that case, you will need to change your browser settings for the HUBZone Map.</p>"
+        sub_head_two_html: "Errors in finding your location"
+        body_two_html: "<p>If the HUBZone Map is unable to determine your location even when you grant permission, try reloading the page. If the problem persists, try clearing your browser settings or entering your address and searching in the map.</p>"
     faq:
       title: "Frequently Asked Questions"
       question_one:

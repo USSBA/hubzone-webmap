@@ -4,6 +4,7 @@ HZApp.HZQuery = {
     latlng: null,
     q: null,
     zoom: null,
+    search: null
   },
   response: {},
   parseResponse: function(response) {
@@ -13,6 +14,7 @@ HZApp.HZQuery = {
     this.response.geocodeLocation = null;
     this.query.latlng = null;
     this.query.q = null;
+    this.query.search = null;
 
     // handle bad responses
     this.handleBadResponses(this.response.status);
@@ -64,6 +66,7 @@ HZApp.HZQuery = {
   parseGeometryFromAddressSearch: function(response){
     var hash = location.hash;
     this.query.q = response.formatted_address;
+    this.query.search = response.search_q;
     this.query.latlng = null;
     hash = HZApp.HashUtils.removeHashValue('latlng', location.hash);
     // console.log("      update the hash removing latlng: " + hash);

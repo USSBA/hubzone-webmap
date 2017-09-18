@@ -62,8 +62,8 @@ HZApp.Report = (function(){
       var params = "";
       params += "?latlng=" + encodeURIComponent(hzQuery.latlng);
       params.zoom = hzQuery.zoom;
-      if (hzQuery.q){
-        params += "&q=" + encodeURIComponent(hzQuery.q);
+      if (hzQuery.search){
+        params += "&q=" + encodeURIComponent(hzQuery.search);
       }
       params += "&zoom=" + hzQuery.zoom;
       params += "&locale=" + (document.documentElement.lang || "en");
