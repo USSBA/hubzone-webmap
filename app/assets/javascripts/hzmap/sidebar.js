@@ -13,7 +13,9 @@ HZApp.SidebarUtils = (function(){
 
   //bind listener for clickable map marker
   $(function() {
-    $(document).on('click','#hubzone-clickable-marker', HZApp.SidebarUtils.centerMapMarker);
+    $(document).on('click','#hubzone-clickable-marker', function () {
+        HZApp.SidebarUtils.centerMapMarker(HZApp.HashUtils.parseLocationHash(location.hash), HZApp.HZQuery.response.geocodeLocation);
+    });
   });
 
   // extend jquery with our sidebar function
@@ -127,11 +129,9 @@ HZApp.SidebarUtils = (function(){
       document.querySelector('span.additional-details-expand.show').hidden = (action === 'show' ? true : false);
       document.querySelector('span.additional-details-expand.hide').hidden = (action === 'hide' ? true : false);
     },
-    centerMapMarker: function() {
-      var hash = HZApp.HashUtils.parseLocationHash(location.hash);
+    centerMapMarker: function(hash, geocodeLatLng) {
       // if a query is present, get the response geocode, parse it, and update the center
       if ( hash.q ) {
-        var geocodeLatLng = HZApp.HZQuery.response.geocodeLocation;
         var parsedLatLng = JSON.stringify(geocodeLatLng.lat) + "," + JSON.stringify(geocodeLatLng.lng);
         HZApp.Router.updateCenter(parsedLatLng);
       // use latlng if present
