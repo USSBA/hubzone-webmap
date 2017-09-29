@@ -134,6 +134,7 @@ describe ('Testing Router operations', function() {
           expect(HZApp.map.setCenter.calls.count()).toEqual(0);
         });
       });
+
       describe("should update the map center if center hash is present", function(){
         beforeEach(function(){
           spyOn(HZApp.map, 'setZoom');
@@ -149,7 +150,8 @@ describe ('Testing Router operations', function() {
           expect(HZApp.map.setCenter.calls.count()).toEqual(1);
         });
       });
-      describe("should update the map center and zoom if both  present", function(){
+
+      describe("should update the map center and zoom if both present", function(){
         beforeEach(function(){
           spyOn(HZApp.map, 'setZoom');
           spyOn(HZApp.map, 'setCenter');
@@ -164,10 +166,6 @@ describe ('Testing Router operations', function() {
           expect(HZApp.map.setCenter.calls.count()).toEqual(1);
         });
       });
-    });
-
-    describe("catchHashChange", function(){
-
     });
   });
 });

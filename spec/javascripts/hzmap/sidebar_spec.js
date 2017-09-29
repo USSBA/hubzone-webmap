@@ -138,4 +138,18 @@ describe ('Testing sidebar operations', function() {
     expect(hz_elem.attr('tabindex')).toEqual('-1');
     expect(hz_elem.focus.calls.count()).toEqual(1);
   });
+
+  it ("should recenter the map on address-marker click to the latlng when provided", function(){
+    location.hash = "#center=45.493490,-98.249910&zoom=5&latlng=40.813809,-102.172852";
+    spyOn(HZApp.Router, "updateCenter");
+    HZApp.SidebarUtils.centerMapMarker({latlng: "40.813809,-102.172852"}, {lat: 40.813809, lng: -102.172852});
+    expect(HZApp.Router.updateCenter.calls.count()).toEqual(1);
+  });
+
+  it ("should recenter the map on address-marker click to the query geocode when provided", function(){
+    location.hash = "#center=45.493490,-98.249910&zoom=5&q=40.813809,-102.172852";
+    spyOn(HZApp.Router, "updateCenter");
+    HZApp.SidebarUtils.centerMapMarker({q: "40.813809,-102.172852"}, {lat: 40.813809, lng: -102.172852});
+    expect(HZApp.Router.updateCenter.calls.count()).toEqual(1);
+  });
 });
