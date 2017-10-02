@@ -9,7 +9,8 @@ class Version
 
   def git_describe
     desc = IO.popen(['git', 'describe', '--long'], err: File::NULL).read
-    desc = File.read(Rails.root.join("REVISION")) if desc.nil? || desc.blank?
+    rev_file = Rails.root.join('REVISION')
+    desc = File.read(rev_file) if File.exist?(rev_file) && (desc.nil? || desc.blank?)
     desc
   end
 
