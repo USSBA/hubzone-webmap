@@ -22,25 +22,25 @@ RSpec.describe VersionController, type: :request do
       get version_url, params: {format: 'json'}
     end
     it "will return the major version of the api software" do
-      expect(json.keys.include? :major).to be true
+      expect(json.keys.include?(:major)).to be true
     end
     it "will return the minor version of the api software" do
-      expect(json.keys.include? :minor).to be true
+      expect(json.keys.include?(:minor)).to be true
     end
     it "will return the patch version of the api software" do
-      expect(json.keys.include? :patch).to be true
+      expect(json.keys.include?(:patch)).to be true
     end
     it "will return the pre_release version of the api software" do
-      expect(json.keys.include? :pre_release).to be true
+      expect(json.keys.include?(:pre_release)).to be true
     end
     it "will return the commit of the api software" do
-      expect(json.keys.include? :commit_sha).to be true
+      expect(json.keys.include?(:commit_sha)).to be true
     end
     it "will return the tag of the api software" do
-      expect(json.keys.include? :tag).to be true
+      expect(json.keys.include?(:tag)).to be true
     end
     it "will return the delta of the api software" do
-      expect(json.keys.include? :delta).to be true
+      expect(json.keys.include?(:delta)).to be true
     end
   end
 end
