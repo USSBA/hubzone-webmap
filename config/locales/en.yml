@@ -92,6 +92,10 @@ en:
     brac: "Base Closure"
     qct_qda: "Census Tract Disaster Area"
     qnmc_qda: "County Disaster Area"
+    likely_qda:
+      title: "Likely Disaster Area Designation"
+      body: "Due to recent natural disasters, this area may change designations in the future. More information can be found on the "
+      link: "help page"
     additional_details:
       tract_id: "Tract ID"
       county: "County"

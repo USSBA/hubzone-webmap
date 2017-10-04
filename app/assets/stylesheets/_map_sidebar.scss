@@ -141,6 +141,22 @@ table th {
   border-radius: 3px;
   padding: 0;
 }
+.likely-qda {
+  margin: 0;
+  padding: 10px 10px 10px 0px;
+  background-size: 4rem;
+  background-position-y: 15px;
+  background-color: $gray-lightest;
+}
+.likely-qda .usa-alert-body {
+  padding-left: 5rem;
+}
+.likely-qda .usa-alert-heading {
+  font-size: 1.6rem;
+}
+.likely-qda .usa-alert-text {
+  line-height: inherit;
+}
 .designation-row {
   background-color: $white;
   border-top: 1px solid $gray-lightest;

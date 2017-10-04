@@ -5,7 +5,7 @@
 %>
 
 <% if qualification["hz_type"] == "likely_qnmc_qda" || qualification["hz_type"] == "likely_qct_qda" %>
-  <%= render partial: "likely_qualification" %>
+  <%= render partial: "likely_qualification", locals: {qualification: qualification} %>
 <% else %>
   <div id="<%= qualification['hz_type'] %>" class="designation-row">
     <div class="sidebar-layer-symbol layer-<%= qualification["hz_type"] %>"></div>
@@ -21,7 +21,9 @@
 <% end %>
 
 <% if qualification["hz_type"] == "likely_qnmc_qda" || qualification["hz_type"] == "likely_qct_qda" %>
-  <%= render partial: "map/additional_details" + qualification['hz_type'], locals: {qualification: tbd}
+  <div class="designation-details-row" hidden>
+    <%= render partial: 'map/additional_details/' + qualification['hz_type'], locals: {qualification: qualification} %>
+  </div>
 <% else %>
   <div class="designation-details-row" hidden>
     <%= render partial: 'map/additional_details/' + qualification['hz_type'], locals: {qualification: qualification} %>

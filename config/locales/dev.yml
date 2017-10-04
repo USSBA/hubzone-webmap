@@ -91,6 +91,10 @@ dev:
     brac: "Antigua base militare"
     qct_qda: "Área de Desastre del Área de Censos"
     qnmc_qda: "Área de desastre del condado"
+    likely_qda:
+      title: "Denominación de zona de desastre probable"
+      body: "Debido a los desastres naturales recientes, esta área puede cambiar designaciones en el futuro. Puede encontrar más información en el "
+      link: "página de ayuda"
     additional_details:
       tract_id: "ID del tracto"
       county: "Condado"
