@@ -1,9 +1,8 @@
-<% likely_designations.each do |designation| %>
-  <div class="designation-details-item">
-    <h6><%= t('hubzone_assertions.additional_details.' + designation['type']) %></h6>
-    <h5>
-      <%= designation["incident_description"].blank? ? '--' : designation["incident_description"] %>
-      <%= designation["qda_declaration"].blank? ? '--' : designation["qda_declaration"] %>
-    </h5>
-  </div>
-<% end %>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.' + likely_designations['type']) %></h6>
+  <h5>
+    <%= likely_designations["incident_description"].blank? ? '--' : likely_designations["incident_description"] %>
+    <%= likely_designations["qda_declaration"].blank? ? '--' : likely_designations["qda_declaration"] %>
+  </h5>
+</div>
+
