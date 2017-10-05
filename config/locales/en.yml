@@ -113,6 +113,8 @@ en:
       disaster_declaration: "Disaster Declaration"
       disaster_designation: "Disaster Designation"
       disaster_publish: "Disaster Publish"
+      likely_qct_qda: "Likely Census Tract Disaster Description"
+      likely_qnmc_qda: "Likely County Disaster Description"
   legend:
     title: "Legend"
     qualified: "Qualified HUBZones"
