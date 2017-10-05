@@ -157,6 +157,13 @@ table th {
 .likely-qda .usa-alert-text {
   line-height: inherit;
 }
+.designation-details-row.likely-qda-details {
+  background-color: $gray-lightest;
+  border-top: 1px solid $white;
+}
+.likely-qda-details > .designation-details-item {
+  border-top: 1px solid $white;
+}
 .designation-row {
   background-color: $white;
   border-top: 1px solid $gray-lightest;
