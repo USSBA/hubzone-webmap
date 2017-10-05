@@ -1,4 +1,5 @@
-<div id="<%= qualification['hz_type'] %>" class="designation-row">
+<% qualification["likely_qda_designations"].each do |likely_designation| %>
+<div id="<%= likely_designation["incident_description"] %>" class="designation-row">
   <div class="usa-alert usa-alert-info likely-qda" tabindex="13">
     <div class="usa-alert-body"">
       <h3 class="usa-alert-heading"><%= t('hubzone_assertions.likely_qda.title') %></h3>
@@ -6,3 +7,4 @@
     </div>
   </div>
 </div>
+<% end %>
