@@ -112,8 +112,8 @@ dev:
       disaster_declaration: "Declaración de Desastre"
       disaster_designation: "Declaración de Desastre"
       disaster_publish: "Publicación de desastres"
-      likely_qct_qda: "Probablemente Census Tract Disaster Descripción"
-      likely_qnmc_qda: "Likely County Disaster Descripción"
+      likely_qct_qda: "Census Tract Desastre Descripción"
+      likely_qnmc_qda: "Condado Desastre Descripción"
   legend:
     title: "Leyenda"
     qualified: "HUBZone Calificados"

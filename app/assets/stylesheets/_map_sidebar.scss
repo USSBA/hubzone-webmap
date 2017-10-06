@@ -144,9 +144,11 @@ table th {
 .likely-qda {
   margin: 0;
   padding: 10px 10px 10px 0px;
-  background-size: 4rem;
   background-position-y: 15px;
+  background-size: 1.75em;
   background-color: $gray-lightest;
+  background-image: url(asset-path('info.svg'));
+  background-image: url(asset-path('info.png'));
 }
 .likely-qda .usa-alert-body {
   padding-left: 5rem;
@@ -156,13 +158,6 @@ table th {
 }
 .likely-qda .usa-alert-text {
   line-height: inherit;
-}
-.designation-details-row.likely-qda-details {
-  background-color: $gray-lightest;
-  border-top: 1px solid $white;
-}
-.likely-qda-details > .designation-details-item {
-  border-top: 1px solid $white;
 }
 .designation-row {
   background-color: $white;

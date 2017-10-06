@@ -94,7 +94,7 @@ en:
     qnmc_qda: "County Disaster Area"
     likely_qda:
       title: "Likely Disaster Area Designation"
-      body: "This area may soon change designations due to recent disasters. More information on the "
+      body: "This area may soon change designations due to recent disasters"
       link: "help page"
     additional_details:
       tract_id: "Tract ID"
@@ -113,8 +113,8 @@ en:
       disaster_declaration: "Disaster Declaration"
       disaster_designation: "Disaster Designation"
       disaster_publish: "Disaster Publish"
-      likely_qct_qda: "Likely Census Tract Disaster Description"
-      likely_qnmc_qda: "Likely County Disaster Description"
+      likely_qct_qda: "Census Tract Disaster Description"
+      likely_qnmc_qda: "County Disaster Description"
   legend:
     title: "Legend"
     qualified: "Qualified HUBZones"
