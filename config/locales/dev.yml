@@ -112,7 +112,7 @@ dev:
       likely_qnmc_qda: "Condado Desastre Descripción"
   likely_qda:
     title: "Desastre reciente (s)"
-    body: "Los siguientes desastres pueden cambiar el estado de esta ubicación "
+    body: "Los siguientes desastres pueden cambiar el estado de esta ubicación"
     link: "Aprende más"
   legend:
     title: "Leyenda"
