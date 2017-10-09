@@ -6,7 +6,8 @@ describe "The Sidebar", type: :feature do
               qualified_single: 'tiffany peak, co',
               non_qualified: 'banana',
               intersection: '25th & st. paul, baltimore',
-              redesignated: 'reform, al' }
+              redesignated: 'reform, al',
+              likely_qda: 'lee county, tx' }
 
   responses = { qualified_multiple: { formatted_address: 'Yup',
                                       http_status: 200,
@@ -53,8 +54,44 @@ describe "The Sidebar", type: :feature do
                                     lat: 0,
                                     lng: 0
                                   }
-                                } } }
-
+                                } },
+                likely_qda: { formatted_address:
+                                'Lee County, TX',
+                                http_status: 200,
+                                hubzone: [],
+                                other_information: {
+                                  alerts: {
+                                    likely_qda_designations: [
+                                      {
+                                        "type": "likely_qct_qda",
+                                        "incident_description": "Hurricane Irma",
+                                        "qda_declaration": "2017-09-15"
+                                      },
+                                      {
+                                        "type": "likely_qnmc_qda",
+                                        "incident_description": "Hurricane Maria",
+                                        "qda_declaration": "2017-09-20"
+                                      },
+                                      {
+                                        "type": "likely_qnmc_qda",
+                                        "incident_description": "Hurricane Irma - Seminole Tribe of Florida,",
+                                        "qda_declaration": "2017-09-27"
+                                      },
+                                      {
+                                        "type": "likely_qct_qda",
+                                        "incident_description": "Severe Storms, Tornadoes, Straight-line Winds, and Flooding",
+                                        "qda_declaration": "2017-08-06"
+                                      }
+                                    ]
+                                  }
+                                },
+                                geometry: {
+                                  location: {
+                                    lat: 0,
+                                    lng: 0
+                                  }
+                                } }
+                              }
   before do
     visit(map_path)
   end
@@ -183,6 +220,24 @@ describe "The Sidebar", type: :feature do
     end
     it "will have show details" do
       expect(page).to have_content('Show Details')
+    end
+  end
+
+  context "with a likely_qda alert", js: true do
+    before do
+      Excon.stub({},
+                 body: responses[:likely_qda].to_json)
+      fill_in 'search', with: queries[:likely_qda]
+      click_button 'hubzone-search-button'
+    end
+    # it "will show likely qda alert" do
+    #   expect(page).to have_css(".likely_qda")
+    # end
+    it "will have a recent disasters title" do
+      expect(page).to have_content('Recent Disaster(s)')
+    end
+    it "will have show disaster descriptions" do
+      expect(page).to have_content('Hurricane Irma')
     end
   end
 
