@@ -92,10 +92,6 @@ en:
     brac: "Base Closure"
     qct_qda: "Census Tract Disaster Area"
     qnmc_qda: "County Disaster Area"
-    likely_qda:
-      title: "Likely Disaster Area Designation"
-      body: "This area may soon change designations due to recent disasters"
-      link: "help page"
     additional_details:
       tract_id: "Tract ID"
       county: "County"
@@ -115,6 +111,10 @@ en:
       disaster_publish: "Disaster Publish"
       likely_qct_qda: "Census Tract Disaster Description"
       likely_qnmc_qda: "County Disaster Description"
+  likely_qda:
+    title: "Recent Disaster(s)"
+    body: "The following disaster(s) may change the status of this location"
+    link: "Learn more"
   legend:
     title: "Legend"
     qualified: "Qualified HUBZones"

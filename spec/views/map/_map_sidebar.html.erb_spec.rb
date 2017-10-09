@@ -20,8 +20,7 @@ RSpec.describe "map/map_sidebar" do
     qct_brac: %w[brac_sba_name fac_type effective tract_fips county state],
     qnmc_brac: %w[brac_sba_name fac_type effective county_fips county state],
     qct_qda: %w[incident_description qda_declaration qda_designation qda_publish tract_fips county state],
-    qnmc_qda: %w[incident_description qda_declaration qda_designation qda_publish county_fips county state],
-    likely_qda: %w[incident_description qda_declaration]
+    qnmc_qda: %w[incident_description qda_declaration qda_designation qda_publish county_fips county state]
   }
   responses = {
     qct: {
@@ -290,21 +289,6 @@ RSpec.describe "map/map_sidebar" do
       "effective" => "2014-01-01",
       "expires" => nil,
       "hz_type" => "indian_lands"
-    },
-    likely_qda: {
-      "hz_type": "likely_qda",
-      "likely_qda_designations": [
-        {
-          "type":"likely_qct_qda",
-          "incident_description":"Hurricane Irma",
-          "qda_declaration":"2017-09-15"
-        },
-        {
-          "type":"likely_qnmc_qda",
-          "incident_description":"Hurricane Irma",
-          "qda_declaration":"2017-09-15"
-        }
-      ]
     }
   }
   body = {
