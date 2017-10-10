@@ -1,35 +1,11 @@
-<% #mocked array of likely_qda_designations
-likely_qda_designations = [
-                {
-                    "type": "likely_qct_qda",
-                    "incident_description": "Hurricane Irma",
-                    "qda_declaration": "2017-09-15"
-                },
-                {
-                    "type": "likely_qnmc_qda",
-                    "incident_description": "Hurricane Maria",
-                    "qda_declaration": "2017-09-20"
-                },
-                {
-                    "type": "likely_qnmc_qda",
-                    "incident_description": "Hurricane Irma - Seminole Tribe of Florida,",
-                    "qda_declaration": "2017-09-27"
-                },
-                {
-                    "type": "likely_qct_qda",
-                    "incident_description": "Severe Storms, Tornadoes, Straight-line Winds, and Flooding",
-                    "qda_declaration": "2017-08-06"
-                }
-            ]
-%>
 <div class="sidebar-card clearable">
   <div class="usa-alert usa-alert-info likely-qda">
-    <div class="usa-alert-body"">
+    <div class="usa-alert-body">
       <h3 class="usa-alert-heading"><%= t('likely_qda.title') %></h3>
       <p class="usa-alert-text"><%= t('likely_qda.body') %></p>
       <ul>
       <% likely_qda_designations.each do |likely_designation| %>
-        <li class="usa-alert-text"><%= likely_designation[:incident_description] %></li>
+        <li class="usa-alert-text"><%= likely_designation["incident_description"] %></li>
       <% end %>
       </ul>
     </div>

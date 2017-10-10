@@ -6,9 +6,7 @@
     date = body['query_date'].present? ? (I18n.l Date.parse(body['query_date']), format: :full) : body['query_date']
     until_date = body['until_date'].present? ? (I18n.l Date.parse(body['until_date']), format: :full) : nil
     date_status = until_date && Date.parse(body['until_date']) < Date.today ? "expired" : "until"
-
-    # add check here to control showing/hiding card
-    has_likely_qda = true # if body['other_information']['alerts']['likely_qda_designations'].present?
+    has_likely_qda = true if body['other_information'] && body['other_information']['alerts'] && body['other_information']['alerts']['likely_qda_designations'].present?
 
     if body['formatted_address'].nil?
       visibility = 'hidden'
@@ -93,7 +91,7 @@
 </div>
 
 <% if has_likely_qda %>
-  <%= render partial: "likely_qualification_alert"  %>
+  <%= render partial: "likely_qualification_alert", locals: {likely_qda_designations: body['other_information']['alerts']['likely_qda_designations']}  %>
 <% end %>
 
 <div class="sidebar-card map-actions">
