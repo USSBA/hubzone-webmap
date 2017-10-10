@@ -108,6 +108,12 @@ dev:
       disaster_declaration: "Declaración de Desastre"
       disaster_designation: "Declaración de Desastre"
       disaster_publish: "Publicación de desastres"
+      likely_qct_qda: "Census Tract Desastre Descripción"
+      likely_qnmc_qda: "Condado Desastre Descripción"
+  likely_qda:
+    title: "Desastre reciente (s)"
+    body: "Los siguientes desastres pueden cambiar el estado de esta ubicación"
+    link: "Aprende más"
   legend:
     title: "Leyenda"
     qualified: "HUBZone Calificados"

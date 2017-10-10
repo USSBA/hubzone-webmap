@@ -315,6 +315,9 @@ RSpec.describe "map/map_sidebar" do
       }
     ],
     "formatted_address" => "8 Market Pl, Baltimore, MD 21202, USA",
+    "other_information" => {
+      "alerts" => ""
+    },
     "geometry" => {
       "location" => {
         "lat" => 39.2888915,

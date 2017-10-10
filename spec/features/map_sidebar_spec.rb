@@ -6,10 +6,14 @@ describe "The Sidebar", type: :feature do
               qualified_single: 'tiffany peak, co',
               non_qualified: 'banana',
               intersection: '25th & st. paul, baltimore',
-              redesignated: 'reform, al' }
+              redesignated: 'reform, al',
+              likely_qda: 'lee county, tx' }
 
   responses = { qualified_multiple: { formatted_address: 'Yup',
                                       http_status: 200,
+                                      other_information: {
+                                        alerts: { }
+                                      },
                                       hubzone: [
                                         {
                                           hz_type: "indian_lands"
@@ -26,6 +30,9 @@ describe "The Sidebar", type: :feature do
                                       } },
                 non_qualified: { formatted_address: "Nope",
                                  http_status: 200,
+                                 other_information: {
+                                   alerts: { }
+                                 },
                                  hubzone: [],
                                  geometry: {
                                    location: {
@@ -35,6 +42,9 @@ describe "The Sidebar", type: :feature do
                                  } },
                 intersection: { formatted_address:
                                 'St Paul St & E 25th St, Baltimore, MD 21218, USA',
+                                other_information: {
+                                  alerts: { }
+                                },
                                 http_status: 200,
                                 hubzone: [],
                                 geometry: {
@@ -46,6 +56,9 @@ describe "The Sidebar", type: :feature do
                 redesignated: { formatted_address:
                                 'Reform, AL',
                                 http_status: 200,
+                                other_information: {
+                                  alerts: { }
+                                },
                                 hubzone: [],
                                 until_date: Date.today.last_week,
                                 geometry: {
@@ -53,8 +66,31 @@ describe "The Sidebar", type: :feature do
                                     lat: 0,
                                     lng: 0
                                   }
-                                } } }
-
+                                } },
+                likely_qda: { formatted_address:
+                              'Lee County, TX',
+                              http_status: 200,
+                              hubzone: [],
+                              other_information: {
+                                alerts: {
+                                  likely_qda_designations: [
+                                    {
+                                      "incident_description": "Hurricane Irma",
+                                      "qda_declaration": "2017-09-15"
+                                    },
+                                    {
+                                      "incident_description": "Hurricane Harvey",
+                                      "qda_declaration": "2017-09-15"
+                                    }
+                                  ]
+                                }
+                              },
+                              geometry: {
+                                location: {
+                                  lat: 0,
+                                  lng: 0
+                                }
+                              } } }
   before do
     visit(map_path)
   end
@@ -183,6 +219,27 @@ describe "The Sidebar", type: :feature do
     end
     it "will have show details" do
       expect(page).to have_content('Show Details')
+    end
+  end
+
+  context "with a likely_qda alert", js: true do
+    before do
+      Excon.stub({},
+                 body: responses[:likely_qda].to_json)
+      fill_in 'search', with: queries[:likely_qda]
+      click_button 'hubzone-search-button'
+    end
+    it "will show likely qda alert" do
+      expect(page).to have_css('.likely-qda')
+    end
+    it "will have a recent disasters title" do
+      expect(page).to have_content('Recent Disaster(s)')
+    end
+    it "will have show first disaster description" do
+      expect(page).to have_content(responses[:likely_qda][:other_information][:alerts][:likely_qda_designations][0][:incident_description])
+    end
+    it "will have show second disaster description" do
+      expect(page).to have_content(responses[:likely_qda][:other_information][:alerts][:likely_qda_designations][1][:incident_description])
     end
   end
 
