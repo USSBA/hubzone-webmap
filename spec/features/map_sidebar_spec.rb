@@ -31,8 +31,8 @@ describe "The Sidebar", type: :feature do
                 non_qualified: { formatted_address: "Nope",
                                  http_status: 200,
                                  other_information: {
-                                    alerts: { }
-                                  },
+                                   alerts: { }
+                                 },
                                  hubzone: [],
                                  geometry: {
                                    location: {
@@ -43,7 +43,7 @@ describe "The Sidebar", type: :feature do
                 intersection: { formatted_address:
                                 'St Paul St & E 25th St, Baltimore, MD 21218, USA',
                                 other_information: {
-                                        alerts: { }
+                                  alerts: { }
                                 },
                                 http_status: 200,
                                 hubzone: [],
