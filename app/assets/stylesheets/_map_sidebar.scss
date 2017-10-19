@@ -141,6 +141,30 @@ table th {
   border-radius: 3px;
   padding: 0;
 }
+.likely-qda {
+  margin: 0;
+  padding: 10px 10px 10px 0px;
+  border-radius: 3px;
+  color: $gray-dark;
+  background-color: $gray-lightest;
+  background-position-y: 15px;
+  background-size: 1.5em;
+  background-image: url(asset-path('info.svg'));
+  background-image: url(asset-path('info.png'));
+}
+.likely-qda .usa-alert-body {
+  padding-left: 5rem;
+}
+.likely-qda .usa-alert-heading {
+  font-size: 1.6rem;
+}
+.likely-qda .usa-alert-text {
+  line-height: inherit;
+  font-size: 1.5rem;
+}
+.likely-qda ul {
+  margin-top: 0;
+}
 .designation-row {
   background-color: $white;
   border-top: 1px solid $gray-lightest;

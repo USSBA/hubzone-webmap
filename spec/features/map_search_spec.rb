@@ -61,6 +61,9 @@ RSpec.describe 'The Search', type: :feature, js: true do
         types: %w[establishment library point_of_interest],
         http_status: 200,
         hubzone: [],
+        other_information: {
+          alerts: {}
+        },
         until_date: nil,
         query_date: "2017-08-03",
         search_q: "Goddard Space Flight Center Library, Greenbelt, MD, United States",
@@ -86,6 +89,9 @@ RSpec.describe 'The Search', type: :feature, js: true do
             gnis: "42999"
           }
         ],
+        other_information: {
+          alerts: {}
+        },
         geometry: {
           location: {
             lat: 0,
@@ -114,6 +120,9 @@ RSpec.describe 'The Search', type: :feature, js: true do
             expires: Date.today.last_week
           }
         ],
+        other_information: {
+          alerts: {}
+        },
         geometry: {
           location: {
             lat: 0,
@@ -130,6 +139,9 @@ RSpec.describe 'The Search', type: :feature, js: true do
         formatted_address: "Banana QLD 4702, Australia",
         http_status: 200,
         hubzone: [],
+        other_information: {
+          alerts: {}
+        },
         geometry: {
           location: {
             lat: 0,

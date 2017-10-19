@@ -21,7 +21,7 @@ end
 require 'capybara/poltergeist'
 
 Capybara.register_driver(:poltergeist) do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: true)
+  Capybara::Poltergeist::Driver.new(app, js_errors: true, url_blacklist: ['https://script.hotjar.com'])
 end
 
 Capybara.default_max_wait_time = 10
