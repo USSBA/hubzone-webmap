@@ -7,6 +7,7 @@ gem 'font-awesome-rails', '>= 4.7.0' # Use Font Awesome for CSS Icons
 gem 'i18n-js', ">= 3.0.0.rc15" #extend i18n support directly into JS
 gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jquery-rails' # Use jquery as the JavaScript library
+gem 'newrelic_rpm', '~> 4.5' # NewRelic Application Performance Monitoring
 gem 'pg' # Use PostgreSQL as the database for Active Record
 gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'rails', '~> 5.1' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
