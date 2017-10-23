@@ -2,6 +2,22 @@ require 'rails_helper'
 
 # rubocop:disable Metrics/BlockLength
 describe "The Sidebar", type: :feature do
+  dummy_congressional_district = { gid: 334,
+                                   statefp: "42",
+                                   d115fp: "08",
+                                   geoid: "4208",
+                                   namelsad: "Congressional District 8",
+                                   lsad: "C2",
+                                   cdsessn: "115",
+                                   mtfcc: "G5200",
+                                   funcstat: "N",
+                                   aland: nil,
+                                   awater: nil,
+                                   intptlat: "+40.3360801",
+                                   intptlon: "-075.1511554",
+                                   effective: "2017-10-18",
+                                   state: "PA" }
+
   queries = { qualified_multiple: 'navajo',
               qualified_single: 'tiffany peak, co',
               non_qualified: 'banana',
@@ -12,6 +28,9 @@ describe "The Sidebar", type: :feature do
   responses = { qualified_multiple: { formatted_address: 'Yup',
                                       http_status: 200,
                                       other_information: {
+                                        congressional_district: [
+                                          dummy_congressional_district
+                                        ],
                                         alerts: { }
                                       },
                                       hubzone: [
@@ -31,6 +50,9 @@ describe "The Sidebar", type: :feature do
                 non_qualified: { formatted_address: "Nope",
                                  http_status: 200,
                                  other_information: {
+                                   congressional_district: [
+                                     dummy_congressional_district
+                                   ],
                                    alerts: { }
                                  },
                                  hubzone: [],
@@ -43,6 +65,9 @@ describe "The Sidebar", type: :feature do
                 intersection: { formatted_address:
                                 'St Paul St & E 25th St, Baltimore, MD 21218, USA',
                                 other_information: {
+                                  congressional_district: [
+                                    dummy_congressional_district
+                                  ],
                                   alerts: { }
                                 },
                                 http_status: 200,
@@ -57,6 +82,9 @@ describe "The Sidebar", type: :feature do
                                 'Reform, AL',
                                 http_status: 200,
                                 other_information: {
+                                  congressional_district: [
+                                    dummy_congressional_district
+                                  ],
                                   alerts: { }
                                 },
                                 hubzone: [],
@@ -72,6 +100,9 @@ describe "The Sidebar", type: :feature do
                               http_status: 200,
                               hubzone: [],
                               other_information: {
+                                congressional_district: [
+                                  dummy_congressional_district
+                                ],
                                 alerts: {
                                   likely_qda_designations: [
                                     {
@@ -261,6 +292,24 @@ describe "The Sidebar", type: :feature do
     end
     it "will have Designations still shown" do
       expect(page).to have_content('Designations')
+    end
+  end
+
+  context "will have local information details" do
+    it "will have local information title" do
+      expect(page).to have_content("Local Information")
+    end
+    it "will have a congressional district header" do
+      expect(page).to have_content("Congressional District")
+    end
+    it "will have a congressional district value" do
+      expect(page).to have_content(dummy_congressional_district[:congressional_district])
+    end
+    it "will have a congressional session header" do
+      expect(page).to have_content("Congressional Session")
+    end
+    it "will have a congressional session value" do
+      expect(page).to have_content(dummy_congressional_district[:cdsessn])
     end
   end
 end
