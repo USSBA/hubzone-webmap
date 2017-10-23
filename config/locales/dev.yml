@@ -54,6 +54,10 @@ dev:
       title: "Denominaciones"
       show: "Mostrar Detalles"
       hide: "Ocultar Detalles"
+    local_information:
+      title: "Información Local"
+      show: "Mostrar Detalles"
+      hide: "Ocultar Detalles"
   api:
     success: "Éxito"
     error:

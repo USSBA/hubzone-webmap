@@ -125,6 +125,14 @@ HZApp.SidebarUtils = (function(){
         detail.hidden = !visibleState;
       });
 
+      // TODO: I think we want to refactor this here to be more generic for different types of details-expand things
+      elem.each(function(e) {
+        console.log(action)
+        if (elem[e].classList.contains(action)) {
+          console.log(elem[e], elem[e].hidden, elem[e].classList)
+        }
+
+      });
       // update the button link
       document.querySelector('span.additional-details-expand.show').hidden = (action === 'show' ? true : false);
       document.querySelector('span.additional-details-expand.hide').hidden = (action === 'hide' ? true : false);

@@ -54,6 +54,10 @@ en:
       title: "Designations"
       show: "Show Details"
       hide: "Hide Details"
+    local_information:
+      title: "Local Information"
+      show: "Show Details"
+      hide: "Hide Details"
   api:
     success: "Success"
     error:
