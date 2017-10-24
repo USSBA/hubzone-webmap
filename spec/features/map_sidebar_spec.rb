@@ -231,7 +231,7 @@ describe "The Sidebar", type: :feature do
       expect(page).not_to have_content('Designations')
     end
     it "will not have show details" do
-      expect(page).not_to have_content('Show Details')
+      expect(page).not_to have_content('Designations Show Details')
     end
   end
 
@@ -249,7 +249,7 @@ describe "The Sidebar", type: :feature do
       expect(page).to have_content('Designations')
     end
     it "will have show details" do
-      expect(page).to have_content('Show Details')
+      expect(page).to have_content('Designations Show Details')
     end
   end
 
@@ -295,7 +295,16 @@ describe "The Sidebar", type: :feature do
     end
   end
 
-  context "will have local information details" do
+  context "will have local information details", js: true do
+    before do
+      Excon.stub({},
+                 body: responses[:redesignated].to_json)
+      fill_in 'search', with: queries[:redesignated]
+      click_button "hubzone-search-button"
+      # click_button ".local-information-expand.show"
+      save_and_open_page
+    end
+
     it "will have local information title" do
       expect(page).to have_content("Local Information")
     end
