@@ -58,6 +58,10 @@ en:
       title: "Local Information"
       show: "Show Details"
       hide: "Hide Details"
+    other_information:
+      congressional_district: "Congressional District"
+      congressional_session: "Congressional Session"
+      state: "State"
   api:
     success: "Success"
     error:

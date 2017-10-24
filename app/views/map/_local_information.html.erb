@@ -4,14 +4,18 @@
       <span class="local-information-title">
         <%= t('sidebar.local_information.title') %>
       </span>
-      <span class="local-information-expand show" data-action="show">
+      <span class="local-information-expand show" data-action="show" data-cookie="hz-sidebar-li-open" data-expands="sidebar-other-information">
         <%= t('sidebar.local_information.show') %>
       </span>
-      <span class="local-information-expand hide" data-action="hide" hidden>
+      <span class="local-information-expand hide" data-action="hide" data-cookie="hz-sidebar-li-open" data-expands="sidebar-other-information" hidden>
         <%= t('sidebar.local_information.hide') %>
       </span>
     </div>
     <div class="sidebar-other-information">
+      <% if other_information["congressional_district"] && other_information["congressional_district"][0] %>
+        <%= render partial: 'map/additional_details/congressional_district', locals: {congressional_district: other_information["congressional_district"][0]} %>
+      <% end %>
     </div>
   </div>
 </div>
+

@@ -88,9 +88,10 @@ HZApp.SidebarUtils = (function(){
       elem.on('click', HZApp.SidebarUtils.triggerAccordion);
     },
     setAccordionStateFromCookie: function(elem){
-      var sidebarAccordionCookie = HZApp.Cookies.getItem('hz-sbq-open');
+      var sidebarAccordionCookie = HZApp.Cookies.getItem(elem.data('cookie'));
 
-      var currentlyHidden = document.querySelector('span.additional-details-expand.hide').hidden;
+      var hide_selector = ['span' + elem.selector, 'hide'].join('.');
+      var currentlyHidden = document.querySelector(hide_selector).hidden;
 
       if (sidebarAccordionCookie === null || sidebarAccordionCookie === 'false'){
         if (!currentlyHidden) {
@@ -115,11 +116,11 @@ HZApp.SidebarUtils = (function(){
     },
     setAccordionOpenState: function(elem, visibleState, action){
       // set the cookie
-      HZApp.Cookies.removeItem('hz-sbq-open');
-      HZApp.Cookies.setItem('hz-sbq-open', visibleState);
+      HZApp.Cookies.removeItem(elem.data('cookie'));
+      HZApp.Cookies.setItem(elem.data('cookie'), visibleState);
 
-      // update the accordion statuse
-      var detailsRows = document.querySelectorAll('.designation-details-row');
+      // update the accordion status
+      var detailsRows = document.querySelectorAll('.' + elem.data('expands') + ' ' + '.details-row');
 
       detailsRows.forEach(function(detail){
         detail.hidden = !visibleState;
@@ -127,15 +128,15 @@ HZApp.SidebarUtils = (function(){
 
       // TODO: I think we want to refactor this here to be more generic for different types of details-expand things
       elem.each(function(e) {
-        console.log(action)
         if (elem[e].classList.contains(action)) {
-          console.log(elem[e], elem[e].hidden, elem[e].classList)
-        }
+          var show_selector = ['span', elem[e].classList[0], 'show'].join('.');
+          var hide_selector = ['span', elem[e].classList[0], 'hide'].join('.');
 
+          // update the button link
+          document.querySelector(show_selector).hidden = (action === 'show' ? true : false);
+          document.querySelector(hide_selector).hidden = (action === 'hide' ? true : false);
+        }
       });
-      // update the button link
-      document.querySelector('span.additional-details-expand.show').hidden = (action === 'show' ? true : false);
-      document.querySelector('span.additional-details-expand.hide').hidden = (action === 'hide' ? true : false);
     },
     centerMapMarker: function(hash, geocodeLatLng) {
       // if a query is present, get the response geocode, parse it, and update the center

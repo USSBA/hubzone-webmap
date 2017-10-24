@@ -78,10 +78,10 @@
       <span class="additional-details-title">
         <%= t('sidebar.details.title') %>
       </span>
-      <span class="additional-details-expand show" data-action="show">
+      <span class="additional-details-expand show" data-action="show" data-cookie="hz-sidebar-ad-open" data-expands="sidebar-additional-details">
         <%= t('sidebar.details.show') %>
       </span>
-      <span class="additional-details-expand hide" data-action="hide" hidden>
+      <span class="additional-details-expand hide" data-action="hide" data-cookie="hz-sidebar-ad-open" data-expands="sidebar-additional-details" hidden>
         <%= t('sidebar.details.hide') %>
       </span>
     </div>
@@ -96,7 +96,6 @@
 <% end %>
 
 <% if has_other_info %>
-  <% puts "@@@@@@@@@@@@: #{has_other_info}" %>
   <%= render partial: "local_information", locals: {other_information: body['other_information'], details_visibility: details_visibility}  %>
 <% end %>
 

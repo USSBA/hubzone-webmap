@@ -58,6 +58,10 @@ dev:
       title: "Información Local"
       show: "Mostrar Detalles"
       hide: "Ocultar Detalles"
+    other_information:
+      congressional_district: "Distrito Congresional"
+      congressional_session: "Sesión del Congreso"
+      state: "Estado"
   api:
     success: "Éxito"
     error:
