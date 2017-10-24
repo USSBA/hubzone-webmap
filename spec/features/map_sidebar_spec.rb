@@ -301,8 +301,7 @@ describe "The Sidebar", type: :feature do
                  body: responses[:redesignated].to_json)
       fill_in 'search', with: queries[:redesignated]
       click_button "hubzone-search-button"
-      # click_button ".local-information-expand.show"
-      save_and_open_page
+      find(".local-information-expand.show").click
     end
 
     it "will have local information title" do

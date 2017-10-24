@@ -1,6 +1,8 @@
 //= require hzmap/sidebar
 //= require hzmap/ga
 //= require hzmap/cookies
+//= require hzmap/hash-utils
+//= require hzmap/router
 /* jshint unused: false */
 /* jshint undef: false */
 
@@ -68,65 +70,89 @@ describe ('Testing sidebar operations', function() {
     beforeEach(function(){
       accordion = $('.additional-details-expand');
       rows = document.querySelectorAll('.designation-details-row');
-      HZApp.Cookies.setItem('hz-sbq-open', false);
+      HZApp.Cookies.setItem('hz-sidebar-ad-open', false);
       document.querySelector('span.additional-details-expand.show').hidden = false;
       document.querySelector('span.additional-details-expand.hide').hidden = true;
     });
 
-    it ("should be closed by default on sidebar open", function(){
-      sidebar.open();
-      expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
-      expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(true);
-      expect(HZApp.Cookies.getItem('hz-sbq-open')).toEqual('false');
+    describe("details should be closed by default on sidebar open", function(){
+      beforeEach(function(){
+        sidebar.open();
+      });
+      it ("show is not hidden", function(){
+        expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
+      });
+      it ("hide is hidden", function(){
+        expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(true);
+      });
+      it ("cookie is off", function(){
+        expect(HZApp.Cookies.getItem('hz-sidebar-ad-open')).toEqual('false');
+      });
     });
 
-    it ("should open the additonal details panel", function(){
-      sidebar.open();
-      accordion = $('.additional-details-expand.show');
-      HZApp.SidebarUtils.bindAccordion(accordion);
-      accordion.trigger('click');
-      expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(true);
-      expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(false);
-      expect(HZApp.Cookies.getItem('hz-sbq-open')).toEqual('true');
+    describe("should open the additonal details panel", function(){
+      beforeEach(function(){
+        sidebar.open();
+        accordion = $('.additional-details-expand.show');
+        HZApp.SidebarUtils.bindAccordion(accordion);
+        accordion.trigger('click');
+      });
+      it ("show is hidden", function(){
+        expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(true);
+      });
+      it ("hide is not hidden", function(){
+        expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(false);
+      });
+      it ("cookie is on", function(){
+        expect(HZApp.Cookies.getItem('hz-sidebar-ad-open')).toEqual('true');
+      });
     });
 
-    it ("should close the additonal details panel", function(){
-      sidebar.open();
-      accordion = $('.additional-details-expand.hide');
-      HZApp.SidebarUtils.bindAccordion(accordion);
-      HZApp.SidebarUtils.setAccordionOpenState(accordion, true);
-      accordion.trigger('click');
-      expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
-      expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(true);
-      expect(HZApp.Cookies.getItem('hz-sbq-open')).toEqual('false');
+    describe("should close the additonal details panel", function(){
+      beforeEach(function(){
+        sidebar.open();
+        accordion = $('.additional-details-expand.hide');
+        HZApp.SidebarUtils.bindAccordion(accordion);
+        HZApp.SidebarUtils.setAccordionOpenState(accordion, true);
+        accordion.trigger('click');
+      });
+      it ("show is not hidden", function(){
+        expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
+      });
+      it ("hide is hidden", function(){
+        expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(true);
+      });
+      it ("cookie is off", function(){
+        expect(HZApp.Cookies.getItem('hz-sidebar-ad-open')).toEqual('false');
+      });
     });
 
     it ("should load a closed accordion if the cookie is closed on load", function(){
-      HZApp.Cookies.setItem('hz-sbq-open', false);
+      HZApp.Cookies.setItem('hz-sidebar-ad-open', false);
       accordion = $('.additional-details-expand.show');
       HZApp.SidebarUtils.setAccordionStateFromCookie(accordion);
       expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
       expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(true);
-      expect(HZApp.Cookies.getItem('hz-sbq-open')).toEqual('false');
+      expect(HZApp.Cookies.getItem('hz-sidebar-ad-open')).toEqual('false');
     });
 
     it ("should load a open accordion if the cookie is open on load", function(){
-      HZApp.Cookies.setItem('hz-sbq-open', true);
+      HZApp.Cookies.setItem('hz-sidebar-ad-open', true);
       accordion = $('.additional-details-expand.show');
       HZApp.SidebarUtils.setAccordionStateFromCookie(accordion);
       expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(true);
       expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(false);
-      expect(HZApp.Cookies.getItem('hz-sbq-open')).toEqual('true');
+      expect(HZApp.Cookies.getItem('hz-sidebar-ad-open')).toEqual('true');
     });
 
     it ("should set the cookie accordion state, and bind clicks to accordion", function(){
-      HZApp.Cookies.setItem('hz-sbq-open', true);
+      HZApp.Cookies.setItem('hz-sidebar-ad-open', true);
       accordion = $('.additional-details-expand.hide');
       HZApp.SidebarUtils.updateAccordion(accordion);
       accordion.trigger('click');
       expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
       expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(true);
-      expect(HZApp.Cookies.getItem('hz-sbq-open')).toEqual('false');
+      expect(HZApp.Cookies.getItem('hz-sidebar-ad-open')).toEqual('false');
     });
   });
 
