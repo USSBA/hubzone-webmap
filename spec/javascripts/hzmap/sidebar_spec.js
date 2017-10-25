@@ -66,11 +66,12 @@ describe ('Testing sidebar operations', function() {
   });
 
   describe("additional details open/close behavior", function(){
-    var accordion, rows;
+    var accordion, accordion_show, accordion_hide;
     // before each, set the accordion to the 'closed' state
     beforeEach(function(){
       accordion = $('.additional-details-expand');
-      rows = document.querySelectorAll('.designation-details-row');
+      accordion_show = $('.additional-details-expand.show');
+      accordion_hide = $('.additional-details-expand.hide');
       HZApp.Cookies.setItem('hz-sidebar-ad-open', false);
       document.querySelector('span.additional-details-expand.show').hidden = false;
       document.querySelector('span.additional-details-expand.hide').hidden = true;
@@ -94,9 +95,8 @@ describe ('Testing sidebar operations', function() {
     describe("should open the additonal details panel", function(){
       beforeEach(function(){
         sidebar.open();
-        accordion = $('.additional-details-expand.show');
-        HZApp.SidebarUtils.bindAccordion(accordion);
-        accordion.trigger('click');
+        HZApp.SidebarUtils.updateAccordion(accordion);
+        accordion_show.trigger('click');
       });
       it ("show is hidden", function(){
         expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(true);
@@ -112,10 +112,9 @@ describe ('Testing sidebar operations', function() {
     describe("should close the additonal details panel", function(){
       beforeEach(function(){
         sidebar.open();
-        accordion = $('.additional-details-expand.hide');
-        HZApp.SidebarUtils.bindAccordion(accordion);
-        HZApp.SidebarUtils.setAccordionOpenState(accordion, true);
-        accordion.trigger('click');
+        HZApp.Cookies.setItem('hz-sidebar-ad-open', true);
+        HZApp.SidebarUtils.updateAccordion(accordion);
+        accordion_hide.trigger('click');
       });
       it ("show is not hidden", function(){
         expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
@@ -131,10 +130,8 @@ describe ('Testing sidebar operations', function() {
     describe("should close the additonal details panel", function(){
       beforeEach(function(){
         sidebar.open();
-        accordion = $('.additional-details-expand.hide');
-        HZApp.SidebarUtils.bindAccordion(accordion);
-        HZApp.SidebarUtils.setAccordionOpenState(accordion, true);
-        accordion.trigger('click');
+        HZApp.SidebarUtils.updateAccordion(accordion);
+        accordion_hide.trigger('click');
       });
       it ("show is not hidden", function(){
         expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
@@ -150,8 +147,7 @@ describe ('Testing sidebar operations', function() {
     describe("should load a closed accordion if the cookie is closed on load", function(){
       beforeEach(function(){
         HZApp.Cookies.setItem('hz-sidebar-ad-open', false);
-        accordion = $('.additional-details-expand.show');
-        HZApp.SidebarUtils.setAccordionStateFromCookie(accordion);
+        HZApp.SidebarUtils.updateAccordion(accordion);
       });
       it ("show is not hidden", function(){
         expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
@@ -167,8 +163,7 @@ describe ('Testing sidebar operations', function() {
     describe("should load a open accordion if the cookie is open on load", function(){
       beforeEach(function(){
         HZApp.Cookies.setItem('hz-sidebar-ad-open', true);
-        accordion = $('.additional-details-expand.show');
-        HZApp.SidebarUtils.setAccordionStateFromCookie(accordion);
+        HZApp.SidebarUtils.updateAccordion(accordion);
       });
       it ("show is hidden", function(){
         expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(true);
@@ -184,9 +179,8 @@ describe ('Testing sidebar operations', function() {
     describe("should set the cookie accordion state, and bind clicks to accordion", function(){
       beforeEach(function(){
         HZApp.Cookies.setItem('hz-sidebar-ad-open', true);
-        accordion = $('.additional-details-expand.hide');
         HZApp.SidebarUtils.updateAccordion(accordion);
-        accordion.trigger('click');
+        accordion_hide.trigger('click');
       });
       it ("show is hidden", function(){
         expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
