@@ -1,8 +1,6 @@
 //= require hzmap/sidebar
 //= require hzmap/ga
 //= require hzmap/cookies
-//= require hzmap/hash-utils
-//= require hzmap/router
 /* jshint unused: false */
 /* jshint undef: false */
 
@@ -12,11 +10,14 @@ describe ('Testing sidebar operations', function() {
     this.fixtures = fixture.load("hz_mock_sidebar.html", "hz_mock_legend.html", true);
     HZApp.SidebarUtils.buildSidebar();
     sidebar = HZApp.SidebarUtils.sidebar;
+    google = HZSpecHelper.google;
+    HZApp.map = new google.maps.Map();
   });
 
   afterEach(function() {
     HZApp.SidebarUtils.sidebar = {};
     sidebar = {};
+    HZApp.map = {};
   });
 
   it ("should create a sidebar", function(){
@@ -127,55 +128,115 @@ describe ('Testing sidebar operations', function() {
       });
     });
 
-    it ("should load a closed accordion if the cookie is closed on load", function(){
-      HZApp.Cookies.setItem('hz-sidebar-ad-open', false);
-      accordion = $('.additional-details-expand.show');
-      HZApp.SidebarUtils.setAccordionStateFromCookie(accordion);
-      expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
-      expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(true);
-      expect(HZApp.Cookies.getItem('hz-sidebar-ad-open')).toEqual('false');
+    describe("should close the additonal details panel", function(){
+      beforeEach(function(){
+        sidebar.open();
+        accordion = $('.additional-details-expand.hide');
+        HZApp.SidebarUtils.bindAccordion(accordion);
+        HZApp.SidebarUtils.setAccordionOpenState(accordion, true);
+        accordion.trigger('click');
+      });
+      it ("show is not hidden", function(){
+        expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
+      });
+      it ("hide is hidden", function(){
+        expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(true);
+      });
+      it ("cookie is off", function(){
+        expect(HZApp.Cookies.getItem('hz-sidebar-ad-open')).toEqual('false');
+      });
     });
 
-    it ("should load a open accordion if the cookie is open on load", function(){
-      HZApp.Cookies.setItem('hz-sidebar-ad-open', true);
-      accordion = $('.additional-details-expand.show');
-      HZApp.SidebarUtils.setAccordionStateFromCookie(accordion);
-      expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(true);
-      expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(false);
-      expect(HZApp.Cookies.getItem('hz-sidebar-ad-open')).toEqual('true');
+    describe("should load a closed accordion if the cookie is closed on load", function(){
+      beforeEach(function(){
+        HZApp.Cookies.setItem('hz-sidebar-ad-open', false);
+        accordion = $('.additional-details-expand.show');
+        HZApp.SidebarUtils.setAccordionStateFromCookie(accordion);
+      });
+      it ("show is not hidden", function(){
+        expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
+      });
+      it ("hide is hidden", function(){
+        expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(true);
+      });
+      it ("cookie is off", function(){
+        expect(HZApp.Cookies.getItem('hz-sidebar-ad-open')).toEqual('false');
+      });
     });
 
-    it ("should set the cookie accordion state, and bind clicks to accordion", function(){
-      HZApp.Cookies.setItem('hz-sidebar-ad-open', true);
-      accordion = $('.additional-details-expand.hide');
-      HZApp.SidebarUtils.updateAccordion(accordion);
-      accordion.trigger('click');
-      expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
-      expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(true);
-      expect(HZApp.Cookies.getItem('hz-sidebar-ad-open')).toEqual('false');
+    describe("should load a open accordion if the cookie is open on load", function(){
+      beforeEach(function(){
+        HZApp.Cookies.setItem('hz-sidebar-ad-open', true);
+        accordion = $('.additional-details-expand.show');
+        HZApp.SidebarUtils.setAccordionStateFromCookie(accordion);
+      });
+      it ("show is hidden", function(){
+        expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(true);
+      });
+      it ("hide is not hidden", function(){
+        expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(false);
+      });
+      it ("cookie is on", function(){
+        expect(HZApp.Cookies.getItem('hz-sidebar-ad-open')).toEqual('true');
+      });
+    });
+
+    describe("should set the cookie accordion state, and bind clicks to accordion", function(){
+      beforeEach(function(){
+        HZApp.Cookies.setItem('hz-sidebar-ad-open', true);
+        accordion = $('.additional-details-expand.hide');
+        HZApp.SidebarUtils.updateAccordion(accordion);
+        accordion.trigger('click');
+      });
+      it ("show is hidden", function(){
+        expect(document.querySelector('span.additional-details-expand.show').hidden).toEqual(false);
+      });
+      it ("hide is not hidden", function(){
+        expect(document.querySelector('span.additional-details-expand.hide').hidden).toEqual(true);
+      });
+      it ("cookie is on", function(){
+        expect(HZApp.Cookies.getItem('hz-sidebar-ad-open')).toEqual('false');
+      });
     });
   });
 
-  it ("should update the attributes on the qualifications div for the screen reader", function(){
-    var hz_elem  = $('#hubzone-qualifications');
-    spyOn(hz_elem, 'focus').and.callThrough();
-    HZApp.SidebarUtils.updateA11yFocus(hz_elem);
-    expect(hz_elem.attr('aria-live')).toEqual('rude');
-    expect(hz_elem.attr('tabindex')).toEqual('-1');
-    expect(hz_elem.focus.calls.count()).toEqual(1);
+  describe("should update the attributes on the qualifications div for the screen reader", function(){
+    beforeEach(function(){
+      var hz_elem  = $('#hubzone-qualifications');
+      spyOn(hz_elem, 'focus').and.callThrough();
+      HZApp.SidebarUtils.updateA11yFocus(hz_elem);
+    });
+    it ("should have a aria-rude prop", function(){
+      expect(hz_elem.attr('aria-live')).toEqual('rude');
+    });
+    it ("should have a -1 tabindex", function(){
+      expect(hz_elem.attr('tabindex')).toEqual('-1');
+    });
+    it ("should get focus", function(){
+      expect(hz_elem.focus.calls.count()).toEqual(1);
+    });
   });
 
-  it ("should recenter the map on address-marker click to the latlng when provided", function(){
-    location.hash = "#center=45.493490,-98.249910&zoom=5&latlng=40.813809,-102.172852";
-    spyOn(HZApp.Router, "updateCenter");
-    HZApp.SidebarUtils.centerMapMarker({latlng: "40.813809,-102.172852"}, {lat: 40.813809, lng: -102.172852});
-    expect(HZApp.Router.updateCenter.calls.count()).toEqual(1);
-  });
+  describe("testing calls out to the router on marker click", function(){
+    beforeEach(function(){
+      // stub out the Router and updateCenter method since we don't really want it running,
+      // but we need to know it exists
+      HZApp.Router = {
+        updateCenter: function(){ return; }
+      };
+    });
+    it ("should recenter the map on address-marker click to the latlng when provided", function(){
+      location.hash = "#center=45.493490,-98.249910&zoom=5&latlng=40.813809,-102.172852";
+      spyOn(HZApp.Router, "updateCenter");
+      HZApp.SidebarUtils.centerMapMarker({latlng: "40.813809,-102.172852"}, {lat: 40.813809, lng: -102.172852});
+      expect(HZApp.Router.updateCenter.calls.count()).toEqual(1);
+    });
 
-  it ("should recenter the map on address-marker click to the query geocode when provided", function(){
-    location.hash = "#center=45.493490,-98.249910&zoom=5&q=40.813809,-102.172852";
-    spyOn(HZApp.Router, "updateCenter");
-    HZApp.SidebarUtils.centerMapMarker({q: "40.813809,-102.172852"}, {lat: 40.813809, lng: -102.172852});
-    expect(HZApp.Router.updateCenter.calls.count()).toEqual(1);
+    it ("should recenter the map on address-marker click to the query geocode when provided", function(){
+      location.hash = "#center=45.493490,-98.249910&zoom=5&q=40.813809,-102.172852";
+      spyOn(HZApp.Router, "updateCenter");
+      HZApp.SidebarUtils.centerMapMarker({q: "40.813809,-102.172852"}, {lat: 40.813809, lng: -102.172852});
+      expect(HZApp.Router.updateCenter.calls.count()).toEqual(1);
+    });
   });
 });
