@@ -3,8 +3,7 @@ require 'uri'
 
 # Provides access to the main page with the HUBZone map
 class MapController < ApplicationController
-  def index
-  end
+  def index; end
 
   def search
     query = format_query params
