@@ -201,8 +201,9 @@ describe ('Testing sidebar operations', function() {
   });
 
   describe("should update the attributes on the qualifications div for the screen reader", function(){
+    var hz_elem;
     beforeEach(function(){
-      var hz_elem  = $('#hubzone-qualifications');
+      hz_elem  = $('#hubzone-qualifications');
       spyOn(hz_elem, 'focus').and.callThrough();
       HZApp.SidebarUtils.updateA11yFocus(hz_elem);
     });
