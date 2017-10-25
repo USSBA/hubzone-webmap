@@ -6,7 +6,8 @@
     date = body['query_date'].present? ? (I18n.l Date.parse(body['query_date']), format: :full) : body['query_date']
     until_date = body['until_date'].present? ? (I18n.l Date.parse(body['until_date']), format: :full) : nil
     date_status = until_date && Date.parse(body['until_date']) < Date.today ? "expired" : "until"
-    has_likely_qda = true if body['other_information'] && body['other_information']['alerts'] && body['other_information']['alerts']['likely_qda_designations'].present?
+    has_other_info = true if body['other_information'] && body['other_information']['congressional_district'] && body['other_information']['congressional_district'].length > 0
+    has_likely_qda = true if has_other_info && body['other_information']['alerts'] && body['other_information']['alerts']['likely_qda_designations'].present?
 
     if body['formatted_address'].nil?
       visibility = 'hidden'
@@ -77,10 +78,10 @@
       <span class="additional-details-title">
         <%= t('sidebar.details.title') %>
       </span>
-      <span class="additional-details-expand show" data-action="show">
+      <span class="additional-details-expand show" data-action="show" data-cookie="hz-sidebar-ad-open" data-expands="sidebar-additional-details">
         <%= t('sidebar.details.show') %>
       </span>
-      <span class="additional-details-expand hide" data-action="hide" hidden>
+      <span class="additional-details-expand hide" data-action="hide" data-cookie="hz-sidebar-ad-open" data-expands="sidebar-additional-details" hidden>
         <%= t('sidebar.details.hide') %>
       </span>
     </div>
@@ -92,6 +93,10 @@
 
 <% if has_likely_qda %>
   <%= render partial: "likely_qualification_alert", locals: {likely_qda_designations: body['other_information']['alerts']['likely_qda_designations']}  %>
+<% end %>
+
+<% if has_other_info %>
+  <%= render partial: "local_information", locals: {other_information: body['other_information'], details_visibility: details_visibility}  %>
 <% end %>
 
 <div class="sidebar-card map-actions">

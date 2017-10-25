@@ -1,6 +1,6 @@
 require "rails_helper"
 
-#rubocop:disable Metrics/BlockLength, Style/NumericLiterals, RSpec/DescribeClass
+#rubocop:disable Metrics/BlockLength, RSpec/DescribeClass
 RSpec.describe "map/map_sidebar" do
   required_fields = {
     qct: %w[tract_fips county state],

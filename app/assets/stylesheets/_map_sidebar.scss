@@ -175,7 +175,7 @@ table th {
   display: table;
   width: 100%;
 }
-.designation-details-row {
+.details-row {
   border-top: 1px solid $gray-lightest;
 }
 .designation-details-item {
@@ -230,7 +230,47 @@ table th {
   background-image: none;
   cursor: initial;
 }
-
+.sidebar-local-information {
+  margin: 0;
+}
+.sidebar-local-information {
+  border: none;
+  border-radius: 3px;
+  padding: 0;
+}
+.local-information li {
+  margin-bottom: 0px;
+  background-color: transparent
+}
+.local-information-button {
+  background-color: transparent;
+  border-radius: 3px;
+}
+.local-information .usa-accordion-button {
+  color: $gray-dark;
+  background-color: transparent;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.local-information-expand {
+  float: right;
+  padding-top: 0.2rem;
+  font-size: 1.3rem;
+  font-weight: normal;
+  cursor: pointer;
+  color: $primary;
+}
+.local-information-expand:hover {
+  color: $primary-darker;
+}
+#local-information-button {
+  background-image: none;
+  cursor: initial;
+}
+.sidebar-local-information thead th {
+  padding: 1rem;
+  font-size: 1.5rem;
+}
 button#map-report {
   background-color: $white;
   margin: 1.7rem 0.5rem 1.5rem 1.5rem;
