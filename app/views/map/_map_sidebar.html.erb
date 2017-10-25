@@ -6,7 +6,7 @@
     date = body['query_date'].present? ? (I18n.l Date.parse(body['query_date']), format: :full) : body['query_date']
     until_date = body['until_date'].present? ? (I18n.l Date.parse(body['until_date']), format: :full) : nil
     date_status = until_date && Date.parse(body['until_date']) < Date.today ? "expired" : "until"
-    has_other_info = true if body['other_information']
+    has_other_info = true if body['other_information'] && body['other_information']['congressional_district']
     has_likely_qda = true if has_other_info && body['other_information']['alerts'] && body['other_information']['alerts']['likely_qda_designations'].present?
 
     if body['formatted_address'].nil?
