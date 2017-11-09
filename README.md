@@ -2,7 +2,23 @@
 
 This application houses the new and improved HUBZone Map for the Small Business Administration.  All development is currently being done off of the `develop` branch.
 
-Requirements:
+### Table of Contents
+- [License](#license)
+- [Installation](#installation)
+  - [Requirements](#requirements)
+  - [Building](#building)
+  - [Installation](#installation)
+- [Testing](#testing)
+- [Additional Configuration](#additional configuration)
+- [External Services](#external services)
+- [Changelog](#changelog)
+- [Contributing](#contributing)
+- [Security Issues](#security issues)
+- [Code of Conduct](#code of conduct)
+
+### License
+### Installation
+#### Requirements:
 * rvm
   - http://rvm.io/
 * ruby 2.3.3
@@ -36,6 +52,7 @@ Requirements:
       * `echo 'export PGSQL_HOME=/usr/pgsql-9.5' >> ~/.bashrc`
       * `echo 'export PATH=${PATH}:${PGSQL_HOME}/bin' >> ~/.bashrc`
 
+#### Building
 After cloning the repo, checkout out the `develop` branch and set up your environment:
 ```
 git checkout develop
@@ -59,9 +76,9 @@ Then point your browser to http://localhost:3000/
 
 Note: for the map to "work", you will need to have the API and GeoServer running as well.  See the README in the hubzone-api repository for details.
 
-# Running Tests #
+### Testing
 
-## Rspec Tests
+#### Rspec Tests
 
 To run the test suite, simply run:
 ```
@@ -78,13 +95,13 @@ To view the coverage report, open
 coverage/index.html
 ```
 
-## Rubocop ##
+#### Rubocop
 ```
 rubocop -D
 ```
 
-## Javascript Tests ##
-### Teaspoon / Jasmine / Istanbul Unit and Coverage tests ###
+#### Javascript Tests
+##### Teaspoon / Jasmine / Istanbul Unit and Coverage tests
 Teaspoon is used for Javascript testing and coverage.  It runs Jasmine for unit and integration tests and Istanbul for test coverage.
 
 First install Istanbul:
@@ -112,9 +129,21 @@ To view live version of Teaspoon tests
 localhost:3000/teaspoon
 ```
 
-### JSHint Lint Tests ###
+##### JSHint Lint Tests
 Tring to use this JSHint gem [JSHint](https://github.com/damian/jshint), per its docs:
 
 Add `gem 'jshint'` to the Gemfile under `group :development, :test`
 
 Run `bundle` to install, then run `bundle exec rake jshint` to run test.  Currently this is running the linter then causing a rake error, which appears to be an ongoing issue with this gem.
+
+### Additional configuration
+
+### External services
+
+### Changelog
+
+### Contributing
+
+### Security Issues
+
+### Code of Conduct
