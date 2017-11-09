@@ -7,7 +7,7 @@ This application houses the new and improved HUBZone Map for the Small Business 
 - [Installation](#installation)
   - [Requirements](#requirements)
   - [Building](#building)
-  - [Installation](#installation)
+  - [Deploying](#deploying)
 - [Testing](#testing)
 - [Additional Configuration](#additional configuration)
 - [External Services](#external services)
@@ -16,33 +16,33 @@ This application houses the new and improved HUBZone Map for the Small Business 
 - [Security Issues](#security issues)
 - [Code of Conduct](#code of conduct)
 
-### License
-### Installation
-#### Requirements:
-* rvm
+## License
+
+## Installation
+### Requirements:
+* RVM
   - http://rvm.io/
-* ruby 2.3.3
+* Ruby 2.3.3
   - `rvm install 2.3.3`
-* bundler 1.13.6
+* Bundler 1.13.6
   - `rvm @global do gem install -v 1.13.6 bundler`
 * JavaScript interpreter (node)
-  * nvm
-    * `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash`
-  * Install node
-    * `nvm install 5`
+  * [NodeJS](https://nodejs.org/en/download/)  JavaScript Interpreter 6.11.5, or newer
+    - Mac
+      - `brew install node`
 * PhantomJS 1.8.1, or newer (required for Capybara tests with Poltergeist)
   * Mac
     * `brew install phantomjs`
   * Linux
     * [download this tarball](https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2)
     * Extract the tarball and copy `bin/phantomjs` into your `PATH`
-* postgresql 9.5
+* PostgreSQL 9.5
   * Mac
-    - I use [Postgres.app](http://postgresapp.com/)
-    - could also use `brew install postgresql`
-    - set `PGSQL_HOME` to your installation dir
+    - Use [Postgres.app](http://postgresapp.com/)
+    - Can also use `brew install postgresql`
+    - Set `PGSQL_HOME` to your installation dir
       - e.g. `export PGSQL_HOME=/Applications/Postgres.app/Contents/Versions/9.5`
-    - ensure that the bin directory is in your path
+    - Ensure that the bin directory is in your path
       - e.g. `export PATH=${PATH}:${PGSQL_HOME}/bin`
   * Linux (rhel)
     * Install:
@@ -52,7 +52,7 @@ This application houses the new and improved HUBZone Map for the Small Business 
       * `echo 'export PGSQL_HOME=/usr/pgsql-9.5' >> ~/.bashrc`
       * `echo 'export PATH=${PATH}:${PGSQL_HOME}/bin' >> ~/.bashrc`
 
-#### Building
+### Building
 After cloning the repo, checkout out the `develop` branch and set up your environment:
 ```
 git checkout develop
@@ -68,17 +68,20 @@ bundle exec rake db:create db:migrate
 
 If the `bundle install` fails due to the pg gem, make sure you have the ENV vars above set in your shell.
 
+### Deploying
 To launch the map:
 ``` bash
 rails server
 ```
 Then point your browser to http://localhost:3000/
 
-Note: for the map to "work", you will need to have the API and GeoServer running as well.  See the README in the hubzone-api repository for details.
+Note: for the map to "work", you will need to have the Hubzone API and an instance of  GeoServer running as well.  See the README in the [hubzone-api](https://github.com/USSBA/hubzone-api) repository for details.
 
-### Testing
+## Additional configuration
 
-#### Rspec Tests
+## Testing
+
+### Rspec Tests
 
 To run the test suite, simply run:
 ```
@@ -95,13 +98,13 @@ To view the coverage report, open
 coverage/index.html
 ```
 
-#### Rubocop
+### Rubocop
 ```
 rubocop -D
 ```
 
-#### Javascript Tests
-##### Teaspoon / Jasmine / Istanbul Unit and Coverage tests
+### Javascript Tests
+#### Teaspoon / Jasmine / Istanbul Unit and Coverage tests
 Teaspoon is used for Javascript testing and coverage.  It runs Jasmine for unit and integration tests and Istanbul for test coverage.
 
 First install Istanbul:
@@ -129,21 +132,22 @@ To view live version of Teaspoon tests
 localhost:3000/teaspoon
 ```
 
-##### JSHint Lint Tests
-Tring to use this JSHint gem [JSHint](https://github.com/damian/jshint), per its docs:
+#### JSHint Lint Tests
+Using this JSHint gem [JSHint](https://github.com/damian/jshint), per its docs:
 
 Add `gem 'jshint'` to the Gemfile under `group :development, :test`
 
-Run `bundle` to install, then run `bundle exec rake jshint` to run test.  Currently this is running the linter then causing a rake error, which appears to be an ongoing issue with this gem.
+Run `bundle` to install, then run `bundle exec rake jshint` to run test.  
 
-### Additional configuration
+## External services
+- Connect to [Google Map API](https://developers.google.com/maps/) by putting your key in the .env file
+- Connect to [Google Analytics](https://www.google.com/analytics/analytics/features/) by putting your key in the .env file
 
-### External services
+## Changelog
+Refer to the changelog for details on API updates. [CHANGELOG](CHANGELOG.md)
 
-### Changelog
+## Contributing
 
-### Contributing
+## Security Issues
 
-### Security Issues
-
-### Code of Conduct
+## Code of Conduct
