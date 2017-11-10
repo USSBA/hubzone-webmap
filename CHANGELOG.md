@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.7.2] - 2017-11-20
+### shared-services-sprint-30
+### Changed
+  - HUB-957 Move the map type picker so that it can be visible in mobile.
+
 ## [1.7.1] - 2017-10-27
 ### shared-services-sprint-28
 ### Added
