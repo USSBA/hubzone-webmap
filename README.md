@@ -24,12 +24,9 @@ This application houses the new and improved HUBZone Map for the Small Business 
   - http://rvm.io/
 * Ruby 2.3.3
   - `rvm install 2.3.3`
-* Bundler 1.13.6
-  - `rvm @global do gem install -v 1.13.6 bundler`
-* JavaScript interpreter (node)
-  * [NodeJS](https://nodejs.org/en/download/)  JavaScript Interpreter 6.11.5, or newer
-    - Mac
-      - `brew install node`
+* Bundler
+  - `rvm @global do gem install bundler`
+  - Tested with version 1.13.6 or later
 * PhantomJS 1.8.1, or newer (required for Capybara tests with Poltergeist)
   * Mac
     * `brew install phantomjs`
@@ -78,6 +75,9 @@ Then point your browser to http://localhost:3000/
 Note: for the map to "work", you will need to have the Hubzone API and an instance of  GeoServer running as well.  See the README in the [hubzone-api](https://github.com/USSBA/hubzone-api) repository for details.
 
 ## Additional configuration
+
+Must connect to a GeoServer instance to produce map tiles
+  - http://geoserver.org/
 
 ## Testing
 
