@@ -9,12 +9,12 @@ This application houses the new and improved HUBZone Map for the Small Business 
   - [Building](#building)
   - [Deploying](#deploying)
 - [Testing](#testing)
-- [Additional Configuration](#additional configuration)
-- [External Services](#external services)
+- [Additional Configuration](#additional-configuration)
+- [External Services](#external-services)
 - [Changelog](#changelog)
 - [Contributing](#contributing)
-- [Security Issues](#security issues)
-- [Code of Conduct](#code of conduct)
+- [Security Issues](#security-issues)
+- [Code of Conduct](#code-of-conduct)
 
 ## License
 
