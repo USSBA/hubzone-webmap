@@ -27,7 +27,7 @@ This application houses the new and improved HUBZone Map for the Small Business 
 * Bundler
   - `rvm @global do gem install bundler`
   - Tested with version 1.13.6 or later
-* PhantomJS 1.8.1, or newer (required for Capybara tests with Poltergeist)
+* PhantomJS 2.1.1, or newer (required for Capybara tests with Poltergeist)
   * Mac
     * `brew install phantomjs`
   * Linux
