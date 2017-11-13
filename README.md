@@ -8,8 +8,8 @@ This application houses the new and improved HUBZone Map for the Small Business 
   - [Requirements](#requirements)
   - [Building](#building)
   - [Deploying](#deploying)
-- [Testing](#testing)
 - [Additional Configuration](#additional-configuration)
+- [Testing](#testing)
 - [External Services](#external-services)
 - [Changelog](#changelog)
 - [Contributing](#contributing)
@@ -33,20 +33,20 @@ This application houses the new and improved HUBZone Map for the Small Business 
   * Linux
     * [download this tarball](https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2)
     * Extract the tarball and copy `bin/phantomjs` into your `PATH`
-* PostgreSQL 9.5
+* PostgreSQL 9.6
   * Mac
     - Use [Postgres.app](http://postgresapp.com/)
     - Can also use `brew install postgresql`
     - Set `PGSQL_HOME` to your installation dir
-      - e.g. `export PGSQL_HOME=/Applications/Postgres.app/Contents/Versions/9.5`
+      - e.g. `export PGSQL_HOME=/Applications/Postgres.app/Contents/Versions/9.6`
     - Ensure that the bin directory is in your path
       - e.g. `export PATH=${PATH}:${PGSQL_HOME}/bin`
   * Linux (rhel)
     * Install:
-      * `yum install https://download.postgresql.org/pub/repos/yum/9.5/redhat/rhel-6-x86_64/pgdg-redhat95-9.5-3.noarch.rpm`
-      * `yum install postgresql95-server postgresql95-devel`
+      * `yum install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-redhat96-9.6-3.noarch.rpm`
+      * `yum install postgresql96-server postgresql96-devel`
     * Configure:
-      * `echo 'export PGSQL_HOME=/usr/pgsql-9.5' >> ~/.bashrc`
+      * `echo 'export PGSQL_HOME=/usr/pgsql-9.6' >> ~/.bashrc`
       * `echo 'export PATH=${PATH}:${PGSQL_HOME}/bin' >> ~/.bashrc`
 
 ### Building
