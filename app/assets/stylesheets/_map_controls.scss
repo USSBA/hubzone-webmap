@@ -5,6 +5,13 @@
   transition-duration: 400ms;
   border-radius: 3px !important;
 }
+.gm-style-mtc {
+  transition-duration: 400ms;
+  border-radius: 3px !important;
+  top: 45px !important;
+  left: 5px !important;
+}
+
 .gm-tilt {
   transition-duration: 400ms;
   border-radius: 3px !important;
@@ -19,6 +26,7 @@
 .gm-sidebar-on {
   left: -34rem !important;
 }
+
 .gm-iv-address-link a {
   font-size: 9px !important;
 }
@@ -84,6 +92,7 @@ div[dir="ltr"] {
 .geolocation-sidebar-on {
   right: 34rem !important;
 }
+
 .error-popup.geolocation {
   margin-top: -0.6rem;
   margin-left: -26rem;
@@ -116,6 +125,11 @@ div[dir="ltr"] {
     margin-left: 2px;
     margin-top: -1px;
   }
+
+  .gm-style-mtc {
+    top: 35px !important;
+    left: 0px !important;
+  }
   .geolocation-loading {
     width: 28px;
     height: 28px;
@@ -127,9 +141,6 @@ div[dir="ltr"] {
     display: none;
   }
   .gmnoprint .gmnoprint {
-    display: none;
-  }
-  .gmnoprint .gm-style-mtc{
     display: none;
   }
   .gmnoprint .gm-svpc {
