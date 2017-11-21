@@ -48,6 +48,9 @@ This application houses the new and improved HUBZone Map for the Small Business 
     * Configure:
       * `echo 'export PGSQL_HOME=/usr/pgsql-9.6' >> ~/.bashrc`
       * `echo 'export PATH=${PATH}:${PGSQL_HOME}/bin' >> ~/.bashrc`
+* Poirot
+  - Install [Poirot](https://github.com/emanuelfeld/poirot) python utility, typically `pip install poirot` and make sure that poirot is available in PATH by confirming that your PYTHON/bin folder is in PATH.
+  - Refer to [Poirot Secrets Testing](#poirot-secrets-testing) for information on running this tool.
 
 ### Building
 After cloning the repo, checkout out the `develop` branch and set up your environment:
@@ -137,7 +140,14 @@ Using this JSHint gem [JSHint](https://github.com/damian/jshint), per its docs:
 
 Add `gem 'jshint'` to the Gemfile under `group :development, :test`
 
-Run `bundle` to install, then run `bundle exec rake jshint` to run test.  
+Run `bundle` to install, then run `bundle exec rake jshint` to run test.
+
+#### Poirot Secrets Testing
+A secrets pattern file `hubzone-poiroit-patterns.txt` is included with the app to assist with running [Poirot](https://github.com/emanuelfeld/poirot) to scan commit history for secrets.  It is recommended to run this only the current branch only:
+```
+  poirot --patterns hubzone-poirot-patterns.txt --revlist="develop^..HEAD"
+```
+Poirot will return an error status if it finds any secrets in the commit history between `HEAD` and develop.  You can correct these by: removing the secrets and squashing commits or by using something like BFG.
 
 ## External services
 - Connect to [Google Map API](https://developers.google.com/maps/) by putting your key in the .env file
