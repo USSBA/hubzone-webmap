@@ -9,6 +9,8 @@ workflows:
     jobs:
       - rubocop
       - rspec
+      - teaspoonJS
+      - jsHint
 jobs:
   rubocop:
     docker:
