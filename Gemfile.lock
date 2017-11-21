@@ -137,6 +137,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.10.3)
     multi_json (1.12.2)
+    newrelic_rpm (4.5.0.337)
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
@@ -297,6 +298,7 @@ DEPENDENCIES
   jshint
   launchy
   listen (~> 3.0.5)
+  newrelic_rpm (~> 4.5)
   pg
   poltergeist
   puma (~> 3.0)
@@ -315,4 +317,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   1.15.4
+   1.16.0.pre.3
