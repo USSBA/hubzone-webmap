@@ -42,8 +42,8 @@ jobs:
       # specify the version you desire here
        - image: sbagov/cc-sba-hz-webmap:1.0
          environment:
-           MSG_API_DB_USER: postgres
-           MSG_API_DB_PASSWORD: postgres
+           HUBZONE_MAP_DB_USER: postgres
+           HUBZONE_MAP_DB_PASSWORD: postgres
            RAILS_ENV: test
            #MSG_API_DB_HOST=postgres
 
@@ -101,8 +101,8 @@ jobs:
       # specify the version you desire here
        - image: sbagov/cc-sba-hz-webmap:1.0
          environment:
-           MSG_API_DB_USER: postgres
-           MSG_API_DB_PASSWORD: postgres
+           HUBZONE_MAP_DB_USER: postgres
+           HUBZONE_MAP_DB_PASSWORD: postgres
            RAILS_ENV: test
            #MSG_API_DB_HOST=postgres
 
@@ -153,8 +153,8 @@ jobs:
       # specify the version you desire here
        - image: sbagov/cc-sba-hz-webmap:1.0
          environment:
-           MSG_API_DB_USER: postgres
-           MSG_API_DB_PASSWORD: postgres
+           HUBZONE_MAP_DB_USER: postgres
+           HUBZONE_MAP_DB_PASSWORD: postgres
            RAILS_ENV: test
            #MSG_API_DB_HOST=postgres
 
