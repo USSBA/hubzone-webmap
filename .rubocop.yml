@@ -35,3 +35,6 @@ Metrics/LineLength:
 
 Style/NumericLiterals:
   Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
