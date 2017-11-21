@@ -15,3 +15,4 @@ RUN apt-get install -qq -y nodejs --fix-missing --no-install-recommends
 RUN npm install -g yarn
 RUN npm install -g jshint
 RUN npm install phantomjs
+RUN npm install -g istanbul
