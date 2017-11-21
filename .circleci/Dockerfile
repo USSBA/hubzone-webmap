@@ -2,7 +2,7 @@ FROM ruby:2.3.3-slim
 
 RUN echo deb http://ftp.debian.org/debian jessie-backports main > /etc/apt/sources.list.d/jessie-backports.list
 
-ENV PACKAGES build-essential libpq-dev netcat git curl libfontconfig
+ENV PACKAGES build-essential libpq-dev netcat git curl libfontconfig phantomjs
 ENV BACKPORT_PACKAGES postgresql-client-9.6
 
 RUN apt-get update && apt-get install -qq -y $PACKAGES --fix-missing --no-install-recommends
@@ -14,5 +14,4 @@ RUN bash nodesource_setup.sh
 RUN apt-get install -qq -y nodejs --fix-missing --no-install-recommends
 RUN npm install -g yarn
 RUN npm install -g jshint
-RUN npm install phantomjs
 RUN npm install -g istanbul
