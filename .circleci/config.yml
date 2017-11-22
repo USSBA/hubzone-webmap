@@ -11,6 +11,7 @@ workflows:
       - rspec
       - teaspoonJS
       - jsHint
+      - poirot
 jobs:
   rubocop:
     docker:
