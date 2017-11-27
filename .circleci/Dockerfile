@@ -14,7 +14,6 @@ RUN bash nodesource_setup.sh
 RUN apt-get install -qq -y nodejs --fix-missing --no-install-recommends
 RUN npm install -g yarn
 RUN npm install -g jshint
-RUN npm install -g phantomjs-prebuilt
 RUN npm install -g istanbul
 
 RUN sh nodesource_setup.sh
