@@ -157,6 +157,9 @@ Poirot will return an error status if it finds any secrets in the commit history
 Refer to the changelog for details on API updates. [CHANGELOG](CHANGELOG.md)
 
 ## Contributing
+1) Run tests before pushing.
+1) Do not commit any secrets
+1) It is preferable, but not necessary, to squash commits before pushing to a branch
 
 ## Security Issues
 
