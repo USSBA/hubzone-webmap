@@ -2,7 +2,7 @@ FROM ruby:2.3.3-slim
 
 RUN echo deb http://ftp.debian.org/debian jessie-backports main > /etc/apt/sources.list.d/jessie-backports.list
 
-ENV PACKAGES build-essential libpq-dev netcat git curl libfontconfig
+ENV PACKAGES build-essential libpq-dev netcat git curl libfontconfig python3 python-pip python-dev apt-utils
 ENV BACKPORT_PACKAGES postgresql-client-9.6
 
 RUN apt-get update && apt-get install -qq -y $PACKAGES --fix-missing --no-install-recommends
@@ -14,7 +14,10 @@ RUN bash nodesource_setup.sh
 RUN apt-get install -qq -y nodejs --fix-missing --no-install-recommends
 RUN npm install -g yarn
 RUN npm install -g jshint
-RUN npm install -g phantomjs
+RUN npm install -g phantomjs-prebuilt
 RUN npm install -g istanbul
 
 RUN sh nodesource_setup.sh
+
+RUN pip install -U pip
+RUN pip install poirot
