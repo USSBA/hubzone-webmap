@@ -170,7 +170,6 @@ Please follow this guidelines in all interactions:
 2. Assume best intentions: seek to understand other's opinions.
 
 ## Security Issues
-
 Please do not submit an issue on GitHub for a security vulnerability. Please contact the development team through the Certify Help Desk at [help@certify.sba.gov](mailto:help@certify.sba.gov).
 
 Be sure to include all the pertinent information.
