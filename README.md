@@ -160,7 +160,7 @@ A copy of that license is distributed with this software.
 This project may use Google APIs. The Google API are license under their Google API's [terms and conditions](https://developers.google.com/maps/terms).
 
 ## Contributing
-We welcome contributions. Please read [Contributing.md](Contributing.md) for how to contribute.
+We welcome contributions. Please read [CONTRIBUTING](CONTRIBUTING.md) for how to contribute.
 
 We strive for a welcoming and inclusive environment for the HUBZone-WebMap project.
 
