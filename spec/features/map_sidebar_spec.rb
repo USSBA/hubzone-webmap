@@ -100,9 +100,7 @@ describe "The Sidebar", type: :feature do
                               http_status: 200,
                               hubzone: [],
                               other_information: {
-                                congressional_district: [
-                                  dummy_congressional_district
-                                ],
+                                congressional_district: [],
                                 alerts: {
                                   likely_qda_designations: [
                                     {
