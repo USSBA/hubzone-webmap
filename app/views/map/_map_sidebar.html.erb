@@ -7,7 +7,7 @@
     until_date = body['until_date'].present? ? (I18n.l Date.parse(body['until_date']), format: :full) : nil
     date_status = until_date && Date.parse(body['until_date']) < Date.today ? "expired" : "until"
     has_other_info = true if body.dig("other_information", "congressional_district")&.length&.positive?
-    has_likely_qda = true if body['other_information']['alerts'] && body['other_information']['alerts']['likely_qda_designations'].present?
+    has_likely_qda = true if body.dig("other_information", "alerts")&.length&.positive?
 
     if body['formatted_address'].nil?
       visibility = 'hidden'
