@@ -225,4 +225,4 @@ jobs:
       - run:
           name: run poirot
           command: |
-            poirot --patterns hubzone-poirot-patterns.txt --revlist="develop^..HEAD"
+            poirot --patterns hubzone-poirot-patterns.txt --revlist="develop^..HEAD" --verbose
