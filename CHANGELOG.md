@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.7.3] - 2017-12-08
+### shared-services-sprint-31
+### Changed
+  - HUB-984 Remove Google API keys from the config files -- use .env file instead
+
+  - HUB-1004 Fixed bug where the 'Likely QDA' partial would not render if the `Congressional District` data was not present
+
 ## [1.7.2] - 2017-11-20
 ### shared-services-sprint-30
 ### Added
@@ -25,4 +32,3 @@ All notable changes to this project will be documented in this file.
 
   - HUB 859
     - Updated gems and addressed rubocop concerns
-
