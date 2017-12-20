@@ -157,7 +157,7 @@ Refer to the changelog for details on API updates. [CHANGELOG](CHANGELOG.md)
 The HUBZone-WebMap is licensed permissively under the Apache License v2.0.
 A copy of that license is distributed with this software.
 
-This project may use Google APIs. The Google API are license under their Google API's [terms and conditions](https://developers.google.com/maps/terms).
+This project may use Google APIs. The Google API are licensed under their Google API's [terms and conditions](https://developers.google.com/maps/terms).
 
 ## Contributing
 We welcome contributions. Please read [CONTRIBUTING](CONTRIBUTING.md) for how to contribute.
