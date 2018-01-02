@@ -1,5 +1,4 @@
 # Keys and Tokens
-## note that poirot will assume case insensitive unless specified with (?c) after a pattern
 
 ###############################################
 ## Patterns commonly used in the HUBZone App ##
@@ -45,8 +44,6 @@ aws_secret_access_key[:=]\s*<%= ENV.fetch.*[A-Z0-9]{20}
 # U.S. Passport Card
 .*passport.*[:=]\s*C0[0-9]{7}
 
-# U.S. SSN
-.*(ssn)(?c).*[:=]\s*[0-9-]{9,11}
-.*(SSN)(?c).*[:=]\s*[0-9-]{9,11}
+# U.S. SSN, Note: may produce false-positives, refer to README for more details.
+.*(ssn).*[:=]\s*[0-9-]{9,11}
 .*(soc).*[:=]\s*[0-9-]{9,11}
-# check for ssns, adds case sensitive (?c) for 'ssn' since it was hitting on 'className' in uswds

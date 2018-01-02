@@ -146,6 +146,8 @@ A secrets pattern file `hubzone-poiroit-patterns.txt` is included with the app t
 ```
 Poirot will return an error status if it finds any secrets in the commit history between `HEAD` and develop.  You can correct these by: removing the secrets and squashing commits or by using something like BFG.
 
+Note that Poirot is hardcoded to run in case-insensitive mode and uses two different regex engines (`git log --grep` and a 3rd-party Python regex library https://pypi.python.org/pypi/regex/ ). Refer to Lines 121 and 195 in `site-packages/poirot/poirot.py`. The result is that the 'ssn' matcher will flag on: 'ssn', 'SSN' or also 'className', which produces false positive errors in the full rev history.  Initially we included the `(?c)` flag in the SSN matchers: `.*(ssn)(?c).*[:=]\s*[0-9-]{9,11}` however this is not compatible with all regex engines and causes an error in some cases.
+
 ## External services
 - Connect to [Google Map API](https://developers.google.com/maps/) by putting your key in the .env file
 - Connect to [Google Analytics](https://www.google.com/analytics/analytics/features/) by putting your key in the .env file
