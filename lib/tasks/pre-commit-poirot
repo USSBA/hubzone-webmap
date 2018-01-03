@@ -18,9 +18,9 @@ function setup_failure()
 function run_poirot()
 {
     # Color codes for output
-    RED="\033[1;31m"
-    BLUE="\033[34m"
-    RESET="\033[0m"
+    RED='\033[0;31m'
+    BLUE='\033[34m'
+    RESET='\033[0m'
 
     # Run Poirot
     echo "Running Poirot..."
@@ -39,14 +39,14 @@ function run_poirot()
     # Request input if match(es) found
     if [ $? -eq 1 ]
     then
-        echo "${RED}Some pattern matches were found in your staged changes. Are you sure want to commit? Choose an option #.${RESET}"
+        echo -e "${RED}Some pattern matches were found in your staged changes. Are you sure want to commit? Choose an option #.${RESET}"
         OPTIONS="Commit Cancel"
         select opt in $OPTIONS; do
             if [ "$opt" = "Commit" ]; then
-                echo "${BLUE}Committing.${RESET}"
+                echo -e "${BLUE}Committing.${RESET}"
                 exit 0
             elif [ "$opt" = "Cancel" ]; then
-                echo "${BLUE}Canceling commit. Go ahead and make any new changes.${RESET}"
+                echo -e "${BLUE}Canceling commit. Go ahead and make any new changes.${RESET}"
                 exit 1
             else
                 clear
