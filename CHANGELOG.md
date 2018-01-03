@@ -2,13 +2,17 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-# [1.7.4] - 2018-01-03
-### shared-services-sprint-33
+
+## [1.7.5] - 2018-01-05
+### hubzone-sprint-33
 ### Added
   - HUB-1031 Added and implemented secure_headers gem
+  - HUB-1033 Adds in a Poirot pre-commit template and a rake task for adding this to the local users `.git/hooks` folder.
+### Changed
+  - HUB-1033 Tweaks the Poirot patterns a bit.
 
 ## [1.7.4] - 2017-12-22
-### shared-services-sprint-32
+### hubzone-sprint-32
 
 Prepared repository for open source release.
 
@@ -18,26 +22,26 @@ Prepared repository for open source release.
   - code.json
 
 ## [1.7.3] - 2017-12-08
-### shared-services-sprint-31
+### hubzone-sprint-31
 ### Changed
   - HUB-984 Remove Google API keys from the config files -- use .env file instead
 
   - HUB-1004 Fixed bug where the 'Likely QDA' partial would not render if the `Congressional District` data was not present
 
 ## [1.7.2] - 2017-11-20
-### shared-services-sprint-30
+### hubzone-sprint-30
 ### Added
   - HUB-939 Add in a `patterns` file for poirot secrets testing.
 ### Changed
   - HUB-957 Move the map type picker so that it can be visible in mobile.
 
 ## [1.7.1] - 2017-10-27
-### shared-services-sprint-28
+### hubzone-sprint-28
 ### Added
   - HUB-927 Adds in the `Local Information` card to the sidebar and populates it with `Congressional District` data.
 
 ## [1.7.0] - 2017-10-12
-### shared-services-sprint-27
+### hubzone-sprint-27
 ### Added
 
   - HUB 864 Add "Likely Disaster" card to the side panel
