@@ -5,21 +5,28 @@
 ###############################################
 
 ## api key assignments, will fire on google maps and newrelic
+.*_key[:=]\s*['"][A-Za-z0-9-]{39}['"]
 .*_key[:=]\s*[A-Za-z0-9-]{39}
 .*_key[:=]\s*<%= ENV.fetch.*[A-Za-z0-9-]{39}
+.*_key[:=]\s*<%= ENV.fetch.*['"][A-Za-z0-9-]{39}['"]
 
 ## id assignments
 .*_id[:=]\s*[A-Za-z0-9-]{39}
+.*_id[:=]\s*['"][A-Za-z0-9-]{39}['"]
 .*_id[:=]\s*<%= ENV.fetch.*[A-Za-z0-9-]{39}
+.*_id[:=]\s*<%= ENV.fetch.*['"][A-Za-z0-9-]{39}['"]
 
 ## aws access key id
 aws_access_key_id[:=]\s*[A-Z0-9]{20}
+aws_access_key_id[:=]\s*['"][A-Z0-9]{20}['"]
 aws_access_key_id[:=]\s*<%= ENV.fetch.*[A-Z0-9]{20}
+aws_access_key_id[:=]\s*<%= ENV.fetch.*['"][A-Z0-9]{20}['"]
 
 ## aws_secret_access_key
 aws_secret_access_key[:=]\s*[A-Za-z0-9/+]{40}
+aws_secret_access_key[:=]\s*['"][A-Za-z0-9/+]{40}['"]
 aws_secret_access_key[:=]\s*<%= ENV.fetch.*[A-Z0-9]{20}
-
+aws_secret_access_key[:=]\s*<%= ENV.fetch.*['"][A-Z0-9]{20}['"]
 
 ##################################################
 ## Generic secret patterns modified from DC.gov ##
