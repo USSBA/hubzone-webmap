@@ -2,13 +2,17 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-# [1.7.4] - 2018-01-03
-### shared-services-sprint-33
+
+## [1.7.5] - 2018-01-05
+### hubzone-sprint-33
 ### Added
   - HUB-1031 Added and implemented secure_headers gem
+  - HUB-1033 Adds in a Poirot pre-commit template and a rake task for adding this to the local users `.git/hooks` folder.
+### Changed
+  - HUB-1033 Tweaks the Poirot patterns a bit.
 
 ## [1.7.4] - 2017-12-22
-### shared-services-sprint-32
+### hubzone-sprint-32
 
 Prepared repository for open source release.
 
@@ -16,13 +20,6 @@ Prepared repository for open source release.
   - LICENSE
   - CONTRIBUTING.md
   - code.json
-
-## [1.7.4] - 2018-01-05
-### hubzone-sprint-33
-### Added
-  - HUB-1033 Adds in a Poirot pre-commit template and a rake task for adding this to the local users `.git/hooks` folder.
-### Changed
-  - HUB-1033 Tweaks the Poirot patterns a bit.
 
 ## [1.7.3] - 2017-12-08
 ### hubzone-sprint-31
