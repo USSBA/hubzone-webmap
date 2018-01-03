@@ -88,7 +88,7 @@ describe "The Sidebar", type: :feature do
                                   alerts: { }
                                 },
                                 hubzone: [],
-                                until_date: Date.today.last_week,
+                                until_date: Time.zone.today.last_week,
                                 geometry: {
                                   location: {
                                     lat: 0,

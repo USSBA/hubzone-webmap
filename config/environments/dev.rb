@@ -1,5 +1,5 @@
 # Same settings as production
-require Rails.root.join("config/environments/development")
+require Rails.root.join("config", "environments", "development")
 
 Rails.application.configure do
   #Serve up compiled assets

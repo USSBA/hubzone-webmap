@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-# rubocop:disable Metrics/BlockLength, RSpec/FilePath
+# rubocop:disable Metrics/BlockLength
 RSpec.describe VersionController, type: :request do
   MAP_CONFIG[:hubzone_map_version] = {
     major: 100,
