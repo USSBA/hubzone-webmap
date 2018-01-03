@@ -144,7 +144,7 @@ Add `gem 'jshint'` to the Gemfile under `group :development, :test`
 Run `bundle` to install, then run `bundle exec rake jshint` to run test.
 
 #### Poirot Secrets Testing
-A secrets pattern file `hubzone-poiroit-patterns.txt` is included with the app to assist with running [Poirot](https://github.com/emanuelfeld/poirot) to scan commit history for secrets.  It is recommended to run this only the current branch only:
+A secrets pattern file `hubzone-poirot-patterns.txt` is included with the app to assist with running [Poirot](https://github.com/emanuelfeld/poirot) to scan commit history for secrets.  It is recommended to run this only the current branch only:
 ```
   poirot --patterns hubzone-poirot-patterns.txt --revlist="develop^..HEAD"
 ```
