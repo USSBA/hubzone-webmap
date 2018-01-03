@@ -33,3 +33,7 @@ db/schema.rb
 
 # Ignore captured revision
 REVISION
+
+# Local certifications
+server.crt
+server.key
