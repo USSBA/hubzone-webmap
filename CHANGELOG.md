@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-# [1.7.3] - 2018-01-03
+# [1.7.4] - 2018-01-03
 ### shared-services-sprint-33
 ### Added
   - HUB-1031 Added and implemented secure_headers gem
