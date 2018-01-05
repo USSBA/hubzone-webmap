@@ -363,8 +363,10 @@ button.copy-to-clipboard{
     transform: rotate(-90deg);
   }
   #sidebar.closed {
-    height: calc(100% - 12rem);
+    max-height: calc(100% - 12rem);
+    height: 80%;
     right: 0;
+    z-index: 99999;
   }
   #sidebar-button {
     position: absolute;
