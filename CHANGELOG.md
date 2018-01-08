@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 
 ## [1.7.6] - 2018-01-19
 ### hubzone-sprint-34
+### Changed
+  - HUB-976 Updates help page to include new graphic and copy for base map switcher
 ### Fixes
   - HUB-1055 Fixes the panel not sliding out on Safari by adding a fallback for css `calc`.
 

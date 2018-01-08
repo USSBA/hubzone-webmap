@@ -62,7 +62,7 @@ en:
       title_html: "Using advanced Features"
       base_map:
         title_html: "Base Map Toggle"
-        body_html: "<p>Use the base map buttons to change the base map. Each base map shows a different view of the information to help you navigate the map and find landmarks. The <b>Map</b> base is the default map provided by Google including most streets, landmarks, and businesses. The <b>Gray</b> base map shows a less cluttered view of the surrounding landmarks and may help clarify differences in the HUBZone layers. The <b>Hybrid</b> base map shows a satellite view of the terrain and if you zoom in far enough the map will switch to a 3D perspective view of buildings and landmarks.</p>"
+        body_html: "<p>Use the base map toggle to change the base map. Each base map shows a different view of the information to help you navigate the map and find landmarks. The <b>Standard</b> base is the default map provided by Google including most streets, landmarks, and businesses. The <b>Light Gray</b> base map shows a less cluttered view of the surrounding landmarks and may help clarify differences in the HUBZone layers. The <b>Satellite</b> base map shows a satellite view of the terrain and if you zoom in far enough the map will switch to a 3D perspective view of buildings and landmarks.</p>"
       zoom:
         title_html: "Zoom"
         body_html: "<p>Use + and - buttons to zoom in and out on the map.  Each time you click or tap the + or - button, the screen will magnify the scale of the map. On mobile devices you can also use pinch-to-zoom.</p>"
