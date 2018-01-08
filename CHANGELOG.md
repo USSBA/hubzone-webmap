@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.7.6] - 2018-01-19
+### hubzone-sprint-34
+### Changed
+  - HUB-976 Updates help page to include new graphic and copy for base map switcher
+
 ## [1.7.5] - 2018-01-05
 ### hubzone-sprint-33
 ### Added
