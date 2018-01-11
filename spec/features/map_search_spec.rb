@@ -117,7 +117,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
           },
           {
             hz_type: "qnmc_r",
-            expires: Date.today.last_week
+            expires: Time.zone.today.last_week
           }
         ],
         other_information: {
@@ -211,7 +211,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
 
             next unless hubzone[:expires]
             it "will show the correct language for expires or expired if expiration date is present" do
-              expect(page).to have_content(hubzone[:expires] < Date.today ? t('hubzone_assertions.expired') : t('hubzone_assertions.expires'))
+              expect(page).to have_content(hubzone[:expires] < Time.zone.today ? t('hubzone_assertions.expired') : t('hubzone_assertions.expires'))
             end
           end
         end
