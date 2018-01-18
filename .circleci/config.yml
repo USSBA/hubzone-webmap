@@ -228,7 +228,6 @@ jobs:
           command: |
             poirot --patterns https://raw.githubusercontent.com/USSBA/hubzone-webmap/develop/hubzone-poirot-patterns.txt --revlist="develop^..HEAD" --verbose
   brakeman:
-    ubocop:
     docker:
       # specify the version you desire here
       - image: sbagov/cc-sba-hz-webmap:1.0
