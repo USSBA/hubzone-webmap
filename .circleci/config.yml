@@ -253,4 +253,4 @@ jobs:
           name: run brakeman
           parallel: true
           command: |
-            $CIRCLE_NODE_INDEX in 0) ./script/brakeman ;; esac:
+            ./script/brakeman.sh
