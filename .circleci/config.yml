@@ -253,4 +253,5 @@ jobs:
           name: run brakeman
           parallel: true
           command: |
-            ./script/brakeman.sh
+            gem install --no-rdoc --no-ri brakeman
+            brakeman --exit-on-warn .
