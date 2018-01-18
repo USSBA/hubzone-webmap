@@ -226,3 +226,8 @@ jobs:
           name: run poirot
           command: |
             poirot --patterns https://raw.githubusercontent.com/USSBA/hubzone-webmap/develop/hubzone-poirot-patterns.txt --revlist="develop^..HEAD" --verbose
+brakeman:
+  test:
+    post:
+      - case $CIRCLE_NODE_INDEX in 0) ./script/brakeman.sh ;; esac:
+             parallel: true
