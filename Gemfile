@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5' # Use RSpec for tests
   gem 'rubocop' # Enforce ruby code style
   gem 'rubocop-rspec'
+  gem 'ruumba' # linter for *.erb files
   gem 'selenium-webdriver'
   gem 'simplecov', require: false # determine code coverage of tests
   gem 'teaspoon-jasmine'

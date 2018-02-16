@@ -10,7 +10,7 @@
  <% if @page_selected == 'overview' %>
    <%= render partial: "navigation" %>
    <%= render partial: "overview" %>
- <% else @page_selected == 'faq' %>
+ <% elsif @page_selected == 'faq' %>
    <%= render partial: "navigation" %>
    <%= render partial: "faq" %>
  <% end %>
