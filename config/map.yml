@@ -2,7 +2,7 @@ default: &defaults
   hubzone_map_version:
     major: 1
     minor: 7
-    patch: 6
+    patch: 7
     pre_release:
   hubzone_map_host: <%= ENV.fetch('HUBZONE_MAP_HOST') { 'http://localhost:3001' } %>
   hubzone_api_host: <%= ENV.fetch('HUBZONE_API_HOST') { 'http://localhost:3001' } %>
