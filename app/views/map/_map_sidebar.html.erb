@@ -2,7 +2,13 @@
   # expecting body to be a hash that has either a message or a formatted_address and hubzones from hzutil search
   if body
     address = body['formatted_address'].nil? ? t(body['message']) : body['formatted_address']
-    coordinates = !body['address_components'].nil? ? [format('%.6f', body['geometry']['location']['lat']) + "\xC2\xB0", format('%.6f', body['geometry']['location']['lng']) + "\xC2\xB0"].join(', ') : nil
+    # rubocop:disable Style/EmptyElse
+    coordinates = if !body['address_components'].nil?
+                    [format('%.6f', body['geometry']['location']['lat']) + "\xC2\xB0", format('%.6f', body['geometry']['location']['lng']) + "\xC2\xB0"].join(', ')
+                  else
+                    nil
+                  end
+    # rubocop:enable Style/EmptyElse
     date = body['query_date'].present? ? (I18n.l Date.parse(body['query_date']), format: :full) : body['query_date']
     until_date = body['until_date'].present? ? (I18n.l Date.parse(body['until_date']), format: :full) : nil
     date_status = until_date && Date.parse(body['until_date']) < Date.today ? "expired" : "until"
@@ -16,11 +22,11 @@
       visibility = ''
       details_visibility = ''
       hubzone_status_style = 'non-qualified-hubzone'
-      hubzone_status_indicator ='fa fa-times-circle-o non-qualified-hubzone'
+      hubzone_status_indicator = 'fa fa-times-circle-o non-qualified-hubzone'
       hubzone_status = t('hubzone_assertions.not_qualified')
       aria_hubzone_status = t('hubzone_assertions.not_qualified_aria')
       hubzones = body['hubzone']
-    elsif body['hubzone'].size > 0
+    elsif !body['hubzone'].empty?
       visibility = ''
       hubzone_status_indicator = 'fa fa-check-circle-o qualified-hubzone'
       hubzone_status_style = 'qualified-hubzone'
@@ -31,7 +37,7 @@
       visibility = ''
       details_visibility = 'hidden'
       hubzone_status_style = 'non-qualified-hubzone'
-      hubzone_status_indicator ='fa fa-times-circle-o non-qualified-hubzone'
+      hubzone_status_indicator = 'fa fa-times-circle-o non-qualified-hubzone'
       hubzone_status = t('hubzone_assertions.not_qualified')
       aria_hubzone_status = t('hubzone_assertions.not_qualified_aria')
     end
