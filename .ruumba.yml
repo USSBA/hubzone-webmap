@@ -37,6 +37,9 @@ Lint/BlockAlignment:
 Style/IfUnlessModifier:
   Enabled: false
 
+Naming/FileName:
+  Enabled: false
+
 Style/Semicolon:
   Exclude:
     - app/views/**/*
