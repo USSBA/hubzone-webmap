@@ -107,6 +107,11 @@ coverage/index.html
 rubocop -D
 ```
 
+### Ruumba
+```
+ruumba app/ -D -c .ruumba.yml
+```
+
 ### Javascript Tests
 #### Teaspoon / Jasmine / Istanbul Unit and Coverage tests
 Teaspoon is used for Javascript testing and coverage.  It runs Jasmine for unit and integration tests and Istanbul for test coverage.

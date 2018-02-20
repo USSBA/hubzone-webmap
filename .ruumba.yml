@@ -1,0 +1,65 @@
+inherit_from: .rubocop.yml
+
+AllCops:
+  Include:
+    - '**/*.erb'
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Layout/AlignHash:
+  Enabled: false
+
+Layout/AlignParameters:
+  Enabled: false
+
+Layout/IndentationWidth:
+  Enabled: false
+
+Layout/TrailingBlankLines:
+  Enabled: false
+
+Layout/TrailingWhitespace:
+  Enabled: false
+
+Layout/IndentationConsistency:
+  Enabled: false
+
+Layout/InitialIndentation:
+  Enabled: false
+
+Lint/Void:
+  Enabled: false
+
+Lint/BlockAlignment:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Naming/FileName:
+  Enabled: false
+
+Style/Semicolon:
+  Exclude:
+    - app/views/**/*
+
+Layout/SpaceBeforeSemicolon:
+  Exclude:
+    - app/views/**/*
+
+Layout/ExtraSpacing:
+  Exclude:
+    - app/views/**/*
+
+Rails/Date:
+  Exclude:
+    - app/views/**/*
+
+Rails/OutputSafety:
+  Exclude:
+    - app/views/**/*
+
+Style/SafeNavigation:
+  Exclude:
+    - app/views/**/*

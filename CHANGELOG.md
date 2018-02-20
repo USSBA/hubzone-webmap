@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.7.6] - 2018-03-02
+### hubzone-sprint-37
+### Added
+  - HUB-943 Added Ruumba gem for linting .erb files
+### Changed
+  - HUB-943 Refactored .erb files to comply with Ruumba
+
 ## [1.7.6] - 2018-01-19
 ### hubzone-sprint-34
 ### Changed
