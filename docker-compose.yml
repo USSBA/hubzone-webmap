@@ -1,0 +1,24 @@
+version: '3.3'
+services:
+  postgres:
+    image: mdillon/postgis:9.6
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  hubzone-webmap:
+    build:
+      context: .
+      cache_from:
+      - hubzone/hubzone-webmap:latest
+    image: hubzone/hubzone-webmap:latest
+    restart: always
+    links:
+      - postgres
+    env_file:
+      - ./docker/hubzone-webmap.env
+    ports:
+      - '3001:3001'
+    entrypoint: ["/bin/bash"]
+    command:
+    - "-c"
+    - "migrate-run.sh"
