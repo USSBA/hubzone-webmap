@@ -39,6 +39,8 @@ RUN bundle install --quiet
 
 COPY . .
 
+RUN bundle exec rake assets:precompile
+
 # Setup Entrypoint
 RUN cp ./docker/docker-entrypoint-*.sh ./docker/migrate-run.sh /usr/bin/ && chmod 555 /usr/bin/docker-entrypoint-*.sh && chmod 555 /usr/bin/migrate-run.sh
 ENTRYPOINT ["docker-entrypoint-aws.sh"]
