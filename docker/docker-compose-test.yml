@@ -1,0 +1,37 @@
+version: '3.2'
+services:
+  postgres:
+    image: mdillon/postgis:9.6
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  rspec:
+    build:
+      context: ..
+      cache_from:
+      - hubzone/hubzone-webmap:latest
+    image: hubzone/hubzone-webmap:latest
+    links:
+      - postgres
+    env_file:
+      - hubzone-webmap.env
+      - hubzone-webmap-test.env
+    entrypoint: ["/bin/bash"]
+    environment:
+    - HUBZONE_GOOGLE_API_KEY
+    command: >
+      -c "
+        wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 && \
+        tar -xf phantomjs-2.1.1-linux-x86_64.tar.bz2 && \
+        rm phantomjs-2.1.1-linux-x86_64.tar.bz2 && \
+        mv phantomjs-2.1.1-linux-x86_64/bin/phantomjs /bin && \
+        rm -r phantomjs-2.1.1-linux-x86_64
+        while ! nc -z postgres 5432;
+        do
+          echo waiting for postgres;
+          sleep 1;
+        done;
+        echo Connected to postgres!;
+        bundle exec rake db:create db:migrate &&
+        bundle exec rspec spec;
+      "

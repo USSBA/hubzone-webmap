@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.7.7] - 2018-04-13
+### hubzone-sprint-40
+### Added
+  - HUB-1137
+    - Sets up for codebuild.
+    - moves the gm-sidebar-on test from rpsec to teaspoon - jasmine, cuz that is mo' betta'.
+
 ## [1.7.6] - 2018-01-19
 ### hubzone-sprint-34
 ### Changed
