@@ -45,6 +45,30 @@ staging:
     url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://maps.staging.certify.sba.gov/geoserver/gwc/service/wms?' } %>
     db: hzgeo_stg
 
+training:
+  <<: *defaults
+  hubzone_map_host: <%= ENV.fetch('HUBZONE_MAP_HOST')       { 'https://maps.training.certify.sba.gov/' } %>
+  hubzone_api_host: <%= ENV.fetch('HUBZONE_API_HOST')       { 'https://maps.training.certify.sba.gov' } %>
+  hubzone_report_host: <%= ENV.fetch('HUBZONE_REPORT_HOST') { 'https://maps.training.certify.sba.gov' } %>
+  #TODO: Get Training ID for Hotjar
+  hotjar_tracking_id: <%= ENV.fetch('HUBZONE_HOTJAR_TRACKING_ID') { '435148' } %>
+  geom_wms_settings:
+    <<: *default_wms
+    url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://maps.training.certify.sba.gov/geoserver/gwc/service/wms?' } %>
+    db: hzgeo_trn
+
+qa:
+  <<: *defaults
+  hubzone_map_host: <%= ENV.fetch('HUBZONE_MAP_HOST')       { 'https://hubzone.qa.sba-one.net/' } %>
+  hubzone_api_host: <%= ENV.fetch('HUBZONE_API_HOST')       { 'https://hubzone.qa.sba-one.net' } %>
+  hubzone_report_host: <%= ENV.fetch('HUBZONE_REPORT_HOST') { 'https://hubzone.qa.sba-one.net' } %>
+  #TODO: Get QA ID for Hotjar
+  hotjar_tracking_id: <%= ENV.fetch('HUBZONE_HOTJAR_TRACKING_ID') { '428263' } %>
+  geom_wms_settings:
+    <<: *default_wms
+    url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://hubzone.qa.sba-one.net/geoserver/gwc/service/wms?' } %>
+    db: hzgeo_qa
+
 demo:
   <<: *defaults
   hubzone_map_host: <%= ENV.fetch('HUBZONE_MAP_HOST')       { 'https://hz-demo.sba-one.net' } %>

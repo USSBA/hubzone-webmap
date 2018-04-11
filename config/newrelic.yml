@@ -41,6 +41,14 @@ staging:
   <<: *default_settings
   app_name: hz-stg-map
 
+training:
+  <<: *default_settings
+  app_name: hz-trn-map
+
+qa:
+  <<: *default_settings
+  app_name: hz-qa-map
+
 demo:
   <<: *default_settings
   app_name: hz-demo-map

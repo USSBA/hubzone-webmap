@@ -34,6 +34,16 @@ staging:
   database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_stg' } %>
   host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'db.maps.staging.certify.sba.gov' } %>
 
+training:
+  <<: *default
+  database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_trn' } %>
+  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'db.maps.training.certify.sba.gov' } %>
+
+qa:
+  <<: *default
+  host: <%= ENV.fetch('HUBZONE_API_DB_HOST') { 'hubzone-db.qa.sba-one.net' } %>
+  database: <%= ENV.fetch('HUBZONE_API_DB_NAME') { 'hzgeo_qa' } %>
+
 demo:
   <<: *default
   database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_demo' } %>
