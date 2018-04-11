@@ -176,15 +176,6 @@ describe "The Sidebar", type: :feature do
       click_button "hubzone-search-button"
       expect(page).not_to have_css("#sidebar.hidden")
     end
-    it "will move the zoom controls out" do
-      pending("Fixing visible css erro")
-      fill_in 'search', with: queries[:non_qualified]
-      click_button "hubzone-search-button"
-      expect(page).to have_css(".gm-sidebar-on")
-    end
-    it "...and back in" do
-      expect(page).not_to have_css(".gm-sidebar-on")
-    end
   end
 
   context "share button actions", js: true do

@@ -7,7 +7,7 @@
 describe ('Testing sidebar operations', function() {
   beforeEach(function() {
     fixture.cleanup();
-    this.fixtures = fixture.load("hz_mock_sidebar.html", "hz_mock_legend.html", true);
+    this.fixtures = fixture.load("hz_mock_sidebar.html", "hz_mock_legend.html", "hz_mock_page.html", true);
     HZApp.SidebarUtils.buildSidebar();
     sidebar = HZApp.SidebarUtils.sidebar;
     google = HZSpecHelper.google;
@@ -33,6 +33,11 @@ describe ('Testing sidebar operations', function() {
       expect($('#legend')[0].className).toContain('legend-mobile');
     });
 
+    it ("should add the gm-sidebar-on class to expand the google zoom and street view controls", function() {
+      sidebar.open();
+      expect(document.querySelector('.gm-sidebar-on')).not.toBeNull();
+    });
+
     it ("should catch the button click to trigger the sidebar to close", function() {
       sidebar.open();
       HZApp.SidebarUtils.triggerSidebar();
@@ -51,6 +56,11 @@ describe ('Testing sidebar operations', function() {
       sidebar.close();
       HZApp.SidebarUtils.triggerSidebar();
       expect(sidebar.hasClass('on')).toBe(true);
+    });
+
+    it ("should add the gm-sidebar-on class to expand the google zoom and street view controls", function() {
+      sidebar.close();
+      expect(document.querySelector('.gm-sidebar-on')).toBeNull();
     });
   });
 
