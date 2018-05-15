@@ -96,6 +96,16 @@ development:
     <<: *default_wms
     db: hzgeo_dev
 
+developmentdocker:
+  <<: *defaults
+  hubzone_map_host: <%= ENV.fetch('HUBZONE_MAP_HOST')       { 'http://localhost:3000' } %>
+  hubzone_api_host: <%= ENV.fetch('HUBZONE_API_HOST')       { 'http://localhost:3000' } %>
+  hubzone_report_host: <%= ENV.fetch('HUBZONE_REPORT_HOST') { 'http://localhost:3000' } %>
+  geom_wms_settings:
+    <<: *default_wms
+    url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'http://localhost:8080/geoserver/gwc/service/wms?' } %>
+    db: hzgeo_dev
+
 test:
   <<: *defaults
   bind_window_events: false
