@@ -1,7 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [1.7.8] - 2018-06-18
+### hubzone-sprint-44
+### Added
+  - HUB-1379 updates logo mark
 
 ## [1.7.7] - 2018-04-13
 ### hubzone-sprint-40
