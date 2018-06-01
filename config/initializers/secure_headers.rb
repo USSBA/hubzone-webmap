@@ -1,7 +1,7 @@
 require 'secure_headers'
 #rubocop:disable Lint/PercentStringArray
 #avoids using https/ssl on local development
-if Rails.env.development? || Rails.env.test?
+if Rails.env.development? || Rails.env.test? || Rails.env.developmentdocker?
   SecureHeaders::Configuration.default do |config|
     config.hsts = SecureHeaders::OPT_OUT
     config.x_frame_options = SecureHeaders::OPT_OUT

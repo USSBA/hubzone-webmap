@@ -1,7 +1,7 @@
-FROM ruby:2.4.3-slim
+FROM ruby:2.4.3-slim as webmap
 
 # Install general packages
-ENV PACKAGES build-essential libpq-dev netcat git python3 python-pip python-dev apt-utils wget unzip lftp ssh jq
+ENV PACKAGES build-essential libpq-dev netcat git python3 python-pip python-dev apt-utils wget unzip lftp ssh jq netcat
 RUN echo "Updating repos..." && apt-get update > /dev/null && \
     echo "Installing packages: ${PACKAGES}..." && apt-get install -y $PACKAGES --fix-missing --no-install-recommends > /dev/null && \
     echo "Done" && rm -rf /var/lib/apt/lists/*
@@ -39,12 +39,22 @@ RUN bundle install --quiet
 
 COPY . .
 
+ENV RAILS_LOG_TO_STDOUT true
+
+# Precompile assets
+ENV RAILS_ENV production
 RUN bundle exec rake assets:precompile
 
-# Setup Entrypoint
-RUN cp ./docker/docker-entrypoint-*.sh ./docker/migrate-run.sh /usr/bin/ && chmod 555 /usr/bin/docker-entrypoint-*.sh && chmod 555 /usr/bin/migrate-run.sh
-ENTRYPOINT ["docker-entrypoint-aws.sh"]
-CMD ["migrate-run.sh"]
 
-ENV RAILS_LOG_TO_STDOUT true
+# Setup Entrypoint
+RUN cp ./docker/entrypoint.sh ./docker/precompile-migrate-run.sh /usr/bin/ && chmod 555 /usr/bin/entrypoint.sh && chmod 555 /usr/bin/precompile-migrate-run.sh
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["precompile-migrate-run.sh"]
+
 EXPOSE 3000
+
+# Start NGINX container config
+FROM nginx as nginx
+WORKDIR /public
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+COPY public /public
