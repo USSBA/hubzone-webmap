@@ -1,0 +1,14 @@
+**/*.env*
+.git
+.circleci
+.codebuild
+.bundle
+*.md
+
+tmp
+tmp/**/*
+**/Dockerfile*
+**/docker-compose*
+
+# Ignore public/assets, as this will be built within the container
+public/assets

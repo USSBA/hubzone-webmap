@@ -34,6 +34,16 @@ staging:
   database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_stg' } %>
   host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'db.maps.staging.certify.sba.gov' } %>
 
+training:
+  <<: *default
+  database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_trn' } %>
+  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'db.maps.training.certify.sba.gov' } %>
+
+qa:
+  <<: *default
+  host: <%= ENV.fetch('HUBZONE_API_DB_HOST') { 'hubzone-db.qa.sba-one.net' } %>
+  database: <%= ENV.fetch('HUBZONE_API_DB_NAME') { 'hzgeo_qa' } %>
+
 demo:
   <<: *default
   database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_demo' } %>
@@ -47,6 +57,13 @@ dev:
 development:
   <<: *default
   database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_dev' } %>
+
+developmentdocker:
+  <<: *default
+  database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_dev' } %>
+  username: <%= ENV.fetch('HUBZONE_MAP_DB_USER') { 'dockeruser' }  %>
+  password: <%= ENV.fetch('HUBZONE_MAP_DB_PASSWORD') { 'dockerpass' } %>
+  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'postgres' } %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

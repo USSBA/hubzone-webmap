@@ -1,0 +1,38 @@
+version: '3.4'
+services:
+  postgres:
+    image: mdillon/postgis:9.6
+    environment:
+      POSTGRES_USER: dockeruser
+      POSTGRES_PASSWORD: dockerpass
+  hubzone-webmap:
+    build:
+      context: .
+      cache_from:
+      - hubzone/hubzone-webmap:latest
+      target: webmap
+    image: hubzone/hubzone-webmap:latest
+    restart: "no"
+    links:
+      - postgres
+    environment:
+    - RAILS_ENV=developmentdocker
+    env_file:
+    # Create this env file with HUBZONE_GOOGLE_API_KEY populated
+    - .env.docker
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+    - "while ! nc -z postgres 5432; do echo waiting for postgres; sleep 1; done; echo Connected to postgres!; migrate-run.sh"
+  hubzone-webmap-nginx:
+    build:
+      context: .
+      cache_from:
+      - hubzone/hubzone-webmap:latest
+      - hubzone/hubzone-webmap-nginx:latest
+      target: nginx
+    links:
+      - hubzone-webmap
+    image: hubzone/hubzone-webmap-nginx:latest
+    restart: "no"
+    ports:
+      - '3000:80'
