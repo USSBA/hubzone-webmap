@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.0] - 2018-06-18
+  - HUB-1377
+    - v2.0.0 bump
 ## [1.7.8] - 2018-06-18
 ### hubzone-sprint-44
 ### Added
