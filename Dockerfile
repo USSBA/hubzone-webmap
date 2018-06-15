@@ -41,9 +41,9 @@ COPY . .
 
 ENV RAILS_LOG_TO_STDOUT true
 
-# Precompile assets
-ENV RAILS_ENV production
-RUN bundle exec rake assets:precompile
+## Precompile assets
+#ENV RAILS_ENV production
+#RUN bundle exec rake assets:precompile
 
 
 # Setup Entrypoint
