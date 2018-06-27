@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.0] - 2018-06-27
+### hubzone-sprint-46
+### Added
+  - xray-rails
+
 ## [2.0.0] - 2018-06-18
   - HUB-1377
     - v2.0.0 bump
