@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
   - HUB-1416
     - Updated sprockets gem
+  - Added x-ray rails gem
 
 ## [2.0.0] - 2018-06-18
   - HUB-1377
