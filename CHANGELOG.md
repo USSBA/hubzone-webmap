@@ -1,7 +1,22 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [2.0.1] - 2018-07-06
+### shared-services-sprint-46
+### Changed
+  - HUB-1416
+    - Updated sprockets gem
+  - Added x-ray rails gem
+
+## [2.0.0] - 2018-06-18
+  - HUB-1377
+    - v2.0.0 bump
+  - Update Program link
+
+## [1.7.8] - 2018-06-18
+### hubzone-sprint-44
+### Added
+  - HUB-1379 updates logo mark
 
 ## [1.7.7] - 2018-04-13
 ### hubzone-sprint-40

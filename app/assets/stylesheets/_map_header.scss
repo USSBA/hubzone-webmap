@@ -1,21 +1,21 @@
 @import 'variables';
 
 #sba-logo {
-  max-width: 8.5rem;
+  width: 54px;
   float: left;
-  padding-top: .7rem;
+  margin: 1rem 0;
 }
 .usa-header {
   border-bottom: none;
 }
 .usa-logo-text a > h1 {
   font-family: $font-sans;
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: $gray-dark;
+  font-size: 3rem;
+  font-weight: 600;
+  color: #20346a;
   float: left;
   clear: none;
-  margin: 0 0 0 2rem;
+  margin: 1rem 0 0 1rem;
   padding: 0;
 }
 .usa-nav-secondary-links li:not(:last-child)::after {
@@ -45,7 +45,7 @@
   .usa-nav-secondary {
     position: absolute;
     right: 2rem;
-    top: -4.5rem;
+    top: -5.3rem;
   }
   .usa-header-extended .usa-nav-inner {
     max-width: 100%;
@@ -53,8 +53,9 @@
 }
 @media only screen and (max-width: 950px)  {
   #sba-logo {
-    max-width: 6rem;
-    padding-top: 1rem;
+    width: 37px;
+    margin: 0;
+    padding-top: .5rem;
   }
   #map-search button {
     background-size: 3.5rem;
@@ -82,9 +83,9 @@
     margin-top: 0rem;
   }
   .usa-logo-text a > h1 {
-    margin: 0.7rem 0 0 1rem;
-    font-size: 2.2rem;
-    font-weight: 400;
+    margin: 0.5rem 0 0 .5rem;
+    font-size: 2rem;
+    font-weight: 600;
   }
   .usa-menu-btn {
     display: block;

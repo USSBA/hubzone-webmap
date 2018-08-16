@@ -7,6 +7,9 @@ function usage () {
   echo "Usage: Container must be run with the following environment variables:
   DOTENV_S3_PATH: Path to the dotenv directory within S3. Ex: my-bucket/my/dir/dev/${SERVICE_NAME}/
   AWS_ENVIRONMENT: Resource environment for this service.  Used to refernce ParameterStore values.  Ex: dev, demo, qa, stg, prod, trn
+  HUBZONE_MAP_DB_PASSWORD
+  SECRET_KEY_BASE
+  HUBZONE_GOOGLE_API_KEY
 "
 }
 
@@ -40,10 +43,24 @@ function get_dotenv_s3 () {
 
 # hubzone-webmap Specific Configuration
 
-## Get Parameters from Parameter Store
-getparameterstore SECRET_KEY_BASE "${AWS_ENVIRONMENT}-${SERVICE_NAME}-secret_key_base"
-getparameterstore HUBZONE_MAP_DB_PASSWORD "${AWS_ENVIRONMENT}-hubzone-db_password"
-getparameterstore HUBZONE_GOOGLE_API_KEY "${AWS_ENVIRONMENT}-hubzone-google_api_key"
+if aws sts get-caller-identity > /dev/null 2>&1; then
+  # We're using aws, pull some env vars from parameter store
+  echo "Entrypoint: running in AWS"
+  ## Get Parameters from Parameter Store
+  getparameterstore SECRET_KEY_BASE "${AWS_ENVIRONMENT}-${SERVICE_NAME}-secret_key_base"
+  getparameterstore HUBZONE_MAP_DB_PASSWORD "${AWS_ENVIRONMENT}-hubzone-db_password"
+  getparameterstore HUBZONE_GOOGLE_API_KEY "${AWS_ENVIRONMENT}-hubzone-google_api_key"
+else
+  echo "Entrypoint: NOT running in AWS"
+  if [ -z "${SECRET_KEY_BASE}" ] ||
+     [ -z "${HUBZONE_MAP_DB_PASSWORD}" ] ||
+     [ -z "${HUBZONE_GOOGLE_API_KEY}" ]
+     then
+    echo "FATAL: Must set all environment variables before this container can be launched. Exiting."
+    usage
+    exit 40
+  fi
+fi
 
 ## Not needed for hubzone-webmap
 #get_dotenv_s3
