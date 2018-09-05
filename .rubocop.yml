@@ -42,8 +42,18 @@ Style/NumericLiterals:
 Style/SingleLineMethods:
   Enabled: false
 
-Layout/SpaceInsideBrackets:
-  Enabled: false
-
 Style/StringLiterals:
   Enabled: false
+
+Rails/UnknownEnv:
+  Environments:
+    - demo
+    - dev
+    - development
+    - developmentdocker
+    - production
+    - qa
+    - staging
+    - test
+    - training
+

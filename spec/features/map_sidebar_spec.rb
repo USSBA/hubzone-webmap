@@ -311,3 +311,4 @@ describe "The Sidebar", type: :feature do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

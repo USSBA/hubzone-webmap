@@ -40,7 +40,7 @@ group :development, :test do
   gem 'launchy'
   gem 'poltergeist'
   gem 'rspec-rails', '~> 3.5' # Use RSpec for tests
-  gem 'rubocop' # Enforce ruby code style
+  gem 'rubocop', '~> 0.52.1' # Enforce ruby code style
   gem 'rubocop-rspec'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false # determine code coverage of tests

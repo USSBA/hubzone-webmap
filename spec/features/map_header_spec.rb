@@ -35,3 +35,4 @@ describe "The Header", type: :feature do
     expect(page.find('#hubzone-program-link')['aria-label']).to have_content 'hubzone program'
   end
 end
+#rubocop:enable Metrics/BlockLength

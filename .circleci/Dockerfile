@@ -1,4 +1,4 @@
-FROM ruby:2.3.3-slim
+FROM ruby:2.5.1-slim
 
 RUN echo deb http://ftp.debian.org/debian jessie-backports main > /etc/apt/sources.list.d/jessie-backports.list
 
