@@ -1,9 +1,9 @@
-FROM ruby:2.5.1-slim
+FROM ruby:2.5-slim-stretch
 
 RUN echo deb http://ftp.debian.org/debian jessie-backports main > /etc/apt/sources.list.d/jessie-backports.list
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV PACKAGES build-essential libpq-dev netcat git curl libfontconfig python3 python-pip python-dev apt-utils wget
+ENV PACKAGES build-essential libpq-dev netcat git libfontconfig python3 python-pip python-dev apt-utils apt-transport-https curl wget unzip jq gnupg
 ENV BACKPORT_PACKAGES postgresql-client-9.6
 
 RUN apt-get update && apt-get install -qq -y $PACKAGES --fix-missing --no-install-recommends

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-# rubocop:disable Metrics/BlockLength
+# rubocop:disable Metrics/BlockLength, RSpec/ContextWording, RSpec/NestedGroups
 RSpec.describe 'The Search', type: :feature, js: true do
   context 'before a search performed' do
     before do
@@ -219,4 +219,4 @@ RSpec.describe 'The Search', type: :feature, js: true do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength
+# rubocop:enable Metrics/BlockLength, RSpec/ContextWording, RSpec/NestedGroups

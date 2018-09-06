@@ -1,6 +1,6 @@
 require "rails_helper"
 
-#rubocop:disable Metrics/BlockLength
+#rubocop:disable Metrics/BlockLength, RSpec/DescribeClass
 RSpec.describe "map/map_sidebar" do
   required_fields = {
     qct: %w[tract_fips county state],
@@ -364,7 +364,7 @@ RSpec.describe "map/map_sidebar" do
         end
       end
     end
-    context "multiple disignations" do
+    context "with multiple designations" do
       before do
         body["hubzone"] = [responses[:qct], responses[:qnmc_r], responses[:brac], responses[:indian_lands], responses[:qnmc_qda]]
         I18n.locale = locale
@@ -395,4 +395,4 @@ RSpec.describe "map/map_sidebar" do
     end
   end
 end
-#rubocop:enable Metrics/BlockLength
+#rubocop:enable Metrics/BlockLength, RSpec/DescribeClass:
