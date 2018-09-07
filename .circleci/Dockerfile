@@ -24,6 +24,7 @@ RUN npm install -g jshint
 RUN npm install -g istanbul
 
 RUN pip install -U pip
+RUN pip install --upgrade setuptools
 RUN pip install poirot
 
 RUN wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
