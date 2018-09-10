@@ -205,7 +205,7 @@ jobs:
   poirot:
     docker:
       # specify the version you desire here
-      - image: ussba/cc-ruby:2.5
+      - image: ussba/cc-python:3
     working_directory: ~/repo
     steps:
       - checkout
