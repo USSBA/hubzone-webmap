@@ -17,7 +17,7 @@ jobs:
   rubocop:
     docker:
       # specify the version you desire here
-      - image: sbagov/cc-sba-hz-webmap:1.0
+      - image: ussba/cc-ruby:2.5
     working_directory: ~/repo
     steps:
       - checkout
@@ -42,7 +42,7 @@ jobs:
   rspec:
     docker:
       # specify the version you desire here
-       - image: sbagov/cc-sba-hz-webmap:1.0
+       - image: ussba/cc-ruby:2.5
          environment:
            HUBZONE_MAP_DB_USER: postgres
            HUBZONE_MAP_DB_PASSWORD: postgres
@@ -101,7 +101,7 @@ jobs:
   teaspoonJS:
     docker:
       # specify the version you desire here
-       - image: sbagov/cc-sba-hz-webmap:1.0
+       - image: ussba/cc-ruby:2.5
          environment:
            HUBZONE_MAP_DB_USER: postgres
            HUBZONE_MAP_DB_PASSWORD: postgres
@@ -153,7 +153,7 @@ jobs:
   jsHint:
     docker:
       # specify the version you desire here
-       - image: sbagov/cc-sba-hz-webmap:1.0
+       - image: ussba/cc-ruby:2.5
          environment:
            HUBZONE_MAP_DB_USER: postgres
            HUBZONE_MAP_DB_PASSWORD: postgres
@@ -205,7 +205,7 @@ jobs:
   poirot:
     docker:
       # specify the version you desire here
-      - image: sbagov/cc-sba-hz-webmap:1.0
+      - image: ussba/cc-ruby:2.5
     working_directory: ~/repo
     steps:
       - checkout
@@ -230,7 +230,7 @@ jobs:
   brakeman:
     docker:
       # specify the version you desire here
-      - image: sbagov/cc-sba-hz-webmap:1.0
+      - image: ussba/cc-ruby:2.5
     working_directory: ~/repo
     steps:
       - checkout
