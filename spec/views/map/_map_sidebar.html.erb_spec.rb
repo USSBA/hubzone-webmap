@@ -395,4 +395,4 @@ RSpec.describe "map/map_sidebar" do
     end
   end
 end
-#rubocop:enable Metrics/BlockLength, RSpec/DescribeClass:
+#rubocop:enable Metrics/BlockLength, RSpec/DescribeClass
