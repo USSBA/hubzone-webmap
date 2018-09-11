@@ -99,23 +99,23 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
-    rspec-docker:
-      docker:
-      - image: ussba/cc-docker-git-aws:latest
-      steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - run:
-          name: Build rspec in Docker container
-          command: |
-            git describe --long > REVISION || touch REVISION
-            cat REVISION
-            docker-compose -f docker/docker-compose-test.yml build rspec
-      - run:
-          name: Run rspec in Docker container
-          command: |
-            docker-compose -f docker/docker-compose-test.yml run rspec
+  rspec-docker:
+    docker:
+    - image: ussba/cc-docker-git-aws:latest
+    steps:
+    - checkout
+    - setup_remote_docker:
+        docker_layer_caching: true
+    - run:
+        name: Build rspec in Docker container
+        command: |
+          git describe --long > REVISION || touch REVISION
+          cat REVISION
+          docker-compose -f docker/docker-compose-test.yml build rspec
+    - run:
+        name: Run rspec in Docker container
+        command: |
+          docker-compose -f docker/docker-compose-test.yml run rspec
   teaspoonJS:
     docker:
       # specify the version you desire here
