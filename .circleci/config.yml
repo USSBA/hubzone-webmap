@@ -9,6 +9,7 @@ workflows:
     jobs:
       - rubocop
       - rspec
+      - rspec-hubzone
       - teaspoonJS
       - jsHint
       - poirot
@@ -98,6 +99,19 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
+  rspec-docker:
+    docker:
+    - image: sbagov/cc-docker-git-aws:latest
+    steps:
+    - checkout
+    - setup_remote_docker:
+        docker_layer_caching: true
+    - run:
+        name: Run rspec in Docker container
+        command: |
+          git describe --long > REVISION
+          docker-compose -f ./docker/docker-compose-test.yml build rspec
+          docker-compose -f ./docker/docker-compose-test.yml run rspec
   teaspoonJS:
     docker:
       # specify the version you desire here
