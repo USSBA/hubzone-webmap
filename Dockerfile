@@ -41,11 +41,6 @@ COPY . .
 
 ENV RAILS_LOG_TO_STDOUT true
 
-## Precompile assets
-#ENV RAILS_ENV production
-#RUN bundle exec rake assets:precompile
-
-
 # Setup Entrypoint
 RUN cp ./docker/entrypoint.sh ./docker/precompile-migrate-run.sh /usr/bin/ && chmod 555 /usr/bin/entrypoint.sh && chmod 555 /usr/bin/precompile-migrate-run.sh
 ENTRYPOINT ["entrypoint.sh"]
