@@ -21,7 +21,7 @@ describe "The Help Page", type: :feature do
   it "will have return to top links" do
     expect(page).to have_css(".return-to-top")
   end
-  context "The Help Overview Page" do
+  context "when loading The Help Overview Page" do
     before do
       visit('/hubzone/map/help')
     end
@@ -48,7 +48,7 @@ describe "The Help Page", type: :feature do
     end
   end
 
-  context "The Help FAQ Page" do
+  context "when loading The Help FAQ Page" do
     before do
       visit('/hubzone/map/help/faq')
     end
@@ -69,3 +69,4 @@ describe "The Help Page", type: :feature do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

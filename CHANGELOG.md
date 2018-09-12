@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.2] - 2018-09-14
+### shared-services-sprint-51
+### Changed
+  - HUB-1587
+    - Updated ruby version in Dockerfiles
+  - HUB-1550
+    - Updated to ruby 2.5 and rails 5.2
+
 ## [2.0.1] - 2018-07-06
 ### shared-services-sprint-46
 ### Changed

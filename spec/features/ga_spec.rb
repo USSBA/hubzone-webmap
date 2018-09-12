@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-# rubocop:disable Metrics/BlockLength, Performance/HashEachMethods
+# rubocop:disable Metrics/BlockLength, Performance/HashEachMethods, RSpec/ContextWording
 describe "Google Analytics", type: :feature do
   before do
     visit map_path
@@ -49,3 +49,4 @@ describe "Google Analytics", type: :feature do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength, Performance/HashEachMethods, RSpec/ContextWording

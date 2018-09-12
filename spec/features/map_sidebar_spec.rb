@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-# rubocop:disable Metrics/BlockLength
+# rubocop:disable Metrics/BlockLength, RSpec/ContextWording
 describe "The Sidebar", type: :feature do
   dummy_congressional_district = { gid: 334,
                                    statefp: "42",
@@ -311,3 +311,4 @@ describe "The Sidebar", type: :feature do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength, RSpec/ContextWording

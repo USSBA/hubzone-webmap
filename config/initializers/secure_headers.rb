@@ -48,3 +48,4 @@ else
     }
   end
 end
+#rubocop:enable Lint/PercentStringArray, Metrics/BlockLength
