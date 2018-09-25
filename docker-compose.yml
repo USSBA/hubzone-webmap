@@ -18,7 +18,6 @@ services:
     environment:
     - RAILS_ENV=developmentdocker
     env_file:
-    # Create this env file with HUBZONE_GOOGLE_API_KEY populated
     - docker/hubzone-webmap.env
     command: >
       /bin/bash -c "
