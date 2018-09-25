@@ -3,8 +3,8 @@ services:
   postgres:
     image: mdillon/postgis:9.6
     environment:
-      POSTGRES_USER: dockeruser
-      POSTGRES_PASSWORD: dockerpass
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
   hubzone-webmap:
     build:
       context: .
@@ -19,10 +19,24 @@ services:
     - RAILS_ENV=developmentdocker
     env_file:
     # Create this env file with HUBZONE_GOOGLE_API_KEY populated
-    - .env.docker
-    entrypoint: ["/bin/bash", "-c"]
-    command:
-    - "while ! nc -z postgres 5432; do echo waiting for postgres; sleep 1; done; echo Connected to postgres!; migrate-run.sh"
+    - docker/hubzone-webmap.env
+    command: >
+      /bin/bash -c "
+        function waitfor() {
+          while ! nc -z $$1 $$2;
+          do
+            echo waiting for $$1;
+            sleep 3;
+          done;
+          echo Connected to $$1!;
+        }
+
+        waitfor postgres 5432;
+
+        start-rails.sh;
+        echo rails process exited, stopping container.;
+      "
+
   hubzone-webmap-nginx:
     build:
       context: .
