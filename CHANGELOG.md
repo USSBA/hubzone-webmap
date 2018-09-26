@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.3] - 2018-09-28
+### shared-services-sprint-52
+### Changed
+  - HUB-1612
+    - Updated start-rails and entrypoint scripts
+
 ## [2.0.2] - 2018-09-14
 ### shared-services-sprint-51
 ### Changed

@@ -42,9 +42,9 @@ COPY . .
 ENV RAILS_LOG_TO_STDOUT true
 
 # Setup Entrypoint
-RUN cp ./docker/entrypoint.sh ./docker/precompile-migrate-run.sh /usr/bin/ && chmod 555 /usr/bin/entrypoint.sh && chmod 555 /usr/bin/precompile-migrate-run.sh
+RUN cp ./docker/entrypoint.sh ./docker/start-rails.sh /usr/bin/ && chmod 555 /usr/bin/entrypoint.sh && chmod 555 /usr/bin/start-rails.sh
 ENTRYPOINT ["entrypoint.sh"]
-CMD ["precompile-migrate-run.sh"]
+CMD ["start-rails.sh"]
 
 EXPOSE 3000
 

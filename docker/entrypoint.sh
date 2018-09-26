@@ -3,13 +3,21 @@
 export AWS_DEFAULT_REGION=us-east-1
 export SERVICE_NAME=hubzone-webmap
 
-function usage () {
-  echo "Usage: Container must be run with the following environment variables:
-  DOTENV_S3_PATH: Path to the dotenv directory within S3. Ex: my-bucket/my/dir/dev/${SERVICE_NAME}/
-  AWS_ENVIRONMENT: Resource environment for this service.  Used to refernce ParameterStore values.  Ex: dev, demo, qa, stg, prod, trn
-  HUBZONE_MAP_DB_PASSWORD
+function local-usage () {
+  echo "FATAL: Must set all environment variables before this container can be launched. Exiting.
+
+  Usage: Container must be run with the following environment variables:
   SECRET_KEY_BASE
-  HUBZONE_GOOGLE_API_KEY
+  HUBZONE_MAP_DB_PASSWORD
+   HUBZONE_GOOGLE_API_KEY
+"
+}
+
+function aws-usage () {
+  echo "FATAL: Must set all environment variables before this container can be launched. Exiting.
+
+  Usage: Container must be run with the following environment variables:
+  AWS_ENVIRONMENT: Resource environment for this service.  Used to reference ParameterStore values.  Ex: dev, demo, qa, stg, prod, trn
 "
 }
 
@@ -56,13 +64,9 @@ else
      [ -z "${HUBZONE_MAP_DB_PASSWORD}" ] ||
      [ -z "${HUBZONE_GOOGLE_API_KEY}" ]
      then
-    echo "FATAL: Must set all environment variables before this container can be launched. Exiting."
-    usage
+    local-usage
     exit 40
   fi
 fi
-
-## Not needed for hubzone-webmap
-#get_dotenv_s3
 
 exec "$@"
