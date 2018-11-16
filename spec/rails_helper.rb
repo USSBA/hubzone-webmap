@@ -18,11 +18,17 @@ Capybara.register_driver :selenium do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 
-# load up Poltergeist (not turning off js errors, b/c this is our app, we want to know about errors!)
+# load up Poltergeist
 require 'capybara/poltergeist'
 
+# not turning off js errors, b/c this is our app, we want to know about errors!
+poltergeist_options = {
+  js_errors: true,
+  port: 10000,
+  url_blacklist: ['https://script.hotjar.com']
+}
 Capybara.register_driver(:poltergeist) do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: true, url_blacklist: ['https://script.hotjar.com'])
+  Capybara::Poltergeist::Driver.new(app, poltergeist_options)
 end
 
 Capybara.default_max_wait_time = 10
