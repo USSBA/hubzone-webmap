@@ -15,6 +15,7 @@ gem 'rails', '~> 5.2' # Bundle edge Rails instead: gem 'rails', github: 'rails/r
 gem 'rb-readline' # Why is this suddenly such a problem?
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
 gem 'secure_headers'
+gem 'strong_migrations', '~> 0.3' # Catch unsafe migrations at dev time
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
