@@ -2,7 +2,7 @@ require 'rails_helper'
 
 # rubocop:disable Metrics/BlockLength
 describe "The Help Page", type: :feature do
-  MAP_CONFIG[:hubzone_map_version] = {
+  VERSION_CONFIG[:hubzone_map_version] = {
     major: 100,
     minor: 50,
     patch: 1000,

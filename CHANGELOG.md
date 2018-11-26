@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.5] - 2018-12-07
+### shared-services-sprint-57
+### Changed
+  - HUB-1500
+    - Added `strong_migrations` gem
+
 ## [2.0.4] - 2018-11-23
 ### shared-services-sprint-56
 ### Changed
