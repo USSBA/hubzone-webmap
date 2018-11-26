@@ -37,3 +37,7 @@ REVISION
 # Local certifications
 server.crt
 server.key
+
+# Jetbrains project config files
+.idea/*
+
