@@ -44,7 +44,8 @@ class MapController < ApplicationController
     version = MAP_CONFIG[:hubzone_api_version]
     connection.request(method: :get,
                        path: path,
-                       headers: { 'Accept' => "application/sba.hubzone-api.v#{version}" })
+                       headers: { 'Accept' => "application/sba.hubzone-api.v#{version}",
+                                  'x-api-key' => MAP_CONFIG[:hubzone_api_key] })
   end
 
   def connection
