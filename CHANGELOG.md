@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
   - HUB-1500
     - Added `strong_migrations` gem
+  - HUB-1706
+    - Added API key for requests to the HUBZone API
 
 ## [2.0.4] - 2018-11-23
 ### shared-services-sprint-56

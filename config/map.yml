@@ -10,6 +10,7 @@ default: &defaults
   google_analytics_tracking_id: <%= ENV.fetch('GOOGLE_ANALYTICS_TRACKING_ID') { 'UA-89111383-1' } %>
   hotjar_tracking_id: <%= ENV.fetch('HUBZONE_HOTJAR_TRACKING_ID') { '475456' } %>
   bind_window_events: true
+  hubzone_api_key: <%= ENV.fetch('HUBZONE_API_KEY') { 'SetYourHUBZoneAPIKeyInYour.envFile' } %>
   geom_wms_settings: &default_wms
     url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'http://localhost:8080/geoserver/gwc/service/wms?' } %>
     workspace: <%= ENV.fetch('HUBZONE_WMS_WORKSPACE') { 'hubzone' } %>
