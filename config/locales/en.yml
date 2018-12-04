@@ -72,7 +72,7 @@ en:
       unknown_error: "We're sorry. The request failed due to an internal error. Please try again."
   hubzone_assertions:
     qualified_by: "Qualified by: "
-    qualifications_effective: "Qualification is valid for today: "
+    qualifications_effective: "Qualification is valid for today:"
     qualified: "Qualified HUBZone"
     qualified_aria: "qualified hubzone"
     qualified_short: "Qualified"
