@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.1.0] - 2018-12-20
+### shared-services-sprint-58
+### Changed
+  - HUB-1645
+    - Updates map controls size to match Google's new size
+
 ## [2.0.5] - 2018-12-07
 ### shared-services-sprint-57
 ### Changed
