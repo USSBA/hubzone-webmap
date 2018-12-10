@@ -73,8 +73,8 @@ div[dir="ltr"] {
 }
 /* Geolocation Button */
 #geolocation {
-  width: 28px;
-  height: 28px;
+  width: 40px;
+  height: 40px;
   background-color: $white;
   border-radius: 3px;
   -webkit-box-shadow: 0px 1px 4px -1px rgba(0,0,0,0.29);
@@ -82,11 +82,11 @@ div[dir="ltr"] {
   box-shadow: 0px 1px 4px -1px rgba(0,0,0,0.29);
   cursor: pointer;
   margin-right: 10px;
-  padding: 6px 6px 5px 6px;
+  padding: 6px;
   display: inline-flex;
 }
 #geolocation .fa-location-arrow {
-  font-size: 1.8rem;
+  font-size: 3rem;
   color: $gray;
 }
 .geolocation-sidebar-on {
@@ -96,7 +96,7 @@ div[dir="ltr"] {
 .error-popup.geolocation {
   margin-top: -0.6rem;
   margin-left: -26rem;
-  margin-right: 3.8rem;
+  margin-right: 5rem;
   padding: 1rem;
   height: auto;
   background: $white;
@@ -115,13 +115,12 @@ div[dir="ltr"] {
 @media only screen and (max-width: 950px)  {
   #geolocation {
     display: block;
-    top: 47px;
-    width: 35px;
-    height: 35px;
-    margin-right: 5px;
+    top: 50px;
+    margin-right: 9px;
+    transform: scale(1.25);
   }
   #geolocation .fa-location-arrow {
-    font-size: 2.4rem;
+    font-size: 3rem;
     margin-left: 2px;
     margin-top: -1px;
   }
@@ -147,7 +146,7 @@ div[dir="ltr"] {
     display: block !important;
     position: fixed !important;
     float: right !important;
-    top: 135px !important;
+    top: 150px !important;
     right: 9px !important;
     left: auto !important;
     transform: scale(1.25);
