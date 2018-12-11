@@ -29,11 +29,6 @@ HZApp.SidebarUtils = (function(){
         $sidebar.removeClass('hidden');
         $sidebar.removeClass('closed');
         $('#sidebar-button').html('<i class="fa fa-chevron-right"></i>');
-        if( $('div.gmnoprint[controlheight="81"], div.gmnoprint[controlheight="40"], .gm-svpc') ) {
-          console.log("found something");
-        } else {
-          console.log("didn't find anything");
-        }
         $('div.gmnoprint[controlheight="81"], div.gmnoprint[controlheight="40"], .gm-svpc').addClass('gm-sidebar-on');
         $('#geolocation').addClass('geolocation-sidebar-on');
 
