@@ -29,7 +29,7 @@ HZApp.SidebarUtils = (function(){
         $sidebar.removeClass('hidden');
         $sidebar.removeClass('closed');
         $('#sidebar-button').html('<i class="fa fa-chevron-right"></i>');
-        $('div.gmnoprint[controlheight="55"], div.gmnoprint[controlheight="66"], .gm-svpc').addClass('gm-sidebar-on');
+        $('div.gmnoprint[controlheight="81"], div.gmnoprint[controlheight="40"], .gm-svpc').addClass('gm-sidebar-on');
         $('#geolocation').addClass('geolocation-sidebar-on');
 
       } else {
@@ -37,7 +37,7 @@ HZApp.SidebarUtils = (function(){
         $('#legend').removeClass('legend-mobile');
         $sidebar.addClass('closed');
         $('#sidebar-button').html('<i class="fa fa-chevron-left"></i>');
-        $('div.gmnoprint[controlheight="55"], div.gmnoprint[controlheight="66"], .gm-svpc').removeClass('gm-sidebar-on');
+        $('div.gmnoprint[controlheight="81"], div.gmnoprint[controlheight="40"], .gm-svpc').removeClass('gm-sidebar-on');
         $('#geolocation').removeClass('geolocation-sidebar-on');
         $('#hubzone-qualifications').attr("aria-live", "off");
       }
