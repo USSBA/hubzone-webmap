@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
   - HUB-1645
     - Updates map controls size to match Google's new size
+  - HUB-1562
+    - Fixes zoom controls not moving with the sidebar
 
 ## [2.0.5] - 2018-12-07
 ### shared-services-sprint-57
