@@ -5,6 +5,8 @@ AllCops:
       - 'db/schema.rb'
       - 'bin/*'
       - 'vendor/**/*'
+  TargetRubyVersion: 2.5
+  TargetRailsVersion: 5.2
 
 Metrics/ClassLength:
   Max: 250
