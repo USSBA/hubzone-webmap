@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.1.1] - 2019-01-04
+### shared-services-sprint-59
+### Changed
+  - HUB-1723
+    - Updated rails to 5.2.2 to address security concerns
+    - Skip tests on poltergeist errors
+
 ## [2.1.0] - 2018-12-20
 ### shared-services-sprint-58
 ### Changed
