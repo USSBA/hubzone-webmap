@@ -9,7 +9,8 @@ function local-usage () {
   Usage: Container must be run with the following environment variables:
   SECRET_KEY_BASE
   HUBZONE_MAP_DB_PASSWORD
-   HUBZONE_GOOGLE_API_KEY
+  HUBZONE_GOOGLE_API_KEY
+  HUBZONE_API_KEY
 "
 }
 
@@ -58,11 +59,13 @@ if aws sts get-caller-identity > /dev/null 2>&1; then
   getparameterstore SECRET_KEY_BASE "${AWS_ENVIRONMENT}-${SERVICE_NAME}-secret_key_base"
   getparameterstore HUBZONE_MAP_DB_PASSWORD "${AWS_ENVIRONMENT}-hubzone-db_password"
   getparameterstore HUBZONE_GOOGLE_API_KEY "${AWS_ENVIRONMENT}-hubzone-google_api_key"
+  getparameterstore HUBZONE_API_KEY "${AWS_ENVIRONMENT}-hubzone-apigateway_key"
 else
   echo "Entrypoint: NOT running in AWS"
   if [ -z "${SECRET_KEY_BASE}" ] ||
      [ -z "${HUBZONE_MAP_DB_PASSWORD}" ] ||
-     [ -z "${HUBZONE_GOOGLE_API_KEY}" ]
+     [ -z "${HUBZONE_GOOGLE_API_KEY}" ] ||
+     [ -z "${HUBZONE_API_KEY}" ]
      then
     local-usage
     exit 40
