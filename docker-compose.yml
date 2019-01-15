@@ -1,4 +1,6 @@
 version: '3.4'
+volumes:
+  assets:
 services:
   postgres:
     image: mdillon/postgis:9.6
@@ -10,8 +12,9 @@ services:
       context: .
       cache_from:
       - hubzone/hubzone-webmap:latest
-      target: webmap
     image: hubzone/hubzone-webmap:latest
+    volumes:
+    - assets:/app/public/assets:rw
     restart: "no"
     links:
       - postgres
@@ -36,16 +39,15 @@ services:
         echo rails process exited, stopping container.;
       "
 
-  hubzone-webmap-nginx:
-    build:
-      context: .
-      cache_from:
-      - hubzone/hubzone-webmap:latest
-      - hubzone/hubzone-webmap-nginx:latest
-      target: nginx
+  assets:
+    image: ussba/nginx-asset-proxy:latest
     links:
-      - hubzone-webmap
-    image: hubzone/hubzone-webmap-nginx:latest
+    - hubzone-webmap
+    volumes:
+    - assets:/public/assets:ro
     restart: "no"
+    environment:
+      NGINX_REVERSE_PROXY_PORT: 3001
+      NGINX_REVERSE_PROXY_HOST: hubzone-webmap
     ports:
-      - '3000:80'
+      - '3001:3001'
