@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.0.0] - 2019-01-18
+### shared-services-sprint-60
+### Changed
+  - HUB-1707
+    - Reconfigured the webmap container to require pulling the HUBZONE_API_KEY from parameter-store
+
 ## [2.1.1] - 2019-01-04
 ### shared-services-sprint-59
 ### Changed
