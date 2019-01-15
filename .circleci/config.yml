@@ -9,6 +9,7 @@ workflows:
     jobs:
       - rubocop
       - rspec
+      - rspec-docker
       - teaspoonJS
       - jsHint
       - poirot
@@ -17,7 +18,7 @@ jobs:
   rubocop:
     docker:
       # specify the version you desire here
-      - image: sbagov/cc-sba-hz-webmap:1.0
+      - image: ussba/cc-ruby:2.5
     working_directory: ~/repo
     steps:
       - checkout
@@ -42,7 +43,7 @@ jobs:
   rspec:
     docker:
       # specify the version you desire here
-       - image: sbagov/cc-sba-hz-webmap:1.0
+       - image: ussba/cc-ruby:2.5
          environment:
            HUBZONE_MAP_DB_USER: postgres
            HUBZONE_MAP_DB_PASSWORD: postgres
@@ -98,10 +99,27 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
+  rspec-docker:
+    docker:
+    - image: ussba/cc-docker-git-aws:latest
+    steps:
+    - checkout
+    - setup_remote_docker:
+        docker_layer_caching: true
+    - run:
+        name: Build rspec in Docker container
+        command: |
+          git describe --long > REVISION || touch REVISION
+          cat REVISION
+          docker-compose -f docker/docker-compose-test.yml build rspec
+    - run:
+        name: Run rspec in Docker container
+        command: |
+          docker-compose -f docker/docker-compose-test.yml run rspec
   teaspoonJS:
     docker:
       # specify the version you desire here
-       - image: sbagov/cc-sba-hz-webmap:1.0
+       - image: ussba/cc-ruby:2.5
          environment:
            HUBZONE_MAP_DB_USER: postgres
            HUBZONE_MAP_DB_PASSWORD: postgres
@@ -153,7 +171,7 @@ jobs:
   jsHint:
     docker:
       # specify the version you desire here
-       - image: sbagov/cc-sba-hz-webmap:1.0
+       - image: ussba/cc-ruby:2.5
          environment:
            HUBZONE_MAP_DB_USER: postgres
            HUBZONE_MAP_DB_PASSWORD: postgres
@@ -205,32 +223,18 @@ jobs:
   poirot:
     docker:
       # specify the version you desire here
-      - image: sbagov/cc-sba-hz-webmap:1.0
+      - image: ussba/cc-python:3
     working_directory: ~/repo
     steps:
       - checkout
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "Gemfile.lock" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-      - run:
-          name: install dependencies
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
       - run:
           name: run poirot
           command: |
-            poirot --patterns https://raw.githubusercontent.com/USSBA/hubzone-webmap/develop/hubzone-poirot-patterns.txt --revlist="develop^..HEAD"
+            poirot --patterns https://raw.githubusercontent.com/USSBA/hubzone-webmap/develop/poirot-patterns.txt --revlist="develop^..HEAD"
   brakeman:
     docker:
       # specify the version you desire here
-      - image: sbagov/cc-sba-hz-webmap:1.0
+      - image: ussba/cc-ruby:2.5
     working_directory: ~/repo
     steps:
       - checkout

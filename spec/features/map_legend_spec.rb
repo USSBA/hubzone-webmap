@@ -81,3 +81,4 @@ describe "The Legend", type: :feature do
     expect(page).to have_css('.layer-qnmc_qda')
   end
 end
+# rubocop:enable Metrics/BlockLength

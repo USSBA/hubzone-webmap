@@ -2,14 +2,14 @@ require 'rails_helper'
 
 # rubocop:disable Metrics/BlockLength
 RSpec.describe VersionController, type: :request do
-  MAP_CONFIG[:hubzone_map_version] = {
+  VERSION_CONFIG[:hubzone_map_version] = {
     major: 100,
     minor: 50,
     patch: 1000,
     pre_release: 'zeta'
   }
 
-  context "Get version data in html" do
+  context "when getting version data in html" do
     before do
       get version_url, params: {format: 'html'}
     end
@@ -17,7 +17,7 @@ RSpec.describe VersionController, type: :request do
       expect(response.body).to match(/v\d+.\d+.\d+(-[a-zA-Z0-9.]+)? \([a-f0-9]{7}\)/)
     end
   end
-  context "Get version data in json" do
+  context "when getting version data in json" do
     before do
       get version_url, params: {format: 'json'}
     end
@@ -44,3 +44,4 @@ RSpec.describe VersionController, type: :request do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

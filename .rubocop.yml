@@ -5,6 +5,8 @@ AllCops:
       - 'db/schema.rb'
       - 'bin/*'
       - 'vendor/**/*'
+  TargetRubyVersion: 2.5
+  TargetRailsVersion: 5.2
 
 Metrics/ClassLength:
   Max: 250
@@ -42,8 +44,18 @@ Style/NumericLiterals:
 Style/SingleLineMethods:
   Enabled: false
 
-Layout/SpaceInsideBrackets:
-  Enabled: false
-
 Style/StringLiterals:
   Enabled: false
+
+Rails/UnknownEnv:
+  Environments:
+    - demo
+    - dev
+    - development
+    - developmentdocker
+    - production
+    - qa
+    - staging
+    - test
+    - training
+

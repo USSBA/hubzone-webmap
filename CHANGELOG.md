@@ -1,6 +1,67 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.0.0] - 2019-01-18
+### shared-services-sprint-60
+### Changed
+  - HUB-1707
+    - Reconfigured the webmap container to require pulling the HUBZONE_API_KEY from parameter-store
+
+## [2.1.1] - 2019-01-04
+### shared-services-sprint-59
+### Changed
+  - HUB-1723
+    - Updated rails to 5.2.2 to address security concerns
+    - Skip tests on poltergeist errors
+
+## [2.1.0] - 2018-12-20
+### shared-services-sprint-58
+### Changed
+  - HUB-1645
+    - Updates map controls size to match Google's new size
+  - HUB-1562
+    - Fixes zoom controls not moving with the sidebar
+
+## [2.0.5] - 2018-12-07
+### shared-services-sprint-57
+### Changed
+  - HUB-1500
+    - Added `strong_migrations` gem
+  - HUB-1706
+    - Added API key for requests to the HUBZone API
+
+## [2.0.4] - 2018-11-23
+### shared-services-sprint-56
+### Changed
+  - HUB-1678
+    - Updated updated Gemfile/Gemfile.lock to use nokogiri >= 1.8.5, rack >= 2.0.6, and loofah >= 2.2.3.
+
+## [2.0.3] - 2018-09-28
+### shared-services-sprint-52
+### Changed
+  - HUB-1612
+    - Updated start-rails and entrypoint scripts
+
+## [2.0.2] - 2018-09-14
+### shared-services-sprint-51
+### Changed
+  - HUB-1587
+    - Updated ruby version in Dockerfiles
+  - HUB-1550
+    - Updated to ruby 2.5 and rails 5.2
+
+## [2.0.1] - 2018-07-06
+### shared-services-sprint-46
+### Changed
+  - HUB-1416
+    - Updated sprockets gem
+  - Added x-ray rails gem
+
+## [2.0.0] - 2018-06-18
+  - HUB-1377
+    - v2.0.0 bump
+  - Update Program link
+
 ## [1.7.8] - 2018-06-18
 ### hubzone-sprint-44
 ### Added
