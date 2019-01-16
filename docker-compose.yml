@@ -47,7 +47,7 @@ services:
     - assets:/public/assets:ro
     restart: "no"
     environment:
-      NGINX_REVERSE_PROXY_PORT: 3001
+      NGINX_REVERSE_PROXY_PORT: 3000
       NGINX_REVERSE_PROXY_HOST: hubzone-webmap
     ports:
-      - '3001:3001'
+      - '3000:3000'
