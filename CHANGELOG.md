@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 ## [3.0.0] - 2019-01-18
 ### shared-services-sprint-60
 ### Changed
+  - IA-330
+    - Switching assets docker configuration to use a shared asset image
   - HUB-1707
     - Reconfigured the webmap container to require pulling the HUBZONE_API_KEY from parameter-store
 
