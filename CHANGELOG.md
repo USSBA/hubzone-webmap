@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.0.2] - 2019-02-01
+### shared-services-sprint-61
+### Changed
+  - HZINF-1763
+    - Adding decrypt to parameterstore requests
+
+## [3.0.1] - 2019-01-18
+### shared-services-sprint-60
+### Changed
+  - IA-330
+    - Switching assets docker configuration to use a shared asset image
+
 ## [3.0.0] - 2019-01-18
 ### shared-services-sprint-60
 ### Changed

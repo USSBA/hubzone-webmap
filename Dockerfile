@@ -1,4 +1,4 @@
-FROM ruby:2.5-slim-stretch as webmap
+FROM ruby:2.5-slim-stretch
 
 # Install general packages
 ENV PACKAGES build-essential libpq-dev netcat git python python-pip python-dev apt-utils apt-transport-https curl wget unzip jq gnupg
@@ -47,9 +47,3 @@ ENTRYPOINT ["entrypoint.sh"]
 CMD ["start-rails.sh"]
 
 EXPOSE 3000
-
-# Start NGINX container config
-FROM nginx as nginx
-WORKDIR /public
-COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
-COPY public /public
