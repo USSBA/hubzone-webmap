@@ -27,8 +27,8 @@ function getparameterstore () {
   PARAMETER_STORE_NAME=$2
   echo "Getting parameter ENV_NAME=${ENV_NAME}, PARAMETER_STORE_NAME=${PARAMETER_STORE_NAME}"
   echo "Testing pulling data from ParameterStore..."
-  aws ssm get-parameter --name "${PARAMETER_STORE_NAME}" > /dev/null && echo "Success ${PARAMETER_STORE_NAME}" || ( echo "FATAL: Could not retrieve ParameterStore value '${PARAMETER_STORE_NAME}'"; exit 10; )
-  export $ENV_NAME=$(aws ssm get-parameter --name "${PARAMETER_STORE_NAME}" | jq .Parameter.Value -r)
+  aws ssm get-parameter --with-decryption --name "${PARAMETER_STORE_NAME}" > /dev/null && echo "Success ${PARAMETER_STORE_NAME}" || ( echo "FATAL: Could not retrieve ParameterStore value '${PARAMETER_STORE_NAME}'"; exit 10; )
+  export $ENV_NAME=$(aws ssm get-parameter --with-decryption --name "${PARAMETER_STORE_NAME}" | jq .Parameter.Value -r)
 
   if [ -z "${!ENV_NAME}" ]; then
     echo "FATAL: Could not retrieve ParameterStore value '${PARAMETER_STORE_NAME}'"
