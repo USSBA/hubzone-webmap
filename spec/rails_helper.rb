@@ -13,27 +13,17 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
 
-# load up Selenium
-Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
+Capybara.register_driver :headless_chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: %w[headless disable-gpu] }
+  )
+
+  Capybara::Selenium::Driver.new app,
+                                 browser: :chrome,
+                                 desired_capabilities: capabilities
 end
 
-# load up Poltergeist
-require 'capybara/poltergeist'
-
-# not turning off js errors, b/c this is our app, we want to know about errors!
-poltergeist_options = {
-  js_errors: true,
-  port: 10000,
-  url_blacklist: ['https://script.hotjar.com']
-}
-Capybara.register_driver(:poltergeist) do |app|
-  Capybara::Poltergeist::Driver.new(app, poltergeist_options)
-end
-
-Capybara.default_max_wait_time = 10
-#Capybara.javascript_driver = :selenium # with browser interaction
-Capybara.javascript_driver = :poltergeist # headless
+Capybara.javascript_driver = :headless_chrome
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

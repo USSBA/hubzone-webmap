@@ -3,8 +3,6 @@ require "rails_helper"
 RSpec.describe 'Map responsive layout', type: :feature do
   before do
     visit map_path
-  rescue Capybara::Poltergeist::StatusFailError
-    skip "skip until we figure out why poltergeist is randomly failing"
   end
 
   describe "Up to mobile view", js: true do

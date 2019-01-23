@@ -40,7 +40,6 @@ group :development, :test do
   gem 'jasmine-rails' # JavaScript testing
   gem 'jshint'
   gem 'launchy'
-  gem 'poltergeist'
   gem 'rspec-rails', '~> 3.5' # Use RSpec for tests
   gem 'rubocop', '~> 0.52.1' # Enforce ruby code style
   gem 'rubocop-rspec', '~> 1.23.0'

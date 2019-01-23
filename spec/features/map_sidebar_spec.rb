@@ -122,8 +122,6 @@ describe "The Sidebar", type: :feature do
                               } } }
   before do
     visit(map_path)
-  rescue Capybara::Poltergeist::StatusFailError
-    skip "skip until we figure out why poltergeist is randomly failing"
   end
 
   after do
@@ -241,7 +239,7 @@ describe "The Sidebar", type: :feature do
       expect(page).to have_content('Designations')
     end
     it "will have show details" do
-      expect(page).to have_content('Designations Show Details')
+      expect(page).to have_content('Show Details')
     end
   end
 
