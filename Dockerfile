@@ -20,6 +20,22 @@ RUN echo "Updating repos..." && apt-get update > /dev/null && \
     echo "Installing posgres packages: ${PG_PACKAGES}..." && apt-get -t stretch-pgdg install -y $PG_PACKAGES --fix-missing --no-install-recommends > /dev/null && \
     echo "Done." && rm -rf /var/lib/apt/lists/*
 
+# Install Chromedriver
+RUN gem install chromedriver-helper --version 2.1.0
+# ENV CHROME_PACKAGES xvfb libxi6 libgconf-2-4 default-jdk google-chrome-stable
+# RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add &&\
+#     echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+# RUN echo "Updating repos..." && apt-get update > /dev/null && \
+#     echo "Installing packages: ${CHROME_PACKAGES}..." && apt-get install -y $CHROME_PACKAGES --fix-missing --no-install-recommends > /dev/null && \
+#     echo "Done" && rm -rf /var/lib/apt/lists/*
+# RUN echo "Installing chromedriver..." &&\
+#     wget https://chromedriver.storage.googleapis.com/2.45/chromedriver_linux64.zip &&\
+#     unzip chromedriver_linux64.zip &&\
+#     mv chromedriver /usr/bin/chromedriver &&\
+#     chown root:root /usr/bin/chromedriver &&\
+#     chmod +x /usr/bin/chromedriver &&\
+#     echo "Done" && rm -rf chromedriver_linux64.zip
+
 #Install javascript runtime
 RUN wget -q https://deb.nodesource.com/setup_6.x -O nodesource_setup.sh && \
     bash nodesource_setup.sh && \
