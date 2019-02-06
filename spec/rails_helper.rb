@@ -13,9 +13,25 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
 
+# TODO remove this if it does not work - tyler
+
+class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
+  driven_by :selenium, using: :chrome, screen_size: [1400, 1400],
+  options: {url: "http://chrome:4444/wd/hub"}
+
+  def setup
+    host! "http://#{IPSocket.getaddress(Socket.gethostname)}"
+    super
+  end
+end 
+
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
 Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w[headless disable-gpu] }
+    chromeOptions: { args: %w(headless disable-gpu no-sandbox) }
   )
 
   Capybara::Selenium::Driver.new app,
