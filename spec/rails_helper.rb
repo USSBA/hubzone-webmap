@@ -16,7 +16,11 @@ require 'capybara/rails'
 # TODO remove this if it does not work - tyler
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
+<<<<<<< HEAD
   driven_by :selenium, using: :chrome,
+=======
+  driven_by :selenium, using: :chrome, screen_size: [1400, 1400],
+>>>>>>> c57f780284f0b4b68bf5a9819dd0ed991eedc5e6
   options: {url: "http://chrome:4444/wd/hub"}
 
   def setup
@@ -31,7 +35,11 @@ end
 
 Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+<<<<<<< HEAD
     chromeOptions: { args: %w(headless no-sandbox window-size=1024,768) }
+=======
+    chromeOptions: { args: %w(headless disable-gpu no-sandbox) }
+>>>>>>> c57f780284f0b4b68bf5a9819dd0ed991eedc5e6
   )
 
   Capybara::Selenium::Driver.new app,

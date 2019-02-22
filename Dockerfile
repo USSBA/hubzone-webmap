@@ -52,7 +52,11 @@ EXPOSE 3000
 FROM webmap-base as webmap-test
 
 # Install Chromedriver & chrome
+<<<<<<< HEAD
 ENV PACKAGES xvfb libxi6 libgconf-2-4 google-chrome-stable chromedriver
+=======
+ENV PACKAGES xvfb google-chrome-stable chromedriver
+>>>>>>> c57f780284f0b4b68bf5a9819dd0ed991eedc5e6
 
 RUN echo "Creating user to run headless chrome..." && useradd svc.chrome && \
     mkdir -p /home/svc.chrome && chown svc.chrome:svc.chrome /home/svc.chrome
@@ -64,7 +68,23 @@ RUN echo "Updating repos..." && apt-get update -y && apt-get -y install $PACKAGE
     echo "Done" && rm -rf /var/lib/apt/lists/*
 RUN echo 'export PATH="~/bin/:$PATH"' >> ~/.bash_profile
 
+<<<<<<< HEAD
 EXPOSE 3001
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["start-rails.sh"]
+=======
+EXPOSE 4444
+
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["start-rails.sh"]
+
+
+#COPY bootstrap.sh /
+
+#CMD ['/bootstrap.sh']
+
+
+
+
+>>>>>>> c57f780284f0b4b68bf5a9819dd0ed991eedc5e6

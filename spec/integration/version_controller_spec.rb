@@ -14,7 +14,10 @@ RSpec.describe VersionController, type: :request do
       get version_url, params: {format: 'html'}
     end
     it "will show the current version of the api software" do
+<<<<<<< HEAD
       skip if ENV["SKIP_HEADLESS_TEST_DOCKER"]
+=======
+>>>>>>> c57f780284f0b4b68bf5a9819dd0ed991eedc5e6
       expect(response.body).to match(/v\d+.\d+.\d+(-[a-zA-Z0-9.]+)? \([a-f0-9]{7}\)/)
     end
   end
@@ -35,6 +38,7 @@ RSpec.describe VersionController, type: :request do
       expect(json.keys.include?(:pre_release)).to be true
     end
     it "will return the commit of the api software" do
+<<<<<<< HEAD
       skip if ENV["SKIP_HEADLESS_TEST_DOCKER"]
       expect(json.keys.include?(:commit_sha)).to be true
     end
@@ -44,6 +48,14 @@ RSpec.describe VersionController, type: :request do
     end
     it "will return the delta of the api software" do
       skip if ENV["SKIP_HEADLESS_TEST_DOCKER"]
+=======
+      expect(json.keys.include?(:commit_sha)).to be true
+    end
+    it "will return the tag of the api software" do
+      expect(json.keys.include?(:tag)).to be true
+    end
+    it "will return the delta of the api software" do
+>>>>>>> c57f780284f0b4b68bf5a9819dd0ed991eedc5e6
       expect(json.keys.include?(:delta)).to be true
     end
   end
