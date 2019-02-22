@@ -1,0 +1,52 @@
+<div class="legend-header open">
+  <h4><%= t('legend.title') %></h4>
+  <i class="legend-button fa fa-chevron-down"></i>
+</div>
+<fieldset class="usa-fieldset-inputs">
+  <legend class="usa-sr-only" aria-label="<%= t('legend.title') %>"><%= t('legend.title') %></legend>
+  <ul class="legend-content" aria-label="<%= t('legend.title') %>">
+    <div class="legend-list-title"><%= t('legend.qualified') %></div>
+    <li class="legend-item">
+      <input id="qct_legend" type="checkbox" name="qct" value="qct" checked="" autocomplete="off">
+        <label for="qct_legend">
+          <div class="legend-layer-symbols layer-qct" aria-label="<%= t('legend.icon_census_tract') %>"></div><%= t('legend.qct') %>
+        </label>
+      </input>
+    </li>
+    <li class="legend-item">
+      <input id="qnmc_legend" type="checkbox" name="qnmc" value="qnmc" checked="" autocomplete="off">
+      <label for="qnmc_legend">
+        <div class="legend-layer-symbols layer-qnmc" aria-label="<%= t('legend.icon_county') %>"></div><%= t('legend.qnmc') %>
+      </label>
+    </li>
+    <li class="legend-item">
+      <input id="indian_lands_legend" type="checkbox" name="indian_lands" value="indian_lands" checked="" autocomplete="off">
+      <label for="indian_lands_legend">
+        <div class="legend-layer-symbols layer-indian_lands"  aria-label="<%= t('legend.icon_indian_land') %>"></div><%= t('legend.indian_lands') %>
+      </label>
+    </li>
+    <div class="legend-list-title"><%= t('legend.expiring') %></div>
+    <li class="legend-item">
+      <input id="redesignated_legend" type="checkbox" name="redesignated" value="redesignated" checked="" autocomplete="off">
+      <label for="redesignated_legend">
+        <div class="legend-layer-symbols layer-qct_r" aria-label="<%= t('legend.icon_redesignated_census') %>"></div>
+        <div class="legend-layer-symbols layer-qnmc_r" aria-label="<%= t('legend.icon_redesignated_county') %>"></div><%= t('legend.redesignated') %>
+      </label>
+    </li>
+    <li class="legend-item">
+      <input id="qda_legend" type="checkbox" name="qda" value="qda" checked="" autocomplete="off">
+      <label for="qda_legend">
+        <div class="legend-layer-symbols layer-qct_qda" aria-label="<%= t('legend.icon_disaster_area_census') %>"></div>
+        <div class="legend-layer-symbols layer-qnmc_qda" aria-label="<%= t('legend.icon_disaster_area_county') %>"></div><%= t('legend.qda') %>
+      </label>
+    </li>
+    <li class="legend-item">
+      <input id="brac_legend" type="checkbox" name="brac" value="brac" checked="" autocomplete="off">
+      <label for="brac_legend">
+        <div class="legend-layer-symbols layer-qct_brac" aria-label="<%= t('legend.icon_brac_census') %>"></div>
+        <div class="legend-layer-symbols layer-qnmc_brac"  aria-label="<%= t('legend.icon_brac_county') %>"></div>
+        <div class="legend-layer-symbols layer-brac"  aria-label="<%= t('legend.icon_brac') %>"></div><%= t('legend.brac') %>
+      </label>
+    </li>
+  </ul>
+</fieldset>

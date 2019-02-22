@@ -51,21 +51,20 @@ EXPOSE 3000
 
 FROM webmap-base as webmap-test
 
-# Install chromedriver
+# Install Chromedriver & chrome
+ENV PACKAGES xvfb libxi6 libgconf-2-4 google-chrome-stable chromedriver
 
-ENV CHROME_PACKAGES xvfb libxi6 libgconf-2-4 default-jdk google-chrome-stable chromium-chromedriver
+RUN echo "Creating user to run headless chrome..." && useradd svc.chrome && \
+    mkdir -p /home/svc.chrome && chown svc.chrome:svc.chrome /home/svc.chrome
 
-RUN gem install chromedriver-helper --version 2.1.0 
-RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add && \
-    echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
-RUN echo "Updating repos..." && apt-get update > /dev/null && \
-    echo "Installing packages: ${CHROME_PACKAGES}..." && apt-get install -y $CHROME_PACKAGES --fix-missing --no-install-recommends > /dev/null && \
+RUN echo "Installing chrome..." && \
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+RUN echo "Updating repos..." && apt-get update -y && apt-get -y install $PACKAGES && \
     echo "Done" && rm -rf /var/lib/apt/lists/*
-RUN echo "Installing chromedriver..." && \
-    wget https://chromedriver.storage.googleapis.com/2.45/chromedriver_linux64.zip && \
-    unzip chromedriver_linux64.zip && \
-    mv chromedriver /usr/bin/chromedriver && \
-    chown root:root /usr/bin/chromedriver && \
-    chmod +x /usr/bin/chromedriver && \
-    echo "Done" && rm -rf chromedriver_linux64.zip
+RUN echo 'export PATH="~/bin/:$PATH"' >> ~/.bash_profile
 
+EXPOSE 3001
+
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["start-rails.sh"]

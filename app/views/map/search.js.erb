@@ -1,0 +1,11 @@
+$('#sidebar-content').html("<%= j render partial: "map_sidebar", locals: {body: JSON.parse(@body)} %>");  // jshint ignore:line
+// console.log("search.js: parseResponse!");
+var response = JSON.parse('<%= @body.html_safe %>');
+HZApp.HZQuery.parseResponse(response);
+HZApp.SidebarUtils.updateA11yFocus($('#hubzone-qualifications'));
+HZApp.SidebarUtils.updateAccordion($('.additional-details-expand'));
+HZApp.SidebarUtils.updateAccordion($('.local-information-expand'));
+HZApp.HZQuery.resetStreetView($('div[jsaction="closeControl.click"]'));
+// console.log("search.js: setQueryHash!");
+// HZApp.Router.setQueryHash(response.search_q);
+// console.log("search.js: COMPLETE!");

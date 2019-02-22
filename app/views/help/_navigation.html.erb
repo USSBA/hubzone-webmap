@@ -1,0 +1,64 @@
+<% page_open = 'usa-current'
+   page_closed = 'usa-not-current'
+   overview_status = ''
+   faq_status = '' %>
+
+<% if @page_selected == 'overview'
+    overview_status = page_open
+    faq_status = page_closed
+   elsif @page_selected == 'faq'
+    overview_status = page_closed
+    faq_status = page_open
+   end %>
+
+<aside class="help-nav usa-width-one-fourth usa-layout-docs-sidenav">
+    <ul class="usa-sidenav-list">
+        <li>
+            <%= link_to( "#{t('help.overview.title_html')}",
+                       help_path,
+                       "id" => "help-overview-link",
+                       class: overview_status,
+                       "aria-label" => "#{t('help.overview.title_html')}",
+                       onclick: "HZApp.GA.openLink( '#{help_path}', 'map', 'help_overview_link' );" ) %>
+            <ul class="usa-sidenav-sub_list">
+                <li>
+                    <a href="/hubzone/map/help#section-eligibility" aria-label="<%= t('help.elegibility.title_html') %>"><%= t('help.elegibility.title_html') %></a>
+                </li>
+                <li>
+                    <a href="/hubzone/map/help#section-reporting" aria-label="<%= t('help.reporting.title_html') %>"><%= t('help.reporting.title_html') %></a>
+                </li>
+                <li>
+                    <a href="/hubzone/map/help#section-map-legend" aria-label="<%= t('help.understanding.title_html') %>"><%= t('help.understanding.title_html') %></a>
+                </li>
+                <li>
+                    <a href="/hubzone/map/help#section-advanced" aria-label="<%= t('help.advanced.title_html') %>"><%= t('help.advanced.title_html') %></a>
+                </li>
+                <li>
+                    <a href="/hubzone/map/help#section-version" aria-label="<%= t('help.version.title_html') %>"><%= t('help.version.title_html') %></a>
+                </li>
+            </ul>
+        </li>
+        <li>
+          <%= link_to( "#{t('help.faq.title')}",
+                     help_faq_path,
+                     "id" => "help-faq-link",
+                     class: faq_status,
+                     "aria-label" => "#{t('help.faq.title')}",
+                     onclick: "HZApp.GA.openLink( '#{help_path}/faq', 'map', 'help_faq_link' );" ) %>
+          <ul class="usa-sidenav-sub_list">
+              <li>
+                  <a href="/hubzone/map/help/faq#section-faq-1" aria-label="<%= t('help.faq.question_one.title_html') %>"><%= t('help.faq.question_one.title_html') %></a>
+              </li>
+              <li>
+                  <a href="/hubzone/map/help/faq#section-faq-2" aria-label="<%= t('help.faq.question_two.title_html') %>"><%= t('help.faq.question_two.title_html') %></a>
+              </li>
+              <li>
+                  <a href="/hubzone/map/help/faq#section-faq-3" aria-label="<%= t('help.faq.question_three.title_html') %>"><%= t('help.faq.question_three.title_html') %></a>
+              </li>
+              <li>
+                  <a href="/hubzone/map/help/faq#section-faq-4" aria-label="<%= t('help.faq.question_four.title_html') %>"><%= t('help.faq.question_four.title_html') %></a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+</aside>

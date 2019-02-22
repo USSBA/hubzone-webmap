@@ -1,0 +1,95 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+dev:
+  help:
+    back_to_map: "Volver al mapa"
+    return_to_top: "Volver a la cima"
+    overview:
+      title_html: "Mapa del HUBZone"
+      body_html: "La aplicación de mapeo de HUBZone le ayuda a averiguar si una ubicación particular de un negocio o una ubicación residencial de un empleado está dentro de una HUBZone. También puede utilizar HUBZone Mapping para averiguar qué áreas de HUBZone se encuentran dentro de un área de mayor interés."
+    elegibility:
+      title_html: "Determinación de elegibilidad"
+      body_html: "<p>Puede utilizar el Mapa para determinar y documentar su elegibilidad para el programa de Zonas empresariales históricamente infrautilizadas (HUBZone) que ejecuta Small Business Administration (SBA). Para una explicación más detallada del Programa HUBZone y los criterios de elegibilidad,<a href=\"https://www.sba.gov/contracting/government-contracting-programs/hubzone-program\">HUBZone Program</a> Sección de información.</p><p>Para determinar la elegibilidad de un negocio o residencia, siga estos pasos:</p><ol><li>Escriba la dirección en la barra de búsqueda y haga clic o toque Buscar</li><li>Asegúrese de que la búsqueda encontró la dirección correcta</li><li>Leer el estado de calificación</li><li>Abrir una copia imprimible de los resultados</li></ol>"
+    reporting:
+      title_html: "Proporcionar documentación a la SBA"
+      body_html: "<p>Después de encontrar la dirección de su negocio o residencia (see <a href=\"#section-eligibility\"> Determinación de elegibilidad</a>),Seleccione el botón Versión imprimible para crear una copia PDF del mapa. El PDF se abrirá en una nueva ventana del navegador. Compruebe que el PDF muestra la dirección exacta para el negocio o la residencia (las búsquedas genéricas como \"Greenville, SC\" no cuentan). Esta dirección debe coincidir con la dirección en su prueba de residencia / documento de propiedad. A continuación, puede descargar o imprimir el PDF.</p><p>Puede enviar estas copias PDF a la SBA con su aplicación HUBZone a través del sistema de seguimiento de certificación HUBZone (HCTS) <a href=\"https://eweb.sba.gov/\">https://eweb.sba.gov/</a></p>"
+    understanding:
+      title_html: "Entendiendo el mapa"
+      search_bar:
+        title_html: "Barra de búsqueda"
+        body_html: "<p>Puede buscar una dirección o una coordenada GPS en el Mapa usando la barra de búsqueda. Cuando empiece a escribir la dirección en la barra de búsqueda, pueden aparecer sugerencias. Puede seleccionar cualquiera de las direcciones sugeridas o continuar introduciendo la dirección. Pulse \"Enter\" o seleccione la lupa para buscar. Puede borrar el campo de búsqueda para introducir una nueva dirección seleccionando el símbolo \"x\".</p><p>Si desea buscar una coordenada GPS específica, utilice el formato: 38.93655, -77.01993. Siempre indique latitud y longitud. No utilice el símbolo \"°\". Asegúrese de usar el símbolo \"-\" para indicar coordenadas GPS negativas.</p>"
+      legend:
+        title_html: "Leyenda"
+        overview_html: "<p>The Legend es una guía visual que le ayuda a leer la información mostrada en el mapa. El mapa muestra áreas designadas como HUBZones usando colores y patrones. Cada HUBZone o HUBZone expirante tiene un símbolo diferente en la Leyenda.</p>"
+        census_tract:
+          title_html: "Tramo de Censo<div class=\"help-layer-symbols layer-qct\"></div>"
+          body_html: "HUBZone Census Calified Tracts designado por el Departamento de Vivienda y Desarrollo Urbano (HUD) basado en criterios de pobreza y ingreso familiar."
+        county:
+          title_html: "Condado<div class=\"help-layer-symbols layer-qnmc\"></div>"
+          body_html: "HUBZone Condados calificados ubicados en áreas no metropolitanas que reúnan al menos dos de los criterios socioeconómicos: ingreso familiar (Oficina del Censo), tasa de desempleo (Oficina de Estadísticas Laborales) y áreas de desarrollo difícil (Departamento de Vivienda y Desarrollo Urbano)."
+        indian_land:
+          title_html: "Tierra india<div class=\"help-layer-symbols layer-indian_lands\"></div>"
+          body_html: "HUBZone Territorios Indios Calificados incluidos dentro de los límites de una Reserva Indígena, País Indio o cualquier otra definición específica que se aplique en el Estado de Oklahoma."
+        redesignated_area:
+          title_html: "Área Redesignada<div class=\"help-layer-symbols layer-qct_r \"></div><div class=\"help-layer-symbols layer-qnmc_r\"></div>"
+          body_html: "HUBZone Census Tracts calificados y HUBZone condados calificados pueden perder su condición de calificación HUBZone. Cuando eso suceda, el Departamento de Censo o Condado permanecerá calificado por tres años después de la fecha de la Re-designación. Las áreas rediseñadas siempre muestran una fecha de vencimiento junto a su estado de calificación.<ul><li>Sector de Censo Rediseñado<div class=\"help-layer-symbols layer-qct_r \"></li><li>Condado rediseñado<div class=\"help-layer-symbols layer-qnmc_r\"></li></ul>"
+        disaster_area:
+          title_html: "<div class=\"help-layer-symbols layer-qct_qda \"></div><div class=\"help-layer-symbols layer-qnmc_qda\"></div>Área de desastre"
+          body_html: "<p>Un Área de Desastre Calificado de HUBZone incluye las Regiones Censitarias y Condados que el Presidente declaró áreas de desastre importantes o catastróficas.</p><p>Para que un Tramo de Censo o Condado sea designado como un Área de Desastre Calificada, debe haberse convertido en un Área de Censo Redesignada o en un Condado Rediseñado dentro del período que comienza 5 años antes de la fecha de la declaración de desastre y terminando 2 años después de dicha fecha.</p><p>La calificación de un Área de Desastre comienza en la fecha de la declaración de desastre o en la fecha en que termina su Redesignación, la que sea más reciente. Dependiendo de la categoría de desastre, un Área de Desastre permanece calificado por 5 años si se considera un desastre mayor o 10 años si se considera un desastre catastrófico.</p><ul><li><div class=\"help-layer-symbols layer-qct_qda \"></div>Área de desastre Área censal</li><li><div class=\"help-layer-symbols layer-qnmc_qda\"></div>Condado de Disaster Area</li></ul>"
+        base_closure_area:
+          title_html: "Área de cierre de la base<div class=\"help-layer-symbols layer-brac \"></div><div class=\"help-layer-symbols layer-qnmc_brac \"></div><div class=\"help-layer-symbols layer-qct_brac \"></div>"
+          body_html: "<p>HUBZone Zona de Cierre Calificado de Áreas contenidas dentro de los límites de una instalación militar del Departamento de Defensa (DoD) cerrada. Un área de cierre de base permanecerá calificada durante 8 años después de que se designe como HUBZone. Las áreas de cierre de base siempre muestran una fecha de vencimiento junto a su estado de calificación.</p><ul><li><b>Cierre de la base</b><div class=\"help-layer-symbols layer-brac \"></div></li><p>Límites de una instalación militar cerrada.</p><li><b>Censo de la Base</b><div class=\"help-layer-symbols layer-qct_brac \"></div><p>HUBZone Redesignado o No Censado que contiene una instalación militar o contigua a la que contiene una instalación militar.</p></li><li><b>Condado de cierre de base</b><div class=\"help-layer-symbols layer-qnmc_brac \"></div> <p>HUBZone Condado rediseñado o no calificado que contenga una instalación militar o contigua a la que contenga una instalación militar.</p></li></ul>"
+    advanced:
+      title_html: "Uso de funciones avanzadas"
+      base_map:
+        title_html: "Toggle del mapa base"
+        body_html: "<p>Utilice los botones del mapa base para cambiar el mapa base. Cada mapa base muestra una vista diferente de la información para ayudarle a navegar por el mapa y encontrar puntos de referencia. los<b>Mapa</b> Base es el mapa predeterminado proporcionado por Google, incluyendo la mayoría de las calles, lugares de interés y negocios. los<b>Gris claro</b> Mapa base muestra una vista menos desordenada de los hitos circundantes y puede ayudar a aclarar las diferencias en las capas HUBZone. los<b>Satélite</b> El mapa base muestra una vista de satélite del terreno y si se amplía lo suficiente la El mapa cambiará a una vista en perspectiva 3D de edificios y puntos de referencia.</p>"
+      zoom:
+        title_html: "Enfocar"
+        body_html: "<p>Utilice los botones + y - para acercar y alejar el mapa. Cada vez que haga clic o toque el botón + o -, la pantalla ampliará la escala del mapa. En los dispositivos móviles también puede utilizar pinch-to-zoom.</p>"
+      street_view:
+        title_html: "vista de calle"
+        body_html: "<p>Utilice el icono pegman (izquierda) para ver una vista de nivel de calle del mapa. Puede hacer clic y arrastrar el icono a la ubicación que desea ver a nivel de la calle. A continuación, puede utilizar las flechas de la pantalla para moverse a nivel de la calle. Para salir del zoom de la vista de la calle o haga clic en la flecha hacia atrás en la parte superior izquierda debajo de la barra de búsqueda.</p>"
+      my_location:
+        title_html: "Mi ubicacion"
+        sub_head_one_html: "Dar permiso para usar su ubicación"
+        body_one_html: "<p>Si permite que su navegador utilice su ubicación actual, podrá determinar si se encuentra dentro de un HUBZone calificado.</p><p>Al seleccionar \"Permitir\" o \"Permitir acceso a la ubicación\" se habilitará la función de ubicación de su navegador.</p><p>El mapa no podrá obtener su ubicación actual si seleccionó \"No permitir\" o \"Bloquear\" al utilizar el mapa anteriormente. En ese caso, tendrá que cambiar la configuración del navegador para el Mapa HUBZone.</p>"
+        sub_head_two_html: "Errores al encontrar su ubicación"
+        body_two_html: "<p>Si el Mapa HUBZone no puede determinar su ubicación incluso cuando conceda permiso, intente volver a cargar la página. Si el problema persiste, intente borrar la configuración del navegador o ingresar su dirección y buscar en el mapa.</p>"
+    faq:
+      title: "preguntas frecuentes"
+      question_one:
+        title_html: "¿Qué pasa si el mapa no puede completar mi búsqueda?"
+        body_first_html: "<p>El Mapa HUBZone siempre intentará encontrar y colocar un marcador para la dirección que ingresa. Si el Mapa HUBZone no puede completar su búsqueda, mostrará el siguiente mensaje de error:</p>"
+        body_second_html: "<p>Hay varias razones por las que podría recibir este mensaje de error.</p><ol><li>La dirección es incorrecta, inténtalo de nuevo</li><li>La búsqueda está teniendo problemas para encontrar la dirección exacta, intente ingresar sólo la dirección de la calle y deje que la barra de búsqueda complete la dirección para usted</li><li>La dirección no existe o no tiene una ubicación geocodificada, ver más abajo</li></ol><p>Si el Mapa no devuelve una dirección, puede hacer clic o tocar en el Mapa para colocar un marcador en la ubicación correcta. Tenga en cuenta que al utilizar este método sólo se devolverán coordenadas GPS para la ubicación.</p>"
+      question_two:
+        title_html: "¿Qué pasa si el mapa coloca el marcador en el lugar equivocado?"
+        body_html: "A veces, el Mapa puede colocar incorrectamente el marcador de ubicación, especialmente en lugares donde se dispone de menos datos de geocodificación, como Puerto Rico. Si cree que el marcador de mapa no está colocado correctamente, puede hacer clic o tocar el Mapa para colocar un marcador en la ubicación correcta. Tenga en cuenta que al utilizar este método sólo se devolverán coordenadas GPS para la ubicación."
+      question_three:
+        title_html: "¿Qué pasa si mi ubicación no tiene una dirección?"
+        body_html: "<p>Si conoce las coordenadas GPS de la ubicación, puede escribirlas en la barra de búsqueda. Utilice el formato: 38.93655, -77.01993. Siempre elija la latitud primero, la longitud segundo y no use el símbolo \"°\". Asegúrese de usar el símbolo \"-\" para indicar coordenadas GPS negativas. </ P> <p> Si su ubicación no tiene una dirección y no conoce las coordenadas GPS, puede hacer clic o tocar en el Mapa para colocar un marcador En la ubicación correcta. Tenga en cuenta que el uso de este método devolverá las coordenadas GPS de la ubicación y no una dirección.</p>"
+      question_four:
+        title_html: "¿Por qué mi dirección tiene una fecha de caducidad?"
+        body_first_html: "<p>Si su dirección se encuentra en un HUBZone rediseñado o área de cierre de base, mostrará una fecha de vencimiento bajo el estado de calificación. Si ve una fecha de vencimiento, significa que la ubicación está actualmente calificada para el programa HUBZone, pero ya no se calificará después de la fecha de caducidad.</p>"
+        body_second_html: "<p>Si ve varias fechas de vencimiento en la sección de detalles adicionales, la dirección se encuentra en múltiples HUBZones superpuestas. Cada tipo de HUBZone tiene sus propias reglas de calificación y caducidad. Debe utilizar la fecha más lejana (la fecha que se muestra justo debajo del estado de calificación) como la fecha en que la dirección ya no estará calificada para el Programa HUBZone.</p>"
+    version:
+      title_html: "HUBZone Mapa Versión del Software"

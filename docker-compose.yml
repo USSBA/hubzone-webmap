@@ -1,0 +1,53 @@
+version: '3.4'
+volumes:
+  assets:
+services:
+  postgres:
+    image: mdillon/postgis:9.6
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  hubzone-webmap:
+    build:
+      context: .
+      cache_from:
+      - hubzone/hubzone-webmap:latest
+    image: hubzone/hubzone-webmap:latest
+    volumes:
+    - assets:/app/public/assets:rw
+    restart: "no"
+    links:
+      - postgres
+    environment:
+    - RAILS_ENV=developmentdocker
+    env_file:
+    - docker/hubzone-webmap.env
+    command: >
+      /bin/bash -c "
+        function waitfor() {
+          while ! nc -z $$1 $$2;
+          do
+            echo waiting for $$1;
+            sleep 3;
+          done;
+          echo Connected to $$1!;
+        }
+
+        waitfor postgres 5432;
+
+        start-rails.sh;
+        echo rails process exited, stopping container.;
+      "
+
+  assets:
+    image: ussba/nginx-asset-proxy:latest
+    links:
+    - hubzone-webmap
+    volumes:
+    - assets:/public/assets:ro
+    restart: "no"
+    environment:
+      NGINX_REVERSE_PROXY_PORT: 3000
+      NGINX_REVERSE_PROXY_HOST: hubzone-webmap
+    ports:
+      - '3000:3000'

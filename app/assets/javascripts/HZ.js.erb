@@ -1,0 +1,31 @@
+//this is our base level hubzone app namespace
+/* exported HZApp */
+window.HZApp = {
+  Autocomplete: {},
+  config: {
+    wmsEnabled: ("<%= MAP_CONFIG[:geom_wms_settings][:wms_enabled] %>" === "true"),
+    bindWindowEvents: ("<%= MAP_CONFIG[:bind_window_events] %>" === "true")
+  },
+  Cookies: {},
+  Constructors: {},
+  GA: {},
+  GeoLocation: {},
+  HZQuery: {},
+  Layers: {
+    LayerUtils: {},
+    LayerDefs: {}
+  },
+  Legend: {},
+  map: {},
+  MapUtils: {},
+  Markers: {},
+  Print: {},
+  Report: {},
+  Router: {},
+  SidebarUtils: {},
+  Styles: {},
+  WMSUtils: {}
+};
+
+
+

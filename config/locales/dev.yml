@@ -1,0 +1,151 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+dev:
+  hubzone_map: "Mapa de HUBZone"
+  hubzone_map_aria_label: "Mapa de HUBZone"
+  usa_banner:
+    title: "Un sitio web oficial del gobierno de los Estados Unidos"
+  date:
+    month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
+    abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic]
+    formats:
+      full: " %b %d, %Y"
+  menu:
+    hubzone_program: "Programa HUBZone"
+    hubzone_program_aria_label: "Programa hubzone"
+    accessible_version: "Versión accesible"
+    help: "Ayuda"
+  unsupported:
+    title: "Tu navegador no es compatible"
+    subtitle: "Recomendamos actualizar a la última versión de Edge, Firefox, Safari o Chrome."
+  map:
+    aria_label: "Está mostrando un mapa a pantalla completa"
+    enter_address: "Ingresa la direccion"
+    filter: "Filtrar"
+  search:
+    label: "Mapa de HUBZone Search Buscar"
+  sidebar:
+    button: "Botón de la barra lateral"
+    print_version: "Versión imprimible"
+    share_map: "Compartir Mapa"
+    date_status:
+      until: "hasta"
+      expired: "muerto"
+    details:
+      title: "Denominaciones"
+      show: "Mostrar Detalles"
+      hide: "Ocultar Detalles"
+    local_information:
+      title: "Información Local"
+      show: "Mostrar Detalles"
+      hide: "Ocultar Detalles"
+    other_information:
+      congressional_district: "Distrito Congresional"
+      congressional_session: "Sesión del Congreso"
+      state: "Estado"
+  api:
+    success: "Éxito"
+    error:
+      zero_results: "Lo sentimos. No se pudo completar la búsqueda. Compruebe la ortografía o incluya más información de dirección."
+      invalid_request: "Lo sentimos. La solicitud ha fallado debido a un error interno. Vuelve a intentarlo."
+      over_query_limit: "Lo sentimos. La solicitud ha fallado debido a un error interno. Vuelve a intentarlo."
+      request_denied: "Lo sentimos. La solicitud ha fallado debido a un error interno. Vuelve a intentarlo."
+      unknown_error: "Lo sentimos. La solicitud ha fallado debido a un error interno. Vuelve a intentarlo."
+  hubzone_assertions:
+    qualified_by: "Calificado por: "
+    qualifications_effective: "La calificación es válida para hoy: "
+    qualified: "HUBZone Calificado"
+    qualified_aria: "hubzone Calificado"
+    qualified_short: "Calificado"
+    not_qualified: "HUBZone No Calificado"
+    not_qualified_aria: "Hubzone No Calificado"
+    expired: "Muerto"
+    expiring: "Caducando"
+    expires: "Caduca"
+    qct: "Zona censal"
+    qct_e: "Zona censal"
+    qct_brac: "BRAC Zona censal"
+    qct_r: "Rediseñado Zona censal"
+    qnmc: "Condado"
+    qnmc_a: "Condado"
+    qnmc_b: "Condado"
+    qnmc_c: "Condado"
+    qnmc_ab: "Condado"
+    qnmc_ac: "Condado"
+    qnmc_bc: "Condado"
+    qnmc_abc: "Condado"
+    qnmc_brac: "BRAC Condado"
+    qnmc_r: "Rediseñado Condado"
+    indian_lands: "Tierra Indígena"
+    brac: "Antigua base militare"
+    qct_qda: "Área de Desastre del Área de Censos"
+    qnmc_qda: "Área de desastre del condado"
+    additional_details:
+      tract_id: "ID del tracto"
+      county: "Condado"
+      state: "Estado"
+      county_id: "ID del condado"
+      indian_land_name: "Nombre"
+      indian_land_census_code: "Código de Censo"
+      indian_land_type: "Tipo"
+      indian_land_class: "Clase"
+      geographic_name_code: "Código de nombre geográfico"
+      base_name: "Nombre de base"
+      base_type: "Tipo de base"
+      base_designation: "Designación de base"
+      disaster_name: "Nombre del Desastre"
+      disaster_declaration: "Declaración de Desastre"
+      disaster_designation: "Declaración de Desastre"
+      disaster_publish: "Publicación de desastres"
+      likely_qct_qda: "Census Tract Desastre Descripción"
+      likely_qnmc_qda: "Condado Desastre Descripción"
+  likely_qda:
+    title: "Desastre reciente (s)"
+    body: "Los siguientes desastres pueden cambiar el estado de esta ubicación"
+    link: "Aprende más"
+  legend:
+    title: "Leyenda"
+    qualified: "HUBZone Calificados"
+    expiring: "HUBZone caducando"
+    qct: "Zona censal"
+    qnmc: "Condado"
+    indian_lands: "Tierra Indígena"
+    redesignated: "Rediseñado"
+    brac: "Antigua base militare"
+    qda: "Área de desastre"
+    icon_census_tract: "Icono de la leyenda cuadrado azul oscuro"
+    icon_county: "Leyenda icono cuadrado rojo"
+    icon_indian_land: "Leyenda icono cuadrado azul brillante"
+    icon_redesignated_census: "Leyenda icono azul oscuro diagonal raya patrón"
+    icon_redesignated_county: "Icono de la leyenda patrón diagonal rojo de la raya"
+    icon_disaster_area_census: "Leyenda icono azul oscuro horizontal raya patrón"
+    icon_disaster_area_county: "Leyenda icono rojo horizontal raya patrón"
+    icon_brac_census: "Leyenda icono azul oscuro patrón punteado"
+    icon_brac_county: "Leyenda icono rojo punteado patrón"
+    icon_brac: "Leyenda icono negro punteado patrón"
+  report:
+    error: "Error al generar el informe"
+    generating: "Generar informe..."
+    created: "Informe creado"
+  error-popup:
+    text: 'No se puede determinar su ubicación. '
+    link: 'Aprende más.'

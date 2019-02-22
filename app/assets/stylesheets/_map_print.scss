@@ -1,0 +1,51 @@
+@import 'variables';
+
+.map-body.printable-map {
+  width: 450px;
+  height: 450px;
+}
+
+@media print {
+  .usa-banner {
+    display: none;
+  }
+  .usa-navbar {
+    margin-left: 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid $gray;
+  }
+  .hubzone-search {
+    display: none;
+  }
+  .usa-nav-primary > li {
+    border: 0;
+  }
+  .usa-nav-primary > li:first-child {
+    height: auto;
+  }
+  section.map-header {
+    margin: 0;
+    padding: 0;
+    width: 500px;
+    left: 0;
+  }
+  .map-print {
+    display: none;
+  }
+  .usa-grid {
+    padding: 1em 0 1em 0;
+    margin: 0;
+  }
+  .usa-menu-btn {
+    display: none;
+  }
+  .pac-container {
+    display: none;
+  }
+  #map-print {
+    display: none;
+  }
+  #sidebar-button {
+    display: none;
+  }
+}

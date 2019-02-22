@@ -1,0 +1,17 @@
+<div class="usa-grid map-guide-header">
+  <div class="return-to-map">
+    <%= link_to map_path, id: "back-to-map" do %>
+      <i class='fa fa-share' aria-hidden='true'></i> <%= t('help.back_to_map') %>
+    <% end %>
+  </div>
+</div>
+
+<main class="usa-grid usa-section usa-content usa-layout-docs" id="hubzone-map-guide">
+ <% if @page_selected == 'overview' %>
+   <%= render partial: "navigation" %>
+   <%= render partial: "overview" %>
+ <% else @page_selected == 'faq' %>
+   <%= render partial: "navigation" %>
+   <%= render partial: "faq" %>
+ <% end %>
+</main>
