@@ -173,10 +173,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
         end
 
         it "will show the correct designation status" do
-<<<<<<< HEAD
           skip if ENV["SKIP_HEADLESS_TEST_DOCKER"]
-=======
->>>>>>> c57f780284f0b4b68bf5a9819dd0ed991eedc5e6
           expect(page).to have_content(t(tquery[:status]))
         end
 
@@ -185,18 +182,16 @@ RSpec.describe 'The Search', type: :feature, js: true do
         end
 
         it "will provide a clear search button" do
-<<<<<<< HEAD
           expect(page).to have_css(".clear-search", visible: false)
         end
 
         it "will display the date of the search" do
           skip if ENV["SKIP_HEADLESS_TEST_DOCKER"]
-=======
           expect(page).to have_css(".clear-search")
         end
 
         it "will display the date of the search" do
->>>>>>> c57f780284f0b4b68bf5a9819dd0ed991eedc5e6
+          skip if ENV["SKIP_HEADLESS_TEST_DOCKER"]
           expect(page).to have_content(t('hubzone_assertions.qualifications_effective') + I18n.l(Date.parse(tquery[:response][:query_date]), format: :full))
         end
 

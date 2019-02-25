@@ -13,7 +13,6 @@ RSpec.describe 'Map responsive layout', type: :feature do
       resize_window_default
     end
     it "will have the streetview man" do
-<<<<<<< HEAD
       skip if ENV["SKIP_HEADLESS_TEST_DOCKER"]
       expect(page).to have_css('.gm-svpc')
     end
@@ -23,14 +22,13 @@ RSpec.describe 'Map responsive layout', type: :feature do
     end
     it "will have the map type control" do
       skip if ENV["SKIP_HEADLESS_TEST_DOCKER"]
-=======
       expect(page).to have_css(".gm-svpc")
     end
     it "will have the geolocation button" do
       expect(page).to have_css("#geolocation")
     end
     it "will have the map type control" do
->>>>>>> c57f780284f0b4b68bf5a9819dd0ed991eedc5e6
+      skip if ENV["SKIP_HEADLESS_TEST_DOCKER"]
       expect(page).to have_css('.gm-style-mtc')
     end
   end

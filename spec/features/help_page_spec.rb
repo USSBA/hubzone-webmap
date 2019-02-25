@@ -44,11 +44,7 @@ describe "The Help Page", type: :feature do
       expect(page).to have_css("#section-version")
     end
     it "will show the current version of the map software" do
-<<<<<<< HEAD
       expect(page.body).to match(/v\d+\.\d+\.\d+(-[a-zA-Z0-9.]+)?/)
-=======
-      expect(page.body).to match(/v\d+\.\d+\.\d+(-[a-zA-Z0-9.]+)? \([a-f0-9]{7}\)/)
->>>>>>> c57f780284f0b4b68bf5a9819dd0ed991eedc5e6
     end
   end
 

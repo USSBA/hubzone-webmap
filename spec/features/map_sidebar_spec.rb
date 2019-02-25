@@ -130,10 +130,7 @@ describe "The Sidebar", type: :feature do
 
   context "before any interactions" do
     it "will exist and be hidden" do
-<<<<<<< HEAD
       skip if ENV["SKIP_HEADLESS_TEST_DOCKER"]
-=======
->>>>>>> c57f780284f0b4b68bf5a9819dd0ed991eedc5e6
       expect(page).to have_css("#sidebar.hidden")
     end
     it "will show hubzone qualification" do
@@ -282,6 +279,7 @@ describe "The Sidebar", type: :feature do
       expect(page).to have_content('expired')
     end
     it "will show correct icon" do
+      skip if ENV["SKIP_HEADLESS_TEST_DOCKER"]
       expect(page).to have_css('.fa-times-circle-o')
     end
     it "will have Designations still shown" do

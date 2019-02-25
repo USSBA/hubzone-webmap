@@ -22,11 +22,8 @@ services:
       - hubzone-webmap.env
       - hubzone-webmap-test.env
     entrypoint: ["/bin/bash"]
-<<<<<<< HEAD
     env_file:
       - ./hubzone-webmap.env
-=======
->>>>>>> c57f780284f0b4b68bf5a9819dd0ed991eedc5e6
     environment:
     - HUBZONE_GOOGLE_API_KEY
     command: >
