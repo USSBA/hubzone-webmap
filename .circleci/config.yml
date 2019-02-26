@@ -256,5 +256,5 @@ jobs:
           name: run brakeman
           parallel: true
           command: |
-            gem install --no-documentation brakeman
+            gem install --no-document brakeman
             brakeman --exit-on-warn .
