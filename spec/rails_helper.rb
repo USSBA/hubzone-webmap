@@ -13,8 +13,6 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
 
-# TODO remove this if it does not work - tyler
-
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   driven_by :selenium, using: :chrome,
   options: {url: "http://chrome:4444/wd/hub"}
