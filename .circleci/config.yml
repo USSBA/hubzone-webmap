@@ -49,7 +49,8 @@ jobs:
            HUBZONE_MAP_DB_PASSWORD: postgres
            RAILS_ENV: test
            #MSG_API_DB_HOST=postgres
-
+           # attempting to add variable for headless chrome to skip specific tests.
+           SKIP_HEADLESS_TEST_DOCKER: true
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
