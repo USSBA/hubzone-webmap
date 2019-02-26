@@ -240,6 +240,7 @@ describe "The Sidebar", type: :feature do
       expect(page).to have_content('Designations')
     end
     it "will have show details" do
+      expect(page).to have_content('Designations Show Details')
       expect(page).to have_content('Show Details')
     end
   end
