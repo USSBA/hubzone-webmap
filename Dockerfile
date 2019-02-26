@@ -62,7 +62,7 @@ RUN echo "Installing chrome..." && \
     echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
 RUN echo "Updating repos..." && apt-get update -y && apt-get -y install $PACKAGES && \
     echo "Done" && rm -rf /var/lib/apt/lists/*
-RUN echo 'export PATH="~/bin/:$PATH"' >> ~/.bash_profile
+RUN echo 'export PATH="/usr/local/bin/chromedriver:$PATH"' >> ~/.bash_profile
 
 
 EXPOSE 4444
