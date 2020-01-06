@@ -32,7 +32,7 @@ gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem "rack-attack" 
+gem "rack-attack", git: "https://github.com/kickstarter/rack-attack.git", branch: "5-stable"
 
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console

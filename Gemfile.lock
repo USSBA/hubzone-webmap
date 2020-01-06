@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/kickstarter/rack-attack.git
+  revision: 42a8a303108aa9936b831bd015564a4c775bfc16
+  branch: 5-stable
+  specs:
+    rack-attack (5.4.2)
+      rack (>= 1.0, < 3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -159,8 +167,6 @@ GEM
     public_suffix (3.0.3)
     puma (3.12.0)
     rack (2.0.6)
-    rack-attack (6.2.2)
-      rack (>= 1.0, < 3)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.2)
@@ -316,7 +322,7 @@ DEPENDENCIES
   pg
   poltergeist
   puma (~> 3.0)
-  rack-attack
+  rack-attack!
   rails (~> 5.2)
   rb-readline
   rspec-rails (~> 3.5)
