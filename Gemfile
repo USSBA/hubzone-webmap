@@ -18,7 +18,9 @@ gem 'secure_headers'
 gem 'strong_migrations', '~> 0.3' # Catch unsafe migrations at dev time
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 
-gem 'aws-cft-tools'
+## Custom
+gem "rack-attack", git: "https://github.com/kickstarter/rack-attack.git", branch: "5-stable"
+
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 # gem 'turbolinks', '~> 5'
@@ -34,7 +36,6 @@ gem 'aws-cft-tools'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem "rack-attack", git: "https://github.com/kickstarter/rack-attack.git", branch: "5-stable"
 
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
