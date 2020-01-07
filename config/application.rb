@@ -2,6 +2,8 @@ require_relative 'boot'
 
 require 'rails/all'
 
+
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -16,5 +18,8 @@ module HubzoneMap
     #config.relative_url_root = '/hubzone/map'
     # Adding the X-UA-Compatible header. Needed to work with IE compatablity mode
     config.action_dispatch.default_headers.merge!('X-UA-Compatible' => 'IE=edge,chrome=1')
+    ## rack attack
+    config.middleware.use Rack::Attack
+
   end
 end

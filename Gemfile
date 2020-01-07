@@ -18,6 +18,8 @@ gem 'secure_headers'
 gem 'strong_migrations', '~> 0.3' # Catch unsafe migrations at dev time
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 
+gem 'aws-cft-tools'
+
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 # gem 'turbolinks', '~> 5'
 
