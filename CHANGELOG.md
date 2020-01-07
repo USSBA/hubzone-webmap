@@ -1,6 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
-
+## [3.1.0] - 2020-01-06
+### updates to throttle API requests
 ## [3.0.2] - 2019-02-01
 ### shared-services-sprint-61
 ### Changed
