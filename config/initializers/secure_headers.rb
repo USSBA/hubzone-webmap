@@ -16,7 +16,7 @@ if Rails.env.development? || Rails.env.test? || Rails.env.developmentdocker?
 #enables secure headers on everything else
 else
   SecureHeaders::Configuration.default do |config|
-    config.hsts = "max-age=#{6.months.to_i}; includeSubDomains"
+    config.hsts = "max-age=#{365.days.to_i}; includeSubDomains"
     config.x_frame_options = "DENY"
     config.x_content_type_options = "nosniff"
     config.x_xss_protection = "1; mode=block"
