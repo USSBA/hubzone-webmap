@@ -367,14 +367,14 @@ RSpec.describe "map/map_sidebar" do
     end
     context "with multiple designations" do
       before do
-        body["hubzone"] = [responses[:qct], responses[:qnmc_r], responses[:brac], responses[:indian_lands], responses[:qnmc_qda], responses[:mvw_gov_area_map]]
+        body["hubzone"] = [responses[:qct], responses[:qnmc_r], responses[:brac], responses[:indian_lands], responses[:qnmc_qda]]
         I18n.locale = locale
         render partial: "map/map_sidebar", locals: {body: body, locale: locale}
       end
       it "will show qualified" do
         expect(rendered).to have_css("th.qualified-hubzone")
       end
-      types = %i[qct qnmc_r brac indian_lands qnmc_qda mvw_gov_area_map]
+      types = %i[qct qnmc_r brac indian_lands qnmc_qda]
       types.each do |type|
         it "will have the right layer symbology for #{type}" do
           expect(rendered).to have_css(".layer-" + responses[type]["hz_type"])
