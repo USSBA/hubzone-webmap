@@ -135,6 +135,7 @@ en:
     redesignated: "Redesignated"
     brac: "Closed Base Area"
     qda: "Disaster Area"
+    mvw_gov_area_map: "Governor's Qualified Area"
     icon_census_tract: "legend icon dark blue square"
     icon_county: "legend icon red square"
     icon_indian_land: "legend icon bright blue square"
