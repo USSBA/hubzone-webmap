@@ -43,6 +43,12 @@ HZApp.Layers.LayerDefs = (function(){
         layerGroup: 'qda',
         isVisible: true,
         overlay:[],
+      },
+      mvw_gov_area_map: {
+        layerIndex: 6,
+        layerGroup: 'mvw_gov_area_map',
+        isVisible: true,
+        overlay:[],
       }
     }
   };

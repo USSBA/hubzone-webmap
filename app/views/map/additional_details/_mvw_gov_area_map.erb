@@ -1,0 +1,16 @@
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.state_fip') %></h6>
+  <h5><%= qualification["state_fip"].blank? ? '--' : qualification["state_fip"] %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.county_fip') %></h6>
+  <h5><%= qualification["county_fip"].blank? ? '--' : qualification["county_fip"] %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.tract_code') %></h6>
+  <h5><%= qualification["tract_code"].blank? ? '--' : date_to_string(qualification["tract_code"]) %></h5>
+</div>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.date_approve') %></h6>
+  <h5><%= qualification["date_approve"].blank? ? '--' : date_to_string(qualification["date_approve"]) %></h5>
+</div>
