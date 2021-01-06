@@ -142,6 +142,7 @@ dev:
     icon_brac_census: "Leyenda icono azul oscuro patrón punteado"
     icon_brac_county: "Leyenda icono rojo punteado patrón"
     icon_brac: "Leyenda icono negro punteado patrón"
+    icon_mvw_gov_area_map: "Governor Area"
   report:
     error: "Error al generar el informe"
     generating: "Generar informe..."

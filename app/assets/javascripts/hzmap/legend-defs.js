@@ -35,6 +35,12 @@ HZApp.Legend.LegendDefs = (function(){
       canToggle: true,
       layerGroup: 'brac'
     },
+    mvw_gov_area_map: {
+      title: "Governor Qualified Area",
+      svg: [],
+      canToggle: true,
+      layerGroup: 'mvw_gov_area_map'
+    }
   };
   return {
     legend: legendKeys
