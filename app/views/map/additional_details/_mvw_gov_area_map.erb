@@ -8,7 +8,7 @@
 </div>
 <div class="designation-details-item">
   <h6><%= t('hubzone_assertions.additional_details.tract_code') %></h6>
-  <h5><%= qualification["tract_code"].blank? ? '--' : date_to_string(qualification["tract_code"]) %></h5>
+  <h5><%= qualification["tract_code"].blank? ? '--' : qualification["tract_code"] %></h5>
 </div>
 <div class="designation-details-item">
   <h6><%= t('hubzone_assertions.additional_details.date_approve') %></h6>
