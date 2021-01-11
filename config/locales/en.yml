@@ -100,7 +100,7 @@ en:
     brac: "Base Closure"
     qct_qda: "Census Tract Disaster Area"
     qnmc_qda: "County Disaster Area"
-    mvw_gov_area_map: "Governors Area"
+    mvw_gov_area_map: "Governor's Qualified Area"
     additional_details:
       tract_id: "Tract ID"
       county: "County"
@@ -120,7 +120,7 @@ en:
       disaster_publish: "Disaster Publish"
       likely_qct_qda: "Census Tract Disaster Description"
       likely_qnmc_qda: "County Disaster Description"
-      mvw_gov_area_map: "Governors Area"
+      mvw_gov_area_map: "Governor's Qualified Area"
   likely_qda:
     title: "Recent Disaster(s)"
     body: "The following disaster(s) may change the status of this location"
