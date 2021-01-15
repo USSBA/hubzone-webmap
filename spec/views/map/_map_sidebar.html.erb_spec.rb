@@ -366,6 +366,7 @@ RSpec.describe "map/map_sidebar" do
     end
     context "with multiple designations" do
       before do
+
         body["hubzone"] = [responses[:qct], responses[:qnmc_r], responses[:brac], responses[:indian_lands], responses[:qnmc_qda]]
         I18n.locale = locale
         render partial: "map/map_sidebar", locals: {body: body, locale: locale}

@@ -17,6 +17,7 @@ gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
 gem 'secure_headers'
 gem 'strong_migrations', '~> 0.3' # Catch unsafe migrations at dev time
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
+gem 'thin'
 
 ## Custom
 gem "rack-attack", git: "https://github.com/kickstarter/rack-attack.git", branch: "5-stable"

@@ -1,19 +1,22 @@
 default: &defaults
-  hubzone_map_host: <%= ENV.fetch('HUBZONE_MAP_HOST') { 'http://localhost:3001' } %>
-  hubzone_api_host: <%= ENV.fetch('HUBZONE_API_HOST') { 'http://localhost:3001' } %>
+  hubzone_map_host:  'http://localhost:3001'  #<%= ENV.fetch('HUBZONE_MAP_HOST') { 'http://localhost:3001' } %>
+  hubzone_api_host: 'http://localhost:3001'   #<%= ENV.fetch('HUBZONE_API_HOST') { 'http://localhost:3001' } %>
   hubzone_api_version: 1
   hubzone_api_search_path: '/api/search'
   hubzone_report_host: <%= ENV.fetch('HUBZONE_REPORT_API_HOST') { 'http://localhost:3002' } %>
   hubzone_api_report_path: '/report'
   hubzone_report_request_type: <%= ENV.fetch('HUBZONE_REPORT_REQUEST_TYPE') { 'window_open' } %>
-  google_api_key: <%= ENV.fetch('HUBZONE_GOOGLE_API_KEY') { 'SetYourGoogleAPIKeyInYour.envFile' } %>
+  google_api_key: 'AIzaSyBExy-wTh9ttyETjpjPE10sHou9L3FMvKw'    #<%= ENV.fetch('HUBZONE_GOOGLE_API_KEY') { 'SetYourGoogleAPIKeyInYour.envFile' } %>
   google_analytics_tracking_id: <%= ENV.fetch('GOOGLE_ANALYTICS_TRACKING_ID') { 'UA-89111383-1' } %>
   hotjar_tracking_id: <%= ENV.fetch('HUBZONE_HOTJAR_TRACKING_ID') { '475456' } %>
   bind_window_events: true
-  hubzone_api_key: <%= ENV.fetch('HUBZONE_API_KEY') { 'SetYourHUBZoneAPIKeyInYour.envFile' } %>
+  hubzone_api_key: 'AIzaSyBsR78bM2H5vMlO60MAtaL9FVtPGWGyQ7c'  #<%= ENV.fetch('HUBZONE_API_KEY') { 'SetYourHUBZoneAPIKeyInYour.envFile' } %>
   geom_wms_settings: &default_wms
-    url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'http://localhost:8080/geoserver/gwc/service/wms?' } %>
-    workspace: <%= ENV.fetch('HUBZONE_WMS_WORKSPACE') { 'hubzone' } %>
+    url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://maps.certify.sba.gov/geoserver/gwc/service/wms?' } %>
+    #'http://localhost:8080/geoserver/hz/wms?'   
+    # https://maps.certify.sba.gov/geoserver/gwc/service/wms?
+     #'http://localhost:8080/geoserver/gwc/service/wms?' 
+    workspace: 'hz'                                        #<%= ENV.fetch('HUBZONE_WMS_WORKSPACE') { 'hubzone' } %>
     srs: 4326
     wms_enabled: true
 
@@ -100,6 +103,7 @@ developmentdocker:
   geom_wms_settings:
     <<: *default_wms
     url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'http://localhost:8080/geoserver/gwc/service/wms?' } %>
+    #'http://localhost:8080/geoserver/hz/wms?' #
     db: hzgeo_dev
 
 test:

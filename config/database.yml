@@ -20,9 +20,9 @@ default: &default
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
-  username: <%= ENV['HUBZONE_MAP_DB_USER'] %>
-  password: <%= ENV['HUBZONE_MAP_DB_PASSWORD'] %>
-  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'localhost' } %>
+  username: 'postgres'    #<%= ENV['HUBZONE_MAP_DB_USER'] %>
+  password: 'postgres'    #<%= ENV['HUBZONE_MAP_DB_PASSWORD'] %>
+  host: 'localhost'       #<%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'localhost' } %>
 
 production:
   <<: *default
@@ -56,7 +56,7 @@ dev:
 
 development:
   <<: *default
-  database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_dev' } %>
+  database: 'hzmap_demo' #<%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzgeo_demo' } %>
 
 developmentdocker:
   <<: *default

@@ -1,0 +1,248 @@
+Warning: the running version of Bundler (2.1.2) is older than the version that created the lockfile (2.1.4). We suggest you to upgrade to the version that created the lockfile by running `gem install bundler:2.1.4`.
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/actionpack-5.2.4.4/lib/action_dispatch/middleware/stack.rb:37: warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/actionpack-5.2.4.4/lib/action_dispatch/middleware/static.rb:111: warning: The called method `initialize' is defined here
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/rb-inotify-0.10.1/lib/rb-inotify/watcher.rb:66: warning: rb_safe_level will be removed in Ruby 3.0
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/activerecord-5.2.4.4/lib/active_record/type.rb:27: warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/activerecord-5.2.4.4/lib/active_record/type/adapter_specific_registry.rb:9: warning: The called method `add_modifier' is defined here
+2020-09-29 08:05:21 WARN Selenium [DEPRECATION] Selenium::WebDriver::Chrome#driver_path= is deprecated. Use Selenium::WebDriver::Chrome::Service#driver_path= instead.
+=> Booting Puma
+=> Rails 5.2.4.4 application starting in development 
+=> Run `rails server -h` for more startup options
+Puma starting in single mode...
+* Version 3.12.6 (ruby 2.7.0-p0), codename: Llamas in Pajamas
+* Min threads: 5, max threads: 5
+* Environment: development
+* Listening on tcp://localhost:3000
+Use Ctrl-C to stop
+Started GET "/" for 127.0.0.1 at 2020-09-29 08:08:38 -0400
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/activemodel-5.2.4.4/lib/active_model/type/integer.rb:13: warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/activemodel-5.2.4.4/lib/active_model/type/value.rb:8: warning: The called method `initialize' is defined here
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/activerecord-5.2.4.4/lib/active_record/connection_adapters/postgresql/oid/specialized_string.rb:12: warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/activemodel-5.2.4.4/lib/active_model/type/value.rb:8: warning: The called method `initialize' is defined here
+Processing by MainController#index as HTML
+Redirected to http://localhost:3000/hubzone/map
+Completed 302 Found in 112ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/hubzone/map" for 127.0.0.1 at 2020-09-29 08:08:39 -0400
+Processing by MapController#index as HTML
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/actionview-5.2.4.4/lib/action_view/view_paths.rb:11: warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/actionview-5.2.4.4/lib/action_view/lookup_context.rb:128: warning: The called method `template_exists?' is defined here
+  Rendering map/index.html.erb within layouts/application
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/actionview-5.2.4.4/lib/action_view/helpers/translation_helper.rb:99: warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/i18n-1.8.5/lib/i18n.rb:195: warning: The called method `translate' is defined here
+  Rendered collection of map/_qualification.html.erb [0 times] (0.0ms)
+  Rendered map/_share_map.html.erb (0.5ms)
+  Rendered map/_map_sidebar.html.erb (7.6ms)
+  Rendered map/_map_legend.html.erb (6.5ms)
+  Rendered map/_geolocation_error.html.erb (1.8ms)
+  Rendered map/_map_body.html.erb (38.1ms)
+  Rendered map/index.html.erb within layouts/application (43.1ms)
+  Rendered application/_unsupported_browser.html.erb (1.3ms)
+  Rendered application/_header.html.erb (2.8ms)
+Completed 200 OK in 2093ms (Views: 2063.9ms | ActiveRecord: 0.0ms)
+
+
+  Rendered /home/scotty/.rvm/gems/ruby-2.7.0/gems/xray-rails-0.3.2/app/views/_xray_bar.html.erb (7.2ms)
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/actionpack-5.2.4.4/lib/action_dispatch/middleware/cookies.rb:647: warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/activesupport-5.2.4.4/lib/active_support/message_encryptor.rb:150: warning: The called method `encrypt_and_sign' is defined here
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/activesupport-5.2.4.4/lib/active_support/message_encryptor.rb:175: warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/activesupport-5.2.4.4/lib/active_support/messages/metadata.rb:17: warning: The called method `wrap' is defined here
+Started GET "/hubzone/map" for 127.0.0.1 at 2020-09-29 08:09:24 -0400
+Processing by MapController#index as HTML
+  Rendering map/index.html.erb within layouts/application
+  Rendered collection of map/_qualification.html.erb [0 times] (0.0ms)
+  Rendered map/_share_map.html.erb (0.5ms)
+  Rendered map/_map_sidebar.html.erb (3.3ms)
+  Rendered map/_map_legend.html.erb (2.2ms)
+  Rendered map/_geolocation_error.html.erb (0.7ms)
+  Rendered map/_map_body.html.erb (10.0ms)
+  Rendered map/index.html.erb within layouts/application (10.7ms)
+  Rendered application/_unsupported_browser.html.erb (2.0ms)
+  Rendered application/_header.html.erb (5.3ms)
+Completed 200 OK in 142ms (Views: 141.6ms | ActiveRecord: 0.0ms)
+
+
+  Rendered /home/scotty/.rvm/gems/ruby-2.7.0/gems/xray-rails-0.3.2/app/views/_xray_bar.html.erb (6.3ms)
+Started GET "/hubzone/map" for 127.0.0.1 at 2020-09-29 08:09:53 -0400
+Processing by MapController#index as HTML
+  Rendering map/index.html.erb within layouts/application
+  Rendered collection of map/_qualification.html.erb [0 times] (0.0ms)
+  Rendered map/_share_map.html.erb (0.5ms)
+  Rendered map/_map_sidebar.html.erb (5.5ms)
+  Rendered map/_map_legend.html.erb (2.3ms)
+  Rendered map/_geolocation_error.html.erb (0.6ms)
+  Rendered map/_map_body.html.erb (12.8ms)
+  Rendered map/index.html.erb within layouts/application (14.1ms)
+  Rendered application/_unsupported_browser.html.erb (1.8ms)
+  Rendered application/_header.html.erb (3.4ms)
+Completed 200 OK in 117ms (Views: 115.7ms | ActiveRecord: 0.0ms)
+
+
+  Rendered /home/scotty/.rvm/gems/ruby-2.7.0/gems/xray-rails-0.3.2/app/views/_xray_bar.html.erb (5.3ms)
+Started GET "/hubzone/map" for 127.0.0.1 at 2020-09-29 08:10:00 -0400
+Processing by MapController#index as HTML
+  Rendering map/index.html.erb within layouts/application
+  Rendered collection of map/_qualification.html.erb [0 times] (0.0ms)
+  Rendered map/_share_map.html.erb (0.4ms)
+  Rendered map/_map_sidebar.html.erb (5.5ms)
+  Rendered map/_map_legend.html.erb (2.3ms)
+  Rendered map/_geolocation_error.html.erb (0.8ms)
+  Rendered map/_map_body.html.erb (14.4ms)
+  Rendered map/index.html.erb within layouts/application (17.1ms)
+  Rendered application/_unsupported_browser.html.erb (1.2ms)
+  Rendered application/_header.html.erb (3.1ms)
+Completed 200 OK in 120ms (Views: 118.5ms | ActiveRecord: 0.0ms)
+
+
+  Rendered /home/scotty/.rvm/gems/ruby-2.7.0/gems/xray-rails-0.3.2/app/views/_xray_bar.html.erb (4.4ms)
+Started GET "/hubzone/map" for 127.0.0.1 at 2020-09-29 08:10:13 -0400
+Processing by MapController#index as HTML
+  Rendering map/index.html.erb within layouts/application
+  Rendered collection of map/_qualification.html.erb [0 times] (0.0ms)
+  Rendered map/_share_map.html.erb (0.4ms)
+  Rendered map/_map_sidebar.html.erb (4.5ms)
+  Rendered map/_map_legend.html.erb (3.0ms)
+  Rendered map/_geolocation_error.html.erb (0.9ms)
+  Rendered map/_map_body.html.erb (12.9ms)
+  Rendered map/index.html.erb within layouts/application (14.2ms)
+  Rendered application/_unsupported_browser.html.erb (2.8ms)
+  Rendered application/_header.html.erb (6.0ms)
+Completed 200 OK in 182ms (Views: 181.1ms | ActiveRecord: 0.0ms)
+
+
+  Rendered /home/scotty/.rvm/gems/ruby-2.7.0/gems/xray-rails-0.3.2/app/views/_xray_bar.html.erb (9.2ms)
+Started GET "/hubzone/map/search?latlng=42.661948,-100.754793&query_date=2020-09-29&locale=en" for 127.0.0.1 at 2020-09-29 08:10:13 -0400
+Processing by MapController#search as */*
+  Parameters: {"latlng"=>"42.661948,-100.754793", "query_date"=>"2020-09-29", "locale"=>"en"}
+  [1m[34mExcon Request[0m (1.27ms)  GET http://localhost/api/search?latlng=42.661948%2C-100.754793&query_date=2020-09-29[0m
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/activesupport-5.2.4.4/lib/active_support/number_helper/number_converter.rb:166: warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call
+/home/scotty/.rvm/gems/ruby-2.7.0/gems/i18n-1.8.5/lib/i18n.rb:195: warning: The called method `translate' is defined here
+  [1m[34mExcon Response[0m (0.03ms)  [1m200 OK (587 Bytes)[0m
+  Rendering map/search.js.erb
+  Rendered collection of map/_qualification.html.erb [0 times] (0.0ms)
+  Rendered map/additional_details/_congressional_district.html.erb (1.7ms)
+  Rendered map/_local_information.html.erb (9.8ms)
+  Rendered map/_share_map.html.erb (0.8ms)
+  Rendered map/_map_sidebar.html.erb (42.5ms)
+  Rendered map/search.js.erb (48.6ms)
+Completed 200 OK in 2950ms (Views: 56.9ms | ActiveRecord: 0.0ms | Excon: 1.3ms)
+
+
+Started GET "/hubzone/map" for 127.0.0.1 at 2020-09-29 08:11:01 -0400
+Processing by MapController#index as HTML
+  Rendering map/index.html.erb within layouts/application
+  Rendered collection of map/_qualification.html.erb [0 times] (0.0ms)
+  Rendered map/_share_map.html.erb (0.3ms)
+  Rendered map/_map_sidebar.html.erb (2.8ms)
+  Rendered map/_map_legend.html.erb (5.3ms)
+  Rendered map/_geolocation_error.html.erb (0.7ms)
+  Rendered map/_map_body.html.erb (18.9ms)
+  Rendered map/index.html.erb within layouts/application (19.6ms)
+  Rendered application/_unsupported_browser.html.erb (1.5ms)
+  Rendered application/_header.html.erb (4.0ms)
+Completed 200 OK in 271ms (Views: 270.6ms | ActiveRecord: 0.0ms)
+
+
+  Rendered /home/scotty/.rvm/gems/ruby-2.7.0/gems/xray-rails-0.3.2/app/views/_xray_bar.html.erb (5.1ms)
+Started GET "/hubzone/map" for 127.0.0.1 at 2020-09-29 08:11:17 -0400
+Processing by MapController#index as HTML
+  Rendering map/index.html.erb within layouts/application
+  Rendered collection of map/_qualification.html.erb [0 times] (0.0ms)
+  Rendered map/_share_map.html.erb (0.6ms)
+  Rendered map/_map_sidebar.html.erb (7.7ms)
+  Rendered map/_map_legend.html.erb (3.6ms)
+  Rendered map/_geolocation_error.html.erb (0.8ms)
+  Rendered map/_map_body.html.erb (18.7ms)
+  Rendered map/index.html.erb within layouts/application (20.9ms)
+  Rendered application/_unsupported_browser.html.erb (1.3ms)
+  Rendered application/_header.html.erb (2.9ms)
+Completed 200 OK in 122ms (Views: 120.5ms | ActiveRecord: 0.0ms)
+
+
+  Rendered /home/scotty/.rvm/gems/ruby-2.7.0/gems/xray-rails-0.3.2/app/views/_xray_bar.html.erb (4.9ms)
+Started GET "/hubzone/map" for 127.0.0.1 at 2020-09-29 08:11:23 -0400
+Processing by MapController#index as HTML
+  Rendering map/index.html.erb within layouts/application
+  Rendered collection of map/_qualification.html.erb [0 times] (0.0ms)
+  Rendered map/_share_map.html.erb (0.4ms)
+  Rendered map/_map_sidebar.html.erb (3.8ms)
+  Rendered map/_map_legend.html.erb (1.9ms)
+  Rendered map/_geolocation_error.html.erb (0.5ms)
+  Rendered map/_map_body.html.erb (9.6ms)
+  Rendered map/index.html.erb within layouts/application (10.6ms)
+  Rendered application/_unsupported_browser.html.erb (1.2ms)
+  Rendered application/_header.html.erb (2.8ms)
+Completed 200 OK in 107ms (Views: 106.8ms | ActiveRecord: 0.0ms)
+
+
+  Rendered /home/scotty/.rvm/gems/ruby-2.7.0/gems/xray-rails-0.3.2/app/views/_xray_bar.html.erb (4.3ms)
+Started GET "/hubzone/map" for 127.0.0.1 at 2020-09-29 08:11:40 -0400
+Processing by MapController#index as HTML
+  Rendering map/index.html.erb within layouts/application
+  Rendered collection of map/_qualification.html.erb [0 times] (0.0ms)
+  Rendered map/_share_map.html.erb (0.9ms)
+  Rendered map/_map_sidebar.html.erb (7.6ms)
+  Rendered map/_map_legend.html.erb (4.7ms)
+  Rendered map/_geolocation_error.html.erb (1.3ms)
+  Rendered map/_map_body.html.erb (22.0ms)
+  Rendered map/index.html.erb within layouts/application (24.0ms)
+  Rendered application/_unsupported_browser.html.erb (1.3ms)
+  Rendered application/_header.html.erb (2.9ms)
+Completed 200 OK in 123ms (Views: 121.4ms | ActiveRecord: 0.0ms)
+
+
+  Rendered /home/scotty/.rvm/gems/ruby-2.7.0/gems/xray-rails-0.3.2/app/views/_xray_bar.html.erb (4.6ms)
+Started GET "/hubzone/map" for 127.0.0.1 at 2020-09-29 08:11:44 -0400
+Processing by MapController#index as HTML
+  Rendering map/index.html.erb within layouts/application
+  Rendered collection of map/_qualification.html.erb [0 times] (0.0ms)
+  Rendered map/_share_map.html.erb (0.4ms)
+  Rendered map/_map_sidebar.html.erb (3.6ms)
+  Rendered map/_map_legend.html.erb (3.0ms)
+  Rendered map/_geolocation_error.html.erb (0.8ms)
+  Rendered map/_map_body.html.erb (11.1ms)
+  Rendered map/index.html.erb within layouts/application (12.0ms)
+  Rendered application/_unsupported_browser.html.erb (1.5ms)
+  Rendered application/_header.html.erb (3.4ms)
+Completed 200 OK in 183ms (Views: 182.3ms | ActiveRecord: 0.0ms)
+
+
+  Rendered /home/scotty/.rvm/gems/ruby-2.7.0/gems/xray-rails-0.3.2/app/views/_xray_bar.html.erb (5.4ms)
+- Gracefully stopping, waiting for requests to finish
+=== puma shutdown: 2020-09-29 08:12:17 -0400 ===
+- Goodbye!
+Exiting

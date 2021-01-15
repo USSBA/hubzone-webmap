@@ -8,6 +8,8 @@ HZApp.WMTSUtils = (function(){
   return {
     tileSize: 256,
     initializeTiles: function(){
+
+
       //for each layer defined in the hzWMSOverlays create the tile overlay
       if (HZApp.config.wmsEnabled){
         Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).map(function(layer){
@@ -40,7 +42,7 @@ HZApp.WMTSUtils = (function(){
       // 0 = 1 tile, 1 = 2 tiles, 2 = 4 tiles, 3 = 8 tiles, etc
       var tileRange = 1 << zoom;
 
-      if (y < 0 || y >= tileRange) { // don't repeat across y-axis (vertically)
+      if (y < 0 || y >= tileRange) {
         y = y;
       }
 
@@ -96,6 +98,7 @@ HZApp.WMTSUtils = (function(){
       url += "&width=" + this.tileSize;
       url += "&height=" + this.tileSize;
       url += "&format=image/png";
+      url += "&transparent=true";
       return url;
     },
     addClickListeners: function(overlay) {

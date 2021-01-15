@@ -132,6 +132,7 @@ dev:
     redesignated: "Rediseñado"
     brac: "Antigua base militare"
     qda: "Área de desastre"
+    mvw_gov_area_map: "Área del gobernador"
     icon_census_tract: "Icono de la leyenda cuadrado azul oscuro"
     icon_county: "Leyenda icono cuadrado rojo"
     icon_indian_land: "Leyenda icono cuadrado azul brillante"
@@ -142,6 +143,8 @@ dev:
     icon_brac_census: "Leyenda icono azul oscuro patrón punteado"
     icon_brac_county: "Leyenda icono rojo punteado patrón"
     icon_brac: "Leyenda icono negro punteado patrón"
+    icon_covid_cases_esri: ""
+    icon_mvw_gov_area_map: "Governor Area"
   report:
     error: "Error al generar el informe"
     generating: "Generar informe..."
