@@ -1,4 +1,11 @@
 <div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.state_name') %></h6>
+  <h5><%= qualification["state_name"].blank? ? '--' : qualification["state_name"] %></h5>
+</div><div class="designation-details-item">
+<h6><%= t('hubzone_assertions.additional_details.county_name') %></h6>
+<h5><%= qualification["county_name"].blank? ? '--' : qualification["county_name"] %></h5>
+</div>
+<div class="designation-details-item">
   <h6><%= t('hubzone_assertions.additional_details.state_fip') %></h6>
   <h5><%= qualification["state_fip"].blank? ? '--' : qualification["state_fip"] %></h5>
 </div>
