@@ -100,7 +100,7 @@ en:
     brac: "Base Closure"
     qct_qda: "Census Tract Disaster Area"
     qnmc_qda: "County Disaster Area"
-    mvw_gov_area_map: "Governor Designated Covered Area"
+    mvw_gov_area_map: "Governor-Designated Covered Area"
     additional_details:
       tract_id: "Tract ID"
       county: "County"
@@ -120,7 +120,7 @@ en:
       disaster_publish: "Disaster Publish"
       likely_qct_qda: "Census Tract Disaster Description"
       likely_qnmc_qda: "County Disaster Description"
-      mvw_gov_area_map: "Governor Designated Covered Area"
+      mvw_gov_area_map: "Governor-Designated Covered Area"
   likely_qda:
     title: "Recent Disaster(s)"
     body: "The following disaster(s) may change the status of this location"
@@ -135,7 +135,7 @@ en:
     redesignated: "Redesignated"
     brac: "Closed Base Area"
     qda: "Disaster Area"
-    mvw_gov_area_map: "Governor Designated Covered Area"
+    mvw_gov_area_map: "Governor-Designated Covered Area"
     icon_census_tract: "legend icon dark blue square"
     icon_county: "legend icon red square"
     icon_indian_land: "legend icon bright blue square"

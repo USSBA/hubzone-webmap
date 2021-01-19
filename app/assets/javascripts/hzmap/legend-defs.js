@@ -36,7 +36,7 @@ HZApp.Legend.LegendDefs = (function(){
       layerGroup: 'brac'
     },
     mvw_gov_area_map: {
-      title: "Governor Designated Covered Area",
+      title: "Governor-Designated Covered Area",
       svg: [],
       canToggle: true,
       layerGroup: 'mvw_gov_area_map'
