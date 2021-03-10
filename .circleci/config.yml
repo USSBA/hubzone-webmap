@@ -12,7 +12,6 @@ workflows:
       - rspec-docker
       - teaspoonJS
       - jsHint
-      - poirot
       - brakeman
 jobs:
   rubocop:
@@ -220,17 +219,7 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
-  poirot:
-    docker:
-      # specify the version you desire here
-      - image: ussba/cc-python:3
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - run:
-          name: run poirot
-          command: |
-            poirot --patterns https://raw.githubusercontent.com/USSBA/hubzone-webmap/develop/poirot-patterns.txt --revlist="develop^..HEAD"
+
   brakeman:
     docker:
       # specify the version you desire here
