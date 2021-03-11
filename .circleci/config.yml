@@ -2,7 +2,7 @@
 #
 # Check https://circleci.com/docs/2.0/language-ruby/ for more details
 #
-version: 2
+version: 2.1
 
 orbs:
   ruby: circleci/ruby@1.1.2
@@ -15,7 +15,7 @@ executors:
           RAILS_ENV: test
   ruby-with-postgres:
     docker:
-      - image: circleci/ruby:2.5.1-node-browsers
+      - image: circleci/ruby:2.5.1-node-browsers-legacy
         environment:
           HUBZONE_MAP_DB_USER: postgres
           HUBZONE_MAP_DB_PASSWORD: postgres
@@ -39,6 +39,7 @@ commands:
       - checkout
       - ruby/install-deps:
           key: gems-v1
+      - run: sudo npm install -g istanbul
   migrate-db:
     steps:
       - run:
@@ -50,12 +51,13 @@ workflows:
   version: 2
   test:
     jobs:
-      # - rubocop
+      - rubocop
       - rspec
       - rspec-docker
       - teaspoonJS
       - jsHint
       - brakeman
+
 jobs:
   rubocop:
     executor: ruby
@@ -91,7 +93,6 @@ jobs:
           docker-compose -f docker/docker-compose-test.yml run rspec
   teaspoonJS:
     executor: ruby
-    #executor: ruby-with-postgres
     steps:
       - install-system-dependencies
       - install-and-cache-gems
@@ -101,7 +102,6 @@ jobs:
             bundle exec teaspoon --coverage=default
   jsHint:
     executor: ruby
-    #executor: ruby-with-postgres
     steps:
       - install-system-dependencies
       - install-and-cache-gems
@@ -112,7 +112,6 @@ jobs:
 
   brakeman:
     executor: ruby
-    #executor: ruby-with-postgres
     steps:
       - install-system-dependencies
       - install-and-cache-gems
