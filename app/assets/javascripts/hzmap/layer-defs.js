@@ -49,7 +49,13 @@ HZApp.Layers.LayerDefs = (function(){
         layerGroup: 'mvw_gov_area_map',
         isVisible: true,
         overlay:[],
-      }
+      }, 
+      mvw_gov_area_map_county: {
+        layerIndex: 6,
+        layerGroup: 'mvw_gov_area_map',
+        isVisible: true,
+        overlay:[],
+      }  
     }
   };
 })();
