@@ -101,6 +101,7 @@ en:
     qct_qda: "Census Tract Disaster Area"
     qnmc_qda: "County Disaster Area"
     mvw_gov_area_map: "Governor-Designated Covered Area"
+    mvw_gov_area_map_county: "Governor-Designated Covered Area" 
     additional_details:
       tract_id: "Tract ID"
       county: "County"
@@ -121,6 +122,7 @@ en:
       likely_qct_qda: "Census Tract Disaster Description"
       likely_qnmc_qda: "County Disaster Description"
       mvw_gov_area_map: "Governor-Designated Covered Area"
+      mvw_gov_area_map_county: "Governor-Designated Covered Area" 
   likely_qda:
     title: "Recent Disaster(s)"
     body: "The following disaster(s) may change the status of this location"
@@ -147,6 +149,7 @@ en:
     icon_brac_county: "legend icon red dotted pattern"
     icon_brac: "legend icon black dotted pattern"
     icon_mvw_gov_area_map: "legend icon vertical stripe pattern"
+    icon_mvw_gov_area_map_county: "legend icon horizontal stripe pattern"
   report:
     error: "Error Generating Report"
     generating: "Generating Report..."
