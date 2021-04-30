@@ -130,7 +130,7 @@ GEM
       therubyracer (~> 0.12.1)
     launchy (2.5.0)
       addressable (~> 2.7)
-    libv8 (3.16.14.19-x86_64-linux)
+    libv8 (3.16.14.19)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -142,11 +142,13 @@ GEM
     marcel (1.0.1)
     method_source (1.0.0)
     mini_mime (1.1.0)
+    mini_portile2 (2.5.1)
     minitest (5.14.4)
     multi_json (1.15.0)
     newrelic_rpm (4.8.0.341)
     nio4r (2.5.7)
-    nokogiri (1.11.3-x86_64-linux)
+    nokogiri (1.11.3)
+      mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     parallel (1.20.1)
     parser (2.7.2.0)
@@ -293,7 +295,7 @@ GEM
       rails (>= 3.1.0)
 
 PLATFORMS
-  x86_64-linux
+  ruby
 
 DEPENDENCIES
   better_errors
@@ -336,4 +338,4 @@ DEPENDENCIES
   xray-rails
 
 BUNDLED WITH
-   2.2.16
+   1.17.3
