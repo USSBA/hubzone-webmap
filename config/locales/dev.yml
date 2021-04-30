@@ -100,6 +100,7 @@ dev:
     qct_qda: "Área de Desastre del Área de Censos"
     qnmc_qda: "Área de desastre del condado"
     mvw_gov_area_map: "Área del gobernador"
+    mvw_gov_area_map: "Área del gobernador"    
     additional_details:
       tract_id: "ID del tracto"
       county: "Condado"
@@ -146,6 +147,7 @@ dev:
     icon_brac_county: "Leyenda icono rojo punteado patrón"
     icon_brac: "Leyenda icono negro punteado patrón"
     icon_mvw_gov_area_map: "Área del gobernador"
+    icon_mvw_gov_area_map_county: "Área del gobernador"    
   report:
     error: "Error al generar el informe"
     generating: "Generar informe..."
