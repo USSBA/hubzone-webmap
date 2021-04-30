@@ -40,6 +40,12 @@ HZApp.Legend.LegendDefs = (function(){
       svg: [],
       canToggle: true,
       layerGroup: 'mvw_gov_area_map'
+    },
+    mvw_gov_area_map_county: {
+      title: "Governor-Designated Covered Area",
+      svg: [],
+      canToggle: true,
+      layerGroup: 'mvw_gov_area_map'
     }
   };
   return {
