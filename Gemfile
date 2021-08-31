@@ -21,7 +21,6 @@ gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 ## Custom
 gem "rack-attack", git: "https://github.com/kickstarter/rack-attack.git", branch: "5-stable"
 
-
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 # gem 'turbolinks', '~> 5'
 
@@ -35,7 +34,6 @@ gem "rack-attack", git: "https://github.com/kickstarter/rack-attack.git", branch
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
 
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
