@@ -9,8 +9,8 @@ terraform {
     region               = "us-east-1"
     dynamodb_table       = "terraform-state-locktable"
     acl                  = "bucket-owner-full-control"
-    key                  = "webmap.terraform.tfstate"
-    workspace_key_prefix = "webmap"
+    key                  = "hubzone-webmap.terraform.tfstate"
+    workspace_key_prefix = "hubzone-webmap"
   }
 }
 
