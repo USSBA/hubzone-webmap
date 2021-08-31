@@ -55,11 +55,11 @@ commands:
   build-containers:
     steps:
       - ecr-image-build:
-          image_name: hubzone/hubzone-report
+          image_name: hubzone/hubzone-webmap
   push-containers:
     steps:
       - ecr-image-push:
-          image_name: hubzone/hubzone-report
+          image_name: hubzone/hubzone-webmap
   aws-init:
     parameters:
       region:
