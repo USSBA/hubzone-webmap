@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 export AWS_DEFAULT_REGION=us-east-1
-export SERVICE_NAME=webmap
+export SERVICE_NAME=hubzone-webmap
 
 MISSING_PARAM=0
 function check_param() {
