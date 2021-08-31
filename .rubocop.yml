@@ -8,6 +8,13 @@ AllCops:
   TargetRubyVersion: 2.5
   TargetRailsVersion: 5.2
 
+Metrics/BlockLength:
+  Exclude:
+    - 'config/environments/production.rb'
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
 Metrics/ClassLength:
   Max: 250
 
