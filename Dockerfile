@@ -7,7 +7,7 @@ RUN echo "Updating repos..." && apt-get update > /dev/null && \
     echo "Done" && rm -rf /var/lib/apt/lists/*
 
 # Configure/Install Postgres Repos/Deps
-ENV PG_PACKAGES postgresql-12 postgresql-12-postgis-2.4
+ENV PG_PACKAGES postgresql-9.6 postgresql-9.6-postgis-2.4
 RUN echo deb https://apt.postgresql.org/pub/repos/apt stretch-pgdg main > /etc/apt/sources.list.d/stretch-pgdg.list && \
     wget --quiet -O - https://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | apt-key add -
 RUN echo "Updating repos..." && apt-get update > /dev/null && \
