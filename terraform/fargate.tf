@@ -7,9 +7,9 @@ locals {
     AWS_ENVIRONMENT          = terraform.workspace
     HUBZONE_MAP_DB_HOST      = local.postgres_fqdn
     HUBZONE_MAP_HOST         = "https://${local.env.service_name}-fg.${local.env.domain_name}"
-    HUBZONE_REPORT_HOST      = "https://${local.env.service_name}-fg.${local.env.domain_name}"
-    HUBZONE_API_HOST         = "https://${local.env.service_name}-fg.${local.env.domain_name}"
-    HUBZONE_WMS_URL_ROOT     = "https://${local.env.service_name}-fg.${local.env.domain_name}/geoserver/gwc/service/wms?"
+    HUBZONE_REPORT_HOST      = "https://report-fg.${local.env.domain_name}"
+    HUBZONE_API_HOST         = "https://hubzone.${local.env.domain_name}" #TODO: API has not been deployed yet.
+    HUBZONE_WMS_URL_ROOT     = "https://hubzone.${local.env.domain_name}/geoserver/gwc/service/wms?"
     RAILS_SERVE_STATIC_FILES = "true"
     RAILS_ENV                = terraform.workspace
   }
