@@ -23,7 +23,7 @@ executors:
           HUBZONE_MAP_DB_USER: postgres
           HUBZONE_MAP_DB_PASSWORD: postgres
           RAILS_ENV: test
-      - image: circleci/postgres:9.6-alpine-postgis
+      - image: circleci/postgres:12-alpine-postgis
         environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -39,7 +39,7 @@ commands:
           command: |
             sudo apt update
             sudo apt install -y \
-              postgresql-client-9.6
+              postgresql-client-12
   install-and-cache-gems:
     steps:
       - checkout
