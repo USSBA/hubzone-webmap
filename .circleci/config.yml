@@ -39,7 +39,7 @@ commands:
           command: |
             sudo apt update
             sudo apt install -y \
-              postgresql-client-12
+              postgresql-client
   install-and-cache-gems:
     steps:
       - checkout
