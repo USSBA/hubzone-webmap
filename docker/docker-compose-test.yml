@@ -13,12 +13,20 @@ services:
     image: hubzone/hubzone-webmap:latest
     links:
       - postgres
-    env_file:
-      - hubzone-webmap.env
-      - hubzone-webmap-test.env
+    #env_file:
+    #  - hubzone-webmap.env
+    #  - hubzone-webmap-test.env
     entrypoint: ["/bin/bash"]
     environment:
-    - HUBZONE_GOOGLE_API_KEY
+      - RAILS_LOG_TO_STDOUT=true
+      - RAILS_ENV=test
+      - SECRET_KEY_BASE=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      - HUBZONE_GOOGLE_API_KEY='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      - HUBZONE_MAP_DB_USER=postgres
+      - HUBZONE_MAP_DB_PASSWORD=postgres
+      - HUBZONE_MAP_DB_HOST=postgres
+      - HUBZONE_MAP_HOST=local
+      - HUBZONE_API_KEY=aaaaaaaaaa
     command: >
       -c "
         wget https://s3.amazonaws.com/sba-shared-services-lower-ci/public-files/phantomjs-2.1.1-linux-x86_64.tar.bz2 && \
