@@ -4,12 +4,20 @@ variable "image_tag" {
 
 locals {
   container_environment = {
-    AWS_ENVIRONMENT          = terraform.workspace
-    HUBZONE_MAP_DB_HOST      = local.postgres_fqdn
-    HUBZONE_MAP_HOST         = "https://${local.env.service_name}-fg.${local.env.domain_name}"
-    HUBZONE_REPORT_HOST      = "https://report-fg.${local.env.domain_name}"
-    HUBZONE_API_HOST         = "https://hubzone.${local.env.domain_name}" #TODO: API has not been deployed yet.
-    HUBZONE_WMS_URL_ROOT     = "https://hubzone.${local.env.domain_name}/geoserver/gwc/service/wms?"
+    AWS_ENVIRONMENT     = terraform.workspace
+    HUBZONE_MAP_DB_HOST = local.postgres_fqdn
+
+    # These services live behind CloudFront, so the base domain will be identical upon deployment
+    HUBZONE_MAP_HOST     = "https://${local.env.service_name}.${local.env.fqdn_base}"
+    HUBZONE_REPORT_HOST  = "https://hubzone-report.${local.env.fqdn_base}"
+    HUBZONE_WMS_URL_ROOT = "https://hubzone-geoserver.${local.env.fqdn_base}/geoserver/gwc/service/wms?"
+    #HUBZONE_MAP_HOST     = "https://${local.public_fqdn}"
+    #HUBZONE_REPORT_HOST  = "https://${local.public_fqdn}"
+    #HUBZONE_WMS_URL_ROOT = "https://${local.public_fqdn}/geoserver/gwc/service/wms?"
+
+    # Users do not connect directly to hubzone-api; use the API url directly
+    HUBZONE_API_HOST = "https://hubzone-api.${local.env.fqdn_base}" #TODO: API has not been deployed yet.
+
     RAILS_SERVE_STATIC_FILES = "true"
     RAILS_ENV                = terraform.workspace
   }
@@ -33,14 +41,17 @@ module "webmap" {
   family                 = "${terraform.workspace}-${local.env.service_shortname}-fg"
   task_cpu               = local.env.task_cpu_rails
   task_memory            = local.env.task_memory_rails
-  task_policy_json       = data.aws_iam_policy_document.fargate.json
   enable_execute_command = true
   #alb_idle_timeout      = 60
+
+  ## If the ecs task needs to access AWS API for any reason, grant
+  ## it permissions with this parameter and the policy resource below
+  #task_policy_json       = data.aws_iam_policy_document.fargate.json
 
   # Deployment
   enable_deployment_rollbacks        = true
   wait_for_steady_state              = true
-  deployment_maximum_percent         = 200
+  deployment_maximum_percent         = 400
   deployment_minimum_healthy_percent = 100
 
   # Scaling and health
@@ -71,14 +82,16 @@ module "webmap" {
   ]
 }
 
-data "aws_iam_policy_document" "fargate" {
-  #TODO: Simple example until we figure out what's needed
-  statement {
-    sid = "AllResources"
-    actions = [
-      "s3:ListAllMyBuckets",
-      "s3:GetBucketLocation",
-    ]
-    resources = ["*"]
-  }
-}
+## If the ecs task needs to access AWS API for any reason, grant it permissions with this
+#
+#data "aws_iam_policy_document" "fargate" {
+#  #TODO: Simple example until we figure out what's needed
+#  statement {
+#    sid = "AllResources"
+#    actions = [
+#      "s3:ListAllMyBuckets",
+#      "s3:GetBucketLocation",
+#    ]
+#    resources = ["*"]
+#  }
+#}
