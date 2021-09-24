@@ -25,7 +25,6 @@ locals {
     demo = {
       fqdn_base        = "demo.sba-one.net"
       cert_domain      = "sba-one.net"
-      public_subdomain = "hubzone"
     }
     stg = {
       fqdn_base = "stg.certify.sba.gov"
