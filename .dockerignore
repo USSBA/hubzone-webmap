@@ -12,3 +12,6 @@ tmp/**/*
 
 # Ignore public/assets, as this will be built within the container
 public/assets
+
+# Ignore Terraform
+terraform

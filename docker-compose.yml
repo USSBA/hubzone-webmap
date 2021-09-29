@@ -3,7 +3,7 @@ volumes:
   assets:
 services:
   postgres:
-    image: mdillon/postgis:9.6
+    image: postgis/postgis:12-master
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -20,8 +20,13 @@ services:
       - postgres
     environment:
     - RAILS_ENV=developmentdocker
-    env_file:
-    - docker/hubzone-webmap.env
+    - RAILS_LOG_TO_STDOUT=true
+    - SECRET_KEY_BASE=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    - HUBZONE_GOOGLE_API_KEY='AIzaSyBsR78bM2H5vMlO60MAtaL9FVtPGWGyQ7c' # Doug's
+    - HUBZONE_MAP_DB_USER=postgres
+    - HUBZONE_MAP_DB_PASSWORD=postgres
+    - HUBZONE_MAP_DB_HOST=postgres
+    - HUBZONE_MAP_HOST=local
     command: >
       /bin/bash -c "
         function waitfor() {

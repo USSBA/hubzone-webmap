@@ -6,12 +6,6 @@ RUN echo "Updating repos..." && apt-get update > /dev/null && \
     echo "Installing packages: ${PACKAGES}..." && apt-get install -y $PACKAGES --fix-missing --no-install-recommends > /dev/null && \
     echo "Done" && rm -rf /var/lib/apt/lists/*
 
-# Install aws-cli
-RUN echo "Fetching awscli installer..." && wget -qO "awscli-bundle.zip" "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" && \
-    echo "Unpacking..." && unzip awscli-bundle.zip > /dev/null && \
-    echo "Installing awscli..." && ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws > /dev/null && \
-    echo "Done" && rm -rf awscli-bundle awscli-bundle.zip
-
 # Configure/Install Postgres Repos/Deps
 ENV PG_PACKAGES postgresql-9.6 postgresql-9.6-postgis-2.4
 RUN echo deb https://apt.postgresql.org/pub/repos/apt stretch-pgdg main > /etc/apt/sources.list.d/stretch-pgdg.list && \
@@ -20,8 +14,7 @@ RUN echo "Updating repos..." && apt-get update > /dev/null && \
     echo "Installing posgres packages: ${PG_PACKAGES}..." && apt-get -t stretch-pgdg install -y $PG_PACKAGES --fix-missing --no-install-recommends > /dev/null && \
     echo "Done." && rm -rf /var/lib/apt/lists/*
 
-#Install javascript runtime
-RUN wget -q https://deb.nodesource.com/setup_6.x -O nodesource_setup.sh && \
+RUN wget -q https://deb.nodesource.com/setup_14.x -O nodesource_setup.sh && \
     bash nodesource_setup.sh && \
     apt-get install -qq -y nodejs --fix-missing --no-install-recommends && \
     echo "Done." && rm nodesource_setup.sh && rm -rf /var/lib/apt/lists/*

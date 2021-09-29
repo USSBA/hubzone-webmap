@@ -41,3 +41,6 @@ server.key
 # Jetbrains project config files
 .idea/*
 
+# Ignore Terraform configs
+terraform/.terraform.lock.hcl
+terraform/.terraform/

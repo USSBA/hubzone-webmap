@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   postgres:
-    image: mdillon/postgis:9.6
+    image: postgis/postgis:12-master
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -13,12 +13,17 @@ services:
     image: hubzone/hubzone-webmap:latest
     links:
       - postgres
-    env_file:
-      - hubzone-webmap.env
-      - hubzone-webmap-test.env
     entrypoint: ["/bin/bash"]
     environment:
-    - HUBZONE_GOOGLE_API_KEY
+      - RAILS_LOG_TO_STDOUT=true
+      - RAILS_ENV=test
+      - SECRET_KEY_BASE=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      - HUBZONE_GOOGLE_API_KEY='AIzaSyBsR78bM2H5vMlO60MAtaL9FVtPGWGyQ7c' # Doug's
+      - HUBZONE_MAP_DB_USER=postgres
+      - HUBZONE_MAP_DB_PASSWORD=postgres
+      - HUBZONE_MAP_DB_HOST=postgres
+      - HUBZONE_MAP_HOST=local
+      #- HUBZONE_API_KEY='AIzaSyBsR78bM2H5vMlO60MAtaL9FVtPGWGyQ7c' # Doug's
     command: >
       -c "
         wget https://s3.amazonaws.com/sba-shared-services-lower-ci/public-files/phantomjs-2.1.1-linux-x86_64.tar.bz2 && \
