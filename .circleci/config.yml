@@ -263,7 +263,7 @@ jobs:
       - ecr-login
       - build-containers
       - push-containers
-  deploy-messaging:
+  deploy-webmap:
     executor: base
     parameters:
       workspace:
@@ -296,6 +296,7 @@ workflows:
   deploy:
     jobs:
       - build-containers:
+          name: build-containers-lower
           context: certify-lower
           filters:
             branches:
@@ -304,16 +305,39 @@ workflows:
               only:
               - build-lower
               - /^v[0-9]+(\.[0-9]+)(\.[0-9]+)*/
-      - deploy-messaging:
+      - deploy-webmap:
           name: deploy-webmap-demo
           context: certify-lower
           workspace: demo
           requires:
-            - build-containers
+            - build-containers-lower
           filters:
             branches:
               ignore: /.*/
             tags:
               only:
               - build-lower
+              - /^v[0-9]+(\.[0-9]+)(\.[0-9]+)*/
+      - build-containers:
+          name: build-containers-upper
+          context: certify-upper
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only:
+              - build-upper
+              - /^v[0-9]+(\.[0-9]+)(\.[0-9]+)*/
+      - deploy-webmap:
+          name: deploy-webmap-stg
+          context: certify-upper
+          workspace: stg
+          requires:
+            - build-containers-upper
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only:
+              - build-upper
               - /^v[0-9]+(\.[0-9]+)(\.[0-9]+)*/
