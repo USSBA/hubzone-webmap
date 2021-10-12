@@ -13,16 +13,18 @@ orbs:
 executors:
   ruby:
     docker:
-      - image: circleci/ruby:2.5.1-node-browsers
+      - image: circleci/ruby:2.7.4-node-browsers
         environment:
           RAILS_ENV: test
+          OPENSSL_CONF: /etc/ssl/
   ruby-with-postgres:
     docker:
-      - image: circleci/ruby:2.5.1-node-browsers-legacy
+      - image: circleci/ruby:2.7.4-node-browsers
         environment:
           HUBZONE_MAP_DB_USER: postgres
           HUBZONE_MAP_DB_PASSWORD: postgres
           RAILS_ENV: test
+          OPENSSL_CONF: /etc/ssl/
       - image: circleci/postgres:12-alpine-postgis
         environment:
           POSTGRES_USER: postgres
@@ -39,12 +41,25 @@ commands:
           command: |
             sudo apt update
             sudo apt install -y \
-              postgresql-client
+              postgresql-client \
+
+  install-phantom:
+    steps:
+      - run:
+          name: Install phantom
+          command: |
+            wget https://s3.amazonaws.com/sba-shared-services-lower-ci/public-files/phantomjs-2.1.1-linux-x86_64.tar.bz2
+            tar -xf phantomjs-2.1.1-linux-x86_64.tar.bz2
+            rm phantomjs-2.1.1-linux-x86_64.tar.bz2
+            sudo mv phantomjs-2.1.1-linux-x86_64/bin/phantomjs /bin/phantomjs
+            sudo chmod 555 /bin/phantomjs
+            rm -r phantomjs-2.1.1-linux-x86_64
+
   install-and-cache-gems:
     steps:
       - checkout
       - ruby/install-deps:
-          key: gems-v1
+          key: gems-v2
       - run: sudo npm install -g istanbul
   migrate-db:
     steps:
@@ -186,6 +201,7 @@ jobs:
     executor: ruby-with-postgres
     steps:
       - install-system-dependencies
+      - install-phantom
       - install-and-cache-gems
       - migrate-db
       - run:

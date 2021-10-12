@@ -24,12 +24,14 @@ services:
       - HUBZONE_MAP_DB_HOST=postgres
       - HUBZONE_MAP_HOST=local
       #- HUBZONE_API_KEY='AIzaSyBsR78bM2H5vMlO60MAtaL9FVtPGWGyQ7c' # Doug's
+      - OPENSSL_CONF=/etc/ssl/ # Workaround for phantomjs
     command: >
       -c "
         wget https://s3.amazonaws.com/sba-shared-services-lower-ci/public-files/phantomjs-2.1.1-linux-x86_64.tar.bz2 && \
         tar -xf phantomjs-2.1.1-linux-x86_64.tar.bz2 && \
         rm phantomjs-2.1.1-linux-x86_64.tar.bz2 && \
-        mv phantomjs-2.1.1-linux-x86_64/bin/phantomjs /bin && \
+        mv phantomjs-2.1.1-linux-x86_64/bin/phantomjs /bin/phantomjs && \
+        chmod 555 /bin/phantomjs && \
         rm -r phantomjs-2.1.1-linux-x86_64
         while ! nc -z postgres 5432;
         do
