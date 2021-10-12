@@ -19,7 +19,7 @@ locals {
     HUBZONE_API_HOST = "https://hubzone-api.${local.env.fqdn_base}" #TODO: API has not been deployed yet.
 
     RAILS_SERVE_STATIC_FILES = "true"
-    RAILS_ENV                = terraform.workspace
+    RAILS_ENV                = local.env.rails_env
   }
   container_secrets_parameterstore = {
     HUBZONE_MAP_DB_PASSWORD = "${terraform.workspace}/hubzone/rds/password"

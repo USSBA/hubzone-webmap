@@ -29,19 +29,24 @@ locals {
     demo = {
       fqdn_base   = "demo.sba-one.net"
       cert_domain = "sba-one.net"
+      rails_env   = "demo"
     }
     stg = {
-      fqdn_base = "stg.certify.sba.gov"
+      fqdn_base   = "stg.certify.sba.gov"
+      cert_domain = "certify.sba.gov"
 
       desired_container_count_rails = 2
       min_container_count_rails     = 2
       max_container_count_rails     = 2
+      rails_env                     = "staging"
     }
     prod = {
       fqdn_base                     = "certify.sba.gov"
+      cert_domain                   = "certify.sba.gov"
       desired_container_count_rails = 2
       min_container_count_rails     = 2
       max_container_count_rails     = 4
+      rails_env                     = "production"
     }
   }
   # Condense all config into a single `local.env.*`
