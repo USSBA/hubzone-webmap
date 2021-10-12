@@ -19,7 +19,7 @@ locals {
     HUBZONE_API_HOST = "https://hubzone-api.${local.env.fqdn_base}" #TODO: API has not been deployed yet.
 
     RAILS_SERVE_STATIC_FILES = "true"
-    RAILS_ENV                = terraform.workspace
+    RAILS_ENV                = local.env.rails_env
   }
   container_secrets_parameterstore = {
     HUBZONE_MAP_DB_PASSWORD = "${terraform.workspace}/hubzone/rds/password"
@@ -55,11 +55,16 @@ module "webmap" {
   deployment_minimum_healthy_percent = 100
 
   # Scaling and health
-  desired_capacity     = local.env.desired_capacity_rails
-  max_capacity         = local.env.desired_capacity_rails
-  min_capacity         = local.env.desired_capacity_rails
-  health_check_path    = "/hubzone/map/aws-hc"
-  health_check_timeout = 5
+  desired_capacity                 = local.env.desired_container_count_rails
+  max_capacity                     = local.env.max_container_count_rails
+  min_capacity                     = local.env.min_container_count_rails
+  scaling_metric                   = local.env.scaling_metric
+  scaling_threshold                = local.env.scaling_threshold
+  health_check_path                = local.env.health_check_path
+  health_check_timeout             = 5
+  health_check_interval            = 20
+  health_check_healthy_threshold   = 2
+  health_check_unhealthy_threshold = 9
 
   # networking
   service_fqdn       = local.service_fqdn
