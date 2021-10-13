@@ -14,6 +14,7 @@ locals {
       ecr_name          = "hubzone/hubzone-webmap"
       db_identifier     = "hubzone-aurora"
       public_subdomain  = "maps"
+      backend_location  = "cloudfront"
 
       rails_port        = 3000
       task_cpu_rails    = "256"
@@ -39,6 +40,8 @@ locals {
       min_container_count_rails     = 2
       max_container_count_rails     = 2
       rails_env                     = "staging"
+      #TODO: Delete this backend_location to point back at cloudfront once the deployment is complete
+      backend_location = "not-cloudfront"
     }
     prod = {
       fqdn_base                     = "certify.sba.gov"
@@ -47,6 +50,8 @@ locals {
       min_container_count_rails     = 2
       max_container_count_rails     = 4
       rails_env                     = "production"
+      #TODO: Delete this backend_location to point back at cloudfront once the deployment is complete
+      backend_location = "not-cloudfront"
     }
   }
   # Condense all config into a single `local.env.*`

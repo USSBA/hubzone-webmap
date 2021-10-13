@@ -8,12 +8,11 @@ locals {
     HUBZONE_MAP_DB_HOST = local.postgres_fqdn
 
     # These services live behind CloudFront, so the base domain will be identical upon deployment
-    #HUBZONE_MAP_HOST     = "https://${local.env.service_name}.${local.env.fqdn_base}"
-    #HUBZONE_REPORT_HOST  = "https://hubzone-report.${local.env.fqdn_base}"
-    #HUBZONE_WMS_URL_ROOT = "https://hubzone-geoserver.${local.env.fqdn_base}/geoserver/gwc/service/wms?"
-    HUBZONE_MAP_HOST     = "https://${local.public_fqdn}"
-    HUBZONE_REPORT_HOST  = "https://${local.public_fqdn}"
-    HUBZONE_WMS_URL_ROOT = "https://${local.public_fqdn}/geoserver/gwc/service/wms?"
+    # Conditionally they can be configured to refer directly to the back-end service.  This is useful
+    # when migrating cloudfront or testing new services without impacting the existing cloudfront
+    HUBZONE_MAP_HOST     = local.env.backend_location == "cloudfront" ? "https://${local.public_fqdn}" : "https://${local.env.service_name}.${local.env.fqdn_base}"
+    HUBZONE_REPORT_HOST  = local.env.backend_location == "cloudfront" ? "https://${local.public_fqdn}" : "https://hubzone-report.${local.env.fqdn_base}"
+    HUBZONE_WMS_URL_ROOT = local.env.backend_location == "cloudfront" ? "https://${local.public_fqdn}/geoserver/gwc/service/wms?" : "https://hubzone-geoserver.${local.env.fqdn_base}/geoserver/gwc/service/wms?"
 
     # Users do not connect directly to hubzone-api; use the API url directly
     HUBZONE_API_HOST = "https://hubzone-api.${local.env.fqdn_base}" #TODO: API has not been deployed yet.
