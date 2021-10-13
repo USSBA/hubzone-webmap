@@ -273,8 +273,6 @@ jobs:
     executor: circle-machine
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
       - aws-init
       - ecr-login
       - build-containers
