@@ -39,6 +39,10 @@ executors:
       - image: cimg/base:2020.12
 
 commands:
+  terraform-install:
+    steps:
+      - terraform/install:
+          terraform_version: 1.0.9
   install-system-dependencies:
     steps:
       - run:
@@ -139,6 +143,40 @@ commands:
           echo "Successfully pushed image: ${AWS_ECR_ENDPOINT}/<< parameters.image_name >>:${CIRCLE_SHA1}"
           docker image push "${AWS_ECR_ENDPOINT}/<< parameters.image_name >>:${CIRCLE_BRANCH:-${CIRCLE_TAG:-NO_BRANCH_OR_TAG_CONFIGURED_BY_CIRCLE}}"
           echo "Successfully pushed image: ${AWS_ECR_ENDPOINT}/<< parameters.image_name >>:${CIRCLE_BRANCH:-${CIRCLE_TAG:-NO_BRANCH_OR_TAG_CONFIGURED_BY_CIRCLE}}"
+  terraform-format:
+    parameters:
+      folder:
+        type: string
+        description: A relative path from the project root in which to perform terrafrom fmt
+    steps:
+      - deploy:
+          name: Terraform Format Check
+          command: |
+            throw_error() {
+              echo $1
+              return 1
+            }
+            cd << parameters.folder >> || throw_error "FATAL: command 'cd << parameters.folder >>' has failed"
+            terraform fmt -check -recursive
+  terraform-validate:
+    parameters:
+      folder:
+        type: string
+        description: A relative path from the project root in which to perform terrafrom validate
+      workspace:
+        type: string
+        description: A workspace in which to perform terraform validate
+    steps:
+      - deploy:
+          name: Terraform Validate Check
+          command: |
+            throw_error() {
+              echo $1
+              return 1
+            }
+            cd << parameters.folder >> || throw_error "FATAL: command 'cd << parameters.folder >>' has failed"
+            terraform workspace select << parameters.workspace >> || throw_error "FATAL: command 'terraform workspace select << parameters.workspace >>' has failed"
+            terraform validate || throw_error "FATAL: command 'terraform validate' has failed"
   terraform-init:
     parameters:
       folder:
@@ -260,6 +298,43 @@ jobs:
           command: |
             gem install --no-document brakeman
             brakeman --exit-on-warn .
+  test-terraform-validate:
+    executor: base
+    parameters:
+      workspace:
+        type: string
+        description: A terraform workspace name
+    steps:
+      - checkout
+      - aws-init
+      - terraform-install
+      - terraform-init:
+          folder: terraform
+      - terraform-validate:
+          folder: terraform
+          workspace: << parameters.workspace >>
+  test-terraform-format:
+    executor: base
+    steps:
+      - checkout
+      - terraform-install
+      - terraform-format:
+          folder: terraform
+  test-terraform-plan:
+    executor: base
+    parameters:
+      workspace:
+        type: string
+        description: A terraform workspace name
+    steps:
+      - checkout
+      - aws-init
+      - terraform-install
+      - terraform-init:
+          folder: terraform
+      - terraform-plan:
+          folder: terraform
+          workspace: << parameters.workspace >>
   build-containers:
     executor: circle-machine
     steps:
@@ -277,7 +352,7 @@ jobs:
       - ecr-login
       - build-containers
       - push-containers
-  deploy-webmap:
+  deploy-service:
     executor: base
     parameters:
       workspace:
@@ -286,8 +361,7 @@ jobs:
     steps:
       - checkout
       - aws-init
-      - terraform/install:
-          terraform_version: 1.0.0
+      - terraform-install
       - terraform-init:
           folder: terraform
       - terraform-plan:
@@ -308,51 +382,84 @@ workflows:
       - jsHint
       - brakeman
       - build-containers
-  deploy:
-    jobs:
-      - build-and-push-containers:
-          name: build-and-push-containers-lower
-          context: certify-lower
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only:
-              - build-lower
-              - /^v[0-9]+(\.[0-9]+)(\.[0-9]+)*/
-      - deploy-webmap:
-          name: deploy-webmap-demo
+      - test-terraform-validate:
           context: certify-lower
           workspace: demo
-          requires:
-            - build-and-push-containers-lower
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only:
-              - build-lower
-              - /^v[0-9]+(\.[0-9]+)(\.[0-9]+)*/
-      - build-and-push-containers:
-          name: build-and-push-containers-upper
-          context: certify-upper
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only:
-              - build-upper
-              - /^v[0-9]+(\.[0-9]+)(\.[0-9]+)*/
-      - deploy-webmap:
-          name: deploy-webmap-stg
-          context: certify-upper
-          workspace: stg
-          requires:
-            - build-and-push-containers-upper
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only:
-              - build-upper
-              - /^v[0-9]+(\.[0-9]+)(\.[0-9]+)*/
+      - test-terraform-format
+  deploy:
+    jobs:
+    - build-and-push-containers:
+        name: build-and-push-containers-lower
+        context: certify-lower
+        filters:
+          branches:
+            ignore: /.*/
+          tags:
+            only:
+            - build-lower
+            - deploy-demo
+    - deploy-service:
+        name: deploy-service-demo
+        context: certify-lower
+        workspace: demo
+        requires:
+        - build-and-push-containers-lower
+        filters:
+          branches:
+            ignore: /.*/
+          tags:
+            only:
+            - deploy-demo
+    - build-and-push-containers:
+        name: build-and-push-containers-upper
+        context: certify-upper
+        filters:
+          branches:
+            only:
+            - master
+          tags:
+            only:
+            - build-upper
+            - deploy-stg
+    - deploy-service:
+        name: deploy-service-stg
+        context: certify-upper
+        workspace: stg
+        requires:
+        - build-and-push-containers-upper
+        filters:
+          branches:
+            only:
+            - master
+          tags:
+            only:
+            - deploy-stg
+    - test-terraform-plan:
+        name: test-terraform-plan-prod
+        context: certify-upper
+        workspace: prod
+        requires:
+        - build-and-push-containers-upper
+        filters:
+          branches:
+            only:
+            - master
+    - hold-for-approval:
+        type: approval
+        context: certify-upper
+        requires:
+          - test-terraform-plan-prod
+        filters:
+          branches:
+            only:
+            - master
+    - deploy-service:
+        name: deploy-service-prod
+        context: certify-upper
+        workspace: prod
+        requires:
+        - hold-for-approval
+        filters:
+          branches:
+            only:
+            - master
