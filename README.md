@@ -194,13 +194,20 @@ Triggers the `deploy` workflow for demo:
 
 ### Actions on the `master` branch
 
-Triggers the `deploy` workflow for prod:
+Triggers the `deploy` workflow for `stg` and `prod`:
 
 * build-and-push-containers - A new HUBZone Webmap container is built, tagged with a git sha and pushed to ECR.
 * deploy-service-stg - The containers built in the ```build-and-push-contaers``` job are deployed to AWS Fargate in `stg`.
 * test-terraform-plan - Runs a test terraform plan
 * hold-for-approval - Waits for human approval before deploying to `prod`.
 * deploy-service-prod - The containers built in the ```build-and-push-containers``` job are deployed to AWS Fargate automatically. If the deployment fails, it will automatically rollback.
+
+### Tag based build
+
+To trigger a build workflow for a specific commit outside of `master`/`develop`, the following git tags can be used. This can come in hand if you want to make sure the container can still be built after changes that were made without also performing a deploy.
+
+* `build-lower`
+* `build-upper`
 
 ### Tag based deployment
 
