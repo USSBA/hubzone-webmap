@@ -185,13 +185,6 @@ A commit on any branch will trigger the `test` workflow:
 * test-terraform-validate: Runs a `terraform validate` to ensure the configuration files in a directory are valid.
 * test-terraform-format: Runs a `terraform fmt` to ensure the configuration files are in a canonical format and style.
 
-### Actions on the `develop` branch
-
-Triggers the `deploy` workflow for demo:
-
-* build-and-push-containers - A new HUBZone Webmap container is built, tagged with a git sha and pushed to ECR.
-* deploy-service-demo - The containers built in the ```build-and-push-containers``` job are deployed to AWS Fargate automatically. If the deployment fails, it will automatically rollback.
-
 ### Actions on the `master` branch
 
 Triggers the `deploy` workflow for `stg` and `prod`:
