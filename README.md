@@ -12,6 +12,7 @@ This application houses the new and improved HUBZone Map for the Small Business 
 - [Testing](#testing)
 - [External Services](#external-services)
 - [CircleCI Deployment](#circleci-deployment)
+- [Directories & Files](#directories-and-files)
 - [Changelog](#changelog)
 - [License](#license)
 - [Contributing](#contributing)
@@ -189,7 +190,7 @@ A commit on any branch will trigger the `test` workflow:
 
 Triggers the `deploy` workflow for `stg` and `prod`:
 
-* build-and-push-containers - A new HUBZone Webmap container is built, tagged with a git sha and pushed to ECR.
+* build-and-push-containers - A new HUBZone Webmap container is built, tagged with a git sha and pushed to the `hubzone/hubzone-webmap` ECR.
 * deploy-service-stg - The containers built in the ```build-and-push-contaers``` job are deployed to AWS Fargate in `stg`.
 * test-terraform-plan - Runs a test terraform plan
 * hold-for-approval - Waits for human approval before deploying to `prod`.
@@ -202,6 +203,13 @@ To trigger a build workflow for a specific commit outside of `master`/`develop`,
 * `build-lower`
 * `build-upper`
 
+These tags must be force tagged/pushed to overwrite previous tags.
+
+Example: 
+```sh
+git tag build-lower --force && git push origin tags/build-lower --force
+```
+
 ### Tag based deployment
 
 To trigger a build/deploy workflow for a specific commit outside of `master`/`develop`, the following git tags can be used for their respective environments:
@@ -211,7 +219,12 @@ To trigger a build/deploy workflow for a specific commit outside of `master`/`de
 
 These tags must be force tagged/pushed to overwrite previous tags.
 
-## Directories
+Example: 
+```sh
+git tag deploy-demo --force && git push origin tags/deploy-demo --force
+```
+
+## Directories & Files
 
 Root(./): Root directory of this repository contains Docker files needed for HUBZone Webmap along with docker-compose for local development.
 
