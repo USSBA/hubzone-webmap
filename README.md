@@ -12,7 +12,7 @@ This application houses the new and improved HUBZone Map for the Small Business 
 - [Testing](#testing)
 - [External Services](#external-services)
 - [CircleCI Deployment](#circleci-deployment)
-- [Directories & Files](#directories-and-files)
+- [Directories](#directories)
 - [Changelog](#changelog)
 - [License](#license)
 - [Contributing](#contributing)
@@ -224,7 +224,9 @@ Example:
 git tag deploy-demo --force && git push origin tags/deploy-demo --force
 ```
 
-## Directories & Files
+## Directories
+
+Information regarding directories and files.
 
 Root(./): Root directory of this repository contains Docker files needed for HUBZone Webmap along with docker-compose for local development.
 
