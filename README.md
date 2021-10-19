@@ -19,39 +19,29 @@ This application houses the new and improved HUBZone Map for the Small Business 
 ### Requirements:
 * RVM
   - http://rvm.io/
-* Ruby 2.5.1
-  - `rvm install 2.5.1`
+* Ruby 2.7.4
+  - `rvm install 2.7.4`
 * Bundler
   - `rvm @global do gem install bundler`
-  - Tested with version 1.13.6 or later
+  - Tested with version 2.0.0 or later
 * PhantomJS 2.1.1, or newer (required for Capybara tests with Poltergeist)
   * Mac
     * `brew install phantomjs`
   * Linux
     * [download this tarball](https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2)
     * Extract the tarball and copy `bin/phantomjs` into your `PATH`
-* PostgreSQL 9.6
+* PostgreSQL 12
   * Mac
     - Use [Postgres.app](http://postgresapp.com/)
-    - Can also use `brew install postgresql`
+    - Can also use `brew install postgresql-12`
     - Set `PGSQL_HOME` to your installation dir
-      - e.g. `export PGSQL_HOME=/Applications/Postgres.app/Contents/Versions/9.6`
+      - e.g. `export PGSQL_HOME=/Applications/Postgres.app/Contents/Versions/12`
     - Ensure that the bin directory is in your path
       - e.g. `export PATH=${PATH}:${PGSQL_HOME}/bin`
-  * Linux (rhel)
-    * Install:
-      * `yum install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-redhat96-9.6-3.noarch.rpm`
-      * `yum install postgresql96-server postgresql96-devel`
-    * Configure:
-      * `echo 'export PGSQL_HOME=/usr/pgsql-9.6' >> ~/.bashrc`
-      * `echo 'export PATH=${PATH}:${PGSQL_HOME}/bin' >> ~/.bashrc`
-* Poirot
-  - Install [Poirot](https://github.com/emanuelfeld/poirot) python utility, typically `pip install poirot` and make sure that poirot is available in PATH by confirming that your PYTHON/bin folder is in PATH.
-  - Refer to [Poirot Secrets Testing](#poirot-secrets-testing) for information on running this tool.
-  - For local development, run the rake task to copy the `pre-commit-poirot` script to your local `.git/hooks/pre-commit` hook.
-    ```
-      rake hz:poirot_hooks
-    ```
+  * Docker (multiplatform)
+    * Install Docker and docker-compose
+    * Run: `docker-compose -f ./docker-compose.postgres.yml up -d`
+    * Default user/pass is "postgres"/"postgres"
 
 ### Building
 After cloning the repo, checkout out the `develop` branch and set up your environment:
