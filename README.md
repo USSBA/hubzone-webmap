@@ -180,7 +180,7 @@ A commit on any branch will trigger the `test` workflow:
 * rspec / rspec-docker: Used for behavior driven development.
 * teaspoonJS: A JavaScript test runner built for Rails. Used for running tests in the browser and headless using PhantomJS, or Selenium WebDriver.
 * jsHint: Used for static code analysis.
-* brakeman: Vulnerability scanner specifically designed for Ruby on Rails applications. It statically analyzes Rails applicatio
+* brakeman: Vulnerability scanner specifically designed for Ruby on Rails applications. It statically analyzes Rails application
 * build-containers: Builds the containers but does not push them. This is a test to confirm containers build properly.
 * test-terraform-validate: Runs a `terraform validate` to ensure the configuration files in a directory are valid.
 * test-terraform-format: Runs a `terraform fmt` to ensure the configuration files are in a canonical format and style.
