@@ -15,6 +15,7 @@ locals {
       db_identifier     = "hubzone-aurora"
       public_subdomain  = "maps"
       backend_location  = "cloudfront"
+      log_bucket        = "${local.account_id}-logs"
 
       rails_port        = 3000
       task_cpu_rails    = "256"
