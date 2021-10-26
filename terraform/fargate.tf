@@ -31,7 +31,7 @@ locals {
 
 module "webmap" {
   source  = "USSBA/easy-fargate-service/aws"
-  version = "~> 6.3"
+  version = "~> 6.6"
 
   # cloudwatch logging
   log_group_name              = "/ecs/${terraform.workspace}/${local.env.service_name}"
@@ -78,6 +78,7 @@ module "webmap" {
   private_subnet_ids = data.aws_subnet_ids.private.ids
   vpc_id             = data.aws_vpc.selected.id
   certificate_arn    = data.aws_acm_certificate.selected.arn
+  regional_waf_acl   = data.aws_wafv2_web_acl.regional.arn
 
   # container(s)
   cluster_name   = data.aws_ecs_cluster.selected.cluster_name
