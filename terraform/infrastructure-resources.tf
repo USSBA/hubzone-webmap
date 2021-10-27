@@ -56,3 +56,9 @@ data "aws_ecs_cluster" "selected" {
 data "aws_db_instance" "rds" {
   db_instance_identifier = "${terraform.workspace}-${local.env.db_identifier}"
 }
+
+## WAF Regional
+data "aws_wafv2_web_acl" "regional" {
+  name  = "basic-waf-regional"
+  scope = "REGIONAL"
+}
