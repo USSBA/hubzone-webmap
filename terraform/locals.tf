@@ -27,6 +27,7 @@ locals {
       min_container_count_rails     = 1
       scaling_metric                = "memory"
       scaling_threshold             = "75"
+      fargate_alarm_targets         = [local.sns_yellow]
     }
     demo = {
       fqdn_base   = "demo.sba-one.net"
@@ -52,7 +53,8 @@ locals {
       max_container_count_rails     = 4
       rails_env                     = "production"
       #TODO: Delete this backend_location to point back at cloudfront once the deployment is complete
-      backend_location = "not-cloudfront"
+      backend_location      = "not-cloudfront"
+      fargate_alarm_targets = [local.sns_red]
     }
   }
   # Condense all config into a single `local.env.*`
