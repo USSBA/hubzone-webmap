@@ -36,14 +36,12 @@ locals {
     }
     stg = {
       fqdn_base   = "stg.certify.sba.gov"
-      cert_domain = "certify.sba.gov"
+      cert_domain = "stg.certify.sba.gov"
 
       desired_container_count_rails = 2
       min_container_count_rails     = 2
       max_container_count_rails     = 2
       rails_env                     = "staging"
-      #TODO: Delete this backend_location to point back at cloudfront once the deployment is complete
-      backend_location = "not-cloudfront"
     }
     prod = {
       fqdn_base                     = "certify.sba.gov"
