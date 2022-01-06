@@ -51,7 +51,6 @@ locals {
       max_container_count_rails     = 4
       rails_env                     = "production"
       #TODO: Delete this backend_location to point back at cloudfront once the deployment is complete
-      backend_location      = "not-cloudfront"
       fargate_alarm_targets = [local.sns_red]
     }
   }
