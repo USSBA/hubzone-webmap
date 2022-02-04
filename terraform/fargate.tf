@@ -31,7 +31,7 @@ locals {
 
 module "webmap" {
   source  = "USSBA/easy-fargate-service/aws"
-  version = "~> 6.6"
+  version = "~> 7.0"
 
   # cloudwatch logging
   log_group_name              = "/ecs/${terraform.workspace}/${local.env.service_name}"
@@ -65,6 +65,8 @@ module "webmap" {
   min_capacity                     = local.env.min_container_count_rails
   scaling_metric                   = local.env.scaling_metric
   scaling_threshold                = local.env.scaling_threshold
+  scheduled_actions                = try(local.env.scheduled_actions, [])
+  scheduled_actions_timezone       = try(local.env.scheduled_actions_timezone, "UTC")
   health_check_path                = local.env.health_check_path
   health_check_timeout             = 5
   health_check_interval            = 20

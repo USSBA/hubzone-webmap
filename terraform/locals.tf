@@ -42,6 +42,11 @@ locals {
       min_container_count_rails     = 2
       max_container_count_rails     = 2
       rails_env                     = "staging"
+
+      scheduled_actions = [
+        { expression = "cron(0 7 * * ? *)", max_capacity = 2, min_capacity = 2 },  # Everyday at 7:00 AM EST
+        { expression = "cron(0 19 * * ? *)", max_capacity = 1, min_capacity = 1 }, # Everyday at 7:00 PM EST
+      ]
     }
     prod = {
       fqdn_base                     = "certify.sba.gov"
