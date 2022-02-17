@@ -14,7 +14,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu" {
 
   dimensions = {
     "ClusterName" = data.aws_ecs_cluster.selected.cluster_name
-    "ServiceName" = "${terraform.workspace}-${local.env.service_name}"
+    "ServiceName" = module.webmap.service.name
   }
 }
 
