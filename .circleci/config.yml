@@ -415,12 +415,12 @@ workflows:
         context: certify-upper
         filters:
           branches:
-            only:
-            - master
+            ignore:
+            - /.*/
           tags:
             only:
-            - build-upper
-            - deploy-stg
+            - /rc-v[0-9]+(\.[0-9]+)*$/
+            - /v[0-9]+(\.[0-9]+)*$/
     - deploy-service:
         name: deploy-service-stg
         context: certify-upper
@@ -429,11 +429,11 @@ workflows:
         - build-and-push-containers-upper
         filters:
           branches:
-            only:
-            - master
+            ignore:
+            - /.*/
           tags:
             only:
-            - deploy-stg
+            - /rc-v[0-9]+(\.[0-9]+)*$/
     - test-terraform-plan:
         name: test-terraform-plan-prod
         context: certify-upper
@@ -442,8 +442,11 @@ workflows:
         - build-and-push-containers-upper
         filters:
           branches:
+            ignore:
+            - /.*/
+          tags:
             only:
-            - master
+            - /v[0-9]+(\.[0-9]+)*$/
     - hold-for-approval:
         type: approval
         context: certify-upper
@@ -451,8 +454,11 @@ workflows:
           - test-terraform-plan-prod
         filters:
           branches:
+            ignore:
+            - /.*/
+          tags:
             only:
-            - master
+            - /v[0-9]+(\.[0-9]+)*$/
     - deploy-service:
         name: deploy-service-prod
         context: certify-upper
@@ -461,5 +467,8 @@ workflows:
         - hold-for-approval
         filters:
           branches:
+            ignore:
+            - /.*/
+          tags:
             only:
-            - master
+            - /v[0-9]+(\.[0-9]+)*$/
