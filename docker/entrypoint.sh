@@ -12,10 +12,12 @@ function check_param() {
 }
 
 check_param SECRET_KEY_BASE
-check_param HUBZONE_MAP_DB_HOST
 check_param HUBZONE_MAP_DB_PASSWORD
 check_param HUBZONE_API_KEY
 check_param HUBZONE_GOOGLE_API_KEY
-if [ "$MISSING_PARAM" == "1" ]; then exit 1; fi
+
+if [ "$MISSING_PARAM" == "1" ]; then
+  exit 1;
+fi
 
 exec "$@"

@@ -4,8 +4,7 @@ variable "image_tag" {
 
 locals {
   container_environment = {
-    AWS_ENVIRONMENT     = terraform.workspace
-    HUBZONE_MAP_DB_HOST = local.postgres_fqdn
+    AWS_ENVIRONMENT = terraform.workspace
 
     # These services live behind CloudFront, so the base domain will be identical upon deployment
     # Conditionally they can be configured to refer directly to the back-end service.  This is useful

@@ -27,32 +27,17 @@ default: &default
 production:
   <<: *default
   database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_prd' } %>
-  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'db.maps.certify.sba.gov' } %>
+  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'hubzone-db.certify.sba.gov' } %>
 
 staging:
   <<: *default
   database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_stg' } %>
-  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'db.maps.staging.certify.sba.gov' } %>
-
-training:
-  <<: *default
-  database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_trn' } %>
-  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'db.maps.training.certify.sba.gov' } %>
-
-qa:
-  <<: *default
-  host: <%= ENV.fetch('HUBZONE_API_DB_HOST') { 'hubzone-db.qa.sba-one.net' } %>
-  database: <%= ENV.fetch('HUBZONE_API_DB_NAME') { 'hzgeo_qa' } %>
+  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'hubzone-db.stg.certify.sba.gov' } %>
 
 demo:
   <<: *default
   database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_demo' } %>
-  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'db.hz-demo.sba-one.net' } %>
-
-dev:
-  <<: *default
-  database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_dev' } %>
-  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'db.map.dev.sba-one.net' } %>
+  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'hubzone-db.demo.sba-one.net' } %>
 
 development:
   <<: *default
