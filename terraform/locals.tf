@@ -1,7 +1,8 @@
 locals {
-  region       = data.aws_region.current.name
-  account_id   = data.aws_caller_identity.current.account_id
-  account_name = contains(["stg", "prod"], terraform.workspace) ? "upper" : "lower"
+  region             = data.aws_region.current.name
+  account_id         = data.aws_caller_identity.current.account_id
+  account_name       = contains(["stg", "prod"], terraform.workspace) ? "upper" : "lower"
+  enable_alarm_count = contains(["prod"], terraform.workspace) ? 1 : 0
   account_ids = {
     demo = "997577316207"
     stg  = "222484291001"

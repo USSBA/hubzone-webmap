@@ -1,8 +1,7 @@
 variable "image_tag" {
   type = string
 }
-# name  = "HUBZONE_MAP_DB_HOST"
-# value = "hubzone-db.certify.sba.gov"
+
 locals {
   container_environment = {
     AWS_ENVIRONMENT = terraform.workspace

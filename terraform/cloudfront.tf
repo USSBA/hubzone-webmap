@@ -300,3 +300,26 @@ resource "aws_cloudfront_origin_request_policy" "qs" {
 data "aws_cloudfront_response_headers_policy" "security_headers" {
   name = "Managed-SecurityHeadersPolicy"
 }
+
+# Metric Alarms
+resource "aws_cloudwatch_metric_alarm" "hubzone_rate5xx" {
+  count               = local.enable_alarm_count
+  actions_enabled     = true
+  alarm_actions       = [local.sns_red]
+  alarm_description   = "Error Rate >= 1 percent for 5 datapoints within 25 minutes"
+  alarm_name          = "${terraform.workspace}-hubzone-cloudfront-5xx-error-rate"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  dimensions = {
+    DistributionId = aws_cloudfront_distribution.distribution.id
+    Region         = "Global"
+  }
+  evaluation_periods        = 5
+  insufficient_data_actions = []
+  metric_name               = "5xxErrorRate"
+  namespace                 = "AWS/CloudFront"
+  ok_actions                = [local.sns_red]
+  period                    = 300
+  statistic                 = "Average"
+  threshold                 = 1
+  treat_missing_data        = "missing"
+}
