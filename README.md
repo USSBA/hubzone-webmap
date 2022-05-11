@@ -234,6 +234,7 @@ terraform: Infrastructure code to deploy HUBZone Webmap.
   - infrastructure-resources.tf: Contains data calls that gets AWS resources which are used by `fargate.tf`.
   - locals.tf: Contains local environment variables that can be commonly shared between all Terraform files.
   - main.tf: Contains Terraform backend provider resources.
+  - cloudfront.tf: Contains the CloudFront distribution and relative resources like Route53 records.
 
 .circleci: Contains CircleCI pipeline yml.
 

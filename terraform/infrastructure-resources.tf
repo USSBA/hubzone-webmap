@@ -49,7 +49,13 @@ data "aws_db_instance" "rds" {
   db_instance_identifier = "${terraform.workspace}-${local.env.db_identifier}"
 }
 
-## WAF Regional
+# WAF (cloudfront)
+data "aws_wafv2_web_acl" "cloudfront" {
+  name  = "basic-waf-cloudfront"
+  scope = "CLOUDFRONT"
+}
+
+## WAF (regional)
 data "aws_wafv2_web_acl" "regional" {
   name  = "basic-waf-regional"
   scope = "REGIONAL"
