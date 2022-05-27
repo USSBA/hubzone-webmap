@@ -49,17 +49,22 @@ data "aws_db_instance" "rds" {
   db_instance_identifier = "${terraform.workspace}-${local.env.db_identifier}"
 }
 
-# WAF (cloudfront)
-data "aws_wafv2_web_acl" "cloudfront" {
-  name  = "basic-waf-cloudfront"
-  scope = "CLOUDFRONT"
+data "aws_ssm_parameter" "origin_token" {
+  name            = "/${terraform.workspace}/waf/${local.waf_regional.header_name}"
+  with_decryption = true
 }
 
+# WAF (cloudfront)
+#data "aws_wafv2_web_acl" "cloudfront" {
+#  name  = "basic-waf-cloudfront"
+#  scope = "CLOUDFRONT"
+#}
+
 ## WAF (regional)
-data "aws_wafv2_web_acl" "regional" {
-  name  = "basic-waf-regional"
-  scope = "REGIONAL"
-}
+#data "aws_wafv2_web_acl" "regional" {
+#  name  = "basic-waf-regional"
+#  scope = "REGIONAL"
+#}
 
 # SNS Topics
 data "aws_sns_topic" "topics" {

@@ -1,14 +1,14 @@
 #tf import -var 'image_tag=a5442677d9180eb8694be19b745f096e45c9c97e' \
 #  'aws_wafv2_web_acl.cloudfront' 'dd488209-dad2-46e0-9de1-99a18d498d77/demo-hubzone-webmap-cloudfront-acl/CLOUDFRONT'
 locals {
-  wafCloudfront = {
+  waf_cloudfront = {
     name = "${terraform.workspace}-${local.env.service_name}-cloudfront-acl"
   }
 }
 
-resource "aws_wafv2_web_acl" "wafCloudfront" {
-  description = local.wafCloudfront.name
-  name        = local.wafCloudfront.name
+resource "aws_wafv2_web_acl" "waf_cloudfront" {
+  description = local.waf_cloudfront.name
+  name        = local.waf_cloudfront.name
   scope       = "CLOUDFRONT"
 
   default_action {
@@ -32,7 +32,7 @@ resource "aws_wafv2_web_acl" "wafCloudfront" {
     }
     visibility_config {
       cloudwatch_metrics_enabled = true
-      metric_name                = "${local.wafCloudfront.name}-amazon-ip-reputation"
+      metric_name                = "${local.waf_cloudfront.name}-amazon-ip-reputation"
       sampled_requests_enabled   = false
     }
   }
@@ -48,7 +48,7 @@ resource "aws_wafv2_web_acl" "wafCloudfront" {
     }
     statement {
       rate_based_statement {
-        limit              = 100    # number of request over a 5minute period
+        limit              = 100 # number of request over a 5minute period
         aggregate_key_type = "IP"
 
         scope_down_statement {
@@ -68,7 +68,7 @@ resource "aws_wafv2_web_acl" "wafCloudfront" {
     }
     visibility_config {
       cloudwatch_metrics_enabled = true
-      metric_name                = "${local.wafCloudfront.name}-search-rate-limit"
+      metric_name                = "${local.waf_cloudfront.name}-search-rate-limit"
       sampled_requests_enabled   = false
     }
   }
@@ -89,7 +89,7 @@ resource "aws_wafv2_web_acl" "wafCloudfront" {
     }
     visibility_config {
       cloudwatch_metrics_enabled = true
-      metric_name                = "${local.wafCloudfront.name}-sql-injection"
+      metric_name                = "${local.waf_cloudfront.name}-sql-injection"
       sampled_requests_enabled   = false
     }
   }
@@ -111,7 +111,7 @@ resource "aws_wafv2_web_acl" "wafCloudfront" {
     }
     visibility_config {
       cloudwatch_metrics_enabled = true
-      metric_name                = "${local.wafCloudfront.name}-amazon-common"
+      metric_name                = "${local.waf_cloudfront.name}-amazon-common"
       sampled_requests_enabled   = false
     }
   }
@@ -124,13 +124,13 @@ resource "aws_wafv2_web_acl" "wafCloudfront" {
   }
 }
 
-resource "aws_cloudwatch_log_group" "wafCloudfront" {
-    name              = "aws-waf-logs-${local.wafCloudfront.name}"
-    retention_in_days = 90
+resource "aws_cloudwatch_log_group" "waf_cloudfront" {
+  name              = "aws-waf-logs-${local.waf_cloudfront.name}"
+  retention_in_days = 90
 }
 
-resource "aws_wafv2_web_acl_logging_configuration" "wafCloudfront" {
-  log_destination_configs = [aws_cloudwatch_log_group.wafCloudfront.arn]
-  resource_arn            = aws_wafv2_web_acl.wafCloudfront.arn
-
+resource "aws_wafv2_web_acl_logging_configuration" "waf_cloudfront" {
+  log_destination_configs = [aws_cloudwatch_log_group.waf_cloudfront.arn]
+  resource_arn            = aws_wafv2_web_acl.waf_cloudfront.arn
 }
+
