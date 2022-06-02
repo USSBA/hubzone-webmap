@@ -85,7 +85,7 @@ module "webmap" {
   private_subnet_ids = data.aws_subnets.private.ids
   vpc_id             = data.aws_vpc.selected.id
   certificate_arn    = data.aws_acm_certificate.selected.arn
-  regional_waf_acl   = aws_wafv2_web_acl.waf_regional.arn
+  #regional_waf_acl   = aws_wafv2_web_acl.waf_regional.arn
 
   # container(s)
   cluster_name   = data.aws_ecs_cluster.selected.cluster_name

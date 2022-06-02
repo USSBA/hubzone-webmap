@@ -50,7 +50,7 @@ data "aws_db_instance" "rds" {
 }
 
 data "aws_ssm_parameter" "origin_token" {
-  name            = "/${terraform.workspace}/waf/${local.waf_regional.header_name}"
+  name            = "/${terraform.workspace}/waf/x-ussba-origin-token"
   with_decryption = true
 }
 
