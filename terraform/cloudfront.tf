@@ -33,7 +33,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   price_class         = "PriceClass_100"
   retain_on_delete    = false
   wait_for_deployment = true
-  web_acl_id          = data.aws_wafv2_web_acl.cloudfront.arn
+  web_acl_id          = aws_wafv2_web_acl.waf_cloudfront.arn
 
   logging_config {
     bucket          = "${local.account_ids[terraform.workspace]}-logs.s3.amazonaws.com"
@@ -43,8 +43,8 @@ resource "aws_cloudfront_distribution" "distribution" {
 
   restrictions {
     geo_restriction {
-      locations        = []
-      restriction_type = "none"
+      locations        = ["RU", "HK", "CN"]
+      restriction_type = "blacklist"
     }
   }
 
@@ -210,6 +210,11 @@ resource "aws_cloudfront_distribution" "distribution" {
     domain_name         = "hubzone-report.${local.env.fqdn_base}"
     origin_id           = "report"
 
+    custom_header {
+      name  = "x-ussba-origin-token"
+      value = nonsensitive(data.aws_ssm_parameter.origin_token.value)
+    }
+
     custom_origin_config {
       http_port                = 80
       https_port               = 443
@@ -229,6 +234,11 @@ resource "aws_cloudfront_distribution" "distribution" {
     connection_timeout  = 10
     domain_name         = "hubzone-webmap.${local.env.fqdn_base}"
     origin_id           = "webmap"
+
+    custom_header {
+      name  = "x-ussba-origin-token"
+      value = nonsensitive(data.aws_ssm_parameter.origin_token.value)
+    }
 
     custom_origin_config {
       http_port                = 80
@@ -323,3 +333,4 @@ resource "aws_cloudwatch_metric_alarm" "hubzone_rate5xx" {
   threshold                 = 1
   treat_missing_data        = "missing"
 }
+

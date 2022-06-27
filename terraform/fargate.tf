@@ -29,6 +29,7 @@ locals {
 }
 
 module "webmap" {
+  #source  = "../../terraform-aws-easy-fargate-service"
   source  = "USSBA/easy-fargate-service/aws"
   version = "~> 7.0"
 
@@ -41,6 +42,11 @@ module "webmap" {
   # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html#access-logging-bucket-permissions
   alb_log_bucket_name = local.env.log_bucket
   alb_log_prefix      = "${terraform.workspace}/alb/${local.env.service_name}"
+
+  cloudfront_header = {
+    key   = "x-ussba-origin-token",
+    value = nonsensitive(data.aws_ssm_parameter.origin_token.value)
+  }
 
   family                 = "${terraform.workspace}-${local.env.service_shortname}-fg"
   task_cpu               = local.env.task_cpu_rails
@@ -79,7 +85,7 @@ module "webmap" {
   private_subnet_ids = data.aws_subnets.private.ids
   vpc_id             = data.aws_vpc.selected.id
   certificate_arn    = data.aws_acm_certificate.selected.arn
-  regional_waf_acl   = data.aws_wafv2_web_acl.regional.arn
+  #regional_waf_acl   = aws_wafv2_web_acl.waf_regional.arn
 
   # container(s)
   cluster_name   = data.aws_ecs_cluster.selected.cluster_name
