@@ -1,0 +1,74 @@
+# global configuration for all jobs
+name: Staging
+on:
+  push:
+    tags:
+      - rc-v*.*
+
+# sets the default shell for all jobs
+defaults:
+  run:
+    shell: bash
+
+# permissions can be set globally for jobs
+permissions:
+  contents: read # contents is used for checking out code
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: stg
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.OIDC_ARN }}
+          aws-region: us-east-1
+
+      - name: ECR Login
+        uses: aws-actions/amazon-ecr-login@v1
+        id: ecr-login
+
+      - name: ECR Build & Push
+        uses: ./.github/actions/ecr
+        with:
+          registry: ${{ steps.ecr-login.outputs.registry }}
+          repo: hubzone-webmap
+          tags: ${{ github.ref_name }}
+          cache-from: ${{ github.ref_name }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: stg
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.OIDC_ARN }}
+          aws-region: us-east-1
+
+      - name: ECR Login
+        uses: aws-actions/amazon-ecr-login@v1
+        id: ecr-login
+
+      - name: Terraform Plan & Apply
+        uses: ./.github/actions/terraform
+        with:
+          folder: ./terraform
+          image: ${{ steps.ecr-login.outputs.registry }}/hubzone-webmap:${{ github.ref_name }}
+          workspace: stg
+
+      - name: Terraform Plan & Apply Preview
+        uses: ./.github/actions/terraform
+        with:
+          folder: ./terraform/preview
+          image: ${{ steps.ecr-login.outputs.registry }}/hubzone-webmap:${{ github.ref_name }}
+          workspace: stg

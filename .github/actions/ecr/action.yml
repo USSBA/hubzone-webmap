@@ -1,0 +1,30 @@
+name: ECR Login, Build & Push
+description: Authenticate to ECR, Build & Push Containers
+
+inputs:
+  cache-from:
+    description: Image tag used for cached builds
+    required: true
+  registry:
+    description: Regional Registry Name
+    required: true
+  repo:
+    description: Image Repository Name
+    required: true
+  tags:
+    description: Image Tag List
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        IMAGE=${{ inputs.registry }}/${{ inputs.repo }}
+        docker image pull $IMAGE:${{ inputs.cache-from }} || true
+        docker build --cache-from=$IMAGE:${{ inputs.cache-from }} -t $IMAGE:latest .
+        for tag in ${{ inputs.tags }}; do
+          docker image tag $IMAGE:latest $IMAGE:$tag
+          echo "Successfully tagged $IMAGE:$tag"
+          docker image push $IMAGE:$tag
+        done
