@@ -38,7 +38,7 @@ jobs:
         uses: ./.github/actions/ecr
         with:
           registry: ${{ steps.ecr-login.outputs.registry }}
-          repo: hubzone-webmap
+          repo: hubzone/hubzone-webmap
           # Tagging with ref_name (develop) and sha so we can leverage the sha and not initiate a force deployment
           # from Terraform
           tags: ${{ github.ref_name }} ${{ github.sha }}
@@ -66,12 +66,12 @@ jobs:
         uses: ./.github/actions/terraform
         with:
           folder: ./terraform
-          image: ${{ steps.ecr-login.outputs.registry }}/hubzone-webmap:${{ github.sha }}
+          image: ${{ steps.ecr-login.outputs.registry }}/hubzone/hubzone-webmap:${{ github.sha }}
           workspace: dev
 
       - name: Terraform Plan & Apply Preview
         uses: ./.github/actions/terraform
         with:
           folder: ./terraform/preview
-          image: ${{ steps.ecr-login.outputs.registry }}/hubzone-webmap:${{ github.sha }}
+          image: ${{ steps.ecr-login.outputs.registry }}/hubzone/hubzone-webmap:${{ github.sha }}
           workspace: dev
