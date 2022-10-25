@@ -19,7 +19,7 @@ runs:
       run: |
         cd ${{ inputs.folder }}
         terraform init -input=false
-        echo "image = \"${{ inputs.image }}\"" >> ./build.auto.tfvars
+        echo "image_tag = \"${{ inputs.image }}\"" >> ./build.auto.tfvars
         terraform workspace select ${{ inputs.workspace }}
         terraform plan -out=${{ inputs.workspace }}.tfplan -input=false
         terraform apply -input=false ${{ inputs.workspace }}.tfplan
