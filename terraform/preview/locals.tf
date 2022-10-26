@@ -12,7 +12,7 @@ locals {
     default = {
       service_name      = "preview-hubzone-webmap"
       service_shortname = "preview-webmap"
-      ecr_name          = "hubzone/hubzone-webmap"
+      ecr_name          = "hubzone-webmap-preview"
       log_bucket        = "${local.account_id}-logs"
 
       rails_port        = 3000

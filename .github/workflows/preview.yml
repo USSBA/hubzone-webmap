@@ -43,27 +43,27 @@ jobs:
           tags: ${{ github.ref_name }} ${{ github.sha }}
           cache-from: ${{ github.ref_name }}
 
-#  deploy:
-#    needs: build
-#    runs-on: ubuntu-latest
-#    environment: dev
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v3
-#
-#      - name: Configure AWS credentials
-#        uses: aws-actions/configure-aws-credentials@v1
-#        with:
-#          role-to-assume: ${{ secrets.OIDC_ARN }}
-#          aws-region: us-east-1
-#
-#      - name: ECR Login
-#        uses: aws-actions/amazon-ecr-login@v1
-#        id: ecr-login
-#
-#      - name: Terraform Plan & Apply
-#        uses: ./.github/actions/terraform
-#        with:
-#          folder: ./terraform/preview
-#          image: ${{ github.sha }}
-#          workspace: demo
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.OIDC_ARN }}
+          aws-region: us-east-1
+
+      - name: ECR Login
+        uses: aws-actions/amazon-ecr-login@v1
+        id: ecr-login
+
+      - name: Terraform Plan & Apply
+        uses: ./.github/actions/terraform
+        with:
+          folder: ./terraform/preview
+          image: ${{ github.sha }}
+          workspace: demo
