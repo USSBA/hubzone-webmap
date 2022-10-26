@@ -33,6 +33,35 @@ jobs:
 
   rspec:
     runs-on: ubuntu-latest
+
+    # set the service
+    services:
+      postgres:
+        image: postgres:12.9
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        # the postgres container does not provide a healthcheck
+        # tmpfs makes DB faster by using RAM
+        options: >-
+          --mount type=tmpfs,destination=/var/lib/postgresql/data
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    # set variables for the instance
+    env:
+      HUBZONE_MAP_DB_USER: postgres
+      HUBZONE_MAP_DB_PASSWORD: postgres
+      RAILS_ENV: test
+      OPENSSL_CONF: /etc/ssl/
+      POSTGRES_HOST: localhost
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -40,6 +69,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@359bebbc29cbe6c87da6bc9ea3bc930432750108
         with:
+          bundler-cache: true
           ruby-version: '2.7'
 
       - name: Install Phantom
@@ -52,17 +82,11 @@ jobs:
           rm -r phantomjs-2.1.1-linux-x86_64
 
       - name: Install system dependencies
-        run: bundle install
+        run: |
+          bundle install
 
       - name: Migrate Database
         run: bundle exec rake db:create db:migrate
 
       - name: Run R-Spec
         run: bundle exec rspec --format progress
-        env:
-          HUBZONE_MAP_DB_USER: postgres
-          HUBZONE_MAP_DB_PASSWORD: postgres
-          RAILS_ENV: test
-          OPENSSL_CONF: /etc/ssl/
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
