@@ -37,7 +37,7 @@ jobs:
         uses: ./.github/actions/ecr
         with:
           registry: ${{ steps.ecr-login.outputs.registry }}
-          repo: hubzone-webmap
+          repo: hubzone/hubzone-webmap
           tags: ${{ github.ref_name }}
           cache-from: ${{ github.ref_name }}
 
@@ -63,12 +63,5 @@ jobs:
         uses: ./.github/actions/terraform
         with:
           folder: ./terraform
-          image: ${{ steps.ecr-login.outputs.registry }}/hubzone-webmap:${{ github.ref_name }}
-          workspace: prod
-
-      - name: Terraform Plan & Apply Preview
-        uses: ./.github/actions/terraform
-        with:
-          folder: ./terraform/preview
-          image: ${{ steps.ecr-login.outputs.registry }}/hubzone-webmap:${{ github.ref_name }}
+          image: ${{ github.ref_name }}
           workspace: prod

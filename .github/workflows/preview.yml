@@ -3,7 +3,7 @@ name: Preview
 on:
   push:
     branches:
-      - IA-2685
+      - preview-map
 
 # sets the default shell for all jobs
 defaults:
