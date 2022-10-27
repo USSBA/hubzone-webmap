@@ -1,0 +1,25 @@
+name: Terraform Deploy
+description: Apply terraform in a target folder and workspace
+
+inputs:
+  folder:
+    description: Directory containing the Terraform files used in the deployment
+    required: true
+  image:
+    description: Container image and tag
+    required: true
+  workspace:
+    description: Terraform workspace to base the deployment
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        cd ${{ inputs.folder }}
+        terraform init -input=false
+        echo "image_tag = \"${{ inputs.image }}\"" >> ./build.auto.tfvars
+        terraform workspace select ${{ inputs.workspace }}
+        terraform plan -out=${{ inputs.workspace }}.tfplan -input=false
+        terraform apply -input=false ${{ inputs.workspace }}.tfplan

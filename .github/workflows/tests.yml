@@ -1,0 +1,238 @@
+# global configuration for all jobs
+name: Integration Tests
+on: [push]
+
+# sets the default shell for all jobs
+defaults:
+  run:
+    shell: bash
+
+# permissions can be set globally for jobs
+permissions:
+  contents: read # contents is used for checking out code
+  id-token: write
+
+jobs:
+  terraform-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v1
+      - run: |
+          echo "Performing Terraform Format..."
+          terraform fmt -check -recursive
+          if [[ $? != 0 ]]; then
+            exit 1
+          else
+            echo "Terraform Format Successful..."
+          fi
+
+  build-containers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          docker image build . --tag ecr-temp/hubzone-webmap:${{ github.sha }}
+
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get -yqq install libpq-dev
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+
+      # This appears to work. Have Certify team double check
+      - name: rubocop
+        run: rubocop
+
+  rspec:
+    runs-on: ubuntu-latest
+    environment: demo
+    env:
+      HUBZONE_MAP_HOST: local
+      SECRET_KEY_BASE: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      HUBZONE_GOOGLE_API_KEY: ${{ secrets.HUBZONE_GOOGLE_API_KEY }}
+      HUBZONE_API_KEY: ${{ secrets.HUBZONE_GOOGLE_API_KEY }}
+      HUBZONE_MAP_DB_USER: postgres
+      HUBZONE_MAP_DB_PASSWORD: postgres
+      RAILS_ENV: test
+      RAILS_LOG_TO_STDOUT: true
+      OPENSSL_CONF: /etc/ssl/
+      POSTGRES_HOST: localhost
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    # set the service
+
+    services:
+      postgres:
+        image: postgres:12.9
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        # the postgres container does not provide a healthcheck
+        # tmpfs makes DB faster by using RAM
+        options: >-
+          --mount type=tmpfs,destination=/var/lib/postgresql/data
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          ruby-version: '2.7'
+
+      - name: Install Phantom
+        run: |
+          wget https://s3.amazonaws.com/sba-shared-services-lower-ci/public-files/phantomjs-2.1.1-linux-x86_64.tar.bz2
+          tar -xf phantomjs-2.1.1-linux-x86_64.tar.bz2
+          rm phantomjs-2.1.1-linux-x86_64.tar.bz2
+          sudo mv phantomjs-2.1.1-linux-x86_64/bin/phantomjs /bin/phantomjs
+          sudo chmod 555 /bin/phantomjs
+          rm -r phantomjs-2.1.1-linux-x86_64
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get -yqq install libpq-dev
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+
+      - name: Migrate Database
+        run: bundle exec rake db:create db:migrate
+
+      - name: Run R-Spec
+        run: bundle exec rspec --format progress
+
+  # The HUBZONE_GOOGLE_API_KEY that is in the test docker compose file
+  # does not seem to work anymore. It is failing in CircleCI & GitHub Actions
+  # The R-Spec test above leverages the key from prod ssm as a secret and is working
+  #rspec-docker:
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - name: Checkout
+  #      uses: actions/checkout@v3
+
+  #    - name: Set up Ruby
+  #      uses: ruby/setup-ruby@v1
+  #      with:
+  #        bundler-cache: true
+  #        ruby-version: '2.7'
+
+  #    - name: Install System Dependencies
+  #      run: |
+  #        sudo apt-get -yqq install libpq-dev
+  #        bundle install
+
+  #    - name: Build R-Spec in Docker Container
+  #      run: docker-compose -f docker/docker-compose-test.yml build rspec
+
+  #    - name: Run R-Spec in Docker Container
+  #      run: docker-compose -f docker/docker-compose-test.yml run rspec
+
+  teaspoonJS:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          ruby-version: '2.7'
+
+      - name: Install Phantom
+        run: |
+          wget https://s3.amazonaws.com/sba-shared-services-lower-ci/public-files/phantomjs-2.1.1-linux-x86_64.tar.bz2
+          tar -xf phantomjs-2.1.1-linux-x86_64.tar.bz2
+          rm phantomjs-2.1.1-linux-x86_64.tar.bz2
+          sudo mv phantomjs-2.1.1-linux-x86_64/bin/phantomjs /bin/phantomjs
+          sudo chmod 555 /bin/phantomjs
+          rm -r phantomjs-2.1.1-linux-x86_64
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get -yqq install libpq-dev
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+
+      - name: Teaspoon
+        run: bundle exec teaspoon --coverage=default
+
+  jshint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          ruby-version: '2.7'
+
+      - name: Install Phantom
+        run: |
+          wget https://s3.amazonaws.com/sba-shared-services-lower-ci/public-files/phantomjs-2.1.1-linux-x86_64.tar.bz2
+          tar -xf phantomjs-2.1.1-linux-x86_64.tar.bz2
+          rm phantomjs-2.1.1-linux-x86_64.tar.bz2
+          sudo mv phantomjs-2.1.1-linux-x86_64/bin/phantomjs /bin/phantomjs
+          sudo chmod 555 /bin/phantomjs
+          rm -r phantomjs-2.1.1-linux-x86_64
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get -yqq install libpq-dev
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+
+      - name: jshint
+        run: bundle exec rake jshint
+
+  brakeman:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          ruby-version: '2.7'
+
+      - name: Install Phantom
+        run: |
+          wget https://s3.amazonaws.com/sba-shared-services-lower-ci/public-files/phantomjs-2.1.1-linux-x86_64.tar.bz2
+          tar -xf phantomjs-2.1.1-linux-x86_64.tar.bz2
+          rm phantomjs-2.1.1-linux-x86_64.tar.bz2
+          sudo mv phantomjs-2.1.1-linux-x86_64/bin/phantomjs /bin/phantomjs
+          sudo chmod 555 /bin/phantomjs
+          rm -r phantomjs-2.1.1-linux-x86_64
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get -yqq install libpq-dev
+          gem install --no-document brakeman
+          bundle install --jobs 4 --retry 3
+
+      - name: Brakeman
+        run: brakeman --exit-on-warn .
