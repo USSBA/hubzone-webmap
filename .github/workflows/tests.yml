@@ -13,6 +13,20 @@ permissions:
   id-token: write
 
 jobs:
+  terraform-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v1
+      - run: |
+          echo "Performing Terraform Format..."
+          terraform fmt -check -recursive
+          if [[ $? != 0 ]]; then
+            exit 1
+          else
+            echo "Terraform Format Successful..."
+          fi
+
   rubocop:
     runs-on: ubuntu-latest
     steps:
