@@ -27,6 +27,13 @@ jobs:
             echo "Terraform Format Successful..."
           fi
 
+  build-containers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          docker image build . --tag ecr-temp/hubzone-webmap:${{ github.sha }}
+
   rubocop:
     runs-on: ubuntu-latest
     steps:
@@ -50,7 +57,7 @@ jobs:
 
   rspec:
     runs-on: ubuntu-latest
-    environment: dev
+    environment: demo
     env:
       HUBZONE_MAP_HOST: local
       SECRET_KEY_BASE: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
