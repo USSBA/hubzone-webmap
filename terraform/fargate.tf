@@ -94,7 +94,7 @@ module "webmap" {
     {
       name        = "webmap"
       image       = "${local.prefix_ecr}/${local.env.ecr_name}:${var.image_tag}"
-      environment = [for k, v in local.container_environment : { name = k, value = v }, "HUBZONE_GOOGLE_API_KEY=HUBZONE_GOOGLE_API_KEY"]
+      environment = [for k, v in local.container_environment : { name = k, value = v }]
       secrets     = [for k, v in local.container_secrets_parameterstore : { name = k, valueFrom = "${local.prefix_parameter_store}/${v}" }]
     },
   ]
