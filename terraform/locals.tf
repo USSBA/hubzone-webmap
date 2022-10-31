@@ -34,7 +34,6 @@ locals {
       min_container_count_rails     = 1
       scaling_metric                = "memory"
       scaling_threshold             = "75"
-      fargate_alarm_targets         = [local.sns_yellow]
 
       scheduled_actions          = []
       scheduled_actions_timezone = "America/New_York"
@@ -66,7 +65,6 @@ locals {
       max_container_count_rails     = 4
       rails_env                     = "production"
       #TODO: Delete this backend_location to point back at cloudfront once the deployment is complete
-      fargate_alarm_targets = [local.sns_red]
     }
   }
   # Condense all config into a single `local.env.*`
