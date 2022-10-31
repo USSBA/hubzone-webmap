@@ -65,16 +65,3 @@ data "aws_ssm_parameter" "origin_token" {
 #  name  = "basic-waf-regional"
 #  scope = "REGIONAL"
 #}
-
-# SNS Topics
-data "aws_sns_topic" "topics" {
-  for_each = toset(["red", "green", "yellow", "security", "email-admins"])
-  name     = "sba-notification-framework-${each.key}"
-}
-locals {
-  sns_red          = data.aws_sns_topic.topics["red"].arn
-  sns_yellow       = data.aws_sns_topic.topics["yellow"].arn
-  sns_green        = data.aws_sns_topic.topics["green"].arn
-  sns_security     = data.aws_sns_topic.topics["security"].arn
-  sns_email_admins = data.aws_sns_topic.topics["email-admins"].arn
-}
