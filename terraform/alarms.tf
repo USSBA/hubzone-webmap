@@ -9,8 +9,8 @@ resource "aws_cloudwatch_metric_alarm" "cpu" {
   threshold           = 80 #% cpu usage limit for failing
 
   alarm_description = "${terraform.workspace} ${local.env.service_name} has had its CPU over 80% for the last 5 minutes"
-  alarm_actions     = local.env.fargate_alarm_targets
-  ok_actions        = local.env.fargate_alarm_targets
+  alarm_actions     = local.sns_alarms.red
+  ok_actions        = local.sns_alarms.green
 
   dimensions = {
     "ClusterName" = data.aws_ecs_cluster.selected.cluster_name
@@ -29,8 +29,8 @@ resource "aws_cloudwatch_metric_alarm" "memory" {
   threshold           = 80 #% cpu usage limit for failing
 
   alarm_description = "${terraform.workspace} ${local.env.service_name} has had its Memory over 80% for the last 5 minutes"
-  alarm_actions     = local.env.fargate_alarm_targets
-  ok_actions        = local.env.fargate_alarm_targets
+  alarm_actions     = local.sns_alarms.red
+  ok_actions        = local.sns_alarms.green
 
   dimensions = {
     "ClusterName" = data.aws_ecs_cluster.selected.cluster_name
@@ -38,6 +38,7 @@ resource "aws_cloudwatch_metric_alarm" "memory" {
   }
 }
 
+# I dont think this provides any value
 resource "aws_cloudwatch_metric_alarm" "rate5xx" {
   count                     = terraform.workspace == "prod" ? 1 : 0
   alarm_name                = "${terraform.workspace}-${local.env.service_name}-5xx-error-rate"
