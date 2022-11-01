@@ -12,24 +12,31 @@
     if body['formatted_address'].nil?
       visibility = 'hidden'
       details_visibility = 'hidden'
+      boundries_visibility = 'hidden'
     elsif body['until_date'].present? && Date.parse(body['until_date']) < Date.today
       visibility = ''
       details_visibility = ''
+      boundries_visibility = ''
       hubzone_status_style = 'non-qualified-hubzone'
       hubzone_status_indicator ='fa fa-times-circle-o non-qualified-hubzone'
       hubzone_status = t('hubzone_assertions.not_qualified')
       aria_hubzone_status = t('hubzone_assertions.not_qualified_aria')
       hubzones = body['hubzone']
+      boundaries = body['boundaries']
     elsif body['hubzone'].size > 0
       visibility = ''
+      boundries_visibility = ''
       hubzone_status_indicator = 'fa fa-check-circle-o qualified-hubzone'
       hubzone_status_style = 'qualified-hubzone'
       hubzone_status = t('hubzone_assertions.qualified')
       aria_hubzone_status = t('hubzone_assertions.qualified_aria')
       hubzones = body['hubzone']
+      boundaries = body['boundaries']
     else
+      boundaries = body['boundaries']
       visibility = ''
       details_visibility = 'hidden'
+      boundries_visibility = ''
       hubzone_status_style = 'non-qualified-hubzone'
       hubzone_status_indicator ='fa fa-times-circle-o non-qualified-hubzone'
       hubzone_status = t('hubzone_assertions.not_qualified')
@@ -90,6 +97,26 @@
     </div>
   </div>
 </div>
+
+<div class="sidebar-card boundries-details <%= boundries_visibility %>">
+  <div class="qualifications">
+    <div id="boundries-details-button" class="usa-accordion-button boundries-details" aria-label="Expand HUBZone Designation details">
+      <span class="boundries-details-title">
+        Boundraies
+      </span>
+      <span class="boundries-details-expand show" data-action="show" data-cookie="hz-sidebar-ad-open" data-expands="sidebar-boundries-details">
+        <%= t('sidebar.details.show') %>
+      </span>
+      <span class="boundries-details-expand hide" data-action="hide" data-cookie="hz-sidebar-ad-open" data-expands="sidebar-boundries-details" hidden>
+        <%= t('sidebar.details.hide') %>
+      </span>
+    </div>
+    <div class="sidebar-boundries-details">
+      <%= render partial: "boundaries", collection: boundaries %>
+    </div>
+  </div>
+</div>
+
 
 <% if has_likely_qda %>
   <%= render partial: "likely_qualification_alert", locals: {likely_qda_designations: body['other_information']['alerts']['likely_qda_designations']}  %>

@@ -205,6 +205,7 @@ table th {
   margin-bottom: 0px;
   background-color: transparent
 }
+
 .additional-details-button {
   background-color: transparent;
   border-radius: 3px;
@@ -230,6 +231,43 @@ table th {
   background-image: none;
   cursor: initial;
 }
+
+.boundries-additional-details {
+  margin: 0;
+}
+.boundries-additional-details {
+  border: none;
+  border-radius: 3px;
+  padding: 0;
+}
+
+
+#boundries-details-button {
+  background-image: none;
+  border-radius: 3px;
+}
+.boundries-details .usa-accordion-button {
+  color: $gray-dark;
+  background-color: transparent;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.boundries-details-expand {
+  float: right;
+  padding-top: 0.2rem;
+  font-size: 1.3rem;
+  font-weight: normal;
+  cursor: pointer;
+  color: $primary;
+}
+.boundries-details-expand:hover {
+  color: $primary-darker;
+}
+#additional-details-button {
+  background-image: none;
+  cursor: initial;
+}
+
 .sidebar-local-information {
   margin: 0;
 }

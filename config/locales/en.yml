@@ -71,6 +71,8 @@ en:
       request_denied: "We're sorry. The request failed due to an internal error. Please try again."
       unknown_error: "We're sorry. The request failed due to an internal error. Please try again."
   hubzone_assertions:
+    us_tract: "Tract: "
+    us_county: "County: "
     qualified_by: "Qualified by: "
     qualifications_effective: "Qualification is valid for today:"
     qualified: "Qualified HUBZone"

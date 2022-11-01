@@ -8,54 +8,72 @@ HZApp.Layers.LayerDefs = (function(){
 
   return {
     hzWMSOverlays: {
-      indian_lands: {
+      non_qnmc_e: {
         layerIndex: 0,
+        layerGroup: 'us_county',
+        isVisible: true,
+        overlay:[],
+      },
+      non_qct_e: {
+        layerIndex: 1,
+        layerGroup: 'us_tract',
+        isVisible: true,
+        overlay:[],
+      },
+      indian_lands: {
+        layerIndex: 2,
         layerGroup: 'indian_lands',
         isVisible: true,
         overlay: [],
       },
       qnmc_e: {
-        layerIndex: 1,
+        layerIndex: 3,
         layerGroup: 'qnmc',
         isVisible: true,
         overlay:[],
       },
       redesignated_lg: {
-        layerIndex: 2,
+        layerIndex: 4,
         layerGroup: 'redesignated',
         isVisible: true,
         overlay:[],
       },
       brac_lg: {
-        layerIndex: 3,
+        layerIndex: 5,
         layerGroup: 'brac',
         isVisible: true,
         overlay:[],
       },
       qct_e: {
-        layerIndex: 4,
+        layerIndex: 6,
         layerGroup: 'qct',
         isVisible: true,
         overlay:[],
       },
       qda_lg: {
-        layerIndex: 5,
+        layerIndex: 7,
         layerGroup: 'qda',
         isVisible: true,
         overlay:[],
       },
       mvw_gov_area_map: {
-        layerIndex: 6,
+        layerIndex: 8,
         layerGroup: 'mvw_gov_area_map',
         isVisible: true,
         overlay:[],
       },
       mvw_gov_area_map_county: {
-        layerIndex: 6,
+        layerIndex: 9,
         layerGroup: 'mvw_gov_area_map',
         isVisible: true,
         overlay:[],
-      }
+      },
+      // qct_old: {
+      //   layerIndex: 8,
+      //   layerGroup: 'qct_old',
+      //   isVisible: true,
+      //   overlay:[],
+      // },
     }
   };
 })();

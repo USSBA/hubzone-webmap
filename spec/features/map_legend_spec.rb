@@ -20,6 +20,9 @@ describe "The Legend", type: :feature do
   it "will have toggle for qct" do
     expect(page).to have_selector('input#qct_legend')
   end
+  it "will have toggle for qct_old" do
+    expect(page).to have_selector('input#qct_old')
+  end
   it "will have symbol(s) for qct" do
     expect(page).to have_css('.layer-qct')
   end
