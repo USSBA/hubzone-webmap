@@ -22,7 +22,7 @@ services:
     - RAILS_ENV=developmentdocker
     - RAILS_LOG_TO_STDOUT=true
     - SECRET_KEY_BASE=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-    - HUBZONE_GOOGLE_API_KEY='AIzaSyBsR78bM2H5vMlO60MAtaL9FVtPGWGyQ7c' # Doug's
+    - HUBZONE_GOOGLE_API_KEY=HUBZONE_GOOGLE_API_KEY
     - HUBZONE_MAP_DB_USER=postgres
     - HUBZONE_MAP_DB_PASSWORD=postgres
     - HUBZONE_MAP_DB_HOST=postgres
