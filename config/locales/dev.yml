@@ -71,6 +71,8 @@ dev:
       request_denied: "Lo sentimos. La solicitud ha fallado debido a un error interno. Vuelve a intentarlo."
       unknown_error: "Lo sentimos. La solicitud ha fallado debido a un error interno. Vuelve a intentarlo."
   hubzone_assertions:
+    us_tract: "Tract: "
+    us_county: "County: "
     qualified_by: "Calificado por: "
     qualifications_effective: "La calificación es válida para hoy: "
     qualified: "HUBZone Calificado"
