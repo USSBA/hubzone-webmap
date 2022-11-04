@@ -53,7 +53,7 @@ locals {
 
   service_fqdn  = "${local.env.service_name}.${local.env.fqdn_base}"
   public_fqdn   = "preview-maps.${local.env.fqdn_base}"
-  postgres_fqdn = "hubzone-db.${local.env.fqdn_base}"
+  postgres_fqdn = "preview-hubzone-db.${local.env.fqdn_base}"
 
   # Convenience prefixes for AWS Resources
   prefix_ecr             = "${local.account_id}.dkr.ecr.${local.region}.amazonaws.com"
