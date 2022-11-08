@@ -39,6 +39,10 @@ demo:
   database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_demo' } %>
   host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'hubzone-db.demo.sba-one.net' } %>
 
+preview:
+  <<: *default
+  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'preview-hubzone-db.demo.sba-one.net' }
+
 development:
   <<: *default
   database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_dev' } %>
