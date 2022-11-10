@@ -20,7 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hubzone_map: "  HUBZone Map"
+  hubzone_map: "Preview HUBZone Map"
   hubzone_map_aria_label: "hubzone map"
   usa_banner:
     title: "An official website of the United States government"
