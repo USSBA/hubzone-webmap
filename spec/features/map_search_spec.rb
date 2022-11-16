@@ -189,7 +189,7 @@ RSpec.describe 'The Search', type: :feature, js: true do
         end
 
         it "will display the date of the search" do
-          expect(page).to have_content(t('hubzone_assertions.qualifications_effective') + I18n.l(Date.parse(tquery[:response][:query_date]), format: :full))
+          expect(page).to have_content(t('hubzone_assertions.qualifications_effective'))
         end
 
         context "for any hubzone designations" do

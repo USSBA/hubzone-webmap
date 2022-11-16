@@ -5,6 +5,7 @@ require 'uri'
 class MapController < ApplicationController
   def index; end
 
+
   def search
     query = format_query params
     response = api_get "#{MAP_CONFIG[:hubzone_api_search_path]}?#{query}"
@@ -49,7 +50,7 @@ class MapController < ApplicationController
   end
 
   def connection
-    @connection ||= Excon.new(MAP_CONFIG[:hubzone_api_host])
+    @connection ||= Excon.new('http://172.29.32.1:3001')
   end
 
   def search_params

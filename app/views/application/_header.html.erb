@@ -28,6 +28,12 @@
                      'aria-label' => 'hubzone map home',
                      onclick: "HZApp.GA.openLink( '#{map_path}', 'map', 'title-link' );" )
         %>
+        <%= link_to( "<span>#{t('hubzone_map_tag_line')}</span>".html_safe,
+                     tabindex: 0,
+                     class: 'title-link',
+                     title: 'Home',
+                     'aria-label' => 'hubzone map home' )
+        %>
       </em>
     </div>
   </div>
