@@ -20,7 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hubzone_map: "Preview HUBZone Map"
+  hubzone_map: "  Preview HUBZone Map"
+  hubzone_map_tag_line: "As of July 2023"
   hubzone_map_aria_label: "hubzone map"
   usa_banner:
     title: "An official website of the United States government"
@@ -74,7 +75,7 @@ en:
     us_tract: "Tract: "
     us_county: "County: "
     qualified_by: "Qualified by: "
-    qualifications_effective: "Qualification is valid for today:"
+    qualifications_effective: "Qualification Valid as of July 01, 2023"
     qualified: "Qualified HUBZone"
     qualified_aria: "qualified hubzone"
     qualified_short: "Qualified"

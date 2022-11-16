@@ -18,6 +18,18 @@
   margin: 1rem 0 0 1rem;
   padding: 0;
 }
+
+.usa-logo-text a > span {
+font-family: "Source Sans Pro", Helvetica Neue, Arial, sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #20346a;
+    float: left;
+    clear: none;
+    margin: 2rem 0 0 2rem;
+    padding: 2px;
+}
+
 .usa-nav-secondary-links li:not(:last-child)::after {
   content: none;
 }
@@ -27,7 +39,7 @@
 .usa-banner-inner {
   max-width: 100%;
   padding-left: 1.5rem;
-  paddin-right: 0rem;
+  padding-right: 0rem;
   background-color: #f1c400;
 }
 .usa-header-extended .usa-logo {

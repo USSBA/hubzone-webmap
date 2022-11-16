@@ -21,7 +21,8 @@ HZApp.Report = (function(){
 
       HZApp.HZQuery.query.zoom = HZApp.map.getZoom();
 
-      var url = "<%= MAP_CONFIG[:hubzone_report_host] + MAP_CONFIG[:hubzone_api_report_path] %>"; //jshint ignore:line
+      var url2 = "<%= MAP_CONFIG[:hubzone_report_host] + MAP_CONFIG[:hubzone_api_report_path] %>"; //jshint ignore:line
+      var url ='http://172.29.32.1:3002/report'
       url += HZApp.Report.getReportRequestParams(HZApp.HZQuery.query);
 
       var request_type = request_type_arg || "<%= MAP_CONFIG[:hubzone_report_request_type] %>" //jshint ignore:line
