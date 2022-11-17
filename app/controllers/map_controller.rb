@@ -50,7 +50,7 @@ class MapController < ApplicationController
   end
 
   def connection
-    @connection ||= Excon.new('http://172.29.32.1:3001')
+    @connection ||= Excon.new(MAP_CONFIG[:hubzone_api_host])
   end
 
   def search_params
