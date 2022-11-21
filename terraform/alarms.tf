@@ -43,7 +43,7 @@ resource "aws_cloudwatch_metric_alarm" "memory" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "thrash" {
-  alarm_name        = "${terraform.workspace}-${local.env.service_name}-thrashing"
+  alarm_name          = "${terraform.workspace}-${local.env.service_name}-thrashing"
   alarm_description = <<EOF
 The ECS service ${terraform.workspace}-${local.env.service_name} container(s) appear to be thrashing.
 

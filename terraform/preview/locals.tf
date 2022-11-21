@@ -13,6 +13,7 @@ locals {
       service_name      = "preview-hubzone-webmap"
       service_shortname = "preview-webmap"
       ecr_name          = "hubzone-webmap-preview"
+      db_identifier     = "hubzone-aurora"
       log_bucket        = "${local.account_id}-logs"
 
       rails_port        = 3000
@@ -25,7 +26,6 @@ locals {
       min_container_count_rails     = 1
       scaling_metric                = "memory"
       scaling_threshold             = "75"
-      fargate_alarm_targets         = [local.sns_yellow]
 
       scheduled_actions          = []
       scheduled_actions_timezone = "America/New_York"
@@ -45,7 +45,6 @@ locals {
       cert_domain = "certify.sba.gov"
       rails_env   = "production"
       #TODO: Delete this backend_location to point back at cloudfront once the deployment is complete
-      fargate_alarm_targets = [local.sns_red]
     }
   }
   # Condense all config into a single `local.env.*`

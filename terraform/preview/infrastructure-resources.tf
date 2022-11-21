@@ -46,7 +46,7 @@ data "aws_ecs_cluster" "selected" {
 
 ## RDS Postgres Instance
 data "aws_db_instance" "rds" {
-  db_instance_identifier = "${terraform.workspace}-hubzone-aurora"
+  db_instance_identifier = "${terraform.workspace}-${local.env.db_identifier}"
 }
 
 data "aws_ssm_parameter" "origin_token" {
@@ -65,3 +65,14 @@ locals {
   sns_green    = data.aws_sns_topic.alerts["green"].arn
   sns_security = data.aws_sns_topic.alerts["security"].arn
 }
+# WAF (cloudfront)
+#data "aws_wafv2_web_acl" "cloudfront" {
+#  name  = "basic-waf-cloudfront"
+#  scope = "CLOUDFRONT"
+#}
+
+## WAF (regional)
+#data "aws_wafv2_web_acl" "regional" {
+#  name  = "basic-waf-regional"
+#  scope = "REGIONAL"
+#}
