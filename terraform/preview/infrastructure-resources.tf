@@ -46,7 +46,7 @@ data "aws_ecs_cluster" "selected" {
 
 ## RDS Postgres Instance
 data "aws_db_instance" "rds" {
-  db_instance_identifier = "${terraform.workspace}-hubzone-aurora"
+  db_instance_identifier = "${terraform.workspace}-${local.env.db_identifier}"
 }
 
 data "aws_ssm_parameter" "origin_token" {
@@ -54,15 +54,14 @@ data "aws_ssm_parameter" "origin_token" {
   with_decryption = true
 }
 
-# SNS Topics
-data "aws_sns_topic" "topics" {
-  for_each = toset(["red", "green", "yellow", "security", "email-admins"])
-  name     = "sba-notification-framework-${each.key}"
-}
-locals {
-  sns_red          = data.aws_sns_topic.topics["red"].arn
-  sns_yellow       = data.aws_sns_topic.topics["yellow"].arn
-  sns_green        = data.aws_sns_topic.topics["green"].arn
-  sns_security     = data.aws_sns_topic.topics["security"].arn
-  sns_email_admins = data.aws_sns_topic.topics["email-admins"].arn
-}
+# WAF (cloudfront)
+#data "aws_wafv2_web_acl" "cloudfront" {
+#  name  = "basic-waf-cloudfront"
+#  scope = "CLOUDFRONT"
+#}
+
+## WAF (regional)
+#data "aws_wafv2_web_acl" "regional" {
+#  name  = "basic-waf-regional"
+#  scope = "REGIONAL"
+#}
