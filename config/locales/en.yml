@@ -21,7 +21,7 @@
 
 en:
   hubzone_map: "  Preview HUBZone Map"
-  hubzone_map_tag_line: "As of July 2023"
+  hubzone_map_tag_line: "Effective July 01,2023"
   hubzone_map_aria_label: "hubzone map"
   usa_banner:
     title: "An official website of the United States government"
@@ -34,7 +34,7 @@ en:
     hubzone_program: "HUBZone Program"
     hubzone_program_aria_label: "hubzone program"
     accessible_version: "Accessible Version"
-    help: "Help"
+    help: "About"
   unsupported:
     title: "Your browser is not supported"
     subtitle: "We recommend updating to the latest version of Edge, Firefox, Safari, or Chrome."

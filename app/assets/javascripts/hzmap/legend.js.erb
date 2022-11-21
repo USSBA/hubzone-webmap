@@ -37,7 +37,10 @@ HZApp.Legend = (function(){
       }
     },
     addLayerToggleListeners: function() {
+      HZApp.Legend.setLayerGroups('us_county', HZApp.Layers.LayerDefs.hzWMSOverlays);
+      HZApp.Legend.setLayerGroups('us_tract', HZApp.Layers.LayerDefs.hzWMSOverlays);
       $('input[type="checkbox"]').click( function(event){
+        console.log("event",event.currentTarget)
         HZApp.Legend.setLayerGroups(event.currentTarget.value, HZApp.Layers.LayerDefs.hzWMSOverlays);
       });
     },
