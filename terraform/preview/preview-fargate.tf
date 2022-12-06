@@ -9,9 +9,11 @@ locals {
     HUBZONE_MAP_HOST     = "https://${local.public_fqdn}"
     HUBZONE_REPORT_HOST  = "https://${local.public_fqdn}"
     HUBZONE_WMS_URL_ROOT = "https://${local.public_fqdn}/geoserver/gwc/service/wms?"
-
+    HUBZONE_WMS_WORKSPACE="hubzone_preview"
     # Users do not connect directly to hubzone-api; use the API url directly
-    HUBZONE_API_HOST = "https://hubzone-api.${local.env.fqdn_base}" #TODO: API has not been deployed yet.
+    HUBZONE_API_HOST = "https://hubzone-preview-api.${local.env.fqdn_base}" #TODO: API has not been deployed yet.
+    # Adding map db host url
+    HUBZONE_MAP_DB_HOST  ="preview-hubzone-db.demo.sba-one.net"
 
     RAILS_SERVE_STATIC_FILES = "true"
     RAILS_ENV                = local.env.rails_env
