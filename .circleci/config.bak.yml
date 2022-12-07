@@ -7,8 +7,8 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1
   node: circleci/node@5
-  aws-cli: circleci/aws-cli@1
-  terraform: circleci/terraform@2
+  aws-cli: circleci/aws-cli@3.1
+  terraform: circleci/terraform@2.0.1
 
 executors:
   circle-machine:
@@ -43,6 +43,7 @@ commands:
     steps:
       - terraform/install:
           terraform_version: 1.0.9
+
   install-system-dependencies:
     steps:
       - run:
@@ -72,20 +73,24 @@ commands:
       - ruby/install-deps:
           key: gems-v2
       - run: sudo npm install -g istanbul
+
   migrate-db:
     steps:
       - run:
           name: migrate-db
           command: |
             bundle exec rake db:create db:migrate
+
   build-containers:
     steps:
       - ecr-image-build:
           image_name: hubzone/hubzone-webmap
+
   push-containers:
     steps:
       - ecr-image-push:
           image_name: hubzone/hubzone-webmap
+
   aws-init:
     parameters:
       region:
@@ -93,7 +98,9 @@ commands:
         description: A default AWS region name
         default: us-east-1
     steps:
-      - aws-cli/setup
+      - aws-cli/setup:
+          role-arn: $OIDC_ROLE_ARN
+          role-session-name: oidc-hubzone-webmap
       - run:
           name: aws-init
           command: |
@@ -101,6 +108,7 @@ commands:
             echo 'AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)' >> $BASH_ENV
             echo 'AWS_ECR_ENDPOINT="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"' >> $BASH_ENV
             source $BASH_ENV
+
   ecr-login:
     steps:
       - run:
@@ -117,6 +125,7 @@ commands:
               echo "Can't detect the version of awscli being used..."
               exit 1
             fi
+
   ecr-image-build:
     parameters:
       dockerfile:
@@ -129,6 +138,7 @@ commands:
           name: Build << parameters.dockerfile >> docker image
           command: |
             docker image build . -f "<< parameters.dockerfile >>" --tag "${AWS_ECR_ENDPOINT}/<< parameters.image_name >>:${CIRCLE_SHA1}"
+
   ecr-image-push:
     parameters:
       image_name:
@@ -143,6 +153,7 @@ commands:
           echo "Successfully pushed image: ${AWS_ECR_ENDPOINT}/<< parameters.image_name >>:${CIRCLE_SHA1}"
           docker image push "${AWS_ECR_ENDPOINT}/<< parameters.image_name >>:${CIRCLE_BRANCH:-${CIRCLE_TAG:-NO_BRANCH_OR_TAG_CONFIGURED_BY_CIRCLE}}"
           echo "Successfully pushed image: ${AWS_ECR_ENDPOINT}/<< parameters.image_name >>:${CIRCLE_BRANCH:-${CIRCLE_TAG:-NO_BRANCH_OR_TAG_CONFIGURED_BY_CIRCLE}}"
+
   terraform-format:
     parameters:
       folder:
@@ -158,6 +169,7 @@ commands:
             }
             cd << parameters.folder >> || throw_error "FATAL: command 'cd << parameters.folder >>' has failed"
             terraform fmt -check -recursive
+
   terraform-validate:
     parameters:
       folder:
@@ -177,6 +189,7 @@ commands:
             cd << parameters.folder >> || throw_error "FATAL: command 'cd << parameters.folder >>' has failed"
             terraform workspace select << parameters.workspace >> || throw_error "FATAL: command 'terraform workspace select << parameters.workspace >>' has failed"
             terraform validate || throw_error "FATAL: command 'terraform validate' has failed"
+
   terraform-init:
     parameters:
       folder:
@@ -194,6 +207,7 @@ commands:
             terraform -version || throw_error "FATAL: command 'terraform -version' has failed"
             terraform init -input=false || throw_error "FATAL: command 'terraform init -input-false' has failed"
             echo "image_tag = \"$CIRCLE_SHA1\"" >> ./build.auto.tfvars
+
   terraform-plan:
     parameters:
       folder:
@@ -213,6 +227,7 @@ commands:
             cd << parameters.folder >> || throw_error "FATAL: command 'cd << parameters.folder >>' has failed"
             terraform workspace select << parameters.workspace >> || throw_error "FATAL: command 'terraform workspace select << parameters.workspace >>' has failed"
             terraform plan -out=<< parameters.workspace >>.tfplan -input=false || throw_error "FATAL: command 'terraform plan -out=<< parameters.workspace >>.tfplan -input=false' has failed"
+
   terraform-apply:
     parameters:
       folder:
@@ -233,7 +248,6 @@ commands:
             terraform workspace select << parameters.workspace >> || ( echo "terraform workspace select << parameters.workspace >> has failed"; exit 1 )
             terraform apply -input=false << parameters.workspace >>.tfplan || ( echo "terraform apply has failed"; exit 1 )
 
-
 jobs:
   rubocop:
     executor: ruby
@@ -252,6 +266,7 @@ jobs:
       - run:
           name: Run rspec
           command: bundle exec rspec --format progress
+
   rspec-docker:
     executor: ruby
     steps:
@@ -268,6 +283,7 @@ jobs:
         name: Run rspec in Docker container
         command: |
           docker-compose -f docker/docker-compose-test.yml run rspec
+
   teaspoonJS:
     executor: ruby
     steps:
@@ -277,6 +293,7 @@ jobs:
           name: teaspoon
           command: |
             bundle exec teaspoon --coverage=default
+
   jsHint:
     executor: ruby
     steps:
@@ -298,6 +315,7 @@ jobs:
           command: |
             gem install --no-document brakeman
             brakeman --exit-on-warn .
+
   test-terraform-validate:
     executor: base
     parameters:
@@ -313,6 +331,7 @@ jobs:
       - terraform-validate:
           folder: terraform
           workspace: << parameters.workspace >>
+
   test-terraform-format:
     executor: base
     steps:
@@ -320,6 +339,7 @@ jobs:
       - terraform-install
       - terraform-format:
           folder: terraform
+
   test-terraform-plan:
     executor: base
     parameters:
@@ -335,6 +355,7 @@ jobs:
       - terraform-plan:
           folder: terraform
           workspace: << parameters.workspace >>
+
   build-containers:
     executor: circle-machine
     steps:
@@ -344,6 +365,7 @@ jobs:
           command: |
             echo 'AWS_ECR_ENDPOINT="ecr-temp"' >> $BASH_ENV
       - build-containers
+
   build-and-push-containers:
     executor: circle-machine
     steps:
@@ -352,6 +374,7 @@ jobs:
       - ecr-login
       - build-containers
       - push-containers
+
   deploy-service:
     executor: base
     parameters:
@@ -386,6 +409,7 @@ workflows:
           context: certify-lower
           workspace: demo
       - test-terraform-format
+
   deploy:
     jobs:
     - build-and-push-containers:
