@@ -36,7 +36,8 @@ en:
       alert_body_4: "For more information about the changes to the HUBZone map, view the SBA's [latest FAQ]."
       
       alert_body_5: "SBA is committed to helping all current HUBZone firms during this transition. For additional questions, contact your local SBA regional and district office or email the HUBZone Help Desk."
-      
+
+  
     elegibility:
       title_html: "Determining eligibility"
       body_html: "<p>You can use the Map to determine and document your eligibility for the Historically Underutilized Business Zones (HUBZone) Program run by the Small Business Administration (SBA). For a more detailed explanation of the HUBZone Program and the eligibility criteria, see the general <a href=\"https://www.sba.gov/contracting/government-contracting-programs/hubzone-program\">HUBZone Program</a> information section.</p><p>To determine the eligibility of a business or residence, follow these steps:</p><ol><li>Type the address into the search bar and click or tap search</li><li>Check to make sure the search found the right address </li><li>Read the qualification status</li><li>Open a printable copy of the results </li></ol>"
