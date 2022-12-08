@@ -233,7 +233,7 @@ workflows:
       - service-deployment:
           context: oidc-certify-lower
           workspace: stg
-          image-tag: $CIRCLE_TAG
+          image-tag: latest
           directory: terraform/preview
           filters:
             branches:
