@@ -192,7 +192,7 @@ jobs:
           command: |
             docker image build -t webmap:latest .
             echo "Pushing Image: ${AWS_ECR_IMAGE_NAME}:<< parameters.image-tag >>"
-            docker image tag webmap:latest "${AWS_ECR_IMAGE_NAME}:<< parameters.image-tag  >>"
+            docker image tag webmap:latest "${AWS_ECR_IMAGE_NAME}:<< parameters.image-tag >>"
             docker image push "${AWS_ECR_IMAGE_NAME}:<< parameters.image-tag >>"
             echo "Push complete!"
             echo "Pushing Image: ${AWS_ECR_IMAGE_NAME}:${CIRCLE_SHA1}"
