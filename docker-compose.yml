@@ -27,6 +27,7 @@ services:
     - HUBZONE_MAP_DB_PASSWORD=postgres
     - HUBZONE_MAP_DB_HOST=postgres
     - HUBZONE_MAP_HOST=local
+    
     command: >
       /bin/bash -c "
         function waitfor() {
