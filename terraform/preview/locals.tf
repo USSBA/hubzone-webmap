@@ -39,6 +39,9 @@ locals {
       fqdn_base   = "stg.certify.sba.gov"
       cert_domain = "stg.certify.sba.gov"
       rails_env   = "staging"
+      #Adding 2 variables to later differentiate between stg and prod
+      service_name = "preview-hubzone-webmap-stg"
+      ecr_name    = "hubzone-webmap-preview-stg"
     }
     prod = {
       fqdn_base   = "certify.sba.gov"

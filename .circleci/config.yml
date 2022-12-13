@@ -242,6 +242,20 @@ workflows:
             tags:
               ignore:
                 - /.*/
+  preview-stg:
+    jobs:
+      - service-deployment:
+          context: oidc-certify-upper
+          workspace: stg
+          image-tag: latest
+          directory: terraform/preview
+          filters:
+            branches:
+              only:
+                - preview-map-stg
+            tags:
+              ignore:
+                - /.*/
 
   demo:
     jobs:
