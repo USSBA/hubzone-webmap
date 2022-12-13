@@ -51,7 +51,7 @@ en:
         body_html: "<p>You can search for an address or a GPS coordinate on the Map using the search bar. When you start to type the address into the search bar, suggestions might appear. You can select any of the suggested addresses or continue entering the address. Press \"Enter\" or select the magnifying glass to search. You can clear the search field to enter a new address by selecting the \"x\" symbol.</p><p>If you would like to search for a specific GPS coordinate, use the format: 38.93655, -77.01993.  Always list latitude then longitude. Do not use the degree \"°\" symbol. Make sure to use the \"-\" symbol to indicate negative GPS coordinates.</p>"
       legend:
         title_html: "Legend"
-        overview_html: "<p>The Legend is a visual guide that helps you read the information shown on the map. The Map shows areas designated as HUBZones using colors and patterns. Each HUBZone or Expiring HUBZone has a different symbol in the Legend.You can view all county and tract boundaries by selecting them from the Census Boundaries section of the Legend</p>"
+        overview_html: "<p>The Legend is a visual guide that helps you read the information shown on the map. The Map shows areas designated as HUBZones using colors and patterns. Each HUBZone or Expiring HUBZone has a different symbol in the Legend. You can view all county and tract boundaries by selecting them from the Census Boundaries section of the Legend.</p>"
         census_tract:
           title_html: "<div class=\"help-layer-symbols layer-qct\"></div>Census Tract"
           body_html: "HUBZone Qualified Census Tracts designated by the Department of Housing and Urban Development (HUD) based on poverty and household income criteria."
