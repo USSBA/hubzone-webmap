@@ -26,14 +26,14 @@ en:
     overview:
       title_html: "HUBZone Map Overview"
       body_html: "The HUBZone Mapping Application assists you in finding out whether or not a particular business location or employee residential location is within a HUBZone. You can also use HUBZone Mapping to find out what HUBZone areas are found within a larger area of interest." 
-      alert_title: "ALERT! HUBZone map changes happen on July 1, 2023"
-      alert_body_1: "The HUBZone map is changing on July 1, 2023. Check this preview of the HUBZone map now to determine whether your principal office and employees will still be located in a HUBZone once the new map goes into effect on July 1, 2023. Your firm's eligibility to participate in the program might be impacted on July 1, 2023, if your principal office is located, or your employees reside, in an area that will no longer qualify as a HUBZone."
+      alert_title: "ALERT! HUBZone Map changes happen on July 1, 2023"
+      alert_body_1: "The HUBZone Map is changing on July 1, 2023. Check this preview of the HUBZone Map now to determine whether your principal office and employees will still be located in a HUBZone once the new map goes into effect on July 1, 2023. Your firm's eligibility to participate in the program might be impacted on July 1, 2023, if your principal office is located, or your employees reside, in an area that will no longer qualify as a HUBZone."
       
       alert_body_2: "Every five years the HUBZone program is required to update the HUBZone designations to ensure the program continues to serve the communities that are most in need of assistance. Most areas stay the same but some change. The 2023 map will be updated again in July 2028 to reflect changes to Qualified Census Tracts (QCTs) and Qualified Non-Metropolitan Counties (QNMCs), in 2026 to reflect expiring Redesignated Areas, and throughout any year to reflect new and expiring Governor’s Designated Areas and Qualified Disaster Areas as appropriate."
       
       alert_body_3: "Certified HUBZone firms that are no longer eligible on July 1, 2023 due to the map change may continue to participate in the HUBZone program through their following annual recertification."
       
-      alert_body_4: "For more information about the changes to the HUBZone map, view the SBA's [latest FAQ]."
+      alert_body_4: "For more information about the changes to the HUBZone Map, view the SBA's [latest FAQ]."
       
       alert_body_5: "SBA is committed to helping all current HUBZone firms during this transition. For additional questions, contact your local SBA regional and district office or email the HUBZone Help Desk."
 
@@ -51,7 +51,7 @@ en:
         body_html: "<p>You can search for an address or a GPS coordinate on the Map using the search bar. When you start to type the address into the search bar, suggestions might appear. You can select any of the suggested addresses or continue entering the address. Press \"Enter\" or select the magnifying glass to search. You can clear the search field to enter a new address by selecting the \"x\" symbol.</p><p>If you would like to search for a specific GPS coordinate, use the format: 38.93655, -77.01993.  Always list latitude then longitude. Do not use the degree \"°\" symbol. Make sure to use the \"-\" symbol to indicate negative GPS coordinates.</p>"
       legend:
         title_html: "Legend"
-        overview_html: "<p>The Legend is a visual guide that helps you read the information shown on the map. The Map shows areas designated as HUBZones using colors and patterns. Each HUBZone or Expiring HUBZone has a different symbol in the Legend.</p>"
+        overview_html: "<p>The Legend is a visual guide that helps you read the information shown on the map. The Map shows areas designated as HUBZones using colors and patterns. Each HUBZone or Expiring HUBZone has a different symbol in the Legend.You can view all county and tract boundaries by selecting them from the Census Boundaries section of the Legend</p>"
         census_tract:
           title_html: "<div class=\"help-layer-symbols layer-qct\"></div>Census Tract"
           body_html: "HUBZone Qualified Census Tracts designated by the Department of Housing and Urban Development (HUD) based on poverty and household income criteria."
