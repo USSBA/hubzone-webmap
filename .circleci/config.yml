@@ -236,7 +236,7 @@ jobs:
       - aws-cli/setup:
           role-arn: $OIDC_ROLE_ARN
           role-session-name: oidc-hubzone-webmap
-      - configure-ecr-environment
+      - configure-ecr-environment:
           image-name: hubzone-webmap-preview
       - run:
           name: Login to ECR registry
