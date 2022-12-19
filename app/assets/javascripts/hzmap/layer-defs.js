@@ -32,12 +32,27 @@ HZApp.Layers.LayerDefs = (function(){
         isVisible: true,
         overlay:[],
       },
+
       redesignated_lg: {
         layerIndex: 4,
         layerGroup: 'redesignated',
         isVisible: true,
         overlay:[],
       },
+      
+      qct_r_slivers: {
+        layerIndex: 10,
+        layerGroup: 'qct_r_slivers',
+        isVisible: true,
+        overlay:[],
+      },
+      qct_r_extras: {
+        layerIndex: 11,
+        layerGroup: 'qct_r_extras',
+        isVisible: true,
+        overlay:[],
+      },
+
       brac_lg: {
         layerIndex: 5,
         layerGroup: 'brac',
