@@ -27,7 +27,7 @@ terraform {
     dynamodb_table       = "terraform-state-locktable"
     acl                  = "bucket-owner-full-control"
     key                  = "preview-hubzone-webmap.terraform.tfstate"
-    workspace_key_prefix = "preview-hubzone-webmap-stg"
+    workspace_key_prefix = "preview-hubzone-webmap"
   }
 }
 
