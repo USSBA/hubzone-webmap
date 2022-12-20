@@ -13,7 +13,7 @@ locals {
       service_name      = "preview-hubzone-webmap"
       service_shortname = "preview-webmap"
       ecr_name          = "hubzone-webmap-preview"
-      db_identifier     = "hubzone-aurora"
+      db_identifier     = "preview-hubzone-aurora"
       log_bucket        = "${local.account_id}-logs"
 
       rails_port        = 3000
@@ -41,7 +41,7 @@ locals {
       rails_env   = "staging"
       #Adding 2 variables to later differentiate between stg and prod
       service_name = "preview-hubzone-webmap-stg"
-      ecr_name    = "hubzone-webmap-preview-stg"
+      ecr_name    = "stg-hubzone-webmap-preview"
     }
     prod = {
       fqdn_base   = "certify.sba.gov"
