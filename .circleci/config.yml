@@ -218,7 +218,7 @@ jobs:
             terraform workspace select << parameters.workspace >>
             terraform plan -out=<< parameters.workspace >>.tfplan -input=false
             terraform apply -input=false << parameters.workspace >>.tfplan
-            
+
 workflows:
   version: 2
   integration-tests:
@@ -234,10 +234,11 @@ workflows:
 
   preview:
     jobs:
-      - service-deployment-preview:
+      - service-deployment:
           context: oidc-certify-lower
           workspace: demo
           image-tag: latest
+          image-name: hubzone-webmap-preview
           directory: terraform/preview
           filters:
             branches:
