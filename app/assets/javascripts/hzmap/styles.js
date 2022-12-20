@@ -6,7 +6,7 @@ HZApp.Styles.hzBaseMapStyle = [
         "elementType": "geometry",
         "stylers": [
             {
-                "color": "#f5f5f5"
+                "color": "#F9EEB8"
             }
         ]
     },
@@ -15,7 +15,7 @@ HZApp.Styles.hzBaseMapStyle = [
         "elementType": "labels.text.fill",
         "stylers": [
             {
-                "color": "#616161"
+                "color": "#1b1e29"
             }
         ]
     },
