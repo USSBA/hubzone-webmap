@@ -57,7 +57,7 @@ en:
           body_html: "HUBZone Qualified Census Tracts designated by the Department of Housing and Urban Development (HUD) based on poverty and household income criteria."
         county:
           title_html: "<div class=\"help-layer-symbols layer-qnmc\"></div>County"
-          body_html: "HUBZone Qualified Counties located in non-metropolitan areas that meet at least two of the socio-economic criteria: household income (Census Bureau), unemployment rate (Bureau of Labor Statistics), and difficult development areas (Department of Housing and Urban Development)."
+          body_html: "HUBZone Qualified Counties located in non-metropolitan areas that meet at least one of the following socio-economic criteria: median household income (Census Bureau), unemployment rate (Bureau of Labor Statistics), or Difficult Development Area (Department of Housing and Urban Development)."
         indian_land:
           title_html: "<div class=\"help-layer-symbols layer-indian_lands\"></div>Indian Land"
           body_html: "HUBZone Qualified Indian Lands contained within the boundaries of an Indian Reservation, Indian Country, or any other specific definition that applies in the State of Oklahoma."
