@@ -1,5 +1,5 @@
 resource "aws_route53_record" "preview_map_a" {
-  name    = "preview--maps.${local.env.fqdn_base}"
+  name    = "preview-maps.${local.env.fqdn_base}"
   type    = "A"
   zone_id = data.aws_route53_zone.selected.id
 
@@ -11,7 +11,7 @@ resource "aws_route53_record" "preview_map_a" {
 }
 
 resource "aws_route53_record" "preview_map_aaaa" {
-  name    = "preview--maps.${local.env.fqdn_base}"
+  name    = "preview-maps.${local.env.fqdn_base}"
   type    = "AAAA"
   zone_id = data.aws_route53_zone.selected.id
 
@@ -24,7 +24,7 @@ resource "aws_route53_record" "preview_map_aaaa" {
 
 resource "aws_cloudfront_distribution" "preview" {
   aliases = [
-    "preview--maps.${local.env.fqdn_base}",
+    "preview-maps.${local.env.fqdn_base}",
   ]
   comment             = "preview-hubzone-${terraform.workspace}"
   enabled             = true
