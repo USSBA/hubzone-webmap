@@ -252,13 +252,29 @@ workflows:
       - service-deployment:
           context: oidc-certify-upper
           workspace: stg
-          image-tag: latest
+          image-tag: stg-latest
           image-name: hubzone-webmap-preview
           directory: terraform/preview
           filters:
             branches:
               only:
                 - preview-map-stg
+            tags:
+              ignore:
+                - /.*/
+
+  preview-prod:
+    jobs:
+      - service-deployment:
+          context: oidc-certify-upper
+          workspace: prod
+          image-tag: prod-latest
+          image-name: hubzone-webmap-preview
+          directory: terraform/preview
+          filters:
+            branches:
+              only:
+                - preview-map-prod
             tags:
               ignore:
                 - /.*/
