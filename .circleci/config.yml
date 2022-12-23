@@ -251,7 +251,7 @@ workflows:
           image-tag: latest
           image-name: hubzone-webmap-preview
           directory: terraform/preview
-          require:
+          requires:
           - hold-for-approval-preview
           filters:
             branches:
