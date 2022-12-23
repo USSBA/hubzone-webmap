@@ -173,6 +173,9 @@ jobs:
       directory:
         type: string
         default: terraform
+      image-name:
+        type: string
+        default: hubzone/hubzone-webmap
     steps:
       - checkout
       - setup_remote_docker:
@@ -181,7 +184,8 @@ jobs:
       - aws-cli/setup:
           role-arn: $OIDC_ROLE_ARN
           role-session-name: oidc-hubzone-webmap
-      - configure-ecr-environment
+      - configure-ecr-environment:
+          image-name: << parameters.image-name >>
       - run:
           name: Login to ECR registry
           command: |
@@ -192,7 +196,7 @@ jobs:
           command: |
             docker image build -t webmap:latest .
             echo "Pushing Image: ${AWS_ECR_IMAGE_NAME}:<< parameters.image-tag >>"
-            docker image tag webmap:latest "${AWS_ECR_IMAGE_NAME}:<< parameters.image-tag  >>"
+            docker image tag webmap:latest "${AWS_ECR_IMAGE_NAME}:<< parameters.image-tag >>"
             docker image push "${AWS_ECR_IMAGE_NAME}:<< parameters.image-tag >>"
             echo "Push complete!"
             echo "Pushing Image: ${AWS_ECR_IMAGE_NAME}:${CIRCLE_SHA1}"
@@ -228,17 +232,62 @@ workflows:
       - terraform-validate:
           context: oidc-certify-lower
 
+
   preview:
     jobs:
       - service-deployment:
           context: oidc-certify-lower
-          workspace: stg
-          image-tag: $CIRCLE_TAG
+          workspace: demo
+          image-tag: latest
+          image-name: hubzone-webmap-preview
           directory: terraform/preview
           filters:
             branches:
               only:
                 - preview-map
+            tags:
+              ignore:
+                - /.*/
+  preview-stg:
+    jobs:
+      - service-deployment:
+          context: oidc-certify-upper
+          workspace: stg
+          image-tag: stg-latest
+          image-name: hubzone-webmap-preview
+          directory: terraform/preview
+          filters:
+            branches:
+              only:
+                - preview-map-stg
+            tags:
+              ignore:
+                - /.*/
+
+  preview-prod:
+    jobs:
+      - hold-for-approval-preview:
+          type: approval
+          context: certify-upper
+          filters:
+            branches:
+              only:
+                - preview-map-prod
+            tags:
+              ignore:
+                - /.*/
+      - service-deployment:
+          context: oidc-certify-upper
+          workspace: prod
+          image-tag: prod-latest
+          image-name: hubzone-webmap-preview
+          directory: terraform/preview
+          requires:
+          - hold-for-approval-preview
+          filters:
+            branches:
+              only:
+                - preview-map-prod
             tags:
               ignore:
                 - /.*/
@@ -273,10 +322,22 @@ workflows:
 
   production:
     jobs:
+      - hold-for-approval:
+          type: approval
+          context: certify-upper
+          filters:
+            branches:
+              only:
+                - /^v[0-9]+(\.[0-9]+)*$/
+            tags:
+              ignore:
+                - /.*/
       - service-deployment:
           context: oidc-certify-upper
           workspace: stg
           image-tag: $CIRCLE_TAG
+          requires:
+          - hold-for-approval
           filters:
             branches:
               ignore:
