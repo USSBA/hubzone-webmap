@@ -232,19 +232,19 @@ workflows:
       - terraform-validate:
           context: oidc-certify-lower
 
-  hold-for-approval-preview:
-      type: approval
-      context: certify-lower
-      filters:
-        branches:
-          only:
-            - preview-map
-        tags:
-          ignore:
-            - /.*/
 
   preview:
     jobs:
+      - hold-for-approval-preview:
+          type: approval
+          context: certify-lower
+          filters:
+            branches:
+              only:
+                - preview-map
+            tags:
+              ignore:
+                - /.*/
       - service-deployment:
           context: oidc-certify-lower
           workspace: demo
