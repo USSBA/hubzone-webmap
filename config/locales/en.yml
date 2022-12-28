@@ -33,7 +33,7 @@ en:
     hubzone_program: "HUBZone Program"
     hubzone_program_aria_label: "hubzone program"
     accessible_version: "Accessible Version"
-    help: "Help"
+    help: "About"
   unsupported:
     title: "Your browser is not supported"
     subtitle: "We recommend updating to the latest version of Edge, Firefox, Safari, or Chrome."
