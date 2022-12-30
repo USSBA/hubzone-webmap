@@ -334,7 +334,7 @@ workflows:
                 - /^v[0-9]+(\.[0-9]+)*$/
       - service-deployment:
           context: oidc-certify-upper
-          workspace: stg
+          workspace: prod
           image-tag: $CIRCLE_TAG
           requires:
           - hold-for-approval
