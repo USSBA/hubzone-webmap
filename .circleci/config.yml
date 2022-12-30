@@ -327,11 +327,11 @@ workflows:
           context: certify-upper
           filters:
             branches:
-              only:
-                - /^v[0-9]+(\.[0-9]+)*$/
-            tags:
               ignore:
                 - /.*/
+            tags:
+              only:
+                - /^v[0-9]+(\.[0-9]+)*$/
       - service-deployment:
           context: oidc-certify-upper
           workspace: stg
