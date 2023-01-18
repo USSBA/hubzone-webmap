@@ -251,8 +251,6 @@ workflows:
           image-tag: latest
           image-name: hubzone-webmap-preview
           directory: terraform/preview
-          requires:
-          - hold-for-approval-preview
           filters:
             branches:
               only:
@@ -283,6 +281,8 @@ workflows:
           workspace: prod
           image-tag: prod-latest
           image-name: hubzone-webmap-preview
+          requires:
+            - hold-for-approval-preview
           directory: terraform/preview
           filters:
             branches:
