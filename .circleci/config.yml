@@ -232,14 +232,27 @@ workflows:
       - terraform-validate:
           context: oidc-certify-lower
 
+
   preview:
     jobs:
+      - hold-for-approval-preview:
+          type: approval
+          context: certify-lower
+          filters:
+            branches:
+              only:
+                - preview-map
+            tags:
+              ignore:
+                - /.*/
       - service-deployment:
           context: oidc-certify-lower
           workspace: demo
           image-tag: latest
           image-name: hubzone-webmap-preview
           directory: terraform/preview
+          requires:
+          - hold-for-approval-preview
           filters:
             branches:
               only:

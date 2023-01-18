@@ -107,6 +107,8 @@ en:
     mvw_gov_area_map_county: "Governor-Designated Covered Area" 
     additional_details:
       tract_id: "Tract ID"
+      alternate_tract_id : "Alternate Tract ID"
+      altarnet_county_id : "Alternate County ID"
       county: "County"
       state: "State"
       county_id: "County ID"
