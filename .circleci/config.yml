@@ -278,11 +278,11 @@ workflows:
     jobs:
       - hold-for-approval-preview:
           type: approval
-          context: certify-lower
+          context: certify-upper
           filters:
             branches:
               only:
-                - preview-map
+                - preview-map-prod
             tags:
               ignore:
                 - /.*/
