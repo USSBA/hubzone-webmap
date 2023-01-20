@@ -1,21 +1,21 @@
 source 'https://rubygems.org'
 
-gem 'coffee-rails', '~> 4.2' # Use CoffeeScript for .coffee assets and views
+gem 'coffee-rails', '~> 4.2', '>= 4.2.2' # Use CoffeeScript for .coffee assets and views
 gem 'dotenv-rails' # Use dotenv to load environment variables
 gem 'excon-rails' # Use excon rails for http requests
 gem 'ffi', '~> 1.9.24' # CVS-2018-1000201
-gem 'font-awesome-rails', '>= 4.7.0' # Use Font Awesome for CSS Icons
+gem 'font-awesome-rails', '>= 4.7.0.7' # Use Font Awesome for CSS Icons
 gem 'i18n-js', ">= 3.0.0.rc15" #extend i18n support directly into JS
-gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.11', '>= 2.11.2' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jquery-rails' # Use jquery as the JavaScript library
 gem 'newrelic_rpm', '~> 4.5' # NewRelic Application Performance Monitoring
 gem 'pg' # Use PostgreSQL as the database for Active Record
 gem 'puma', '~> 4.3', '>= 4.3.9' # Use Puma as the app server
-gem 'rails', '~> 5.2' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 6.1', '>= 6.1.7.1' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rb-readline' # Why is this suddenly such a problem?
-gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
+gem 'sass-rails', '~> 5.1', '>= 5.1.0' # Use SCSS for stylesheets
 gem 'secure_headers'
-gem 'strong_migrations', '~> 0.3' # Catch unsafe migrations at dev time
+gem 'strong_migrations', '~> 0.7', '>= 0.7.8' # Catch unsafe migrations at dev time
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 
 ## Custom
@@ -44,7 +44,7 @@ group :development, :test do
   gem 'jshint'
   gem 'launchy'
   gem 'poltergeist'
-  gem 'rspec-rails', '~> 3.5' # Use RSpec for tests
+  gem 'rspec-rails', '~> 3.9', '>= 3.9.1' # Use RSpec for tests
   gem 'rubocop', '~> 0.52.1' # Enforce ruby code style
   gem 'rubocop-rspec', '~> 1.23.0'
   gem 'selenium-webdriver'
