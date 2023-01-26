@@ -1,5 +1,14 @@
 HZApp.MapUtils = (function(){
 
+  $(document).on('keydown', function(e) {
+      if((e.ctrlKey || e.metaKey) && (e.key == "p" || e.charCode == 16 || e.charCode == 112 || e.keyCode == 80) ){
+          alert("This feature is not available for the preview map");
+          e.cancelBubble = true;
+          e.preventDefault();
+          e.stopImmediatePropagation();
+      } 
+  });
+
   return {
     // catch a map latlng event into a latlng hash
     catchMapClick: function(clickEvent){
