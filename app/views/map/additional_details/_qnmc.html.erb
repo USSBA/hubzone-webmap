@@ -2,6 +2,14 @@
   <h6><%= t('hubzone_assertions.additional_details.county_id') %></h6>
   <h5><%= qualification["county_fips"].blank? ? '--' : qualification["county_fips"] %></h5>
 </div>
+
+<% if qualification["alternate_county_id"] %>
+<div class="designation-details-item">
+  <h6><%= t('hubzone_assertions.additional_details.altarnet_county_id') %></h6>
+  <h5><%= qualification["alternate_county_id"].blank? ? '--' : qualification["alternate_county_id"] %></h5>
+</div>
+<% end %>
+
 <div class="designation-details-item">
   <h6><%= t('hubzone_assertions.additional_details.county') %></h6>
   <h5><%= qualification["county"].blank? ? '--' : qualification["county"].to_s %></h5>
