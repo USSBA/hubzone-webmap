@@ -1,4 +1,4 @@
-FROM ruby:2.7.4-slim-bullseye
+FROM ruby:2.7.7-slim-bullseye
 
 # Install general packages
 ENV PACKAGES build-essential libpq-dev netcat git apt-utils apt-transport-https curl wget unzip jq gnupg libfontconfig chrpath libssl-dev libxft-dev libfreetype6 libfreetype6-dev libfontconfig1 libfontconfig1-dev lsb-release
