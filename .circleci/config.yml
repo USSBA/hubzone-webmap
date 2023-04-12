@@ -235,24 +235,12 @@ workflows:
 
   preview:
     jobs:
-      - hold-for-approval-preview:
-          type: approval
-          context: certify-lower
-          filters:
-            branches:
-              only:
-                - preview-map
-            tags:
-              ignore:
-                - /.*/
       - service-deployment:
           context: oidc-certify-lower
           workspace: demo
           image-tag: latest
           image-name: hubzone-webmap-preview
           directory: terraform/preview
-          requires:
-          - hold-for-approval-preview
           filters:
             branches:
               only:
@@ -278,11 +266,23 @@ workflows:
 
   preview-prod:
     jobs:
+      - hold-for-approval-preview:
+          type: approval
+          context: oidc-certify-upper
+          filters:
+            branches:
+              only:
+                - preview-map-prod
+            tags:
+              ignore:
+                - /.*/
       - service-deployment:
           context: oidc-certify-upper
           workspace: prod
           image-tag: prod-latest
           image-name: hubzone-webmap-preview
+          requires:
+            - hold-for-approval-preview
           directory: terraform/preview
           filters:
             branches:
