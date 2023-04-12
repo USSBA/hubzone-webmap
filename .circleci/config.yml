@@ -235,16 +235,6 @@ workflows:
 
   preview:
     jobs:
-      - hold-for-approval-preview:
-          type: approval
-          context: certify-lower
-          filters:
-            branches:
-              only:
-                - preview-map
-            tags:
-              ignore:
-                - /.*/
       - service-deployment:
           context: oidc-certify-lower
           workspace: demo
@@ -278,7 +268,7 @@ workflows:
     jobs:
       - hold-for-approval-preview:
           type: approval
-          context: certify-upper
+          context: oidc-certify-upper
           filters:
             branches:
               only:
