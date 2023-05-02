@@ -28,7 +28,7 @@ production:
   geom_wms_settings:
     <<: *default_wms
     url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://maps.certify.sba.gov/geoserver/gwc/service/wms?' } %>
-    db: hzgeo_prod
+    db: hzgeo_prd
 
 staging:
   <<: *defaults
