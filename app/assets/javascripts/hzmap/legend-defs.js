@@ -32,7 +32,7 @@ HZApp.Legend.LegendDefs = (function(){
     brac: {
       title: "Base Closure Area",
       svg: [],
-      canToggle: true,
+      canToggle: false,
       layerGroup: 'brac'
     },
     mvw_gov_area_map: {

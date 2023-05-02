@@ -56,7 +56,7 @@ HZApp.Layers.LayerDefs = (function(){
       brac_lg: {
         layerIndex: 5,
         layerGroup: 'brac',
-        isVisible: true,
+        isVisible: false,
         overlay:[],
       },
       qct_e: {
