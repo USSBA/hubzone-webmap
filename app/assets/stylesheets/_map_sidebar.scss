@@ -314,16 +314,15 @@ button#map-report {
   margin: 1.7rem 0.5rem 1.5rem 1.5rem;
   padding: 0rem;
   cursor: pointer;
-  display: none;
 }
 i.fa-file-pdf-o {
   font-size: 2.5rem;
   color: $gray-dark;
   padding: 0;
 }
-#report-waiting {
-  display: none;
-}
+// #report-waiting {
+//   display: none;
+// }
 .create-report {
   font-size: 1.5rem;
   font-weight: normal;
