@@ -9,7 +9,7 @@
       </header>
   </div>
   <!-- Gov banner END -->
-  <%= render partial: "preview_alert", locals: {body: nil} %>
+  <%#= render partial: "preview_alert" %> 
   <div class="usa-navbar">
     <button class="usa-menu-btn usa-button-outline" role="button" aria-label="Menu button">Menu</button>
     <div class="usa-logo" id="logo">
@@ -28,12 +28,6 @@
                      title: 'Home',
                      'aria-label' => 'hubzone map home',
                      onclick: "HZApp.GA.openLink( '#{map_path}', 'map', 'title-link' );" )
-        %>
-        <%= link_to( "<span>#{t('hubzone_map_tag_line')}</span>".html_safe,
-                     tabindex: 0,
-                     class: 'title-link',
-                     title: 'Home',
-                     'aria-label' => 'hubzone map home' )
         %>
       </em>
     </div>
