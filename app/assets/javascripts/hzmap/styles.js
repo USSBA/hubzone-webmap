@@ -6,8 +6,8 @@ HZApp.Styles.hzBaseMapStyle = [
         "elementType": "geometry",
         "stylers": [
             {
-                //"color": "#F9EEB8"//preview updated
-                "color": "#f5f5f5"
+                "color": "#F9EEB8"//yellow map
+                //"color": "#f5f5f5" 
                 
             }
         ]
