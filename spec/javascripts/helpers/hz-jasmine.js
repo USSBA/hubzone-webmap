@@ -242,7 +242,7 @@ var HZSpecHelper = (function(){
       qnmc_brac: {
         legendType: 'brac',
         layerGroup: 'qnmc',
-        isVisible: false,
+        isVisible: true,
         overlay: []
       }
     },

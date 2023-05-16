@@ -126,8 +126,22 @@
   <%= render partial: "local_information", locals: {other_information: body['other_information'], details_visibility: details_visibility}  %>
 <% end %>
 
+<div class="sidebar-card map-actions">
+  <button id="map-report" tabindex="15">
+    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+    <div class="create-report"><%= t('sidebar.print_version') %></div>
+  </button>
+  <button id="map-share" tabindex="16">
+    <i class="fa fa-share" aria-hidden="true"></i>
+    <div class="share-map"><%= t('sidebar.share_map') %></div>
+  </button>
+  <span id="report-waiting"></span>
+  <div class="share-map-card">
+    <%= render partial: "share_map" %>
+  </div>
+</div>
 
 
 <div class="sidebar-card hubzone-status-date <%= visibility %> clearable" tabindex="12">
-  <%= t('hubzone_assertions.qualifications_effective') %>
+<%= t('hubzone_assertions.qualifications_effective') %><%= date %>
 </div>

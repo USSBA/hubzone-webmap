@@ -24,7 +24,7 @@ coverage
 
 # Ignore public compiled assets
 public/assets/
-assets
+assets/
 
 # Ignore .env configuration
 .env*
@@ -45,3 +45,4 @@ server.key
 # Ignore Terraform configs
 terraform/.terraform.lock.hcl
 terraform/.terraform/
+

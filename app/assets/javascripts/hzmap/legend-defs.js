@@ -29,12 +29,12 @@ HZApp.Legend.LegendDefs = (function(){
       canToggle: true,
       layerGroup: 'redesignated'
     },
-    brac: {
-      title: "Base Closure Area",
-      svg: [],
-      canToggle: false,
-      layerGroup: 'brac'
-    },
+    // brac: {
+    //   title: "Base Closure Area",
+    //   svg: [],
+    //   canToggle: false,
+    //   layerGroup: 'brac'
+    // },
     mvw_gov_area_map: {
       title: "Governor-Designated Covered Area",
       svg: [],
