@@ -22,4 +22,4 @@ runs:
         echo "image_tag = \"${{ inputs.image }}\"" >> ./build.auto.tfvars
         terraform workspace select ${{ inputs.workspace }}
         terraform plan -out=${{ inputs.workspace }}.tfplan -input=false
-#        terraform apply -input=false ${{ inputs.workspace }}.tfplan
+        terraform apply -input=false ${{ inputs.workspace }}.tfplan

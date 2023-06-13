@@ -1,11 +1,9 @@
 # global configuration for all jobs
-name: Demo
+name: Preview
 on:
   push:
     branches:
-      - '**'
-    tags:
-      - deploy-demo
+      - preview-map
 
 # sets the default shell for all jobs
 defaults:
@@ -22,37 +20,7 @@ env:
   AWS_ECR_REGISTRY_ID: '222484291001'
 
 jobs:
-  build:
-    runs-on: ubuntu-20.04
-    environment: demo
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          role-to-assume: ${{ secrets.OIDC_ROLE_ARN }}
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: ECR Login
-        uses: aws-actions/amazon-ecr-login@v1
-        id: ecr-login
-        with:
-          registries: ${{ env.AWS_ECR_REGISTRY_ID}}
-
-      - name: ECR Build & Push
-        uses: ./.github/actions/ecr
-        with:
-          registry: ${{ steps.ecr-login.outputs.registry }}
-          repo: hubzone/hubzone-webmap
-          # Tagging with ref_name (develop) and sha so we can leverage the sha and not initiate a force deployment
-          # from Terraform
-          tags: ${{ github.ref_name }} ${{ github.sha }}
-          cache-from: ${{ github.ref_name }}
-
-  deploy:
-    needs: build
+  webmap:
     runs-on: ubuntu-latest
     environment: demo
     steps:
@@ -69,9 +37,24 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
         id: ecr-login
 
+      - name: ECR Build & Push
+        uses: ./.github/actions/ecr
+        with:
+          registry: ${{ steps.ecr-login.outputs.registry }}
+          repo: hubzone-webmap-preview
+          # Tagging with ref_name (develop) and sha so we can leverage the sha and not initiate a force deployment
+          # from Terraform
+          tags: ${{ github.ref_name }} ${{ github.sha }}
+          cache-from: ${{ github.ref_name }}
+
+      - name: 'Install Terraform 1.0.9'
+        uses: 'hashicorp/setup-terraform@v2'
+        with:
+          terraform_version: '1.0.9'
+
       - name: Terraform Plan & Apply
         uses: ./.github/actions/terraform
         with:
           folder: ./terraform
           image: ${{ github.sha }}
-          workspace: demo
+          workspace: ${{ env.WORKSPACE }}
