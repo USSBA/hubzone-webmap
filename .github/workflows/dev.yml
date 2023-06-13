@@ -1,9 +1,11 @@
 # global configuration for all jobs
-name: Preview
+name: Demo
 on:
   push:
     branches:
-      - preview-map
+      - '**'
+    tags:
+      - deploy-demo
 
 # sets the default shell for all jobs
 defaults:
@@ -15,6 +17,10 @@ permissions:
   contents: read # contents is used for checking out code
   id-token: write
 
+env:
+  AWS_REGION: 'us-east-1'
+  AWS_ECR_REGISTRY_ID: '997577316207'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,20 +30,22 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: ${{ secrets.OIDC_ARN }}
-          aws-region: us-east-1
+          role-to-assume: ${{ secrets.OIDC_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: ECR Login
         uses: aws-actions/amazon-ecr-login@v1
         id: ecr-login
+        with:
+          registries: ${{ env.AWS_ECR_REGISTRY_ID}}
 
       - name: ECR Build & Push
         uses: ./.github/actions/ecr
         with:
           registry: ${{ steps.ecr-login.outputs.registry }}
-          repo: hubzone-webmap-preview
+          repo: hubzone/hubzone-webmap
           # Tagging with ref_name (develop) and sha so we can leverage the sha and not initiate a force deployment
           # from Terraform
           tags: ${{ github.ref_name }} ${{ github.sha }}
@@ -54,8 +62,8 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: ${{ secrets.OIDC_ARN }}
-          aws-region: us-east-1
+          role-to-assume: ${{ secrets.OIDC_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: ECR Login
         uses: aws-actions/amazon-ecr-login@v1
@@ -64,6 +72,6 @@ jobs:
       - name: Terraform Plan & Apply
         uses: ./.github/actions/terraform
         with:
-          folder: ./terraform/preview
+          folder: ./terraform
           image: ${{ github.sha }}
           workspace: demo

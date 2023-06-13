@@ -12,6 +12,10 @@ permissions:
   contents: read # contents is used for checking out code
   id-token: write
 
+env:
+  AWS_REGION: 'us-east-1'
+  AWS_ECR_REGISTRY_ID: ''
+
 jobs:
   terraform-format:
     runs-on: ubuntu-latest
