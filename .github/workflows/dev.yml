@@ -19,11 +19,11 @@ permissions:
 
 env:
   AWS_REGION: 'us-east-1'
-  AWS_ECR_REGISTRY_ID: '997577316207'
+  AWS_ECR_REGISTRY_ID: '222484291001'
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     environment: demo
     steps:
       - name: Checkout
