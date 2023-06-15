@@ -25,7 +25,7 @@ env:
 jobs:
   webmap:
     runs-on: ubuntu-latest
-    environment: ${{ env.WORKSPACE }}
+    environment: demo
     steps:
       - name: Checkout
         uses: actions/checkout@v3
