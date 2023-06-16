@@ -2,6 +2,8 @@
 name: Demo
 on:
   push:
+    branches-ignore:
+      - '**'
     tags:
       - deploy-demo
 
@@ -15,8 +17,13 @@ permissions:
   contents: read # contents is used for checking out code
   id-token: write
 
+env:
+  AWS_REGION: 'us-east-1'
+  AWS_ECR_REGISTRY_ID: '222484291001'
+  WORKSPACE: 'demo'
+
 jobs:
-  build:
+  webmap:
     runs-on: ubuntu-latest
     environment: demo
     steps:
@@ -24,14 +31,16 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: ${{ secrets.OIDC_ARN }}
-          aws-region: us-east-1
+          role-to-assume: ${{ secrets.OIDC_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: ECR Login
         uses: aws-actions/amazon-ecr-login@v1
         id: ecr-login
+        with:
+          registries: ${{ env.AWS_ECR_REGISTRY_ID}}
 
       - name: ECR Build & Push
         uses: ./.github/actions/ecr
@@ -43,27 +52,14 @@ jobs:
           tags: ${{ github.ref_name }} ${{ github.sha }}
           cache-from: ${{ github.ref_name }}
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment: demo
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: 'Install Terraform 1.0.9'
+        uses: 'hashicorp/setup-terraform@v2'
         with:
-          role-to-assume: ${{ secrets.OIDC_ARN }}
-          aws-region: us-east-1
-
-      - name: ECR Login
-        uses: aws-actions/amazon-ecr-login@v1
-        id: ecr-login
+          terraform_version: '1.0.9'
 
       - name: Terraform Plan & Apply
         uses: ./.github/actions/terraform
         with:
           folder: ./terraform
           image: ${{ github.sha }}
-          workspace: demo
+          workspace: ${{ env.WORKSPACE }}

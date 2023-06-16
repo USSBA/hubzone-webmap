@@ -8,13 +8,16 @@ gem 'font-awesome-rails', '>= 4.7.0' # Use Font Awesome for CSS Icons
 gem 'i18n-js', ">= 3.0.0.rc15" #extend i18n support directly into JS
 gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jquery-rails' # Use jquery as the JavaScript library
-gem 'newrelic_rpm', '~> 4.5' # NewRelic Application Performance Monitoring
+gem 'newrelic_rpm', '~> 9.1' # NewRelic Application Performance Monitoring
 gem 'pg' # Use PostgreSQL as the database for Active Record
 gem 'puma', '~> 4.3', '>= 4.3.9' # Use Puma as the app server
-gem 'rails', '~> 5.2' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 6.1.7.3' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rb-readline' # Why is this suddenly such a problem?
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
 gem 'secure_headers'
+gem 'sprockets', '>=3.7.2', '<4'
+gem 'sprockets-es6'
+gem 'sprockets-rails', require: 'sprockets/railtie'
 gem 'strong_migrations', '~> 0.3' # Catch unsafe migrations at dev time
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 
