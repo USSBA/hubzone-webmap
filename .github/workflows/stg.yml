@@ -45,7 +45,7 @@ jobs:
         with:
           registry: ${{ steps.ecr-login.outputs.registry }}
           repo: hubzone/hubzone-webmap
-          tags: ${{ github.ref_name }}
+          tags: ${{ github.ref_name }} ${{ github.sha }}
           cache-from: ${{ github.ref_name }}
 
       - name: 'Install Terraform 1.0.9'
