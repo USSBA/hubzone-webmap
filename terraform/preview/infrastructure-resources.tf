@@ -54,15 +54,14 @@ data "aws_ssm_parameter" "origin_token" {
   with_decryption = true
 }
 
-# SNS Topics
-data "aws_sns_topic" "topics" {
-  for_each = toset(["red", "green", "yellow", "security", "email-admins"])
-  name     = "sba-notification-framework-${each.key}"
+## SNS Notification Framework Topics
+data "aws_sns_topic" "alerts" {
+  for_each = toset(["green", "yellow", "red", "security"])
+  name     = "${local.account_name}-teams-${each.value}-notifications"
 }
 locals {
-  sns_red          = data.aws_sns_topic.topics["red"].arn
-  sns_yellow       = data.aws_sns_topic.topics["yellow"].arn
-  sns_green        = data.aws_sns_topic.topics["green"].arn
-  sns_security     = data.aws_sns_topic.topics["security"].arn
-  sns_email_admins = data.aws_sns_topic.topics["email-admins"].arn
+  sns_red      = data.aws_sns_topic.alerts["red"].arn
+  sns_yellow   = data.aws_sns_topic.alerts["yellow"].arn
+  sns_green    = data.aws_sns_topic.alerts["green"].arn
+  sns_security = data.aws_sns_topic.alerts["security"].arn
 }
