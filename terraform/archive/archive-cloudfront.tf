@@ -187,7 +187,7 @@ resource "aws_cloudfront_distribution" "archive" {
   origin {
     connection_attempts = 3
     connection_timeout  = 10
-    domain_name         = "hubzone-geoserver.${local.env.fqdn_base}"
+    domain_name         = "archive-hz-geoserver.${local.env.fqdn_base}"
     origin_id           = "geoserver"
 
     custom_origin_config {

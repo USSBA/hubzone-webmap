@@ -27,17 +27,17 @@ default: &default
 production:
   <<: *default
   database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_prd' } %>
-  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'hubzone-db.certify.sba.gov' } %>
+  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'archive-hubzone-db.certify.sba.gov' } %>
 
 staging:
   <<: *default
   database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_stg' } %>
-  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'hubzone-db.stg.certify.sba.gov' } %>
+  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'archive-hubzone-db.stg.certify.sba.gov' } %>
 
 demo:
   <<: *default
   database: <%= ENV.fetch('HUBZONE_MAP_DB_NAME') { 'hzmap_demo' } %>
-  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'hubzone-db.demo.sba-one.net' } %>
+  host: <%= ENV.fetch('HUBZONE_MAP_DB_HOST') { 'archive-hubzone-db.demo.sba-one.net' } %>
 
 development:
   <<: *default
