@@ -11,7 +11,7 @@ locals {
     # when migrating cloudfront or testing new services without impacting the existing cloudfront
     HUBZONE_MAP_HOST     = local.env.backend_location == "cloudfront" ? "https://${local.public_fqdn}" : "https://${local.env.service_name}.${local.env.fqdn_base}"
     HUBZONE_REPORT_HOST  = local.env.backend_location == "cloudfront" ? "https://${local.public_fqdn}" : "https://hubzone-report.${local.env.fqdn_base}"
-    HUBZONE_WMS_URL_ROOT = local.env.backend_location == "cloudfront" ? "https://${local.public_fqdn}/geoserver/gwc/service/wms?" : "https://hubzone-geoserver.${local.env.fqdn_base}/geoserver/gwc/service/wms?"
+    HUBZONE_WMS_URL_ROOT = local.env.backend_location == "cloudfront" ? "https://${local.public_fqdn}/geoserver/gwc/service/wms?" : "https://archive-hubzone-geoserver.${local.env.fqdn_base}/geoserver/gwc/service/wms?"
 
     # Users do not connect directly to hubzone-api; use the API url directly
     HUBZONE_API_HOST = "https://hubzone-api.${local.env.fqdn_base}" #TODO: API has not been deployed yet.

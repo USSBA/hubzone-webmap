@@ -27,7 +27,7 @@ production:
   google_analytics_tracking_id: <%= ENV.fetch('GOOGLE_ANALYTICS_TRACKING_ID') { 'UA-19362636-24' } %>
   geom_wms_settings:
     <<: *default_wms
-    url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://maps.certify.sba.gov/geoserver/gwc/service/wms?' } %>
+    url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://archive-maps.certify.sba.gov/geoserver/gwc/service/wms?' } %>
     db: hzgeo_prd
 
 staging:
@@ -38,7 +38,7 @@ staging:
   hotjar_tracking_id: <%= ENV.fetch('HUBZONE_HOTJAR_TRACKING_ID') { '435148' } %>
   geom_wms_settings:
     <<: *default_wms
-    url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://maps.staging.certify.sba.gov/geoserver/gwc/service/wms?' } %>
+    url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://archive-maps.staging.certify.sba.gov/geoserver/gwc/service/wms?' } %>
     db: hzgeo_stg
 
 training:
@@ -73,7 +73,7 @@ demo:
   hotjar_tracking_id: <%= ENV.fetch('HUBZONE_HOTJAR_TRACKING_ID') { '428263' } %>
   geom_wms_settings:
     <<: *default_wms
-    url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://hz-demo.sba-one.net/geoserver/gwc/service/wms?' } %>
+    url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://archive-hz-demo.sba-one.net/geoserver/gwc/service/wms?' } %>
     db: hzgeo_demo
 
 dev:
