@@ -20,7 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hubzone_map: "  Archive HUBZone Map"
+  hubzone_map: "  HUBZone Map"
   hubzone_map_aria_label: "hubzone map"
   usa_banner:
     title: "An official website of the United States government"
@@ -72,7 +72,7 @@ en:
       unknown_error: "We're sorry. The request failed due to an internal error. Please try again."
   hubzone_assertions:
     qualified_by: "Qualified by: "
-    qualifications_effective: "Archive Map: Effective up to: Jun 30th, 2023"
+    qualifications_effective: "Qualification is valid for today:"
     qualified: "Qualified HUBZone"
     qualified_aria: "qualified hubzone"
     qualified_short: "Qualified"
