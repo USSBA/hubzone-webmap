@@ -56,7 +56,7 @@ locals {
   postgres_fqdn = "archive-hubzone-db.${local.env.fqdn_base}"
 
   # Convenience prefixes for AWS Resources
-  prefix_ecr             = "${local.account_id}.dkr.ecr.${local.region}.amazonaws.com"
+  prefix_ecr             = "222484291001.dkr.ecr.${local.region}.amazonaws.com"
   prefix_parameter_store = "arn:aws:ssm:${local.region}:${local.account_id}:parameter"
 
   # Updates for preview map
