@@ -8,7 +8,7 @@ locals {
     AWS_ENVIRONMENT = terraform.workspace
 
     HUBZONE_MAP_HOST     = "https://${local.public_fqdn}"
-    HUBZONE_REPORT_HOST  = "https://${local.public_fqdn}"
+    HUBZONE_REPORT_HOST  = "https://archive-maps.${local.env.fqdn_base}"
     HUBZONE_WMS_URL_ROOT = "https://${local.public_fqdn}/geoserver/gwc/service/wms?"
 
     # Users do not connect directly to hubzone-api; use the API url directly
