@@ -127,7 +127,7 @@ resource "aws_cloudfront_distribution" "archive" {
     min_ttl                = 0
     path_pattern           = "/report"
     smooth_streaming       = false
-    target_origin_id       = "report"
+    target_origin_id       = "archive-report"
     trusted_key_groups     = []
     trusted_signers        = []
     viewer_protocol_policy = "redirect-to-https"
@@ -207,8 +207,8 @@ resource "aws_cloudfront_distribution" "archive" {
   origin {
     connection_attempts = 3
     connection_timeout  = 10
-    domain_name         = "hubzone-report.${local.env.fqdn_base}"
-    origin_id           = "report"
+    domain_name         = "archive-hz-report.${local.env.fqdn_base}"
+    origin_id           = "archive-report"
 
     custom_header {
       name  = "x-ussba-origin-token"
