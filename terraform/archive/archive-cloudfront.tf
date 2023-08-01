@@ -36,9 +36,9 @@ resource "aws_cloudfront_distribution" "archive" {
   #  web_acl_id          = aws_wafv2_web_acl.waf_cloudfront.arn
 
   logging_config {
-    bucket          = "${local.account_ids[terraform.workspace]}-logs.s3.amazonaws.com"
+    bucket          = "${local.account_ids[terraform.workspace]}-us-east-1-logs.s3.amazonaws.com"
     include_cookies = false
-    prefix          = "${terraform.workspace}/cloudfront/archive-hubzone"
+    prefix          = "cloudfront/archive-hubzone-webmap/${terraform.workspace}"
   }
 
   restrictions {
