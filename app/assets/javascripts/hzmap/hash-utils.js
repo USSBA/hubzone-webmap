@@ -89,7 +89,12 @@ HZApp.HashUtils = (function(){
       // Add in the 'latlng' param
       hashText = HZApp.HashUtils.updateHashValue('latlng', latlng_s, hashText);
       // Finally, add in the center and zoom
+      if(HZApp.maLoaded){
       hashText = HZApp.HashUtils.updateCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), hashText);
+      }
+      if(HZApp.maGovLoaded){
+      hashText = HZApp.HashUtils.updateCenterAndZoomHash(HZApp.mapGov.getCenter(), HZApp.mapGov.getZoom(), hashText);
+      }
       return hashText;
     },
 
@@ -103,7 +108,12 @@ HZApp.HashUtils = (function(){
       // Add in the 'q' param
       hashText = HZApp.HashUtils.updateHashValue('q', query_s, hashText);
       // Finally, add in the center and zoom
+      if(HZApp.maLoaded){
       hashText = HZApp.HashUtils.updateCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), hashText);
+      }
+      if(HZApp.maGovLoaded){
+        hashText = HZApp.HashUtils.updateCenterAndZoomHash(HZApp.mapGov.getCenter(), HZApp.mapGov.getZoom(), hashText);
+      }
       return hashText;
     },
 

@@ -1,0 +1,26 @@
+<div class="legend-header open">
+  <h4><%= t('legend.title') %></h4>
+  <i class="legend-button fa fa-chevron-down"></i>
+</div>
+<fieldset class="usa-fieldset-inputs">
+  <legend class="usa-sr-only" aria-label="<%= t('legend.title') %>"><%= t('legend.title') %></legend>
+  <ul class="legend-content" aria-label="<%= t('legend.title') %>">
+  
+  <div class="legend-list-title">2020 Census Boundaries </div>
+    <li class="legend-item">
+      <input id="us_county_" type="checkbox" name="us_county" value="us_county" autocomplete="off" checked="">
+        <label for="us_county_">
+          <div class="legend-layer-symbols layer-us_county" aria-label="<%= t('legend.icon_census_tract') %>"></div>County
+        </label>
+      </input>
+    </li>
+    <li class="legend-item">
+      <input id="us_tract_" type="checkbox" name="us_tract" value="us_tract" autocomplete="off" checked="">
+        <label for="us_tract_">
+          <div class="legend-layer-symbols layer-us_tract" aria-label="<%= t('legend.icon_census_tract') %>"></div>Tract
+        </label>
+      </input>
+    </li>
+
+  </ul>
+</fieldset>

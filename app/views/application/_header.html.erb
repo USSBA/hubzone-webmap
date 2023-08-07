@@ -9,7 +9,7 @@
       </header>
   </div>
   <!-- Gov banner END -->
-  <%= render partial: "preview_alert" %>
+  <%= render partial: "preview_alert" %> 
   <div class="usa-navbar">
     <button class="usa-menu-btn usa-button-outline" role="button" aria-label="Menu button">Menu</button>
     <div class="usa-logo" id="logo">
@@ -39,6 +39,12 @@
       </button>
       <div class="usa-nav-secondary">
         <ul class="usa-unstyled-list usa-nav-secondary-links">
+        <li>
+           <a aria-label="Governors" id="governors-menu" onclick="HZApp.GA.openLink( '/hubzone/governors', 'map', 'help-link' );" href="/hubzone/governors" style="display:none">Governors</a>
+
+           <a aria-label="Governors" id="map-menu" onclick="HZApp.GA.openLink( '/hubzone/map', 'map', 'help-link' );" href="/hubzone/map">Home</a>
+
+          </li>
           <li>
            <%= link_to( t('menu.help'),
            help_path,

@@ -24,8 +24,14 @@ HZApp.Router = (function(){
       }
       //add listener for map idle to update router hash center and zoom
       // google.maps.event.addListener(HZApp.map, 'idle', HZApp.Router.updateMapLocation);
+      if(HZApp.maLoaded){
       google.maps.event.addListener(HZApp.map, 'center_changed', HZApp.Router.updateMapCenter);
       google.maps.event.addListener(HZApp.map, 'zoom_changed', HZApp.Router.updateMapZoom);
+      }
+      if(HZApp.maGovLoaded){
+        google.maps.event.addListener(HZApp.mapGov, 'center_changed', HZApp.Router.updateMapCenter);
+        google.maps.event.addListener(HZApp.mapGov, 'zoom_changed', HZApp.Router.updateMapZoom);
+      }
       // HZApp.Router.silentHashChange.setSilent(false, 'mapLoad');
     },
 
@@ -118,13 +124,26 @@ HZApp.Router = (function(){
         HZApp.Router.silentHashChange.setSilent(true, 'replaceHash');
       }
 
-      history.replaceState(HZApp.HashUtils.parseLocationHash(hash), "replaceHash", "map#" + hash);
+      if(HZApp.maGovLoaded){
+        history.replaceState(HZApp.HashUtils.parseLocationHash(hash), "replaceHash", "governors#" + hash);
+      }else{
+         history.replaceState(HZApp.HashUtils.parseLocationHash(hash), "replaceHash", "map#" + hash);
+      }
+
     },
 
     currentMapLocationToHash: function() {
       // console.log("~~~~~ currentMapLocationToHash");
+      if(HZApp.maLoaded){
       var hashText = HZApp.HashUtils.updateCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), location.hash);
       history.replaceState(HZApp.HashUtils.parseLocationHash(hashText), "location update only", "map" + hashText);
+    }
+
+    if(HZApp.maGovLoaded){
+      var hashText = HZApp.HashUtils.updateCenterAndZoomHash(HZApp.mapGov.getCenter(), HZApp.mapGov.getZoom(), location.hash);
+      history.replaceState(HZApp.HashUtils.parseLocationHash(hashText), "location update only", "governors" + hashText);
+    }
+     
     },
 
 
@@ -219,14 +238,24 @@ HZApp.Router = (function(){
     updateZoom: function(hash_zoom){
       var zoom = HZApp.Router.unpackValidZoom(hash_zoom) || null;
       if (zoom){
-        HZApp.map.setZoom(zoom);
+        if(HZApp.maLoaded){
+          HZApp.map.setZoom(zoom);
+        }
+        if(HZApp.maGovLoadedh){
+          HZApp.mapGov.setZoom(zoom);
+          }
       }
     },
 
     updateCenter: function(hash_center){
       var center = HZApp.Router.unpackValidLatLng(hash_center) || null;
       if (center){
+        if(HZApp.maLoaded){
         HZApp.map.setCenter(new google.maps.LatLng(center.lat, center.lng));
+        }
+        if(HZApp.maGovLoaded){
+          HZApp.mapGov.setCenter(new google.maps.LatLng(center.lat, center.lng));
+          }
       }
     },
 

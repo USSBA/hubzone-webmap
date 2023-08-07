@@ -61,7 +61,7 @@
   </div>
 </div>
 
-<div class="sidebar-card check_1234 hubzone-status <%= hubzone_status_style %> <%= visibility %>">
+<div class="sidebar-card check_123 hubzone-status <%= hubzone_status_style %> <%= visibility %>" style="display:none">
   <table id="hubzone-qualifications" class="sidebar-qualifications clearable">
     <thead>
       <th class="<%= hubzone_status_style %>" scope="row">
@@ -79,7 +79,7 @@
   </table>
 </div>
 
-<div class="sidebar-card additional-details <%= details_visibility %>">
+<div class="sidebar-card additional-details <%= details_visibility %>" style="display:none">
   <div class="qualifications">
     <div id="additional-details-button" class="usa-accordion-button additional-details" aria-label="Expand HUBZone Designation details">
       <span class="additional-details-title">
@@ -126,7 +126,7 @@
   <%= render partial: "local_information", locals: {other_information: body['other_information'], details_visibility: details_visibility}  %>
 <% end %>
 
-<div class="sidebar-card map-actions">
+<div class="sidebar-card map-actions" style="display:none">
   <button id="map-report" tabindex="15">
     <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
     <div class="create-report"><%= t('sidebar.print_version') %></div>

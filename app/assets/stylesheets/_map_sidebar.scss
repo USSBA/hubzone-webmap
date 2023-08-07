@@ -30,6 +30,18 @@
   max-height: 100%;
   overflow: auto;
 }
+#sidebar-content.governors .additional-details{
+  display: none !important;
+}
+#sidebar-content.governors .qualified-hubzone,#sidebar-content.governors .non-qualified-hubzone  {
+  display: none !important;
+}
+
+#sidebar-content.governors .sidebar-card.map-actions {
+  display: none !important;
+}
+
+
 #hubzone-clickable-marker {
   cursor: pointer;
 }

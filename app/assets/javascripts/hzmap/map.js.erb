@@ -1,7 +1,9 @@
 //create the map on load, when idle, jump to updateMap to get features
 /* exported initMap */
 function initMap() {
-
+console.log('---uitmap');
+HZApp.maGovLoaded = false
+HZApp.mapLoaded = true
   var initialMapLocation = {
     center: {
       lat: 44.7228,
@@ -9,6 +11,9 @@ function initMap() {
     },
     zoom: 4
   };
+
+  $('#governors-menu').show()
+  $('#map-menu').hide()
 
   // unpack the current hash and update the map location as needed
   initialMapLocation = HZApp.Router.unpackInitialMapLocation(initialMapLocation, location.hash);
