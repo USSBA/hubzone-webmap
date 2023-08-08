@@ -65,3 +65,9 @@ data "aws_ssm_parameter" "origin_token" {
 #  name  = "basic-waf-regional"
 #  scope = "REGIONAL"
 #}
+
+## SNS Notification Framework Topics
+data "aws_sns_topic" "alerts" {
+  for_each = toset(["green", "yellow", "red", "security"])
+  name     = "${local.account_name}-teams-${each.value}-notifications"
+}
