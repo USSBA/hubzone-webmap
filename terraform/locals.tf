@@ -9,10 +9,14 @@ locals {
     prod = "222484291001"
   }
   sns_alarms = {
-    green    = "arn:aws:sns:us-east-1:502235151991:alarm-green"
-    yellow   = "arn:aws:sns:us-east-1:502235151991:alarm-yellow"
-    red      = "arn:aws:sns:us-east-1:502235151991:alarm-red"
-    security = "arn:aws:sns:us-east-1:502235151991:alarm-security"
+    #green    = "arn:aws:sns:us-east-1:502235151991:alarm-green"
+    #yellow   = "arn:aws:sns:us-east-1:502235151991:alarm-yellow"
+    #red      = "arn:aws:sns:us-east-1:502235151991:alarm-red"
+    #security = "arn:aws:sns:us-east-1:502235151991:alarm-security"
+    green    = data.aws_sns_topic.alerts["green"].arn
+    yellow   = data.aws_sns_topic.alerts["yellow"].arn
+    red      = data.aws_sns_topic.alerts["red"].arn
+    security = data.aws_sns_topic.alerts["security"].arn
   }
   all = {
     default = {
@@ -22,7 +26,7 @@ locals {
       db_identifier     = "hubzone-aurora"
       public_subdomain  = "maps"
       backend_location  = "cloudfront"
-      log_bucket        = "${local.account_id}-logs"
+      log_bucket        = "${local.account_id}-us-east-1-logs"
 
       rails_port        = 3000
       task_cpu_rails    = "256"
@@ -76,6 +80,6 @@ locals {
 
   # Convenience prefixes for AWS Resources
   prefix_bucket          = "arn:aws:s3:::"
-  prefix_ecr             = "${local.account_id}.dkr.ecr.${local.region}.amazonaws.com"
+  prefix_ecr             = "222484291001.dkr.ecr.${local.region}.amazonaws.com"
   prefix_parameter_store = "arn:aws:ssm:${local.region}:${local.account_id}:parameter"
 }

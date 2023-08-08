@@ -41,7 +41,8 @@ module "webmap" {
   # note: bucket permission may need to be adjusted
   # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html#access-logging-bucket-permissions
   alb_log_bucket_name = local.env.log_bucket
-  alb_log_prefix      = "${terraform.workspace}/alb/${local.env.service_name}"
+  alb_log_prefix      = "alb/${local.env.service_name}/${terraform.workspace}"
+
 
   cloudfront_header = {
     key   = "x-ussba-origin-token",
