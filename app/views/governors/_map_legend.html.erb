@@ -22,5 +22,22 @@
       </input>
     </li>
 
+
+    <div class="legend-list-title"><%= t('legend.goverment_areas') %></div>
+    <li class="legend-item">
+      <input id="expired_legend" type="checkbox" name="expired" value="expired" checked="" autocomplete="off">
+      <label for="expired_legend">
+        <div class="legend-layer-symbols layer-qct_r" aria-label="<%= t('legend.icon_redesignated_census') %>"></div>
+        <div class="legend-layer-symbols layer-qnmc_r" aria-label="<%= t('legend.icon_redesignated_county') %>"></div><%= t('legend.expired') %>
+      </label>
+    </li>
+    <li class="legend-item">
+    <input id="mvw_gov_area_map_legend" type="checkbox" name="mvw_gov_area_map" value="mvw_gov_area_map" checked="" autocomplete="off">
+    <label for="mvw_gov_area_map_legend">
+    <div class="legend-layer-symbols layer-mvw_gov_area_map"  aria-label="<%= t('legend.icon_mvw_gov_area_map') %>"></div>
+    <div class="legend-layer-symbols layer-mvw_gov_area_map_county"  aria-label="<%= t('legend.icon_mvw_gov_area_map_county') %>"></div><%= t('legend.designated') %>
+   </label>
+  </li> 
+
   </ul>
 </fieldset>

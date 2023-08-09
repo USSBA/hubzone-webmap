@@ -13,7 +13,7 @@
     </div>
     <div class="sidebar-other-information">
       <% if other_information["congressional_district"] && other_information["congressional_district"][0] %>
-        <%= render partial: 'map/additional_details/congressional_district', locals: {congressional_district: other_information["congressional_district"][0]} %>
+        <%= render partial: 'governors/additional_details/congressional_district', locals: {congressional_district: other_information["congressional_district"][0]} %>
       <% end %>
     </div>
   </div>

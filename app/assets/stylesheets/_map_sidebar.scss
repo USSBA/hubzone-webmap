@@ -41,6 +41,15 @@
   display: none !important;
 }
 
+/*#sidebar-content.governors .county,#sidebar-content.governors .CountyID,
+#sidebar-content.governors .tractID{
+  display: none !important;
+}*/
+
+#sidebar-content._main .DistrictOffice{
+  display: none !important;
+}
+
 
 #hubzone-clickable-marker {
   cursor: pointer;

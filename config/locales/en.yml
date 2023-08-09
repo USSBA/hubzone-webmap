@@ -20,7 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hubzone_map: " HUBZone Map"
+  hubzone_map: "HUBZone Map"
   hubzone_map_tag_line: "Effective July 01, 2023"
   hubzone_map_aria_label: "hubzone map"
   usa_banner:
@@ -134,6 +134,9 @@ en:
     link: "Learn more"
   legend:
     title: "Legend"
+    goverment_areas: "Governor Areas"
+    expired: "Existing"
+    designated: "Eligible"
     qualified: "Qualified HUBZones"
     expiring: "Expiring HUBZones"
     qct: "Census Tract"
