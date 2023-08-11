@@ -13,7 +13,7 @@ locals {
       service_name      = "archive-hubzone-webmap"
       service_shortname = "archive-webmap"
       ecr_name          = "hubzone-webmap-archive"
-      log_bucket        = "${local.account_id}-logs"
+      log_bucket        = "${local.account_id}-us-east-1-logs"
 
       rails_port        = 3000
       task_cpu_rails    = "256"
