@@ -31,7 +31,7 @@ locals {
 module "webmap" {
   #source  = "../../terraform-aws-easy-fargate-service"
   source  = "USSBA/easy-fargate-service/aws"
-  version = "~> 7.0"
+  version = "~> 10.0"
 
   # cloudwatch logging
   log_group_name              = "/ecs/${terraform.workspace}/${local.env.service_name}"

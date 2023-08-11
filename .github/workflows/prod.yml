@@ -48,10 +48,10 @@ jobs:
           tags: ${{ github.ref_name }} ${{ github.sha }}
           cache-from: ${{ github.ref_name }}
 
-      - name: 'Install Terraform 1.0.9'
+      - name: 'Install Terraform 1.5.2'
         uses: 'hashicorp/setup-terraform@v2'
         with:
-          terraform_version: '1.0.9'
+          terraform_version: '1.5.2'
 
       - name: Terraform Plan & Apply
         uses: ./.github/actions/terraform
