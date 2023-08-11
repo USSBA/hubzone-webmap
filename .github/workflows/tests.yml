@@ -26,7 +26,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: hashicorp/setup-terraform@v1
+
+      - name: 'Install Terraform 1.5.2'
+        uses: 'hashicorp/setup-terraform@v2'
+        with:
+          terraform_version: '1.5.2'
+
       - run: |
           echo "Performing Terraform Format..."
           terraform fmt -check -recursive
