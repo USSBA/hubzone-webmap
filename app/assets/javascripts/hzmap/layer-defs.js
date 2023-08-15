@@ -4,6 +4,7 @@
 // the layerIndex prop is used for order
 // the object that is stuck into overlay will have a setOpacity which is used for toggling
 
+
 HZApp.Layers.LayerDefs = (function(){
 
   return {
@@ -89,6 +90,18 @@ HZApp.Layers.LayerDefs = (function(){
       //   isVisible: true,
       //   overlay:[],
       // },
+      qnmc_new: {
+        layerIndex: 12,
+        layerGroup: 'qnmc_new',
+        isVisible: true,
+        overlay:[],
+      },
+      qct_new: {
+        layerIndex: 13,
+        layerGroup: 'qct_new',
+        isVisible: true,
+        overlay:[],
+      },
     }
   };
 })();
