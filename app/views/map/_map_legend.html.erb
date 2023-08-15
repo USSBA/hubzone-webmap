@@ -21,10 +21,23 @@
         </label>
       </input>
     </li>
- 
-    
-    <div class="legend-list-title"><%= t('legend.qualified') %></div>
 
+    <div class="legend-list-title"><%= t('legend.newly_qualified') %></div>
+    <li class="legend-item">
+      <input id="qnmc_new_legend" type="checkbox" name="qnmc_new" value="qnmc_new"  autocomplete="off">
+        <label for="qnmc_new_legend">
+          
+          <div class="legend-layer-symbols layer-qct" aria-label="<%= t('legend.new_qct') %>"></div><%= t('legend.new_qct') %>
+          &nbsp;&nbsp;
+          <div class="legend-layer-symbols layer-qnmc" aria-label="<%= t('legend.new_qnmc') %>"></div><%= t('legend.new_qnmc') %>
+          
+        </label>
+      </input>
+      
+     
+    </li>
+
+    <div class="legend-list-title"><%= t('legend.qualified') %></div>
 
     <li class="legend-item">
       <input id="qct_legend" type="checkbox" name="qct" value="qct" checked="" autocomplete="off">
@@ -45,7 +58,9 @@
         <div class="legend-layer-symbols layer-indian_lands"  aria-label="<%= t('legend.icon_indian_land') %>"></div><%= t('legend.indian_lands') %>
       </label>
     </li>
+
     <div class="legend-list-title"><%= t('legend.expiring') %></div>
+    
     <li class="legend-item">
       <input id="redesignated_legend" type="checkbox" name="redesignated" value="redesignated" checked="" autocomplete="off">
       <label for="redesignated_legend">

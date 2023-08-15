@@ -42,11 +42,28 @@ HZApp.Legend = (function(){
       HZApp.Legend.setLayerGroups('us_tract', HZApp.Layers.LayerDefs.hzWMSOverlays);
       HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_extras'].overlay.setOpacity(0);
       HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_extras'].isVisible = false;
+
+      HZApp.Legend.setLayerGroups('qnmc_new', HZApp.Layers.LayerDefs.hzWMSOverlays);
+      HZApp.Legend.setLayerGroups('qct_new', HZApp.Layers.LayerDefs.hzWMSOverlays);
       
       $('input[type="checkbox"]').click( function(event){
         
       <% if false %>
         if(event.currentTarget.value =='qct'){
+
+              if(!document.getElementById('qct_legend').checked){
+                HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(0);
+                HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = false;
+                if(!document.getElementById('qnmc_legend').checked){
+                  document.getElementById('qnmc_new_legend').checked = false ;
+                  HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(0);
+                  HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = false;
+                  
+                }
+              }else if(document.getElementById('qct_legend').checked && document.getElementById('qnmc_new_legend').checked){
+                HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(1);
+                HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = true;
+              }
              
             if(document.getElementById('qct_legend').checked && document.getElementById('redesignated_legend').checked){
               
@@ -75,7 +92,32 @@ HZApp.Legend = (function(){
 
         <% end %>
 
-       if(event.currentTarget.value =='redesignated'){
+      if(event.currentTarget.value =='qnmc'){
+          if(!document.getElementById('qnmc_legend').checked){
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(0);
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = false;
+            if(!document.getElementById('qct_legend').checked){
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(1);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = true;
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(1);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = true;
+            } 
+          }
+          HZApp.Legend.setLayerGroups(event.currentTarget.value, HZApp.Layers.LayerDefs.hzWMSOverlays);
+
+      }else if(event.currentTarget.value =='qct'){
+        if(!document.getElementById('qct_legend').checked){
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = false;
+          if(!document.getElementById('qnmc_legend').checked){
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(1);
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = true;
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(1);
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = true;
+          } 
+        }
+        HZApp.Legend.setLayerGroups(event.currentTarget.value, HZApp.Layers.LayerDefs.hzWMSOverlays);
+      }else if(event.currentTarget.value =='redesignated'){
 
         if(document.getElementById('redesignated_legend').checked){
           HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].overlay.setOpacity(1);
@@ -147,9 +189,45 @@ HZApp.Legend = (function(){
         <% end %>
         
 
+      }else if(event.currentTarget.value =='qnmc_new'){
+        if(document.getElementById('qnmc_new_legend').checked){
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = true;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = true;
+        }else{
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = false;
+        }
       }else{
         HZApp.Legend.setLayerGroups(event.currentTarget.value, HZApp.Layers.LayerDefs.hzWMSOverlays);
       }
+
+        console.log('----legend---');
+
+
+        if(document.getElementById('qnmc_new_legend').checked){
+          Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).map(function(layer) {
+            if(HZApp.Layers.LayerDefs.hzWMSOverlays[layer].isVisible){
+                HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay.setOpacity(0.1);
+            }
+          });
+          if(HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible){
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(1);
+          }
+          if(HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible){
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(1);
+          }
+        }else{
+          Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).map(function(layer) {
+            if(HZApp.Layers.LayerDefs.hzWMSOverlays[layer].isVisible){
+              HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay.setOpacity(1);
+            }
+          })
+        }
+
         
       });
     },
