@@ -29,13 +29,14 @@ else
       # directive values: these values will directly translate into source directives
       default_src: %w[https: 'self' *.cloudflare.com *.atlassian.net],
       # # frame_src: %w('self' *.google.com *.google-analytics.com *.googletagmanager.com *.atlassian.net),
-      connect_src: %w[wws: https: 'self' data: *.google.com],
+      frame_src: %w['self' *.youtube.com *.youtube.com/embed/],
+      connect_src: %w[wws: https: 'self' data: *.google.com *.youtube.com],
       font_src: %w['self' data: *.gstatic.com],
-      img_src: %w[blob: https: 'self' *.google-analytics.com data:],
+      img_src: %w[blob: https: 'self' *.google-analytics.com data: *.youtube.com],
       media_src: %w['self'],
       object_src: %w['self' data:],
       script_src: %w['self' 'unsafe-eval' 'unsafe-inline' localhost:3000 *.newrelic.com *.nr-data.net *.google.com *.digitalgov.gov
-                     *.google-analytics.com *.gstatic.com *.cloudflare.com *.googletagmanager.com *.atlassian.net *.hotjar.com *.googleapis.com],
+                     *.google-analytics.com *.gstatic.com *.cloudflare.com *.googletagmanager.com *.atlassian.net *.hotjar.com *.googleapis.com *.youtube.com],
       style_src: %w['self' 'unsafe-inline' *.googleapis.com],
       base_uri: %w['self'],
       child_src: %w['self' *.google.com *.google-analytics.com *.googletagmanager.com *.atlassian.net *.hotjar.com],
