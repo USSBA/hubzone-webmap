@@ -15,6 +15,9 @@ permissions:
   contents: read # contents is used for checking out code
   id-token: write
 
+env:
+  AWS_ECR_REGISTRY_ID: '222484291001'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,6 +35,8 @@ jobs:
       - name: ECR Login
         uses: aws-actions/amazon-ecr-login@v1
         id: ecr-login
+        with:
+          registries: ${{ env.AWS_ECR_REGISTRY_ID}}
 
       - name: ECR Build & Push
         uses: ./.github/actions/ecr
