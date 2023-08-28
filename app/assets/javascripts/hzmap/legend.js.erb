@@ -351,7 +351,7 @@ HZApp.Legend = (function(){
         if(document.getElementById('newly_qnmc_legend').checked || document.getElementById('newly_qct_legend').checked){
           Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).map(function(layer) {
             if(HZApp.Layers.LayerDefs.hzWMSOverlays[layer].isVisible){
-                HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay.setOpacity(0.1);
+                HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay.setOpacity(0.3);
             }
           });
           if(HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible){
