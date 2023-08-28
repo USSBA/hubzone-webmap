@@ -92,10 +92,12 @@ HZApp.Legend = (function(){
 
         <% end %>
 
+      <% if false %> 
       if(event.currentTarget.value =='qnmc' || event.currentTarget.value =='qct' ){
         if(!document.getElementById('qct_legend').checked){
           if(!document.getElementById('qnmc_legend').checked){
            
+            
             if(document.getElementById('qnmc_new_legend').checked){
               HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(1);
               HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = true;
@@ -107,8 +109,28 @@ HZApp.Legend = (function(){
               HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(0);
               HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = false;
             }
+         
+
+            if(document.getElementById('newly_qnmc_legend').checked){
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(1);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = true;
+            }else if(!document.getElementById('newly_qnmc_legend').checked){
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(0);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = false;
+            }
+            if(document.getElementById('newly_qct_legend').checked){
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(1);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = true;
+            }else if(!document.getElementById('newly_qct_legend').checked){
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(0);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = false;
+          
+            }
+            
           } else if(document.getElementById('qnmc_legend').checked){
-            if(document.getElementById('qnmc_new_legend').checked){
+
+       
+          if(document.getElementById('qnmc_new_legend').checked){
               HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(1);
               HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = true;
               HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(0);
@@ -119,10 +141,33 @@ HZApp.Legend = (function(){
               HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(0);
               HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = false;
             }
+            
+
+            if(document.getElementById('newly_qnmc_legend').checked){
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(1);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = true;
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(0);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = false;
+            }else if(!document.getElementById('newly_qnmc_legend').checked){
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(0);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = false;
+            }
+            if(document.getElementById('newly_qct_legend').checked){
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(1);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = true;
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(0);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = false;
+            }else if(!document.getElementById('newly_qct_legend').checked){
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(0);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = false;
+          
+            }
+
           }
         }else if(document.getElementById('qct_legend').checked){
           if(!document.getElementById('qnmc_legend').checked){
            
+        
             if(document.getElementById('qnmc_new_legend').checked){
               HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(0);
               HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = false;
@@ -134,7 +179,25 @@ HZApp.Legend = (function(){
               HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(0);
               HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = false;
             }
+           
+
+            if(document.getElementById('newly_qnmc_legend').checked){
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(0);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = false;
+            }else if(!document.getElementById('newly_qnmc_legend').checked){
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(0);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = false;
+            }
+            if(document.getElementById('newly_qct_legend').checked){
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(1);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = true;
+            }else if(!document.getElementById('newly_qct_legend').checked){
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(0);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = false;
+            }
           } else if(document.getElementById('qnmc_legend').checked){
+
+         
             if(document.getElementById('qnmc_new_legend').checked){
               HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(1);
               HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = true;
@@ -146,8 +209,50 @@ HZApp.Legend = (function(){
               HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(0);
               HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = false;
             }
+        
+
+            if(document.getElementById('newly_qnmc_legend').checked){
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(1);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = true;
+            }else if(!document.getElementById('newly_qnmc_legend').checked){
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(0);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = false;
+            }
+            if(document.getElementById('newly_qct_legend').checked){
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(1);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = true;
+            }else if(!document.getElementById('newly_qct_legend').checked){
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(0);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = false;
+            }
+
+            
           }
         }
+        HZApp.Legend.setLayerGroups(event.currentTarget.value, HZApp.Layers.LayerDefs.hzWMSOverlays);
+
+      }else
+      <% end %>
+
+      if(event.currentTarget.value =='qct' || event.currentTarget.value =='qnmc'){
+
+        if(!document.getElementById('qct_legend').checked && !document.getElementById('qnmc_legend').checked){
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = true;
+          document.getElementById('newly_qct_legend').checked = true
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = true;
+          document.getElementById('newly_qnmc_legend').checked = true
+        }else if(!document.getElementById('qnmc_legend').checked){
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = false;
+          document.getElementById('newly_qnmc_legend').checked = false
+        }else if(!document.getElementById('qct_legend').checked){
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = false;
+          document.getElementById('newly_qct_legend').checked = false
+        }
+
         HZApp.Legend.setLayerGroups(event.currentTarget.value, HZApp.Layers.LayerDefs.hzWMSOverlays);
 
       }else if(event.currentTarget.value =='redesignated'){
@@ -222,15 +327,18 @@ HZApp.Legend = (function(){
         <% end %>
         
 
-      }else if(event.currentTarget.value =='qnmc_new'){
-        if(document.getElementById('qnmc_new_legend').checked){
+      }else if(event.currentTarget.value =='newly_qct_legend' || event.currentTarget.value =='newly_qnmc_legend'){
+        if(document.getElementById('newly_qnmc_legend').checked){
           HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(1);
           HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = true;
-          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(1);
-          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = true;
-        }else{
+        }else if(!document.getElementById('newly_qnmc_legend').checked){
           HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].overlay.setOpacity(0);
           HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_new'].isVisible = false;
+        }
+        if(document.getElementById('newly_qct_legend').checked){
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = true;
+        }else if(!document.getElementById('newly_qct_legend').checked){
           HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].overlay.setOpacity(0);
           HZApp.Layers.LayerDefs.hzWMSOverlays['qct_new'].isVisible = false;
         }
@@ -238,7 +346,9 @@ HZApp.Legend = (function(){
         HZApp.Legend.setLayerGroups(event.currentTarget.value, HZApp.Layers.LayerDefs.hzWMSOverlays);
       }
 
-        if(document.getElementById('qnmc_new_legend').checked){
+      console.log('legend');
+
+        if(document.getElementById('newly_qnmc_legend').checked || document.getElementById('newly_qct_legend').checked){
           Object.keys(HZApp.Layers.LayerDefs.hzWMSOverlays).map(function(layer) {
             if(HZApp.Layers.LayerDefs.hzWMSOverlays[layer].isVisible){
                 HZApp.Layers.LayerDefs.hzWMSOverlays[layer].overlay.setOpacity(0.1);
