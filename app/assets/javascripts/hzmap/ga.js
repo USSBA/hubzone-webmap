@@ -18,12 +18,12 @@ HZApp.GA = (function() {
         ga( 'send', 'event', category || "outbound", action || "click", label || url, value, {
           hitCallback : function() {
             clearTimeout( timeout );
-            console.log('Navigate to URL',url)
+            // console.log('Navigate to URL',url)
             HZApp.GA.navigateToPage(url);
           }
         });
       } else {
-        console.log('Navigate to URL else',url)
+        // console.log('Navigate to URL else',url)
         HZApp.GA.navigateToPage(url);
       }
     },
