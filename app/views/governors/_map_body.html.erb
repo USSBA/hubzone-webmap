@@ -2,7 +2,7 @@
   <div id="sidebar" class="hidden">
     <button id="sidebar-button" class="usa-button">Sidebar Button<i class="fa fa-chevron-left"></i></button>
     <%= label_tag "sidebar-button", t('sidebar.button'), class: "usa-sr-only" %>
-    <div id="sidebar-content" class="sidebar-content _main">
+    <div id="sidebar-content" class="sidebar-content governors">
       <%= render partial: "map_sidebar", locals: {body: nil} %>
     </div>
   </div>
@@ -30,5 +30,5 @@
       <div class="circle2"></div>
     </div>
   </div>
-  <script src="https://maps.googleapis.com/maps/api/js?key=<%= MAP_CONFIG[:google_api_key] %>&callback=initMap&libraries=places" async=""></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= MAP_CONFIG[:google_api_key] %>&callback=initMapGov&libraries=places" async=""></script>
 </section>
