@@ -6,6 +6,13 @@
 .layer-qct_old {
   background-color: #1136ad;
 }
+/* new */
+.layer-new-qnmc{
+  background-color: #f1c400;
+}
+.layer-new-qct{
+  background-color: #197e4e;
+}
 .layer-us_county {
   background-color: rgb(43, 41, 41);
 }
@@ -23,9 +30,27 @@
   background-color: #ffffff;
   background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%230D465C' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
 }
+
+.layer-qct_r-eli {
+  background-color: #F1C400;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2716%27%20height%3D%2716%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cg%20fill%3D%27none%27%20fill-opacity%3D%271%27%20fill-rule%3D%27evenodd%27%3E%3Crect%20width%3D%2716%27%20height%3D%2716%27%20fill%3D%27%23ffffff%27/%3E%3Ccircle%20cx%3D%278%27%20cy%3D%278%27%20r%3D%275%27%20fill%3D%27%230D465C%27/%3E%3C/g%3E%3C/svg%3E");
+}
+.legend_sibling{
+  margin-left: 30px;
+}
+
+.layer-qnmc-eli {
+  background-color: #F1C400;
+}
+
+.layer-qct_r_gov {
+  background-color: #197e4e;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%230D465C' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+}
 .layer-qnmc {
   background-color: #BA233F;
 }
+
 .layer-qnmc_a {
   background-color: #BA233F;
 }
@@ -52,6 +77,10 @@
 }
 .layer-qnmc_r {
   background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23BA233F' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+}
+.layer-qnmc_r_gov {
+  background-color: #f1c400;
   background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23BA233F' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
 }
 .layer-qnmc_brac {
