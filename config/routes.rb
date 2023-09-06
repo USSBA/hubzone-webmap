@@ -16,6 +16,16 @@ Rails.application.routes.draw do
     get 'aws-hc', to: 'health_check#status'
     get 'report', to: 'report#report'
     get 'version', to: 'version#show', as: 'version'
+    #get 'governors', to: 'governors#index'
     get '/', to: 'map#index', as: :map
+
+
   end
+
+  app_scope = '/hubzone/governors'
+
+  scope app_scope do
+    get '/', to: 'governors#index'
+  end
+  
 end
