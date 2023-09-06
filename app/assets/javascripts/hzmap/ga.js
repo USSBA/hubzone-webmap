@@ -6,6 +6,7 @@ HZApp.GA = (function() {
     window.console.log = function() { };
   }
 
+
   return {
     navigateToPage: function(url){
       return (document.location = url);
@@ -17,10 +18,12 @@ HZApp.GA = (function() {
         ga( 'send', 'event', category || "outbound", action || "click", label || url, value, {
           hitCallback : function() {
             clearTimeout( timeout );
+            console.log('Navigate to URL',url)
             HZApp.GA.navigateToPage(url);
           }
         });
       } else {
+        console.log('Navigate to URL else',url)
         HZApp.GA.navigateToPage(url);
       }
     },
