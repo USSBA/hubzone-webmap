@@ -1,0 +1,170 @@
+// legend utilties
+HZApp.LegendGov = (function(){
+  return {
+    legend: HZApp.Legend.LegendDefsGov.legend,
+    buildLegend: function(){
+      this.addLegendButtonListeners();
+      this.setMobileState(window.innerWidth);
+      this.addLayerToggleListeners();
+    },
+    addLegendButtonListeners: function(){
+      $('.legend-header').click(function(event) {
+        HZApp.LegendGov.toggleLegendVisibility(event.currentTarget.className);
+      });
+    },
+    toggleLegendVisibility: function(legendState) {
+        if(legendState.indexOf('open', 0) !== -1) {
+          HZApp.LegendGov.hideLegend();
+        } else {
+          HZApp.LegendGov.showLegend();
+        }
+    },
+    hideLegend: function(){
+      $('.legend-item').hide();
+      $('.legend-button').addClass("fa-chevron-up").removeClass("fa-chevron-down");
+      $('.legend-content').hide();
+      $('.legend-header').removeClass('open');
+    },
+    showLegend: function(){
+      $('.legend-item').show();
+      $('.legend-button').addClass("fa-chevron-down").removeClass("fa-chevron-up");
+      $('.legend-content').show();
+      $('.legend-header').addClass('open');
+    },
+    setMobileState: function(windowWidth) {
+      if (windowWidth < 950) {
+        HZApp.LegendGov.hideLegend();
+      }
+    },
+
+    addLayerToggleListeners: function() {
+
+    HZApp.Layers.LayerDefsGov.hzWMSOverlays['qnmc_e'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_e'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qda_lg'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['indian_lands'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qnmc_e'].isVisible = false;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_e'].isVisible = false;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qda_lg'].isVisible = false;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['indian_lands'].isVisible = false;
+
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qnmc_r'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qnmc_r'].isVisible = false;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_r'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_r'].isVisible = false;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qnmc_qda'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qnmc_qda'].isVisible = false;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_qda'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_qda'].isVisible = false;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['redesignated_lg'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['redesignated_lg'].isVisible = false;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_r_slivers'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_r_slivers'].isVisible = false;
+
+
+
+    $('input[type="checkbox"]').click( function(event){
+      if(event.currentTarget.value =='hubzone_areas_expiring'){
+        if(document.getElementById('hubzone_areas_expiring').checked){
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qnmc_r'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qnmc_r'].isVisible = true;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_r'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_r'].isVisible = true;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qnmc_qda'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qnmc_qda'].isVisible = true;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_qda'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_qda'].isVisible = true;
+        
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['redesignated_lg'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['redesignated_lg'].isVisible = true;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_r_slivers'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_r_slivers'].isVisible = true;
+
+        }else{
+
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qnmc_r'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qnmc_r'].isVisible = false;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_r'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_r'].isVisible = false;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qnmc_qda'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qnmc_qda'].isVisible = false;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_qda'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_qda'].isVisible = false;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['redesignated_lg'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['redesignated_lg'].isVisible = false;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_r_slivers'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_r_slivers'].isVisible = false;
+        }
+
+      } else if(event.currentTarget.value =='hubzone_areas_existing'){
+        if(document.getElementById('hubzone_areas_existing').checked){
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qnmc_e'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_e'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qda_lg'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['indian_lands'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qnmc_e'].isVisible = true;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_e'].isVisible = true;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qda_lg'].isVisible = true;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['indian_lands'].isVisible = true;
+
+        }else{
+
+        HZApp.Layers.LayerDefsGov.hzWMSOverlays['qnmc_e'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_e'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qda_lg'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['indian_lands'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qnmc_e'].isVisible = false;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qct_e'].isVisible = false;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['qda_lg'].isVisible = false;
+          HZApp.Layers.LayerDefsGov.hzWMSOverlays['indian_lands'].isVisible = false;
+        }
+
+      }else if(event.currentTarget.value =='eligible_tract'){
+          if(document.getElementById('eligible_tract_legend').checked){
+            HZApp.Layers.LayerDefsGov.hzWMSOverlays['sba_gov_elig_tract'].overlay.setOpacity(1);
+            HZApp.Layers.LayerDefsGov.hzWMSOverlays['sba_gov_elig_tract'].isVisible = true;
+          }else{
+            HZApp.Layers.LayerDefsGov.hzWMSOverlays['sba_gov_elig_tract'].overlay.setOpacity(0);
+            HZApp.Layers.LayerDefsGov.hzWMSOverlays['sba_gov_elig_tract'].isVisible = false;
+          }
+      }else if(event.currentTarget.value =='eligible_county'){
+            if(document.getElementById('eligible_county_legend').checked){
+              HZApp.Layers.LayerDefsGov.hzWMSOverlays['sba_gov_elig_county'].overlay.setOpacity(1);
+              HZApp.Layers.LayerDefsGov.hzWMSOverlays['sba_gov_elig_county'].isVisible = true;
+            }else{
+              HZApp.Layers.LayerDefsGov.hzWMSOverlays['sba_gov_elig_county'].overlay.setOpacity(0);
+              HZApp.Layers.LayerDefsGov.hzWMSOverlays['sba_gov_elig_county'].isVisible = false;
+             }
+      }else{
+        HZApp.LegendGov.setLayerGroups(event.currentTarget.value, HZApp.Layers.LayerDefsGov.hzWMSOverlays);
+      }
+
+      console.log('legend-gov')
+
+    })
+
+      
+      
+      
+    },
+
+    setLayerGroups: function(selectedLayer, wmsOverlays) {
+      Object.keys(wmsOverlays).map(function(layer) {
+        if(wmsOverlays[layer].layerGroup === selectedLayer){
+          HZApp.LegendGov.toggleLayerGroup(wmsOverlays[layer]);
+        } else {
+
+        }
+      });
+    },
+    toggleLayerGroup: function(layer) {
+      if(layer.isVisible){
+        layer.overlay.setOpacity(0);
+        layer.isVisible = false;
+      } else {
+        layer.overlay.setOpacity(1);
+        layer.isVisible = true;
+      }
+    }
+  };
+})();
