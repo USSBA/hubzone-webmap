@@ -24,7 +24,8 @@ coverage
 
 # Ignore public compiled assets
 public/assets/
-#assets/
+assets/
+!app/assets/
 
 # Ignore .env configuration
 .env*

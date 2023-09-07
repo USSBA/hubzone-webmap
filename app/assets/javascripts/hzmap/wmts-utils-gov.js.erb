@@ -1,0 +1,112 @@
+// web map tile service utilites
+HZApp.WMTSUtilsGov = (function(){
+
+  Math.sinh = Math.sinh || function(angle){
+      return (Math.exp(angle) - Math.exp(-angle)) / 2;
+  };
+
+  return {
+    tileSize: 256,
+    initializeTiles: function(){
+      //for each layer defined in the hzWMSOverlays create the tile overlay
+      if (HZApp.config.wmsEnabled){
+        Object.keys(HZApp.Layers.LayerDefsGov.hzWMSOverlays).map(function(layer){
+          HZApp.WMTSUtilsGov.addLayerTiles(layer, HZApp.Layers.LayerDefsGov.hzWMSOverlays[layer].layerIndex);
+        });
+      } else {
+        //wms is not enabled, do not fetch fetch layers
+      }
+    },
+    addLayerTiles: function(layer, layerIndex){
+      var layerTiles = {
+        getTileUrl: function(coord, zoom){
+          return HZApp.WMTSUtilsGov.buildTileUrl(coord, zoom, layer);
+        },
+        tileSize: new google.maps.Size(this.tileSize, this.tileSize),
+        isPng: true,
+        opacity: 1.0
+       };
+
+       var customMapType = new google.maps.ImageMapType(layerTiles);
+       HZApp.Layers.LayerDefsGov.hzWMSOverlays[layer].overlay = customMapType;
+       HZApp.mapGov.overlayMapTypes.insertAt(layerIndex, customMapType);
+    },
+    // Normalizes the coords that tiles repeat across the x axis (horizontally)
+    // like the standard Google map tiles.
+    getNormalizedCoord: function(coord, zoom) {
+      var y = coord.y;
+      var x = coord.x;
+      // tile range in one direction range is dependent on zoom level
+      // 0 = 1 tile, 1 = 2 tiles, 2 = 4 tiles, 3 = 8 tiles, etc
+      var tileRange = 1 << zoom;
+
+      if (y < 0 || y >= tileRange) { // don't repeat across y-axis (vertically)
+        y = y;
+      }
+
+      if (x < 0 || x >= tileRange) { // repeat across x-axis
+        x = (x % tileRange + tileRange) % tileRange;
+      }
+      return {x: x, y: y};
+    },
+    tile2Bbox: function(x, y, zoom){
+      var normCoord = this.getNormalizedCoord({x: x, y: y}, zoom);
+      x = normCoord.x;
+      y = normCoord.y;
+      var bb = {};
+      bb.n = this.tile2Lat(y,zoom);
+      bb.s = this.tile2Lat(y+1, zoom);
+      bb.w = this.tile2Lng(x, zoom);
+      bb.e = this.tile2Lng(x+1, zoom);
+
+      var webMSW = this.toWebMercator(bb.w, bb.s);
+      var webMNE = this.toWebMercator(bb.e, bb.n);
+      return [webMSW[0], webMSW[1], webMNE[0], webMNE[1]].join(',');
+    },
+    toWebMercator: function(x_lon, y_lat){
+      var semimajor_axis = 6378137.0;
+      var east = x_lon * 0.017453292519943295;
+      var north = y_lat * 0.017453292519943295;
+      var northing = 3189068.5 * Math.log((1.0 + Math.sin(north)) / (1.0 - Math.sin(north)));
+      var easting = semimajor_axis * east;
+      return [easting, northing];
+    },
+    tile2Lng: function(x, z){
+      return (x / Math.pow(2.0, z) * 360.0 - 180);
+    },
+    tile2Lat: function(y,z) {
+      var n = Math.PI - (2.0 * Math.PI * y) / Math.pow(2.0, z);
+      return this.toDegrees(Math.atan(Math.sinh(n)));
+    },
+    toDegrees: function(angle){
+      return angle * 180.0 / Math.PI;
+    },
+    toRadians: function(angle){
+      return angle * Math.PI / 180.0;
+    },
+    buildTileUrl: function(coord, zoom, layer){
+      var url = "<%= MAP_CONFIG[:geom_wms_settings][:url_root] %>";
+      url += "&LAYERS=" + "<%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:" + layer;
+      url += "&SERVICE=WMS";
+      url += "&VERSION=1.1.1";
+      url += "&REQUEST=GetMap";
+      url += "&SRS=EPSG:900913";
+      // url += "&SRS=EPSG:4326";
+      url += "&bbox=" + this.tile2Bbox(coord.x, coord.y, zoom);
+      url += "&width=" + this.tileSize;
+      url += "&height=" + this.tileSize;
+      url += "&format=image/png";
+      return url;
+    },
+    addClickListeners: function(overlay) {
+      overlay.addListener('click',  this.handleSingleClick);
+      overlay.addListener('dblclick', this.handleDblClick);
+    },
+    handleSingleClick: function(event) {
+      this.clickEventTimer = setTimeout(function() { HZApp.MapUtilsGov.catchMapClick(event); }, 400);
+    },
+    handleDblClick: function() {
+      clearTimeout(this.clickEventTimer);
+    }
+  };
+})();
