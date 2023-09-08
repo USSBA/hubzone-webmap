@@ -92,7 +92,7 @@ HZApp.HashUtils = (function(){
       if(HZApp.maLoaded){
       hashText = HZApp.HashUtils.updateCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), hashText);
       }
-      if(HZApp.maGovLoaded){
+      if(HZApp.mapGovLoaded){
       hashText = HZApp.HashUtils.updateCenterAndZoomHash(HZApp.mapGov.getCenter(), HZApp.mapGov.getZoom(), hashText);
       }
       return hashText;
@@ -111,7 +111,7 @@ HZApp.HashUtils = (function(){
       if(HZApp.maLoaded){
       hashText = HZApp.HashUtils.updateCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), hashText);
       }
-      if(HZApp.maGovLoaded){
+      if(HZApp.mapGovLoaded){
         hashText = HZApp.HashUtils.updateCenterAndZoomHash(HZApp.mapGov.getCenter(), HZApp.mapGov.getZoom(), hashText);
       }
       return hashText;
