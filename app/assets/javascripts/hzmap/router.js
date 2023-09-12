@@ -28,7 +28,7 @@ HZApp.Router = (function(){
       google.maps.event.addListener(HZApp.map, 'center_changed', HZApp.Router.updateMapCenter);
       google.maps.event.addListener(HZApp.map, 'zoom_changed', HZApp.Router.updateMapZoom);
       }
-      if(HZApp.maGovLoaded){
+      if(HZApp.mapGovLoaded){
         google.maps.event.addListener(HZApp.mapGov, 'center_changed', HZApp.Router.updateMapCenter);
         google.maps.event.addListener(HZApp.mapGov, 'zoom_changed', HZApp.Router.updateMapZoom);
       }
@@ -124,7 +124,7 @@ HZApp.Router = (function(){
         HZApp.Router.silentHashChange.setSilent(true, 'replaceHash');
       }
 
-      if(HZApp.maGovLoaded){
+      if(HZApp.mapGovLoaded){
         history.replaceState(HZApp.HashUtils.parseLocationHash(hash), "replaceHash", "governors#" + hash);
       }else{
          history.replaceState(HZApp.HashUtils.parseLocationHash(hash), "replaceHash", "map#" + hash);
@@ -139,7 +139,7 @@ HZApp.Router = (function(){
       history.replaceState(HZApp.HashUtils.parseLocationHash(hashText), "location update only", "map" + hashText);
     }
 
-    if(HZApp.maGovLoaded){
+    if(HZApp.mapGovLoaded){
       var hashText = HZApp.HashUtils.updateCenterAndZoomHash(HZApp.mapGov.getCenter(), HZApp.mapGov.getZoom(), location.hash);
       history.replaceState(HZApp.HashUtils.parseLocationHash(hashText), "location update only", "governors" + hashText);
     }
@@ -241,7 +241,7 @@ HZApp.Router = (function(){
         if(HZApp.maLoaded){
           HZApp.map.setZoom(zoom);
         }
-        if(HZApp.maGovLoadedh){
+        if(HZApp.mapGovLoadedh){
           HZApp.mapGov.setZoom(zoom);
           }
       }
@@ -253,7 +253,7 @@ HZApp.Router = (function(){
         if(HZApp.maLoaded){
         HZApp.map.setCenter(new google.maps.LatLng(center.lat, center.lng));
         }
-        if(HZApp.maGovLoaded){
+        if(HZApp.mapGovLoaded){
           HZApp.mapGov.setCenter(new google.maps.LatLng(center.lat, center.lng));
           }
       }
