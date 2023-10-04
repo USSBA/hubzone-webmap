@@ -98,6 +98,33 @@ HZApp.WMTSUtils = (function(){
       url += "&format=image/png";
       return url;
     },
+
+    buildTileUrlFilter: function(coord, zoom, layer,cqlFilter,style){
+      var proj = HZApp.map.getProjection();
+      var zfactor = Math.pow(2, zoom);
+      var top = proj.fromPointToLatLng(new google.maps.Point(coord.x * 256 / zfactor, coord.y * 256 / zfactor));
+      var bot = proj.fromPointToLatLng(new google.maps.Point((coord.x + 1) * 256 / zfactor, (coord.y + 1) * 256 / zfactor));
+      var bbox = [top.lng(), bot.lat(), bot.lng(), top.lat()].join(',');
+      
+      var url = "<%= MAP_CONFIG[:geom_wms_settings][:url_root_without_gwc] %>";
+      url += "&LAYERS=" + "<%= MAP_CONFIG[:geom_wms_settings][:workspace] %>:" + layer;
+      url += "&SERVICE=WMS";
+      url += "&VERSION=1.1.1";
+      url += "&REQUEST=GetMap";
+      url += "&SRS=EPSG:4269";
+      url += "&TRANSPARENT=TRUE";
+      url += "&BBOX=" + bbox;
+      url += "&WIDTH=" + this.tileSize;
+      url += "&HEIGHT=" + this.tileSize;
+      //url += "&CQL_FILTER="+cqlFilter;
+      url += "&FORMAT=image/png";
+      url += "&STYLES=" + style;
+      if (cqlFilter) {
+          url += "&CQL_FILTER=" + cqlFilter;
+      }
+      return url;
+    },
+  
     addClickListeners: function(overlay) {
       overlay.addListener('click',  this.handleSingleClick);
       overlay.addListener('dblclick', this.handleDblClick);

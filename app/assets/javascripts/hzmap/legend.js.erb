@@ -45,6 +45,89 @@ HZApp.Legend = (function(){
 
       HZApp.Legend.setLayerGroups('qnmc_new', HZApp.Layers.LayerDefs.hzWMSOverlays);
       HZApp.Legend.setLayerGroups('qct_new', HZApp.Layers.LayerDefs.hzWMSOverlays);
+
+      function createWmsLayer(filter, style) {
+        return new google.maps.ImageMapType({
+          getTileUrl: function(coord, zoom){
+            return HZApp.WMTSUtils.buildTileUrlFilter(coord, zoom, 'census_state',filter,style);
+          },
+          tileSize: new google.maps.Size(256, 256),
+          isPng: true,
+          opacity: 0.9
+        })
+      };
+
+      $('#mapHighlightState').on("change",function(){
+        var stateName = $(this).val().split('_')[1];
+
+        if(HZApp.map.overlayMapTypes.length  > 13){
+          HZApp.map.overlayMapTypes.removeAt(14);
+          HZApp.map.overlayMapTypes.removeAt(14);
+        }
+        if(stateName == 'undefined'){
+          return
+        }
+        var replaceSelectedFilterNotEqual = "name <>'"+stateName+"'";
+        var replaceSelectedFilterEqual = "name ='"+stateName+"'";
+        var newWmsLayerNotEqual = createWmsLayer(replaceSelectedFilterNotEqual, "hubzone_preview:giant_polygon");
+        var newWmsLayerEqual = createWmsLayer(replaceSelectedFilterEqual, "hubzone_preview:polygon_without_fill");
+       HZApp.map.overlayMapTypes.push(newWmsLayerNotEqual);
+       HZApp.map.overlayMapTypes.push(newWmsLayerEqual);
+
+
+       getBoundingBoxForState(stateName, function (bbox) {
+          var southWest = new google.maps.LatLng(bbox[1], bbox[0]);
+          var northEast = new google.maps.LatLng(bbox[3], bbox[2]);
+          var bounds = new google.maps.LatLngBounds(southWest, northEast);
+          HZApp.map.fitBounds(bounds);
+      });
+
+      });
+
+      function computeBoundingBox(coordinates) {
+        let bounds = new google.maps.LatLngBounds();
+
+        coordinates.forEach(polygon => {
+            polygon.forEach(ring => {
+                ring.forEach(coord => {
+                    bounds.extend(new google.maps.LatLng(coord[1], coord[0]));
+                });
+            });
+        });
+
+        return [
+            bounds.getSouthWest().lng(),
+            bounds.getSouthWest().lat(),
+            bounds.getNorthEast().lng(),
+            bounds.getNorthEast().lat()
+        ];
+      }
+
+      function getBoundingBoxForState(stateName, callback) {
+          let url = "<%= MAP_CONFIG[:geom_wms_settings][:url_root_without_gwc] %>";
+          let modifiedUrl = url.replace("/wms","/ows")
+
+          var wfsUrl = modifiedUrl+"service=WFS&version=1.0.0&request=GetFeature&typeName=hubzone_preview:census_state&outputFormat=application/json&CQL_FILTER=name='" + stateName + "'";
+
+          fetch(wfsUrl)
+              .then((response) => {
+                console.log('respose Zooming')
+                  if (!response.ok) {
+                      throw new Error('Network response was not ok');
+                  }
+                  return response.json();
+              })
+              .then((data) => {
+                  if (data.features.length > 0) {
+                      var bbox = computeBoundingBox(data.features[0].geometry.coordinates);
+                      callback(bbox);
+                  }
+              })
+              .catch((error) => {
+                  console.error("Failed to fetch bounding box for state:", stateName, error);
+              });
+      }
+
       
       $('input[type="checkbox"]').click( function(event){
         
