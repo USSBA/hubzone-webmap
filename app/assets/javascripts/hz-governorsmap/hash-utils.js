@@ -103,7 +103,9 @@ HZApp.HashUtils = (function(){
       // Add in the 'q' param
       hashText = HZApp.HashUtils.updateHashValue('q', query_s, hashText);
       // Finally, add in the center and zoom
+      if(HZApp.maLoaded){
       hashText = HZApp.HashUtils.updateCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), hashText);
+      }
       return hashText;
     },
 

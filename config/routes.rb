@@ -23,9 +23,8 @@ Rails.application.routes.draw do
   end
 
   app_scope = '/hubzone/governors'
-
   scope app_scope do
-    get '/', to: 'governors#index'
+    get '/', to: 'governorsmap#index'
   end
   
 end

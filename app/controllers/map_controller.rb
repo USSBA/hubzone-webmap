@@ -3,6 +3,8 @@ require 'uri'
 
 # Provides access to the main page with the HUBZone map
 class MapController < ApplicationController
+  layout "application"  
+
   def index; end
 
 

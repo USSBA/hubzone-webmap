@@ -1,5 +1,6 @@
 # Provides a route for the AWS health check
-class GovernorsController < ApplicationController
+class GovernorsmapController < ApplicationController
+  layout "governors"
   def index
     @page_selected = params[:page]
     @version = Version.new

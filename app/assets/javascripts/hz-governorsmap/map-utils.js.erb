@@ -1,4 +1,4 @@
-HZApp.MapUtilsGov = (function(){
+HZApp.MapUtils = (function(){
 
   $(document).on('keydown', function(e) {
       if((e.ctrlKey || e.metaKey) && (e.key == "p" || e.charCode == 16 || e.charCode == 112 || e.keyCode == 80) ){
@@ -14,7 +14,7 @@ HZApp.MapUtilsGov = (function(){
     catchMapClick: function(clickEvent){
       var clicklng = clickEvent.latLng.lng();
       var clicklat = clickEvent.latLng.lat();
-      return HZApp.MapUtilsGov.sendMapClick({lat: clicklat, lng: clicklng});
+      return HZApp.MapUtils.sendMapClick({lat: clicklat, lng: clicklng});
     },
 
     // send a map click to the hubzone assertion server
@@ -47,7 +47,7 @@ HZApp.MapUtilsGov = (function(){
     },
 
     includeDateAndLocale: function(){
-      var date = HZApp.MapUtilsGov.parseDate(new Date());
+      var date = HZApp.MapUtils.parseDate(new Date());
       var locale = document.documentElement.lang || 'en';
       return ('&query_date=' + date + '&locale=' + locale);
     },
@@ -74,7 +74,7 @@ HZApp.MapUtilsGov = (function(){
                             geocodeLocation.viewport.northeast.lng,
                             geocodeLocation.viewport.northeast.lat
             );
-          HZApp.mapGov.fitBounds(newBounds);
+          HZApp.map.fitBounds(newBounds);
         } else {
           this.panAndZoom(customFit.center, 15);
         }
@@ -88,8 +88,8 @@ HZApp.MapUtilsGov = (function(){
       };
     },
     panAndZoom: function(center, zoom){
-      HZApp.mapGov.setZoom(zoom);
-      HZApp.mapGov.setCenter(center);
+      HZApp.map.setZoom(zoom);
+      HZApp.map.setCenter(center);
     },
     getBoundsZoomLevel: function(viewport, mapDims) {
       var WORLD_DIM = { height: 256, width: 256 };
@@ -136,17 +136,17 @@ HZApp.MapUtilsGov = (function(){
       {mapType:'hybrid',  newName: 'Satellite'}
     ],
     updateMapTypeNames: function(){
-      HZApp.MapUtilsGov.mapNameUpdates.map(HZApp.MapUtilsGov.customMapTypeName);
-      HZApp.mapGov.setOptions({'mapTypeControl':true});
+      HZApp.MapUtils.mapNameUpdates.map(HZApp.MapUtils.customMapTypeName);
+      HZApp.map.setOptions({'mapTypeControl':true});
     },
     customMapTypeName: function(mapNameUpdate){
-      if (!HZApp.mapGov.mapTypes[mapNameUpdate.mapType]) { return; }
-      HZApp.mapGov.mapTypes[mapNameUpdate.mapType].name = mapNameUpdate.newName;
+      if (!HZApp.map.mapTypes[mapNameUpdate.mapType]) { return; }
+      HZApp.map.mapTypes[mapNameUpdate.mapType].name = mapNameUpdate.newName;
     },
 
     catchClearSearch: function(element) {
       $(element).click(function() {
-        HZApp.MapUtilsGov.resetMap();
+        HZApp.MapUtils.resetMap();
       });
     },
     resetMap: function(){

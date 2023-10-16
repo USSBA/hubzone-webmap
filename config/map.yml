@@ -13,6 +13,7 @@ default: &defaults
   hubzone_api_key: <%= ENV.fetch('HUBZONE_API_KEY') { 'SetYourHUBZoneAPIKeyInYour.envFile' } %>
   geom_wms_settings: &default_wms
     url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'http://localhost:8080/geoserver/gwc/service/wms?' } %>
+    url_root_without_gwc: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT_WITHOUT_GWC') { 'http://localhost:7080/geoserver/hubzone_preview/wms?' } %>
     workspace: <%= ENV.fetch('HUBZONE_WMS_WORKSPACE') { 'hubzone' } %>
     srs: 4326
     wms_enabled: true
@@ -63,6 +64,7 @@ qa:
   geom_wms_settings:
     <<: *default_wms
     url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://hubzone.qa.sba-one.net/geoserver/gwc/service/wms?' } %>
+    url_root_without_gwc: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT_WITHOUT_GWC') { 'http://localhost:7080/geoserver/hubzone_preview/wms?' } %>
     db: hzgeo_qa
 
 demo:
@@ -74,6 +76,7 @@ demo:
   geom_wms_settings:
     <<: *default_wms
     url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://hz-demo.sba-one.net/geoserver/gwc/service/wms?' } %>
+    url_root_without_gwc: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT_WITHOUT_GWC') { 'http://localhost:7080/geoserver/hubzone_preview/wms?' } %>
     db: hzgeo_demo
 
 dev:
@@ -84,6 +87,7 @@ dev:
   geom_wms_settings:
     <<: *default_wms
     url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://map.dev.sba-one.net/geoserver/gwc/service/wms?' } %>
+    url_root_without_gwc: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT_WITHOUT_GWC') { 'http://localhost:7080/geoserver/hubzone_preview/wms?' } %>
     db: hzgeo_dev
 
 development:
@@ -100,6 +104,7 @@ developmentdocker:
   geom_wms_settings:
     <<: *default_wms
     url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'http://localhost:8080/geoserver/gwc/service/wms?' } %>
+    url_root_without_gwc: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT_WITHOUT_GWC') { 'http://localhost:7080/geoserver/hubzone_preview/wms?' } %>
     db: hzgeo_dev
 
 test:

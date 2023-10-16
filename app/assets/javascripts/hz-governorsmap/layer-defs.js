@@ -4,8 +4,8 @@
 // the layerIndex prop is used for order
 // the object that is stuck into overlay will have a setOpacity which is used for toggling
 
-HZApp.Layers.LayerDefsGov = (function(){
 
+HZApp.Layers.LayerDefs = (function(){
   return {
     hzWMSOverlays: {
       non_qnmc_e: {

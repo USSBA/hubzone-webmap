@@ -1,0 +1,249 @@
+// legend utilties
+HZApp.Legend = (function(){
+  return {
+    legend: HZApp.Legend.LegendDefs.legend,
+    buildLegend: function(){
+      this.addLegendButtonListeners();
+      this.setMobileState(window.innerWidth);
+      this.addLayerToggleListeners();
+    },
+    addLegendButtonListeners: function(){
+      $('.legend-header').click(function(event) {
+        HZApp.Legend.toggleLegendVisibility(event.currentTarget.className);
+      });
+    },
+    toggleLegendVisibility: function(legendState) {
+        if(legendState.indexOf('open', 0) !== -1) {
+          HZApp.Legend.hideLegend();
+        } else {
+          HZApp.Legend.showLegend();
+        }
+    },
+    hideLegend: function(){
+      $('.legend-item').hide();
+      $('.legend-button').addClass("fa-chevron-up").removeClass("fa-chevron-down");
+      $('.legend-content').hide();
+      $('.legend-header').removeClass('open');
+    },
+    showLegend: function(){
+      $('.legend-item').show();
+      $('.legend-button').addClass("fa-chevron-down").removeClass("fa-chevron-up");
+      $('.legend-content').show();
+      $('.legend-header').addClass('open');
+    },
+    setMobileState: function(windowWidth) {
+      if (windowWidth < 950) {
+        HZApp.Legend.hideLegend();
+      }
+    },
+
+    addLayerToggleListeners: function() {
+
+
+    function createWmsLayer(filter, style) {
+      return new google.maps.ImageMapType({
+        getTileUrl: function(coord, zoom){
+          return HZApp.WMTSUtils.buildTileUrlFilter(coord, zoom, 'census_state',filter,style);
+        },
+        tileSize: new google.maps.Size(256, 256),
+        isPng: true,
+        opacity: 0.98
+      })
+    };
+
+    $('#mapHighlightState').on("change",function(){
+    
+      var stateName = $(this).val().split('_')[1];
+      document.getElementById('search-field-small').value = ""
+      if(HZApp.map.overlayMapTypes.length  > 13){
+        HZApp.map.overlayMapTypes.removeAt(14);
+        HZApp.map.overlayMapTypes.removeAt(14);
+      }
+      if(stateName == 'undefined'){
+        return
+      }
+      var replaceSelectedFilterNotEqual = "name <>'"+stateName+"'";
+      var replaceSelectedFilterEqual = "name ='"+stateName+"'";
+      var newWmsLayerNotEqual = createWmsLayer(replaceSelectedFilterNotEqual, "hubzone_preview:giant_polygon_style");
+      var newWmsLayerEqual = createWmsLayer(replaceSelectedFilterEqual, "hubzone_preview:polygon_without_fill_style");
+      newWmsLayerEqual.opacity = 0;
+     HZApp.map.overlayMapTypes.push(newWmsLayerNotEqual);
+     HZApp.map.overlayMapTypes.push(newWmsLayerEqual);
+
+
+     getBoundingBoxForState(stateName, function (bbox) {
+        var southWest = new google.maps.LatLng(bbox[1], bbox[0]);
+        var northEast = new google.maps.LatLng(bbox[3], bbox[2]);
+        var bounds = new google.maps.LatLngBounds(southWest, northEast);
+        HZApp.map.fitBounds(bounds);
+    });
+
+    });
+
+    function computeBoundingBox(coordinates) {
+      let bounds = new google.maps.LatLngBounds();
+
+      coordinates.forEach(polygon => {
+          polygon.forEach(ring => {
+              ring.forEach(coord => {
+                  bounds.extend(new google.maps.LatLng(coord[1], coord[0]));
+              });
+          });
+      });
+
+      return [
+          bounds.getSouthWest().lng(),
+          bounds.getSouthWest().lat(),
+          bounds.getNorthEast().lng(),
+          bounds.getNorthEast().lat()
+      ];
+    }
+
+    function getBoundingBoxForState(stateName, callback) {
+        let url = "<%= MAP_CONFIG[:geom_wms_settings][:url_root_without_gwc] %>";
+        let modifiedUrl = url.replace("/wms","/ows")
+
+        var wfsUrl = modifiedUrl+"service=WFS&version=1.0.0&request=GetFeature&typeName=hubzone_preview:census_state&outputFormat=application/json&CQL_FILTER=name='" + stateName + "'";
+
+        fetch(wfsUrl)
+            .then((response) => {
+              console.log('respose Zooming')
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                if (data.features.length > 0) {
+                    var bbox = computeBoundingBox(data.features[0].geometry.coordinates);
+                    callback(bbox);
+                }
+            })
+            .catch((error) => {
+                console.error("Failed to fetch bounding box for state:", stateName, error);
+            });
+    }
+
+    HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_e'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_e'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qda_lg'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['indian_lands'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_e'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_e'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qda_lg'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['indian_lands'].isVisible = false;
+
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_qda'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_qda'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_qda'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_qda'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_slivers'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_slivers'].isVisible = false;
+
+
+
+    $('input[type="checkbox"]').click( function(event){
+      if(event.currentTarget.value =='hubzone_areas_expiring'){
+        if(document.getElementById('hubzone_areas_expiring').checked){
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].isVisible = true;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].isVisible = true;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_qda'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_qda'].isVisible = true;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_qda'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_qda'].isVisible = true;
+        
+          HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].isVisible = true;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_slivers'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_slivers'].isVisible = true;
+
+        }else{
+
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_qda'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_qda'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_qda'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_qda'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_slivers'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_slivers'].isVisible = false;
+        }
+
+      } else if(event.currentTarget.value =='hubzone_areas_existing'){
+        if(document.getElementById('hubzone_areas_existing').checked){
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_e'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_e'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qda_lg'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['indian_lands'].overlay.setOpacity(1);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_e'].isVisible = true;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_e'].isVisible = true;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qda_lg'].isVisible = true;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['indian_lands'].isVisible = true;
+
+        }else{
+
+        HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_e'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_e'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qda_lg'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['indian_lands'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_e'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_e'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qda_lg'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['indian_lands'].isVisible = false;
+        }
+
+      }else if(event.currentTarget.value =='eligible_tract'){
+          if(document.getElementById('eligible_tract_legend').checked){
+            HZApp.Layers.LayerDefs.hzWMSOverlays['sba_gov_elig_tract'].overlay.setOpacity(1);
+            HZApp.Layers.LayerDefs.hzWMSOverlays['sba_gov_elig_tract'].isVisible = true;
+          }else{
+            HZApp.Layers.LayerDefs.hzWMSOverlays['sba_gov_elig_tract'].overlay.setOpacity(0);
+            HZApp.Layers.LayerDefs.hzWMSOverlays['sba_gov_elig_tract'].isVisible = false;
+          }
+      }else if(event.currentTarget.value =='eligible_county'){
+            if(document.getElementById('eligible_county_legend').checked){
+              HZApp.Layers.LayerDefs.hzWMSOverlays['sba_gov_elig_county'].overlay.setOpacity(1);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['sba_gov_elig_county'].isVisible = true;
+            }else{
+              HZApp.Layers.LayerDefs.hzWMSOverlays['sba_gov_elig_county'].overlay.setOpacity(0);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['sba_gov_elig_county'].isVisible = false;
+             }
+      }else{
+        HZApp.Legend.setLayerGroups(event.currentTarget.value, HZApp.Layers.LayerDefs.hzWMSOverlays);
+      }
+
+    })
+      
+    },
+    setLayerGroups: function(selectedLayer, wmsOverlays) {
+      Object.keys(wmsOverlays).map(function(layer) {
+        if(wmsOverlays[layer].layerGroup === selectedLayer){
+          HZApp.Legend.toggleLayerGroup(wmsOverlays[layer]);
+        } else {
+
+        }
+      });
+    },
+    toggleLayerGroup: function(layer) {
+      if(layer.isVisible){
+        layer.overlay.setOpacity(0);
+        layer.isVisible = false;
+      } else {
+        layer.overlay.setOpacity(1);
+        layer.isVisible = true;
+      }
+    }
+  };
+})();

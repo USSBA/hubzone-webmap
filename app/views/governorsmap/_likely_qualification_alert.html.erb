@@ -1,0 +1,13 @@
+<div class="sidebar-card clearable">
+  <div class="usa-alert usa-alert-info likely-qda">
+    <div class="usa-alert-body">
+      <h3 class="usa-alert-heading"><%= t('likely_qda.title') %></h3>
+      <p class="usa-alert-text"><%= t('likely_qda.body') %></p>
+      <ul>
+      <% likely_qda_designations.each do |likely_designation| %>
+        <li class="usa-alert-text"><%= likely_designation["incident_description"] %></li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

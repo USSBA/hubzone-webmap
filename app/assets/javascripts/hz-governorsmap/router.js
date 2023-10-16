@@ -117,15 +117,14 @@ HZApp.Router = (function(){
       var startingHash = HZApp.HashUtils.parseLocationHash(location.hash); if (!HZApp.HashUtils.hashSearchOnly(startingHash)){
         HZApp.Router.silentHashChange.setSilent(true, 'replaceHash');
       }
-      history.replaceState(HZApp.HashUtils.parseLocationHash(hash), "replaceHash", "map#" + hash);
 
-
+      history.replaceState(HZApp.HashUtils.parseLocationHash(hash), "replaceHash", "governors#" + hash);
     },
 
     currentMapLocationToHash: function() {
       // console.log("~~~~~ currentMapLocationToHash");
       var hashText = HZApp.HashUtils.updateCenterAndZoomHash(HZApp.map.getCenter(), HZApp.map.getZoom(), location.hash);
-      history.replaceState(HZApp.HashUtils.parseLocationHash(hashText), "location update only", "map" + hashText);
+      history.replaceState(HZApp.HashUtils.parseLocationHash(hashText), "location update only", "governors" + hashText);
     },
 
 
@@ -191,6 +190,7 @@ HZApp.Router = (function(){
         // console.log("        ~~~~~ hashControllers.q: " + query);
         var search = HZApp.Router.unpackValidSearch(query) || null;
         if (search){
+          console.log('--trackSubmit2-')
           HZApp.GA.trackSubmit('search', '#search-field-small');
           document.getElementById('search-field-small').value = search;
           HZApp.MapUtils.sendMapSearch(search, function(){
@@ -220,7 +220,7 @@ HZApp.Router = (function(){
     updateZoom: function(hash_zoom){
       var zoom = HZApp.Router.unpackValidZoom(hash_zoom) || null;
       if (zoom){
-          HZApp.map.setZoom(zoom);
+        HZApp.map.setZoom(zoom);
       }
     },
 

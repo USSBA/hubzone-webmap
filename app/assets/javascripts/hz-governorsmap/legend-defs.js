@@ -3,7 +3,7 @@
 // this object holds the current google overlays in the .overlay array and the per layer styles
 // order in this object defines draw order on the map:
 // first object is drawn first, then next on top of that, etc.
-HZApp.Legend.LegendDefsGov = (function(){
+HZApp.Legend.LegendDefs = (function(){
   var legendKeys = {
     qct: {
       title: "Census Tract",

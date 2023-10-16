@@ -1,8 +1,6 @@
 //this is our base level hubzone app namespace
 /* exported HZApp */
 window.HZApp = {
-  mapLoaded: {},
-  mapGovLoaded: {},
   Autocomplete: {},
   config: {
     wmsEnabled: ("<%= MAP_CONFIG[:geom_wms_settings][:wms_enabled] %>" === "true"),
@@ -20,18 +18,14 @@ window.HZApp = {
     LayerDefsGov: {}
   },
   Legend: {}, 
-  LegendGov: {},
   map: {},
-  mapGov: {},
   MapUtils: {},
-  MapUtilsGov: {},
   Markers: {},
   Print: {},
   Report: {},
   Router: {},
   SidebarUtils: {},
   Styles: {},
-  WMSUtilsGov: {},
   WMSUtils: {}
 };
 

@@ -1,0 +1,93 @@
+<section class="map-body" id="map-body" aria-label="<%= t('map.aria_label') %>" tabindex="1">
+  <div id="sidebar" class="hidden">
+    <button id="sidebar-button" class="usa-button">Sidebar Button<i class="fa fa-chevron-left"></i></button>
+    <%= label_tag "sidebar-button", t('sidebar.button'), class: "usa-sr-only" %>
+    <div id="sidebar-content" class="sidebar-content governors">
+      <%= render partial: "map_sidebar", locals: {body: nil} %>
+    </div>
+  </div>
+  <div id="map" class="sidebar-map"></div>
+  <div>
+  <div class="hubzone-search" style="left:1.6rem;top:3px; width:200px;">
+    <select name="mapHighlightState" id="mapHighlightState">
+    <option value="">All State </option>
+    <option value="01_Alabama_AL">Alabama</option>
+    <option value="02_Alaska_AK">Alaska</option>
+    <option value="04_Arizona_AZ">Arizona</option>
+    <option value="05_Arkansas_AR">Arkansas</option>
+    <option value="06_California_CA">California</option>
+    <option value="08_Colorado_CO">Colorado</option>
+    <option value="09_Connecticut_CT">Connecticut</option>
+    <option value="10_Delaware_DE">Delaware</option>
+    <option value="11_District of Columbia_DC">District of Columbia</option>
+    <option value="12_Florida_FL">Florida</option>
+    <option value="13_Georgia_GA">Georgia</option>
+    <option value="15_Hawaii_HI">Hawaii</option>
+    <option value="16_Idaho_ID">Idaho</option>
+    <option value="17_Illinois_IL">Illinois</option>
+    <option value="18_Indiana_IN">Indiana</option>
+    <option value="19_Iowa_IA">Iowa</option>
+    <option value="20_Kansas_KS">Kansas</option>
+    <option value="21_Kentucky_KY">Kentucky</option>
+    <option value="22_Louisiana_LA">Louisiana</option>
+    <option value="23_Maine_ME">Maine</option>
+    <option value="24_Maryland_MD">Maryland</option>
+    <option value="25_Massachusetts_MA">Massachusetts</option>
+    <option value="26_Michigan_MI">Michigan</option>
+    <option value="27_Minnesota_MN">Minnesota</option>
+    <option value="28_Mississippi_MS">Mississippi</option>
+    <option value="29_Missouri_MO">Missouri</option>
+    <option value="30_Montana_MT">Montana</option>
+    <option value="31_Nebraska_NE">Nebraska</option>
+    <option value="32_Nevada_NV">Nevada</option>
+    <option value="33_New Hampshire_NH">New Hampshire</option>
+    <option value="34_New Jersey_NJ">New Jersey</option>
+    <option value="35_New Mexico_NM">New Mexico</option>
+    <option value="36_New York_NY">New York</option>
+    <option value="37_North Carolina_NC">North Carolina</option>
+    <option value="38_North Dakota_ND">North Dakota</option>
+    <option value="39_Ohio_OH">Ohio</option>
+    <option value="40_Oklahoma_OK">Oklahoma</option>
+    <option value="41_Oregon_OR">Oregon</option>
+    <option value="42_Pennsylvania_PA">Pennsylvania</option>
+    <option value="44_Rhode Island_RI">Rhode Island</option>
+    <option value="45_South Carolina_SC">South Carolina</option>
+    <option value="46_South Dakota_SD">South Dakota</option>
+    <option value="47_Tennessee_TN">Tennessee</option>
+    <option value="48_Texas_TX">Texas</option>
+    <option value="49_Utah_UT">Utah</option>
+    <option value="50_Vermont_VT">Vermont</option>
+    <option value="51_Virginia_VA">Virginia</option>
+    <option value="53_Washington_WA">Washington</option>
+    <option value="54_West Virginia_WV">West Virginia</option>
+    <option value="55_Wisconsin_WI">Wisconsin</option>
+    <option value="56_Wyoming_WY">Wyoming</option>
+  </select>
+    </div>
+  
+    <div class="hubzone-search" style="left:22rem;top:6px">
+          <%= form_tag search_path, remote: true, method: :get, class: "usa-search usa-search-small", id: 'hubzone-search-form', onsubmit: "HZApp.GA.trackSubmit('search', '#search-field-small')" do %>
+          <div id="map-search" role="search">
+            <%= hidden_field_tag "locale", I18n.locale %>
+            <%= hidden_field_tag "query_date", Date.today %>
+            <%= label_tag "search", t('search.label'), id: "hubzone-search", class: "usa-sr-only" %>
+            <%= search_field_tag "search", nil, tabindex: 1, placeholder: t('map.enter_address'), id: "search-field-small", 'aria-labelledby': "hubzone-search", required: true, autofocus: true %>
+            <%= button_tag '<span class="usa-sr-only">Clear Search</span>'.html_safe, class: "clear-search fa fa-times-circle", tabindex: 0, name: "search-clear", type: "reset" %>
+            <%= button_tag '<span class="usa-sr-only search-icon">Search</span>'.html_safe, id: "hubzone-search-button", tabindex: 2 %>
+          </div>
+          <% end %>
+    </div>
+   </div> 
+  <div id="legend">
+     <%= render partial: "map_legend", locals: {body: nil} %>
+  </div>
+  <div id="geolocation" class="gmnoprint">
+    <%= render partial: 'geolocation_error' %>
+    <i class="geolocation-arrow fa fa-location-arrow" aria-hidden="true"></i>
+    <div class="geolocation-loading">
+      <div class="circle1"></div>
+      <div class="circle2"></div>
+    </div>
+  </div>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= MAP_CONFIG[:google_api_key] %>&callback=initMap&libraries=places" async=""></script>
+</section>
