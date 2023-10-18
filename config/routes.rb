@@ -3,11 +3,8 @@ Rails.application.routes.draw do
 
   root to: 'main#index'
   get '/map', to: 'main#index', as: :old_map
-
   # mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
-
   app_scope = '/hubzone/map'
-
   scope app_scope do
     get 'search', to: 'map#search'
     get 'translate', to: 'map#translate'
@@ -18,13 +15,10 @@ Rails.application.routes.draw do
     get 'version', to: 'version#show', as: 'version'
     #get 'governors', to: 'governors#index'
     get '/', to: 'map#index', as: :map
-
-
   end
 
   app_scope = '/hubzone/governors'
   scope app_scope do
     get '/', to: 'governorsmap#index'
   end
-  
 end

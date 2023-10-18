@@ -66,7 +66,6 @@ HZApp.Legend = (function(){
       var replaceSelectedFilterEqual = "name ='"+stateName+"'";
       var newWmsLayerNotEqual = createWmsLayer(replaceSelectedFilterNotEqual, "hubzone_preview:giant_polygon_style");
       var newWmsLayerEqual = createWmsLayer(replaceSelectedFilterEqual, "hubzone_preview:polygon_without_fill_style");
-      newWmsLayerEqual.opacity = 0;
      HZApp.map.overlayMapTypes.push(newWmsLayerNotEqual);
      HZApp.map.overlayMapTypes.push(newWmsLayerEqual);
 

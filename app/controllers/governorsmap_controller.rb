@@ -6,4 +6,3 @@ class GovernorsmapController < ApplicationController
     @version = Version.new
   end
 end
-  
