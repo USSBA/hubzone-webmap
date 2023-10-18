@@ -46,7 +46,7 @@ data "aws_ecs_cluster" "selected" {
 
 ## RDS Postgres Instance
 data "aws_db_instance" "rds" {
-  db_instance_identifier = "${terraform.workspace}-${local.env.db_identifier}"
+  db_instance_identifier = "${terraform.workspace}-hubzone-aurora"
 }
 
 data "aws_ssm_parameter" "origin_token" {
@@ -54,14 +54,14 @@ data "aws_ssm_parameter" "origin_token" {
   with_decryption = true
 }
 
-# WAF (cloudfront)
-#data "aws_wafv2_web_acl" "cloudfront" {
-#  name  = "basic-waf-cloudfront"
-#  scope = "CLOUDFRONT"
-#}
-
-## WAF (regional)
-#data "aws_wafv2_web_acl" "regional" {
-#  name  = "basic-waf-regional"
-#  scope = "REGIONAL"
-#}
+## SNS Notification Framework Topics
+data "aws_sns_topic" "alerts" {
+  for_each = toset(["green", "yellow", "red", "security"])
+  name     = "${local.account_name}-teams-${each.value}-notifications"
+}
+locals {
+  sns_red      = data.aws_sns_topic.alerts["red"].arn
+  sns_yellow   = data.aws_sns_topic.alerts["yellow"].arn
+  sns_green    = data.aws_sns_topic.alerts["green"].arn
+  sns_security = data.aws_sns_topic.alerts["security"].arn
+}

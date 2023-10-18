@@ -1,11 +1,11 @@
 # global configuration for all jobs
-name: Production
+name: Demo
 on:
   push:
     branches-ignore:
       - '**'
     tags:
-      - v*.*
+      - deploy-demo
 
 # sets the default shell for all jobs
 defaults:
@@ -20,18 +20,18 @@ permissions:
 env:
   AWS_REGION: 'us-east-1'
   AWS_ECR_REGISTRY_ID: '222484291001'
-  WORKSPACE: 'prod'
+  WORKSPACE: 'demo'
 
 jobs:
   webmap:
     runs-on: ubuntu-latest
-    environment: prod
+    environment: demo
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ secrets.OIDC_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
@@ -39,12 +39,16 @@ jobs:
       - name: ECR Login
         uses: aws-actions/amazon-ecr-login@v1
         id: ecr-login
+        with:
+          registries: ${{ env.AWS_ECR_REGISTRY_ID}}
 
       - name: ECR Build & Push
         uses: ./.github/actions/ecr
         with:
           registry: ${{ steps.ecr-login.outputs.registry }}
           repo: hubzone/hubzone-webmap
+          # Tagging with ref_name (develop) and sha so we can leverage the sha and not initiate a force deployment
+          # from Terraform
           tags: ${{ github.ref_name }} ${{ github.sha }}
           cache-from: ${{ github.ref_name }}
 

@@ -312,7 +312,7 @@ data "aws_cloudfront_response_headers_policy" "preview_security_headers" {
 }
 
 # Metric Alarms
-/*resource "aws_cloudwatch_metric_alarm" "preview_hubzone_rate5xx" {
+resource "aws_cloudwatch_metric_alarm" "preview_hubzone_rate5xx" {
   count               = local.enable_alarm_count
   actions_enabled     = true
   alarm_actions       = [local.sns_red]
@@ -332,5 +332,5 @@ data "aws_cloudfront_response_headers_policy" "preview_security_headers" {
   statistic                 = "Average"
   threshold                 = 1
   treat_missing_data        = "missing"
-} */
+}
 

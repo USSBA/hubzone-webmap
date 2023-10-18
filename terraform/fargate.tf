@@ -31,7 +31,7 @@ locals {
 module "webmap" {
   #source  = "../../terraform-aws-easy-fargate-service"
   source  = "USSBA/easy-fargate-service/aws"
-  version = "~> 7.0"
+  version = "~> 11.0"
 
   # cloudwatch logging
   log_group_name              = "/ecs/${terraform.workspace}/${local.env.service_name}"
@@ -53,6 +53,7 @@ module "webmap" {
   task_cpu               = local.env.task_cpu_rails
   task_memory            = local.env.task_memory_rails
   enable_execute_command = true
+  ipv6                   = true
   #alb_idle_timeout      = 60
 
   ## If the ecs task needs to access AWS API for any reason, grant

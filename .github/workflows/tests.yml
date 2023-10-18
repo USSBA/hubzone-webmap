@@ -1,6 +1,11 @@
 # global configuration for all jobs
 name: Integration Tests
-on: [push]
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
 
 # sets the default shell for all jobs
 defaults:
@@ -12,12 +17,21 @@ permissions:
   contents: read # contents is used for checking out code
   id-token: write
 
+env:
+  AWS_REGION: 'us-east-1'
+  AWS_ECR_REGISTRY_ID: '222484291001'
+
 jobs:
   terraform-format:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: hashicorp/setup-terraform@v1
+
+      - name: 'Install Terraform 1.5.2'
+        uses: 'hashicorp/setup-terraform@v2'
+        with:
+          terraform_version: '1.5.2'
+
       - run: |
           echo "Performing Terraform Format..."
           terraform fmt -check -recursive
