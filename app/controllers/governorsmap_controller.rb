@@ -1,4 +1,4 @@
-# Provides a route for the AWS health check
+# Provides access to the help page with the HUBZone map
 class GovernorsmapController < ApplicationController
   layout "governors"
   def index
@@ -6,3 +6,4 @@ class GovernorsmapController < ApplicationController
     @version = Version.new
   end
 end
+
