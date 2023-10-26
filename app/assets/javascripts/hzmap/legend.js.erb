@@ -85,8 +85,11 @@ HZApp.Legend = (function(){
               HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_extras'].isVisible = false;
               HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_slivers'].overlay.setOpacity(0);
               HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_slivers'].isVisible = false;
-              HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].overlay.setOpacity(0);
-              HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].isVisible = false;
+
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].overlay.setOpacity(0);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].isVisible = false;
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].overlay.setOpacity(0);
+              HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].isVisible = false;
             }
         }
 
@@ -258,8 +261,10 @@ HZApp.Legend = (function(){
       }else if(event.currentTarget.value =='redesignated'){
 
         if(document.getElementById('redesignated_legend').checked){
-          HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].overlay.setOpacity(1);
-            HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].isVisible = true;
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].overlay.setOpacity(1);
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].isVisible = true;
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].overlay.setOpacity(1);
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].isVisible = true;
 
             HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_extras'].overlay.setOpacity(0);
             HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_extras'].isVisible = false;
@@ -269,8 +274,10 @@ HZApp.Legend = (function(){
         }
 
         if(!document.getElementById('redesignated_legend').checked){
-          HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].overlay.setOpacity(0);
-            HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].isVisible = false;
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].overlay.setOpacity(0);
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].isVisible = false;
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].overlay.setOpacity(0);
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].isVisible = false;
 
             HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_extras'].overlay.setOpacity(1);
             HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_extras'].isVisible = true;
@@ -289,8 +296,10 @@ HZApp.Legend = (function(){
             HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_slivers'].overlay.setOpacity(1);
             HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_slivers'].isVisible = true;
 
-            HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].overlay.setOpacity(1);
-            HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].isVisible = true;
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].overlay.setOpacity(1);
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].isVisible = true;
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].overlay.setOpacity(1);
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].isVisible = true;
           
 
           }
@@ -302,8 +311,11 @@ HZApp.Legend = (function(){
             HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_slivers'].overlay.setOpacity(0);
             HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_slivers'].isVisible = false;
 
-            HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].overlay.setOpacity(1);
-            HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].isVisible = true;
+ 
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].overlay.setOpacity(1);
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].isVisible = true;
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].overlay.setOpacity(1);
+            HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].isVisible = true;
 
           }
 
@@ -312,8 +324,10 @@ HZApp.Legend = (function(){
           HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_extras'].isVisible = false;
           HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_slivers'].overlay.setOpacity(0);
           HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_slivers'].isVisible = false;
-          HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].overlay.setOpacity(0);
-          HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].isVisible = false;
         }
 
         if(!document.getElementById('redesignated_legend').checked && document.getElementById('qct_legend').checked){
@@ -321,8 +335,10 @@ HZApp.Legend = (function(){
           HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_extras'].isVisible = false;
           HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_slivers'].overlay.setOpacity(0);
           HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_slivers'].isVisible = false;
-          HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].overlay.setOpacity(0);
-          HZApp.Layers.LayerDefs.hzWMSOverlays['redesignated_lg'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r'].isVisible = false;
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_r'].isVisible = false;
         }
         <% end %>
         

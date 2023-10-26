@@ -34,12 +34,20 @@ HZApp.Layers.LayerDefs = (function(){
         overlay:[],
       },
 
-      redesignated_lg: {
+      qct_r: {
         layerIndex: 4,
         layerGroup: 'redesignated',
         isVisible: true,
         overlay:[],
       },
+
+      qnmc_r: {
+        layerIndex: 14,
+        layerGroup: 'redesignated',
+        isVisible: true,
+        overlay:[],
+      },
+      
       
       qct_r_slivers: {
         layerIndex: 10,
