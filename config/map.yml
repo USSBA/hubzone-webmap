@@ -30,6 +30,7 @@ production:
     <<: *default_wms
     url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://maps.certify.sba.gov/geoserver/gwc/service/wms?' } %>
     db: hzgeo_prd
+    workspace: <%= ENV.fetch('HUBZONE_WMS_WORKSPACE') { 'hubzone' } %>
 
 staging:
   <<: *defaults
@@ -41,6 +42,7 @@ staging:
     <<: *default_wms
     url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://maps.staging.certify.sba.gov/geoserver/gwc/service/wms?' } %>
     db: hzgeo_stg
+    workspace: <%= ENV.fetch('HUBZONE_WMS_WORKSPACE') { 'hubzone' } %>
 
 training:
   <<: *defaults
@@ -53,6 +55,7 @@ training:
     <<: *default_wms
     url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://maps.training.certify.sba.gov/geoserver/gwc/service/wms?' } %>
     db: hzgeo_trn
+    workspace: <%= ENV.fetch('HUBZONE_WMS_WORKSPACE') { 'hubzone' } %>
 
 qa:
   <<: *defaults
@@ -66,6 +69,7 @@ qa:
     url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://hubzone.qa.sba-one.net/geoserver/gwc/service/wms?' } %>
     url_root_without_gwc: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT_WITHOUT_GWC') { 'https://hubzone.qa.sba-one.net/geoserver/hubzone_preview/wms?' } %>
     db: hzgeo_qa
+    workspace: <%= ENV.fetch('HUBZONE_WMS_WORKSPACE') { 'hubzone' } %>
 
 demo:
   <<: *defaults
@@ -78,6 +82,7 @@ demo:
     url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://hz-demo.sba-one.net/geoserver/gwc/service/wms?' } %>
     url_root_without_gwc: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT_WITHOUT_GWC') { 'https://hz-demo.sba-one.net/geoserver/hubzone_preview/wms?' } %>
     db: hzgeo_demo
+    workspace: <%= ENV.fetch('HUBZONE_WMS_WORKSPACE') { 'hubzone' } %>
 
 dev:
   <<: *defaults
@@ -89,12 +94,14 @@ dev:
     url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'https://map.dev.sba-one.net/geoserver/gwc/service/wms?' } %>
     url_root_without_gwc: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT_WITHOUT_GWC') { 'https://map.dev.sba-one.net/geoserver/hubzone_preview/wms?' } %>
     db: hzgeo_dev
+    workspace: <%= ENV.fetch('HUBZONE_WMS_WORKSPACE') { 'hubzone' } %>
 
 development:
   <<: *defaults
   geom_wms_settings:
     <<: *default_wms
     db: hzgeo_dev
+    workspace: <%= ENV.fetch('HUBZONE_WMS_WORKSPACE') { 'hubzone' } %>
 
 developmentdocker:
   <<: *defaults
@@ -106,6 +113,7 @@ developmentdocker:
     url_root: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT') { 'http://localhost:8080/geoserver/gwc/service/wms?' } %>
     url_root_without_gwc: <%= ENV.fetch('HUBZONE_WMS_URL_ROOT_WITHOUT_GWC') { 'http://localhost:8080/geoserver/hubzone_preview/wms?' } %>
     db: hzgeo_dev
+    workspace: <%= ENV.fetch('HUBZONE_WMS_WORKSPACE') { 'hubzone' } %>
 
 test:
   <<: *defaults

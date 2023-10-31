@@ -62,10 +62,11 @@ HZApp.Legend = (function(){
       if(stateName == 'undefined'){
         return
       }
+      let workspace = "<%= MAP_CONFIG[:geom_wms_settings][:workspace] %>"
       var replaceSelectedFilterNotEqual = "name <>'"+stateName+"'";
       var replaceSelectedFilterEqual = "name ='"+stateName+"'";
-      var newWmsLayerNotEqual = createWmsLayer(replaceSelectedFilterNotEqual, "hubzone_preview:giant_polygon_style");
-      var newWmsLayerEqual = createWmsLayer(replaceSelectedFilterEqual, "hubzone_preview:polygon_without_fill_style");
+      var newWmsLayerNotEqual = createWmsLayer(replaceSelectedFilterNotEqual, workspace+":giant_polygon_style");
+      var newWmsLayerEqual = createWmsLayer(replaceSelectedFilterEqual, workspace+":polygon_without_fill_style");
      HZApp.map.overlayMapTypes.push(newWmsLayerNotEqual);
      HZApp.map.overlayMapTypes.push(newWmsLayerEqual);
 
@@ -101,8 +102,9 @@ HZApp.Legend = (function(){
     function getBoundingBoxForState(stateName, callback) {
         let url = "<%= MAP_CONFIG[:geom_wms_settings][:url_root_without_gwc] %>";
         let modifiedUrl = url.replace("/wms","/ows")
+        let workspace = "<%= MAP_CONFIG[:geom_wms_settings][:workspace] %>"
 
-        var wfsUrl = modifiedUrl+"service=WFS&version=1.0.0&request=GetFeature&typeName=hubzone_preview:census_state&outputFormat=application/json&CQL_FILTER=name='" + stateName + "'";
+        var wfsUrl = modifiedUrl+"service=WFS&version=1.0.0&request=GetFeature&typeName='"+workspace+"':census_state&outputFormat=application/json&CQL_FILTER=name='" + stateName + "'";
 
         fetch(wfsUrl)
             .then((response) => {
