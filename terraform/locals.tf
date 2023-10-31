@@ -43,9 +43,9 @@ locals {
       scheduled_actions_timezone = "America/New_York"
     }
     demo = {
-      fqdn_base   = "demo.sba-one.net"
-      cert_domain = "sba-one.net"
-      rails_env   = "demo"
+      fqdn_base           = "demo.sba-one.net"
+      cert_domain         = "sba-one.net"
+      rails_env           = "demo"
     }
     stg = {
       fqdn_base   = "stg.certify.sba.gov"
@@ -77,6 +77,7 @@ locals {
   service_fqdn  = "${local.env.service_name}.${local.env.fqdn_base}"
   public_fqdn   = "${local.env.public_subdomain}.${local.env.fqdn_base}"
   postgres_fqdn = "hubzone-db.${local.env.fqdn_base}"
+  wms_url_without_gwc = "https://maps.${local.env.fqdn_base}/geoserver/hubzone/wms?"
 
   # Convenience prefixes for AWS Resources
   prefix_bucket          = "arn:aws:s3:::"
