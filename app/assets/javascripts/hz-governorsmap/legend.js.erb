@@ -50,16 +50,22 @@ HZApp.Legend = (function(){
         opacity: 0.98
       })
     };
+    
+    var originalTotalLayer = HZApp.map.overlayMapTypes.length;
 
     $('#mapHighlightState').on("change",function(){
     
       var stateName = $(this).val().split('_')[1];
       document.getElementById('search-field-small').value = ""
-      if(HZApp.map.overlayMapTypes.length  > 13){
-        HZApp.map.overlayMapTypes.removeAt(14);
-        HZApp.map.overlayMapTypes.removeAt(14);
+
+      let tempTotalLayer = HZApp.map.overlayMapTypes.length;
+
+      if(tempTotalLayer  > originalTotalLayer){
+        HZApp.map.overlayMapTypes.removeAt(HZApp.map.overlayMapTypes.length-1);
+        HZApp.map.overlayMapTypes.removeAt(HZApp.map.overlayMapTypes.length-1);
       }
-      if(stateName == 'undefined'){
+
+      if(typeof stateName == 'undefined'){
         return
       }
       let workspace = "<%= MAP_CONFIG[:geom_wms_settings][:workspace] %>"
