@@ -20,10 +20,11 @@ HZApp.Autocomplete = {
           console.log("Autocomplete's returned place contains no geometry");
           return;
       }
-
+    
       // Find the state component from the address components
       var stateComponent = place.address_components.find(function (component) {
-          return component.types.includes('administrative_area_level_1');
+          return component.types.includes('administrative_area_level_1') || 
+          component.types.includes('country');
       });
 
       if (stateComponent) {

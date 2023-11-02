@@ -54,7 +54,7 @@ HZApp.Legend = (function(){
     var originalTotalLayer = HZApp.map.overlayMapTypes.length;
 
     $('#mapHighlightState').on("change",function(){
-    
+     
       var stateName = $(this).val().split('_')[1];
       document.getElementById('search-field-small').value = ""
 
@@ -154,7 +154,7 @@ HZApp.Legend = (function(){
           HZApp.Layers.LayerDefs.hzWMSOverlays['qct_r_slivers'].isVisible = false;
 
 
-
+          
     $('input[type="checkbox"]').click( function(event){
       if(event.currentTarget.value =='hubzone_areas_expiring'){
         if(document.getElementById('hubzone_areas_expiring').checked){
