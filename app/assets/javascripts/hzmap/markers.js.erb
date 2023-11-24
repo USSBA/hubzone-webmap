@@ -18,7 +18,7 @@ HZApp.Constructors.HubzoneMapMarker = function(options) {
     if (geocodeLocation !== null && geocodeLocation !== undefined){
       var marker = new google.maps.Marker({
         position: geocodeLocation,
-        map: HZApp.maLoaded?HZApp.map:HZApp.mapGov,
+        map: HZApp.map,
         icon: {
           url: options.icon,
           scaledSize: new google.maps.Size(options.scaledSize,options.scaledSize)

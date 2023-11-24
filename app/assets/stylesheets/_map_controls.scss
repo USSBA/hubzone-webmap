@@ -30,9 +30,15 @@
 .gm-iv-address-link a {
   font-size: 9px !important;
 }
-
-.gm-iv-address {
-  height: auto !important;
+.gm-iv-address-link{
+  top: inherit !important;
+}
+.gm-iv-address,.gm-iv-marker {
+  //height: auto !important;
+  margin-top: 70px;
+}
+.gm-iv-container{
+ margin-top: 70px;
 }
 /* Geolocation Loading Spinner */
 .geolocation-loading {
