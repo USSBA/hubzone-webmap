@@ -3,10 +3,6 @@ resource "aws_wafv2_web_acl_logging_configuration" "logs" {
   resource_arn            = aws_wafv2_web_acl.waf_cloudfront.arn
 }
 
-data "aws_s3_bucket" "logs" {
-  bucket = "${local.account_id}-${local.region}-logs"
-}
-
 resource "aws_cloudwatch_log_group" "logs" {
   name              = "/kinesis/firehose/${aws_wafv2_web_acl.waf_cloudfront.name}"
   retention_in_days = 90
