@@ -1,4 +1,3 @@
-//= require hzmap/autocomplete
 //= require hzmap
 /* jshint unused: false */
 /* jshint undef: false */
@@ -8,7 +7,6 @@ describe ('Testing autocomplete operations', function() {
     google = HZSpecHelper.google;
     HZSpecHelper.mockPage.build();
     HZApp.map = new google.maps.Map();
-
   });
 
   afterEach(function(){

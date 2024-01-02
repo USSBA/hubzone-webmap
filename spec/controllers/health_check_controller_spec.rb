@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe HealthCheckController do
+RSpec.describe HealthCheckController do
   describe 'GET :status' do
     it "will succeed" do
       get :status

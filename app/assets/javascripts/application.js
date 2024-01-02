@@ -10,8 +10,10 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require i18n.js
 //= require jquery
 //= require jquery_ujs
 //= require uswds
 //= require HZ
+//= require i18n.js
 //= require i18n/translations

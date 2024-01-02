@@ -1,5 +1,3 @@
-//= require hzmap/legend-defs
-//= require hzmap/legend
 //= require hzmap
 /* jshint unused: false */
 /* jshint undef: false */

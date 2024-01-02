@@ -170,7 +170,7 @@ var HZSpecHelper = (function(){
           trigger: function() {}
         },
         places: {
-          Autocomplete: function () {
+          Autocomplete: function (element, options) {
             return {
                addListener: function () { },
                getPlacePredictions: function () { }

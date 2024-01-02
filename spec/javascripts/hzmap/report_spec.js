@@ -1,7 +1,4 @@
-//= require hzmap/report
-//= require hzmap/hz-query
 //= require hzmap
-//= require i18n/translations
 /* jshint unused: false */
 /* jshint undef: false */
 
@@ -98,7 +95,7 @@ describe ('Testing report operations', function() {
 
   describe ('getReportRequestParams', function(){
     beforeEach(function(){
-      google = HZSpecHelper.google;
+      var google = HZSpecHelper.google;
       HZApp.map = new google.maps.Map();
     });
 

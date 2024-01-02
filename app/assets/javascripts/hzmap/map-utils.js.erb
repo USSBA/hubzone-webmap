@@ -1,3 +1,4 @@
+//= require hzmap
 HZApp.MapUtils = (function(){
 
   return {
@@ -15,6 +16,7 @@ HZApp.MapUtils = (function(){
       HZApp.GA.track( 'map', 'click', latlng_s );
       var url = "<%= search_path %>?latlng=" + latlng_s + this.includeDateAndLocale();
       this.sendAjax(url, callback);
+      
       if (!callback){
         HZApp.Router.setLatLngHash(latlng_s);
       }
@@ -141,9 +143,21 @@ HZApp.MapUtils = (function(){
       });
     },
     resetMap: function(){
+      // depending which test calls this function, some things may or may not be initialized already
+      if (HZApp.Markers.hzQueryMarker === undefined) {
+        HZApp.Markers.hzQueryMarker = new HZApp.Constructors.HubzoneMapMarker({
+          icon: "<%= image_path 'hubzone-map-marker.svg' %>",
+          scaledSize: 40
+        });
+      }
       HZApp.Markers.hzQueryMarker.updateMarkers(null);
+
+      if (typeof HZApp.SidebarUtils.sidebar.close !== 'function') {
+        HZApp.SidebarUtils.buildSidebar();
+      }
       HZApp.SidebarUtils.sidebar.close();
       HZApp.SidebarUtils.sidebar.clear();
+      
       HZApp.Router.clearHash('latlng', true);
       HZApp.Router.clearHash('q', true);
       document.getElementById('search-field-small').value = "";

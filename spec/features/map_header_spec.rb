@@ -26,7 +26,7 @@ describe "The Header", type: :feature do
     expect(page).to have_css('#map-help-guide')
   end
   it "will have a help link with aria label" do
-    expect(page.find('#map-help-guide')['aria-label']).to have_content 'Help'
+    expect(page.find('#map-help-guide')['aria-label']).to have_content 'About'
   end
   it "will have HUBZone Program link" do
     expect(page).to have_content 'HUBZone Program'

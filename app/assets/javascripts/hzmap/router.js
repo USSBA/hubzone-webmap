@@ -1,3 +1,4 @@
+//= require hzmap/hash-utils
 // Basic hash router module
 HZApp.Router = (function(){
 
@@ -161,7 +162,7 @@ HZApp.Router = (function(){
         hashState["zoom"] = 15;
         hashState["center"] = hashState.latlng;
       }
-
+      
       // DCP: Are the keys guaranteed to come back in the order defined?  Does it matter? (seems like it should)
       Object.keys(HZApp.Router.hashControllers).forEach(function(controller){
         // console.log("       checking for " + controller + "...");
