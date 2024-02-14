@@ -315,7 +315,7 @@ data "aws_cloudfront_response_headers_policy" "security_headers" {
 }
 
 resource "aws_cloudfront_response_headers_policy" "HSTS" {
-  name    = "${local.env.service_name}-response-policy"
+  name    = "${terraform.workspace}-${local.env.service_name}-response-policy"
   comment = "use HSTS response header"
 
   security_headers_config {
