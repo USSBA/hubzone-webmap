@@ -32,6 +32,7 @@ options:
     hzBaseMapStyle: true
     hzQueryMarker: true
     hzUserLocation: true
+    HZSpecHelper: true
     hzWMSOverlays: true
     I18n: true
     jumpToLocation: true

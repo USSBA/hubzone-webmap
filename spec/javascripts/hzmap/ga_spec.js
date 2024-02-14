@@ -1,11 +1,11 @@
 //= require hzmap/ga
 //= require hzmap/sidebar
+//= require hzmap/router
 //= require hzmap/map-utils
 /* jshint unused: false */
 /* jshint undef: false */
 
 describe ('Testing Google Analytics integration', function() {
-
   beforeEach(function(done) {
     google = HZSpecHelper.google;
     HZApp.map = new google.maps.Map();

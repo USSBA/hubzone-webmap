@@ -122,8 +122,8 @@ describe "The Sidebar", type: :feature do
                               } } }
   before do
     visit(map_path)
-  rescue Capybara::Poltergeist::StatusFailError
-    skip "skip until we figure out why poltergeist is randomly failing"
+  rescue Capybara::CapybaraError
+    skip "skip until we figure out why the webdriver is randomly failing"
   end
 
   after do
@@ -223,7 +223,7 @@ describe "The Sidebar", type: :feature do
       expect(page).not_to have_content('Designations')
     end
     it "will not have show details" do
-      expect(page).not_to have_content('Designations Show Details')
+      expect { page.find('.additional-details-expand') }.to raise_error(Capybara::ElementNotFound)
     end
   end
 
@@ -241,7 +241,7 @@ describe "The Sidebar", type: :feature do
       expect(page).to have_content('Designations')
     end
     it "will have show details" do
-      expect(page).to have_content('Designations Show Details')
+      expect(page.find('.additional-details-expand')).to have_content('Show Details')
     end
   end
 

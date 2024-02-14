@@ -3,15 +3,16 @@ source 'https://rubygems.org'
 gem 'coffee-rails', '~> 4.2' # Use CoffeeScript for .coffee assets and views
 gem 'dotenv-rails' # Use dotenv to load environment variables
 gem 'excon-rails' # Use excon rails for http requests
-gem 'ffi', '~> 1.9.24' # CVS-2018-1000201
+gem 'ffi'
 gem 'font-awesome-rails', '>= 4.7.0' # Use Font Awesome for CSS Icons
-gem 'i18n-js', ">= 3.0.0.rc15" #extend i18n support directly into JS
+gem 'i18n'
+gem 'i18n-js', '~> 3.0' #extend i18n support directly into JS
 gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jquery-rails' # Use jquery as the JavaScript library
 gem 'newrelic_rpm', '~> 9.1' # NewRelic Application Performance Monitoring
 gem 'pg' # Use PostgreSQL as the database for Active Record
 gem 'puma', '~> 4.3', '>= 4.3.9' # Use Puma as the app server
-gem 'rails', '~> 6.1.7.3' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 6.1.7.6' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rb-readline' # Why is this suddenly such a problem?
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
 gem 'secure_headers'
@@ -41,18 +42,19 @@ gem "rack-attack", git: "https://github.com/kickstarter/rack-attack.git", branch
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'capybara' # allow interaction with DOM in tests
-  gem 'chromedriver-helper'
+  gem 'capybara-selenium'
   # gem 'chunky_png' # read png images
   gem 'jasmine-rails' # JavaScript testing
   gem 'jshint'
   gem 'launchy'
-  gem 'poltergeist'
+  gem 'meta_request'
   gem 'rspec-rails', '~> 3.5' # Use RSpec for tests
   gem 'rubocop', '~> 0.52.1' # Enforce ruby code style
   gem 'rubocop-rspec', '~> 1.23.0'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false # determine code coverage of tests
   gem 'teaspoon-jasmine'
+  gem 'webdrivers'
 end
 
 group :development do

@@ -12,28 +12,35 @@ require 'rspec/rails'
 # load up Capybara
 require 'capybara/rspec'
 require 'capybara/rails'
+require 'selenium/webdriver'
 
-# load up Selenium
-Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
+Capybara.server_port = 60000
+
+# load up Chrome
+Capybara.register_driver :chrome do |app|
+  chrome_options = Selenium::WebDriver::Chrome::Options.new
+  chrome_options.binary = ENV["HUBZONE_WEBDRIVER"] if ENV["HUBZONE_WEBDRIVER"].present?
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: chrome_options)
 end
 
-# load up Poltergeist
-require 'capybara/poltergeist'
-
-# not turning off js errors, b/c this is our app, we want to know about errors!
-poltergeist_options = {
-  js_errors: true,
-  port: 10000,
-  url_blacklist: ['https://script.hotjar.com']
-}
-Capybara.register_driver(:poltergeist) do |app|
-  Capybara::Poltergeist::Driver.new(app, poltergeist_options)
+# load up Headless Chrome
+Capybara.register_driver :headless_chrome do |app|
+  chrome_options = Selenium::WebDriver::Chrome::Options.new
+  chrome_options.add_argument('--headless')
+  chrome_options.add_argument('--disable-gpu')
+  chrome_options.add_argument('--window-size=1920,1080')
+  chrome_options.binary = ENV["HUBZONE_WEBDRIVER"] if ENV["HUBZONE_WEBDRIVER"].present?
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: chrome_options)
 end
 
 Capybara.default_max_wait_time = 10
-#Capybara.javascript_driver = :selenium # with browser interaction
-Capybara.javascript_driver = :poltergeist # headless
+Capybara.default_driver    = ENV["HUBZONE_CAPYBARA_DEFAULT_DRIVER"].presence&.to_sym    || :rack_test
+Capybara.javascript_driver = ENV["HUBZONE_CAPYBARA_JAVASCRIPT_DRIVER"].presence&.to_sym || :selenium
+
+if ENV["HUBZONE_CHROMEDRIVER"].present?
+  Webdrivers::Chromedriver.required_version = ENV["HUBZONE_CHROMEDRIVER_VERSION"] if ENV["HUBZONE_CHROMEDRIVER_VERSION"].present?
+  Selenium::WebDriver::Chrome::Service.driver_path = ENV["HUBZONE_CHROMEDRIVER"]
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -53,6 +60,10 @@ Capybara.javascript_driver = :poltergeist # headless
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
+
+RSpec.shared_context "with global variable workaround" do
+  let(:name) { 'example_name' } # a #{name} is being required in many test even though the test doesn't specify it. This resolves the error.
+end
 
 RSpec.configure do |config|
   # include our helpers
@@ -95,6 +106,7 @@ RSpec.configure do |config|
     Excon.stub({}, body: { message: 'Fallback stub response' }.to_json, status: 598)
     # Add your own stubs here or in specific tests...
   end
+  config.include_context "with global variable workaround"
 end
 
 def json

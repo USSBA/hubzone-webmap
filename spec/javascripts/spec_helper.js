@@ -37,6 +37,10 @@
 //= require jquery_ujs
 //= require uswds
 //= require HZ
+//= require i18n.js
 //= require i18n/translations
 //= require helpers/polyfills
 //= require helpers/hz-jasmine
+
+var google;
+google = HZSpecHelper.google;

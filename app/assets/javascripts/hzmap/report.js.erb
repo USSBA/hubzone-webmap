@@ -71,7 +71,7 @@ HZApp.Report = (function(){
       return params;
     },
     requestReportError: function requestReportError(){
-
+      I18n.debug = true;
       $('#report-waiting').html(I18n.t('report.error'));
       HZApp.Report.clearReportWaiting(7500);
     },

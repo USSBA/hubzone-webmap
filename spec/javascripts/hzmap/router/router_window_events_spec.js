@@ -6,7 +6,7 @@
 /* jshint undef: false */
 
 describe ('Testing Router operations', function() {
-  var center, centerValue, zoom;
+  var center, centerValue, zoom, lat, lng;
   beforeEach(function(){
     location.hash = "";
     fixture.cleanup();

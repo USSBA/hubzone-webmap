@@ -99,7 +99,7 @@ Teaspoon.configure do |config|
   # Selenium Webdriver: https://github.com/modeset/teaspoon/wiki/Using-Selenium-WebDriver
   # BrowserStack Webdriver: https://github.com/modeset/teaspoon/wiki/Using-BrowserStack-WebDriver
   # Capybara Webkit: https://github.com/modeset/teaspoon/wiki/Using-Capybara-Webkit
-  config.driver = :phantomjs
+  config.driver = :selenium
 
   # Specify additional options for the driver.
   #
@@ -108,6 +108,9 @@ Teaspoon.configure do |config|
   # BrowserStack Webdriver: https://github.com/modeset/teaspoon/wiki/Using-BrowserStack-WebDriver
   # Capybara Webkit: https://github.com/modeset/teaspoon/wiki/Using-Capybara-Webkit
   #config.driver_options = nil
+  config.driver_options = {
+    client_driver: :chrome
+  }
 
   # Specify the timeout for the driver. Specs are expected to complete within this time frame or the run will be
   # considered a failure. This is to avoid issues that can arise where tests stall.

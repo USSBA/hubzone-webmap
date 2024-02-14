@@ -24,8 +24,8 @@ This application houses the new and improved HUBZone Map for the Small Business 
 
 For development and local development you will need to install the following on your computer:
 * [RVM](http://rvm.io/)
-* Ruby 2.7.4
-  - `rvm install 2.7.4`
+* Ruby 2.7.8
+  - `rvm install 2.7.8`
 * Bundler
   - `rvm @global do gem install bundler`
   - Tested with version 2.0.0 or later

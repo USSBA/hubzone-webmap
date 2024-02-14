@@ -5,8 +5,10 @@ Jasmine.configure do |config|
   config.stop_spec_on_expectation_failure = false
 
   config.show_full_stack_trace = false
-  config.prevent_phantom_js_auto_install = false
+  config.prevent_phantom_js_auto_install = true
   config.server_port = 8888
+
+  config.runner_browser = :chromeheadless
 
   # ci port is random by default
   # config.ci_port = 1234

@@ -1,0 +1,10 @@
+{
+  "packageManager": "yarn@4.0.2",
+  "dependencies": {
+    "nyc": "^15.1.0"
+  },
+  "devDependencies": {
+    "jasmine-browser-runner": "^2.3.0",
+    "jasmine-core": "^5.1.1"
+  }
+}
