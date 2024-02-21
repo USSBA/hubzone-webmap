@@ -117,49 +117,13 @@ HZApp.Layers.LayerDefs = (function(){
         isVisible: true,
         overlay:[],
       },
-       /*qct_r_extras: {
-        layerIndex: 11,
-        layerGroup: 'qct_r_extras',
-        isVisible: false,
+      usda_rural_partner_networks: {
+        layerIndex: 20,
+        layerGroup: 'usda_rural_partner_networks',
+        isVisible: true,
         overlay:[],
       },
 
-      // brac_lg: {
-      //   layerIndex: 5,
-      //   layerGroup: 'brac',
-      //   isVisible: false,
-      //   overlay:[],
-      // },
-      qct_e: {
-        layerIndex: 6,
-        layerGroup: 'qct',
-        isVisible: false,
-        overlay:[],
-      },
-      qda_lg: {
-        layerIndex: 7,
-        layerGroup: 'qda',
-        isVisible: false,
-        overlay:[],
-      },
-      mvw_gov_area_map: {
-        layerIndex: 8,
-        layerGroup: 'mvw_gov_area_map',
-        isVisible: false,
-        overlay:[],
-      },
-      mvw_gov_area_map_county: {
-        layerIndex: 9,
-        layerGroup: 'mvw_gov_area_map',
-        isVisible: false,
-        overlay:[],
-      },
-      // qct_old: {
-      //   layerIndex: 8,
-      //   layerGroup: 'qct_old',
-      //   isVisible: true,
-      //   overlay:[],
-      // },*/
     }
   };
 })();

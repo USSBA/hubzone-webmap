@@ -168,6 +168,8 @@ en:
     icon_brac: "legend icon black dotted pattern"
     icon_mvw_gov_area_map: "legend icon vertical stripe pattern"
     icon_mvw_gov_area_map_county: "legend icon vertical stripe pattern"
+    other_fedral_designation: "Other Federal Designations"
+    usda_rural_partner_networks : "USDA Rural Partner Networks"
   report:
     error: "Error Generating Report"
     generating: "Generating Report..."

@@ -131,6 +131,9 @@ HZApp.Legend = (function(){
             });
     }
 
+    HZApp.Layers.LayerDefs.hzWMSOverlays['usda_rural_partner_networks'].overlay.setOpacity(0);
+    HZApp.Layers.LayerDefs.hzWMSOverlays['usda_rural_partner_networks'].isVisible = false;
+
     HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_e'].overlay.setOpacity(0);
           HZApp.Layers.LayerDefs.hzWMSOverlays['qct_e'].overlay.setOpacity(0);
           HZApp.Layers.LayerDefs.hzWMSOverlays['qda_lg'].overlay.setOpacity(0);
@@ -228,6 +231,7 @@ HZApp.Legend = (function(){
               HZApp.Layers.LayerDefs.hzWMSOverlays['sba_gov_elig_county'].isVisible = false;
              }
       }else{
+        console.log(event.currentTarget.value)
         HZApp.Legend.setLayerGroups(event.currentTarget.value, HZApp.Layers.LayerDefs.hzWMSOverlays);
       }
 
