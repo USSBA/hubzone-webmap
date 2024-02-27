@@ -1,21 +1,21 @@
 source 'https://rubygems.org'
 
-gem 'coffee-rails', '~> 4.2' # Use CoffeeScript for .coffee assets and views
-gem 'dotenv-rails' # Use dotenv to load environment variables
+gem 'coffee-rails', '~> 5.0', '>= 5.0.0' # Use CoffeeScript for .coffee assets and views
+gem 'dotenv-rails' , '>= 2.8.0' # Use dotenv to load environment variables
 gem 'excon-rails' # Use excon rails for http requests
 gem 'ffi', '~> 1.9.24' # CVS-2018-1000201
-gem 'font-awesome-rails', '>= 4.7.0' # Use Font Awesome for CSS Icons
+gem 'font-awesome-rails', '>= 4.7.0.8' # Use Font Awesome for CSS Icons
 gem 'i18n-js', ">= 3.0.0.rc15" #extend i18n support directly into JS
-gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jquery-rails' # Use jquery as the JavaScript library
+gem 'jbuilder', '~> 2.11', '>= 2.11.3' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jquery-rails' , '>= 4.5.0' # Use jquery as the JavaScript library
 gem 'newrelic_rpm', '~> 4.5' # NewRelic Application Performance Monitoring
 gem 'pg' # Use PostgreSQL as the database for Active Record
 gem 'puma', '~> 4.3', '>= 4.3.9' # Use Puma as the app server
-gem 'rails', '~> 5.2' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 7.0', '>= 7.0.8.1' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rb-readline' # Why is this suddenly such a problem?
-gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
+gem 'sass-rails', '~> 6.0', '>= 6.0.0' # Use SCSS for stylesheets
 gem 'secure_headers'
-gem 'strong_migrations', '~> 0.3' # Catch unsafe migrations at dev time
+gem 'strong_migrations', '~> 0.7', '>= 0.7.9' # Catch unsafe migrations at dev time
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 
 ## Custom
@@ -37,14 +37,14 @@ gem "rack-attack", git: "https://github.com/kickstarter/rack-attack.git", branch
 
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'capybara' # allow interaction with DOM in tests
+  gem 'capybara' , '>= 3.36.0' # allow interaction with DOM in tests
   gem 'chromedriver-helper'
   # gem 'chunky_png' # read png images
   gem 'jasmine-rails' # JavaScript testing
   gem 'jshint'
   gem 'launchy'
   gem 'poltergeist'
-  gem 'rspec-rails', '~> 3.5' # Use RSpec for tests
+  gem 'rspec-rails', '~> 4.0', '>= 4.0.0' # Use RSpec for tests
   gem 'rubocop', '~> 0.52.1' # Enforce ruby code style
   gem 'rubocop-rspec', '~> 1.23.0'
   gem 'selenium-webdriver'
@@ -53,11 +53,11 @@ group :development, :test do
 end
 
 group :development do
-  gem 'better_errors' # show a much more friendly error page with a command line REPL
+  gem 'better_errors' , '>= 2.10.0' # show a much more friendly error page with a command line REPL
   gem 'binding_of_caller' # used by better_errors to provide a REPL in the error window
   gem 'listen', '~> 3.0.5'
   gem 'spring' # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'web-console' # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'web-console' , '>= 4.0.0' # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'xray-rails' # Xray can reveal Rails views and partials
 end
