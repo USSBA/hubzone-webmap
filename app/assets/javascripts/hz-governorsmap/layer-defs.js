@@ -117,6 +117,13 @@ HZApp.Layers.LayerDefs = (function(){
         isVisible: true,
         overlay:[],
       },
+      usda_rural_partner_networks: {
+        layerIndex: 20,
+        layerGroup: 'usda_rural_partner_networks',
+        isVisible: true,
+        overlay:[],
+      },
+      
        /*qct_r_extras: {
         layerIndex: 11,
         layerGroup: 'qct_r_extras',
