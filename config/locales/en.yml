@@ -170,7 +170,7 @@ en:
     icon_mvw_gov_area_map_county: "legend icon vertical stripe pattern"
     other_fedral_designation: "Other Federal Designations"
     usda_rural_partner_networks : "USDA Rural Partner Networks"
-    treasury_opportunity_zones : "Treasury opportunity zones"
+    treasury_opportunity_zones : "Treasury Opportunity Zones"
   report:
     error: "Error Generating Report"
     generating: "Generating Report..."
