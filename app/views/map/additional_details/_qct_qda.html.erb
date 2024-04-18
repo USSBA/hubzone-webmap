@@ -10,10 +10,12 @@
   <h6><%= t('hubzone_assertions.additional_details.disaster_designation') %></h6>
   <h5><%= qualification["qda_designation"].blank? ? '--' : date_to_string(qualification["qda_designation"]) %></h5>
 </div>
+<!--
 <div class="designation-details-item">
   <h6><%= t('hubzone_assertions.additional_details.disaster_publish') %></h6>
   <h5><%= qualification["qda_publish"].blank? ? '--' : date_to_string(qualification["qda_publish"]) %></h5>
 </div>
+-->
 <div class="designation-details-item">
   <h6><%= t('hubzone_assertions.additional_details.tract_id') %></h6>
   <h5><%= qualification["tract_fips"].blank? ? '--' : qualification["tract_fips"] %></h5>
