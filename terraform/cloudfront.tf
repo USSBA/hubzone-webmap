@@ -65,18 +65,18 @@ resource "aws_cloudfront_distribution" "distribution" {
       "GET",
       "HEAD",
     ]
-    compress                 = true
-    default_ttl              = 0
-    max_ttl                  = 0
-    min_ttl                  = 0
-    origin_request_policy_id = aws_cloudfront_origin_request_policy.qs.id
+    compress                   = true
+    default_ttl                = 0
+    max_ttl                    = 0
+    min_ttl                    = 0
+    origin_request_policy_id   = aws_cloudfront_origin_request_policy.qs.id
     response_headers_policy_id = aws_cloudfront_response_headers_policy.HSTS.id
-    path_pattern             = "/geoserver/gwc/service/wms"
-    smooth_streaming         = false
-    target_origin_id         = "geoserver"
-    trusted_key_groups       = []
-    trusted_signers          = []
-    viewer_protocol_policy   = "redirect-to-https"
+    path_pattern               = "/geoserver/gwc/service/wms"
+    smooth_streaming           = false
+    target_origin_id           = "geoserver"
+    trusted_key_groups         = []
+    trusted_signers            = []
+    viewer_protocol_policy     = "redirect-to-https"
   }
 
   ordered_cache_behavior {
@@ -122,16 +122,16 @@ resource "aws_cloudfront_distribution" "distribution" {
       "GET",
       "HEAD",
     ]
-    compress               = false
-    default_ttl            = 0
-    max_ttl                = 0
-    min_ttl                = 0
-    path_pattern           = "/report"
-    smooth_streaming       = false
-    target_origin_id       = "report"
-    trusted_key_groups     = []
-    trusted_signers        = []
-    viewer_protocol_policy = "redirect-to-https"
+    compress                   = false
+    default_ttl                = 0
+    max_ttl                    = 0
+    min_ttl                    = 0
+    path_pattern               = "/report"
+    smooth_streaming           = false
+    target_origin_id           = "report"
+    trusted_key_groups         = []
+    trusted_signers            = []
+    viewer_protocol_policy     = "redirect-to-https"
     response_headers_policy_id = aws_cloudfront_response_headers_policy.HSTS.id
 
     forwarded_values {
@@ -162,15 +162,15 @@ resource "aws_cloudfront_distribution" "distribution" {
       "GET",
       "HEAD",
     ]
-    compress               = false
-    default_ttl            = 0
-    max_ttl                = 0
-    min_ttl                = 0
-    smooth_streaming       = false
-    target_origin_id       = "webmap"
-    trusted_key_groups     = []
-    trusted_signers        = []
-    viewer_protocol_policy = "redirect-to-https"
+    compress                   = false
+    default_ttl                = 0
+    max_ttl                    = 0
+    min_ttl                    = 0
+    smooth_streaming           = false
+    target_origin_id           = "webmap"
+    trusted_key_groups         = []
+    trusted_signers            = []
+    viewer_protocol_policy     = "redirect-to-https"
     response_headers_policy_id = aws_cloudfront_response_headers_policy.HSTS.id
 
     forwarded_values {
@@ -315,14 +315,14 @@ data "aws_cloudfront_response_headers_policy" "security_headers" {
 }
 
 resource "aws_cloudfront_response_headers_policy" "HSTS" {
-  name    = "${local.env.service_name}-response-policy"
+  name    = "${terraform.workspace}-${local.env.service_name}-response-policy"
   comment = "use HSTS response header"
 
   security_headers_config {
     strict_transport_security {
       access_control_max_age_sec = 300
-      override = true
-      include_subdomains = true
+      override                   = true
+      include_subdomains         = true
     }
   }
 }

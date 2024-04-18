@@ -28,6 +28,14 @@ resource "aws_wafv2_web_acl" "waf_cloudfront" {
       managed_rule_group_statement {
         name        = "AWSManagedRulesAmazonIpReputationList"
         vendor_name = "AWS"
+        rule_action_override {
+          name = "AWSManagedIPReputationList"
+
+          action_to_use {
+            allow {
+            }
+          }
+        }
       }
     }
     visibility_config {
@@ -85,6 +93,14 @@ resource "aws_wafv2_web_acl" "waf_cloudfront" {
       managed_rule_group_statement {
         name        = "AWSManagedRulesSQLiRuleSet"
         vendor_name = "AWS"
+        rule_action_override {
+          name = "SQLi_BODY"
+
+          action_to_use {
+            allow {
+            }
+          }
+        }
       }
     }
     visibility_config {
