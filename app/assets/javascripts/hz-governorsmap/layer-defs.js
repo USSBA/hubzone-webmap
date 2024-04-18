@@ -123,6 +123,12 @@ HZApp.Layers.LayerDefs = (function(){
         isVisible: true,
         overlay:[],
       },
+      treasury_opportunity_zones: {
+        layerIndex: 21,
+        layerGroup: 'treasury_opportunity_zones',
+        isVisible: true,
+        overlay:[],
+      },
       
        /*qct_r_extras: {
         layerIndex: 11,

@@ -130,6 +130,8 @@ HZApp.Legend = (function(){
                 console.error("Failed to fetch bounding box for state:", stateName, error);
             });
     }
+          HZApp.Layers.LayerDefs.hzWMSOverlays['treasury_opportunity_zones'].overlay.setOpacity(0);
+          HZApp.Layers.LayerDefs.hzWMSOverlays['treasury_opportunity_zones'].isVisible = false;
           HZApp.Layers.LayerDefs.hzWMSOverlays['usda_rural_partner_networks'].overlay.setOpacity(0);
           HZApp.Layers.LayerDefs.hzWMSOverlays['usda_rural_partner_networks'].isVisible = false;
           HZApp.Layers.LayerDefs.hzWMSOverlays['qnmc_e'].overlay.setOpacity(0);
