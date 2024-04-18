@@ -44,6 +44,6 @@ server.key
 .idea/*
 
 # Ignore Terraform configs
-terraform/.terraform.lock.hcl
+!**/.terraform.lock.hcl
 terraform/.terraform/
 

@@ -19,7 +19,7 @@ locals {
     RAILS_SERVE_STATIC_FILES = "true"
     RAILS_ENV                = local.env.rails_env
 
-    HUBZONE_WMS_URL_ROOT_WITHOUT_GWC  = local.wms_url_without_gwc
+    HUBZONE_WMS_URL_ROOT_WITHOUT_GWC = local.wms_url_without_gwc
   }
   container_secrets_parameterstore = {
     HUBZONE_MAP_DB_PASSWORD = "${terraform.workspace}/hubzone/rds/password"
