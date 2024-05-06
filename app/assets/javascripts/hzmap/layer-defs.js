@@ -55,12 +55,12 @@ HZApp.Layers.LayerDefs = (function(){
         isVisible: true,
         overlay:[],
       },
-      qct_r_extras: {
+     /* qct_r_extras: {
         layerIndex: 11,
         layerGroup: 'qct_r_extras',
         isVisible: true,
         overlay:[],
-      },
+      },*/
 
       // brac_lg: {
       //   layerIndex: 5,
