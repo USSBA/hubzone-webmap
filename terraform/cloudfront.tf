@@ -242,6 +242,10 @@ resource "aws_cloudfront_distribution" "distribution" {
       name  = "x-ussba-origin-token"
       value = nonsensitive(data.aws_ssm_parameter.origin_token.value)
     }
+    custom_header {
+      name  = "Set-Cookie"
+      value = "HttpOnly"
+    }
 
     custom_origin_config {
       http_port                = 80
