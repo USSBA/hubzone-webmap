@@ -69,6 +69,7 @@
           <i class="<%= hubzone_status_indicator %>" aria-hidden="true"></i>
         </div>
         <div id="hubzone-status" tabindex="11" aria-label="<%= aria_hubzone_status %>"><%= hubzone_status %></div>
+        
         <div class="hubzone-until-date">
         <% if until_date %>
           <%= t('sidebar.date_status.' + date_status) %><%= until_date %>
@@ -77,6 +78,9 @@
       </th>
     </thead>
   </table>
+  <div class="hubzone_status_style" style="color:#000">
+    <%= render partial: "info_evaluation_date", locals: {}  %>  
+    </div>
 </div>
 
 <div class="sidebar-card additional-details <%= details_visibility %>">

@@ -326,7 +326,36 @@ table th {
   cursor: pointer;
   color: $primary;
 }
-.local-information-expand:hover {
+.ext-evaluation-expand {
+  float: right;
+  padding-top: 0.2rem;
+  font-size: 1.2rem;
+  font-weight: normal;
+  cursor: pointer;
+  color: $primary;
+   border-radius: 8px;
+   padding: 3px 7px;
+   background: #e8e7e7;
+}
+.ext-evaluation{
+  width: 95%;
+  margin: 1rem auto 1rem auto;
+  display: table;
+  margin-top:0; background-color:inherit
+}
+.ext-evaluation-title{
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+.ext-evaluation-detail{
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: 11px;
+  padding-left: 10px;
+}
+.local-information-expand:hover,.ext-evaluation-expand:hover {
   color: $primary-darker;
 }
 #local-information-button {

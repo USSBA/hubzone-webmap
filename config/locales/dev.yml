@@ -58,6 +58,11 @@ dev:
       title: "Información Local"
       show: "Mostrar Detalles"
       hide: "Ocultar Detalles"
+    next_evaluation:
+      title: "Next evaluation date : 2028"
+      show: "Show Details"
+      hide: "Hide Details"
+      detail: "SBA will not update Qualified Census Tracts and Qualified Non-Metropolitan Counties on the map again until July 2028"
     other_information:
       congressional_district: "Distrito Congresional"
       congressional_session: "Sesión del Congreso"
