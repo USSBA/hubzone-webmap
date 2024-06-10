@@ -129,6 +129,7 @@
 }
 .sidebar-qualifications {
   margin: 0;
+  outline: none;
 }
 .qualification-label-wrapper {
   vertical-align: middle;
@@ -138,6 +139,10 @@
 }
 table th {
   border: none;
+  outline: none;
+}
+.sidebar-qualifications thead:focus-visible {
+outline: none;
 }
 .sidebar-qualifications thead th {
   border: none;
@@ -203,9 +208,9 @@ table th {
   display: table;
   width: 100%;
 }
-.details-row {
-  border-top: 1px solid $gray-lightest;
-}
+// .details-row {
+//   border-top: 1px solid $gray-lightest;
+// }
 .designation-details-item {
   display: flex;
   flex-direction: column;
@@ -348,11 +353,17 @@ table th {
   font-weight: 600;
   font-size: 1.5rem;
 }
+.ext-evaluation-border-top{
+  border-top: 1px solid $gray-lightest;
+  margin-top:10px;
+  width:95%;
+  margin-left:10px
+}
 .ext-evaluation-detail{
   color: #fff;
   font-size: 1.5rem;
   font-weight: 400;
-  margin-top: 11px;
+  // margin-top: 11px;
   padding-left: 10px;
 }
 .local-information-expand:hover,.ext-evaluation-expand:hover {
