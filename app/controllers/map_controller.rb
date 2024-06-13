@@ -29,10 +29,12 @@ class MapController < ApplicationController
   end
 
   def parse_search_query(params)
-    if params[:search].present?
-      URI.encode_www_form("q" => params[:search] ||= ' ')
+    if params[:search].include?(",") && params[:search].match?(/\d/)
+      URI.encode_www_form("latlng" => params[:search] ||= ' ')
     elsif params[:latlng].present?
       URI.encode_www_form("latlng" => params[:latlng] ||= ' ')
+    else
+      URI.encode_www_form("q" => params[:search] ||= ' ')
     end
   end
 
